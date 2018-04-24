@@ -17,16 +17,15 @@ class Editor extends React.Component {
       theme: 'material',
       lineNumbers: true
     };
-    this.runCode = this.runCode.bind(this);
   }
 
-	updateCode(newCode) {
+	updateCode = (newCode) => {
 		this.setState({
 			code: newCode,
 		});
   }
 
-  runCode() {
+  runCode = () => {
     eval(this.state.code);
   }
 
