@@ -1,0 +1,73 @@
+.login-form{
+    padding:20px 20px;
+}
+
+.login-header {
+    color:#2699FB;
+    font-size:2em;
+    font-weight:bold;
+    -webkit-margin-after: 0.67em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+}
+
+.login-button-list {
+    width: 100%;
+    background-color: #F1F9FF;
+    padding: 0 15%;
+}
+
+.login-modal {
+    border-radius: 25px;
+    color: #2c2d30;
+    background-color: #F1F9FF;
+    width: 460px;
+    box-shadow: rgba(0, 0, 0, 1) 0px 1px 2px 0px;
+    margin: 50px auto 9px;
+    padding:15px;
+    box-sizing:border-box;
+}
+
+.login-form-input {
+    font-size: 1.0rem;
+    line-height: normal;
+    padding: .75rem;
+    border: 1.1px solid #BCE0FD;
+    border-radius: 25rem;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: 0;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 0 .5rem;
+    font-variant-ligatures: none;
+    -webkit-transition: box-shadow 70ms ease-out,border-color 70ms ease-out;
+    -moz-transition: box-shadow 70ms ease-out,border-color 70ms ease-out;
+    transition: box-shadow 70ms ease-out,border-color 70ms ease-out;
+    box-shadow: none;
+    height: auto;
+    background: white url('http://policyinpractice.co.uk/wp-content/uploads/2014/09/head-and-shoulders_login.png');
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-position: 96px 10px;
+    background-size:24px 28px;
+    background-position:96% 46%;
+    vertical-align: right;
+}
+
+.login-modal ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #C0E2FD;
+}
+
+.login-form-button {
+    border: 2px solid #3BA3FB;
+    border-radius:.5rem;
+    background-color: #F1F9FF;
+    font-size: 1.3rem;
+    color:#2699FB;
+    margin:10px 32.5%;
+    width:35%;
+    height:60px;
+    margin-bottom: 10px
+}

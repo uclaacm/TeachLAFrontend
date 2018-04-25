@@ -1,0 +1,34 @@
+.login-button{
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    overflow: visible;
+    text-align: center;
+    border: 1px solid rgba(0, 0, 0, 0.09);
+    margin: 0px 0px 16px;
+    border-radius: 3px;
+    user-select: none;
+    text-decoration: none;
+    width: 100%;
+    padding: 16px;
+    font-size: 16px;
+    line-height: 1.4em;
+    background-color: rgb(221, 75, 57);
+}
+
+.login-button-content{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.login-button-img{
+    position: absolute;
+    left: 10px;
+    height: 24px;
+    width: 24px;
+}
+
+.login-button-text{
+    position: relative;
+    left: 10px;
+}

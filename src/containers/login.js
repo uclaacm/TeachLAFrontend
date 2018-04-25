@@ -2,7 +2,6 @@ import React from 'react';
 import Login from '../components/Login'
 import {connect} from 'react-redux'
 import {login} from '../actions'
-
 // class LoginPage extends React.Component {
 //   render() {
 //     return(
@@ -14,6 +13,7 @@ import {login} from '../actions'
 // }
 
 // export default LoginPage;
+
 
 const mapStateToProps = state => {
   return {
