@@ -10,29 +10,35 @@ import '../../styles/SocialButton.css'
 		textPadding: string representing padding to the left of the text, i.e. distance from the img (give px units)
 */
 
-const Button = ({ children, triggerLogin, triggerLogout, bgColor, imgSrc, value, textColor, textPadding, ...props }) => {
-	let buttonStyle = {}
-	if(bgColor)
-		buttonStyle.backgroundColor = bgColor
-	if(textColor)
-		buttonStyle.color = textColor
+class Button extends React.Component {
+	constructor(props){
+		super(props)
+	}
 
-	let textStyle ={}
-	if(textPadding)
-		textStyle.left = textPadding
+	render(){																													//called deconstruction; pulling children, triggerLogin, ..., textPadding out of props
+		let { children, triggerLogin, triggerLogout, bgColor, imgSrc, value, textColor, textPadding, ...props } = this.props 	//and putting the rest of the props in a variable called props (the ...props part)
+		let buttonStyle = {}																									//good for trying to pull out certain props you don't wanna pass
+		if(bgColor)																												//if they specified backgroundColor, textColor, or textPadding, change the style of the buttons																
+			buttonStyle.backgroundColor = bgColor
+		if(textColor)
+			buttonStyle.color = textColor
 
-	return (
-	  <button className="login-button" style={buttonStyle} onClick={triggerLogin} {...props}>
-	  	<div style={{position:'relative'}}>
-		  	<span className="login-button-content">
-		  		{imgSrc ? <img className="login-button-img" src={imgSrc}/> : <span/>}
-		  		<span className="login-button-text" style={textStyle}>
-		    		{ children ? children : (value ? value : "Login") }
-		  		</span>
-		    </span>
-	    </div>
-	  </button>
-    )
+		let textStyle ={}
+		if(textPadding)
+			textStyle.left = textPadding
+		return (
+		  <button className="login-button" style={buttonStyle} onClick={triggerLogin} {...props}> {/*Style in React is different than css, you give it a JSON with camelcased keys of css like background-color is backgroundColor*/}
+		  	<div style={{position:'relative'}}>
+			  	<span className="login-button-content">
+			  		{imgSrc ? <img className="login-button-img" src={imgSrc}/> : <span/>}
+			  		<span className="login-button-text" style={textStyle}>
+			    		{ children ? children : (value ? value : "Login") }						{/*if there's children, render the children, otherwise if value is defined, render value, otherwise just render "Login"*/}
+			  		</span>
+			    </span>
+		    </div>
+		  </button>
+	    )
+	}
 }
  
 export default SocialLogin(Button)

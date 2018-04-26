@@ -1,7 +1,7 @@
 import React from 'react';
 import Login from '../components/Login'
 import {connect} from 'react-redux'
-import {login} from '../actions'
+import {login, logout} from '../actions'
 // class LoginPage extends React.Component {
 //   render() {
 //     return(
@@ -25,6 +25,9 @@ const mapDispatchToProps = dispatch => {
   return {
     login: (id) => {
       dispatch(login(id))
+    },
+    logout: () => {
+      dispatch(logout())
     }
   }
 }

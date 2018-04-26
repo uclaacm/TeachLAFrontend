@@ -2,7 +2,7 @@
  * action types
  */
 
-export const LOGIN = 'LOGIN'
+export const LOGIN = 'LOGIN'			//just a way to make it easier to change the type of an action
 export const LOGOUT = 'LOGOUT'
 
 /*
@@ -13,7 +13,7 @@ export const LOGOUT = 'LOGOUT'
  * action creators
  */
 
-export function login(id) {
+export function login(id) {	
   return { type: LOGIN, id: id}
 }
 

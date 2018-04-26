@@ -5,30 +5,30 @@
     text-align: center;
     border: 1px solid rgba(0, 0, 0, 0.09);
     margin: 0px 0px 16px;
-    border-radius: 3px;
+    border-radius: 3px;							
     user-select: none;
     text-decoration: none;
-    width: 100%;
-    padding: 16px;
+    width: 100%;								
+    padding: 16px;								
     font-size: 16px;
     line-height: 1.4em;
     background-color: rgb(221, 75, 57);
 }
 
 .login-button-content{
-    justify-content: center;
+    justify-content: center;	
     align-items: center;
     display: flex;
 }
 
 .login-button-img{
-    position: absolute;
+    position: absolute;			/*absolute to make it right next to the edge of hte box*/
     left: 10px;
     height: 24px;
     width: 24px;
 }
 
-.login-button-text{
-    position: relative;
-    left: 10px;
+.login-button-text{				
+    position: relative;			/*relative to make it depend on the image*/
+    left: 10px;					/*textPadding changes this value, i.e. 10 is the default*/
 }

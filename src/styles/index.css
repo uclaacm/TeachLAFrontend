@@ -1,4 +1,4 @@
-html, body, #root{
+html, body, #root{	/*without this the background color doesn't affect the whole window*/
 	height:100%;
 }
 

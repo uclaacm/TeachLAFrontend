@@ -33,7 +33,7 @@
     line-height: normal;
     padding: .75rem;
     border: 1.1px solid #BCE0FD;
-    border-radius: 25rem;
+    border-radius: 25rem;                       /*huge border radius to make the input boxes rounded off*/
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -49,15 +49,14 @@
     height: auto;
     background: white url('http://policyinpractice.co.uk/wp-content/uploads/2014/09/head-and-shoulders_login.png');
     display: inline-block;
-    background-repeat: no-repeat;
-    background-position: 96px 10px;
-    background-size:24px 28px;
-    background-position:96% 46%;
+    background-repeat: no-repeat;                           
+    background-size:24px 28px;                                      /*size of the backgorund image is resized to 24px x 28px*/
+    background-position:96% 46%;                                    /*background image is centered at 96% to the left of the input box and 46% down*/
     vertical-align: right;
 }
 
-.login-modal ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-  color: #C0E2FD;
+.login-modal ::-webkit-input-placeholder { /* Chrome/Opera/Safari */ /*changes to the placeholder text*/
+  color: #C0E2FD;                               
 }
 
 .login-form-button {
@@ -66,8 +65,7 @@
     background-color: #F1F9FF;
     font-size: 1.3rem;
     color:#2699FB;
-    margin:10px 32.5%;
+    margin:10px 32.5%;                                  /*margin leftright is half of 100% - width*/
     width:35%;
     height:60px;
-    margin-bottom: 10px
 }
