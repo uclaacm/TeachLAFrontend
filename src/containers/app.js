@@ -7,7 +7,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <LoginPage></LoginPage>
+        {/* <LoginPage></LoginPage> */}
         <EditorPage></EditorPage>
       </div>
     );

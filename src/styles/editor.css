@@ -1,0 +1,16 @@
+.editor-container{
+    width: 100%;
+    background-color: #58ACF4;
+}
+
+/* Change this CSS */
+.editor-enter{
+    opacity: 1;
+    transform: scale(1) translateY(0%);
+}
+
+/* Change this CSS  */
+.editor-exit-active {
+    opacity: .01;
+    transition: all 300ms ease-in;
+}
