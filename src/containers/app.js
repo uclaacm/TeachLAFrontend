@@ -8,7 +8,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <LoginPage></LoginPage>
-        <EditorPage></EditorPage>
+        {/* <EditorPage></EditorPage> */}
       </div>
     );
   }
