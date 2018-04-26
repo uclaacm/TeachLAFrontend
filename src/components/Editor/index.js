@@ -5,6 +5,13 @@ import {Controlled as CodeMirror} from 'react-codemirror2';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/material.css';
 import 'codemirror/mode/javascript/javascript.js';
+import 'codemirror/mode/python/python.js';
+
+// Imprts and constants for dropdown
+import Dropdown from 'react-dropdown';
+import 'react-dropdown/style.css';
+const dropDownOptions = [ {value: 'javascript', label: 'Javascript'}, {value: 'python', label: 'Python'} ];
+const defaultDropDownOption = dropDownOptions[0];
 
 class Editor extends React.Component {
   constructor(props) {
@@ -30,6 +37,12 @@ class Editor extends React.Component {
     eval(this.state.code);
   }
 
+  updateMode(language) {
+    console.log(this.options);
+    this.options.mode = language;
+    console.log(this.options);
+  }
+
 	render() {
     return(
       <div>
@@ -42,6 +55,13 @@ class Editor extends React.Component {
           }}
           onChange={(editor, data, code) => {
             this.updateCode(code);
+          }}
+        />
+        <Dropdown 
+          options={dropDownOptions}
+          value={defaultDropDownOption}
+          onChange={(newValue) => {
+            this.updateMode(newValue.value);
           }}
         />
         <input type="button" value="Run" onClick={this.runCode}/>
