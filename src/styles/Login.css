@@ -6,6 +6,7 @@
     color:#2699FB;
     font-size:2em;
     font-weight:bold;
+    text-align: center;
     -webkit-margin-after: 0.67em;
     -webkit-margin-start: 0px;
     -webkit-margin-end: 0px;
@@ -49,14 +50,14 @@
     height: auto;
     background: white url('http://policyinpractice.co.uk/wp-content/uploads/2014/09/head-and-shoulders_login.png');
     display: inline-block;
-    background-repeat: no-repeat;                           
-    background-size:24px 28px;                                      /*size of the backgorund image is resized to 24px x 28px*/
-    background-position:96% 46%;                                    /*background image is centered at 96% to the left of the input box and 46% down*/
+    background-repeat: no-repeat;
+    background-size:24px 28px;     /*size of the backgorund image is resized to 24px x 28px*/
+    background-position:96% 46%;   /*background image is centered at 96% to the left of the input box and 46% down*/
     vertical-align: right;
 }
 
 .login-modal ::-webkit-input-placeholder { /* Chrome/Opera/Safari */ /*changes to the placeholder text*/
-  color: #C0E2FD;                               
+  color: #C0E2FD;
 }
 
 .login-form-button {
@@ -68,4 +69,21 @@
     margin:10px 32.5%;                                  /*margin leftright is half of 100% - width*/
     width:35%;
     height:60px;
+    box-shadow: none;
+    /* add transition  for any of the login form buttons */
+    transition: box-shadow 200ms ease-out;
+}
+
+/* Trigger shadows on button hover and active*/
+.login-form-button:hover {
+  box-shadow: 0 1px 1px 1px rgba(0,0,0,0.3);
+}
+
+.login-form-button:active,
+.login-form-button:focus,
+.login-form-button.active {
+  background-image: none;
+  outline: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }

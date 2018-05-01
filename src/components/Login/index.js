@@ -4,19 +4,8 @@ import '../../styles/Login.css'
 // import gL1 from '../../img/googleLogo.png'
 // import gL2 from '../../img/googleLogoWhiteCircle.png'
 
-const FacebookButton = () => (
-    <SocialButton
-      provider='facebook'
-      appId='273599003179928'
-      onLoginSuccess={()=>{console.log("Hey")}}
-      onLoginFailure={()=>{console.log("Hey")}}
-    >
-    	Login with facebook
-	</SocialButton>
-)
-
 class LoginForm extends React.Component {
-	
+
 	constructor(props){
 		super(props)
 
@@ -86,11 +75,11 @@ class LoginForm extends React.Component {
 	logout = () => {
 		if (this.props.loggedIn && this.node) {				//only log them out if they're logged in to the store and we've gotten the ref from the SocialButton
 	  		this.node.node.props.triggerLogout()			//
-		} else {
-			// console.log("Failed to logout user from provider")
-			// console.log(this.props.loggedIn)
-			// console.log(this.node)
-		}
+		} //else {
+		// 	// console.log("Failed to logout user from provider")
+		// 	// console.log(this.props.loggedIn)
+		// 	// console.log(this.node)
+		// }
 	}
 
 	render(){
@@ -106,12 +95,13 @@ class LoginForm extends React.Component {
 					  <input className='login-form-input' type="password" name="password" placeholder="Password" value={this.state.password} onChange={(e)=>{this.setState({password:e.target.value})}}/><br/>
 					  <button className='login-form-button' type="submit">Log In</button>
 					</form>
-			    	<div className="login-button-list">	{/*You can add other buttons underneath this SocialButton and they'll align*/}
+			    	<div className="login-button-list">
+              {/*You can add other buttons underneath this SocialButton and they'll align*/}
 			    		{/*ref prop gives us access to the triggerLogout function. Idk why they didn't just put it in a callback but we gotta work with it. */}
 			    		{/*imgSrc is relative to the public folder if you put a path, hence why theres no img folder in src */}
 			    		{/*textPadding's value is kinda arbitrary, it's kind of a fiddling game*/}
-					    <SocialButton														
-					      ref={(node)=>{this.node = node}}					
+					    <SocialButton
+					      ref={(node)=>{this.node = node}}
 					      provider='google'
 					      appId='96680019658-t46qt2n10p06f2nejhb9i7d72fba1n15.apps.googleusercontent.com'
 					      onLoginSuccess={this.handleSocialLogin}
@@ -119,17 +109,27 @@ class LoginForm extends React.Component {
 					      onLogoutSuccess={this.handleSocialLogoutSuccess}
 					      onLogoutFailure={this.handleSocialLogoutFailure}
 					      imgSrc='img/googleLogo.png'
-					      bgColor='#9842f4'
 					      textColor='white'
 					      textPadding='15px'
 					      value='Login with Google'
 					    />
+              {/* This is the facebook login button.  Because Facebook does not allow login with facebook in developer mode, the button is currently inoperable.  However, it is linked to the same functionality as the google login*/}
+              {/* handleSocialLogin was built to handle google user objects, and not whatever json format facebook uses, so this may break and require modification in the future*/}
+              <SocialButton
+                provider='facebook'
+                appId='273599003179928'
+                onLoginSuccess={this.handleSocialLogin}
+                onLoginFailure={this.handleSocialLoginFailure}
+                imgSrc='img/flogo.png'
+              >
+              	Login with Facebook
+          	  </SocialButton>
 		    		</div>
 	    		</div>
 			</div>
 		);
 	}
-	
+
 }
 
 export default LoginForm;
