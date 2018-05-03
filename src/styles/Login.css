@@ -1,3 +1,7 @@
+.login-page{
+    background-image: '../../../public/img/myBg3.png';
+}
+
 .login-form{
     padding:20px 20px;
 }
