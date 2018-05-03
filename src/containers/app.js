@@ -9,8 +9,6 @@ class App extends React.Component {
     return (
       <div className="App">
       	<LoginPage2></LoginPage2>
-        <LoginPage></LoginPage>
-        <EditorPage></EditorPage>
       </div>
     );
   }
