@@ -10,8 +10,7 @@ import 'codemirror/mode/python/python.js';
 // Imprts and constants for dropdown
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
-const dropDownOptions = [ {value: 'javascript', label: 'Javascript'}, {value: 'python', label: 'Python'} ];
-const defaultDropDownOption = dropDownOptions[0];
+const dropDownOptions = [ {value: 'javascript', label: 'javascript'}, {value: 'python', label: 'python'} ];
 
 class Editor extends React.Component {
   constructor(props) {
@@ -24,23 +23,21 @@ class Editor extends React.Component {
       theme: 'material',
       lineNumbers: true
     };
-    this.runCode = this.runCode.bind(this);
   }
 
-	updateCode(newCode) {
+	updateCode = (newCode) => {
 		this.setState({
 			code: newCode,
 		});
   }
 
-  runCode() {
+  runCode = () => {
     eval(this.state.code);
   }
 
-  updateMode(language) {
-    console.log(this.options);
+  updateMode = (language) => {
     this.options.mode = language;
-    console.log(this.options);
+    this.forceUpdate();
   }
 
 	render() {
@@ -59,7 +56,7 @@ class Editor extends React.Component {
         />
         <Dropdown 
           options={dropDownOptions}
-          value={defaultDropDownOption}
+          value={this.options.mode}
           onChange={(newValue) => {
             this.updateMode(newValue.value);
           }}
