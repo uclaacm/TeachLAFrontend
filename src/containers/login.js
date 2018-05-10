@@ -18,7 +18,7 @@ class LoginPage extends React.Component {
         <Login></Login>
         {/* DELETE this button in your final commit as the oauth ticket will make an actual login button.
           This button "exits" the login component. We'll work with them to finalize the animation. */}
-        <button onClick={() => {this.setState(state =>({ loggedIn: true}))}}> TEST EXIT </button>
+        <button onClick={() => {this.setState(state =>({ loggedIn: true}))}}> login </button>
     </div>
     </CSSTransition>
     )
