@@ -5,13 +5,13 @@ import '../../styles/Login.css'
 // import gL2 from '../../img/googleLogoWhiteCircle.png'
 
 const FacebookButton = () => (
-    <SocialButton
-      provider='facebook'
-      appId='273599003179928'
-      onLoginSuccess={()=>{console.log("Hey")}}
-      onLoginFailure={()=>{console.log("Hey")}}
-    >
-    	Login with facebook
+	<SocialButton
+		provider='facebook'
+		appId='273599003179928'
+		onLoginSuccess={()=>{console.log("Hey")}}
+		onLoginFailure={()=>{console.log("Hey")}}
+	>
+		Login with facebook
 	</SocialButton>
 )
 
@@ -34,8 +34,6 @@ class LoginForm extends React.Component {
 	*/
 	onSubmit = (e) => {
 		e.preventDefault()						//prevents page from reloading after submitting form
-		console.log(this.state.email)
-		console.log(this.state.password)
 		this.setState({							//resetting the email and password to null
 			email:"",
 			password:""
@@ -85,7 +83,7 @@ class LoginForm extends React.Component {
 	*/
 	logout = () => {
 		if (this.props.loggedIn && this.node) {				//only log them out if they're logged in to the store and we've gotten the ref from the SocialButton
-	  		this.node.node.props.triggerLogout()			//
+			this.node.node.props.triggerLogout()			//
 		} else {
 			// console.log("Failed to logout user from provider")
 			// console.log(this.props.loggedIn)
@@ -97,35 +95,45 @@ class LoginForm extends React.Component {
 
 		return (
 			<div className="login-page">
-				{this.props.loggedIn ? <button onClick={this.logout}> Logout user {this.props.loggedIn} </button> : <div> Not logged in </div>} {/*Only show the logout button if you're logged in. Not the final location for the button.*/}
-				<div className="login-modal">
-					<form className='login-form' onSubmit={this.onSubmit}>	{/*Form doesn't do anything rn, just an example of a stateful React form.*/}
-					  <div className="login-header">Welcome to Teach LA</div>
-					  <br/>
-					  <input className="login-form-input" type="text" name="email" placeholder="Username" value={this.state.email} onChange={(e)=>{this.setState({email:e.target.value})}} /><br/>
-					  <input className='login-form-input' type="password" name="password" placeholder="Password" value={this.state.password} onChange={(e)=>{this.setState({password:e.target.value})}}/><br/>
-					  <button className='login-form-button' type="submit">Log In</button>
-					</form>
-			    	<div className="login-button-list">	{/*You can add other buttons underneath this SocialButton and they'll align*/}
-			    		{/*ref prop gives us access to the triggerLogout function. Idk why they didn't just put it in a callback but we gotta work with it. */}
-			    		{/*imgSrc is relative to the public folder if you put a path, hence why theres no img folder in src */}
-			    		{/*textPadding's value is kinda arbitrary, it's kind of a fiddling game*/}
-					    <SocialButton														
-					      ref={(node)=>{this.node = node}}					
-					      provider='google'
-					      appId='96680019658-t46qt2n10p06f2nejhb9i7d72fba1n15.apps.googleusercontent.com'
-					      onLoginSuccess={this.handleSocialLogin}
-					      onLoginFailure={this.handleSocialLoginFailure}
-					      onLogoutSuccess={this.handleSocialLogoutSuccess}
-					      onLogoutFailure={this.handleSocialLogoutFailure}
-					      imgSrc='img/googleLogo.png'
-					      bgColor='#9842f4'
-					      textColor='white'
-					      textPadding='15px'
-					      value='Login with Google'
-					    />
-		    		</div>
-	    		</div>
+				<div className="login-page-content">
+					<div style={{height:"0px"}}>&nbsp;</div>			{/*for some reason when you don't have a non empty element above the modal, it leaves a white section above it...so thats why this is here*/}
+					<div className="login-modal">
+						<form className='login-form' onSubmit={this.onSubmit}>	{/*Form doesn't do anything rn, just an example of a stateful React form.*/}
+							<div className="login-header" >{"Welcome to <Teach LA>"}</div>
+							<br/>
+							<div className="login-form-input-list">
+								<div className="login-form-input-header">Email</div>
+								<input className="login-form-input" type="text" name="email" placeholder="" value={this.state.email} onChange={(e)=>{this.setState({email:e.target.value})}} /><br/>
+								<div className="login-form-input-header">Password</div>
+								<input className='login-form-input' type="password" name="password" placeholder="" value={this.state.password} onChange={(e)=>{this.setState({password:e.target.value})}}/><br/>
+							</div>
+							<button className='login-form-button' type="submit">Login</button>
+							<div className="login-button-list">	{/*You can add other buttons underneath this SocialButton and they'll align*/}
+								{/*ref prop gives us access to the triggerLogout function. Idk why they didn't just put it in a callback but we gotta work with it. */}
+								{/*imgSrc is relative to the public folder if you put a path, hence why theres no img folder in src */}
+								{/*textPadding's value is kinda arbitrary, it's kind of a fiddling game*/}
+								<SocialButton														
+									ref={(node)=>{this.node = node}}						
+									provider='google'
+									appId='96680019658-t46qt2n10p06f2nejhb9i7d72fba1n15.apps.googleusercontent.com'
+									onLoginSuccess={this.handleSocialLogin}
+									onLoginFailure={this.handleSocialLoginFailure}
+									onLogoutSuccess={this.handleSocialLogoutSuccess}
+									onLogoutFailure={this.handleSocialLogoutFailure}
+									imgSrc='img/googleLogo.png'
+									bgColor='#fc5f5f'
+									textColor='white'
+									textPadding='15px'
+									value='Login with Google'
+								/>
+							</div>
+							<a href="#" className="login-form-link">Don't have an account? Click here to register and/or login with your Google Account</a>		{/*need to style this*/}
+						</form>
+					</div>
+				</div>
+				<div className="login-footer">
+					This is the login-footer			{/*probably just going to be a centered image*/}
+				</div>
 			</div>
 		);
 	}

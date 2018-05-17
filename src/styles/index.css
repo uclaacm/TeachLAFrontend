@@ -5,5 +5,5 @@ html, body, #root{	/*without this the background color doesn't affect the whole 
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: 'Josefin Slab', sans-serif;
 }

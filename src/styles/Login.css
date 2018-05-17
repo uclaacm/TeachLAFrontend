@@ -3,7 +3,7 @@
     width:100%;
     margin:0px;
     --content-height:90%;                   /*css variable (basically making our own property)*/
-    font-family: 'Nunito', sans-serif;      /*font for the whole login page*/
+    font-family: 'Josefin Slab', sans-serif;      /*font for the whole login page*/
 }
 
 .login-page-content{
@@ -100,4 +100,14 @@
     width:35%;
     background-color:#857e8f;
     height:40px;
+}
+
+.login-form-link{
+    color:#2d7799;
+    text-decoration: none;
+}
+
+.login-form-link:hover{
+    color:#2d7799;
+    text-decoration: underline;
 }
