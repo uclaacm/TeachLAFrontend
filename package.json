@@ -8,6 +8,7 @@
     "firebase": "^5.0.3",
     "react": "^16.3.2",
     "react-codemirror2": "^4.2.1",
+    "react-dock": "^0.2.4",
     "react-dom": "^16.3.2",
     "react-redux": "^5.0.7",
     "react-router": "^4.2.0",

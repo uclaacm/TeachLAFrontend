@@ -5,16 +5,6 @@ import firebase from 'firebase'
 // import gL1 from '../../img/googleLogo.png'
 // import gL2 from '../../img/googleLogoWhiteCircle.png'
 
-const FacebookButton = () => (
-	<SocialButton
-		provider='facebook'
-		appId='273599003179928'
-		onLoginSuccess={()=>{console.log("Hey")}}
-		onLoginFailure={()=>{console.log("Hey")}}
-	>
-		Login with facebook
-	</SocialButton>
-)
 
 class LoginForm extends React.Component {
 	

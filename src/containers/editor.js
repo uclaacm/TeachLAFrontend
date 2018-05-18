@@ -16,7 +16,12 @@ import firebase from 'firebase'
 // export default LoginPage;
 
 
-const mapStateToProps = state => ({})	//if they're not loggedIn, they shouldnt be on this page anyways
+const mapStateToProps = state => {
+  return {
+    user: state.loggedIn
+  }
+}
+
 
 const mapDispatchToProps = dispatch => {
 	return {

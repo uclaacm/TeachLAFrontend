@@ -1,0 +1,52 @@
+.editor{
+	height:100%;
+	width:100%;
+    background-color: #857e8f;  
+}
+
+.panel{
+	display:flex;
+	height:100%;
+	width:100%;
+    background-color: #272134;  
+    color:#dddcdf;
+	flex-direction:column;
+	align-items:center;
+	justify-content:flex-start;
+}
+
+.panel-collapse-button{
+	display:flex;
+	padding:1rem;
+	width:100%;
+	justify-content: flex-end;
+}
+
+.panel-image{
+	border-radius:500px;
+	border: 1px solid #dddcdf;
+	width:50%;
+	/*background:#000;*/ /*if you leave this out, transparent profile pictures will show the background behind it*/
+}
+
+.panel-name{
+	padding:3rem 0 0.5rem;
+	font-size:2.5rem;
+	font-weight: bold;
+}
+
+.panel-options{
+	list-style-type:square;
+	padding:0.5rem 0 0 20%;
+	font-size:2.5rem;
+	width:100%;
+	justify-content: flex-start;
+}
+
+
+.panel-options-item{
+	padding:0.5rem 0;
+	font-size:2.5rem;
+	width:100%;
+	justify-content: flex-start;
+}
