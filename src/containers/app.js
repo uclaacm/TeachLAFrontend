@@ -2,41 +2,73 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 import LoginPage from './login';
 import EditorPage from './editor';
+import LoadingPage from './loading';
+import firebase from 'firebase'
 import '../styles/app.css'
+
+const provider = new firebase.auth.FacebookAuthProvider();
+
 class App extends React.Component {
-  constructor(props){
-  	super(props)
-  }
+	constructor(props){
+		super(props)
+		this.state={
+			checkedAuth:false,
 
-  render() {
-  	let {loggedIn} = this.props
+		}
+	}
 
-    return (
-      	<Router>
-     		 <div className="App">
-			    <Route exact path="/" render={() => (		{/*if the user is loggedIn, redirect them to the editor, otherwise, show the login page*?*/}
-					  loggedIn ? (
-					    <Redirect to="/editor"/>
-					  ) : (<LoginPage/>)	
+	componentWillMount = () =>{
+		firebase.auth().onAuthStateChanged(this.onAuthHandler)	 
+	}
+
+	onAuthHandler = (user) => {
+		this.setState({checkedAuth:true})
+		if (user) {
+			let {displayName, email, photoURL, refreshToken, uid} = user
+		 	this.props.login({displayName, email, photoURL, refreshToken, uid})
+		} else {
+			this.props.logout()
+		}
+	}
+
+	render() {
+		let {loggedIn} = this.props
+		let {checkedAuth} = this.state
+		console.log(loggedIn)
+		//if we haven't checked if the user is logged in yet, show a loading screen
+		if(!checkedAuth){
+			return (<LoadingPage/>)
+		}
+
+		return (
+				<Router>
+		 		 <div className="App">
+		 		 	{/*if the user is loggedIn, redirect them to the editor, otherwise, show the login page*?*/}
+					<Route exact path="/" render={() => (		
+						loggedIn ? (
+							<Redirect to="/editor"/>
+						) : (<LoginPage provider={provider}/>)	
 					)}
 				/>
-			    <Route path="/login" render={() => (		{/*if the user is loggedIn, redirect them to the editor, otherwise, show the login page*?*/}
-					  loggedIn ? (
-					    <Redirect to="/editor"/>
-					  ) : (<LoginPage/>)	
+				{/*if the user is loggedIn, redirect them to the editor, otherwise, show the login page*?*/}
+					<Route path="/login" render={() => (		
+						loggedIn ? (
+							<Redirect to="/editor"/>
+						) : (<LoginPage provider={provider}/>)	
 					)}
-			    />
-			    <Route path="/editor" render={() => (		{/*if the user is not loggedIn, redirect them to the login page, otherwise, show the editor page*?*/}
-					  !loggedIn ? (
-					    <Redirect to="/login"/>
-					  ) : (<EditorPage/>)	
+					/>
+					{/*if the user is not loggedIn, redirect them to the login page, otherwise, show the editor page*?*/}
+					<Route path="/editor" render={() => (		
+						!loggedIn ? (
+							<Redirect to="/login"/>
+						) : (<EditorPage/>)	
 					)}
-			    />
-			    <Route path="/test" component={EditorPage}/>
-  			</div>
-  		</Router>
-    );
-  }
+					/>
+					<Route path="/test" component={EditorPage}/>
+				</div>
+			</Router>
+		);
+	}
 }
 
 export default App;

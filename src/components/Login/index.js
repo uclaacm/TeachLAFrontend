@@ -1,6 +1,7 @@
 import React from 'react';
 import SocialButton from '../SocialButton'
 import '../../styles/Login.css'
+import firebase from 'firebase'
 // import gL1 from '../../img/googleLogo.png'
 // import gL2 from '../../img/googleLogoWhiteCircle.png'
 
@@ -40,55 +41,9 @@ class LoginForm extends React.Component {
 		})
 	}
 
-	/*
-		Called after succesful login using SocialButton
-		param:
-			user:
-				object sent by google that has the unique id
-	*/
-	handleSocialLogin = (user) => {
-		// console.log("Login Success")
-		this.props.login(user.profile.id)						//logs them into the store using Google's unique id
-	}
-
-	/*
-		Called after failed login using SocialButton
-		param:
-			error:
-				not very helpful error sent by SocialLogin
-	*/
-	handleSocialLoginFailure = (error) => {
-		// console.log("Login Failure")
-		// console.log(error)
-		// this.props.logout()				//not sure whether or not we should log them out on Redux if they fail the login
-	}
-
-	/*
-		Called after succesful logout
-	*/
-	handleSocialLogoutSuccess = () => {
-		// console.log("Logout Success")
-		this.props.logout()					//logs them out in the Redux store bc they logged out of the provider
-	}
-
-	/*
-		Called after failed logout
-	*/
-	handleSocialLogoutFailure = (test) => {
-		// console.log("Logout Failed")		//shouldn't log them out of Redux bc they aren't logged out of the provider
-	}
-
-	/*
-		Function to call to log the user out of the provider
-	*/
-	logout = () => {
-		if (this.props.loggedIn && this.node) {				//only log them out if they're logged in to the store and we've gotten the ref from the SocialButton
-			this.node.node.props.triggerLogout()			//
-		} else {
-			// console.log("Failed to logout user from provider")
-			// console.log(this.props.loggedIn)
-			// console.log(this.node)
-		}
+	handleLogin = () => {
+		// firebase.auth().signInWithRedirect(this.props.provider)
+		firebase.auth().signInWithPopup(this.props.provider)
 	}
 
 	render(){
@@ -113,18 +68,12 @@ class LoginForm extends React.Component {
 								{/*imgSrc is relative to the public folder if you put a path, hence why theres no img folder in src */}
 								{/*textPadding's value is kinda arbitrary, it's kind of a fiddling game*/}
 								<SocialButton														
-									ref={(node)=>{this.node = node}}						
-									provider='google'
-									appId='96680019658-t46qt2n10p06f2nejhb9i7d72fba1n15.apps.googleusercontent.com'
-									onLoginSuccess={this.handleSocialLogin}
-									onLoginFailure={this.handleSocialLoginFailure}
-									onLogoutSuccess={this.handleSocialLogoutSuccess}
-									onLogoutFailure={this.handleSocialLogoutFailure}
-									imgSrc='img/googleLogo.png'
-									bgColor='#fc5f5f'
+									imgSrc='img/fbLogo1.png'
+									bgColor='#4267b2'
 									textColor='white'
 									textPadding='15px'
-									value='Login with Google'
+									value='Login with Facebook'
+									handleLogin={this.handleLogin}
 								/>
 							</div>
 							<a href="#" className="login-form-link">Don't have an account? Click here to register and/or login with your Google Account</a>		{/*need to style this*/}
@@ -132,7 +81,7 @@ class LoginForm extends React.Component {
 					</div>
 				</div>
 				<div className="login-footer">
-					This is the login-footer			{/*probably just going to be a centered image*/}
+					<img className="login-footer-image" src="img/tla-footer.png"/>
 				</div>
 			</div>
 		);

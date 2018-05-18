@@ -26,13 +26,14 @@ class Editor extends React.Component {
   }
 
   runCode = () => {
-    eval(this.state.code);
+    // eval(this.state.code);
   }
 
 	render() {
     return(
       <div>
       <h1>The Coding School</h1>
+        <button onClick={this.props.logout}>Logout</button>
         <CodeMirror
           value={this.state.code}
           options={this.options}

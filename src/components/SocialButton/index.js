@@ -1,5 +1,4 @@
 import React from 'react'
-import SocialLogin from 'react-social-login'
 import '../../styles/SocialButton.css'
  
 /*
@@ -16,7 +15,7 @@ class Button extends React.Component {
 	}
 
 	render(){																													//called deconstruction; pulling children, triggerLogin, ..., textPadding out of props
-		let { children, triggerLogin, triggerLogout, bgColor, imgSrc, value, textColor, textPadding, ...props } = this.props 	//and putting the rest of the props in a variable called props (the ...props part)
+		let { children, handleLogin, bgColor, imgSrc, value, textColor, textPadding, ...props } = this.props 	//and putting the rest of the props in a variable called props (the ...props part)
 		let buttonStyle = {}																									//good for trying to pull out certain props you don't wanna pass
 		if(bgColor)																												//if they specified backgroundColor, textColor, or textPadding, change the style of the buttons																
 			buttonStyle.backgroundColor = bgColor
@@ -27,7 +26,7 @@ class Button extends React.Component {
 		if(textPadding)
 			textStyle.left = textPadding
 		return (
-		  <button className="login-button" style={buttonStyle} onClick={triggerLogin} {...props}> {/*Style in React is different than css, you give it a JSON with camelcased keys of css like background-color is backgroundColor*/}
+		  <button className="login-button" style={buttonStyle} onClick={handleLogin}> {/*Style in React is different than css, you give it a JSON with camelcased keys of css like background-color is backgroundColor*/}
 		  	<div style={{position:'relative'}}>
 			  	<span className="login-button-content">
 			  		{imgSrc ? <img className="login-button-img" src={imgSrc}/> : <span/>}
@@ -41,4 +40,4 @@ class Button extends React.Component {
 	}
 }
  
-export default SocialLogin(Button)
+export default Button

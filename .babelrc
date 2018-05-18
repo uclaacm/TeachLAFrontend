@@ -1,0 +1,4 @@
+{
+    "presets": [ "react", "es2016", "env"],
+    "plugins": ["emotion"]
+}

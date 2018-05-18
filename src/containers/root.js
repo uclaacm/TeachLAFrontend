@@ -14,8 +14,21 @@ const mapStateToProps = state => {
   }
 }
 
+const mapDispatchToProps = dispatch => {
+  return {
+    login: (id) => {
+      dispatch(login(id))
+    },
+    logout: () => {
+      dispatch(logout())
+    }
+  }
+}
+
+
 const Root = connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(App)
 
 export default Root;

@@ -18,6 +18,11 @@
     height: calc(100% - var(--content-height));                             /*calc used to do arithmetic*/
     background-color: #473d5d;  
     text-align:center;
+    align-items: center;
+}
+
+.login-footer-image{      
+    height: 100%;
 }
 
 

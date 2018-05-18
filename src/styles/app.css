@@ -1,8 +1,8 @@
 .App{										
-	background:#2598FB;
 	width:100%;
 	height:100%;
 }
+
 * {									/*needed for the modal's button to stay within the window*/
 	box-sizing:border-box;
 }
