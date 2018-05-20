@@ -1,15 +1,24 @@
 .editor{
+	display:flex;
 	height:100%;
 	width:100%;
-    background-color: #857e8f;  
+	background-color: #857e8f;  
+	flex-direction: row;
+	align-items:flex-start;
+	justify-content:flex-start;
 }
-
+.editor-expand-panel{
+	width:fit-content;
+	margin:0;
+	color:#dddcdf;
+	font-weight: bold;
+	padding:1rem;
+}
 .panel{
 	display:flex;
 	height:100%;
 	width:100%;
     background-color: #272134;  
-    color:#dddcdf;
 	flex-direction:column;
 	align-items:center;
 	justify-content:flex-start;
@@ -18,8 +27,17 @@
 .panel-collapse-button{
 	display:flex;
 	padding:1rem;
+    color:#dddcdf;
 	width:100%;
 	justify-content: flex-end;
+}
+
+.panel-content{
+	display:flex;
+	width:25vw;
+	flex-direction:column;
+	align-items:center;
+	justify-content:flex-start;
 }
 
 .panel-image{
@@ -33,6 +51,7 @@
 	padding:3rem 0 0.5rem;
 	font-size:2.5rem;
 	font-weight: bold;
+    color:#dddcdf;
 }
 
 .panel-options{
@@ -46,7 +65,15 @@
 
 .panel-options-item{
 	padding:0.5rem 0;
+	font-weight:normal;
 	font-size:2.5rem;
-	width:100%;
+	width:fit-content;
+	margin:0px;
+    color:#dddcdf;
 	justify-content: flex-start;
+}
+
+.panel-options-item:hover{
+	font-weight:bold;
+	color:"#cdcccf";
 }
