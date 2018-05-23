@@ -13,7 +13,8 @@ class App extends React.Component {
 		super(props)
 		this.state={
 			checkedAuth:false,
-
+			width:window.innerWidth,
+			height:window.innerHeight,
 		}
 	}
 
@@ -33,7 +34,7 @@ class App extends React.Component {
 
 	render() {
 		let {loggedIn} = this.props
-		let {checkedAuth} = this.state
+		let {checkedAuth, width, height} = this.state
 		console.log(loggedIn)
 		//if we haven't checked if the user is logged in yet, show a loading screen
 		if(!checkedAuth){
@@ -47,14 +48,14 @@ class App extends React.Component {
 					<Route exact path="/" render={() => (		
 						loggedIn ? (
 							<Redirect to="/editor"/>
-						) : (<LoginPage provider={provider}/>)	
+						) : (<LoginPage provider={provider} width={width} height={height}/>)	
 					)}
 				/>
 				{/*if the user is loggedIn, redirect them to the editor, otherwise, show the login page*?*/}
 					<Route path="/login" render={() => (		
 						loggedIn ? (
 							<Redirect to="/editor"/>
-						) : (<LoginPage provider={provider}/>)	
+						) : (<LoginPage provider={provider} width={width} height={height}/>)	
 					)}
 					/>
 					{/*if the user is not loggedIn, redirect them to the login page, otherwise, show the editor page*?*/}

@@ -14,9 +14,23 @@ class LoginForm extends React.Component {
 		this.state = {
 			email: "",
 			password:"",
+			curWidth:0,
+			curHeight:0,
 		}
-		this.node = null			//node is not in state bc it will cause an infinite amount of updates bc state re-renders the component on change
 	}
+
+    updateDimensions = () => {
+        this.setState({curWidth:window.innerWidth, curHeight:window.innerHeight});
+    }
+    componentWillMount = () => {
+        this.updateDimensions();
+    }
+    componentDidMount = () => {
+        window.addEventListener("resize", this.updateDimensions);
+    }
+    componentWillUnmount = () => {
+        window.removeEventListener("resize", this.updateDimensions);
+    }
 
 	/*
 	Called after submitting the form
@@ -37,12 +51,20 @@ class LoginForm extends React.Component {
 	}
 
 	render(){
+		const {width, height} = this.props
+		const {curWidth, curHeight} = this.state
+		console.log(this.state)
+		console.log(this.props)
 
+
+		let finalWidth = Math.max(width, curWidth, window.screen.width)
+		let finalHeight = Math.max(height, curHeight)
+		console.log(finalHeight)
 		return (
-			<div className="login-page">
+			<div className="login-page" style={{width:finalWidth+"px"}}>
 				<div className="login-page-content">
 					<div style={{height:"0px"}}>&nbsp;</div>			{/*for some reason when you don't have a non empty element above the modal, it leaves a white section above it...so thats why this is here*/}
-					<div className="login-modal">
+					<div className="login-modal" >
 						<form className='login-form' onSubmit={this.onSubmit}>	{/*Form doesn't do anything rn, just an example of a stateful React form.*/}
 							<div className="login-header" >{"Welcome to <Teach LA>"}</div>
 							<br/>

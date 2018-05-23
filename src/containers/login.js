@@ -15,9 +15,10 @@ import {login, logout} from '../actions'
 // export default LoginPage;
 
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   return {
-    loggedIn: state.loggedIn
+    loggedIn: state.loggedIn,
+    ...ownProps,                        //all props passed to the container, put into the props
   }
 }
 

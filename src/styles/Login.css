@@ -2,20 +2,27 @@
     height:100%;
     width:100%;
     margin:0px;
-    --content-height:90%;                   /*css variable (basically making our own property)*/
     font-family: 'Josefin Slab', sans-serif;      /*font for the whole login page*/
+    overflow-y: hidden;
+    overflow-x: hidden;
 }
 
 .login-page-content{
-    height: var(--content-height);                             /*uses the value set in login-page, inherited the prop*/
+    height: 90vh;                             /*uses the value set in login-page, inherited the prop*/
+    bottom:10vh;
     width:100%;
     background-image: url('myBg3.png'); 
     background-repeat:no-repeat;
     background-size: 100% 100%;
+    min-height:600px;
+    overflow-y:auto;
 }
 
-.login-footer{      
-    height: calc(100% - var(--content-height));                             /*calc used to do arithmetic*/
+.login-footer{    
+    position:fixed;
+    width:100%;
+    bottom:0px;  
+    height: 10vh;                             /*calc used to do arithmetic*/
     background-color: #473d5d;  
     text-align:center;
     align-items: center;
@@ -58,8 +65,11 @@
 }
 
 .login-modal {
+    display:block;
     color: #2c2d30;
     width: 460px;
+    margin-bottom:550px;
+    min-height:550px;
     margin-top: 30px;                   /*modal distance from top of the screen*/
     margin-left: 8%;                    /*modal distance from left side of the screen*/
     padding:15px;
@@ -80,8 +90,8 @@
     -moz-appearance: none;
     appearance: none;
     outline: 0;
-    width: 100%;
-    max-width: 100%;
+    width: 70%;
+    min-width: 300px;
     margin: 0 2px 2rem;                                 /*last value controls how far the next input starts*/
     font-variant-ligatures: none;
     -webkit-transition: box-shadow 70ms ease-out,border-color 70ms ease-out;
