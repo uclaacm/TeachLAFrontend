@@ -13,15 +13,21 @@
 	color:#dddcdf;
 	font-weight: bold;
 	padding:1rem;
+	cursor:pointer;
 }
 .panel{
 	display:flex;
 	height:100%;
+	box-sizing:border-box;
 	width:100%;
     background-color: #272134;  
 	flex-direction:column;
 	align-items:center;
 	justify-content:flex-start;
+	box-sizing:content-box;
+	margin:0;
+	padding:0;
+	overflow:hidden;
 }
 
 .panel-collapse-button{
@@ -30,24 +36,32 @@
     color:#dddcdf;
 	width:100%;
 	justify-content: flex-end;
+	cursor:pointer;
 }
 
 .panel-content{
 	display:flex;
-	width:25vw;
+	widtH:100%;
+	min-width:300px;
 	flex-direction:column;
 	align-items:center;
 	justify-content:flex-start;
+	overflow-y:auto;
+	overflow-x:hidden;
 }
 
 .panel-image{
 	border-radius:500px;
 	border: 1px solid #dddcdf;
-	width:50%;
+	width:30%;
+	min-width:225px;
 	/*background:#000;*/ /*if you leave this out, transparent profile pictures will show the background behind it*/
 }
 
 .panel-name{
+	width:25vw;
+	float:middle;
+	text-align:center;	
 	padding:3rem 0 0.5rem;
 	font-size:2.5rem;
 	font-weight: bold;
@@ -55,13 +69,18 @@
 }
 
 .panel-options{
-	list-style-type:square;
-	padding:0.5rem 0 0 20%;
-	font-size:2.5rem;
 	width:100%;
+    list-style-position: inside;
+	list-style-type:square;
+	font-size:2.5rem;
+	text-align:center;
 	justify-content: flex-start;
 }
 
+.panel-options-list{
+	display:inline-block;
+	padding:0px;
+}
 
 .panel-options-item{
 	padding:0.5rem 0;
@@ -77,3 +96,93 @@
 	font-weight:bold;
 	color:"#cdcccf";
 }
+
+
+.editor-footer{    
+	width:100%;
+	margin-top:auto;
+    height: 10vh;                             /*calc used to do arithmetic*/
+    background-color: #473d5d;  
+    text-align:center;
+	align-items: center;
+	padding-top:auto;
+}
+
+.editor-footer-image{      
+    height: 100%;
+}
+
+.editor-output{
+	background-color:#585166;
+	width:100%;
+	height:100%;
+	min-width:25%;
+}
+
+
+/*css given from react-split-pane github*/
+.Resizer {
+	background: #000;
+	opacity: .2;
+	z-index: 1;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	-moz-background-clip: padding;
+	-webkit-background-clip: padding;
+	background-clip: padding-box;
+}
+
+ .Resizer:hover {
+	-webkit-transition: all 2s ease;
+	transition: all 2s ease;
+}
+
+ .Resizer.horizontal {
+	height: 11px;
+	margin: -5px 0;
+	border-top: 5px solid rgba(255, 255, 255, 0);
+	border-bottom: 5px solid rgba(255, 255, 255, 0);
+	cursor: row-resize;
+	width: 100%;
+}
+
+.Resizer.horizontal:hover {
+	border-top: 5px solid rgba(0, 0, 0, 0.5);
+	border-bottom: 5px solid rgba(0, 0, 0, 0.5);
+}
+
+.Resizer.vertical {
+	width: 11px;
+	margin: 0 -5px;
+	border-left: 5px solid rgba(255, 255, 255, 0);
+	border-right: 5px solid rgba(255, 255, 255, 0);
+	cursor: col-resize;
+}
+
+.Resizer.vertical:hover {
+	border-left: 5px solid rgba(0, 0, 0, 0.5);
+	border-right: 5px solid rgba(0, 0, 0, 0.5);
+}
+.Resizer.disabled {
+  cursor: not-allowed;
+}
+.Resizer.disabled:hover {
+  border-color: transparent;
+}
+
+.react-codemirror2 {
+	flex: 1 1 auto;
+	margin-top: 0;
+	height: 100%;
+	position: relative;
+  }
+  
+  .CodeMirror {
+	position:absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 100%;
+  }

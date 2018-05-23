@@ -1,5 +1,6 @@
 import React from 'react';
 import {Controlled as CodeMirror} from 'react-codemirror2';
+import SplitPane from 'react-split-pane'
 import Dock from 'react-dock'
 import '../../styles/Editor.css'
 // Specify imports for codemirror usage
@@ -15,6 +16,7 @@ class Editor extends React.Component {
       isVisible:true,
       size:0.25,
       prevSize:0.25,
+      codeSize:0.50,
     };
     this.options = {
       mode: 'javascript',
@@ -38,10 +40,11 @@ class Editor extends React.Component {
     })
   }
 
-	updateCode = (newCode) => {
-		this.setState({
-			code: newCode,
-		});
+  
+  updateCode = (newCode) => {
+    this.setState({
+      code: newCode,
+    });
   }
 
   runCode = () => {
@@ -49,7 +52,6 @@ class Editor extends React.Component {
   }
 
 	render() {
-    console.log(this.state.size)
     let {isVisible, size, prevSize} = this.state
     let {logout, user} = this.props
 
@@ -60,6 +62,7 @@ class Editor extends React.Component {
     let codeStyle = {
       position:"fixed",                           //fixed bc we're using left
       width:"100%",                               //take up 100% of whats given
+      height:"100%",
       left:panelSize,                             //panelSize determines how far left of the screen the code should be
       transition:(prevSize != size && (size != 0.0 || prevSize != 0.0)) ? "" : "left 0.2s ease-out, opacity 0.01s linear" //if they're using the slider to change the length of the panel, dont use a transition, otherwise (meaning they're using the toggle button) use a transition where when the left changes, it eases out
     }
@@ -70,7 +73,10 @@ class Editor extends React.Component {
                 isVisible={isVisible}
                 size={size}
                 dimMode="transparent"
-                onSizeChange={(newSize)=>{this.handleOnSizeChange(newSize)}}
+                onSizeChange={(newSize)=>{
+                  if(newSize < 0.3)           //basically limiting the max size of the panel
+                    this.handleOnSizeChange(newSize)
+                }}
                 onVisibleChange={this.handleOnVisibleChange}
                 dockStyle={{width:panelSize}}
           >
@@ -89,22 +95,44 @@ class Editor extends React.Component {
                   </ul>
                 </div>
               </div>
+              <div className="editor-footer">
+                <img className="editor-footer-image" src="img/tla-footer.png"/>
+              </div>
             </div>
           </Dock>
         </div>
         <div style={codeStyle}>
-          {isVisible ? <div className='editor-expand-panel'>&nbsp;</div> : <div className='editor-expand-panel' onClick={this.handleOnVisibleChange}>></div>}
-          <CodeMirror
-            value={this.state.code}
-            options={this.options}
-            onBeforeChange={(editor, data, code) => {
-              this.setState({code});
+          <SplitPane
+            split="vertical"
+            minSize={window.innerWidth*(1-size)/5}   //minimum size of code is 20% of screen not including panel adn max size is 50%
+            maxSize={window.innerWidth*(1-size)*3/4}
+            defaultSize="37.5%"
+            allowResize={true}
+            onChange={ (codeSize) => {
+              console.log(codeSize)
+              this.setState({codeSize})
             }}
-            onChange={(editor, data, code) => {
-              this.updateCode(code);
-            }}
-          />
-          <input type="button" value="Run" onClick={this.runCode}/>
+          >
+            <div>
+              {isVisible ? <div className='editor-expand-panel'>&nbsp;</div> : <div className='editor-expand-panel' onClick={this.handleOnVisibleChange}>></div>}
+              <CodeMirror
+                value={this.state.code}
+                height="100%"
+                options={this.options}
+                onBeforeChange={(editor, data, code) => {
+                  this.setState({code});
+                }}
+                onChange={(editor, data, code) => {
+                  this.updateCode(code);
+                }}
+                style={{
+                  backgroundColor:"#FFF",
+                }}
+              />
+              <input type="button" value="Run" onClick={this.runCode}/>
+            </div>
+            <div className="editor-output">test</div>
+          </SplitPane>
         </div>
       </div>
     );
