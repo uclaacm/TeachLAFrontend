@@ -1,28 +1,26 @@
 .login-page{
-    height:100%;
-    width:100%;
     margin:0px;
     font-family: 'Josefin Slab', sans-serif;      /*font for the whole login page*/
-    overflow-y: hidden;
     overflow-x: hidden;
 }
 
 .login-page-content{
     height: 90vh;                             /*uses the value set in login-page, inherited the prop*/
-    bottom:10vh;
-    width:100%;
     background-image: url('myBg3.png'); 
     background-repeat:no-repeat;
+    background-position:right top;
     background-size: 100% 100%;
     min-height:600px;
     overflow-y:auto;
+    padding-bottom:75px;
 }
 
 .login-footer{    
-    position:fixed;
+    position:absolute;
+    bottom:0px;
     width:100%;
     bottom:0px;  
-    height: 10vh;                             /*calc used to do arithmetic*/
+    height: 75px;                             /*calc used to do arithmetic*/
     background-color: #473d5d;  
     text-align:center;
     align-items: center;
@@ -68,7 +66,7 @@
     display:block;
     color: #2c2d30;
     width: 460px;
-    margin-bottom:550px;
+    min-width:469px;
     min-height:550px;
     margin-top: 30px;                   /*modal distance from top of the screen*/
     margin-left: 8%;                    /*modal distance from left side of the screen*/
