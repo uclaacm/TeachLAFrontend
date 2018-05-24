@@ -2,17 +2,21 @@ import React from 'react';
 import {Controlled as CodeMirror} from 'react-codemirror2';
 import SplitPane from 'react-split-pane'
 import Dock from 'react-dock'
-import '../../styles/Editor.css'
 // Specify imports for codemirror usage
 import 'codemirror/lib/codemirror.css';
+import 'codemirror/theme/lesser-dark.css';
+import 'codemirror/theme/yeti.css';
 import 'codemirror/theme/material.css';
+import 'codemirror/theme/eclipse.css';
+import 'codemirror/theme/dracula.css';
+import '../../styles/Editor.css'
 import 'codemirror/mode/javascript/javascript.js';
 
 class Editor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      code: "// Code",
+      code: "// Codeffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
       isVisible:true,
       size:0.25,
       prevSize:0.25,
@@ -113,23 +117,24 @@ class Editor extends React.Component {
               this.setState({codeSize})
             }}
           >
-            <div>
+            <div  className="code-section">
               {isVisible ? <div className='editor-expand-panel'>&nbsp;</div> : <div className='editor-expand-panel' onClick={this.handleOnVisibleChange}>></div>}
-              <CodeMirror
-                value={this.state.code}
-                height="100%"
-                options={this.options}
-                onBeforeChange={(editor, data, code) => {
-                  this.setState({code});
-                }}
-                onChange={(editor, data, code) => {
-                  this.updateCode(code);
-                }}
-                style={{
-                  backgroundColor:"#FFF",
-                }}
-              />
-              <input type="button" value="Run" onClick={this.runCode}/>
+              <div className="text-editor-container">
+                <CodeMirror
+                  value={this.state.code}
+                  height="100%"
+                  options={this.options}
+                  onBeforeChange={(editor, data, code) => {
+                    this.setState({code});
+                  }}
+                  onChange={(editor, data, code) => {
+                    this.updateCode(code);
+                  }}
+                  style={{
+                    backgroundColor:"#FFF",
+                  }}
+                />
+              </div>
             </div>
             <div className="editor-output">test</div>
           </SplitPane>

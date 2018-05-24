@@ -7,7 +7,19 @@
 	align-items:flex-start;
 	justify-content:flex-start;
 }
+
+.code-section{
+	display:flex;
+	overflow-y:hidden;
+	height:100%;
+	flex-direction:column;
+	align-items:flex-start;
+	max-height:100vh;
+	overflow-y:auto;
+}
 .editor-expand-panel{
+	min-height:40px;
+	height:8vh;
 	width:fit-content;
 	margin:0;
 	color:#dddcdf;
@@ -26,6 +38,7 @@
 	justify-content:flex-start;
 	box-sizing:content-box;
 	margin:0;
+	min-width:225px;
 	padding:0;
 	overflow:hidden;
 }
@@ -171,18 +184,113 @@
   border-color: transparent;
 }
 
-.react-codemirror2 {
-	flex: 1 1 auto;
-	margin-top: 0;
-	height: 100%;
-	position: relative;
+.react-codemirror2{
+	padding-right: 1px;
+	max-width:100%;
+	max-height:inherit;
+	border-top:1px white solid;
+	background-color:#857e8f;
+	padding-top:20px;
+	height:100%;
+}
+
+.text-editor-container{
+	flex-grow:1 1;
+	max-height:92vh;
+	width:100%;
+	height:100%;
+}
+  
+.react-codemirror2 ::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+.react-codemirror2 ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+} 
+ 
+/* Handle */
+.react-codemirror2 ::-webkit-scrollbar-thumb {
+    background: #57535e;
+}
+
+/* Handle on hover */
+.react-codemirror2 ::-webkit-scrollbar-thumb:hover {
+    background: #2f2d33;
+}
+
+
+.cm-s-material.CodeMirror{
+	box-sizing:border-box;
+	max-width: inherit;
+	max-height: inherit;
+	min-height: inherit;
+	background-color: rgb(38, 50, 56, 0.0);
+	font-family: 'Ubuntu Mono', monospace; 
+	color:white;
+	font-size:18px;
+	height:100%
+}
+
+.CodeMirror pre {
+    padding-left: 5px;
+    padding-right: 4px;
+}
+
+.cm-s-material .CodeMirror-gutters{
+	background-color: #857e8f;  
+	/* border-right:1px solid white; */
+	  /* color:white; */
+}
+.cm-s-material .CodeMirror-guttermarker, .cm-s-material .CodeMirror-guttermarker-subtle, .cm-s-material .CodeMirror-linenumber{
+	color:white;
+}
+
+.cm-s-material .CodeMirror-guttermarker, .cm-s-material .CodeMirror-guttermarker-subtle, .cm-s-material .CodeMirror-linenumber{
+	text-align:left;
+	padding-left:15px;
+}
+
+.cm-s-material .cm-comment{
+	color:#583c4f;
+}
+.cm-s-eclipse.CodeMirror{
+  background-color:#857e8f !important;
+  font-family: 'Ubuntu Mono', monospace; 
+  color:white;
+  font-size:18px;
+}
+
+.cm-s-eclipse .CodeMirror-gutters{
+  background-color:#857e8f;
+  /* color:white; */
+}
+
+.cm-s-eclipse .CodeMirror-linenumber{
+  /* color:white; */
+}
+.cm-s-eclipse span.cm-comment{
+	color:#551a41;
+}
+
+.cm-s-eclipse span.cm-keyword{
+	color:#97cfdb;
+}
+
+.cm-s-dracula.CodeMirror{
+	background-color:#857e8f !important;
   }
   
-  .CodeMirror {
-	position:absolute;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	height: 100%;
+  .cm-s-dracula .CodeMirror-gutters{
+	background-color:#857e8f;
+	/* color:white; */
+  }
+  
+  .cm-s-dracula .CodeMirror-linenumber{
+	/* color:white; */
+  }
+
+  .cm-s-dracula span.cm-keyword{
+	  color:#97cfdb;
   }

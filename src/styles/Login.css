@@ -1,7 +1,6 @@
 .login-page{
     margin:0px;
     font-family: 'Josefin Slab', sans-serif;      /*font for the whole login page*/
-    overflow-x: hidden;
 }
 
 .login-page-content{
@@ -64,7 +63,7 @@
 
 .login-modal {
     display:block;
-    color: #2c2d30;
+    background-color:#272134;
     width: 460px;
     min-width:469px;
     min-height:550px;
