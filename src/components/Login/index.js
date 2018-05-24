@@ -62,7 +62,7 @@ class LoginForm extends React.Component {
 		console.log(finalHeight)
 		return (
 			<div className="login-page" style={{width:finalWidth+"px"}}>
-				<div className="login-page-content">
+				<div className="login-page-content" style={{paddingBottom:curHeight < 675 ? 75 + "px" : 0 + "px"}}>
 					<div style={{height:"0px"}}>&nbsp;</div>			{/*for some reason when you don't have a non empty element above the modal, it leaves a white section above it...so thats why this is here*/}
 					<div className="login-modal" >
 						<form className='login-form' onSubmit={this.onSubmit}>	{/*Form doesn't do anything rn, just an example of a stateful React form.*/}
