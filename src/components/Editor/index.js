@@ -22,7 +22,7 @@ class Editor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      code: "// Codeffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      code: "def helloWorld():\n\tprint(\"Hello world!\")\n\nhelloWorld()",
       isVisible:true,
       size:0.25,
       prevSize:0.25,
@@ -89,7 +89,7 @@ class Editor extends React.Component {
     let panelStyle = {width:panelSize}            //width of the panel should always be the percent of its size (which is a decimal)
     let codeStyle = {
       position:"fixed",                           //fixed bc we're using left
-      width:"100%",                               //take up 100% of whats given
+      width:((1.0-size)*100.0).toString() + '%',                               //take up 100% of whats given
       height:"100%",
       left:panelSize,                             //panelSize determines how far left of the screen the code should be
       transition:(prevSize != size && (size != 0.0 || prevSize != 0.0)) ? "" : "left 0.2s ease-out, opacity 0.01s linear" //if they're using the slider to change the length of the panel, dont use a transition, otherwise (meaning they're using the toggle button) use a transition where when the left changes, it eases out
@@ -139,7 +139,7 @@ class Editor extends React.Component {
         <div style={codeStyle}>
           <SplitPane
             split="vertical"
-            minSize={window.innerWidth*(1-size)/5}   //minimum size of code is 20% of screen not including panel adn max size is 50%
+            minSize={window.innerWidth*(1-size)/4}   //minimum size of code is 25% of screen not including panel adn max size is 50%
             maxSize={window.innerWidth*(1-size)*3/4}
             defaultSize="37.5%"
             allowResize={true}
@@ -150,7 +150,7 @@ class Editor extends React.Component {
           >
             <div  className="code-section">
               <div className="editor-header">
-                {isVisible ? <div className='editor-expand-panel'/> : <div className='editor-expand-panel' title="Open Profile Panel" onClick={this.handleOnVisibleChange}>></div>}
+                {isVisible ? <div className='editor-expand-panel' style={{width:"0px", padding:"0"}}/> : <div className='editor-expand-panel' title="Open Profile Panel" onClick={this.handleOnVisibleChange}>></div>}
                 <div className="editor-language-dropdown">
                   <Dropdown isOpen={isOpen} toggle={()=>{this.setState({isOpen:!isOpen})}}>
                     <DropdownToggle caret>
@@ -166,8 +166,15 @@ class Editor extends React.Component {
                     </DropdownMenu>
                   </Dropdown>
                 </div>
-                <div className="editor-run-button">
-                  <div>run</div>
+                <div className="editor-run">
+                  <button className="editor-run-button">
+                    <div className="editor-run-button-content">
+                    <span style={{flex:"1 1 auto", width:"100%"}}>></span>
+                    <span style={{flex:"0 0 auto"}}>
+                      Run Code
+                    </span>
+                    </div>
+                  </button>
                 </div>
               </div>
               <div className="text-editor-container">
@@ -195,7 +202,18 @@ class Editor extends React.Component {
                 />
               </div>
             </div>
-            <div className="editor-output">test</div>
+            <div className="editor-output">
+              <div className="editor-header">
+                <div style={{flex:"1 1 auto"}}> </div>
+                <div className="editor-run">
+                  <button className="editor-run-button" style={{backgroundColor:"#ec4848"}}>
+                      Clear
+                  </button>
+                </div>
+              </div>
+              <div className="editor-output-content">
+              </div>
+            </div>
           </SplitPane>
         </div>
       </div>
