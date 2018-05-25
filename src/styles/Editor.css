@@ -17,16 +17,32 @@
 	max-height:100vh;
 	overflow-y:auto;
 }
-.editor-expand-panel{
+.editor-header{
 	min-height:40px;
 	height:8vh;
-	width:fit-content;
-	margin:0;
+	display:flex;
+	flex-direction:row;
+	align-items:center;
+	justify-content: flex-start
+}
+.editor-expand-panel{
 	color:#dddcdf;
 	font-weight: bold;
 	padding:1rem;
 	cursor:pointer;
+	flex: 1 1 auto;
 }
+
+.editor-language-dropdown{
+	flex:1 1 auto;
+	width:100%
+}
+
+.editor-run-button{
+	flex:1 1 auto;
+	justify-self:flex-end;
+}
+
 .panel{
 	display:flex;
 	height:100%;
@@ -75,7 +91,7 @@
 	width:25vw;
 	float:middle;
 	text-align:center;	
-	padding:3rem 0 0.5rem;
+	padding:27px 0 5px;
 	font-size:2.5rem;
 	font-weight: bold;
     color:#dddcdf;
@@ -93,10 +109,10 @@
 .panel-options-list{
 	display:inline-block;
 	padding:0px;
+	margin-top: 25px;
 }
 
 .panel-options-item{
-	padding:0.5rem 0;
 	font-weight:normal;
 	font-size:2.5rem;
 	width:fit-content;
@@ -156,7 +172,7 @@
 	margin: -5px 0;
 	border-top: 5px solid rgba(255, 255, 255, 0);
 	border-bottom: 5px solid rgba(255, 255, 255, 0);
-	cursor: row-resize;
+	cursor: w-resize;
 	width: 100%;
 }
 
@@ -170,7 +186,7 @@
 	margin: 0 -5px;
 	border-left: 5px solid rgba(255, 255, 255, 0);
 	border-right: 5px solid rgba(255, 255, 255, 0);
-	cursor: col-resize;
+	cursor: w-resize;
 }
 
 .Resizer.vertical:hover {
@@ -253,44 +269,30 @@
 }
 
 .cm-s-material .cm-comment{
+	color:#c792ea;
+}
+
+.cm-s-material span.cm-keyword{
 	color:#583c4f;
 }
-.cm-s-eclipse.CodeMirror{
-  background-color:#857e8f !important;
-  font-family: 'Ubuntu Mono', monospace; 
-  color:white;
-  font-size:18px;
+
+.cm-s-material span.cm-def{
+	color:#9deaf4;
 }
 
-.cm-s-eclipse .CodeMirror-gutters{
-  background-color:#857e8f;
-  /* color:white; */
+.cm-s-material span.cm-variable{
+	/* color:#8dade2; */
+	color:#e8c406;
 }
 
-.cm-s-eclipse .CodeMirror-linenumber{
-  /* color:white; */
-}
-.cm-s-eclipse span.cm-comment{
-	color:#551a41;
-}
-
-.cm-s-eclipse span.cm-keyword{
-	color:#97cfdb;
-}
-
-.cm-s-dracula.CodeMirror{
-	background-color:#857e8f !important;
-  }
-  
-  .cm-s-dracula .CodeMirror-gutters{
+.btn:not(:disabled):not(.disabled){
+	font-size:24px;
+	font-family: 'Josefin Sans', sans-serif;      /*font for the whole login page*/
 	background-color:#857e8f;
-	/* color:white; */
-  }
-  
-  .cm-s-dracula .CodeMirror-linenumber{
-	/* color:white; */
-  }
+	color:white;
+	border:0px;
+}
 
-  .cm-s-dracula span.cm-keyword{
-	  color:#97cfdb;
-  }
+.selected-line{
+	background-color:rgb(255,255,255,0.1);
+}
