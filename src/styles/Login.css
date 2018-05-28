@@ -1,6 +1,5 @@
 .login-page{
     margin:0px;
-    font-family: 'Josefin Slab', sans-serif;      /*font for the whole login page*/
 }
 
 .login-page-content{
@@ -62,6 +61,7 @@
 }
 
 .login-modal {
+    font-family: 'Josefin Slab', sans-serif;      /*font for the whole login page*/
     display:block;
     background-color:#272134;
     width: 460px;
@@ -106,6 +106,7 @@
 
 .login-form-button {
     border: 0px;
+    font-family: 'Josefin Slab', sans-serif;
     font-size: 1.3rem;
     color:#dddcdf;
     margin:20px 32.5% 10px;                                  /*margin leftright is half of 100% - width*/
