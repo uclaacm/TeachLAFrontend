@@ -1,20 +1,21 @@
-.login-page{
+.create-page{
     margin:0px;
 }
 
-.login-page-content{
-    height: 90vh;                             /*uses the value set in login-page, inherited the prop*/
+.create-page-content{
+    margin:inherit;
+    height: 90vh;                             /*uses the value set in create-page, inherited the prop*/
     background-color:#272134;
     background-image: url('myBg3.png'); 
     background-repeat:no-repeat;
     background-position:right top;
-    background-size: 100% 100%;
+    background-size: 1600px 700px;
     min-height:600px;
     overflow-y:auto;
     box-sizing:border-box;
 }
 
-.login-footer{    
+.create-footer{    
     position:absolute;
     bottom:0px;
     width:100%;
@@ -25,44 +26,38 @@
     align-items: center;
 }
 
-.login-footer-image{      
+.create-footer-image{      
     height: 100%;
 }
 
 
-.login-form{
-    padding:20px 20px;
+.create-form{
+    padding:0 20px 20px;
     color:#dddcdf;
 }
 
-.login-header {
+.create-header {
     font-size:3em;
     white-space:nowrap;
     font-weight: bold;
-    -webkit-margin-after: 0.67em;
-    -webkit-margin-start: 0px;
-    -webkit-margin-end: 0px;
 }
 
-.login-form-input-header{
+.create-form-input-header{
     color:#706d79;
     font-size:2em;
-    -webkit-margin-after: 0.67em;
-    -webkit-margin-start: 0px;
-    -webkit-margin-end: 0px;
 }   
 
-.login-form-input-list{
+.create-form-input-list{
     padding-left:30px;
 }
 
-.login-button-list {
+.create-button-list {
     width: 100%;
     padding: 0 15%;
 }
 
-.login-modal {
-    font-family: 'Josefin Slab', sans-serif;      /*font for the whole login page*/
+.create-modal {
+    font-family: 'Josefin Slab', sans-serif;      /*font for the whole create page*/
     display:block;
     background-color:#272134;
     width: 460px;
@@ -74,7 +69,7 @@
     box-sizing:border-box;
 }
 
-.login-form-input {
+.create-form-input {
     font-size: 1.5rem;
     line-height: normal;
     padding: .25rem .1rem 0px .1rem;
@@ -101,11 +96,11 @@
     display: inline-block;
 }
 
-.login-modal ::-webkit-input-placeholder { /* Chrome/Opera/Safari */ /*changes to the placeholder text*/
+.create-modal ::-webkit-input-placeholder { /* Chrome/Opera/Safari */ /*changes to the placeholder text*/
   color: #C0E2FD;                               
 }
 
-.login-form-button {
+.create-form-button {
     border: 0px;
     font-family: 'Josefin Slab', sans-serif;
     font-size: 1.3rem;
@@ -116,12 +111,12 @@
     height:40px;
 }
 
-.login-form-link{
+.create-form-link{
     color:#2d7799;
     text-decoration: none;
 }
 
-.login-form-link:hover{
+.create-form-link:hover{
     color:#2d7799;
     text-decoration: underline;
 }

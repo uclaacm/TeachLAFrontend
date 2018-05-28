@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom'
 import SocialButton from '../SocialButton'
 import '../../styles/Login.css'
 import firebase from 'firebase'
@@ -69,7 +70,7 @@ class LoginForm extends React.Component {
 							<div className="login-header" >{"Welcome to <Teach LA>"}</div>
 							<br/>
 							<div className="login-form-input-list">
-								<div className="login-form-input-header">Email</div>
+								<div className="login-form-input-header">Username</div>
 								<input className="login-form-input" type="text" name="email" placeholder="" value={this.state.email} onChange={(e)=>{this.setState({email:e.target.value})}} /><br/>
 								<div className="login-form-input-header">Password</div>
 								<input className='login-form-input' type="password" name="password" placeholder="" value={this.state.password} onChange={(e)=>{this.setState({password:e.target.value})}}/><br/>
@@ -88,7 +89,7 @@ class LoginForm extends React.Component {
 									handleLogin={this.handleLogin}
 								/>
 							</div>
-							<a href="#" className="login-form-link">Don't have an account? Click here to register and/or login with your Google Account</a>		{/*need to style this*/}
+							<Link to="/createUser" className="login-form-link">Don't have an account? Click here to register and/or login with your Google Account</Link>
 						</form>
 					</div>
 				</div>

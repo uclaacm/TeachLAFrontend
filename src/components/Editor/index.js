@@ -16,6 +16,8 @@ import 'codemirror/mode/htmlmixed/htmlmixed.js';
 import 'codemirror/mode/python/python.js';
 import 'codemirror/mode/clike/clike.js';
 
+import defaultPic from '../../img/defaultProfile.png'
+
 const DEFAULT_MODE = "python"
 
 class Editor extends React.Component {
@@ -152,6 +154,10 @@ class Editor extends React.Component {
       transition:(prevSize != size && (size != 0.0 || prevSize != 0.0)) ? "" : "left 0.2s ease-out, opacity 0.01s linear" //if they're using the slider to change the length of the panel, dont use a transition, otherwise (meaning they're using the toggle button) use a transition where when the left changes, it eases out
     }
 
+   
+    console.log( user.photoURL ? user.photoURL+"?height=500" : defaultPic)
+
+
     return(
       <div className="editor">
         <div style={panelStyle}>
@@ -171,7 +177,7 @@ class Editor extends React.Component {
                 <div/><div onClick={this.handleOnVisibleChange}>&larr;</div>                                        {/*character is leftward facing arrow*/}
               </div>
               <div className="panel-content">
-                <img className="panel-image" src={user.photoURL+"?height=500" || "img/defaultProfile.png"}/>        {/*if there's a photourl, use it, otherwise use the default image (the ?height=500 to make sure the picture sent is resized to 500px tall*/}
+                <img className="panel-image" src={user.photoURL ? user.photoURL+"?height=500" : defaultPic}/>        {/*if there's a photourl, use it, otherwise use the default image (the ?height=500 to make sure the picture sent is resized to 500px tall*/}
                 <div className="panel-name">{user.displayName || "Joe Bruin"}</div>                                 {/*if there's no displayName, use the default name "Joe Bruin"*/}
                 <div className="panel-options">
                   <ul className="panel-options-list">
