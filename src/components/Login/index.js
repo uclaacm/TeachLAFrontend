@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
+import SHA256 from 'crypto-js/sha256'
 import SocialButton from '../SocialButton'
 import '../../styles/Login.css'
 import firebase from 'firebase'
@@ -13,11 +14,12 @@ class LoginForm extends React.Component {
 		super(props)
 
 		this.state = {
-			email: "",
+			username: "",
 			password:"",
 			curWidth:0,
 			curHeight:0,
 		}
+		this.onSubmit = this.onSubmit.bind(this)
 	}
 
     updateDimensions = () => {
@@ -38,10 +40,12 @@ class LoginForm extends React.Component {
 	param:
 		e: event sent by the form
 	*/
-	onSubmit = (e) => {
+	onSubmit = async function(e){
 		e.preventDefault()						//prevents page from reloading after submitting form
-		this.setState({							//resetting the email and password to null
-			email:"",
+		let result = await firebase.auth().signInWithCredential(firebase.auth.EmailAuthProvider.credential(SHA256(this.state.username).toString()+"@fake.com", SHA256(this.state.password).toString()));
+		console.log(result)
+		this.setState({							//resetting the username and password to null
+			username:"",
 			password:""
 		})
 	}
@@ -60,7 +64,7 @@ class LoginForm extends React.Component {
 
 		let finalWidth = Math.max(width, curWidth, window.screen.width)
 		let finalHeight = Math.max(height, curHeight)
-		console.log(finalHeight)
+		
 		return (
 			<div className="login-page" style={{width:finalWidth+"px"}}>
 				<div className="login-page-content" style={{paddingBottom:curHeight < 675 ? 75 + "px" : 0 + "px"}}>
@@ -71,7 +75,7 @@ class LoginForm extends React.Component {
 							<br/>
 							<div className="login-form-input-list">
 								<div className="login-form-input-header">Username</div>
-								<input className="login-form-input" type="text" name="email" placeholder="" value={this.state.email} onChange={(e)=>{this.setState({email:e.target.value})}} /><br/>
+								<input className="login-form-input" type="text" name="username" placeholder="" value={this.state.username} onChange={(e)=>{this.setState({username:e.target.value})}} /><br/>
 								<div className="login-form-input-header">Password</div>
 								<input className='login-form-input' type="password" name="password" placeholder="" value={this.state.password} onChange={(e)=>{this.setState({password:e.target.value})}}/><br/>
 							</div>
