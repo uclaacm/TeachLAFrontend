@@ -2,9 +2,9 @@
 	display:flex;
 	height:100%;
 	width:100%;
-	background-color: #857e8f;  
 	flex-direction: row;
 	align-items:flex-start;
+	background-color:#585166;
 	justify-content:flex-start;
 }
 
@@ -16,6 +16,7 @@
 	align-items:flex-start;
 	max-height:100vh;
 	overflow-y:auto;
+	background-color: #857e8f;  
 }
 .editor-header{
 	min-height:50px;
@@ -206,7 +207,6 @@ transform: translateY(2px);
 	-webkit-background-clip: padding;
 	background-clip: padding-box;
 }
-
  .Resizer:hover {
 	-webkit-transition: all 2s ease;
 	transition: all 2s ease;

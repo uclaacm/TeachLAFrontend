@@ -52,12 +52,13 @@ class Editor extends React.Component {
       isVisible:true,
       size:0.25,
       prevSize:0.25,
-      codeSize:0.50,
+      codeSize:"37.5%",
       isOpen:false,
       language:"Python",
       mode:"python",
       codeMirrorInstance:null,
       currentLine:0,
+      paneStyle:{transition:"none"},
     };
   }
 
@@ -93,6 +94,8 @@ class Editor extends React.Component {
       isVisible: !this.state.isVisible,           //open it if its closed, close it if its open
       size:this.state.isVisible ? 0.0 : 0.25,     //give it a size of 0 if it was open, 0.25 if it was closed
       prevSize:this.state.isVisible ? 0.0 : 0.25, //set the previous size to the same as the new size (used to make the slide transition only trigger when the expand/collapse button is pressed)
+      codeSize:"50%",
+      paneStyle:{transition:"width 0.3s ease"},
     })
   }
   
@@ -106,6 +109,7 @@ class Editor extends React.Component {
     this.setState({
       size:newSize,
       prevSize:this.state.size,         //storing the previous size in prevSize
+      paneStyle:{transition:"none"},
     })
   }
   
@@ -128,7 +132,7 @@ class Editor extends React.Component {
    *  render
    */
 	render() {
-    const {isVisible, size, prevSize, isOpen, language, mode, codeMirrorInstance} = this.state
+    const {isVisible, size, prevSize, isOpen, language, mode, codeMirrorInstance, codeSize} = this.state
     const {logout, user} = this.props
 
     //json required by CodeMirror
@@ -155,9 +159,6 @@ class Editor extends React.Component {
     }
 
    
-    console.log( user.photoURL ? user.photoURL+"?height=500" : defaultPic)
-
-
     return(
       <div className="editor">
         <div style={panelStyle}>
@@ -177,7 +178,7 @@ class Editor extends React.Component {
                 <div/><div onClick={this.handleOnVisibleChange}>&larr;</div>                                        {/*character is leftward facing arrow*/}
               </div>
               <div className="panel-content">
-                <img className="panel-image" src={user.photoURL ? user.photoURL+"?height=500" : defaultPic}/>        {/*if there's a photourl, use it, otherwise use the default image (the ?height=500 to make sure the picture sent is resized to 500px tall*/}
+                <img className="panel-image" src={user.photoURL ? user.photoURL+"?height=800" : defaultPic}/>        {/*if there's a photourl, use it, otherwise use the default image (the ?height=500 to make sure the picture sent is resized to 500px tall*/}
                 <div className="panel-name">{user.displayName || "Joe Bruin"}</div>                                 {/*if there's no displayName, use the default name "Joe Bruin"*/}
                 <div className="panel-options">
                   <ul className="panel-options-list">
@@ -195,13 +196,14 @@ class Editor extends React.Component {
         </div>
         <div style={codeStyle}>
           <SplitPane
+            pane1Style={this.state.paneStyle} 
             split="vertical"                              //the resizer is a vertical line (horizontal means resizer is a horizontal bar)
             minSize={window.innerWidth*(1-size)/4}        //minimum size of code is 25% of screen not including panel adn max size is 50%
-            maxSize={window.innerWidth*(1-size)*3/4}      //maximum size is 75% of the screen
-            defaultSize="37.5%"                           //the initial size of the text editor section
+            maxSize={isVisible ? window.innerWidth*(1-size)*3/4 : window.innerWidth*3/4}      //maximum size is 75% of the screen if the panel  is open, 50% otherwise
+            size={codeSize}                           //the initial size of the text editor section
             allowResize={true}
             onChange={ (codeSize) => {
-              this.setState({codeSize})
+              this.setState({codeSize, paneStyle:{transition:"none"}})
             }}
           >
             <div  className="code-section">
