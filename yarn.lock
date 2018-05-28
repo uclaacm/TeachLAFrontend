@@ -1151,6 +1151,16 @@ babylon@^6.17.0, babylon@^6.18.0:
   version "6.18.0"
   resolved "https://registry.yarnpkg.com/babylon/-/babylon-6.18.0.tgz#af2f3b88fa6f5c1e4c634d1a0f8eac4f55b395e3"
 
+bad-words@^1.6.1:
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/bad-words/-/bad-words-1.6.1.tgz#06483021951a9d80fb5fcaa2f0d9a1e75a745b50"
+  dependencies:
+    badwords-list "^1.0.0"
+
+badwords-list@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/badwords-list/-/badwords-list-1.0.0.tgz#5e9856dbf13482a295c3b0b304afb9d4cfc5c579"
+
 balanced-match@^0.4.2:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-0.4.2.tgz#cb3f3e3c732dc0f01ee70b403f302e61d7709838"

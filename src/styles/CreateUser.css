@@ -43,7 +43,7 @@
 }
 
 .create-form-input-header{
-    color:#706d79;
+    color:#FFFFFF;
     font-size:2em;
 }   
 
@@ -97,7 +97,7 @@
 }
 
 .create-modal ::-webkit-input-placeholder { /* Chrome/Opera/Safari */ /*changes to the placeholder text*/
-  color: #C0E2FD;                               
+  color: #4e4e4e;                               
 }
 
 .create-form-button {
