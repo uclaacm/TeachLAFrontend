@@ -3,13 +3,10 @@ import {Controlled as CodeMirror} from 'react-codemirror2';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import SplitPane from 'react-split-pane'
 import Dock from 'react-dock'
+import {DEFAULT_MODE} from '../../constants'
 // Specify imports for codemirror usage
 import 'codemirror/lib/codemirror.css';
-import 'codemirror/theme/lesser-dark.css';
-import 'codemirror/theme/yeti.css';
 import 'codemirror/theme/material.css';
-import 'codemirror/theme/eclipse.css';
-import 'codemirror/theme/dracula.css';
 import '../../styles/Editor.css'
 import 'codemirror/mode/javascript/javascript.js';
 import 'codemirror/mode/htmlmixed/htmlmixed.js';
@@ -17,8 +14,6 @@ import 'codemirror/mode/python/python.js';
 import 'codemirror/mode/clike/clike.js';
 
 import defaultPic from '../../img/defaultProfile.png'
-
-const DEFAULT_MODE = "python"
 
 class Editor extends React.Component {
 

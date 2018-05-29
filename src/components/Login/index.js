@@ -1,4 +1,5 @@
 import React from 'react';
+import {RingLoader} from 'react-spinners'
 import {Link} from 'react-router-dom'
 import SHA256 from 'crypto-js/sha256'
 import SocialButton from '../SocialButton'
@@ -18,8 +19,23 @@ class LoginForm extends React.Component {
 			password:"",
 			curWidth:0,
 			curHeight:0,
+			waiting: false,
+			message: null,
 		}
 		this.onSubmit = this.onSubmit.bind(this)
+	}
+
+	codeToErrorMessage = (code) => {
+		switch(code){
+			case "auth/user-not-found":
+				return "Username not found. Please check spelling"
+			case "auth/wrong-password":
+				return "Incorrect password. Please try again"
+			case "auth/too-many-requests":
+				return "Too many login attempts. Wait a few seconds before next login attempt"
+			default:
+				return "Incorrect username password combination. Please try again"
+		}
 	}
 
     updateDimensions = () => {
@@ -40,27 +56,29 @@ class LoginForm extends React.Component {
 	param:
 		e: event sent by the form
 	*/
-	onSubmit = async function(e){
+
+	handleLoginFailure = (err) => {
+		console.log(err)
+		this.setState({waiting:false, message:this.codeToErrorMessage(err.code)})
+	}
+	onSubmit = (e) =>{
 		e.preventDefault()						//prevents page from reloading after submitting form
-		let result = await firebase.auth().signInWithCredential(firebase.auth.EmailAuthProvider.credential(SHA256(this.state.username).toString()+"@fake.com", SHA256(this.state.password).toString()));
-		console.log(result)
+		firebase.auth().signInWithCredential(firebase.auth.EmailAuthProvider.credential(SHA256(this.state.username).toString()+"@fake.com", SHA256(this.state.password).toString()))
+			.catch(this.handleLoginFailure)
 		this.setState({							//resetting the username and password to null
-			username:"",
-			password:""
+			waiting:true,
 		})
 	}
 
 	handleLogin = () => {
 		// firebase.auth().signInWithRedirect(this.props.provider)
-		firebase.auth().signInWithPopup(this.props.provider)
+		this.setState({waiting:true})
+		firebase.auth().signInWithPopup(this.props.provider).catch(this.handleLoginFailure)
 	}
 
 	render(){
 		const {width, height} = this.props
-		const {curWidth, curHeight} = this.state
-		console.log(this.state)
-		console.log(this.props)
-
+		const {curWidth, curHeight, waiting, message} = this.state
 
 		let finalWidth = Math.max(width, curWidth, window.screen.width)
 		let finalHeight = Math.max(height, curHeight)
@@ -75,9 +93,17 @@ class LoginForm extends React.Component {
 							<br/>
 							<div className="login-form-input-list">
 								<div className="login-form-input-header">Username</div>
-								<input className="login-form-input" type="text" name="username" placeholder="" value={this.state.username} onChange={(e)=>{this.setState({username:e.target.value})}} /><br/>
+								<input className="login-form-input" type="text" disabled={waiting} name="username" placeholder="" value={this.state.username} onChange={(e)=>{this.setState({username:e.target.value})}} /><br/>
 								<div className="login-form-input-header">Password</div>
-								<input className='login-form-input' type="password" name="password" placeholder="" value={this.state.password} onChange={(e)=>{this.setState({password:e.target.value})}}/><br/>
+								<input className='login-form-input' type="password" disabled={waiting} name="password" placeholder="" value={this.state.password} onChange={(e)=>{this.setState({password:e.target.value})}}/><br/>
+								{message ? <div style={{color:'red'}}>{message}</div> : <span/>}
+							</div>
+                            <div style={{width:"100%", alignItems: "center", flexDirection: "column", justifyContent: "center", display: "flex"}}>
+								<RingLoader
+								color={'#857e8f'} 
+								size={50}
+								loading={waiting} 
+								/>
 							</div>
 							<button className='login-form-button' type="submit">Login</button>
 							<div className="login-button-list">	{/*You can add other buttons underneath this SocialButton and they'll align*/}
@@ -92,6 +118,7 @@ class LoginForm extends React.Component {
 									value='Login with Facebook'
 									handleLogin={this.handleLogin}
 								/>
+								
 							</div>
 							<Link to="/createUser" className="login-form-link">Don't have an account? Click here to register and/or login with your Google Account</Link>
 						</form>

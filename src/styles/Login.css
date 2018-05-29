@@ -36,24 +36,19 @@
 }
 
 .login-header {
-    font-size:3em;
+    font-size:48px;
     white-space:nowrap;
     font-weight: bold;
-    -webkit-margin-after: 0.67em;
-    -webkit-margin-start: 0px;
-    -webkit-margin-end: 0px;
 }
 
 .login-form-input-header{
-    color:#706d79;
-    font-size:2em;
-    -webkit-margin-after: 0.67em;
-    -webkit-margin-start: 0px;
-    -webkit-margin-end: 0px;
+    color:#dddcdf;
+    font-size:36px;
+    margin-bottom:1rem;
 }   
 
 .login-form-input-list{
-    padding-left:30px;
+    padding-left:40px;
 }
 
 .login-button-list {
@@ -75,7 +70,7 @@
 }
 
 .login-form-input {
-    font-size: 1.5rem;
+    font-size: 1.5em;
     line-height: normal;
     padding: .25rem .1rem 0px .1rem;
     border:0px;
@@ -99,6 +94,10 @@
     color:#dddcdf;
     height: auto;
     display: inline-block;
+}
+
+.login-form-input:disabled {
+    color:#686868;
 }
 
 .login-modal ::-webkit-input-placeholder { /* Chrome/Opera/Safari */ /*changes to the placeholder text*/
