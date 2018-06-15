@@ -1,17 +1,12 @@
 import React from 'react';
-import {Controlled as CodeMirror} from 'react-codemirror2';
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-import SplitPane from 'react-split-pane'
-import Dock from 'react-dock'
+import ProfilePanel from './components/ProfilePanel'
+import Main from './components/Main'
+import {Redirect} from 'react-router'
 import {DEFAULT_MODE} from '../../constants'
 // Specify imports for codemirror usage
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/material.css';
 import '../../styles/Editor.css'
-import 'codemirror/mode/javascript/javascript.js';
-import 'codemirror/mode/htmlmixed/htmlmixed.js';
-import 'codemirror/mode/python/python.js';
-import 'codemirror/mode/clike/clike.js';
 
 import defaultPic from '../../img/defaultProfile.png'
 
@@ -78,6 +73,14 @@ class Editor extends React.Component {
     return conversion[name] || DEFAULT_MODE   //if there's no conversion, use the DEFAULT_MODE
   }
 
+  changeMode = (language) => {
+    this.setState({language, mode:this.nameToMode(language)})
+  }
+
+  dropdownToggleHandler = () => {
+    this.setState({isOpen:!this.state.isOpen})
+  }
+
   /**
    *  handleOnVisibleChange - handler for when the collapse panel button or expand panel button is pressed
    *    if the panel is open, closes it and sets the size to 0
@@ -94,6 +97,7 @@ class Editor extends React.Component {
     })
   }
   
+
   /**
    *  handleOnSizeChange - handler for when the panel is being resized by the resizer (right edge of the panel)
    *    stores the old size in prevSize
@@ -106,6 +110,28 @@ class Editor extends React.Component {
       prevSize:this.state.size,         //storing the previous size in prevSize
       paneStyle:{transition:"none"},
     })
+  }
+
+  setPaneStyle = (newPaneStyle) => {
+    this.setState({paneStyle:newPaneStyle})
+  }
+
+  setCodeMirrorInstance = (codeMirrorInstance) => {
+    this.setState({codeMirrorInstance})
+  }
+
+  setCurrentLine = (nextState)=>{                                                          
+      const {codeMirrorInstance, currentLine} = this.state
+      let {line} = nextState.getCursor()
+      if(codeMirrorInstance){
+          codeMirrorInstance.removeLineClass(currentLine, 'wrap', 'selected-line')    //removeLineClass removes the back highlight style from the last selected line
+          codeMirrorInstance.addLineClass(line, 'wrap', 'selected-line')              //addLineClass adds the style to the newly selected line
+      }
+      this.setState({currentLine:line})
+  }
+
+  splitPaneChangeHandler = (codeSize) => {
+      this.setState({codeSize, paneStyle:{transition:"none"}})
   }
   
   /**
@@ -127,16 +153,13 @@ class Editor extends React.Component {
    *  render
    */
 	render() {
-    const {isVisible, size, prevSize, isOpen, language, mode, codeMirrorInstance, codeSize} = this.state
+    const {isVisible, size, prevSize, isOpen, language, mode, codeMirrorInstance, codeSize, paneStyle, code} = this.state
     const {logout, user} = this.props
 
-    //json required by CodeMirror
-    const options = {
-      mode: mode,
-      theme: 'material',          //requires lots of CSS tuning to get a theme to work, be wary of changing
-      lineNumbers: true,          //text editor has line numbers
-      lineWrapping:true,          //text editor does not overflow in the x direction, uses word wrap (NOTE: it's like MO Word wrapping, so words are not cut in the middle, if a word overlaps, the whole word is brough to the next line)
-    };
+    //if somehow the router breaks and a non-logged in user gets to the editor, reroute the user back to the login page
+    if(!user){
+      return (<Redirect to="/login"/>)
+    }
 
     //panelSize: {string} - how much of the screen the panel will take up 
     let panelSize=(size*100.0).toString() + '%'
@@ -156,130 +179,49 @@ class Editor extends React.Component {
    
     return(
       <div className="editor">
-        <div style={panelStyle}>
-          <Dock position='left'
-                isVisible={isVisible}
-                size={size}
-                dimMode="transparent"
-                onSizeChange={(newSize)=>{
-                  if(newSize < 0.3)                                     //limiting the max size of the panel to 30% of the screen
-                    this.handleOnSizeChange(newSize)
-                }}
-                onVisibleChange={this.handleOnVisibleChange}
-                dockStyle={{width:panelSize}}                           
-          >
-            <div className="panel">
-              <div className="panel-collapse-button">
-                <div/><div onClick={this.handleOnVisibleChange}>&larr;</div>                                        {/*character is leftward facing arrow*/}
-              </div>
-              <div className="panel-content">
-                <img className="panel-image" src={user.photoURL ? user.photoURL+"?height=800" : defaultPic}/>        {/*if there's a photourl, use it, otherwise use the default image (the ?height=500 to make sure the picture sent is resized to 500px tall*/}
-                <div className="panel-name">{user.displayName || "Joe Bruin"}</div>                                 {/*if there's no displayName, use the default name "Joe Bruin"*/}
-                <div className="panel-options">
-                  <ul className="panel-options-list">
-                    <li className="panel-options-item">Profile</li>                                                 {/** @todo relocate to Profile page*/}
-                    <li className="panel-options-item">Sketches</li>                                                {/** @todo relocate to sketches page*/}
-                    <li className="panel-options-item" onClick={logout}>Signout</li>
-                  </ul>
-                </div>
-              </div>
-              <div className="editor-footer">
-                <img className="editor-footer-image" src="img/tla-footer.png"/>
-              </div>
-            </div>
-          </Dock>
-        </div>
-        <div style={codeStyle}>
-          <SplitPane
-            pane1Style={this.state.paneStyle} 
-            split="vertical"                              //the resizer is a vertical line (horizontal means resizer is a horizontal bar)
-            minSize={window.innerWidth*(1-size)/4}        //minimum size of code is 25% of screen not including panel adn max size is 50%
-            maxSize={isVisible ? window.innerWidth*(1-size)*3/4 : window.innerWidth*3/4}      //maximum size is 75% of the screen if the panel  is open, 50% otherwise
-            size={codeSize}                           //the initial size of the text editor section
-            allowResize={true}
-            onChange={ (codeSize) => {
-              this.setState({codeSize, paneStyle:{transition:"none"}})
-            }}
-          >
-            <div  className="code-section">
-              <div className="editor-header">
-                {/*if the left panel is open, show an empty div, otherwise show a > that when clicked, opens the panel*/}
-                {isVisible ? <div className='editor-expand-panel' style={{width:"0px", padding:"0"}}/> : <div className='editor-expand-panel' title="Open Profile Panel" onClick={this.handleOnVisibleChange}>></div>}
-                <div className="editor-language-dropdown">
-                  <Dropdown
-                    isOpen={isOpen}
-                    toggle={()=>{this.setState({isOpen:!isOpen})}}
-                  >
-                    <DropdownToggle caret>   {/* caret adds the downward arrow next to the selected language */}
-                      <div style={{display:"inline-block"}}>{language}</div>                                {/*language comes from the state, it represents the currently selected language*/}
-                    </DropdownToggle>
-                    <DropdownMenu>
-                      <DropdownItem onClick={() => {this.setState({language:"Python", mode:this.nameToMode("Python")})}}>Python</DropdownItem>
-                      <DropdownItem onClick={() => {this.setState({language:"Javascript", mode:this.nameToMode("Javascript")})}}>Javascript</DropdownItem>
-                      <DropdownItem onClick={() => {this.setState({language:"Processing", mode:this.nameToMode("Processing")})}}>Processing</DropdownItem>
-                      <DropdownItem onClick={() => {this.setState({language:"Java", mode:this.nameToMode("Java")})}}>Java</DropdownItem>
-                      {/* <DropdownItem onClick={() => {this.setState({language:"C++", mode:this.nameToMode("C++")})}}>C++</DropdownItem> */} {/*disabled bc C++ is gross and probably not wanted*/}
-                      <DropdownItem onClick={() => {this.setState({language:"HTML", mode:this.nameToMode("HTML")})}}>HTML</DropdownItem>
-                    </DropdownMenu>
-                  </Dropdown>
-                </div>
-                <div className="editor-run">
-                  <button className="editor-run-button">
-                    <div className="editor-run-button-content">
-                    <span style={{flex:"1 1 auto", width:"100%"}}>></span>    {/* > takes up as much space as possible while the Run Code is fixed size*/}
-                    <span style={{flex:"0 0 auto"}}>
-                      Run Code
-                    </span>
-                    </div>
-                  </button>
-                </div>
-              </div>
-              <div className="text-editor-container">
-                {/**
-                 * @prop {function} editorDidMount - used for selected line highlighting
-                 * @prop {function} onCursor - passed a codeMirrorInstance; triggered when the user changes the line the cursor is on;
-                */}
-                <CodeMirror
-                  editorDidMount={(codeMirrorInstance)=>{this.setState({codeMirrorInstance})}}     
-                  value={this.state.code}                                                           
-                  lineWrapping                                                                      
-                  height="100%"                                                                     
-                  options={options}                                                                 
-                  onCursor={(nextState)=>{                                                          
-                    const {codeMirrorInstance, currentLine} = this.state
-                    let {line} = nextState.getCursor()
-                    if(codeMirrorInstance){
-                      codeMirrorInstance.removeLineClass(currentLine, 'wrap', 'selected-line')    //removeLineClass removes the back highlight style from the last selected line
-                      codeMirrorInstance.addLineClass(line, 'wrap', 'selected-line')              //addLineClass adds the style to the newly selected line
-                    }
-                    this.setState({currentLine:line})
-                  }}
-                  onBeforeChange={(editor, data, code) => {
-                    this.setState({code});
-                  }}
-                  onChange={(editor, data, code) => {
-                    this.updateCode(code);
-                  }}
-                />
-              </div>
-            </div>
-            <div className="editor-output">
-              <div className="editor-header">
-                <div style={{flex:"1 1 auto"}}> </div>
-                <div className="editor-run">
-                  <button className="editor-run-button" style={{backgroundColor:"#ec4848"}}>
-                      Clear
-                  </button>
-                </div>
-              </div>
-              <div className="editor-output-content">
-              </div>
-            </div>
-          </SplitPane>
-        </div>
+        <ProfilePanel
+          handleOnSizeChange={this.handleOnSizeChange}
+          handleOnVisibleChange={this.handleOnVisibleChange}
+          isVisible={isVisible}
+          logout={this.logout}
+          panelStyle={panelStyle}
+          size={size}
+          user={user}
+        />
+        <Main
+          paneStyle={paneStyle}
+          minSize={window.innerWidth*(1-size)/4}
+          maxSize={isVisible ? window.innerWidth*(1-size)*3/4 : window.innerWidth*3/4}
+          size={codeSize}
+          allowResize={true}
+          onSplitPaneChange={this.splitPaneChangeHandler}
+          handleOnVisibleChange={this.handleOnVisibleChange}
+          isVisible={isVisible}
+          isOpen={isOpen}
+          handleDropdownToggle={this.dropdownToggleHandler}
+          changeMode={this.changeMode}
+          setCodeMirrorInstance={this.setCodeMirrorInstance}
+          code={code}
+          setCurrentLine={this.setCurrentLine}
+          codeStyle={codeStyle}
+          language={language}
+          mode={mode}
+          setPaneStyle={this.setPaneStyle}
+        />
       </div>
     );
 	}
 }
 
 export default Editor;
+
+
+{/* <ProfilePanel
+handleOnSizeChange={this.handleOnSizeChange}
+handleOnVisibleChange={this.handleOnVisibleChange}
+isVisible={isVisible}
+logout={this.logout}
+panelStyle={panelStyle}
+size={size}
+user={user}
+/> */}
