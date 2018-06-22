@@ -6,7 +6,10 @@ import {DEFAULT_MODE} from '../../constants'
 // Specify imports for codemirror usage
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/material.css';
+import '../../styles/CustomCM.css'
+import '../../styles/Resizer.css'
 import '../../styles/Editor.css'
+import '../../styles/Panel.css'
 
 import defaultPic from '../../img/defaultProfile.png'
 
@@ -14,8 +17,8 @@ class Editor extends React.Component {
 
   /**
    * constructor
-   * 
-   * @param {object} props 
+   *
+   * @param {object} props
    *    @key {object} user - information of user; (should never be null bc if someone's not logged in, sends them to the login page)
    *      @key {}
    *    @key {function} logout - redux action to log the user out, brings you to homepage after (bc if you're not logged in, you're rerouted to the home page)
@@ -24,11 +27,11 @@ class Editor extends React.Component {
     super(props);
     /**
      * state
-     * 
+     *
      *  @key {string} code        - contents of the text editor
      *      @todo allow user to load in previous code/set the opening language/starter code
      *  @key {boolean} isVisible  - true if left panel is open, false otherwise
-     *  @key {float} size         - size of the left panel; fraction of the screen width 
+     *  @key {float} size         - size of the left panel; fraction of the screen width
      *  @key {float} prevSize     - last size of screen; used to determine if the collapse button was used or the panel resizer is being used (makes slide transition of panel work)
      *  @key {float} codeSize     - width of the text editor (the middle panel); fraction of the screen width
      *  @key {boolean} isOpen     - true if language selector dropdown is open, false otherwise
@@ -57,7 +60,7 @@ class Editor extends React.Component {
    *    example: nameToMode("C++") returns "text/x-csrc"
    *    @todo add more languages/add all of them and let the user determine which to use
    *  @param {string} name - the presentation name (the name seen in the language selector dropdown)
-   *  
+   *
    *  @return {string} - mode used by CodeMirror for syntax highlighting (if there is no conversion, defaults to constant)
    */
   nameToMode = (name) => {
@@ -85,7 +88,7 @@ class Editor extends React.Component {
    *  handleOnVisibleChange - handler for when the collapse panel button or expand panel button is pressed
    *    if the panel is open, closes it and sets the size to 0
    *    if the panel is closed, opens it and sets the size to 0.25 (25% of the screen)
-   * 
+   *
    */
   handleOnVisibleChange = () => {
     this.setState({
@@ -96,12 +99,12 @@ class Editor extends React.Component {
       paneStyle:{transition:"width 0.3s ease"},
     })
   }
-  
+
 
   /**
    *  handleOnSizeChange - handler for when the panel is being resized by the resizer (right edge of the panel)
    *    stores the old size in prevSize
-   *    
+   *
    *    @param {float} newSize - the new size of the panel as a fraction of the width of the screen
    */
   handleOnSizeChange = (newSize) => {
@@ -120,7 +123,7 @@ class Editor extends React.Component {
     this.setState({codeMirrorInstance})
   }
 
-  setCurrentLine = (nextState)=>{                                                          
+  setCurrentLine = (nextState)=>{
       const {codeMirrorInstance, currentLine} = this.state
       let {line} = nextState.getCursor()
       if(codeMirrorInstance){
@@ -133,10 +136,10 @@ class Editor extends React.Component {
   splitPaneChangeHandler = (codeSize) => {
       this.setState({codeSize, paneStyle:{transition:"none"}})
   }
-  
+
   /**
    *  updateCode - handler for when text in the text editor changes
-   *    
+   *
    *    @param {float} newCode - the new text in the screen (not just what changed, the whole text)
    */
   updateCode = (newCode) => {
@@ -161,12 +164,12 @@ class Editor extends React.Component {
       return (<Redirect to="/login"/>)
     }
 
-    //panelSize: {string} - how much of the screen the panel will take up 
+    //panelSize: {string} - how much of the screen the panel will take up
     let panelSize=(size*100.0).toString() + '%'
 
     //style to be applied to left panel
     let panelStyle = {width:panelSize}            //width of the panel should always be the percent of its size (which is a decimal)
-    
+
     //style to be applied to non panel (sections containing text editor and code output)
     let codeStyle = {
       position:"fixed",                                                        //fixed bc we're using left
@@ -176,7 +179,7 @@ class Editor extends React.Component {
       transition:(prevSize != size && (size != 0.0 || prevSize != 0.0)) ? "" : "left 0.2s ease-out, opacity 0.01s linear" //if they're using the slider to change the length of the panel, dont use a transition, otherwise (meaning they're using the toggle button) use a transition where when the left changes, it eases out
     }
 
-   
+
     return(
       <div className="editor">
         <ProfilePanel

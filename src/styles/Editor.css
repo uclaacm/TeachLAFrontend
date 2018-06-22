@@ -16,7 +16,7 @@
 	align-items:flex-start;
 	max-height:100vh;
 	overflow-y:auto;
-	background-color: #857e8f;  
+	background-color: #857e8f;
 }
 .editor-header{
 	min-height:50px;
@@ -54,7 +54,6 @@
 	height:40px;
 	background-color: #4CAF50;
 	display: inline-block;
-	/* padding: 15px 25px; */
 	font-size: 24px;
 	cursor: pointer;
 	text-align: center;
@@ -85,101 +84,17 @@ box-shadow: 1px 1px #666;
 transform: translateY(2px);
 }
 
-.panel{
-	display:flex;
-	height:100%;
-	box-sizing:border-box;
-	width:100%;
-    background-color: #272134;  
-	flex-direction:column;
-	align-items:center;
-	justify-content:flex-start;
-	box-sizing:content-box;
-	margin:0;
-	min-width:225px;
-	padding:0;
-	overflow:hidden;
-}
-
-.panel-collapse-button{
-	display:flex;
-	padding:1rem;
-    color:#dddcdf;
-	width:100%;
-	justify-content: flex-end;
-	cursor:pointer;
-}
-
-.panel-content{
-	display:flex;
-	widtH:100%;
-	min-width:300px;
-	flex-direction:column;
-	align-items:center;
-	justify-content:flex-start;
-	overflow-y:auto;
-	overflow-x:hidden;
-}
-
-.panel-image{
-	border-radius:500px;
-	border: 1px solid #dddcdf;
-	width:30%;
-	min-width:225px;
-	/*background:#000;*/ /*if you leave this out, transparent profile pictures will show the background behind it*/
-}
-
-.panel-name{
-	width:25vw;
-	float:middle;
-	text-align:center;	
-	padding:27px 0 5px;
-	font-size:2.5rem;
-	font-weight: bold;
-    color:#dddcdf;
-}
-
-.panel-options{
-	width:100%;
-    list-style-position: inside;
-	list-style-type:square;
-	font-size:2.5rem;
-	text-align:center;
-	justify-content: flex-start;
-}
-
-.panel-options-list{
-	display:inline-block;
-	padding:0px;
-	margin-top: 25px;
-}
-
-.panel-options-item{
-	font-weight:normal;
-	font-size:2.5rem;
-	width:fit-content;
-	margin:0px;
-    color:#dddcdf;
-	justify-content: flex-start;
-}
-
-.panel-options-item:hover{
-	font-weight:bold;
-	color:"#cdcccf";
-}
-
-
-.editor-footer{    
+.editor-footer{
 	width:100%;
 	margin-top:auto;
     height: 10vh;                             /*calc used to do arithmetic*/
-    background-color: #473d5d;  
+    background-color: #473d5d;
     text-align:center;
 	align-items: center;
 	padding-top:auto;
 }
 
-.editor-footer-image{      
+.editor-footer-image{
     height: 100%;
 }
 
@@ -195,144 +110,16 @@ transform: translateY(2px);
 	border-top:1px white solid;
 }
 
-/*css given from react-split-pane github*/
-.Resizer {
-	background: #000;
-	opacity: .2;
-	z-index: 1;
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
-	-moz-background-clip: padding;
-	-webkit-background-clip: padding;
-	background-clip: padding-box;
-}
- .Resizer:hover {
-	-webkit-transition: all 2s ease;
-	transition: all 2s ease;
-}
-
- .Resizer.horizontal {
-	height: 11px;
-	margin: -5px 0;
-	border-top: 5px solid rgba(255, 255, 255, 0);
-	border-bottom: 5px solid rgba(255, 255, 255, 0);
-	cursor: w-resize;
-	width: 100%;
-}
-
-.Resizer.horizontal:hover {
-	border-top: 5px solid rgba(0, 0, 0, 0.5);
-	border-bottom: 5px solid rgba(0, 0, 0, 0.5);
-}
-
-.Resizer.vertical {
-	width: 11px;
-	margin: 0 -5px;
-	border-left: 5px solid rgba(255, 255, 255, 0);
-	border-right: 5px solid rgba(255, 255, 255, 0);
-	cursor: w-resize;
-}
-
-.Resizer.vertical:hover {
-	border-left: 5px solid rgba(0, 0, 0, 0.5);
-	border-right: 5px solid rgba(0, 0, 0, 0.5);
-}
-.Resizer.disabled {
-  cursor: not-allowed;
-}
-.Resizer.disabled:hover {
-  border-color: transparent;
-}
-
-.react-codemirror2{
-	padding-right: 1px;
-	max-width:100%;
-	max-height:inherit;
-	border-top:1px white solid;
-	background-color:#857e8f;
-	padding-top:20px;
-	height:100%;
-}
-
 .text-editor-container{
 	flex-grow:1 1;
 	max-height:92vh;
 	width:100%;
 	height:100%;
 }
-  
-.react-codemirror2 ::-webkit-scrollbar {
-    width: 10px;
-}
-
-/* Track */
-.react-codemirror2 ::-webkit-scrollbar-track {
-    background: #f1f1f1; 
-} 
- 
-/* Handle */
-.react-codemirror2 ::-webkit-scrollbar-thumb {
-    background: #57535e;
-}
-
-/* Handle on hover */
-.react-codemirror2 ::-webkit-scrollbar-thumb:hover {
-    background: #2f2d33;
-}
-
-
-.cm-s-material.CodeMirror{
-	box-sizing:border-box;
-	max-width: inherit;
-	max-height: inherit;
-	min-height: inherit;
-	background-color: rgb(38, 50, 56, 0.0);
-	font-family: 'Ubuntu Mono', monospace; 
-	color:white;
-	font-size:18px;
-	height:100%
-}
-
-.CodeMirror pre {
-    padding-left: 5px;
-    padding-right: 4px;
-}
-
-.cm-s-material .CodeMirror-gutters{
-	background-color: #857e8f;  
-	/* border-right:1px solid white; */
-	  /* color:white; */
-}
-.cm-s-material .CodeMirror-guttermarker, .cm-s-material .CodeMirror-guttermarker-subtle, .cm-s-material .CodeMirror-linenumber{
-	color:white;
-}
-
-.cm-s-material .CodeMirror-guttermarker, .cm-s-material .CodeMirror-guttermarker-subtle, .cm-s-material .CodeMirror-linenumber{
-	text-align:left;
-	padding-left:15px;
-}
-
-.cm-s-material .cm-comment{
-	color:#c792ea;
-}
-
-.cm-s-material span.cm-keyword{
-	color:#583c4f;
-}
-
-.cm-s-material span.cm-def{
-	color:#9deaf4;
-}
-
-.cm-s-material span.cm-variable{
-	/* color:#8dade2; */
-	color:#e8c406;
-}
 
 .btn:not(:disabled):not(.disabled){
 	font-size:24px;
-	font-family: 'Josefin Sans', sans-serif;      /*font for the whole login page*/
+	font-family: 'Josefin Sans', sans-serif;      /*font for the whole login page */
 	background-color:#857e8f;
 	color:white;
 	border:0px;
