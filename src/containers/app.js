@@ -20,7 +20,7 @@ class App extends React.Component {
 	}
 
 	componentWillMount = () =>{
-		firebase.auth().onAuthStateChanged(this.onAuthHandler)	 
+		firebase.auth().onAuthStateChanged(this.onAuthHandler)
 	}
 
 	onAuthHandler = (user) => {
@@ -36,41 +36,39 @@ class App extends React.Component {
 	render() {
 		let {loggedIn} = this.props
 		let {checkedAuth, width, height} = this.state
-		console.log(loggedIn)
 		//if we haven't checked if the user is logged in yet, show a loading screen
 		if(!checkedAuth){
 			return (<LoadingPage/>)
 		}
-
 		return (
 				<Router>
 		 		 <div className="App">
 		 		 	{/*if the user is loggedIn, redirect them to the editor, otherwise, show the login page*?*/}
-					<Route exact path="/" render={() => (		
+					<Route exact path="/" render={() => (
 							loggedIn ? (
 								<Redirect to="/editor"/>
-							) : (<LoginPage provider={provider} width={width} height={height}/>)	
+							) : (<LoginPage provider={provider} width={width} height={height}/>)
 						)}
 					/>
 					{/*if the user is loggedIn, redirect them to the editor, otherwise, show the login page*?*/}
-					<Route path="/login" render={() => (		
+					<Route path="/login" render={() => (
 							loggedIn ? (
 								<Redirect to="/editor"/>
-							) : (<LoginPage provider={provider} width={width} height={height}/>)	
+							) : (<LoginPage provider={provider} width={width} height={height}/>)
 						)}
 					/>
 					{/*if the user is not loggedIn, redirect them to the login page, otherwise, show the editor page*?*/}
-					<Route path="/editor" render={() => (		
+					<Route path="/editor" render={() => (
 							!loggedIn ? (
 								<Redirect to="/login"/>
-							) : (<EditorPage/>)	
+							) : (<EditorPage/>)
 						)}
 					/>
 					{/*if the user is loggedIn, redirect them to the editor page, otherwise, show the createUser page*?*/}
-					<Route path="/createUser" render={() => (		
+					<Route path="/createUser" render={() => (
 							loggedIn ? (
 								<Redirect to="/editor"/>
-							) : (<CreateUserPage/>)	
+							) : (<CreateUserPage/>)
 						)}
 					/>
 					<Route path="/test" component={EditorPage}/>

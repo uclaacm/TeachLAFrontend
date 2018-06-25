@@ -3,15 +3,14 @@ import ProfilePanel from './components/ProfilePanel'
 import Main from './components/Main'
 import {Redirect} from 'react-router'
 import {DEFAULT_MODE} from '../../constants'
+import firebase from 'firebase'
 // Specify imports for codemirror usage
-import 'codemirror/lib/codemirror.css';
-import 'codemirror/theme/material.css';
+import 'codemirror/lib/codemirror.css'
+import 'codemirror/theme/material.css'
 import '../../styles/CustomCM.css'
 import '../../styles/Resizer.css'
 import '../../styles/Editor.css'
 import '../../styles/Panel.css'
-
-import defaultPic from '../../img/defaultProfile.png'
 
 class Editor extends React.Component {
 
@@ -148,15 +147,23 @@ class Editor extends React.Component {
     });
   }
 
-  //DEPRECATED: eventually going to make an API call and wait for the result to come back
+  /**
+   * runCode - handler for when user presses the run code button
+   *
+   *  @todo Add checking for syntactically incorrect html.  Display error message when this happens.
+   */
   runCode = () => {
-    // eval(this.state.code);
+    if(this.state.mode === 'htmlmixed' || this.state.mode === 'javascript'){
+      this.setState({
+        runResult: this.state.code,
+      });
+		}
   }
   /**
    *  render
    */
 	render() {
-    const {isVisible, size, prevSize, isOpen, language, mode, codeMirrorInstance, codeSize, paneStyle, code} = this.state
+    const {isVisible, size, prevSize, isOpen, language, mode, codeMirrorInstance, codeSize, paneStyle, code, runResult} = this.state
     const {logout, user} = this.props
 
     //if somehow the router breaks and a non-logged in user gets to the editor, reroute the user back to the login page
@@ -176,7 +183,7 @@ class Editor extends React.Component {
       width:((1.0-size)*100.0).toString() + '%',                               //take up the rest of the screen/screen not being used by the left panel
       height:"100%",
       left:panelSize,                             //panelSize determines how far left of the screen the code should be
-      transition:(prevSize != size && (size != 0.0 || prevSize != 0.0)) ? "" : "left 0.2s ease-out, opacity 0.01s linear" //if they're using the slider to change the length of the panel, dont use a transition, otherwise (meaning they're using the toggle button) use a transition where when the left changes, it eases out
+      transition:(prevSize !== size && (size !== 0.0 || prevSize !== 0.0)) ? "" : "left 0.2s ease-out, opacity 0.01s linear" //if they're using the slider to change the length of the panel, dont use a transition, otherwise (meaning they're using the toggle button) use a transition where when the left changes, it eases out
     }
 
 
@@ -203,6 +210,9 @@ class Editor extends React.Component {
           isOpen={isOpen}
           handleDropdownToggle={this.dropdownToggleHandler}
           changeMode={this.changeMode}
+          updateCode={this.updateCode}
+          runCode={this.runCode}
+          runResult={runResult}
           setCodeMirrorInstance={this.setCodeMirrorInstance}
           code={code}
           setCurrentLine={this.setCurrentLine}
@@ -219,7 +229,7 @@ class Editor extends React.Component {
 export default Editor;
 
 
-{/* <ProfilePanel
+/*{ <ProfilePanel
 handleOnSizeChange={this.handleOnSizeChange}
 handleOnVisibleChange={this.handleOnVisibleChange}
 isVisible={isVisible}
@@ -227,4 +237,4 @@ logout={this.logout}
 panelStyle={panelStyle}
 size={size}
 user={user}
-/> */}
+/> }*/
