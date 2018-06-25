@@ -18,7 +18,7 @@ class CodeSection extends React.Component {
 	constructor(props){
 		super(props)
     }
-    
+
     // componentDidUpdate(){
     //     if(this.props.paneStyle.transition != "none"){
     //         this.props.setPaneStyle({transition:"none"})
@@ -27,23 +27,22 @@ class CodeSection extends React.Component {
 
 	render(){																													//called deconstruction; pulling children, triggerLogin, ..., textPadding out of props
         const { codeStyle, paneStyle, minSize, maxSize, size, allowResize, onSplitPaneChange, handleOnVisibleChange,
-                isVisible, isOpen, handleDropdownToggle, changeMode, setCodeMirrorInstance, updateCode,
-                setCurrentLine, code, language, mode
+                isVisible, isOpen, handleDropdownToggle, changeMode, runCode, setCodeMirrorInstance, updateCode,
+                setCurrentLine, code, language, mode, runResult
         } = this.props
-        
         //json required by CodeMirror
         const options = {
             mode,
             theme: 'material',          //requires lots of CSS tuning to get a theme to work, be wary of changing
             lineNumbers: true,          //text editor has line numbers
-            lineWrapping:true,          //text editor does not overflow in the x direction, uses word wrap (NOTE: it's like MO Word wrapping, so words are not cut in the middle, if a word overlaps, the whole word is brough to the next line)
+            lineWrapping:true,          //text editor does not overflow in the x direction, uses word wrap (NOTE: it's like MO Word wrapping, so words are not cut in the middle, if a word overlaps, the whole word is brought to the next line)
         };
 
-        console.log(paneStyle)
+        console.log("Pane style: " + JSON.stringify(paneStyle))
 		return (
             <div style={codeStyle}>
                 <SplitPane
-                    pane1Style={paneStyle} 
+                    pane1Style={paneStyle}
                     split="vertical"                              //the resizer is a vertical line (horizontal means resizer is a horizontal bar)
                     minSize={minSize}                             //minimum size of code is 25% of screen not including panel adn max size is 50%
                     maxSize={maxSize}                             //maximum size is 75% of the screen if the panel  is open, 50% otherwise
@@ -73,7 +72,7 @@ class CodeSection extends React.Component {
                                 </DropdownMenu>
                             </Dropdown>
                         </div>
-                        <div className="editor-run">
+                        <div className="editor-run" onClick={runCode}>
                             <button className="editor-run-button">
                             <div className="editor-run-button-content">
                             <span style={{flex:"1 1 auto", width:"100%"}}>></span>    {/* > takes up as much space as possible while the Run Code is fixed size*/}
@@ -90,11 +89,11 @@ class CodeSection extends React.Component {
                         * @prop {function} onCursor - passed a codeMirrorInstance; triggered when the user changes the line the cursor is on;
                         */}
                         <CodeMirror
-                            editorDidMount={(codeMirrorInstance)=>{setCodeMirrorInstance(codeMirrorInstance)}}     
-                            value={code}                                                           
-                            lineWrapping                                                                      
-                            height="100%"                                                                     
-                            options={options}                                                                 
+                            editorDidMount={(codeMirrorInstance)=>{setCodeMirrorInstance(codeMirrorInstance)}}
+                            value={code}
+                            lineWrapping
+                            height="100%"
+                            options={options}
                             onCursor={(nextState)=>{setCurrentLine(nextState)}}
                             onBeforeChange={(editor, data, newCode) => {
                                 updateCode(newCode)
@@ -116,12 +115,13 @@ class CodeSection extends React.Component {
                         </div>
                         <div className="editor-output-content">
                         </div>
+												{/* html-output is an iframe canvas that displays html typed into the editor.  It only displays when html is the selected language*/}
+												<iframe className="html-output" style={{display: options.mode === 'htmlmixed' ? 'flex' : 'none'}} srcDoc={runResult}></iframe>
                     </div>
                 </SplitPane>
             </div>
 	    )
 	}
 }
- 
+
 export default CodeSection
-       
