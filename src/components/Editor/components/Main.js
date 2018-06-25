@@ -27,7 +27,7 @@ class CodeSection extends React.Component {
 
 	render(){																													//called deconstruction; pulling children, triggerLogin, ..., textPadding out of props
         const { codeStyle, paneStyle, minSize, maxSize, size, allowResize, onSplitPaneChange, handleOnVisibleChange,
-                isVisible, isOpen, handleDropdownToggle, changeMode, runCode, setCodeMirrorInstance, updateCode,
+                isVisible, isOpen, handleDropdownToggle, changeMode, runCode, setCodeMirrorInstance, updateCode, clearOutput,
                 setCurrentLine, code, language, mode, runResult
         } = this.props
         //json required by CodeMirror
@@ -107,7 +107,7 @@ class CodeSection extends React.Component {
                     <div className="editor-output">
                         <div className="editor-header">
                         <div style={{flex:"1 1 auto"}}> </div>
-                        <div className="editor-run">
+                        <div className="editor-run" onClick={clearOutput}>
                             <button className="editor-run-button" style={{backgroundColor:"#ec4848"}}>
                                 Clear
                             </button>
@@ -115,8 +115,10 @@ class CodeSection extends React.Component {
                         </div>
                         <div className="editor-output-content">
                         </div>
-												{/* html-output is an iframe canvas that displays html typed into the editor.  It only displays when html is the selected language*/}
-												<iframe className="html-output" style={{display: options.mode === 'htmlmixed' ? 'flex' : 'none'}} srcDoc={runResult}></iframe>
+												{/* html-output is an iframe canvas that displays html typed into the editor.  It only displays when html is the selected language
+													  about: blank makes it so that the clear button will clear the html appropriately when pressed.  Otherwise, old content persists.
+												 */}
+												<iframe className="html-output" style={{display: options.mode === 'htmlmixed' ? 'flex' : 'none'}} srcDoc={runResult} src='about:blank'></iframe>
                     </div>
                 </SplitPane>
             </div>

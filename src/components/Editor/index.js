@@ -159,6 +159,16 @@ class Editor extends React.Component {
       });
 		}
   }
+
+  /**
+   * clearOutput - clears the output screen when a user presses clear button
+   */
+  clearOutput = () => {
+    this.setState({
+      runResult: null,
+    });
+  }
+
   /**
    *  render
    */
@@ -212,6 +222,7 @@ class Editor extends React.Component {
           changeMode={this.changeMode}
           updateCode={this.updateCode}
           runCode={this.runCode}
+          clearOutput={this.clearOutput}
           runResult={runResult}
           setCodeMirrorInstance={this.setCodeMirrorInstance}
           code={code}
