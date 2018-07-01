@@ -51,6 +51,7 @@ class Editor extends React.Component {
       codeMirrorInstance:null,
       currentLine:0,
       paneStyle:{transition:"none"},
+      isProcessing:false,
     };
   }
 
@@ -76,7 +77,11 @@ class Editor extends React.Component {
   }
 
   changeMode = (language) => {
-    this.setState({language, mode:this.nameToMode(language)})
+    this.setState({
+      language,
+      mode: this.nameToMode(language),
+      isProcessing: language === "Processing",
+    })
   }
 
   dropdownToggleHandler = () => {
@@ -173,7 +178,7 @@ class Editor extends React.Component {
    *  render
    */
 	render() {
-    const {isVisible, size, prevSize, isOpen, language, mode, codeMirrorInstance, codeSize, paneStyle, code, runResult} = this.state
+    const {isVisible, size, prevSize, isOpen, language, mode, codeMirrorInstance, codeSize, paneStyle, code, runResult, isProcessing} = this.state
     const {logout, user} = this.props
 
     //if somehow the router breaks and a non-logged in user gets to the editor, reroute the user back to the login page
@@ -231,6 +236,7 @@ class Editor extends React.Component {
           language={language}
           mode={mode}
           setPaneStyle={this.setPaneStyle}
+          isProcessing={isProcessing}
         />
       </div>
     );
