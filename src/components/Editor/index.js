@@ -52,6 +52,7 @@ class Editor extends React.Component {
       currentLine:0,
       paneStyle:{transition:"none"},
       isProcessing:false,
+      hotReload:false,
     };
   }
 
@@ -178,7 +179,10 @@ class Editor extends React.Component {
    *  render
    */
 	render() {
-    const {isVisible, size, prevSize, isOpen, language, mode, codeMirrorInstance, codeSize, paneStyle, code, runResult, isProcessing} = this.state
+    const {isVisible, size, prevSize, isOpen, language, mode,
+           codeSize, paneStyle, code, runResult, isProcessing,
+           hotReload,
+    } = this.state
     const {logout, user} = this.props
 
     //if somehow the router breaks and a non-logged in user gets to the editor, reroute the user back to the login page
@@ -208,7 +212,7 @@ class Editor extends React.Component {
           handleOnSizeChange={this.handleOnSizeChange}
           handleOnVisibleChange={this.handleOnVisibleChange}
           isVisible={isVisible}
-          logout={this.logout}
+          logout={this.props.logout}
           panelStyle={panelStyle}
           size={size}
           user={user}
@@ -237,6 +241,7 @@ class Editor extends React.Component {
           mode={mode}
           setPaneStyle={this.setPaneStyle}
           isProcessing={isProcessing}
+          hotReload={hotReload}
         />
       </div>
     );
@@ -244,14 +249,3 @@ class Editor extends React.Component {
 }
 
 export default Editor;
-
-
-/*{ <ProfilePanel
-handleOnSizeChange={this.handleOnSizeChange}
-handleOnVisibleChange={this.handleOnVisibleChange}
-isVisible={isVisible}
-logout={this.logout}
-panelStyle={panelStyle}
-size={size}
-user={user}
-/> }*/

@@ -18,29 +18,23 @@ import 'codemirror/mode/clike/clike.js';
 class CodeSection extends React.Component {
 	constructor(props){
 		super(props)
-    }
+  }
 
-    // componentDidUpdate(){
-    //     if(this.props.paneStyle.transition != "none"){
-    //         this.props.setPaneStyle({transition:"none"})
-    //     }
-    // }
+  renderClosePanelButton = () => {
+    const {isVisible, handleOnVisibleChange} = this.props
   
-    renderClosePanelButton = () => {
-      const {isVisible, handleOnVisibleChange} = this.props
-    
-      //if the left panel is open, show an empty div, otherwise show a > that when clicked, opens the panel
-      if(isVisible){
-        return (
-          <div className='editor-expand-panel' style={{width:"0px", padding:"0"}}/>
-        )
-      }
-      
+    //if the left panel is open, show an empty div, otherwise show a > that when clicked, opens the panel
+    if(isVisible){
       return (
-        <div className='editor-expand-panel' title="Open Profile Panel" onClick={handleOnVisibleChange}>
-          >
-        </div>
+        <div className='editor-expand-panel' style={{width:"0px", padding:"0"}}/>
       )
+    }
+    
+    return (
+      <div className='editor-expand-panel' title="Open Profile Panel" onClick={handleOnVisibleChange}>
+        >
+      </div>
+    )
   }
   
   renderDropdown = () => {
@@ -85,7 +79,7 @@ class CodeSection extends React.Component {
   }
 
   renderTextEditor = () => {
-    const {code, setCurrentLine, updateCode, setCodeMirrorInstance, mode} = this.props
+    const {code, setCurrentLine, updateCode, setCodeMirrorInstance, mode, runCode, hotReload} = this.props
 
     //json required by CodeMirror
     const options = {
@@ -112,6 +106,9 @@ class CodeSection extends React.Component {
           }}
           onChange={(editor, data, newCode) => {
               updateCode(newCode)
+              if(hotReload){
+                runCode(newCode)
+              }
           }}
       />
     )

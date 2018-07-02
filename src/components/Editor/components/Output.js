@@ -17,6 +17,9 @@ class Output extends React.Component {
     // html-output is an iframe canvas that displays html typed into the editor.  It only displays when html is the selected language
     //about: blank makes it so that the clear button will clear the html appropriately when pressed.  Otherwise, old content persists.
     const {runResult} = this.props
+    if(!runResult){
+      return null
+    }
 
     return (
       <iframe className="html-output"
