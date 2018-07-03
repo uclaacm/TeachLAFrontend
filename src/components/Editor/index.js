@@ -51,6 +51,8 @@ class Editor extends React.Component {
       codeMirrorInstance:null,
       currentLine:0,
       paneStyle:{transition:"none"},
+      isProcessing:false,
+      hotReload:false,
     };
   }
 
@@ -76,7 +78,11 @@ class Editor extends React.Component {
   }
 
   changeMode = (language) => {
-    this.setState({language, mode:this.nameToMode(language)})
+    this.setState({
+      language,
+      mode: this.nameToMode(language),
+      isProcessing: language === "Processing",
+    })
   }
 
   dropdownToggleHandler = () => {
@@ -159,11 +165,24 @@ class Editor extends React.Component {
       });
 		}
   }
+
+  /**
+   * clearOutput - clears the output screen when a user presses clear button
+   */
+  clearOutput = () => {
+    this.setState({
+      runResult: null,
+    });
+  }
+
   /**
    *  render
    */
 	render() {
-    const {isVisible, size, prevSize, isOpen, language, mode, codeMirrorInstance, codeSize, paneStyle, code, runResult} = this.state
+    const {isVisible, size, prevSize, isOpen, language, mode,
+           codeSize, paneStyle, code, runResult, isProcessing,
+           hotReload,
+    } = this.state
     const {logout, user} = this.props
 
     //if somehow the router breaks and a non-logged in user gets to the editor, reroute the user back to the login page
@@ -193,7 +212,7 @@ class Editor extends React.Component {
           handleOnSizeChange={this.handleOnSizeChange}
           handleOnVisibleChange={this.handleOnVisibleChange}
           isVisible={isVisible}
-          logout={this.logout}
+          logout={this.props.logout}
           panelStyle={panelStyle}
           size={size}
           user={user}
@@ -212,6 +231,7 @@ class Editor extends React.Component {
           changeMode={this.changeMode}
           updateCode={this.updateCode}
           runCode={this.runCode}
+          clearOutput={this.clearOutput}
           runResult={runResult}
           setCodeMirrorInstance={this.setCodeMirrorInstance}
           code={code}
@@ -220,6 +240,8 @@ class Editor extends React.Component {
           language={language}
           mode={mode}
           setPaneStyle={this.setPaneStyle}
+          isProcessing={isProcessing}
+          hotReload={hotReload}
         />
       </div>
     );
@@ -227,14 +249,3 @@ class Editor extends React.Component {
 }
 
 export default Editor;
-
-
-/*{ <ProfilePanel
-handleOnSizeChange={this.handleOnSizeChange}
-handleOnVisibleChange={this.handleOnVisibleChange}
-isVisible={isVisible}
-logout={this.logout}
-panelStyle={panelStyle}
-size={size}
-user={user}
-/> }*/
