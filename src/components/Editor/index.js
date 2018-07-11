@@ -65,11 +65,12 @@ class Editor extends React.Component {
    */
   getMostRecentDoc(collectionRef, filter=null){
     if(filter && filter.fieldPath && filter.opStr && filter.value){
-      return collectionRef.where(filter.fieldPath, filter.opStr, filter.value).orderBy(CREATION_DATE, DESCENDING).limit(1).get()
+      return collectionRef.where(filter.fieldPath, filter.opStr, filter.value).orderBy(MODIFICATION_DATE, DESCENDING).limit(1).get()
     }
     else{
-      // Return the most recently created program.  TODO: Change this to return the most recently worked on program
-      return collectionRef.orderBy(CREATION_DATE, DESCENDING).limit(1).get()
+      // Return the most recently worked on program.
+      console.log(collectionRef.orderBy(MODIFICATION_DATE, DESCENDING).limit(1).size)
+      return collectionRef.orderBy(MODIFICATION_DATE, DESCENDING).limit(1).get()
     }
   }
   /**
@@ -205,7 +206,18 @@ class Editor extends React.Component {
   updateCode = (newCode) => {
     this.setState({
       code: newCode,
-    });
+    }, () => {
+      this.uploadCode(this.state.language, this.state.code)
+    })
+  }
+
+  uploadCode = (language, newCode) => {
+    let codeDoc = this.state.userSketches.doc(`${language}`)
+    codeDoc.update({
+      code: newCode,
+      lastModified: new Date(Date.now())
+    })
+
   }
 
   /**

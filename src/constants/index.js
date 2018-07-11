@@ -1,4 +1,4 @@
-// TODO: Break up large constants file into smaller constants file 
+// TODO: Break up large constants file into smaller constants file
 
 module.exports = {
     SERVER_URL:'http://localhost:8081',
@@ -12,7 +12,7 @@ module.exports = {
     /* FIRESTORE/DB */
     DESCENDING: "desc",
     LANGUAGE: "language",
-    MODIFICATION_DATE: "modificationDate",
+    MODIFICATION_DATE: "lastModified",
     CREATION_DATE: "creationDate",
     CODE: "code",
     PROGRAM_PATH: "programs",
