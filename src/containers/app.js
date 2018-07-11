@@ -23,13 +23,20 @@ class App extends React.Component {
 		firebase.auth().onAuthStateChanged(this.onAuthHandler)
 	}
 
-	onAuthHandler = (user) => {
+	onAuthHandler = async (user) => {
 		this.setState({checkedAuth:true})
-		if (user && user.displayName) {
+		if (user) {
 			let {displayName, email, photoURL, refreshToken, uid} = user
-			this.props.login({displayName, email, photoURL, refreshToken, uid})
+
+			displayName = displayName || "New User"
+
+			if(email && uid){
+				this.props.loadUserData({displayName, email, photoURL, refreshToken, uid})
+			} else {
+				firebase.auth().signOut()
+			}
 		} else {
-			this.props.logout()
+			this.props.clearUserData()
 		}
 	}
 

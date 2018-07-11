@@ -16,7 +16,7 @@ class ProfilePanel extends React.Component {
   }
 
   render(){                                                          //called deconstruction; pulling children, triggerLogin, ..., textPadding out of props
-    const {panelStyle, isVisible, size, handleOnSizeChange, handleOnVisibleChange, user, logout} = this.props
+    const {panelStyle, isVisible, size, handleOnSizeChange, handleOnVisibleChange, user, clearUserData} = this.props
     return (
       <div style={panelStyle}>
         <Dock position='left'
@@ -41,7 +41,7 @@ class ProfilePanel extends React.Component {
             <ul className="panel-options-list">
               <li className="panel-options-item">Profile</li>                         {/** @todo relocate to Profile page*/}
               <li className="panel-options-item">Sketches</li>                        {/** @todo relocate to sketches page*/}
-              <li className="panel-options-item" onClick={logout}>Sign out</li>
+              <li className="panel-options-item" onClick={clearUserData}>Sign Out</li>
             </ul>
             </div>
           </div>

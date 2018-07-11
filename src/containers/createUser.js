@@ -1,4 +1,3 @@
-import React from 'react';
 import CreateUser from '../components/CreateUser'
 import {connect} from 'react-redux'
 

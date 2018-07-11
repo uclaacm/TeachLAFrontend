@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux'
-import loggedIn from './loggedIn'
+import userDataReducers from './userDataReducers'
 
 const appReducers = combineReducers({							//after we get more state, we'll add more reducers here
-  loggedIn
+  userDataReducers
 })
 
 export default appReducers

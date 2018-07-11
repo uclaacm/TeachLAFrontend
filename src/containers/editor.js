@@ -1,32 +1,26 @@
-import React from 'react';
 import Editor from '../components/Editor'
 import {connect} from 'react-redux'
 import {compose} from 'redux'
-import {login, logout} from '../actions'
+import {clearUserData,} from '../actions/userDataActions'
 import firebase from 'firebase'
-import {withFirestore, firestoreConnect} from 'react-redux-firebase'
+import {withFirestore} from 'react-redux-firebase'
 import {PROGRAM_PATH} from '../constants'
 
 const mapStateToProps = state => {
   return {
-    user: state.app.loggedIn,
+    user: state.app.userDataReducers,
     programs: state.firestore.data[PROGRAM_PATH]
   }
 }
 
 const mapDispatchToProps = dispatch => {
 	return {
-		logout: () => {
+		clearUserData: () => {
 			firebase.auth().signOut()
-			dispatch(logout())
+			dispatch(clearUserData())
 		}
 	}
 }
-
-const wrappedEditor = connect(
-mapStateToProps,
-mapDispatchToProps
-)
 
 const EditorPage = compose(connect(
   mapStateToProps,
