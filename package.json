@@ -6,7 +6,6 @@
     "ajv": "^6.4.0",
     "bad-words": "^1.6.1",
     "bootstrap": "4.1.1",
-    "circular-json": "^0.5.5",
     "codemirror": "^5.37.0",
     "crypto-js": "^3.1.9-1",
     "firebase": "^5.0.3",
@@ -36,5 +35,8 @@
     "eject": "react-scripts eject",
     "dev": "concurrently --kill-others-on-fail \"yarn start\" \"yarn server\"",
     "server": "nodemon app.js"
+  },
+  "devDependencies": {
+    "circular-json": "^0.5.5"
   }
 }
