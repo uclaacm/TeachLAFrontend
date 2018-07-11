@@ -6,8 +6,8 @@ import firebase from 'firebase'
 import AES from 'crypto-js/aes'
 import SHA256 from 'crypto-js/sha256'
 import Filter from 'bad-words'
-// import '../styles/app.css'
 import '../../styles/CreateUser.css'
+import {login} from '../../actions'
 import {SERVER_URL,
     MINIMUM_USERNAME_LENGTH,
     MINIMUM_PASSWORD_LENGTH,
@@ -20,22 +20,27 @@ import {SERVER_URL,
 const filter = new Filter();
 
 class CreateUser extends React.Component {
-	constructor(props){
-		super(props)
-		this.state={
-            username:"",
-            password:"",
-            displayName:"",
-            waiting:false,
-            message:null,
-            usernameMessage:null,
-            passwordMessage:null,
-            displaynameMessage:null,
-        }
-
-        this.handleFetchSuccess = this.handleFetchSuccess.bind(this)
-        this.handleFetchFailure = this.handleFetchFailure.bind(this)
+    /**
+     * constructor - sets initial state and props
+     * @param {Object} props - properties passed down by the super component
+     */
+  	constructor(props){
+  		super(props)
+  		this.state={
+              username:"",
+              password:"",
+              displayName:"",
+              waiting:false,
+              message:null,
+              usernameMessage:null,
+              passwordMessage:null,
+              displaynameMessage:null,
+      }
+      this.props = props
+      // this.handleFetchSuccess = this.handleFetchSuccess.bind(this)
+      // this.handleFetchFailure = this.handleFetchFailure.bind(this)
     }
+
 
     checkInputs = () => {
         const {username, password, displayName} = this.state
@@ -87,44 +92,50 @@ class CreateUser extends React.Component {
         }
         return badInputs
     }
-    
-    handleFetchSuccess = async function(response){
-        let {ok, data} = await response.json();
 
-        console.log(ok)
-        console.log(data)
-        if(!data){
-            this.setState({waiting:false, message: "Failed to connect to server..."})
-            return
-        }
+    // NOTE: THIS CODE IS NO LONGER USED
+    // handleFetchSuccess = async function(response){
+    //     let {ok, data} = await response.json();
+    //
+    //     console.log(ok)
+    //     console.log(data)
+    //     if(!data){
+    //         this.setState({waiting:false, message: "Failed to connect to server..."})
+    //         return
+    //     }
+    //
+    //     //checking ok second bc maybe there is no response and thus there would be no data; ok can be either true or false so !ok would happen for both cases
+    //     if(!ok){
+    //         let {code, message} = data                      //if ok is false, data will be a json with 2 keys containing strings, code and message
+    //         console.log(message)
+    //         if(!message){
+    //             this.setState({waiting:false, message:"Failed to get error message from server..."})
+    //             return
+    //         }
+    //         this.setState({waiting:false, message:message.replace(/uid/i, 'username')})             //replace instances of uid in the error string with username
+    //         return
+    //     }
+    //
+    //     //if no errors occured, log in the user with the token sent by the server
+    //     firebase.auth().signInWithCustomToken(data)
+    // }
+    //
+    // handleFetchFailure = (err) => {
+    //   this.setState({waiting:false, message: "Failed to communicate with server..."})
+    // }
+    // NOTE: END OF OLD CODE
 
-        //checking ok second bc maybe there is no response and thus there would be no data; ok can be either true or false so !ok would happen for both cases
-        if(!ok){
-            let {code, message} = data                      //if ok is false, data will be a json with 2 keys containing strings, code and message
-            console.log(message)
-            if(!message){                                               
-                this.setState({waiting:false, message:"Failed to get error message from server..."})
-                return
-            }
-            this.setState({waiting:false, message:message.replace(/uid/i, 'username')})             //replace instances of uid in the error string with username
-            return
-        }
-
-        //if no errors occured, login the user with the token sent by the server
-        firebase.auth().signInWithCustomToken(data)
-    }
-    
-    handleFetchFailure = (err) => {
-        this.setState({waiting:false, message: "Failed to communicate with server..."})
-    }
-
+    /**
+     * submit - this function executes on the click of the button to create a new user on the
+     * createUser page
+     * @param  {HTMLElement} e - solely used to prevent default page behavior on the clicking
+     * of the button
+     * @return {void}   submit returns early if the inputs passed by a prospective user
+     * are bad.
+     */
     submit = (e) => {
         e.preventDefault()
         const {username, password, displayName} = this.state
-
-        console.log(username.match(/[^a-zA-Z0-9!@#$%]/))
-        console.log(username.length)
-        // console.log(username.match(/[^a-zA-Z\d]/))
 
         let badInputs = this.checkInputs()
 
@@ -136,7 +147,7 @@ class CreateUser extends React.Component {
         this.setState({waiting:true, message:null})
 
         let url = `${SERVER_URL}/createUser`
-        
+
         /**
          * createRequest json as follows
          * {
@@ -150,13 +161,12 @@ class CreateUser extends React.Component {
          *  uid: string
          * }
          */
-        
+
         let content = {
             uid: SHA256(username).toString(),
             password: SHA256(password).toString(),
             displayName: displayName,
         }
-        
 
         let init = {
             method: 'POST',
@@ -165,15 +175,40 @@ class CreateUser extends React.Component {
               'content-type': 'application/json'
             },
         }
-    
-        return fetch(url, init)
-            .then(this.handleFetchSuccess)
-            .catch(this.handleFetchFailure)
+
+        // TODO: consider changing sign in to legitimately take emails.  This would
+        // allow us to verify emails, and would remove substantial code complexity
+        // that stands now.
+
+        // This is part of the firebase email/password workaround.
+        // We create an email lookalike to trick firebase into thinking the user
+        // signed up with an email, instead of a username, display name, and password
+        let email = String(content.uid) + "@fake.com"
+        let display_name = content.displayName
+
+        // Once the user is registered by firebase, we update their profile to include a
+        // display name
+        firebase.auth().createUserWithEmailAndPassword(email, content.password).then(() => {
+          let user = firebase.auth().currentUser
+          user.updateProfile({
+            displayName: display_name
+          }).then(function(){
+            // in order to reflect the display name change, the user is signed out,
+            // and signed back in
+            firebase.auth().signOut().then(function(){
+              firebase.auth().signInWithEmailAndPassword(email, content.password)
+            })
+          })
+        }).catch(function(error){
+          let errorCode = error.code
+          let errorMessage = error.message
+          console.error(errorMessage)
+        })
     }
 
 	render() {
 		let {loggedIn} = this.props
-        let {waiting, message, usernameMessage, passwordMessage, displaynameMessage} = this.state
+    let {waiting, message, usernameMessage, passwordMessage, displaynameMessage} = this.state
 		//if we haven't checked if the user is logged in yet, show a loading screen
 
 
@@ -209,9 +244,9 @@ class CreateUser extends React.Component {
                                 {displaynameMessage ? <div style={{color:'red', fontSize:'0.8em'}}>{displaynameMessage}</div> : <br/>}
                             </div>
                             <RingLoader
-                            color={'#171124'} 
+                            color={'#171124'}
                             size={50}
-                            loading={waiting} 
+                            loading={waiting}
                             />
                             {message ? <div style={{color:'red'}}>{message}</div> : <span/>}
                             <button className='create-form-button' type="submit">create</button>

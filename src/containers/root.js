@@ -10,14 +10,14 @@ import {login, logout} from '../actions'
 
 const mapStateToProps = state => {
   return {
-    loggedIn: state.loggedIn
+    loggedInUserData: state.app.loggedIn
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    login: (id) => {
-      dispatch(login(id))
+    login: (userData) => {
+      dispatch(login(userData))
     },
     logout: () => {
       dispatch(logout())

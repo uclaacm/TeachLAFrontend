@@ -2,8 +2,9 @@ import React from 'react';
 import ProfilePanel from './components/ProfilePanel'
 import Main from './components/Main'
 import {Redirect} from 'react-router'
-import {DEFAULT_MODE} from '../../constants'
+import {LANGUAGE, CREATION_DATE, MODIFICATION_DATE, CODE, DESCENDING, DEFAULT_MODE} from '../../constants';
 import firebase from 'firebase'
+
 // Specify imports for codemirror usage
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/theme/material.css'
@@ -24,23 +25,10 @@ class Editor extends React.Component {
    */
   constructor(props) {
     super(props);
-    /**
-     * state
-     *
-     *  @key {string} code        - contents of the text editor
-     *      @todo allow user to load in previous code/set the opening language/starter code
-     *  @key {boolean} isVisible  - true if left panel is open, false otherwise
-     *  @key {float} size         - size of the left panel; fraction of the screen width
-     *  @key {float} prevSize     - last size of screen; used to determine if the collapse button was used or the panel resizer is being used (makes slide transition of panel work)
-     *  @key {float} codeSize     - width of the text editor (the middle panel); fraction of the screen width
-     *  @key {boolean} isOpen     - true if language selector dropdown is open, false otherwise
-     *  @key {string} language    - name displayed in the language selector dropdown; for presentation, need to convert this name into the mode for CodeMirror
-     *  @key {string} mode        - mode to be used in the options for CodeMirror, modes can be found here https://github.com/codemirror/CodeMirror/tree/master/mode
-     *  @key {object} codeMirrorInstance   - component instance of CodeMirror; used to highlight the line the cursor is on
-     *  @key {int} currentLine    - cursor is currently on this line (initialized to 0 bc it is the line number - 1, i.e. the first line)
-     */
+    this.getMostRecentDoc.bind(this)
     this.state = {
-      code: "def helloWorld():\n\tprint(\"Hello world!\")\n\nhelloWorld()",
+      userSketches: this.props.firestore.collection(`users/${this.props.user.uid}/programs`),
+      code: "",
       isVisible:true,
       size:0.25,
       prevSize:0.25,
@@ -54,6 +42,52 @@ class Editor extends React.Component {
       isProcessing:false,
       hotReload:false,
     };
+
+    this.getMostRecentDoc(this.state.userSketches).then((queryResult) => {
+      if(queryResult && queryResult.docs[0]){
+        let doc = queryResult.docs[0]
+        this.setStateFromDoc(doc, [LANGUAGE, CODE])
+      }
+    })
+  }
+
+  /**
+   * getMostRecentDoc - fetches the most recent code document/sketch from user's programs in firestore.
+   * Queries are moderately controllable by passing in a filter that is passed into firestore's
+   * where(): see https://firebase.google.com/docs/firestore/query-data/queries.
+   * @param  {firebase.firestore.CollectionReference} collectionRef - the collection to parse for a most recent doc
+   * @param  {object} [filter=null] filter controls what documents get ordered in query.
+   *   Fields:
+   *          fieldPath: field in firestore to order by.
+   *          opStr: operation to filter by. Currently only '==' is supported
+   *          value: where()'s value field. TODO: enforce enum like selection of query enabled fields
+   * @return {Promise} this Promise resolves once the most recent doc has been discovered or no document has been found
+   */
+  getMostRecentDoc(collectionRef, filter=null){
+    if(filter && filter.fieldPath && filter.opStr && filter.value){
+      return collectionRef.where(filter.fieldPath, filter.opStr, filter.value).orderBy(CREATION_DATE, DESCENDING).limit(1).get()
+    }
+    else{
+      // Return the most recently created program.  TODO: Change this to return the most recently worked on program
+      return collectionRef.orderBy(CREATION_DATE, DESCENDING).limit(1).get()
+    }
+  }
+  /**
+   * setStateFromDoc - sets attributes of component state from firestore doc state.
+   * At current, attributes in the state and in the doc have to be identically named
+   * in order to set component state correctly
+   * @param {firebase.firestore.DocumentReference} doc  The doc to use as a state source
+   * @param {String Array} attributes attributes to find within the doc and correspondingly
+   * set in the state
+   */
+  setStateFromDoc = (doc, attributes) => {
+    if(doc && doc.exists){
+      let stateToBeMerged = new Object()
+      attributes.forEach(function(attr){
+        stateToBeMerged[attr] = doc.data()[attr]
+      })
+      this.setState(stateToBeMerged)
+    }
   }
 
   /**
@@ -61,27 +95,48 @@ class Editor extends React.Component {
    *    example: nameToMode("C++") returns "text/x-csrc"
    *    @todo add more languages/add all of them and let the user determine which to use
    *  @param {string} name - the presentation name (the name seen in the language selector dropdown)
-   *
    *  @return {string} - mode used by CodeMirror for syntax highlighting (if there is no conversion, defaults to constant)
    */
   nameToMode = (name) => {
+    name = name.toLowerCase()
     const conversion={
-      "Python":"python",
-      "Javascript":"javascript",
-      "C++":"text/x-csrc",
-      "Java":"text/x-java",
-      "HTML":"htmlmixed",
-      "Processing":"javascript",
+      "python":"python",
+      "javascript":"javascript",
+      "c++":"text/x-csrc",
+      "java":"text/x-java",
+      "html":"htmlmixed",
+      "processing":"javascript",
     }
 
     return conversion[name] || DEFAULT_MODE   //if there's no conversion, use the DEFAULT_MODE
   }
 
+  // TODO: remove side effects of change mode, break most of changeMode's code into a more transparent function
+  /**
+   * changeMode - sets the language mode, also changing the document retrieved from firestore
+   * @param  {String} language - the language to switch to.  This language value should be given
+   * as seen in the store, one of the following: ["HTML", "Javascript", "Java", "Python", "Processing"(unimplemented/unsupported)]
+   * TODO: Implement Processing
+   * @return {[type]}          [description]
+   */
   changeMode = (language) => {
-    this.setState({
-      language,
-      mode: this.nameToMode(language),
-      isProcessing: language === "Processing",
+    let filter = {
+      fieldPath: "language",
+      opStr: "==",
+      value: language
+    }
+
+    this.getMostRecentDoc(this.state.userSketches, filter).then((queryResult) => {
+      if(queryResult && queryResult.docs[0]){
+        this.setState({
+          language,
+          mode: this.nameToMode(language),
+          isProcessing: language === "processing",
+        })
+        let doc = queryResult.docs[0]
+        this.setStateFromDoc(doc, [LANGUAGE, CODE])
+        this.clearOutput()
+      }
     })
   }
 
@@ -107,17 +162,21 @@ class Editor extends React.Component {
 
 
   /**
-   *  handleOnSizeChange - handler for when the panel is being resized by the resizer (right edge of the panel)
+   *  onSizeChangeHandler - handler for when the panel is being resized by the resizer (right edge of the panel)
    *    stores the old size in prevSize
    *
    *    @param {float} newSize - the new size of the panel as a fraction of the width of the screen
    */
-  handleOnSizeChange = (newSize) => {
+  onSizeChangeHandler = (newSize) => {
     this.setState({
       size:newSize,
       prevSize:this.state.size,         //storing the previous size in prevSize
       paneStyle:{transition:"none"},
     })
+  }
+
+  splitPaneChangeHandler = (codeSize) => {
+      this.setState({codeSize, paneStyle:{transition:"none"}})
   }
 
   setPaneStyle = (newPaneStyle) => {
@@ -136,10 +195,6 @@ class Editor extends React.Component {
           codeMirrorInstance.addLineClass(line, 'wrap', 'selected-line')              //addLineClass adds the style to the newly selected line
       }
       this.setState({currentLine:line})
-  }
-
-  splitPaneChangeHandler = (codeSize) => {
-      this.setState({codeSize, paneStyle:{transition:"none"}})
   }
 
   /**
@@ -209,7 +264,7 @@ class Editor extends React.Component {
     return(
       <div className="editor">
         <ProfilePanel
-          handleOnSizeChange={this.handleOnSizeChange}
+          handleOnSizeChange={this.onSizeChangeHandler}
           handleOnVisibleChange={this.handleOnVisibleChange}
           isVisible={isVisible}
           logout={this.props.logout}
@@ -229,6 +284,7 @@ class Editor extends React.Component {
           isOpen={isOpen}
           handleDropdownToggle={this.dropdownToggleHandler}
           changeMode={this.changeMode}
+
           updateCode={this.updateCode}
           runCode={this.runCode}
           clearOutput={this.clearOutput}

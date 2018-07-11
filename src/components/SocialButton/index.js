@@ -9,35 +9,17 @@ import '../../styles/SocialButton.css'
 		textPadding: string representing padding to the left of the text, i.e. distance from the img (give px units)
 */
 
-class Button extends React.Component {
-	constructor(props){
-		super(props)
-	}
-
-	render(){																													//called deconstruction; pulling children, triggerLogin, ..., textPadding out of props
-		let { children, handleLogin, bgColor, imgSrc, value, textColor, textPadding, ...props } = this.props 	//and putting the rest of the props in a variable called props (the ...props part)
-		let buttonStyle = {}																									//good for trying to pull out certain props you don't wanna pass
-		if(bgColor)																												//if they specified backgroundColor, textColor, or textPadding, change the style of the buttons
-			buttonStyle.backgroundColor = bgColor
-		if(textColor)
-			buttonStyle.color = textColor
-
-		let textStyle ={}
-		if(textPadding)
-			textStyle.left = textPadding
-		return (
-		  <button className="login-button" style={buttonStyle} onClick={handleLogin}> {/*Style in React is different than css, you give it a JSON with camelcased keys of css like background-color is backgroundColor*/}
-		  	<div style={{position:'relative'}}>
-			  	<span className="login-button-content">
-			  		{imgSrc ? <img className="login-button-img" alt="Login" src={imgSrc}/> : <span/>}
-			  		<span className="login-button-text" style={textStyle}>
-			    		{ children ? children : (value ? value : "Login") }						{/*if there's children, render the children, otherwise if value is defined, render value, otherwise just render "Login"*/}
-			  		</span>
-			    </span>
-		    </div>
-		  </button>
-	    )
-	}
-}
+const Button = (props) => (
+	<button className="login-button" style={{backgroundColor: props.bgColor ? props.bgColor : props.textColor}} onClick={props.handleLogin}> {/*Style in React is different than css, you give it a JSON with camelcased keys of css like background-color is backgroundColor*/}
+		<div style={{position:'relative'}}>
+			<span className="login-button-content">
+				{props.imgSrc ? <img className="login-button-img" alt="Login" src={props.imgSrc}/> : <span/>}
+				<span className="login-button-text" style={{left: props.textPadding ? props.textPadding: '0px'}}>
+					{ props.children ? props.children : (props.value ? props.value: "Login")} {/*if there's children, render the children, otherwise if value is defined, render value, otherwise just render "Login"*/}
+				</span>
+			</span>
+		</div>
+	</button>
+)
 
 export default Button

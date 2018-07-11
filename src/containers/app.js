@@ -25,16 +25,16 @@ class App extends React.Component {
 
 	onAuthHandler = (user) => {
 		this.setState({checkedAuth:true})
-		if (user) {
+		if (user && user.displayName) {
 			let {displayName, email, photoURL, refreshToken, uid} = user
-		 	this.props.login({displayName, email, photoURL, refreshToken, uid})
+			this.props.login({displayName, email, photoURL, refreshToken, uid})
 		} else {
 			this.props.logout()
 		}
 	}
 
 	render() {
-		let {loggedIn} = this.props
+		let {loggedInUserData} = this.props
 		let {checkedAuth, width, height} = this.state
 		//if we haven't checked if the user is logged in yet, show a loading screen
 		if(!checkedAuth){
@@ -45,28 +45,28 @@ class App extends React.Component {
 		 		 <div className="App">
 		 		 	{/*if the user is loggedIn, redirect them to the editor, otherwise, show the login page*?*/}
 					<Route exact path="/" render={() => (
-							loggedIn ? (
+							loggedInUserData ? (
 								<Redirect to="/editor"/>
 							) : (<LoginPage provider={provider} width={width} height={height}/>)
 						)}
 					/>
 					{/*if the user is loggedIn, redirect them to the editor, otherwise, show the login page*?*/}
 					<Route path="/login" render={() => (
-							loggedIn ? (
+							loggedInUserData ? (
 								<Redirect to="/editor"/>
 							) : (<LoginPage provider={provider} width={width} height={height}/>)
 						)}
 					/>
 					{/*if the user is not loggedIn, redirect them to the login page, otherwise, show the editor page*?*/}
 					<Route path="/editor" render={() => (
-							!loggedIn ? (
+							!loggedInUserData ? (
 								<Redirect to="/login"/>
 							) : (<EditorPage/>)
 						)}
 					/>
 					{/*if the user is loggedIn, redirect them to the editor page, otherwise, show the createUser page*?*/}
 					<Route path="/createUser" render={() => (
-							loggedIn ? (
+							loggedInUserData ? (
 								<Redirect to="/editor"/>
 							) : (<CreateUserPage/>)
 						)}

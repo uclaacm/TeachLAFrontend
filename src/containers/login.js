@@ -1,19 +1,8 @@
 import React from 'react';
 import Login from '../components/Login'
 import {connect} from 'react-redux'
-import {login, logout} from '../actions'
-// class LoginPage extends React.Component {
-//   render() {
-//     return(
-//       <div>
-//         <Login></Login>
-//       </div>
-//     )
-//   }
-// }
-
-// export default LoginPage;
-
+// import {dispatch} from 'redux'
+import {login, logout, loginFailure} from '../actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -29,6 +18,9 @@ const mapDispatchToProps = dispatch => {
     },
     logout: () => {
       dispatch(logout())
+    },
+    loginFailure: (err) => {
+      dispatch(loginFailure(err))
     }
   }
 }

@@ -41,7 +41,7 @@ class ProfilePanel extends React.Component {
             <ul className="panel-options-list">
               <li className="panel-options-item">Profile</li>                         {/** @todo relocate to Profile page*/}
               <li className="panel-options-item">Sketches</li>                        {/** @todo relocate to sketches page*/}
-              <li className="panel-options-item" onClick={logout}>Signout</li>
+              <li className="panel-options-item" onClick={logout}>Sign out</li>
             </ul>
             </div>
           </div>
