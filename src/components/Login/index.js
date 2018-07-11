@@ -25,25 +25,8 @@ class LoginForm extends React.Component {
 		}
 	}
 
-	/**
-	 * codeToErrorMessage - maps a firebase authentication error to a more human
-	 * readable form
-	 * @param  {String} code - authentication code returned by firebase
-	 */
-	codeToErrorMessage = (code) => {
-		switch(code){
-			case "auth/user-not-found":
-				return "Username not found. Please check spelling"
-			case "auth/wrong-password":
-				return "Incorrect password. Please try again"
-			case "auth/too-many-requests":
-				return "Too many login attempts. Wait a few seconds before next login attempt"
-			default:
-				return "Incorrect username password combination. Please try again"
-		}
-	}
-
-  updateDimensions = () => {
+	// TODO: bind
+  updateDimensions(){
       this.setState({curWidth:window.innerWidth, curHeight:window.innerHeight});
   }
 
@@ -65,12 +48,14 @@ class LoginForm extends React.Component {
 		e: event sent by the form
 	*/
 
-	handleLoginFailure = (err) => {
-		this.props.loadFailure(this.codeToErrorMessage(err.code))
-		this.setState({waiting:false, message:this.codeToErrorMessage(err.code)})
+	// TODO: bind
+	handleLoginFailure(err){
+		this.props.loadFailure(err.message)
+		this.setState({waiting:false, message:err.message})
 	}
 
-	handleLogin = (e) =>{
+	// TODO: bind
+	handleLogin(e){
 		e.preventDefault()						//prevents page from reloading after submitting form
 		firebase.auth().signInWithEmailAndPassword(SHA256(this.state.username).toString() + "@fake.com", SHA256(this.state.password).toString())
 			.catch(this.handleLoginFailure)

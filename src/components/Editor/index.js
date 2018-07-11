@@ -25,7 +25,6 @@ class Editor extends React.Component {
    */
   constructor(props) {
     super(props);
-    this.getMostRecentDoc.bind(this)
     this.state = {
       userSketches: this.props.firestore.collection(`users/${this.props.user.uid}/programs`),
       code: "",
@@ -46,7 +45,46 @@ class Editor extends React.Component {
     this.getMostRecentDoc(this.state.userSketches).then((queryResult) => {
       if(queryResult && queryResult.docs[0]){
         let doc = queryResult.docs[0]
-        this.setStateFromDoc(doc, [LANGUAGE, CODE])
+        this.switchToSketch(doc)
+      }
+    })
+  }
+
+  /**
+   * switchToSketch - switch to a sketch document object in a code editor.
+   * NOTE: While flexible, If we end up supporting documents other than sketches,
+   * then this function may fail unless we constrain the type of document we are
+   * switching to.
+   * @param  {firebase.firestore.DocumentReference} sketchDoc - the sketch object in
+   * firestore to switch to.
+   */
+  switchToSketch(sketchDoc){
+    if(sketchDoc && sketchDoc.exists){
+      let language = sketchDoc.data()[LANGUAGE]
+      this.changeMode(language)
+      this.setStateFromDoc(sketchDoc, [LANGUAGE, CODE])
+    }
+  }
+
+  /**
+   * switchToSketchInLanguage - switches the editor view to a sketch most recently
+   * edited in language specified by the user. NOTE: This method will have no purpose if
+   * we opt to go with a plurality of sketches in a given language, but until then,
+   * it is very useful
+   * @param  {String} language - the language to switch to, specified not as a code but
+   * as a language name eg. HTML instead of htmlmixed
+   */
+  switchToSketchInLanguage(language){
+    let filter = {
+      fieldPath: "language",
+      opStr: "==",
+      value: language
+    }
+
+    this.getMostRecentDoc(this.state.userSketches, filter).then((queryResult) => {
+      if(queryResult && queryResult.docs[0]){
+        let doc = queryResult.docs[0]
+        this.switchToSketch(doc)
       }
     })
   }
@@ -69,10 +107,10 @@ class Editor extends React.Component {
     }
     else{
       // Return the most recently worked on program.
-      console.log(collectionRef.orderBy(MODIFICATION_DATE, DESCENDING).limit(1).size)
       return collectionRef.orderBy(MODIFICATION_DATE, DESCENDING).limit(1).get()
     }
   }
+
   /**
    * setStateFromDoc - sets attributes of component state from firestore doc state.
    * At current, attributes in the state and in the doc have to be identically named
@@ -121,23 +159,10 @@ class Editor extends React.Component {
    * @return {[type]}          [description]
    */
   changeMode = (language) => {
-    let filter = {
-      fieldPath: "language",
-      opStr: "==",
-      value: language
-    }
-
-    this.getMostRecentDoc(this.state.userSketches, filter).then((queryResult) => {
-      if(queryResult && queryResult.docs[0]){
-        this.setState({
-          language,
-          mode: this.nameToMode(language),
-          isProcessing: language === "processing",
-        })
-        let doc = queryResult.docs[0]
-        this.setStateFromDoc(doc, [LANGUAGE, CODE])
-        this.clearOutput()
-      }
+    this.setState({
+      language,
+      mode: this.nameToMode(language),
+      isProcessing: language === "processing",
     })
   }
 
@@ -295,7 +320,7 @@ class Editor extends React.Component {
           isVisible={isVisible}
           isOpen={isOpen}
           handleDropdownToggle={this.dropdownToggleHandler}
-          changeMode={this.changeMode}
+          changeMode={this.switchToSketchInLanguage.bind(this)}
 
           updateCode={this.updateCode}
           runCode={this.runCode}
