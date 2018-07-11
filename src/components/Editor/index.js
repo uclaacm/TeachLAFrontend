@@ -21,7 +21,7 @@ class Editor extends React.Component {
    * @param {object} props
    *    @key {object} user - information of user; (should never be null bc if someone's not logged in, sends them to the login page)
    *      @key {}
-   *    @key {function} logout - redux action to log the user out, brings you to homepage after (bc if you're not logged in, you're rerouted to the home page)
+   *    @key {function} clearUserData - redux action to log the user out, brings you to homepage after (bc if you're not logged in, you're rerouted to the home page)
    */
   constructor(props) {
     super(props);
@@ -238,7 +238,7 @@ class Editor extends React.Component {
            codeSize, paneStyle, code, runResult, isProcessing,
            hotReload,
     } = this.state
-    const {logout, user} = this.props
+    const { user} = this.props
 
     //if somehow the router breaks and a non-logged in user gets to the editor, reroute the user back to the login page
     if(!user){
@@ -267,7 +267,7 @@ class Editor extends React.Component {
           handleOnSizeChange={this.onSizeChangeHandler}
           handleOnVisibleChange={this.handleOnVisibleChange}
           isVisible={isVisible}
-          logout={this.props.logout}
+          clearUserData={this.props.clearUserData}
           panelStyle={panelStyle}
           size={size}
           user={user}

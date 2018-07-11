@@ -2,25 +2,25 @@ import React from 'react';
 import Login from '../components/Login'
 import {connect} from 'react-redux'
 // import {dispatch} from 'redux'
-import {login, logout, loginFailure} from '../actions'
+import {loadUserData, clearUserData, loadFailure} from '../actions/userDataActions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    loggedIn: state.loggedIn,
+    loggedIn: state.app.userDataReducers,
     ...ownProps,                        //all props passed to the container, put into the props
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    login: (id) => {
-      dispatch(login(id))
+    loadUserData: (user) => {
+      dispatch(loadUserData(user))
     },
-    logout: () => {
-      dispatch(logout())
+    clearUserData: () => {
+      dispatch(clearUserData())
     },
-    loginFailure: (err) => {
-      dispatch(loginFailure(err))
+    loadFailure: (err) => {
+      dispatch(loadFailure(err))
     }
   }
 }

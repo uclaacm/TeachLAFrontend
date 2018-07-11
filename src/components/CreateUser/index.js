@@ -1,20 +1,15 @@
 import React from 'react';
 import {RingLoader} from 'react-spinners'
 import {Link} from 'react-router-dom'
-import SocialButton from '../SocialButton'
 import firebase from 'firebase'
-import AES from 'crypto-js/aes'
 import SHA256 from 'crypto-js/sha256'
 import Filter from 'bad-words'
 import '../../styles/CreateUser.css'
-import {login} from '../../actions'
-import {SERVER_URL,
+import {
     MINIMUM_USERNAME_LENGTH,
     MINIMUM_PASSWORD_LENGTH,
-    MINIMUM_DISPLAY_NAME_LENGTH,
     MAXIMUM_USERNAME_LENGTH,
     MAXIMUM_PASSWORD_LENGTH,
-    MAXIMUM_DISPLAY_NAME_LENGTH,
 } from '../../constants';
 
 const filter = new Filter();
@@ -29,7 +24,6 @@ class CreateUser extends React.Component {
   		this.state={
               username:"",
               password:"",
-              displayName:"",
               waiting:false,
               message:null,
               usernameMessage:null,
@@ -43,7 +37,7 @@ class CreateUser extends React.Component {
 
 
     checkInputs = () => {
-        const {username, password, displayName} = this.state
+        const {username, password,} = this.state
         let badInputs = false
 
         if(username.length < MINIMUM_USERNAME_LENGTH){
@@ -75,67 +69,12 @@ class CreateUser extends React.Component {
             this.setState({passwordMessage:null})
         }
 
-        if(displayName.length < MINIMUM_DISPLAY_NAME_LENGTH){
-            this.setState({displaynameMessage:`Display Name must be at least ${MINIMUM_DISPLAY_NAME_LENGTH} characters`})
-            badInputs = true
-        } else if(displayName.length > MAXIMUM_DISPLAY_NAME_LENGTH){
-            this.setState({displaynameMessage:`Display Name must be at most ${MAXIMUM_DISPLAY_NAME_LENGTH} characters`})
-            badInputs = true
-        } else if(displayName.match(/[^a-zA-Z0-9!@#$% ]/)){
-            this.setState({displaynameMessage:"Display Name must only use upper case and lower case letters, numbers, spaces, and/or the special characters !@#$%"})
-            badInputs = true
-        } else if(filter.isProfane(displayName)) {
-            this.setState({displaynameMessage:"Display Name must not contain profanity"})
-            badInputs = true
-        } else {
-            this.setState({displaynameMessage:null})
-        }
         return badInputs
     }
 
-    // NOTE: THIS CODE IS NO LONGER USED
-    // handleFetchSuccess = async function(response){
-    //     let {ok, data} = await response.json();
-    //
-    //     console.log(ok)
-    //     console.log(data)
-    //     if(!data){
-    //         this.setState({waiting:false, message: "Failed to connect to server..."})
-    //         return
-    //     }
-    //
-    //     //checking ok second bc maybe there is no response and thus there would be no data; ok can be either true or false so !ok would happen for both cases
-    //     if(!ok){
-    //         let {code, message} = data                      //if ok is false, data will be a json with 2 keys containing strings, code and message
-    //         console.log(message)
-    //         if(!message){
-    //             this.setState({waiting:false, message:"Failed to get error message from server..."})
-    //             return
-    //         }
-    //         this.setState({waiting:false, message:message.replace(/uid/i, 'username')})             //replace instances of uid in the error string with username
-    //         return
-    //     }
-    //
-    //     //if no errors occured, log in the user with the token sent by the server
-    //     firebase.auth().signInWithCustomToken(data)
-    // }
-    //
-    // handleFetchFailure = (err) => {
-    //   this.setState({waiting:false, message: "Failed to communicate with server..."})
-    // }
-    // NOTE: END OF OLD CODE
-
-    /**
-     * submit - this function executes on the click of the button to create a new user on the
-     * createUser page
-     * @param  {HTMLElement} e - solely used to prevent default page behavior on the clicking
-     * of the button
-     * @return {void}   submit returns early if the inputs passed by a prospective user
-     * are bad.
-     */
     submit = (e) => {
         e.preventDefault()
-        const {username, password, displayName} = this.state
+        const {username, password} = this.state
 
         let badInputs = this.checkInputs()
 
@@ -146,69 +85,25 @@ class CreateUser extends React.Component {
 
         this.setState({waiting:true, message:null})
 
-        let url = `${SERVER_URL}/createUser`
-
-        /**
-         * createRequest json as follows
-         * {
-         *  disabled: boolean
-         *  displayName: string
-         *  email: string
-         *  emailVerified: boolean
-         *  password: string
-         *  phoneNumber: string
-         *  photoURL: string
-         *  uid: string
-         * }
-         */
-
         let content = {
             uid: SHA256(username).toString(),
             password: SHA256(password).toString(),
-            displayName: displayName,
         }
-
-        let init = {
-            method: 'POST',
-            body: JSON.stringify(content),
-            headers: {
-              'content-type': 'application/json'
-            },
-        }
-
-        // TODO: consider changing sign in to legitimately take emails.  This would
-        // allow us to verify emails, and would remove substantial code complexity
-        // that stands now.
 
         // This is part of the firebase email/password workaround.
         // We create an email lookalike to trick firebase into thinking the user
         // signed up with an email, instead of a username, display name, and password
         let email = String(content.uid) + "@fake.com"
-        let display_name = content.displayName
 
-        // Once the user is registered by firebase, we update their profile to include a
-        // display name
-        firebase.auth().createUserWithEmailAndPassword(email, content.password).then(() => {
-          let user = firebase.auth().currentUser
-          user.updateProfile({
-            displayName: display_name
-          }).then(function(){
-            // in order to reflect the display name change, the user is signed out,
-            // and signed back in
-            firebase.auth().signOut().then(function(){
-              firebase.auth().signInWithEmailAndPassword(email, content.password)
-            })
-          })
-        }).catch(function(error){
-          let errorCode = error.code
-          let errorMessage = error.message
-          console.error(errorMessage)
+        // regiser user in firebase
+        firebase.auth().createUserWithEmailAndPassword(email, content.password).catch((error) => {
+            console.log(error)
+            this.setState({waiting:false, errorMessage:error.message})
         })
     }
 
 	render() {
-		let {loggedIn} = this.props
-    let {waiting, message, usernameMessage, passwordMessage, displaynameMessage} = this.state
+        let {waiting, message, usernameMessage, passwordMessage} = this.state
 		//if we haven't checked if the user is logged in yet, show a loading screen
 
 
@@ -234,14 +129,6 @@ class CreateUser extends React.Component {
                                     onChange={(e)=>{this.setState({password:e.target.value})}}
                                 />
                                 {passwordMessage ? <div style={{color:'red', fontSize:'0.8em'}}>{passwordMessage}</div> : <br/>}
-                                <div className="create-form-input-header">
-                                    Display Name
-                                </div>
-                                <input className='create-form-input' type="text" name="displayname"
-                                    placeholder="First Last" value={this.state.displayName}
-                                    onChange={(e)=>{this.setState({displayName:e.target.value})}}
-                                />
-                                {displaynameMessage ? <div style={{color:'red', fontSize:'0.8em'}}>{displaynameMessage}</div> : <br/>}
                             </div>
                             <RingLoader
                             color={'#171124'}

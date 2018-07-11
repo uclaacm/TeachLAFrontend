@@ -5,7 +5,6 @@ import SHA256 from 'crypto-js/sha256'
 import SocialButton from '../SocialButton'
 import '../../styles/Login.css'
 import firebase from 'firebase'
-import {loginFailure} from '../../actions'
 import LoginInputs from './components/LoginInputs'
 
 class LoginForm extends React.Component {
@@ -67,7 +66,7 @@ class LoginForm extends React.Component {
 	*/
 
 	handleLoginFailure = (err) => {
-		loginFailure(this.codeToErrorMessage(err.code))
+		this.props.loadFailure(this.codeToErrorMessage(err.code))
 		this.setState({waiting:false, message:this.codeToErrorMessage(err.code)})
 	}
 
