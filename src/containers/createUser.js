@@ -1,5 +1,7 @@
 import CreateUser from '../components/CreateUser'
 import {connect} from 'react-redux'
+import {withFirestore} from 'react-redux-firebase'
+import {compose} from 'redux'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -11,9 +13,9 @@ const mapDispatchToProps = dispatch => {
   return {}
 }
 
-const CreateUserPage = connect(
+const CreateUserPage = compose(connect(
   mapStateToProps,
   mapDispatchToProps
-)(CreateUser)
+), withFirestore)(CreateUser)
 
 export default CreateUserPage

@@ -31,11 +31,19 @@ class CreateUser extends React.Component {
               displaynameMessage:null,
       }
       this.props = props
-      // this.handleFetchSuccess = this.handleFetchSuccess.bind(this)
-      // this.handleFetchFailure = this.handleFetchFailure.bind(this)
     }
 
-
+    /**
+     * checkInputs - validates username and password.
+     * The criteria checked:
+     *    -Username length: as defined in constants file
+     *    -Username characters: only alphanumeric characters, plus !@#$%
+     *    -Username profanity: please see bad-words package
+     *    -Password length: as defined in constants file
+     *    -Password characters: only alphanumeric characters, plus !@#$%
+     * @return {boolean} badInputs - indicates whether any of the inputs given do
+     * not fall within the criteria above
+     */
     checkInputs = () => {
         const {username, password,} = this.state
         let badInputs = false
@@ -72,6 +80,50 @@ class CreateUser extends React.Component {
         return badInputs
     }
 
+    /**
+     * createUserSketches - initializes sample sketches in firestore for the user.
+     * This function is intended for use only on user creation, as it makes an implicit
+     * assumption that the user is currently signed in, as is guaranteed on user creation.
+     */
+    createUserSketches = () => {
+      let uid = firebase.auth().currentUser.uid
+      if(firebase.auth().currentUser.uid){
+        // set general fields of user in firestore
+        let displayName = firebase.auth().currentUser.displayName
+        this.props.firestore.doc(`users/${uid}`).set({
+          displayName: (displayName ? displayName : ''),
+          uid: uid
+        })
+        // create template sketches and initialize their fields
+        const sketchTemplates = new Map([
+          ["Python", 'print("Hello World!")'],
+          ["Javascript", 'console.log("Hello World!")'],
+          ["Java", 'System.out.println("Hello World!")'],
+          ["HTML", "<html><head></head><body><div style='width: 100px; height: 100px; background-color: black'></div></body></html>"],
+          ["C++", 'std::cout << "Hello World!" << std::endl'],
+          ["Processing", "void setup(){} void draw(){}"]
+        ])
+        sketchTemplates.forEach((code, name) => {
+          this.props.firestore.doc(`users/${uid}/programs/${name}`).set({
+            language: name,
+            title: `my_first_${name.toLowerCase()}_sketch`,
+            creationDate: new Date(Date.now()),
+            lastModified: new Date(Date.now()),
+            code: code
+          })
+        })
+      }
+    }
+
+
+    /**
+    * submit - this function executes on the click of the button to create a new user on the
+    * createUser page
+    * @param  {HTMLElement} e - solely used to prevent default page behavior on the clicking
+    * of the button
+    * @return {void}   submit returns early if the inputs passed by a prospective user
+    * are bad.
+    */
     submit = (e) => {
         e.preventDefault()
         const {username, password} = this.state
@@ -96,17 +148,18 @@ class CreateUser extends React.Component {
         let email = String(content.uid) + "@fake.com"
 
         // regiser user in firebase
-        firebase.auth().createUserWithEmailAndPassword(email, content.password).catch((error) => {
-            console.log(error)
+        firebase.auth().createUserWithEmailAndPassword(email, content.password).then((user) => {
+          // initialize user sketches on successful account creation
+          this.createUserSketches()
+        }).catch((error) => {
+            console.log(error.message)
             this.setState({waiting:false, errorMessage:error.message})
         })
-    }
+   }
 
 	render() {
-        let {waiting, message, usernameMessage, passwordMessage} = this.state
+    let {waiting, errorMessage, usernameMessage, passwordMessage} = this.state
 		//if we haven't checked if the user is logged in yet, show a loading screen
-
-
 		return (
             <div className='create-page'>
                 <div className='create-page-content'>
@@ -135,7 +188,7 @@ class CreateUser extends React.Component {
                             size={50}
                             loading={waiting}
                             />
-                            {message ? <div style={{color:'red'}}>{message}</div> : <span/>}
+                            {errorMessage ? <div style={{color:'red'}}>{errorMessage}</div> : <span/>}
                             <button className='create-form-button' type="submit">create</button>
                             <Link to="/login" className="create-form-link">Already have an account? Click here to log in</Link>
                         </form>
