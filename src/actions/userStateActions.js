@@ -3,7 +3,6 @@ import firebase from 'firebase'
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export function loginRequest(){
-  console.log("LOGIN REQUEST.")
   return { type: LOGIN_REQUEST }
 }
 
@@ -18,14 +17,14 @@ export function loginCompleted(){
 }
 
 /**
- * onLoginRequest - using thunk middleware, I create an action that handles login and
+ * onLoginRequest - using thunk middleware, I create a thunk that handles login and
  * requests for the redux store to update global application state
  * @param  {String} emailHash    - a SHA256 hashed email
  * @param  {String} passwordHash - a SHA256 hashed password
  * @return {Promise} - a promise that results from the succesful sign in of a user and the
  * dispatching of loginCompleted
  */
-export function onLoginRequest(emailHash, passwordHash){
+export function onLoginRequest(emailHash, passwordHash, loginProvider=null){
   return (dispatch) => {
     if(emailHash && passwordHash){
       dispatch(loginRequest())
@@ -35,8 +34,14 @@ export function onLoginRequest(emailHash, passwordHash){
         dispatch(loginFailed(err.message))
       })
     }
+    else if(loginProvider){
+      dispatch(loginRequest())
+      return firebase.auth().signInWithPopup(loginProvider).catch(function(err){
+        dispatch(loginFailed(err.message))
+      })
+    }
     else{
-      throw "No email and password hash submitted for login request!"
+      throw "No email and password hash or provider submitted for login request!"
     }
   }
 }

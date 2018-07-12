@@ -24,8 +24,8 @@ const mapDispatchToProps = dispatch => {
     loadFailure: (err) => {
       dispatch(loadFailure(err))
     },
-    onLoginRequest: (emailHash, passwordHash) => {
-      dispatch(onLoginRequest(emailHash, passwordHash))
+    onLoginRequest: (emailHash, passwordHash, loginProvider=null) => {
+      dispatch(onLoginRequest(emailHash, passwordHash, loginProvider))
     }
   }
 }

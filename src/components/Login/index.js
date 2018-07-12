@@ -17,10 +17,6 @@ class LoginForm extends React.Component {
 		this.state = {
 			username: "",
 			password:"",
-			curWidth:0,
-			curHeight:0,
-			waiting: false,
-			message: null,
 		}
 
 		// 'this' context bindings
@@ -55,7 +51,7 @@ class LoginForm extends React.Component {
 	 * handleSocialLogin - puts login into a pending state while firebase authenticates
 	 */
 	handleSocialLogin(){
-		this.setState({waiting:true})
+		this.props.onLoginRequest(null, null, this.props.provider)
 		// firebase.auth().signInWithPopup(this.props.provider).catch((err) => this.handleLoginFailure(err))
 	}
 
@@ -68,19 +64,13 @@ class LoginForm extends React.Component {
 	}
 
 	render(){
-		// const {width, height} = this.props
-		const {curWidth, curHeight, waiting, message} = this.state
-
-		// let finalWidth = Math.max(width, curWidth, window.screen.width)
-		// let finalHeight = Math.max(height, curHeight)
-
 		return (
 			<div className="login-page" style={{width:this.determineLoginWidth()+"px"}}>
 				<div className="login-page-content" style={{paddingBottom:this.determineLoginHeight() < 675 ? 75 + "px" : 0 + "px"}}>
 					<div style={{height:"0px"}}>&nbsp;</div>
 					{/*for some reason when you don't have a non empty element above the modal, it leaves a white section above it...so thats why this is here*/}
 					<div className="login-modal" >
-						<LoginInputs onSubmit={(e) => {this.handleLogin(e)}} handleLogin={this.handleSocialLogin} changeInput={(inputType, e) => {this.changeInput(inputType, e)}}
+						<LoginInputs onSubmit={(e) => {this.handleLogin(e)}} handleSocialLogin={this.handleSocialLogin} changeInput={(inputType, e) => {this.changeInput(inputType, e)}}
 							username={this.state.username} password={this.state.password} waiting={this.props.waiting} message={this.props.message}/>
 					</div>
 				</div>

@@ -36,7 +36,7 @@ const LoginInputs = (props) => (
         textColor='white'
         textPadding='15px'
         value='Login with Facebook'
-        handleLogin={props.handleLogin}
+        handleLogin={props.handleSocialLogin}
       />
     </div>
     <Link to="/createUser" className="login-form-link">Don't have an account? Click here to register and/or login with your Google Account</Link>
