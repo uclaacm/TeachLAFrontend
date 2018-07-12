@@ -16,10 +16,10 @@ export function loadFailure(err){
 
 export const SET_DISPLAY_NAME = 'SET_DISPLAY_NAME'
 export function setDisplayName(displayName){
-  return { type: setDisplayName, value: displayName}
+  return { type: SET_DISPLAY_NAME, value: displayName}
 }
 
 export const SET_PHOTO_URL = 'SET_DISPLAY_NAME'
 export function setPhotoURL(photoURL){
-  return { type: setDisplayName, value: photoURL}
+  return { type: SET_PHOTO_URL, value: photoURL}
 }

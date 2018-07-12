@@ -42,6 +42,18 @@ class Editor extends React.Component {
       hotReload:false,
     };
 
+    // function 'this' context bindings
+    this.splitChangeHandler = this.splitPaneChangeHandler.bind(this)
+    this.handleOnVisibleChange = this.handleOnVisibleChange.bind(this)
+    this.dropdownToggleHandler = this.dropdownToggleHandler.bind(this)
+    this.switchToSketchInLanguage = this.switchToSketchInLanguage.bind(this)
+    this.updateCode = this.updateCode.bind(this)
+    this.runCode = this.runCode.bind(this)
+    this.clearOutput = this.clearOutput.bind(this)
+    this.setCodeMirrorInstance = this.setCodeMirrorInstance.bind(this)
+    this.setCurrentLine = this.setCurrentLine.bind(this)
+    this.setPaneStyle = this.setPaneStyle.bind(this)
+
     this.getMostRecentDoc(this.state.userSketches).then((queryResult) => {
       if(queryResult && queryResult.docs[0]){
         let doc = queryResult.docs[0]
@@ -63,6 +75,7 @@ class Editor extends React.Component {
       let language = sketchDoc.data()[LANGUAGE]
       this.changeMode(language)
       this.setStateFromDoc(sketchDoc, [LANGUAGE, CODE])
+      this.clearOutput()
     }
   }
 
@@ -119,7 +132,7 @@ class Editor extends React.Component {
    * @param {String Array} attributes attributes to find within the doc and correspondingly
    * set in the state
    */
-  setStateFromDoc = (doc, attributes) => {
+  setStateFromDoc(doc, attributes){
     if(doc && doc.exists){
       let stateToBeMerged = new Object()
       attributes.forEach(function(attr){
@@ -136,7 +149,7 @@ class Editor extends React.Component {
    *  @param {string} name - the presentation name (the name seen in the language selector dropdown)
    *  @return {string} - mode used by CodeMirror for syntax highlighting (if there is no conversion, defaults to constant)
    */
-  nameToMode = (name) => {
+  nameToMode(name){
     name = name.toLowerCase()
     const conversion={
       "python":"python",
@@ -150,15 +163,13 @@ class Editor extends React.Component {
     return conversion[name] || DEFAULT_MODE   //if there's no conversion, use the DEFAULT_MODE
   }
 
-  // TODO: remove side effects of change mode, break most of changeMode's code into a more transparent function
   /**
    * changeMode - sets the language mode, also changing the document retrieved from firestore
    * @param  {String} language - the language to switch to.  This language value should be given
    * as seen in the store, one of the following: ["HTML", "Javascript", "Java", "Python", "Processing"(unimplemented/unsupported)]
-   * TODO: Implement Processing
    * @return {[type]}          [description]
    */
-  changeMode = (language) => {
+  changeMode(language){
     this.setState({
       language,
       mode: this.nameToMode(language),
@@ -166,7 +177,7 @@ class Editor extends React.Component {
     })
   }
 
-  dropdownToggleHandler = () => {
+  dropdownToggleHandler(){
     this.setState({isOpen:!this.state.isOpen})
   }
 
@@ -176,7 +187,7 @@ class Editor extends React.Component {
    *    if the panel is closed, opens it and sets the size to 0.25 (25% of the screen)
    *
    */
-  handleOnVisibleChange = () => {
+  handleOnVisibleChange(){
     this.setState({
       isVisible: !this.state.isVisible,           //open it if its closed, close it if its open
       size:this.state.isVisible ? 0.0 : 0.25,     //give it a size of 0 if it was open, 0.25 if it was closed
@@ -193,7 +204,7 @@ class Editor extends React.Component {
    *
    *    @param {float} newSize - the new size of the panel as a fraction of the width of the screen
    */
-  onSizeChangeHandler = (newSize) => {
+  onSizeChangeHandler(newSize){
     this.setState({
       size:newSize,
       prevSize:this.state.size,         //storing the previous size in prevSize
@@ -201,19 +212,19 @@ class Editor extends React.Component {
     })
   }
 
-  splitPaneChangeHandler = (codeSize) => {
+  splitPaneChangeHandler(codeSize){
       this.setState({codeSize, paneStyle:{transition:"none"}})
   }
 
-  setPaneStyle = (newPaneStyle) => {
+  setPaneStyle(newPaneStyle){
     this.setState({paneStyle:newPaneStyle})
   }
 
-  setCodeMirrorInstance = (codeMirrorInstance) => {
+  setCodeMirrorInstance(codeMirrorInstance){
     this.setState({codeMirrorInstance})
   }
 
-  setCurrentLine = (nextState)=>{
+  setCurrentLine(nextState){
       const {codeMirrorInstance, currentLine} = this.state
       let {line} = nextState.getCursor()
       if(codeMirrorInstance){
@@ -228,7 +239,7 @@ class Editor extends React.Component {
    *
    *    @param {float} newCode - the new text in the screen (not just what changed, the whole text)
    */
-  updateCode = (newCode) => {
+  updateCode(newCode){
     this.setState({
       code: newCode,
     }, () => {
@@ -236,13 +247,17 @@ class Editor extends React.Component {
     })
   }
 
-  uploadCode = (language, newCode) => {
+  /**
+   * uploadCode - uploads newCode onto specified firestore language document
+   * @param  {String} language - the language of the sketch to upload
+   * @param  {String} newCode - the code/program to upload
+   */
+  uploadCode(language, newCode){
     let codeDoc = this.state.userSketches.doc(`${language}`)
     codeDoc.update({
       code: newCode,
       lastModified: new Date(Date.now())
     })
-
   }
 
   /**
@@ -250,7 +265,7 @@ class Editor extends React.Component {
    *
    *  @todo Add checking for syntactically incorrect html.  Display error message when this happens.
    */
-  runCode = () => {
+  runCode(){
     if(this.state.mode === 'htmlmixed' || this.state.mode === 'javascript'){
       this.setState({
         runResult: this.state.code,
@@ -261,7 +276,7 @@ class Editor extends React.Component {
   /**
    * clearOutput - clears the output screen when a user presses clear button
    */
-  clearOutput = () => {
+  clearOutput(){
     this.setState({
       runResult: null,
     });
@@ -320,8 +335,7 @@ class Editor extends React.Component {
           isVisible={isVisible}
           isOpen={isOpen}
           handleDropdownToggle={this.dropdownToggleHandler}
-          changeMode={this.switchToSketchInLanguage.bind(this)}
-
+          changeMode={this.switchToSketchInLanguage}
           updateCode={this.updateCode}
           runCode={this.runCode}
           clearOutput={this.clearOutput}

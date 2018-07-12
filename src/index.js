@@ -4,7 +4,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './styles/index.css';
 import Root from './containers/root';
 import registerServiceWorker from './registerServiceWorker';
-import { createStore, combineReducers, compose } from 'redux'
+import thunkMiddleware from 'redux-thunk'
+import { createStore, combineReducers, compose, applyMiddleware } from 'redux'
 import appReducers from './reducers'
 import config from './firebase'
 import { Provider } from 'react-redux'
@@ -38,7 +39,9 @@ const rootReducer = combineReducers({
 })
 
 const initialState = {}
-const store = createStoreWithFirebase(rootReducer, initialState)
+const store = createStoreWithFirebase(rootReducer, applyMiddleware(
+  thunkMiddleware
+))
 
 ReactDOM.render(
   <Provider store={store}>

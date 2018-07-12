@@ -4,12 +4,13 @@ import {
   LOAD_FAILURE,
   SET_DISPLAY_NAME,
   SET_PHOTO_URL,
-} from '../actions/userDataActions'                            
+} from '../actions/userDataActions'
 
 //the default parameter is also the initial state of the value. i.e. userDataReducers starts off as ""
 function userDataReducers(state = null, action) {         //action is a JSON always with the key 'type' and the other keys will depend on what 'type' is
   switch (action.type) {                        //whatever is returned becomes the new state
     case LOAD_USER_DATA:
+      console.log("Loading user data!")
       return Object.assign({}, state, action.user)
     case CLEAR_USER_DATA:
     	return null

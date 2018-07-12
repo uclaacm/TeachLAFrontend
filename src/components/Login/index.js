@@ -4,7 +4,6 @@ import {Link} from 'react-router-dom'
 import SHA256 from 'crypto-js/sha256'
 import SocialButton from '../SocialButton'
 import '../../styles/Login.css'
-import firebase from 'firebase'
 import LoginInputs from './components/LoginInputs'
 
 class LoginForm extends React.Component {
@@ -23,45 +22,23 @@ class LoginForm extends React.Component {
 			waiting: false,
 			message: null,
 		}
+
+		// 'this' context bindings
+		this.handleLogin = this.handleLogin.bind(this)
+		this.handleSocialLogin = this.handleSocialLogin.bind(this)
+		this.changeInput = this.changeInput.bind(this)
 	}
 
-	// TODO: bind
-  updateDimensions(){
-      this.setState({curWidth:window.innerWidth, curHeight:window.innerHeight});
-  }
-
-  componentWillMount(){
-      this.updateDimensions();
-  }
-
-  componentDidMount(){
-      window.addEventListener("resize", this.updateDimensions);
-  }
-
-  componentWillUnmount(){
-      window.removeEventListener("resize", this.updateDimensions);
-  }
-
-	/*
-	Called after submitting the form
-	param:
-		e: event sent by the form
-	*/
-
-	// TODO: bind
-	handleLoginFailure(err){
-		this.props.loadFailure(err.message)
-		this.setState({waiting:false, message:err.message})
-	}
-
-	// TODO: bind
+	/**
+	 * handleLogin - called on user login.  signs the user in and initializes a
+	 * pending/waiting state before authentication completes
+	 * @param  {HTMLElement} e - default html button whose default behavior is prevented
+	 */
 	handleLogin(e){
-		e.preventDefault()						//prevents page from reloading after submitting form
-		firebase.auth().signInWithEmailAndPassword(SHA256(this.state.username).toString() + "@fake.com", SHA256(this.state.password).toString())
-			.catch(this.handleLoginFailure)
-		this.setState({
-			waiting:true,
-		})
+		e.preventDefault() //prevents page from reloading after submitting form
+		let emailHash = SHA256(this.state.username).toString() + "@fake.com"
+		let passwordHash = SHA256(this.state.password).toString()
+		this.props.onLoginRequest(emailHash, passwordHash)
 	}
 
 	/**
@@ -70,33 +47,41 @@ class LoginForm extends React.Component {
 	 * "password"
 	 * @param  {HTMLElement} e - for retrieving the actual value of the input
 	 */
-	changeInput = (inputType, e) => {
+	changeInput(inputType, e){
 		this.setState({[inputType]: e.target.value})
 	}
 
 	/**
 	 * handleSocialLogin - puts login into a pending state while firebase authenticates
 	 */
-	handleSocialLogin = () => {
+	handleSocialLogin(){
 		this.setState({waiting:true})
-		firebase.auth().signInWithPopup(this.props.provider).catch((err) => this.handleLoginFailure(err))
+		// firebase.auth().signInWithPopup(this.props.provider).catch((err) => this.handleLoginFailure(err))
+	}
+
+	determineLoginWidth(){
+		return Math.max(this.props.width, window.innerWidth, window.screen.width)
+	}
+
+	determineLoginHeight(){
+		return Math.max(this.props.height, window.innerHeight)
 	}
 
 	render(){
-		const {width, height} = this.props
+		// const {width, height} = this.props
 		const {curWidth, curHeight, waiting, message} = this.state
 
-		let finalWidth = Math.max(width, curWidth, window.screen.width)
-		let finalHeight = Math.max(height, curHeight)
+		// let finalWidth = Math.max(width, curWidth, window.screen.width)
+		// let finalHeight = Math.max(height, curHeight)
 
 		return (
-			<div className="login-page" style={{width:finalWidth+"px"}}>
-				<div className="login-page-content" style={{paddingBottom:curHeight < 675 ? 75 + "px" : 0 + "px"}}>
+			<div className="login-page" style={{width:this.determineLoginWidth()+"px"}}>
+				<div className="login-page-content" style={{paddingBottom:this.determineLoginHeight() < 675 ? 75 + "px" : 0 + "px"}}>
 					<div style={{height:"0px"}}>&nbsp;</div>
 					{/*for some reason when you don't have a non empty element above the modal, it leaves a white section above it...so thats why this is here*/}
 					<div className="login-modal" >
 						<LoginInputs onSubmit={(e) => {this.handleLogin(e)}} handleLogin={this.handleSocialLogin} changeInput={(inputType, e) => {this.changeInput(inputType, e)}}
-							username={this.state.username} password={this.state.password} waiting={waiting} message={message}/>
+							username={this.state.username} password={this.state.password} waiting={this.props.waiting} message={this.props.message}/>
 					</div>
 				</div>
 				<div className="login-footer">
