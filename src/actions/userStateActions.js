@@ -1,9 +1,9 @@
 import {loadFailure} from './userDataActions'
 import firebase from 'firebase'
 
-export const LOGIN_REQUEST = 'LOGIN_REQUEST'
-export function loginRequest(){
-  return { type: LOGIN_REQUEST }
+export const REQUEST_LOGIN = 'REQUEST_LOGIN'
+export function requestLogin(){
+  return { type: REQUEST_LOGIN }
 }
 
 export const LOGIN_FAILED = 'LOGIN_FAILED'
@@ -27,7 +27,7 @@ export function loginCompleted(){
 export function onLoginRequest(emailHash, passwordHash, loginProvider=null){
   return (dispatch) => {
     if(emailHash && passwordHash){
-      dispatch(loginRequest())
+      dispatch(requestLogin())
       return firebase.auth().signInWithEmailAndPassword(emailHash, passwordHash).then(() => {
         dispatch(loginCompleted())
   	  }).catch(function(err){
@@ -35,7 +35,7 @@ export function onLoginRequest(emailHash, passwordHash, loginProvider=null){
       })
     }
     else if(loginProvider){
-      dispatch(loginRequest())
+      dispatch(requestLogin())
       return firebase.auth().signInWithPopup(loginProvider).catch(function(err){
         dispatch(loginFailed(err.message))
       })

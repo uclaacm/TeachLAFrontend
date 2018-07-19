@@ -1,10 +1,10 @@
 import React from 'react';
 import ProfilePanel from './components/ProfilePanel'
-import Main from './components/Main'
+import MainContainer from './containers/MainContainer'
 import {Redirect} from 'react-router'
 import {LANGUAGE, CREATION_DATE, MODIFICATION_DATE, CODE, DESCENDING, DEFAULT_MODE} from '../../constants';
 import firebase from 'firebase'
-
+import {nameToMode} from '../../constants/helpers.js'
 // Specify imports for codemirror usage
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/theme/material.css'
@@ -26,159 +26,21 @@ class Editor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userSketches: this.props.firestore.collection(`users/${this.props.user.uid}/programs`),
-      code: "",
-      isVisible:true,
+      panelVisible:true,
       size:0.25,
       prevSize:0.25,
       codeSize:"37.5%",
       isOpen:false,
-      language:"Python",
-      mode:"python",
-      codeMirrorInstance:null,
-      currentLine:0,
       paneStyle:{transition:"none"},
-      isProcessing:false,
       hotReload:false,
     };
+
 
     // function 'this' context bindings
     this.splitChangeHandler = this.splitPaneChangeHandler.bind(this)
     this.handleOnVisibleChange = this.handleOnVisibleChange.bind(this)
-    this.dropdownToggleHandler = this.dropdownToggleHandler.bind(this)
-    this.switchToSketchInLanguage = this.switchToSketchInLanguage.bind(this)
-    this.updateCode = this.updateCode.bind(this)
-    this.runCode = this.runCode.bind(this)
-    this.clearOutput = this.clearOutput.bind(this)
-    this.setCodeMirrorInstance = this.setCodeMirrorInstance.bind(this)
-    this.setCurrentLine = this.setCurrentLine.bind(this)
     this.setPaneStyle = this.setPaneStyle.bind(this)
-
-    this.getMostRecentDoc(this.state.userSketches).then((queryResult) => {
-      if(queryResult && queryResult.docs[0]){
-        let doc = queryResult.docs[0]
-        this.switchToSketch(doc)
-      }
-    })
-  }
-
-  /**
-   * switchToSketch - switch to a sketch document object in a code editor.
-   * NOTE: While flexible, If we end up supporting documents other than sketches,
-   * then this function may fail unless we constrain the type of document we are
-   * switching to.
-   * @param  {firebase.firestore.DocumentReference} sketchDoc - the sketch object in
-   * firestore to switch to.
-   */
-  switchToSketch(sketchDoc){
-    if(sketchDoc && sketchDoc.exists){
-      let language = sketchDoc.data()[LANGUAGE]
-      this.changeMode(language)
-      this.setStateFromDoc(sketchDoc, [LANGUAGE, CODE])
-      this.clearOutput()
-    }
-  }
-
-  /**
-   * switchToSketchInLanguage - switches the editor view to a sketch most recently
-   * edited in language specified by the user. NOTE: This method will have no purpose if
-   * we opt to go with a plurality of sketches in a given language, but until then,
-   * it is very useful
-   * @param  {String} language - the language to switch to, specified not as a code but
-   * as a language name eg. HTML instead of htmlmixed
-   */
-  switchToSketchInLanguage(language){
-    let filter = {
-      fieldPath: "language",
-      opStr: "==",
-      value: language
-    }
-
-    this.getMostRecentDoc(this.state.userSketches, filter).then((queryResult) => {
-      if(queryResult && queryResult.docs[0]){
-        let doc = queryResult.docs[0]
-        this.switchToSketch(doc)
-      }
-    })
-  }
-
-  /**
-   * getMostRecentDoc - fetches the most recent code document/sketch from user's programs in firestore.
-   * Queries are moderately controllable by passing in a filter that is passed into firestore's
-   * where(): see https://firebase.google.com/docs/firestore/query-data/queries.
-   * @param  {firebase.firestore.CollectionReference} collectionRef - the collection to parse for a most recent doc
-   * @param  {object} [filter=null] filter controls what documents get ordered in query.
-   *   Fields:
-   *          fieldPath: field in firestore to order by.
-   *          opStr: operation to filter by. Currently only '==' is supported
-   *          value: where()'s value field. TODO: enforce enum like selection of query enabled fields
-   * @return {Promise} this Promise resolves once the most recent doc has been discovered or no document has been found
-   */
-  getMostRecentDoc(collectionRef, filter=null){
-    if(filter && filter.fieldPath && filter.opStr && filter.value){
-      return collectionRef.where(filter.fieldPath, filter.opStr, filter.value).orderBy(MODIFICATION_DATE, DESCENDING).limit(1).get()
-    }
-    else{
-      // Return the most recently worked on program.
-      return collectionRef.orderBy(MODIFICATION_DATE, DESCENDING).limit(1).get()
-    }
-  }
-
-  /**
-   * setStateFromDoc - sets attributes of component state from firestore doc state.
-   * At current, attributes in the state and in the doc have to be identically named
-   * in order to set component state correctly
-   * @param {firebase.firestore.DocumentReference} doc  The doc to use as a state source
-   * @param {String Array} attributes attributes to find within the doc and correspondingly
-   * set in the state
-   */
-  setStateFromDoc(doc, attributes){
-    if(doc && doc.exists){
-      let stateToBeMerged = new Object()
-      attributes.forEach(function(attr){
-        stateToBeMerged[attr] = doc.data()[attr]
-      })
-      this.setState(stateToBeMerged)
-    }
-  }
-
-  /**
-   * nameToMode - converts the presentation name in the language selector dropdown to the mode string used by CodeMirror
-   *    example: nameToMode("C++") returns "text/x-csrc"
-   *    @todo add more languages/add all of them and let the user determine which to use
-   *  @param {string} name - the presentation name (the name seen in the language selector dropdown)
-   *  @return {string} - mode used by CodeMirror for syntax highlighting (if there is no conversion, defaults to constant)
-   */
-  nameToMode(name){
-    name = name.toLowerCase()
-    const conversion={
-      "python":"python",
-      "javascript":"javascript",
-      "c++":"text/x-csrc",
-      "java":"text/x-java",
-      "html":"htmlmixed",
-      "processing":"javascript",
-    }
-
-    return conversion[name] || DEFAULT_MODE   //if there's no conversion, use the DEFAULT_MODE
-  }
-
-  /**
-   * changeMode - sets the language mode, also changing the document retrieved from firestore
-   * @param  {String} language - the language to switch to.  This language value should be given
-   * as seen in the store, one of the following: ["HTML", "Javascript", "Java", "Python", "Processing"(unimplemented/unsupported)]
-   * @return {[type]}          [description]
-   */
-  changeMode(language){
-    this.setState({
-      language,
-      mode: this.nameToMode(language),
-      isProcessing: language === "processing",
-    })
-  }
-
-  dropdownToggleHandler(){
-    this.setState({isOpen:!this.state.isOpen})
+    this.onSizeChangeHandler = this.onSizeChangeHandler.bind(this)
   }
 
   /**
@@ -189,9 +51,9 @@ class Editor extends React.Component {
    */
   handleOnVisibleChange(){
     this.setState({
-      isVisible: !this.state.isVisible,           //open it if its closed, close it if its open
-      size:this.state.isVisible ? 0.0 : 0.25,     //give it a size of 0 if it was open, 0.25 if it was closed
-      prevSize:this.state.isVisible ? 0.0 : 0.25, //set the previous size to the same as the new size (used to make the slide transition only trigger when the expand/collapse button is pressed)
+      panelVisible: !this.state.panelVisible,           //open it if its closed, close it if its open
+      size:this.state.panelVisible ? 0.0 : 0.25,     //give it a size of 0 if it was open, 0.25 if it was closed
+      prevSize:this.state.panelVisible ? 0.0 : 0.25, //set the previous size to the same as the new size (used to make the slide transition only trigger when the expand/collapse button is pressed)
       codeSize:"50%",
       paneStyle:{transition:"width 0.3s ease"},
     })
@@ -220,74 +82,12 @@ class Editor extends React.Component {
     this.setState({paneStyle:newPaneStyle})
   }
 
-  setCodeMirrorInstance(codeMirrorInstance){
-    this.setState({codeMirrorInstance})
-  }
-
-  setCurrentLine(nextState){
-      const {codeMirrorInstance, currentLine} = this.state
-      let {line} = nextState.getCursor()
-      if(codeMirrorInstance){
-          codeMirrorInstance.removeLineClass(currentLine, 'wrap', 'selected-line')    //removeLineClass removes the back highlight style from the last selected line
-          codeMirrorInstance.addLineClass(line, 'wrap', 'selected-line')              //addLineClass adds the style to the newly selected line
-      }
-      this.setState({currentLine:line})
-  }
-
-  /**
-   *  updateCode - handler for when text in the text editor changes
-   *
-   *    @param {float} newCode - the new text in the screen (not just what changed, the whole text)
-   */
-  updateCode(newCode){
-    this.setState({
-      code: newCode,
-    }, () => {
-      this.uploadCode(this.state.language, this.state.code)
-    })
-  }
-
-  /**
-   * uploadCode - uploads newCode onto specified firestore language document
-   * @param  {String} language - the language of the sketch to upload
-   * @param  {String} newCode - the code/program to upload
-   */
-  uploadCode(language, newCode){
-    let codeDoc = this.state.userSketches.doc(`${language}`)
-    codeDoc.update({
-      code: newCode,
-      lastModified: new Date(Date.now())
-    })
-  }
-
-  /**
-   * runCode - handler for when user presses the run code button
-   *
-   *  @todo Add checking for syntactically incorrect html.  Display error message when this happens.
-   */
-  runCode(){
-    if(this.state.mode === 'htmlmixed' || this.state.mode === 'javascript'){
-      this.setState({
-        runResult: this.state.code,
-      });
-		}
-  }
-
-  /**
-   * clearOutput - clears the output screen when a user presses clear button
-   */
-  clearOutput(){
-    this.setState({
-      runResult: null,
-    });
-  }
-
   /**
    *  render
    */
 	render() {
-    const {isVisible, size, prevSize, isOpen, language, mode,
-           codeSize, paneStyle, code, runResult, isProcessing,
+    const {panelVisible, size, prevSize, isOpen, language, mode,
+           codeSize, paneStyle, code, isProcessing,
            hotReload,
     } = this.state
     const { user} = this.props
@@ -301,7 +101,7 @@ class Editor extends React.Component {
     let panelSize=(size*100.0).toString() + '%'
 
     //style to be applied to left panel
-    let panelStyle = {width:panelSize}            //width of the panel should always be the percent of its size (which is a decimal)
+    let panelStyle = {width:panelSize}
 
     //style to be applied to non panel (sections containing text editor and code output)
     let codeStyle = {
@@ -318,36 +118,20 @@ class Editor extends React.Component {
         <ProfilePanel
           handleOnSizeChange={this.onSizeChangeHandler}
           handleOnVisibleChange={this.handleOnVisibleChange}
-          isVisible={isVisible}
+          panelVisible={panelVisible}
           clearUserData={this.props.clearUserData}
-          panelStyle={panelStyle}
           size={size}
           user={user}
         />
-        <Main
+        <MainContainer
+          programsCollection={user.programs}
           paneStyle={paneStyle}
-          minSize={window.innerWidth*(1-size)/4}
-          maxSize={isVisible ? window.innerWidth*(1-size)*3/4 : window.innerWidth*3/4}
           size={codeSize}
-          allowResize={true}
           onSplitPaneChange={this.splitPaneChangeHandler}
           handleOnVisibleChange={this.handleOnVisibleChange}
-          isVisible={isVisible}
-          isOpen={isOpen}
-          handleDropdownToggle={this.dropdownToggleHandler}
-          changeMode={this.switchToSketchInLanguage}
-          updateCode={this.updateCode}
-          runCode={this.runCode}
-          clearOutput={this.clearOutput}
-          runResult={runResult}
-          setCodeMirrorInstance={this.setCodeMirrorInstance}
-          code={code}
-          setCurrentLine={this.setCurrentLine}
+          panelVisible={panelVisible}
           codeStyle={codeStyle}
-          language={language}
-          mode={mode}
           setPaneStyle={this.setPaneStyle}
-          isProcessing={isProcessing}
           hotReload={hotReload}
         />
       </div>

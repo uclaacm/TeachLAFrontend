@@ -3,12 +3,12 @@ import {
 } from '../actions/userDataActions'
 
 import {
-  LOGIN_REQUEST, LOGIN_FAILED, LOGIN_COMPLETED
+  REQUEST_LOGIN, LOGIN_FAILED, LOGIN_COMPLETED
 } from '../actions/userStateActions'
 
 function userStateReducers(state = {waiting: false, message: ''}, action){
   switch(action.type){
-    case LOGIN_REQUEST:
+    case REQUEST_LOGIN:
       if(state === null){
         return state
       }

@@ -1,15 +1,13 @@
 import Editor from '../components/Editor'
 import {connect} from 'react-redux'
-import {compose} from 'redux'
-import {clearUserData,} from '../actions/userDataActions'
+import {clearUserData, getMostRecentProgram} from '../actions/userDataActions'
+import {switchToProgram} from '../actions/textEditorActions'
 import firebase from 'firebase'
-import {withFirestore} from 'react-redux-firebase'
-import {PROGRAM_PATH} from '../constants'
 
 const mapStateToProps = state => {
+  let userInfo = state.app.userDataReducers
   return {
-    user: state.app.userDataReducers,
-    programs: state.firestore.data[PROGRAM_PATH]
+    user: userInfo,
   }
 }
 
@@ -18,13 +16,22 @@ const mapDispatchToProps = dispatch => {
 		clearUserData: () => {
 			firebase.auth().signOut()
 			dispatch(clearUserData())
-		}
+		},
+    switchToProgram: (programID, editorID=null) => {
+      if(editorID){
+        // returns promise
+        return dispatch(switchToProgram(programID, editorID))
+      }
+      else{
+        // returns promise
+        return dispatch(switchToProgram(programID))
+      }
+    }
 	}
 }
 
-const EditorPage = compose(connect(
+const EditorPage = connect(
   mapStateToProps,
-  mapDispatchToProps),
-  withFirestore)(Editor)
+  mapDispatchToProps)(Editor)
 
 export default EditorPage

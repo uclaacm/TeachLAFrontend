@@ -9,6 +9,7 @@ module.exports = {
     MAXIMUM_PASSWORD_LENGTH: 20,
     MAXIMUM_DISPLAY_NAME_LENGTH: 25,
     DEFAULT_MODE: "python",
+    DEFAULT_LANG: "Python",
     /* FIRESTORE/DB */
     DESCENDING: "desc",
     LANGUAGE: "language",
@@ -17,5 +18,8 @@ module.exports = {
     CODE: "code",
     PROGRAM_PATH: "programs",
     /* UI */
-    RING_LOADER_SIZE: 50
+    RING_LOADER_SIZE: 50,
+    LANGUAGE_MAP: Object.freeze({PYTHON:"Python", JAVA:"Java", HTML:"HTML", PROCESSING:"Processing",
+      JAVASCRIPT:"Javascript",}),
+    SUPPORTED_LANGUAGES: Object.freeze(["Python", "Java", "HTML", "Processing", "Javascript"])
 }
