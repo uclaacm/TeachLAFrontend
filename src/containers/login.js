@@ -1,34 +1,31 @@
 import React from 'react';
 import Login from '../components/Login'
 import {connect} from 'react-redux'
-import {login, logout} from '../actions'
-// class LoginPage extends React.Component {
-//   render() {
-//     return(
-//       <div>
-//         <Login></Login>
-//       </div>
-//     )
-//   }
-// }
-
-// export default LoginPage;
-
+import {loadUserData, clearUserData, loadFailure} from '../actions/userDataActions'
+import {onLoginRequest} from '../actions/userStateActions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    loggedIn: state.loggedIn,
+    loggedIn: state.app.userDataReducers,
+    waiting: state.app.userStateReducers.waiting,
+    message: state.app.userStateReducers.message,
     ...ownProps,                        //all props passed to the container, put into the props
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    login: (id) => {
-      dispatch(login(id))
+    loadUserData: (user) => {
+      dispatch(loadUserData(user))
     },
-    logout: () => {
-      dispatch(logout())
+    clearUserData: () => {
+      dispatch(clearUserData())
+    },
+    loadFailure: (err) => {
+      dispatch(loadFailure(err))
+    },
+    onLoginRequest: (emailHash, passwordHash, loginProvider=null) => {
+      dispatch(onLoginRequest(emailHash, passwordHash, loginProvider))
     }
   }
 }

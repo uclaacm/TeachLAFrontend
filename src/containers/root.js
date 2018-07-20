@@ -5,22 +5,22 @@
 import React from 'react';
 import App from './app';
 import {connect} from 'react-redux'
-import {login, logout} from '../actions'
+import {loadUserData, loadUserPrograms, clearUserData} from '../actions/userDataActions'
 
 
 const mapStateToProps = state => {
   return {
-    loggedIn: state.loggedIn
+    loggedInUserData: state.app.userDataReducers
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    login: (id) => {
-      dispatch(login(id))
+    loadUserData: (userData) => {
+      dispatch(loadUserData(userData))
     },
-    logout: () => {
-      dispatch(logout())
+    clearUserData: () => {
+      dispatch(clearUserData())
     }
   }
 }

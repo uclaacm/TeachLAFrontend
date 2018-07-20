@@ -1,8 +1,14 @@
 import { combineReducers } from 'redux'
-import loggedIn from './loggedIn'
+import userDataReducers from './userDataReducers'
+import userStateReducers from './userStateReducers'
+import textEditorReducers from './textEditorReducers'
+import outputReducers from './outputReducers'
 
-const app = combineReducers({							//after we get more state, we'll add more reducers here
-  loggedIn
+const appReducers = combineReducers({							//after we get more state, we'll add more reducers here
+  userDataReducers,
+  userStateReducers,
+  textEditorReducers,
+  outputReducers
 })
 
-export default app
+export default appReducers

@@ -1,5 +1,5 @@
 import React from 'react'
- 
+
 /*
   Props:
     bgColor: string representing the color of the background of the img (can be hex color, rgb(r, g, b, a), or color name)
@@ -24,7 +24,7 @@ class Output extends React.Component {
     return (
       <iframe className="html-output"
               style={{display: 'flex', height:"92vh"}}
-              srcDoc={runResult}
+              srcDoc={this.props.runResult}
               src='about:blank'
               onLoad={(e)=>{
                 console.log(e)
@@ -49,7 +49,7 @@ class Output extends React.Component {
 
   render(){                                                          //called deconstruction; pulling children, triggerLogin, ..., textPadding out of props
     const {clearOutput} = this.props
-    
+
     return (
       <div className="editor-output">
         <div className="editor-header">
@@ -67,5 +67,5 @@ class Output extends React.Component {
     )
   }
 }
- 
+
 export default Output

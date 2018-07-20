@@ -1,26 +1,21 @@
-import React from 'react';
 import CreateUser from '../components/CreateUser'
 import {connect} from 'react-redux'
-import {login, logout} from '../actions'
+import {withFirestore} from 'react-redux-firebase'
+import {compose} from 'redux'
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    ...ownProps,                        //all props passed to the container, put into the props
+    ...ownProps,  //all props passed to the container, put into the props
   }
 }
 
 const mapDispatchToProps = dispatch => {
-  return {
-    // login: (userInfo, token) => {
-    //   firebase.auth().signInWithCustomToken(token)
-    //   dispatch(login(userInfo))
-    // },
-  }
+  return {}
 }
 
-const CreateUserPage = connect(
+const CreateUserPage = compose(connect(
   mapStateToProps,
   mapDispatchToProps
-)(CreateUser)
+), withFirestore)(CreateUser)
 
 export default CreateUserPage

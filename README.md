@@ -8,4 +8,4 @@
 2. cd into the project directory
 3. yarn (or npm) install
 4. yarn (or npm) start
-5. Client should be viewable on localhost:8080
+5. The Client should be viewable on localhost:8080

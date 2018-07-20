@@ -1,44 +1,51 @@
 import React from 'react';
 import {RingLoader} from 'react-spinners'
 import {Link} from 'react-router-dom'
-import SocialButton from '../SocialButton'
 import firebase from 'firebase'
-import AES from 'crypto-js/aes'
 import SHA256 from 'crypto-js/sha256'
 import Filter from 'bad-words'
-// import '../styles/app.css'
 import '../../styles/CreateUser.css'
-import {SERVER_URL,
+import {
     MINIMUM_USERNAME_LENGTH,
     MINIMUM_PASSWORD_LENGTH,
-    MINIMUM_DISPLAY_NAME_LENGTH,
     MAXIMUM_USERNAME_LENGTH,
     MAXIMUM_PASSWORD_LENGTH,
-    MAXIMUM_DISPLAY_NAME_LENGTH,
 } from '../../constants';
 
 const filter = new Filter();
 
 class CreateUser extends React.Component {
-	constructor(props){
-		super(props)
-		this.state={
-            username:"",
-            password:"",
-            displayName:"",
-            waiting:false,
-            message:null,
-            usernameMessage:null,
-            passwordMessage:null,
-            displaynameMessage:null,
-        }
-
-        this.handleFetchSuccess = this.handleFetchSuccess.bind(this)
-        this.handleFetchFailure = this.handleFetchFailure.bind(this)
+    /**
+     * constructor - sets initial state and props
+     * @param {Object} props - properties passed down by the super component
+     */
+  	constructor(props){
+  		super(props)
+  		this.state={
+              username:"",
+              password:"",
+              waiting:false,
+              message:null,
+              usernameMessage:null,
+              passwordMessage:null,
+              displaynameMessage:null,
+      }
+      this.props = props
     }
 
+    /**
+     * checkInputs - validates username and password.
+     * The criteria checked:
+     *    -Username length: as defined in constants file
+     *    -Username characters: only alphanumeric characters, plus !@#$%
+     *    -Username profanity: please see bad-words package
+     *    -Password length: as defined in constants file
+     *    -Password characters: only alphanumeric characters, plus !@#$%
+     * @return {boolean} badInputs - indicates whether any of the inputs given do
+     * not fall within the criteria above
+     */
     checkInputs = () => {
-        const {username, password, displayName} = this.state
+        const {username, password,} = this.state
         let badInputs = false
 
         if(username.length < MINIMUM_USERNAME_LENGTH){
@@ -70,61 +77,56 @@ class CreateUser extends React.Component {
             this.setState({passwordMessage:null})
         }
 
-        if(displayName.length < MINIMUM_DISPLAY_NAME_LENGTH){
-            this.setState({displaynameMessage:`Display Name must be at least ${MINIMUM_DISPLAY_NAME_LENGTH} characters`})
-            badInputs = true
-        } else if(displayName.length > MAXIMUM_DISPLAY_NAME_LENGTH){
-            this.setState({displaynameMessage:`Display Name must be at most ${MAXIMUM_DISPLAY_NAME_LENGTH} characters`})
-            badInputs = true
-        } else if(displayName.match(/[^a-zA-Z0-9!@#$% ]/)){
-            this.setState({displaynameMessage:"Display Name must only use upper case and lower case letters, numbers, spaces, and/or the special characters !@#$%"})
-            badInputs = true
-        } else if(filter.isProfane(displayName)) {
-            this.setState({displaynameMessage:"Display Name must not contain profanity"})
-            badInputs = true
-        } else {
-            this.setState({displaynameMessage:null})
-        }
         return badInputs
     }
-    
-    handleFetchSuccess = async function(response){
-        let {ok, data} = await response.json();
 
-        console.log(ok)
-        console.log(data)
-        if(!data){
-            this.setState({waiting:false, message: "Failed to connect to server..."})
-            return
-        }
-
-        //checking ok second bc maybe there is no response and thus there would be no data; ok can be either true or false so !ok would happen for both cases
-        if(!ok){
-            let {code, message} = data                      //if ok is false, data will be a json with 2 keys containing strings, code and message
-            console.log(message)
-            if(!message){                                               
-                this.setState({waiting:false, message:"Failed to get error message from server..."})
-                return
-            }
-            this.setState({waiting:false, message:message.replace(/uid/i, 'username')})             //replace instances of uid in the error string with username
-            return
-        }
-
-        //if no errors occured, login the user with the token sent by the server
-        firebase.auth().signInWithCustomToken(data)
+    /**
+     * createUserSketches - initializes sample sketches in firestore for the user.
+     * This function is intended for use only on user creation, as it makes an implicit
+     * assumption that the user is currently signed in, as is guaranteed on user creation.
+     */
+    createUserSketches = () => {
+      let uid = firebase.auth().currentUser.uid
+      if(firebase.auth().currentUser.uid){
+        // set general fields of user in firestore
+        let displayName = firebase.auth().currentUser.displayName
+        this.props.firestore.doc(`users/${uid}`).set({
+          displayName: (displayName ? displayName : ''),
+          uid: uid
+        })
+        // create template sketches and initialize their fields
+        const sketchTemplates = new Map([
+          ["Python", 'print("Hello World!")'],
+          ["Javascript", 'console.log("Hello World!")'],
+          ["Java", 'System.out.println("Hello World!")'],
+          ["HTML", "<html><head></head><body><div style='width: 100px; height: 100px; background-color: black'></div></body></html>"],
+          ["C++", 'std::cout << "Hello World!" << std::endl'],
+          ["Processing", "void setup(){} void draw(){}"]
+        ])
+        sketchTemplates.forEach((code, name) => {
+          this.props.firestore.doc(`users/${uid}/programs/${name}`).set({
+            language: name,
+            title: `my_first_${name.toLowerCase()}_sketch`,
+            creationDate: new Date(Date.now()),
+            lastModified: new Date(Date.now()),
+            code: code
+          })
+        })
+      }
     }
-    
-    handleFetchFailure = (err) => {
-        this.setState({waiting:false, message: "Failed to communicate with server..."})
-    }
 
+
+    /**
+    * submit - this function executes on the click of the button to create a new user on the
+    * createUser page
+    * @param  {HTMLElement} e - solely used to prevent default page behavior on the clicking
+    * of the button
+    * @return {void}   submit returns early if the inputs passed by a prospective user
+    * are bad.
+    */
     submit = (e) => {
         e.preventDefault()
-        const {username, password, displayName} = this.state
-
-        console.log(username.match(/[^a-zA-Z0-9!@#$%]/))
-        console.log(username.length)
-        // console.log(username.match(/[^a-zA-Z\d]/))
+        const {username, password} = this.state
 
         let badInputs = this.checkInputs()
 
@@ -135,48 +137,29 @@ class CreateUser extends React.Component {
 
         this.setState({waiting:true, message:null})
 
-        let url = `${SERVER_URL}/createUser`
-        
-        /**
-         * createRequest json as follows
-         * {
-         *  disabled: boolean
-         *  displayName: string
-         *  email: string
-         *  emailVerified: boolean
-         *  password: string
-         *  phoneNumber: string
-         *  photoURL: string
-         *  uid: string
-         * }
-         */
-        
         let content = {
             uid: SHA256(username).toString(),
             password: SHA256(password).toString(),
-            displayName: displayName,
         }
-        
 
-        let init = {
-            method: 'POST',
-            body: JSON.stringify(content),
-            headers: {
-              'content-type': 'application/json'
-            },
-        }
-    
-        return fetch(url, init)
-            .then(this.handleFetchSuccess)
-            .catch(this.handleFetchFailure)
-    }
+        // This is part of the firebase email/password workaround.
+        // We create an email lookalike to trick firebase into thinking the user
+        // signed up with an email, instead of a username, display name, and password
+        let email = String(content.uid) + "@fake.com"
+
+        // regiser user in firebase
+        firebase.auth().createUserWithEmailAndPassword(email, content.password).then((user) => {
+          // initialize user sketches on successful account creation
+          this.createUserSketches()
+        }).catch((error) => {
+            console.log(error.message)
+            this.setState({waiting:false, errorMessage:error.message})
+        })
+   }
 
 	render() {
-		let {loggedIn} = this.props
-        let {waiting, message, usernameMessage, passwordMessage, displaynameMessage} = this.state
+    let {waiting, errorMessage, usernameMessage, passwordMessage} = this.state
 		//if we haven't checked if the user is logged in yet, show a loading screen
-
-
 		return (
             <div className='create-page'>
                 <div className='create-page-content'>
@@ -199,21 +182,13 @@ class CreateUser extends React.Component {
                                     onChange={(e)=>{this.setState({password:e.target.value})}}
                                 />
                                 {passwordMessage ? <div style={{color:'red', fontSize:'0.8em'}}>{passwordMessage}</div> : <br/>}
-                                <div className="create-form-input-header">
-                                    Display Name
-                                </div>
-                                <input className='create-form-input' type="text" name="displayname"
-                                    placeholder="First Last" value={this.state.displayName}
-                                    onChange={(e)=>{this.setState({displayName:e.target.value})}}
-                                />
-                                {displaynameMessage ? <div style={{color:'red', fontSize:'0.8em'}}>{displaynameMessage}</div> : <br/>}
                             </div>
                             <RingLoader
-                            color={'#171124'} 
+                            color={'#171124'}
                             size={50}
-                            loading={waiting} 
+                            loading={waiting}
                             />
-                            {message ? <div style={{color:'red'}}>{message}</div> : <span/>}
+                            {errorMessage ? <div style={{color:'red'}}>{errorMessage}</div> : <span/>}
                             <button className='create-form-button' type="submit">create</button>
                             <Link to="/login" className="create-form-link">Already have an account? Click here to log in</Link>
                         </form>

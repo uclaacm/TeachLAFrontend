@@ -1,40 +1,37 @@
-import React from 'react';
 import Editor from '../components/Editor'
 import {connect} from 'react-redux'
-import {login, logout} from '../actions'
+import {clearUserData, getMostRecentProgram} from '../actions/userDataActions'
+import {switchToProgram} from '../actions/textEditorActions'
 import firebase from 'firebase'
-// class LoginPage extends React.Component {
-//	 render() {
-//		 return(
-//			 <div>
-//				 <Login></Login>
-//			 </div>
-//		 )
-//	 }
-// }
-
-// export default LoginPage;
-
 
 const mapStateToProps = state => {
+  let userInfo = state.app.userDataReducers
   return {
-    user: state.loggedIn
+    user: userInfo,
   }
 }
 
-
 const mapDispatchToProps = dispatch => {
 	return {
-		logout: () => {
+		clearUserData: () => {
 			firebase.auth().signOut()
-			dispatch(logout())
-		}
+			dispatch(clearUserData())
+		},
+    switchToProgram: (programID, editorID=null) => {
+      if(editorID){
+        // returns promise
+        return dispatch(switchToProgram(programID, editorID))
+      }
+      else{
+        // returns promise
+        return dispatch(switchToProgram(programID))
+      }
+    }
 	}
 }
 
 const EditorPage = connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(Editor)
+  mapStateToProps,
+  mapDispatchToProps)(Editor)
 
 export default EditorPage

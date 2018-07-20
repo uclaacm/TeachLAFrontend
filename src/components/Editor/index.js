@@ -1,9 +1,10 @@
 import React from 'react';
 import ProfilePanel from './components/ProfilePanel'
-import Main from './components/Main'
+import MainContainer from './containers/MainContainer'
 import {Redirect} from 'react-router'
-import {DEFAULT_MODE} from '../../constants'
+import {LANGUAGE, CREATION_DATE, MODIFICATION_DATE, CODE, DESCENDING, DEFAULT_MODE} from '../../constants';
 import firebase from 'firebase'
+import {nameToMode} from '../../constants/helpers.js'
 // Specify imports for codemirror usage
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/theme/material.css'
@@ -20,73 +21,26 @@ class Editor extends React.Component {
    * @param {object} props
    *    @key {object} user - information of user; (should never be null bc if someone's not logged in, sends them to the login page)
    *      @key {}
-   *    @key {function} logout - redux action to log the user out, brings you to homepage after (bc if you're not logged in, you're rerouted to the home page)
+   *    @key {function} clearUserData - redux action to log the user out, brings you to homepage after (bc if you're not logged in, you're rerouted to the home page)
    */
   constructor(props) {
     super(props);
-    /**
-     * state
-     *
-     *  @key {string} code        - contents of the text editor
-     *      @todo allow user to load in previous code/set the opening language/starter code
-     *  @key {boolean} isVisible  - true if left panel is open, false otherwise
-     *  @key {float} size         - size of the left panel; fraction of the screen width
-     *  @key {float} prevSize     - last size of screen; used to determine if the collapse button was used or the panel resizer is being used (makes slide transition of panel work)
-     *  @key {float} codeSize     - width of the text editor (the middle panel); fraction of the screen width
-     *  @key {boolean} isOpen     - true if language selector dropdown is open, false otherwise
-     *  @key {string} language    - name displayed in the language selector dropdown; for presentation, need to convert this name into the mode for CodeMirror
-     *  @key {string} mode        - mode to be used in the options for CodeMirror, modes can be found here https://github.com/codemirror/CodeMirror/tree/master/mode
-     *  @key {object} codeMirrorInstance   - component instance of CodeMirror; used to highlight the line the cursor is on
-     *  @key {int} currentLine    - cursor is currently on this line (initialized to 0 bc it is the line number - 1, i.e. the first line)
-     */
     this.state = {
-      code: "def helloWorld():\n\tprint(\"Hello world!\")\n\nhelloWorld()",
-      isVisible:true,
+      panelVisible:true,
       size:0.25,
       prevSize:0.25,
       codeSize:"37.5%",
       isOpen:false,
-      language:"Python",
-      mode:"python",
-      codeMirrorInstance:null,
-      currentLine:0,
       paneStyle:{transition:"none"},
-      isProcessing:false,
       hotReload:false,
     };
-  }
 
-  /**
-   * nameToMode - converts the presentation name in the language selector dropdown to the mode string used by CodeMirror
-   *    example: nameToMode("C++") returns "text/x-csrc"
-   *    @todo add more languages/add all of them and let the user determine which to use
-   *  @param {string} name - the presentation name (the name seen in the language selector dropdown)
-   *
-   *  @return {string} - mode used by CodeMirror for syntax highlighting (if there is no conversion, defaults to constant)
-   */
-  nameToMode = (name) => {
-    const conversion={
-      "Python":"python",
-      "Javascript":"javascript",
-      "C++":"text/x-csrc",
-      "Java":"text/x-java",
-      "HTML":"htmlmixed",
-      "Processing":"javascript",
-    }
 
-    return conversion[name] || DEFAULT_MODE   //if there's no conversion, use the DEFAULT_MODE
-  }
-
-  changeMode = (language) => {
-    this.setState({
-      language,
-      mode: this.nameToMode(language),
-      isProcessing: language === "Processing",
-    })
-  }
-
-  dropdownToggleHandler = () => {
-    this.setState({isOpen:!this.state.isOpen})
+    // function 'this' context bindings
+    this.splitChangeHandler = this.splitPaneChangeHandler.bind(this)
+    this.handleOnVisibleChange = this.handleOnVisibleChange.bind(this)
+    this.setPaneStyle = this.setPaneStyle.bind(this)
+    this.onSizeChangeHandler = this.onSizeChangeHandler.bind(this)
   }
 
   /**
@@ -95,11 +49,11 @@ class Editor extends React.Component {
    *    if the panel is closed, opens it and sets the size to 0.25 (25% of the screen)
    *
    */
-  handleOnVisibleChange = () => {
+  handleOnVisibleChange(){
     this.setState({
-      isVisible: !this.state.isVisible,           //open it if its closed, close it if its open
-      size:this.state.isVisible ? 0.0 : 0.25,     //give it a size of 0 if it was open, 0.25 if it was closed
-      prevSize:this.state.isVisible ? 0.0 : 0.25, //set the previous size to the same as the new size (used to make the slide transition only trigger when the expand/collapse button is pressed)
+      panelVisible: !this.state.panelVisible,           //open it if its closed, close it if its open
+      size:this.state.panelVisible ? 0.0 : 0.25,     //give it a size of 0 if it was open, 0.25 if it was closed
+      prevSize:this.state.panelVisible ? 0.0 : 0.25, //set the previous size to the same as the new size (used to make the slide transition only trigger when the expand/collapse button is pressed)
       codeSize:"50%",
       paneStyle:{transition:"width 0.3s ease"},
     })
@@ -107,12 +61,12 @@ class Editor extends React.Component {
 
 
   /**
-   *  handleOnSizeChange - handler for when the panel is being resized by the resizer (right edge of the panel)
+   *  onSizeChangeHandler - handler for when the panel is being resized by the resizer (right edge of the panel)
    *    stores the old size in prevSize
    *
    *    @param {float} newSize - the new size of the panel as a fraction of the width of the screen
    */
-  handleOnSizeChange = (newSize) => {
+  onSizeChangeHandler(newSize){
     this.setState({
       size:newSize,
       prevSize:this.state.size,         //storing the previous size in prevSize
@@ -120,70 +74,23 @@ class Editor extends React.Component {
     })
   }
 
-  setPaneStyle = (newPaneStyle) => {
-    this.setState({paneStyle:newPaneStyle})
-  }
-
-  setCodeMirrorInstance = (codeMirrorInstance) => {
-    this.setState({codeMirrorInstance})
-  }
-
-  setCurrentLine = (nextState)=>{
-      const {codeMirrorInstance, currentLine} = this.state
-      let {line} = nextState.getCursor()
-      if(codeMirrorInstance){
-          codeMirrorInstance.removeLineClass(currentLine, 'wrap', 'selected-line')    //removeLineClass removes the back highlight style from the last selected line
-          codeMirrorInstance.addLineClass(line, 'wrap', 'selected-line')              //addLineClass adds the style to the newly selected line
-      }
-      this.setState({currentLine:line})
-  }
-
-  splitPaneChangeHandler = (codeSize) => {
+  splitPaneChangeHandler(codeSize){
       this.setState({codeSize, paneStyle:{transition:"none"}})
   }
 
-  /**
-   *  updateCode - handler for when text in the text editor changes
-   *
-   *    @param {float} newCode - the new text in the screen (not just what changed, the whole text)
-   */
-  updateCode = (newCode) => {
-    this.setState({
-      code: newCode,
-    });
-  }
-
-  /**
-   * runCode - handler for when user presses the run code button
-   *
-   *  @todo Add checking for syntactically incorrect html.  Display error message when this happens.
-   */
-  runCode = () => {
-    if(this.state.mode === 'htmlmixed' || this.state.mode === 'javascript'){
-      this.setState({
-        runResult: this.state.code,
-      });
-		}
-  }
-
-  /**
-   * clearOutput - clears the output screen when a user presses clear button
-   */
-  clearOutput = () => {
-    this.setState({
-      runResult: null,
-    });
+  setPaneStyle(newPaneStyle){
+    this.setState({paneStyle:newPaneStyle})
   }
 
   /**
    *  render
    */
 	render() {
-    const {isVisible, size, prevSize, isOpen, language, mode,
-           codeSize, paneStyle, code, runResult, isProcessing,
+    const {panelVisible, size, prevSize, isOpen, language, mode,
+           codeSize, paneStyle, code, isProcessing,
            hotReload,
     } = this.state
-    const {logout, user} = this.props
+    const { user} = this.props
 
     //if somehow the router breaks and a non-logged in user gets to the editor, reroute the user back to the login page
     if(!user){
@@ -194,7 +101,7 @@ class Editor extends React.Component {
     let panelSize=(size*100.0).toString() + '%'
 
     //style to be applied to left panel
-    let panelStyle = {width:panelSize}            //width of the panel should always be the percent of its size (which is a decimal)
+    let panelStyle = {width:panelSize}
 
     //style to be applied to non panel (sections containing text editor and code output)
     let codeStyle = {
@@ -209,38 +116,22 @@ class Editor extends React.Component {
     return(
       <div className="editor">
         <ProfilePanel
-          handleOnSizeChange={this.handleOnSizeChange}
+          handleOnSizeChange={this.onSizeChangeHandler}
           handleOnVisibleChange={this.handleOnVisibleChange}
-          isVisible={isVisible}
-          logout={this.props.logout}
-          panelStyle={panelStyle}
+          panelVisible={panelVisible}
+          clearUserData={this.props.clearUserData}
           size={size}
           user={user}
         />
-        <Main
+        <MainContainer
+          programsCollection={user.programs}
           paneStyle={paneStyle}
-          minSize={window.innerWidth*(1-size)/4}
-          maxSize={isVisible ? window.innerWidth*(1-size)*3/4 : window.innerWidth*3/4}
           size={codeSize}
-          allowResize={true}
           onSplitPaneChange={this.splitPaneChangeHandler}
           handleOnVisibleChange={this.handleOnVisibleChange}
-          isVisible={isVisible}
-          isOpen={isOpen}
-          handleDropdownToggle={this.dropdownToggleHandler}
-          changeMode={this.changeMode}
-          updateCode={this.updateCode}
-          runCode={this.runCode}
-          clearOutput={this.clearOutput}
-          runResult={runResult}
-          setCodeMirrorInstance={this.setCodeMirrorInstance}
-          code={code}
-          setCurrentLine={this.setCurrentLine}
+          panelVisible={panelVisible}
           codeStyle={codeStyle}
-          language={language}
-          mode={mode}
           setPaneStyle={this.setPaneStyle}
-          isProcessing={isProcessing}
           hotReload={hotReload}
         />
       </div>
