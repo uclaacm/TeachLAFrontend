@@ -1,7 +1,7 @@
 import React from 'react'
 import CodeSection from '../components/Main.js'
 import {connect} from 'react-redux'
-import {setOutput} from '../../../actions/outputActions'
+import {setRunResult} from '../../../actions/outputActions'
 import {setLanguage, setProgram, setCurrentLine,
   focusOnEditor, switchToProgram, runCode, createEditorID} from '../../../actions/textEditorActions'
 import {getMostRecentProgram} from '../../../actions/userDataActions'
@@ -30,7 +30,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(runCode())
     },
     clearOutput: () => {
-      dispatch(setOutput(""))
+      dispatch(setRunResult(""))
     },
     focusOnEditor: (id) => {
       dispatch(focusOnEditor(id))
@@ -50,7 +50,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     switchToProgram: (program, editorID) => {
       // clear run output
-      dispatch(setOutput(""))
+      dispatch(setRunResult(""))
       return dispatch(switchToProgram(program, editorID))
     },
     getMostRecentProgram: () => {

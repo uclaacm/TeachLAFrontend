@@ -1,4 +1,4 @@
-import {CLEAR_OUTPUT, SET_OUTPUT} from '../actions/outputActions'
+import {CLEAR_OUTPUT, SET_RUN_RESULT} from '../actions/outputActions'
 
 function outputReducers(state = {
   runResult: null
@@ -6,7 +6,7 @@ function outputReducers(state = {
   switch(action.type){
     case CLEAR_OUTPUT:
       return Object.assign({}, state, {runResult: null})
-    case SET_OUTPUT:
+    case SET_RUN_RESULT:
       return Object.assign({}, state, {runResult: action.runResult})
     default:
       return state

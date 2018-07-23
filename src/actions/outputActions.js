@@ -3,7 +3,7 @@ export function clearOutput(){
   return {type: CLEAR_OUTPUT}
 }
 
-export const SET_OUTPUT = 'SET_OUTPUT'
-export function setOutput(result){
-  return {type: SET_OUTPUT, runResult: result}
+export const SET_RUN_RESULT = 'SET_RUN_RESULT'
+export function setRunResult(result){
+  return {type: SET_RUN_RESULT, runResult: result}
 }

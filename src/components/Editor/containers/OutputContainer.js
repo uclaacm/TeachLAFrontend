@@ -11,6 +11,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     runResult: state.app.outputReducers.runResult,
     mode: focusedEditor && focusedEditor.program ? nameToMode(focusedEditor.program.language): "python",
+    language: focusedEditor && focusedEditor.program ? focusedEditor.program.language : "Python",
   }
 }
 
