@@ -33,16 +33,41 @@ class Output extends React.Component {
     )
   }
 
+  renderProcessingOutput = () => {
+    const {runResult} = this.props
+    if(!runResult){
+      return null
+    }
+
+    return (
+      <iframe className="html-output"
+              style={{display: 'flex', height:"92vh"}}
+              srcDoc={`<html><head>
+              <style>html,body: {margin:0, width:100%}
+              <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/p5.min.js"></script>
+              <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/addons/p5.dom.min.js"></script>
+              <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/addons/p5.sound.min.js"></script>
+              </head><body><script type="text/javascript">${runResult}</script></body></html>`}
+              src='about:blank'
+              onLoad={(e)=>{
+                console.log(e)
+              }}
+      />
+    )
+  }
+
   renderOutput = () => {
-    const {mode, runResult} = this.props
-    switch(mode){
-      case "python":
-      case "javascript":
-      case "text/x-csrc":
-      case "text/x-java":
-      case "htmlmixed":
-        return this.renderHTMLOutput()
+    const {language, runResult} = this.props
+    switch(language){
+      case "Python":
+      case "Processing":
+        return this.renderProcessingOutput()
+      case "Javascript":
+      case "C++":
+      case "Java":
+      case "HTML":
       default:
+        return this.renderHTMLOutput()
         return runResult
     }
   }

@@ -221,6 +221,7 @@ class Editor extends React.Component {
           paneStyle={paneStyle}
           minSize={window.innerWidth*(1-size)/4}
           maxSize={isVisible ? window.innerWidth*(1-size)*3/4 : window.innerWidth*3/4}
+          panelVisible={isVisible}
           size={codeSize}
           allowResize={true}
           onSplitPaneChange={this.splitPaneChangeHandler}

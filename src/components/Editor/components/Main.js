@@ -115,7 +115,10 @@ class CodeSection extends React.Component {
   }
 
 	render(){																													//called deconstruction; pulling children, triggerLogin, ..., textPadding out of props
-    const {codeStyle, paneStyle, minSize, maxSize, size, allowResize, onSplitPaneChange, mode, runResult, clearOutput} = this.props
+    const {codeStyle, paneStyle, minSize,
+            maxSize, size, allowResize,
+            onSplitPaneChange, mode, runResult,
+            clearOutput, language} = this.props
 
 		return (
       <div style={codeStyle}>
@@ -130,7 +133,7 @@ class CodeSection extends React.Component {
         >
           <div  className="code-section">
             <div className="editor-header">
-              {this.renderClosePanelButton()}
+              {!this.props.panelVisible ? this.renderClosePanelButton() : null}
               {this.renderDropdown()}
               {this.renderRunButton()}
             </div>
@@ -140,6 +143,7 @@ class CodeSection extends React.Component {
           </div>
           <Output
             mode={mode}
+            language={language}
             runResult={runResult}
             clearOutput={clearOutput}
           />
