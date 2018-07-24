@@ -17,9 +17,17 @@ module.exports = {
     CREATION_DATE: "creationDate",
     CODE: "code",
     PROGRAM_PATH: "programs",
+    PROGRAM_FIELDS: new Map([["code", typeof(String)], ["language", typeof(String)], ["title", typeof(String)], ["creationDate", typeof(Date)], ["lastModified", typeof(Date)]]),
     /* UI */
     RING_LOADER_SIZE: 50,
-    LANGUAGE_MAP: Object.freeze({PYTHON:"Python", JAVA:"Java", HTML:"HTML", PROCESSING:"Processing",
-      JAVASCRIPT:"Javascript",}),
+    /* LANGUAGE DEFINITIONS */
+    PYTHON: "Python",
+    JAVA: "Java",
+    HTML: "HTML",
+    PROCESSING: "Processing",
+    JAVASCRIPT: "Javascript",
+    // CPLUS_PLUS: "C++",
+    MODE_MAP: Object.freeze({"C++":"text/x-csrc", "Python":"python", "Java":"text/x-java", "HTML":"htmlmixed", "Processing":"javascript", "Javascript":"javascript",}),
     SUPPORTED_LANGUAGES: Object.freeze(["Python", "Java", "HTML", "Processing", "Javascript"])
+
 }

@@ -12,6 +12,7 @@ const provider = new firebase.auth.FacebookAuthProvider();
 class App extends React.Component {
 	constructor(props){
 		super(props)
+		// TODO: move checkedAuth into an appropriate reducer. NOTE: checkedAuth is non-UI state.
 		this.state={
 			checkedAuth:false,
 			width:window.innerWidth,
@@ -23,6 +24,14 @@ class App extends React.Component {
 		firebase.auth().onAuthStateChanged(this.onAuthHandler)
 	}
 
+	/**
+	 *  TODO: Consider reducing the numerous side effects of this function in favor of the one function, one purpose principle
+	 * onAuthHandler - on execution will set a flag checkedAuth to true. If a valid user is passed to the function,
+	 * onAuthHandler will attempt to load the metadata and account data corresponding to this account.  If the user
+	 * has not set their displayName, it will be set to "New User". If no user is passed, we clear any existng user data from the
+	 * application.
+	 * @param  {firebase.auth().currentUser}  user - a user object as passed by firebase.auth()
+	 */
 	onAuthHandler = async (user) => {
 		this.setState({checkedAuth:true})
 		if (user) {

@@ -13,6 +13,8 @@ import firebase from 'firebase'
 import 'firebase/firestore'
 import {reduxFirestore, firestoreReducer} from 'redux-firestore'
 import { firebaseReducer, reactReduxFirebase } from 'react-redux-firebase'
+import Enzyme from 'enzyme'
+import Adapter from 'enzyme-adapter-react-16'
 
 firebase.initializeApp(config);
 // Cloud Firestore startup
