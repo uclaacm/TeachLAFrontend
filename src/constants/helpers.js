@@ -1,5 +1,6 @@
 import SHA256 from 'crypto-js/sha256'
-import { DEFAULT_MODE, SUPPORTED_LANGUAGES } from './index.js'
+import { DEFAULT_MODE, SUPPORTED_LANGUAGES, MODE_MAP,
+         CPLUS_PLUS, JAVA, JAVASCRIPT, PYTHON, PROCESSING, HTML} from './index.js'
 import Program from './Program.js'
 
 /**
@@ -23,12 +24,12 @@ export function generateID(){
 export function nameToMode(name){
   name = name ? name.toLowerCase(): null
   const conversion={
-    "python":"python",
-    "javascript":"javascript",
-    "c++":"text/x-csrc",
-    "java":"text/x-java",
-    "html":"htmlmixed",
-    "processing":"javascript",
+    "python":MODE_MAP[PYTHON],
+    "javascript":MODE_MAP[JAVASCRIPT],
+    "c++":MODE_MAP[CPLUS_PLUS],
+    "java":MODE_MAP[JAVA],
+    "html":MODE_MAP[HTML],
+    "processing":MODE_MAP[PROCESSING],
   }
 
   return conversion[name] || DEFAULT_MODE   //if there's no conversion, use the DEFAULT_MODE

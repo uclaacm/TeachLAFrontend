@@ -1,3 +1,5 @@
+import {PROGRAM_FIELDS} from './index'
+
 /**
  * Program - constructor for the standard Program object.  Program is what is stored in editor window instances
  * , conveniently providing an encapsulated source of information to find out the language, code, title, and
@@ -12,11 +14,9 @@
 export default function Program(doc){
   if(doc && doc.exists){
     let data = doc.data()
-    this.code = data.code
-    this.language = data.language
-    this.title = data.title
-    this.creationDate = data.creationDate
-    this.modificationDate = data.lastModified
+    PROGRAM_FIELDS.forEach((fieldType, fieldName) => {
+      this[fieldName] = data[fieldName]
+    })
     this.valid = true
   }
   else{

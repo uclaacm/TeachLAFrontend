@@ -8,12 +8,13 @@
     "bootstrap": "4.1.1",
     "codemirror": "^5.37.0",
     "crypto-js": "^3.1.9-1",
+    "enzyme-adapter-react-16": "^1.1.1",
     "firebase": "^5.0.3",
     "prop-types": "^15.6.2",
     "react": "^16.3.2",
     "react-codemirror2": "^4.2.1",
     "react-dock": "^0.2.4",
-    "react-dom": "^16.3.2",
+    "react-dom": "^16.4.1",
     "react-redux": "^5.0.7",
     "react-redux-firebase": "^2.1.6",
     "react-router": "^4.2.0",
@@ -38,6 +39,7 @@
     "server": "nodemon app.js"
   },
   "devDependencies": {
-    "circular-json": "^0.5.5"
+    "circular-json": "^0.5.5",
+    "enzyme": "^3.3.0"
   }
 }

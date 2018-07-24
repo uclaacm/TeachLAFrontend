@@ -2,15 +2,10 @@ import React from 'react'
 import firebase from 'firebase'
 import {Controlled as CodeMirror} from 'react-codemirror2';
 import SplitPane from 'react-split-pane'
-// import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import OutputContainer from '../containers/OutputContainer.js'
 import TextEditorContainer from '../containers/TextEditorContainer'
 import DropdownButton from './DropdownButton'
 import RunButton from './RunButton'
-import 'codemirror/mode/javascript/javascript.js';
-import 'codemirror/mode/htmlmixed/htmlmixed.js';
-import 'codemirror/mode/python/python.js';
-import 'codemirror/mode/clike/clike.js';
 /*
 	Props:
 		bgColor: string representing the color of the background of the img (can be hex color, rgb(r, g, b, a), or color name)
