@@ -104,7 +104,8 @@ export function runCode(){
   return (dispatch, getState) => {
     let language = getState().app.textEditorReducers.focusedEditor.program.language
     let code = getState().app.textEditorReducers.focusedEditor.program.code
-    if(language === "HTML" || language === "Javascript" || language === "Processing"){
+
+    if(language === "HTML" || language === "Javascript" || language === "Processing" || language === "Python"){
       dispatch(setRunResult(code))
     }
   }
