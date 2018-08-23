@@ -2,6 +2,7 @@ import {
   SET_CURRENT_LINE, SET_HOT_RELOAD, SET_CODE, SET_CODE_MIRROR_INSTANCE,
   CREATE_EDITOR_ID, FOCUS_ON_EDITOR, SET_LANGUAGE, SET_PROGRAM} from '../actions/textEditorActions'
 import {supportedLanguage} from '../constants/helpers.js'
+import {DEFAULT_LANGUAGE_PROGRAMS} from '../constants'
 import Editor from '../components/Editor'
 
 function textEditorReducers(state =
@@ -19,9 +20,18 @@ function textEditorReducers(state =
       return Object.assign({}, state, state.editors)
     case SET_PROGRAM:
       let editor = state.editors.get(action.id)
+      console.log("editor", editor)
+      if(!editor){
+        editor = {
+          program:DEFAULT_LANGUAGE_PROGRAMS[action.id],
+          currentLine: 1,
+        }
+      }
       if(action.program){
         editor.program = action.program
         return Object.assign({}, state, state.editors)
+      } else {
+        console.log("test")
       }
       return state
     case SET_CODE:

@@ -28,6 +28,15 @@ module.exports = {
     JAVASCRIPT: "Javascript",
     // CPLUS_PLUS: "C++",
     MODE_MAP: Object.freeze({"C++":"text/x-csrc", "Python":"python", "Java":"text/x-java", "HTML":"htmlmixed", "Processing":"javascript", "Javascript":"javascript",}),
-    SUPPORTED_LANGUAGES: Object.freeze(["Python", "Java", "HTML", "Processing", "Javascript"])
+    SUPPORTED_LANGUAGES: Object.freeze(["Python", "Java", "HTML", "Processing", "Javascript"]),
+    EMAIL_DOMAIN_NAME: "@fake.com",
+    DEFAULT_LANGUAGE_PROGRAMS: {
+        "Python": 'print("Hello World!")',
+        "Javascript": 'console.log("Hello World!")',
+        "Java": 'System.out.println("Hello World!")',
+        "HTML": "<html>\n  <head>\n  </head>\n  <body>\n    <div style='width: 100px; height: 100px; background-color: black'>\n    </div>\n  </body>\n</html>",
+        "C++": 'std::cout << "Hello World!" << std::endl',
+        "Processing": "function setup() {\n  createCanvas(400, 400);\n}\n\nfunction draw() {\n  background(220);\n}",
+    },
 
 }

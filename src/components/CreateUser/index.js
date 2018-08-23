@@ -10,6 +10,8 @@ import {
     MINIMUM_PASSWORD_LENGTH,
     MAXIMUM_USERNAME_LENGTH,
     MAXIMUM_PASSWORD_LENGTH,
+    EMAIL_DOMAIN_NAME,
+    DEFAULT_LANGUAGE_PROGRAMS,
 } from '../../constants';
 
 const filter = new Filter();
@@ -95,22 +97,19 @@ class CreateUser extends React.Component {
           uid: uid
         })
         // create template sketches and initialize their fields
-        const sketchTemplates = new Map([
-          ["Python", 'print("Hello World!")'],
-          ["Javascript", 'console.log("Hello World!")'],
-          ["Java", 'System.out.println("Hello World!")'],
-          ["HTML", "<html><head></head><body><div style='width: 100px; height: 100px; background-color: black'></div></body></html>"],
-          ["C++", 'std::cout << "Hello World!" << std::endl'],
-          ["Processing", "void setup(){} void draw(){}"]
-        ])
-        sketchTemplates.forEach((code, name) => {
-          this.props.firestore.doc(`users/${uid}/programs/${name}`).set({
-            language: name,
-            title: `my_first_${name.toLowerCase()}_sketch`,
-            creationDate: new Date(Date.now()),
-            lastModified: new Date(Date.now()),
-            code: code
-          })
+        let langs = Object.keys(DEFAULT_LANGUAGE_PROGRAMS)
+        
+        langs.forEach((lang, index) => {
+            console.log(lang)
+            let obj = {
+                language: lang,
+                title: `my_first_${lang.toLowerCase()}_sketch`,
+                creationDate: new Date(Date.now()),
+                lastModified: new Date(Date.now()),
+                code: DEFAULT_LANGUAGE_PROGRAMS[lang]
+            }
+            console.log(obj)
+          this.props.firestore.doc(`users/${uid}/programs/${lang}`).set(obj)
         })
       }
     }
@@ -145,7 +144,7 @@ class CreateUser extends React.Component {
         // This is part of the firebase email/password workaround.
         // We create an email lookalike to trick firebase into thinking the user
         // signed up with an email, instead of a username, display name, and password
-        let email = String(content.uid) + "@fake.com"
+        let email = String(content.uid) + EMAIL_DOMAIN_NAME
 
         // regiser user in firebase
         firebase.auth().createUserWithEmailAndPassword(email, content.password).then((user) => {
