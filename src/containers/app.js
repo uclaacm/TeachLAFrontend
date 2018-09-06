@@ -15,8 +15,6 @@ class App extends React.Component {
 		// TODO: move checkedAuth into an appropriate reducer. NOTE: checkedAuth is non-UI state.
 		this.state={
 			checkedAuth:false,
-			width:window.innerWidth,
-			height:window.innerHeight,
 		}
 	}
 
@@ -51,7 +49,7 @@ class App extends React.Component {
 
 	render() {
 		let {loggedInUserData} = this.props
-		let {checkedAuth, width, height} = this.state
+		let {checkedAuth, } = this.state
 		//if we haven't checked if the user is logged in yet, show a loading screen
 		if(!checkedAuth){
 			return (<LoadingPage/>)
@@ -63,14 +61,14 @@ class App extends React.Component {
 					<Route exact path="/" render={() => (
 							loggedInUserData ? (
 								<Redirect to="/editor"/>
-							) : (<LoginPage provider={provider} width={width} height={height}/>)
+							) : (<LoginPage provider={provider}/>)
 						)}
 					/>
 					{/*if the user is loggedIn, redirect them to the editor, otherwise, show the login page*?*/}
 					<Route path="/login" render={() => (
 							loggedInUserData ? (
 								<Redirect to="/editor"/>
-							) : (<LoginPage provider={provider} width={width} height={height}/>)
+							) : (<LoginPage provider={provider}/>)
 						)}
 					/>
 					{/*if the user is not loggedIn, redirect them to the login page, otherwise, show the editor page*?*/}

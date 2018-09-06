@@ -1,5 +1,5 @@
 import React from 'react'
-import '../../../styles/Login.css'
+import '../../styles/Login.css'
 
 {/*type.charAt(0).toUpperCase() + type.substr(1)*/}
 const LoginInput = ({type, waiting, data, onChange}) => (
