@@ -4,7 +4,7 @@
 
 .create-page-content{
     margin:inherit;
-    height: 90vh;                             /*uses the value set in create-page, inherited the prop*/
+    height: 92vh;                             /*uses the value set in create-page, inherited the prop*/
     background-color:#272134;
     background-image: url('../img/myBg3.png');  /* /public/img/myBg3.png */
     background-repeat:no-repeat;
@@ -37,9 +37,6 @@
 }
 
 .create-header {
-    font-size:3em;
-    white-space:nowrap;
-    font-weight: bold;
 }
 
 .create-form-input-header{
@@ -56,18 +53,8 @@
     padding: 0 15%;
 }
 
-.create-modal {
-    font-family: 'Josefin Slab', sans-serif;      /*font for the whole create page*/
-    display:block;
-    background-color:#272134;
-    width: 460px;
-    min-width:469px;
-    min-height:550px;
-    margin-top: 30px;                   /*modal distance from top of the screen*/
-    margin-left: 8%;                    /*modal distance from left side of the screen*/
-    padding:15px;
-    box-sizing:border-box;
-}
+/* .create-modal {
+} */
 
 .create-form-input {
     font-size: 1.5rem;
