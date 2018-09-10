@@ -1,4 +1,4 @@
-import Editor from '../components/Editor'
+import Editor from '../components/Editor.js'
 import {connect} from 'react-redux'
 import {clearUserData, getMostRecentProgram} from '../actions/userDataActions'
 import {switchToProgram} from '../actions/textEditorActions'

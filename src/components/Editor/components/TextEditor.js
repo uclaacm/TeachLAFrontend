@@ -1,5 +1,4 @@
 import React from 'react'
-import Editor from '../index.js'
 import {nameToMode} from '../../../constants/helpers.js'
 import {lifecycle} from 'recompose'
 
