@@ -5,7 +5,7 @@
 import React from 'react';
 import App from '../app.js';
 import {connect} from 'react-redux'
-import {loadUserData, loadUserPrograms, clearUserData} from '../../actions/userDataActions'
+import {loadUserData, loadUserPrograms, clearUserData} from '../../actions/userDataActions.js'
 
 
 const mapStateToProps = state => {

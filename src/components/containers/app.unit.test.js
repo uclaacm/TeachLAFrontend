@@ -3,7 +3,7 @@ import { shallow } from 'enzyme'
 import firebase from 'firebase'
 import config from '../../firebase'
 
-import App from './app'
+import App from '../app.js'
 
 function setup(){
 

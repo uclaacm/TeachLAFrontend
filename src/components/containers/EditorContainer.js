@@ -1,7 +1,7 @@
 import Editor from '../Editor.js'
 import {connect} from 'react-redux'
-import {clearUserData, getMostRecentProgram} from '../../actions/userDataActions'
-import {switchToProgram} from '../../actions/textEditorActions'
+import {clearUserData, getMostRecentProgram} from '../../actions/userDataActions.js'
+import {switchToProgram} from '../../actions/textEditorActions.js'
 import firebase from 'firebase'
 
 const mapStateToProps = state => {
