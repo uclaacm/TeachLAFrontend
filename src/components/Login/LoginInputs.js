@@ -1,10 +1,10 @@
 import React from 'react';
 import {RingLoader} from 'react-spinners'
-import {RING_LOADER_SIZE} from '../../../constants'
+import {RING_LOADER_SIZE} from '../../constants'
 import {Link} from 'react-router-dom'
-import SocialButton from '../../SocialButton'
+import SocialButton from '../common/SocialButton'
 import LoginInput from './LoginInput'
-import '../../../styles/Login.css'
+import '../../styles/Login.css'
 
 const LoginInputs = (props) => (
   <form className='login-form' onSubmit={props.onSubmit}>	{/*Form doesn't do anything rn, just an example of a stateful React form.*/}

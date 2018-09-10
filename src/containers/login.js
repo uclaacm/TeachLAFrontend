@@ -1,5 +1,5 @@
 import React from 'react';
-import Login from '../components/Login'
+import Login from '../components/Login.js'
 import {connect} from 'react-redux'
 import {loadUserData, clearUserData, loadFailure} from '../actions/userDataActions'
 import {onLoginRequest} from '../actions/userStateActions'

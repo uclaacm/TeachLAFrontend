@@ -1,4 +1,4 @@
-import CreateUser from '../components/CreateUser'
+import CreateUser from '../components/CreateUser.js'
 import {connect} from 'react-redux'
 import {withFirestore} from 'react-redux-firebase'
 import {compose} from 'redux'
