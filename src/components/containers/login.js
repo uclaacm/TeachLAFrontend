@@ -1,8 +1,8 @@
 import React from 'react';
-import Login from '../components/Login.js'
+import Login from '../Login.js'
 import {connect} from 'react-redux'
-import {loadUserData, clearUserData, loadFailure} from '../actions/userDataActions'
-import {onLoginRequest} from '../actions/userStateActions'
+import {loadUserData, clearUserData, loadFailure} from '../../actions/userDataActions'
+import {onLoginRequest} from '../../actions/userStateActions'
 
 const mapStateToProps = (state, ownProps) => {
   return {

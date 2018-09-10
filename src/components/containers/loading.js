@@ -1,6 +1,6 @@
 import React from 'react'
 import {RingLoader} from 'react-spinners'
-import '../styles/Loading.css'
+import '../../styles/Loading.css'
  
 /*
 	Props:

@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
-import LoginPage from './login';
-import EditorPage from './editor';
-import LoadingPage from './loading';
-import CreateUserPage from './createUser';
+import LoginPage from './containers/login';
+import EditorPage from './containers/editor';
+import LoadingPage from './containers/loading';
+import CreateUserPage from './containers/createUser';
 import firebase from 'firebase'
 import '../styles/app.css'
 

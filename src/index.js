@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import './styles/index.css';
-import Root from './containers/root';
+import Root from './components/containers/root';
 import registerServiceWorker from './registerServiceWorker';
 import thunkMiddleware from 'redux-thunk'
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux'
