@@ -1,4 +1,4 @@
-import {CLEAR_OUTPUT, SET_RUN_RESULT} from '../actions/outputActions'
+import { CLEAR_OUTPUT, SET_RUN_RESULT } from '../actions/outputActions'
 
 function outputReducers(state = {
   runResult: null

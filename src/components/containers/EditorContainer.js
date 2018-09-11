@@ -1,10 +1,10 @@
 import Editor from '../Editor.js'
 import {connect} from 'react-redux'
-import {clearUserData, getMostRecentProgram} from '../../actions/userDataActions.js'
+import { clearUserData } from '../../actions/userDataActions.js'
 import {switchToProgram} from '../../actions/textEditorActions.js'
 import firebase from 'firebase'
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   let userInfo = state.app.userDataReducers
   return {
     user: userInfo,
