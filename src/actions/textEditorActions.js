@@ -71,14 +71,14 @@ export function setRunResult(runResult){
  */
 export function switchToProgram(programID, editorID = null){
   return (dispatch, getState) => {
-    let focusedID = getState().app.textEditorReducers.focusedEditorID
+    let focusedID = getState().textEditor.focusedEditorID
     if(!editorID){
       editorID = focusedID
     }
     if(validID(editorID, getState())){
       return new Promise(function(resolve, reject){
         try{
-          let firestorePrograms = getState().app.userDataReducers.programs
+          let firestorePrograms = getState().textEditor.programs
           let progdoc = firestorePrograms.doc(programID)
           progdoc.get().then((docSnapshot) => {
             let program = new Program(docSnapshot)
@@ -102,8 +102,8 @@ export function switchToProgram(programID, editorID = null){
  */
 export function runCode(){
   return (dispatch, getState) => {
-    let language = getState().app.textEditorReducers.focusedEditor.program.language
-    let code = getState().app.textEditorReducers.focusedEditor.program.code
+    let language = getState().textEditor.focusedEditor.program.language
+    let code = getState().textEditor.focusedEditor.program.code
 
     if(language === "HTML" || language === "Javascript" || language === "Processing" || language === "Python"){
       dispatch(setRunResult(code))

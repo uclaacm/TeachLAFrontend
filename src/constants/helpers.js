@@ -42,10 +42,10 @@ export function nameToMode(name){
  * @return {Boolean}       whether the ID describes an existing editor window
  */
 export function validID(id, state){
-  if(!state.app.textEditorReducers.editors){
+  if(!state.textEditor.editors){
     return false
   }
-  if(state.app.textEditorReducers.editors.get(id)){
+  if(state.textEditor.editors.get(id)){
     return true
   }
   return false

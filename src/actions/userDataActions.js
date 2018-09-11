@@ -66,8 +66,8 @@ export function programUploadFailure(error){
  */
 export function programUpload(program, id){
   return (dispatch, getState) => {
-    let program = getState().app.textEditorReducers.editors.get(id).program
-    let doc = progToDoc(program, getState().app.userDataReducers.programs)
+    let program = getState().textEditor.editors.get(id).program
+    let doc = progToDoc(program, getState().userData.programs)
     // if there is already a firestore document corresponding to this program, update it
     // otherwise, we need to create a new document remotely in firestore to store this data
     doc.get().then(function(docSnapshot){
@@ -88,7 +88,7 @@ export function programUpload(program, id){
 
 export function getMostRecentProgram(){
   return (dispatch, getState) => {
-    let programs = getState().app.userDataReducers.programs
+    let programs = getState().userData.programs
     
     //if for some reason we get no programs back, send back an invalid documnet
     if(!programs){

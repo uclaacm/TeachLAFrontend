@@ -6,9 +6,9 @@ import {clearOutput} from '../../../actions/outputActions'
 import {nameToMode} from '../../../constants/helpers.js'
 
 const mapStateToProps = (state, ownProps) => {
-  let focusedEditor = state.app.textEditorReducers.focusedEditor
+  let focusedEditor = state.textEditor.focusedEditor
   return {
-    runResult: state.app.outputReducers.runResult,
+    runResult: state.output.runResult,
     mode: focusedEditor && focusedEditor.program ? nameToMode(focusedEditor.program.language): "python",
     language: focusedEditor && focusedEditor.program ? focusedEditor.program.language : "Python",
   }

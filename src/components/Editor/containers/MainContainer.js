@@ -9,15 +9,12 @@ import {nameToMode, generateID} from '../../../constants/helpers.js'
 import {DEFAULT_LANG} from '../../../constants'
 
 const mapStateToProps = (state, ownProps) => {
-  let textEditorState = state.app.textEditorReducers
+  let textEditorState = state.textEditor
   let focusedEditor = textEditorState.focusedEditor
   return {
     language: (focusedEditor  && focusedEditor.program ? focusedEditor.program.language : DEFAULT_LANG),
     code: (focusedEditor && focusedEditor.program ? focusedEditor.code : ""),
-    handleDropdownToggle: ownProps.handleDropdownToggle,
-    paneVisible: ownProps.paneVisible,
     runResult: textEditorState.runResult,
-    onSplitPaneChange: ownProps.splitPaneChangeHandler
   }
 }
 

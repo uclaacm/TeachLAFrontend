@@ -6,10 +6,9 @@ import {onLoginRequest} from '../../actions/userStateActions.js'
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    loggedIn: state.app.userDataReducers,
-    waiting: state.app.userStateReducers.waiting,
-    message: state.app.userStateReducers.message,
-    ...ownProps,                        //all props passed to the container, put into the props
+    loggedIn: state.userData,
+    waiting: state.userState.waiting,
+    message: state.userState.message,
   }
 }
 

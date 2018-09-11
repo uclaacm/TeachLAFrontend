@@ -10,7 +10,7 @@ import {loadUserData, loadUserPrograms, clearUserData} from '../../actions/userD
 
 const mapStateToProps = state => {
   return {
-    loggedInUserData: state.app.userDataReducers
+    loggedInUserData: state.userData
   }
 }
 

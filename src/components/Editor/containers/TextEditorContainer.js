@@ -6,7 +6,7 @@ import {programUpload} from '../../../actions/userDataActions'
 const mapStateToProps = (state, ownProps) => {
   /* the reason for the decoupling of code, language, and and currentLine from the actual remote sketch
      is because it is desirable for the local state to persist in working if a network error should develop */
-  let globalEditorInfo = state.app.textEditorReducers
+  let globalEditorInfo = state.textEditor
   let editor = globalEditorInfo.editors.get(ownProps.id)
   if(editor){
     return {
@@ -14,13 +14,11 @@ const mapStateToProps = (state, ownProps) => {
       hotReload: globalEditorInfo.hotReloading,
       code: editor.program ? editor.program.code : "",
       language: editor.program ? editor.program.language : "Python",
-      id: ownProps.id,
       cmInstance: editor.cmInstance,
     }
   }
   else{
     return {
-      id: ownProps.id,
       hotReload: globalEditorInfo.hotReloading,
       code: null,
       language: null,
@@ -38,9 +36,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     setCodeMirrorInstance: (instance, id) => {
       dispatch(setCodeMirrorInstance(instance, id))
     },
-    runCode: (code) => {
-      ownProps.runCode(code)
-    },
     uploadCode: (code, id) => {
       dispatch(programUpload({code: code, lastModified: new Date(Date.now())}, id))
     },
@@ -50,9 +45,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 }
 
-const TextEditorContainer =
-connect(mapStateToProps,
-mapDispatchToProps)
-(TextEditor)
+const TextEditorContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TextEditor)
 
 export default TextEditorContainer
