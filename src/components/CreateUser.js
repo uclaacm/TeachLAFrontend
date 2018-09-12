@@ -11,6 +11,7 @@ import {
     MINIMUM_PASSWORD_LENGTH,
     MAXIMUM_USERNAME_LENGTH,
     MAXIMUM_PASSWORD_LENGTH,
+    DEFAULT_LANGUAGE_PROGRAMS,
 } from '../constants';
 
 const filter = new Filter();
@@ -98,15 +99,15 @@ class CreateUser extends React.Component {
         uid: uid
       })
       // create template sketches and initialize their fields
-      const sketchTemplates = new Map([
-        ["Python", 'print("Hello World!")'],
-        ["Javascript", 'console.log("Hello World!")'],
-        ["Java", 'System.out.println("Hello World!")'],
-        ["HTML", "<html><head></head><body><div style='width: 100px; height: 100px; background-color: black'></div></body></html>"],
-        ["C++", 'std::cout << "Hello World!" << std::endl'],
-        ["Processing", "void setup(){} void draw(){}"]
-      ])
-      sketchTemplates.forEach((code, name) => {
+      // const sketchTemplates = new Map([
+      //   ["Python", 'print("Hello World!")'],
+      //   ["Javascript", 'console.log("Hello World!")'],
+      //   ["Java", 'System.out.println("Hello World!")'],
+      //   ["HTML", "<html><head></head><body><div style='width: 100px; height: 100px; background-color: black'></div></body></html>"],
+      //   ["C++", 'std::cout << "Hello World!" << std::endl'],
+      //   ["Processing", "void setup(){} void draw(){}"]
+      // ])
+      DEFAULT_LANGUAGE_PROGRAMS.forEach((code, name) => {
         this.props.firestore.doc(`users/${uid}/programs/${name}`).set({
           language: name,
           title: `my_first_${name.toLowerCase()}_sketch`,
@@ -179,13 +180,39 @@ class CreateUser extends React.Component {
     </div>
   )
 
+  renderHeader = (modal) => (
+    <div style={modal.header}>
+      Create a new account
+    </div>
+  )
+
+  renderButton = () => {
+    const buttonStyle = {
+      border: "0px",
+      borderRadius: "5px",
+      fontFamily: "'Josefin Slab', sans-serif",
+      fontSize: "1.3rem",
+      color: "#dddcdf",
+      backgroundColor: "#857e8f",
+      height: "40px",
+    }
+
+    return (
+      <div style={{alignSelf:"center", margin:"auto", paddingBottom:"10px"}}>
+        <button style={buttonStyle} type="submit">
+          Create Account
+        </button>
+      </div>
+    )
+  }
+
   renderModal = () => {
     const modal = {
       container:{
         fontFamily: "'Josefin Slab', sans-serif",      /*font for the whole create page*/
         marginTop: "2%",                      /*modal distance from top of the screen*/
         marginLeft: "5%",                     /*modal distance from left side of the screen*/
-        width:"50%",
+        width:"40%",
       },
       form: {
         display: "flex",
@@ -203,36 +230,19 @@ class CreateUser extends React.Component {
     return (
       <div className='create-modal' style={modal.container}>
         <form style={modal.form} onSubmit={this.submit}>
-          <div style={modal.header}>
-            Create a new account
+          {this.renderHeader(modal)}
+          <div style={{display:"flex", justifyContent:"flex-start", alignItems:"flex-start", flexDirection: "column", width:"400px", paddingLeft:"10px",}}>
+            {this.renderInputs()}
+            {this.state.errorMessage ? <div style={{color:'red', alignSelf:"center"}}>{this.state.errorMessage}</div> : <span/>}
+            <div style={{alignSelf:"center", margin:"auto", paddingBottom:"10px", paddingTop: "10px",}}>
+              {this.state.waiting ? <RingLoader color={'#171124'} size={50} loading={true}/> : this.renderButton()}
+            </div>
+            <Link to="/login" className="create-form-link">
+              Already have an account? Click here to log in
+            </Link>
           </div>
-          {this.renderInputs()}
-          <RingLoader color={'#171124'} size={50} loading={this.state.waiting}/>
-          {this.state.errorMessage ? <div style={{color:'red'}}>{this.state.errorMessage}</div> : <span/>}
-          {this.renderButton()}
-          <Link to="/login" className="create-form-link">
-            Already have an account? Click here to log in
-          </Link>
         </form>
       </div>
-    )
-  }
-
-  renderButton = () => {
-    const buttonStyle = {
-      border: "0px",
-      borderRadius: "5px",
-      fontFamily: "'Josefin Slab', sans-serif",
-      fontSize: "1.3rem",
-      color: "#dddcdf",
-      backgroundColor: "#857e8f",
-      height: "40px",
-    }
-
-    return (
-      <button style={buttonStyle} type="submit">
-        Create Account
-      </button>
     )
   }
 

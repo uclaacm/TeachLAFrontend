@@ -11,7 +11,7 @@ import defaultPic from '../../../img/defaultProfile.png'
 */
 
 const ProfilePanel = (props) => {
-  const {panelStyle, panelVisible, size, handleOnSizeChange, handleOnVisibleChange, user, clearUserData} = props
+  const {panelStyle, panelVisible, size, handleOnSizeChange, handleOnVisibleChange, user} = props
   return (
     <div style={panelStyle}>
       <Dock position='left'
@@ -36,7 +36,7 @@ const ProfilePanel = (props) => {
           <ul className="panel-options-list">
             <li className="panel-options-item">Profile</li>                         {/** @todo relocate to Profile page*/}
             <li className="panel-options-item">Sketches</li>                        {/** @todo relocate to sketches page*/}
-            <li className="panel-options-item" onClick={clearUserData}>Sign Out</li>
+            <li className="panel-options-item" onClick={props.clearUserData}>Sign Out</li>
           </ul>
           </div>
         </div>

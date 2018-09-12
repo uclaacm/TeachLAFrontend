@@ -72,7 +72,7 @@
     outline: 0;
     width: 70%;
     min-width: 300px;
-    margin: 0 2px 2rem;                                 /*last value controls how far the next input starts*/
+    margin: 0 2px 1rem;                                 /*last value controls how far the next input starts*/
     font-variant-ligatures: none;
     -webkit-transition: box-shadow 70ms ease-out,border-color 70ms ease-out;
     -moz-transition: box-shadow 70ms ease-out,border-color 70ms ease-out;

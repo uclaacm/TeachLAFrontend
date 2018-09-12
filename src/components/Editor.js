@@ -112,7 +112,6 @@ class Editor extends React.Component {
       transition:(prevSize !== size && (size !== 0.0 || prevSize !== 0.0)) ? "" : "left 0.2s ease-out, opacity 0.01s linear" //if they're using the slider to change the length of the panel, dont use a transition, otherwise (meaning they're using the toggle button) use a transition where when the left changes, it eases out
     }
 
-
     return(
       <div className="editor">
         <ProfilePanel

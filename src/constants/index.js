@@ -36,7 +36,7 @@ module.exports = {
         "Java": 'System.out.println("Hello World!")',
         "HTML": "<html>\n  <head>\n  </head>\n  <body>\n    <div style='width: 100px; height: 100px; background-color: black'>\n    </div>\n  </body>\n</html>",
         "C++": 'std::cout << "Hello World!" << std::endl',
-        "Processing": "function setup() {\n  createCanvas(400, 400);\n}\n\nfunction draw() {\n  background(220);\n}",
+        "Processing": "function setup() {\n  createCanvas(400, 400);\n}\n\nfunction draw() {\n  background(220);\n  ellipse(mouseX, mouseY, 100, 100)\n}",
     },
 
 }
