@@ -11,6 +11,7 @@ import {
     MINIMUM_PASSWORD_LENGTH,
     MAXIMUM_USERNAME_LENGTH,
     MAXIMUM_PASSWORD_LENGTH,
+    DEFAULT_LANGUAGE_PROGRAMS,
 } from '../constants';
 
 const filter = new Filter();
@@ -106,13 +107,14 @@ class CreateUser extends React.Component {
         ["C++", 'std::cout << "Hello World!" << std::endl'],
         ["Processing", "void setup(){} void draw(){}"]
       ])
-      sketchTemplates.forEach((code, name) => {
-        this.props.firestore.doc(`users/${uid}/programs/${name}`).set({
-          language: name,
-          title: `my_first_${name.toLowerCase()}_sketch`,
+
+      Object.keys(DEFAULT_LANGUAGE_PROGRAMS).forEach((lang) => {
+        this.props.firestore.doc(`users/${uid}/programs/${lang}`).set({
+          language: lang,
+          title: `my_first_${lang.toLowerCase()}_sketch`,
           creationDate: new Date(Date.now()),
           lastModified: new Date(Date.now()),
-          code: code
+          code: DEFAULT_LANGUAGE_PROGRAMS[lang],
         })
       })
     }
@@ -185,7 +187,7 @@ class CreateUser extends React.Component {
         fontFamily: "'Josefin Slab', sans-serif",      /*font for the whole create page*/
         marginTop: "2%",                      /*modal distance from top of the screen*/
         marginLeft: "5%",                     /*modal distance from left side of the screen*/
-        width:"50%",
+        width:"40%",
       },
       form: {
         display: "flex",
@@ -206,13 +208,17 @@ class CreateUser extends React.Component {
           <div style={modal.header}>
             Create a new account
           </div>
-          {this.renderInputs()}
-          <RingLoader color={'#171124'} size={50} loading={this.state.waiting}/>
-          {this.state.errorMessage ? <div style={{color:'red'}}>{this.state.errorMessage}</div> : <span/>}
-          {this.renderButton()}
-          <Link to="/login" className="create-form-link">
-            Already have an account? Click here to log in
-          </Link>
+          <div style={{ width:"70%", display:"flex", flexDirection:"column", justifyContent:"flex-start", alignItems:"flex-start",}}>
+            {this.renderInputs()}
+            <div style={{display:"flex", flexDirection:"column", alignSelf:"center", justifyContent:"flex-start", alignItems:"center",}}>
+              <RingLoader color={'#171124'} size={50} loading={this.state.waiting}/>
+              {this.state.errorMessage ? <div style={{color:'red'}}>{this.state.errorMessage}</div> : <span/>}
+              {this.renderButton()}
+              <Link to="/login" className="create-form-link">
+                Already have an account? Click here to log in
+              </Link>
+            </div>
+          </div>
         </form>
       </div>
     )
@@ -227,12 +233,15 @@ class CreateUser extends React.Component {
       color: "#dddcdf",
       backgroundColor: "#857e8f",
       height: "40px",
+      width: "200px",
     }
 
     return (
-      <button style={buttonStyle} type="submit">
-        Create Account
-      </button>
+      <div style={{paddingBottom: "10px",}}>
+        <button style={buttonStyle} type="submit">
+          Create Account
+        </button>
+      </div>
     )
   }
 
