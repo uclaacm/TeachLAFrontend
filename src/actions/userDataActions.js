@@ -107,7 +107,7 @@ export function getMostRecentProgram(){
           let doc = queryResult.docs[0]
           resolve(new Program(doc))
         } else {
-          resolve(new Program(d0c))
+          resolve(new Program())
         }
       }).catch(function(err){
         reject(err)

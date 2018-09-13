@@ -7,6 +7,7 @@ import {
   SET_DISPLAY_NAME,
   SET_PHOTO_URL,
   SET_PROGRAM,
+  SET_MOST_RECENT_LANGUAGE,
 } from '../actions/userDataActions'
 
 const initialState = {
