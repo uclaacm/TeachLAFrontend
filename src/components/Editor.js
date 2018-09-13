@@ -1,17 +1,17 @@
 import React from 'react';
-import ProfilePanel from './components/ProfilePanel'
-import MainContainer from './containers/MainContainer'
+import ProfilePanel from './Editor/components/ProfilePanel'
+import MainContainer from './Editor/containers/MainContainer'
 import {Redirect} from 'react-router'
-import {LANGUAGE, CREATION_DATE, MODIFICATION_DATE, CODE, DESCENDING, DEFAULT_MODE} from '../../constants';
+import {LANGUAGE, CREATION_DATE, MODIFICATION_DATE, CODE, DESCENDING, DEFAULT_MODE} from '../constants';
 import firebase from 'firebase'
-import {nameToMode} from '../../constants/helpers.js'
+import {nameToMode} from '../constants/helpers.js'
 // Specify imports for codemirror usage
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/theme/material.css'
-import '../../styles/CustomCM.css'
-import '../../styles/Resizer.css'
-import '../../styles/Editor.css'
-import '../../styles/Panel.css'
+import '../styles/CustomCM.css'
+import '../styles/Resizer.css'
+import '../styles/Editor.css'
+import '../styles/Panel.css'
 
 class Editor extends React.Component {
 

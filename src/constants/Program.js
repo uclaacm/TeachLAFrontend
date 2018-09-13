@@ -12,8 +12,10 @@ import {PROGRAM_FIELDS} from './index'
  * @constructor
  */
 export default function Program(doc){
+  //if document exists
   if(doc && doc.exists){
     let data = doc.data()
+    //map each field from the document into the object
     PROGRAM_FIELDS.forEach((fieldType, fieldName) => {
       this[fieldName] = data[fieldName]
     })

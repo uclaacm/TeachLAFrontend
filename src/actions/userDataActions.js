@@ -89,7 +89,14 @@ export function programUpload(program, id){
 export function getMostRecentProgram(){
   return (dispatch, getState) => {
     let programs = getState().app.userDataReducers.programs
-    return new Promise(function(resolve, reject){
+    
+    //if for some reason we get no programs back, send back an invalid documnet
+    if(!programs){
+      return new Promise((resolve, reject) =>{
+        resolve(new Program())
+      })
+    }
+    return new Promise((resolve, reject) => {
       programs.orderBy(MODIFICATION_DATE, DESCENDING).limit(1).get().then((queryResult) => {
         if(queryResult && queryResult.docs[0]){
           let doc = queryResult.docs[0]
