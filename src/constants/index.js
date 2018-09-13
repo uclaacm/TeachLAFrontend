@@ -31,12 +31,12 @@ module.exports = {
     SUPPORTED_LANGUAGES: Object.freeze(["Python", "Java", "HTML", "Processing", "Javascript"]),
     EMAIL_DOMAIN_NAME: "@fake.com",
     DEFAULT_LANGUAGE_PROGRAMS: {
-        "Python": 'print("Hello World!")',
+        "Python": "import turtle\n\nt = turtle.Turtle()\n\nt.color('red')\nt.forward(75)\nt.left(90)\n\n\nt.color('blue')\nt.forward(75)\nt.left(90)\n",
         "Javascript": 'console.log("Hello World!")',
         "Java": 'System.out.println("Hello World!")',
         "HTML": "<html>\n  <head>\n  </head>\n  <body>\n    <div style='width: 100px; height: 100px; background-color: black'>\n    </div>\n  </body>\n</html>",
         "C++": 'std::cout << "Hello World!" << std::endl',
-        "Processing": "function setup() {\n  createCanvas(400, 400);\n}\n\nfunction draw() {\n  background(220);\n  ellipse(mouseX, mouseY, 100, 100)\n}",
+        "Processing": "function setup() {\n  createCanvas(400, 400);\n}\n\nfunction draw() {\n  background(220);\n  ellipse(mouseX, mouseY, 100, 100);\n}",
     },
 
 }

@@ -98,22 +98,15 @@ class CreateUser extends React.Component {
         displayName: (displayName ? displayName : ''),
         uid: uid
       })
+
       // create template sketches and initialize their fields
-      // const sketchTemplates = new Map([
-      //   ["Python", 'print("Hello World!")'],
-      //   ["Javascript", 'console.log("Hello World!")'],
-      //   ["Java", 'System.out.println("Hello World!")'],
-      //   ["HTML", "<html><head></head><body><div style='width: 100px; height: 100px; background-color: black'></div></body></html>"],
-      //   ["C++", 'std::cout << "Hello World!" << std::endl'],
-      //   ["Processing", "void setup(){} void draw(){}"]
-      // ])
-      DEFAULT_LANGUAGE_PROGRAMS.forEach((code, name) => {
-        this.props.firestore.doc(`users/${uid}/programs/${name}`).set({
-          language: name,
-          title: `my_first_${name.toLowerCase()}_sketch`,
+      Object.keys(DEFAULT_LANGUAGE_PROGRAMS).forEach((lang) => {
+        this.props.firestore.doc(`users/${uid}/programs/${lang}`).set({
+          language: lang,
+          title: `my_first_${lang.toLowerCase()}_sketch`,
           creationDate: new Date(Date.now()),
           lastModified: new Date(Date.now()),
-          code: code
+          code: DEFAULT_LANGUAGE_PROGRAMS[lang],
         })
       })
     }
@@ -231,17 +224,39 @@ class CreateUser extends React.Component {
       <div className='create-modal' style={modal.container}>
         <form style={modal.form} onSubmit={this.submit}>
           {this.renderHeader(modal)}
-          <div style={{display:"flex", justifyContent:"flex-start", alignItems:"flex-start", flexDirection: "column", width:"400px", paddingLeft:"10px",}}>
+          <div style={{ width:"70%", display:"flex", flexDirection:"column", justifyContent:"flex-start", alignItems:"flex-start",}}>
             {this.renderInputs()}
-            {this.state.errorMessage ? <div style={{color:'red', alignSelf:"center"}}>{this.state.errorMessage}</div> : <span/>}
-            <div style={{alignSelf:"center", margin:"auto", paddingBottom:"10px", paddingTop: "10px",}}>
-              {this.state.waiting ? <RingLoader color={'#171124'} size={50} loading={true}/> : this.renderButton()}
+            <div style={{display:"flex", flexDirection:"column", alignSelf:"center", justifyContent:"flex-start", alignItems:"center",}}>
+              <RingLoader color={'#171124'} size={50} loading={this.state.waiting}/>
+              {this.state.errorMessage ? <div style={{color:'red'}}>{this.state.errorMessage}</div> : <span/>}
+              {this.renderButton()}
+              <Link to="/login" className="create-form-link">
+                Already have an account? Click here to log in
+              </Link>
             </div>
-            <Link to="/login" className="create-form-link">
-              Already have an account? Click here to log in
-            </Link>
           </div>
         </form>
+      </div>
+    )
+  }
+
+  renderButton = () => {
+    const buttonStyle = {
+      border: "0px",
+      borderRadius: "5px",
+      fontFamily: "'Josefin Slab', sans-serif",
+      fontSize: "1.3rem",
+      color: "#dddcdf",
+      backgroundColor: "#857e8f",
+      height: "40px",
+      width: "200px",
+    }
+
+    return (
+      <div style={{paddingBottom: "10px",}}>
+        <button style={buttonStyle} type="submit">
+          Create Account
+        </button>
       </div>
     )
   }

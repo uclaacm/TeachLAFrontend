@@ -89,7 +89,6 @@ class App extends React.Component {
 							) : (<CreateUserPage/>)
 						)}
 					/>
-					<Route path="/test" component={EditorPage}/>
 				</div>
 			</Router>
 		);
