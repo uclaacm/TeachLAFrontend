@@ -2,27 +2,70 @@ import React from 'react'
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
 import { PYTHON, JAVASCRIPT, PROCESSING, JAVA, HTML, CPLUS_PLUS} from '../../../constants'
 
-const DropdownButton = (props) => {
-  return (
-    <div className="editor-language-dropdown">
-      <Dropdown
-      isOpen={props.isOpen}
-      toggle={props.handleDropdownToggle}
-      >
-        <DropdownToggle caret>   {/* caret adds the downward arrow next to the selected language */}
-          <div style={{display:"inline-block"}}>{props.language}</div>      {/*language comes from the state, it represents the currently selected language*/}
-        </DropdownToggle>
-        <DropdownMenu>
-          <DropdownItem onClick={() => {props.changeMode(PYTHON)}}>Python</DropdownItem>
-          <DropdownItem onClick={() => {props.changeMode(JAVASCRIPT)}}>Javascript</DropdownItem>
-          <DropdownItem onClick={() => {props.changeMode(PROCESSING)}}>Processing</DropdownItem>
-          <DropdownItem onClick={() => {props.changeMode(JAVA)}}>Java</DropdownItem>
-          {/* <DropdownItem onClick={() => {changeMode(CPLUS_PLUS)}}>C++</DropdownItem> {/*disabled bc C++ is gross and probably not wanted*/}
-          <DropdownItem onClick={() => {props.changeMode(HTML)}}>HTML</DropdownItem>
-        </DropdownMenu>
-      </Dropdown>
-    </div>
-  )
+
+/**
+ * props:
+ *  displayedValue (string): the value displayed in the closed dropdown (the value currently selected)
+ */
+class DropdownButton extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      isOpen: props.defaultOpen || false,
+    }
+  }
+
+  toggleHandler = (curState) => {
+    this.setState({isOpen: !curState})
+  }
+
+  renderDropdownItems = () => {
+    //if the dropdownOptions prop was not provided, an empty array, or not an array at all then do nothing
+    if(!this.props.dropdownOptions || !this.props.dropdownOptions.length){
+      return null
+    }
+
+    let options = this.props.dropdownOptions.map((item)=>{
+      if(!item){
+        return null
+      }
+      
+      if(action){
+        if(value)
+      }
+
+      return (
+        <DropdownItem
+          onClick={}
+        >
+        </DropdownItem>
+      )
+    })
+      
+  }
+
+  render(){
+    return (
+      <div className="editor-language-dropdown">
+        <Dropdown
+          isOpen={this.state.isOpen}
+          toggle={()=>this.toggleHandler(this.state.isOpen)}
+        >
+          <DropdownToggle caret>
+            <div style={{display:"inline-block"}}>{props.language}</div>
+          </DropdownToggle>
+          <DropdownMenu>
+            <DropdownItem onClick={() => {this.props.changeMode(PYTHON)}}>Python</DropdownItem>
+            <DropdownItem onClick={() => {this.props.changeMode(JAVASCRIPT)}}>Javascript</DropdownItem>
+            <DropdownItem onClick={() => {this.props.changeMode(PROCESSING)}}>Processing</DropdownItem>
+            <DropdownItem onClick={() => {this.props.changeMode(JAVA)}}>Java</DropdownItem>
+            {/* <DropdownItem onClick={() => {this.props.changeMode(CPLUS_PLUS)}}>C++</DropdownItem> {/*disabled bc C++ is gross and probably not wanted*/}
+            <DropdownItem onClick={() => {this.props.changeMode(HTML)}}>HTML</DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
+      </div>
+    )
+  }
 }
 
 export default DropdownButton
