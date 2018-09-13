@@ -23,7 +23,6 @@ class CodeSection extends React.Component {
 			paneStyle:{transition:"none"},
 			windows: [],
 		}
-		this.dropdownToggleHandler = this.dropdownToggleHandler.bind(this)
   }
 
 	componentWillMount(){
@@ -35,7 +34,7 @@ class CodeSection extends React.Component {
 		})
 	}
 
-	dropdownToggleHandler(){
+	dropdownToggleHandler = () => {
     this.setState({isOpen:!this.state.isOpen})
   }
 

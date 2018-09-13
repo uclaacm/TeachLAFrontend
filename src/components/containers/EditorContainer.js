@@ -5,9 +5,8 @@ import {switchToProgram} from '../../actions/textEditorActions.js'
 import firebase from 'firebase'
 
 const mapStateToProps = (state) => {
-  let userInfo = state.userData
   return {
-    user: userInfo,
+    user: state.userData,
   }
 }
 

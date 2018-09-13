@@ -92,19 +92,19 @@ class Editor extends React.Component {
     } = this.state
     const { user} = this.props
 
-    //if somehow the router breaks and a non-logged in user gets to the editor, reroute the user back to the login page
-    if(!user){
+    // if somehow the router breaks and a non-logged in user gets to the editor, reroute the user back to the login page
+    if(!user || !user.programs){
       return (<Redirect to="/login"/>)
     }
 
     //panelSize: {string} - how much of the screen the panel will take up
-    let panelSize=(size*100.0).toString() + '%'
+    let panelSize = (size*100.0).toString() + '%'
 
     //style to be applied to left panel
-    let panelStyle = {width:panelSize}
+    const panelStyle = {width:panelSize}
 
     //style to be applied to non panel (sections containing text editor and code output)
-    let codeStyle = {
+    const codeStyle = {
       position:"fixed",                                                        //fixed bc we're using left
       width:((1.0-size)*100.0).toString() + '%',                               //take up the rest of the screen/screen not being used by the left panel
       height:"100%",

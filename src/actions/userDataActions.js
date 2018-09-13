@@ -58,6 +58,11 @@ export function programUploadFailure(error){
   return {type: PROGRAM_UPLOAD_FAILURE, message: error.message}
 }
 
+export const SET_MOST_RECENT_LANGUAGE = "SET_MOST_RECENT_LANGUAGE"
+export function setMostRecentLanguage(lang){
+  return {type: SET_MOST_RECENT_LANGUAGE, language:lang}
+}
+
 /**
  * dataUpload - attempts to upload program of data into firestore to persist it.
  * @param  {[type]} program - the program to upload
@@ -89,18 +94,20 @@ export function programUpload(program, id){
 export function getMostRecentProgram(){
   return (dispatch, getState) => {
     let programs = getState().userData.programs
-    
     //if for some reason we get no programs back, send back an invalid documnet
     if(!programs){
       return new Promise((resolve, reject) =>{
         resolve(new Program())
       })
     }
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
+
       programs.orderBy(MODIFICATION_DATE, DESCENDING).limit(1).get().then((queryResult) => {
         if(queryResult && queryResult.docs[0]){
           let doc = queryResult.docs[0]
           resolve(new Program(doc))
+        } else {
+          resolve(new Program(d0c))
         }
       }).catch(function(err){
         reject(err)

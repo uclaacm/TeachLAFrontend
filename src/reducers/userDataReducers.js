@@ -14,6 +14,7 @@ const initialState = {
   error: "",
   displayName: "",
   photoURL: null,
+  mostRecentLanguage: "python",
 }
 
 //the default parameter is also the initial state of the value. i.e. userDataReducers starts off as ""
@@ -29,17 +30,13 @@ function userDataReducers(state = initialState, action) {         //action is a 
       state.error = "Failed to load user data..."
       return state
     case SET_DISPLAY_NAME:
-      if(state === null){
-        return state
-      }
       state.displayName = action.value
       return state
     case SET_PHOTO_URL:
-      if(state === null){
-        return state
-      }
       state.photoURL = action.value
       return state
+    case SET_MOST_RECENT_LANGUAGE:
+      return Object.assign({}, state, {mostRecentLanguage:action.language})
     default:
       return state
   }
