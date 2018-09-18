@@ -3,6 +3,7 @@ import ProfilePanel from './Editor/components/ProfilePanel'
 import MainContainer from './Editor/containers/MainContainer'
 import {Redirect} from 'react-router'
 import {LANGUAGE, CREATION_DATE, MODIFICATION_DATE, CODE, DESCENDING, DEFAULT_MODE} from '../constants';
+import lib from '../lib'
 import firebase from 'firebase'
 import {nameToMode} from '../constants/helpers.js'
 // Specify imports for codemirror usage
@@ -35,12 +36,15 @@ class Editor extends React.Component {
       hotReload:false,
     };
 
-
     // function 'this' context bindings
     this.splitChangeHandler = this.splitPaneChangeHandler.bind(this)
     this.handleOnVisibleChange = this.handleOnVisibleChange.bind(this)
     this.setPaneStyle = this.setPaneStyle.bind(this)
     this.onSizeChangeHandler = this.onSizeChangeHandler.bind(this)
+  }
+
+  componentDidMount(){
+    
   }
 
   /**

@@ -7,7 +7,7 @@ import LoginInput from './LoginInput'
 import '../../styles/Login.css'
 
 const LoginInputs = (props) => (
-  <form className='login-form' onSubmit={props.onSubmit}>	{/*Form doesn't do anything rn, just an example of a stateful React form.*/}
+  <form className='login-form' onEmailSubmit={props.onSubmit}>	{/*Form doesn't do anything rn, just an example of a stateful React form.*/}
     <div className="login-header" >{"Welcome to <Teach LA>"}</div>
     <br/>
     <div className="login-form-input-list">

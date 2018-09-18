@@ -20,7 +20,6 @@ function textEditorReducers(state =
       return Object.assign({}, state, state.editors)
     case SET_PROGRAM:
       let editor = state.editors.get(action.id)
-      console.log("editor", editor)
       if(!editor){
         editor = {
           program:DEFAULT_LANGUAGE_PROGRAMS[action.id],

@@ -2,6 +2,7 @@ import firebase from 'firebase'
 import Program from '../constants/Program.js'
 import {MODIFICATION_DATE, DESCENDING} from '../constants'
 import {progToDoc} from '../constants/helpers.js'
+import {fetch} from '../lib'
 
 export const LOAD_USER_DATA = 'LOAD_USER_DATA'
 export function loadUserData(userData, provider=null) {
