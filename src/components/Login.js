@@ -3,6 +3,7 @@ import SHA256 from 'crypto-js/sha256'
 import Footer from './common/Footer'
 import '../styles/Login.css'
 import LoginInputs from './Login/LoginInputs.js'
+import firebase from 'firebase'
 
 class LoginForm extends React.Component {
 
@@ -16,12 +17,11 @@ class LoginForm extends React.Component {
 			username: "",
 			password:"",
 			width:window.innerWidth,
-			height:window.innerHeight,
+      height:window.innerHeight,
+      errorMsg:"",
 		}
 
 		// 'this' context bindings
-		this.handleLogin = this.handleLogin.bind(this)
-		this.handleSocialLogin = this.handleSocialLogin.bind(this)
 		this.changeInput = this.changeInput.bind(this)
 	}
 
@@ -49,11 +49,19 @@ class LoginForm extends React.Component {
 	 * pending/waiting state before authentication completes
 	 * @param  {HTMLElement} e - default html button whose default behavior is prevented
 	 */
-	handleLogin(e){
+	handleEmailLogin = (e) =>{
 		e.preventDefault() //prevents page from reloading after submitting form
-		let emailHash = SHA256(this.state.username).toString() + "@fake.com"
+		let emailHash = this.state.username + "@fake.com"
 		let passwordHash = SHA256(this.state.password).toString()
 		this.props.onLoginRequest(emailHash, passwordHash)
+    if(emailHash && passwordHash){
+      firebase.auth().signInWithEmailAndPassword(emailHash, passwordHash).then(() => {
+      }).catch(function(err){
+      })
+    }
+    else{
+      this.setState({errorMsg: "Failed to reach Firebase login services"})
+    }
 	}
 
 	/**
@@ -69,13 +77,10 @@ class LoginForm extends React.Component {
 	/**
 	 * handleSocialLogin - puts login into a pending state while firebase authenticates
 	 */
-	handleSocialLogin(){
-		this.props.onLoginRequest(null, null, this.props.provider)
-		// firebase.auth().signInWithPopup(this.props.provider).catch((err) => this.handleLoginFailure(err))
-	}
-
-	determineLoginHeight(){
-		return Math.max(this.props.height, window.innerHeight)
+	handleSocialLogin = () => {
+    firebase.auth().signInWithPopup(this.props.provider).catch(function(err){
+      this.setState({errorMsg:"Failed to use Facebook login provider"})
+    })
 	}
 
 	getContainerStyle = () => ({
@@ -98,7 +103,7 @@ class LoginForm extends React.Component {
 
 	renderMainContent = () => {
 		const loginInputsProps = {
-			onSubmit: this.handleLogin,
+			onEmailSubmit: this.handleLogin,
 			handleSocialLogin: this.handleSocialLogin,
 			changeInput: this.changeInput,
 			username: this.state.username,

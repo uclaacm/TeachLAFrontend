@@ -12,8 +12,8 @@ const provider = new firebase.auth.FacebookAuthProvider();
 class App extends React.Component {
 	constructor(props){
 		super(props)
-		// TODO: move checkedAuth into an appropriate reducer. NOTE: checkedAuth is non-UI state.
-		this.state={
+
+    this.state = {
 			checkedAuth:false,
 		}
 	}
@@ -33,14 +33,13 @@ class App extends React.Component {
 	onAuthHandler = async (user) => {
 		this.setState({checkedAuth:true})
 		if (user) {
-			let {displayName, email, photoURL, refreshToken, uid} = user
+			const {uid} = user
 
-			displayName = displayName || "New User"
-
-			if(email && uid){
-				this.props.loadUserData({displayName, email, photoURL, refreshToken, uid})
+			if(uid){
+				this.props.loadUserData(uid)
 			} else {
-				firebase.auth().signOut()
+        firebase.auth().signOut()
+        this.props.clearUserData()
 			}
 		} else {
 			this.props.clearUserData()
@@ -48,15 +47,13 @@ class App extends React.Component {
 	}
 
 	render() {
-		let {loggedInUserData} = this.props
-		let {checkedAuth, } = this.state
 		//if we haven't checked if the user is logged in yet, show a loading screen
-		if(!checkedAuth){
+		if(!this.state.checkedAuth){
 			return (<LoadingPage/>)
     }
 
-    let isValidUser = true
-    if(!loggedInUserData || !loggedInUserData.programs) isValidUser = false
+    //the user is not valid if there's no UID
+    let isValidUser = !this.props.uid
     
 		return (
 				<Router>
