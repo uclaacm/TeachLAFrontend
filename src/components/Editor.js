@@ -44,6 +44,7 @@ class Editor extends React.Component {
   }
 
   componentDidMount(){
+    
   }
 
   /**
@@ -85,28 +86,22 @@ class Editor extends React.Component {
     this.setState({paneStyle:newPaneStyle})
   }
 
-  /**
-   *  render
-   */
 	render() {
     const {panelVisible, size, prevSize, isOpen, language, mode,
            codeSize, paneStyle, code, isProcessing,
            hotReload,
     } = this.state
 
-    //panelSize: {string} - how much of the screen the panel will take up
-    let panelSize = (size*100.0).toString() + '%'
-
-    //style to be applied to left panel
-    const panelStyle = {width:panelSize}
-
     //style to be applied to non panel (sections containing text editor and code output)
     const codeStyle = {
       position:"fixed",                                                        //fixed bc we're using left
       width:((1.0-size)*100.0).toString() + '%',                               //take up the rest of the screen/screen not being used by the left panel
       height:"100%",
-      left:panelSize,                             //panelSize determines how far left of the screen the code should be
-      transition:(prevSize !== size && (size !== 0.0 || prevSize !== 0.0)) ? "" : "left 0.2s ease-out, opacity 0.01s linear" //if they're using the slider to change the length of the panel, dont use a transition, otherwise (meaning they're using the toggle button) use a transition where when the left changes, it eases out
+      //determines how far left of the screen the code should be
+      left: (size*100.0).toString() + '%',
+      //if they're using the slider to change the length of the panel, dont use a transition,
+      //otherwise (meaning they're using the toggle button) use a transition where when the left changes, it eases out
+      transition:(prevSize !== size && (size !== 0.0 || prevSize !== 0.0)) ? "" : "left 0.2s ease-out, opacity 0.01s linear", 
     }
 
     return(

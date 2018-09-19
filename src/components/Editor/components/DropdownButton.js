@@ -7,60 +7,54 @@ import { PYTHON, JAVASCRIPT, PROCESSING, JAVA, HTML, CPLUS_PLUS} from '../../../
  * props:
  *  displayedValue (string): the value displayed in the closed dropdown (the value currently selected)
  */
-class DropdownButton extends React.Component {
+export default class DropdownButton extends React.Component {
   constructor(props){
     super(props)
+
     this.state = {
-      isOpen: props.defaultOpen || false,
+      dropdownOpen: this.props.defaultOpen || false,
     }
   }
 
-  toggleHandler = (curState) => {
-    this.setState({isOpen: !curState})
+  toggleHandler = (prevVal) => {
+    this.setState({dropdownOpen:!prevVal})
   }
 
   renderDropdownItems = () => {
-    //if the dropdownOptions prop was not provided, an empty array, or not an array at all then do nothing
-    if(!this.props.dropdownOptions || !this.props.dropdownOptions.length){
+    //if no items were passed in or it is not an array
+    if(!this.props.dropdownItems || !this.props.dropdownItems.length){
       return null
     }
 
-    let options = this.props.dropdownOptions.map((item)=>{
-      if(!item){
+    //each item in the array should be a 
+    return this.props.dropdownItems.map(({value, display}) => {
+      if(value === undefined || display === undefined){
         return null
-      }
-      
-      if(action){
-        if(value)
       }
 
       return (
         <DropdownItem
-          onClick={}
+          //if a onSelect was provided, call it with the value
+          onClick={() => {this.props.onSelect ? this.props.onSelect(value) : null}}
         >
+          {display || ""}
         </DropdownItem>
       )
     })
-      
   }
 
   render(){
     return (
       <div className="editor-language-dropdown">
         <Dropdown
-          isOpen={this.state.isOpen}
-          toggle={()=>this.toggleHandler(this.state.isOpen)}
+          isOpen={this.state.dropdownOpen}
+          toggle={()=>this.toggleHandler(this.state.dropdownOpen)}
         >
           <DropdownToggle caret>
-            <div style={{display:"inline-block"}}>{props.language}</div>
+            <div style={{display:"inline-block"}}>{this.props.displayValue}</div>
           </DropdownToggle>
           <DropdownMenu>
-            <DropdownItem onClick={() => {this.props.changeMode(PYTHON)}}>Python</DropdownItem>
-            <DropdownItem onClick={() => {this.props.changeMode(JAVASCRIPT)}}>Javascript</DropdownItem>
-            <DropdownItem onClick={() => {this.props.changeMode(PROCESSING)}}>Processing</DropdownItem>
-            <DropdownItem onClick={() => {this.props.changeMode(JAVA)}}>Java</DropdownItem>
-            {/* <DropdownItem onClick={() => {this.props.changeMode(CPLUS_PLUS)}}>C++</DropdownItem> {/*disabled bc C++ is gross and probably not wanted*/}
-            <DropdownItem onClick={() => {this.props.changeMode(HTML)}}>HTML</DropdownItem>
+            {this.renderDropdownItems()}
           </DropdownMenu>
         </Dropdown>
       </div>
@@ -68,4 +62,3 @@ class DropdownButton extends React.Component {
   }
 }
 
-export default DropdownButton

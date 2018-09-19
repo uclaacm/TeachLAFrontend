@@ -6,6 +6,7 @@ import OutputContainer from '../containers/OutputContainer.js'
 import TextEditorContainer from '../containers/TextEditorContainer'
 import DropdownButton from './DropdownButton'
 import RunButton from './RunButton'
+import {SUPPORTED_LANGUAGES} from '../.././constants'
 /*
 	Props:
 		bgColor: string representing the color of the background of the img (can be hex color, rgb(r, g, b, a), or color name)
@@ -14,40 +15,30 @@ import RunButton from './RunButton'
 		textPadding: string representing padding to the left of the text, i.e. distance from the img (give px units)
 */
 
-class CodeSection extends React.Component {
+class Main extends React.Component {
 	constructor(props){
 		super(props)
 		this.state = {
-			isOpen: false,
 			codeSize: "37.5%",
 			paneStyle:{transition:"none"},
-			windows: [],
 		}
   }
 
 	componentWillMount(){
-		this.props.getMostRecentProgram().then((program) => {
-			let id = this.props.createWindow(program)
-			this.setState({
-				windows: [id]
-			})
-		})
+
 	}
 
-	dropdownToggleHandler = () => {
-    this.setState({isOpen:!this.state.isOpen})
-  }
+  renderOpenPanelButton = () => {
+    const {panelVisible, handleOnVisibleChange} = this.props
 
-  renderClosePanelButton = () => {
-    const {isVisible, handleOnVisibleChange} = this.props
-
-    //if the left panel is open, show an empty div, otherwise show a > that when clicked, opens the panel
-    if(isVisible){
+    //if the left panel is closed, show an empty div
+    if(!panelVisible){
       return (
         <div className='editor-expand-panel' style={{width:"0px", padding:"0"}}/>
       )
     }
 
+    // otherwise show a > that when clicked, opens the panel
     return (
       <div className='editor-expand-panel' title="Open Profile Panel" onClick={handleOnVisibleChange}>
         >
@@ -55,15 +46,29 @@ class CodeSection extends React.Component {
     )
   }
 
-	renderWindows = () => {
-		return this.state.windows.map(editorWindow => {
-			if(editorWindow){
-				// key required by react framework to assign each TextEditorContainer a stable identity
-				return (<TextEditorContainer key={editorWindow} id={editorWindow}/>)
-			}
-		})
-	}
+  renderDropdown = () => {
+    //dropdown items should be an array of objects with two keys: value and display
+    //display is the value showed in the dropdown
+    //value is the hidden value that is passed into the onSelect function
+    let dropdownItems = []
+    
+    //programs is an object where each key is a program name
+    //and each key goes to an object with a language key that defines what type of language it is
+    if(this.props.programs){
+      Object.keys(this.props.programs).forEach(key => {
+        dropdownItems.push({display:key, value:this.props.programs[key].language})
+      })
+    }
 
+    return (
+      <DropdownButton
+        displayValue={this.props.mostRecentProgram}
+        onSelect={this.props.updateMostRecentLanguage}
+        dropdownItems={dropdownItems}
+      />
+    )
+  }
+  
 	render(){																													//called deconstruction; pulling children, triggerLogin, ..., textPadding out of props
     const {codeStyle, paneStyle, minSize,
             maxSize, size, allowResize,
@@ -86,13 +91,12 @@ class CodeSection extends React.Component {
         >
           <div className="code-section">
             <div className="editor-header">
-              {!this.props.panelVisible ? this.renderClosePanelButton() : null}
-							<DropdownButton isOpen={this.state.isOpen} handleDropdownToggle={this.dropdownToggleHandler}
-								language={this.props.language} changeMode={this.props.switchToProgram}/>
+              {this.renderOpenPanelButton()}
+							{this.renderDropdown()}
               <RunButton runCode={this.props.runCode}/>
             </div>
             <div className="text-editor-container">
-							{this.renderWindows()}
+              <TextEditorContainer/>
             </div>
           </div>
           <OutputContainer/>
@@ -102,4 +106,4 @@ class CodeSection extends React.Component {
 	}
 }
 
-export default CodeSection
+export default Main
