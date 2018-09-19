@@ -17,6 +17,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+
     initializeUserData: async (uid) => {
       const result = await fetch.initializeUserData(uid)
       const userData = await result.json()
@@ -25,11 +26,10 @@ const mapDispatchToProps = dispatch => {
       dispatch(loadUserData(userData.data))
     },
     loadUserData: async (uid) => {
-      const result = await fetch.getUserData(uid)
-      console.log(result)
+      const result = await fetch.getUserData(uid, true)
       const userData = await result.json()
-      console.log(userData)
-      dispatch(loadUserData(userData.data))
+
+      dispatch(loadUserData(uid, userData.data))
     },
     clearUserData: () => {
       dispatch(clearUserData())

@@ -1,5 +1,7 @@
 import firebase from 'firebase'
 
+import {PYTHON} from '../constants'
+
 import {
   LOAD_USER_DATA,
   CLEAR_USER_DATA,
@@ -18,13 +20,15 @@ const initialState = {
   displayName: "",
   photoURL: null,
   uid:"",
+  mostRecentProgram: PYTHON,
 }
 
 //the default parameter is also the initial state of the value. i.e. userDataReducers starts off as ""
 function userDataReducers(state = initialState, action) {         //action is a JSON always with the key 'type' and the other keys will depend on what 'type' is
   switch (action.type) {                        //whatever is returned becomes the new state
     case LOAD_USER_DATA:
-      return Object.assign({}, state, action.value)
+      console.log(action.user)
+      return Object.assign({}, state, action.user)
     case CLEAR_USER_DATA:
     	return initialState
     case LOAD_FAILURE:

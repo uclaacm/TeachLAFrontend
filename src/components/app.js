@@ -14,12 +14,18 @@ class App extends React.Component {
 		super(props)
 
     this.state = {
-			checkedAuth:false,
+      checkedAuth:false,
+      errorMsg:"",
 		}
-	}
+  }
+  
+  componentDidUpdate(a, b){
+  }
 
 	componentWillMount = () =>{
-		firebase.auth().onAuthStateChanged(this.onAuthHandler)
+		firebase.auth().onAuthStateChanged((user)=>{
+      this.onAuthHandler(user)
+    })
 	}
 
 	/**
@@ -31,18 +37,18 @@ class App extends React.Component {
 	 * @param  {firebase.auth().currentUser}  user - a user object as passed by firebase.auth()
 	 */
 	onAuthHandler = async (user) => {
-		this.setState({checkedAuth:true})
+    this.setState({checkedAuth:true})
 		if (user) {
 			const {uid} = user
-
 			if(uid){
-				this.props.loadUserData(uid)
+        this.props.loadUserData(uid)
+        this.setState({errorMsg: ""})
 			} else {
-        firebase.auth().signOut()
-        this.props.clearUserData()
-			}
+        this.setState({errorMsg:"No UID provided with user"})
+      }
 		} else {
-			this.props.clearUserData()
+      this.props.clearUserData()
+      this.setState({errorMsg:""})
 		}
 	}
 
@@ -52,8 +58,16 @@ class App extends React.Component {
 			return (<LoadingPage/>)
     }
 
+    if(this.state.errorMsg){
+      return (
+        <div style={{color:"red"}}>
+          {this.state.errorMsg}
+        </div>
+      )
+    }
+
     //the user is not valid if there's no UID
-    let isValidUser = !this.props.uid
+    let isValidUser = this.props.uid
     
 		return (
 				<Router>

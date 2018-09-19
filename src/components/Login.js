@@ -2,8 +2,9 @@ import React from 'react';
 import SHA256 from 'crypto-js/sha256'
 import Footer from './common/Footer'
 import '../styles/Login.css'
-import LoginInputs from './Login/LoginInputs.js'
+import LoginModal from './Login/LoginModal'
 import firebase from 'firebase'
+import {EMAIL_DOMAIN_NAME} from '../constants'
 
 class LoginForm extends React.Component {
 
@@ -14,15 +15,10 @@ class LoginForm extends React.Component {
 		super(props)
 
 		this.state = {
-			username: "",
-			password:"",
 			width:window.innerWidth,
       height:window.innerHeight,
-      errorMsg:"",
 		}
 
-		// 'this' context bindings
-		this.changeInput = this.changeInput.bind(this)
 	}
 
 	componentDidMount(){
@@ -43,53 +39,13 @@ class LoginForm extends React.Component {
 		})
 	}
 
-
-	/**
-	 * handleLogin - called on user login.  signs the user in and initializes a
-	 * pending/waiting state before authentication completes
-	 * @param  {HTMLElement} e - default html button whose default behavior is prevented
-	 */
-	handleEmailLogin = (e) =>{
-		e.preventDefault() //prevents page from reloading after submitting form
-		let emailHash = this.state.username + "@fake.com"
-		let passwordHash = SHA256(this.state.password).toString()
-		this.props.onLoginRequest(emailHash, passwordHash)
-    if(emailHash && passwordHash){
-      firebase.auth().signInWithEmailAndPassword(emailHash, passwordHash).then(() => {
-      }).catch(function(err){
-      })
-    }
-    else{
-      this.setState({errorMsg: "Failed to reach Firebase login services"})
-    }
-	}
-
-	/**
-	 * changeInput - sets the state of whatever input box has been changed
-	 * @param  {String} inputType - the purpose of the input box i.e. "username",
-	 * "password"
-	 * @param  {HTMLElement} e - for retrieving the actual value of the input
-	 */
-	changeInput(inputType, e){
-		this.setState({[inputType]: e.target.value})
-	}
-
-	/**
-	 * handleSocialLogin - puts login into a pending state while firebase authenticates
-	 */
-	handleSocialLogin = () => {
-    firebase.auth().signInWithPopup(this.props.provider).catch(function(err){
-      this.setState({errorMsg:"Failed to use Facebook login provider"})
-    })
-	}
-
 	getContainerStyle = () => ({
 		width:this.state.width,
 		margin: "0px",
 	})
 
 	getMainContentContainerStyle = () => ({
-    height: "100vh",                             /*uses the value set in login-page, inherited the prop*/
+    height: "100vh",                             
     backgroundColor: "#272134",
     backgroundImage: "url('../img/myBg3.png')", /* ABSOLUTE: /src/img/myBg3.png */
     backgroundRepeat: "no-repeat",
@@ -99,24 +55,15 @@ class LoginForm extends React.Component {
     overflowY: "auto",
     boxSizing: "border-box",
     paddingBottom: "8vh",
-	})
-
+  })
+  
 	renderMainContent = () => {
-		const loginInputsProps = {
-			onEmailSubmit: this.handleLogin,
-			handleSocialLogin: this.handleSocialLogin,
-			changeInput: this.changeInput,
-			username: this.state.username,
-			password: this.state.password,
-			waiting: this.props.waiting,
-			message: this.props.message
-		}
 		return (
 			<div style={this.getMainContentContainerStyle()}>
 				<div style={{height:"0px"}}>&nbsp;</div>
 				{/*for some reason when you don't have a non empty element above the modal, it leaves a white section above it...so thats why this is here*/}
 				<div className="login-modal" >
-					<LoginInputs {...loginInputsProps}/>
+					<LoginModal provider={this.props.provider}/>
 				</div>
 			</div>
 		)

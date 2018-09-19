@@ -12,6 +12,7 @@ const mapStateToProps = (state, ownProps) => {
   let textEditorState = state.textEditor
   let focusedEditor = textEditorState.focusedEditor
   return {
+    mostRecentProgram: state.userData.mostRecentProgram,
     language: (focusedEditor  && focusedEditor.program ? focusedEditor.program.language : DEFAULT_LANG),
     code: (focusedEditor && focusedEditor.program ? focusedEditor.code : ""),
     runResult: textEditorState.runResult,

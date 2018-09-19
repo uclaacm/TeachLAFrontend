@@ -12,6 +12,7 @@ import {
     MAXIMUM_USERNAME_LENGTH,
     MAXIMUM_PASSWORD_LENGTH,
     DEFAULT_LANGUAGE_PROGRAMS,
+    EMAIL_DOMAIN_NAME,
 } from '../constants';
 
 const filter = new Filter();
@@ -123,8 +124,6 @@ class CreateUser extends React.Component {
   */
   submit = (e) => {
     e.preventDefault()
-    const {username, password} = this.state
-
     let badInputs = this.checkInputs()
 
     //if we found any bad inputs, don't try to create the user on the server
@@ -134,23 +133,17 @@ class CreateUser extends React.Component {
 
     this.setState({waiting:true, message:null})
 
-    let content = {
-        uid: SHA256(username).toString(),
-        password: SHA256(password).toString(),
-    }
-
     // This is part of the firebase email/password workaround.
     // We create an email lookalike to trick firebase into thinking the user
     // signed up with an email, instead of a username, display name, and password
-    let email = String(content.uid) + "@fake.com"
+    let email = this.state.username + EMAIL_DOMAIN_NAME
+    let pass = SHA256(this.state.password).toString()
 
     // regiser user in firebase
-    firebase.auth().createUserWithEmailAndPassword(email, content.password).then((user) => {
-      // initialize user sketches on successful account creation
-      this.createUserSketches()
+    firebase.auth().createUserWithEmailAndPassword(email, pass).then((user) => {
     }).catch((error) => {
-        console.log(error.message)
-        this.setState({waiting:false, errorMessage:error.message})
+        console.log(error)
+        this.setState({waiting:false, errorMessage:error.message || "failed to create user"})
     })
   }
 
@@ -254,6 +247,7 @@ class CreateUser extends React.Component {
 
     return (
       <div style={{paddingBottom: "10px",}}>
+        <button onClick={()=>firebase.auth().signOut()}>log out</button>
         <button style={buttonStyle} type="submit">
           Create Account
         </button>

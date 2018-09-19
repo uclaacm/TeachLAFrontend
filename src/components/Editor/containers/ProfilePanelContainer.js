@@ -9,6 +9,8 @@ const PHOTO_WRAPPER = 'panel-image'
 
 const mapStateToProps = (state, ownProps) => {
   return {
+    displayName: state.userData.displayName,
+    photoURL: state.userData.photoURL,
   }
 }
 

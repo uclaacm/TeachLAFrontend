@@ -5,7 +5,8 @@ import {progToDoc} from '../constants/helpers.js'
 import {fetch} from '../lib'
 
 export const LOAD_USER_DATA = 'LOAD_USER_DATA'
-export function loadUserData(userData, provider=null) {
+export function loadUserData(uid, userData, provider=null) {
+  userData.uid = uid
   return { type: LOAD_USER_DATA, user: userData, provider: provider}
 }
 

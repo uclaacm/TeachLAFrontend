@@ -7,8 +7,6 @@ import {onLoginRequest} from '../../actions/userStateActions.js'
 const mapStateToProps = (state, ownProps) => {
   return {
     loggedIn: state.userData,
-    waiting: state.userState.waiting,
-    message: state.userState.message,
   }
 }
 
@@ -23,9 +21,6 @@ const mapDispatchToProps = dispatch => {
     loadFailure: (err) => {
       dispatch(loadFailure(err))
     },
-    onLoginRequest: (emailHash, passwordHash, loginProvider=null) => {
-      dispatch(onLoginRequest(emailHash, passwordHash, loginProvider))
-    }
   }
 }
 

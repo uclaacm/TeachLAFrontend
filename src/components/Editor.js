@@ -44,7 +44,6 @@ class Editor extends React.Component {
   }
 
   componentDidMount(){
-    
   }
 
   /**
@@ -94,12 +93,6 @@ class Editor extends React.Component {
            codeSize, paneStyle, code, isProcessing,
            hotReload,
     } = this.state
-    const { user} = this.props
-
-    // if somehow the router breaks and a non-logged in user gets to the editor, reroute the user back to the login page
-    if(!user || !user.programs){
-      return (<Redirect to="/login"/>)
-    }
 
     //panelSize: {string} - how much of the screen the panel will take up
     let panelSize = (size*100.0).toString() + '%'
@@ -122,12 +115,9 @@ class Editor extends React.Component {
           handleOnSizeChange={this.onSizeChangeHandler}
           handleOnVisibleChange={this.handleOnVisibleChange}
           panelVisible={panelVisible}
-          clearUserData={this.props.clearUserData}
           size={size}
-          user={user}
         />
         <MainContainer
-          programsCollection={user.programs}
           paneStyle={paneStyle}
           size={codeSize}
           onSplitPaneChange={this.splitPaneChangeHandler}
