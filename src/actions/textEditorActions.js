@@ -1,42 +1,42 @@
-import {generateID, validID, nameToMode, supportedLanguage} from '../constants/helpers.js'
-import {setOutput} from './outputActions'
-import {LANGUAGE, CODE, LANGUAGE_MAP} from '../constants'
-import Program from '../constants/Program.js'
+import { generateID, validID, nameToMode, supportedLanguage } from "../constants/helpers.js";
+import { setOutput } from "./outputActions";
+import { LANGUAGE, CODE, LANGUAGE_MAP } from "../constants";
+import Program from "../constants/Program.js";
 
 // This action is a global setting across editors, and thus does not take an id
-export const SET_HOT_RELOAD = 'SET_HOT_RELOAD'
-export function setHotReload(hotReloading){
-  return {type: SET_HOT_RELOAD, hotReloading: hotReloading}
+export const SET_HOT_RELOAD = "SET_HOT_RELOAD";
+export function setHotReload(hotReloading) {
+  return { type: SET_HOT_RELOAD, hotReloading: hotReloading };
 }
 
-export const SET_CURRENT_LINE = 'SET_CURRENT_LINE'
-export function setCurrentLine(line, id){
-  return {type: SET_CURRENT_LINE, id: id, line: line}
+export const SET_CURRENT_LINE = "SET_CURRENT_LINE";
+export function setCurrentLine(line, id) {
+  return { type: SET_CURRENT_LINE, id: id, line: line };
 }
 
-export const SET_CODE_MIRROR_INSTANCE = 'SET_CODE_MIRROR_INSTANCE'
-export function setCodeMirrorInstance(codeMirrorInstance, id){
-  return {type: SET_CODE_MIRROR_INSTANCE, id: id, instance: codeMirrorInstance}
+export const SET_CODE_MIRROR_INSTANCE = "SET_CODE_MIRROR_INSTANCE";
+export function setCodeMirrorInstance(codeMirrorInstance, id) {
+  return { type: SET_CODE_MIRROR_INSTANCE, id: id, instance: codeMirrorInstance };
 }
 
-export const SET_CODE = 'SET_CODE'
-export function setCode(code, id){
-  return {type: SET_CODE, id: id, code:code}
+export const SET_CODE = "SET_CODE";
+export function setCode(code, id) {
+  return { type: SET_CODE, id: id, code: code };
 }
 
-export const SET_PROGRAM = 'SET_PROGRAM'
-export function setProgram(program, id){
-  return {type: SET_PROGRAM, id: id, program: program}
+export const SET_PROGRAM = "SET_PROGRAM";
+export function setProgram(program, id) {
+  return { type: SET_PROGRAM, id: id, program: program };
 }
 
-export const SET_LANGUAGE = 'SET_WORKING_LANGUAGE'
-export function setLanguage(language, id){
-  return {type: SET_LANGUAGE, id: id, language: language}
+export const SET_LANGUAGE = "SET_WORKING_LANGUAGE";
+export function setLanguage(language, id) {
+  return { type: SET_LANGUAGE, id: id, language: language };
 }
 
-export const CREATE_EDITOR_ID = 'CREATE_EDITOR_ID'
-export function createEditorID(id){
-  return {type: CREATE_EDITOR_ID, id: id}
+export const CREATE_EDITOR_ID = "CREATE_EDITOR_ID";
+export function createEditorID(id) {
+  return { type: CREATE_EDITOR_ID, id: id };
 }
 
 /**
@@ -50,14 +50,14 @@ export function createEditorID(id){
  * @return {Action}  - payload to be sent to the redux store to be processed. Please see
  * TextEditorReducers, case FOCUS_ON_EDITOR: for relevant code
  */
-export const FOCUS_ON_EDITOR = 'FOCUS_ON_EDITOR'
-export function focusOnEditor(id){
-  return {type: FOCUS_ON_EDITOR, id: id}
+export const FOCUS_ON_EDITOR = "FOCUS_ON_EDITOR";
+export function focusOnEditor(id) {
+  return { type: FOCUS_ON_EDITOR, id: id };
 }
 
-export const SET_RUN_RESULT = 'SET_RUN_RESULT'
-export function setRunResult(runResult){
-  return {type: SET_RUN_RESULT, runResult: runResult}
+export const SET_RUN_RESULT = "SET_RUN_RESULT";
+export function setRunResult(runResult) {
+  return { type: SET_RUN_RESULT, runResult: runResult };
 }
 
 /**
@@ -69,44 +69,51 @@ export function setRunResult(runResult){
  * so if not supplied, we default the editorID to be the id of the focused program
  * @return {Promise} a promise that resolves once the program has been switched to, or rejects to an error
  */
-export function switchToProgram(programID, editorID = null){
+export function switchToProgram(programID, editorID = null) {
   return (dispatch, getState) => {
-    let focusedID = getState().app.textEditorReducers.focusedEditorID
-    if(!editorID){
-      editorID = focusedID
+    let focusedID = getState().app.textEditorReducers.focusedEditorID;
+    if (!editorID) {
+      editorID = focusedID;
     }
-    if(validID(editorID, getState())){
-      return new Promise(function(resolve, reject){
-        try{
-          let firestorePrograms = getState().app.userDataReducers.programs
-          let progdoc = firestorePrograms.doc(programID)
-          progdoc.get().then((docSnapshot) => {
-            let program = new Program(docSnapshot)
-            dispatch(setProgram(program, editorID))
-            resolve()
-          }).catch(function(error){
-            reject(error)
-          })
+    if (validID(editorID, getState())) {
+      return new Promise(function(resolve, reject) {
+        try {
+          let firestorePrograms = getState().app.userDataReducers.programs;
+          let progdoc = firestorePrograms.doc(programID);
+          progdoc
+            .get()
+            .then(docSnapshot => {
+              let program = new Program(docSnapshot);
+              dispatch(setProgram(program, editorID));
+              resolve();
+            })
+            .catch(function(error) {
+              reject(error);
+            });
+        } catch (error) {
+          reject(error);
         }
-        catch(error){
-          reject(error)
-        }
-      })
+      });
     }
-  }
+  };
 }
 
 /**
  * runCode - executed automatically with hot reloading, or on the pressing of the run code button.
  * Just inserts the same code into an iframe if HTML or javascript
  */
-export function runCode(){
+export function runCode() {
   return (dispatch, getState) => {
-    let language = getState().app.textEditorReducers.focusedEditor.program.language
-    let code = getState().app.textEditorReducers.focusedEditor.program.code
+    let language = getState().app.textEditorReducers.focusedEditor.program.language;
+    let code = getState().app.textEditorReducers.focusedEditor.program.code;
 
-    if(language === "HTML" || language === "Javascript" || language === "Processing" || language === "Python"){
-      dispatch(setRunResult(code))
+    if (
+      language === "HTML" ||
+      language === "Javascript" ||
+      language === "Processing" ||
+      language === "Python"
+    ) {
+      dispatch(setRunResult(code));
     }
-  }
+  };
 }
