@@ -1,4 +1,4 @@
-import {PROGRAM_FIELDS} from './index'
+import { PROGRAM_FIELDS } from "./index";
 
 /**
  * Program - constructor for the standard Program object.  Program is what is stored in editor window instances
@@ -11,17 +11,16 @@ import {PROGRAM_FIELDS} from './index'
  * @param       {firebase.firestore.DocumentReference} doc
  * @constructor
  */
-export default function Program(doc){
+export default function Program(doc) {
   //if document exists
-  if(doc && doc.exists){
-    let data = doc.data()
+  if (doc && doc.exists) {
+    let data = doc.data();
     //map each field from the document into the object
     PROGRAM_FIELDS.forEach((fieldType, fieldName) => {
-      this[fieldName] = data[fieldName]
-    })
-    this.valid = true
-  }
-  else{
-    this.valid = false
+      this[fieldName] = data[fieldName];
+    });
+    this.valid = true;
+  } else {
+    this.valid = false;
   }
 }

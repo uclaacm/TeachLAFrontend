@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 /*
   Props:
@@ -9,45 +9,45 @@ import React from 'react'
 */
 
 class Output extends React.Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
   }
 
   renderHTMLOutput = () => {
     // html-output is an iframe canvas that displays html typed into the editor.  It only displays when html is the selected language
     //about: blank makes it so that the clear button will clear the html appropriately when pressed.  Otherwise, old content persists.
-    const {runResult} = this.props
-    if(!runResult){
-      return null
+    const { runResult } = this.props;
+    if (!runResult) {
+      return null;
     }
 
     return (
-      <iframe className="html-output"
-              style={{display: 'flex', height:"92vh"}}
-              srcDoc={this.props.runResult}
-              src='about:blank'
-              onLoad={(e)=>{
-                console.log(e)
-              }}
+      <iframe
+        className="html-output"
+        style={{ display: "flex", height: "92vh" }}
+        srcDoc={this.props.runResult}
+        src="about:blank"
+        onLoad={e => {
+          console.log(e);
+        }}
       />
-    )
-  }
+    );
+  };
 
   renderPythonOutput = () => {
     // html-output is an iframe canvas that displays html typed into the editor.  It only displays when html is the selected language
     //about: blank makes it so that the clear button will clear the html appropriately when pressed.  Otherwise, old content persists.
-    let {runResult} = this.props
+    let { runResult } = this.props;
 
-    if(!runResult){
-      return (
-        null
-      )
+    if (!runResult) {
+      return null;
     }
-    
+
     return (
-      <iframe className="html-output"
-              style={{display: 'flex', height:"92vh"}}
-              srcDoc={`<html> 
+      <iframe
+        className="html-output"
+        style={{ display: "flex", height: "92vh" }}
+        srcDoc={`<html> 
               <head> 
               <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script> 
               <script src="http://www.skulpt.org/static/skulpt.min.js" type="text/javascript"></script> 
@@ -107,74 +107,74 @@ class Output extends React.Component {
               </body> 
               
               </html> `}
-              src='about:blank'
-              onLoad={(e)=>{
-                console.log(e)
-              }}
+        src="about:blank"
+        onLoad={e => {
+          console.log(e);
+        }}
       />
-    )
-  }
+    );
+  };
 
   renderProcessingOutput = () => {
-    const {runResult} = this.props
-    
-    if(!runResult){
-      return null
+    const { runResult } = this.props;
+
+    if (!runResult) {
+      return null;
     }
 
     return (
-      <iframe className="html-output"
-              style={{display: 'flex', height:"92vh"}}
-              srcDoc={`<html><head>
+      <iframe
+        className="html-output"
+        style={{ display: "flex", height: "92vh" }}
+        srcDoc={`<html><head>
               <style>html,body: {margin:0, width:100%}</style>
               <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/p5.min.js"></script>
               <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/addons/p5.dom.min.js"></script>
               <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/addons/p5.sound.min.js"></script>
               </head><body><script type="text/javascript">${runResult}</script></body></html>`}
-              src='about:blank'
-              onLoad={(e)=>{
-                console.log(e)
-              }}
+        src="about:blank"
+        onLoad={e => {
+          console.log(e);
+        }}
       />
-    )
-  }
+    );
+  };
 
   renderOutput = () => {
-    const {language, runResult} = this.props
-    switch(language){
+    const { language, runResult } = this.props;
+    switch (language) {
       case "Processing":
-        return this.renderProcessingOutput()
+        return this.renderProcessingOutput();
       case "Javascript":
       case "C++":
       case "Java":
       case "HTML":
-        return this.renderHTMLOutput()
+        return this.renderHTMLOutput();
       case "Python":
-        return this.renderPythonOutput()
+        return this.renderPythonOutput();
       default:
-        return this.renderHTMLOutput()
+        return this.renderHTMLOutput();
     }
-  }
+  };
 
-  render(){                                                          //called deconstruction; pulling children, triggerLogin, ..., textPadding out of props
-    const {clearOutput} = this.props
+  render() {
+    //called deconstruction; pulling children, triggerLogin, ..., textPadding out of props
+    const { clearOutput } = this.props;
 
     return (
       <div className="editor-output">
         <div className="editor-header">
-          <div style={{flex:"1 1 auto"}}> </div>
+          <div style={{ flex: "1 1 auto" }}> </div>
           <div className="editor-run" onClick={clearOutput}>
-              <button className="editor-run-button" style={{backgroundColor:"#ec4848"}}>
-                  Clear
-              </button>
+            <button className="editor-run-button" style={{ backgroundColor: "#ec4848" }}>
+              Clear
+            </button>
           </div>
         </div>
-        <div className="editor-output-content">
-          {this.renderOutput()}
-        </div>
+        <div className="editor-output-content">{this.renderOutput()}</div>
       </div>
-    )
+    );
   }
 }
 
-export default Output
+export default Output;
