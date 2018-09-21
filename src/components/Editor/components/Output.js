@@ -1,5 +1,5 @@
 import React from 'react'
-
+import {PYTHON, JAVASCRIPT, CPP, JAVA, HTML, PROCESSING} from '../../../constants'
 /*
   Props:
     bgColor: string representing the color of the background of the img (can be hex color, rgb(r, g, b, a), or color name)
@@ -9,9 +9,6 @@ import React from 'react'
 */
 
 class Output extends React.Component {
-  constructor(props){
-    super(props)
-  }
 
   renderHTMLOutput = () => {
     // html-output is an iframe canvas that displays html typed into the editor.  It only displays when html is the selected language
@@ -162,7 +159,7 @@ class Output extends React.Component {
       case PROCESSING:
         return this.renderProcessingOutput()
       case JAVASCRIPT:
-      case C++:
+      case CPP:
       case PYTHON:
         return this.renderPythonOutput()
       case JAVA:

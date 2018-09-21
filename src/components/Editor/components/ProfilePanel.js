@@ -12,7 +12,7 @@ import firebase from 'firebase'
 */
 
 const ProfilePanel = (props) => {
-  const {panelStyle, panelVisible, size, handleOnSizeChange, handleOnVisibleChange, user} = props
+  const {panelStyle, panelVisible, size, handleOnSizeChange, handleOnVisibleChange} = props
   return (
     <div style={panelStyle}>
       <Dock position='left'
@@ -32,8 +32,8 @@ const ProfilePanel = (props) => {
           <div/><div onClick={handleOnVisibleChange}>&larr;</div>                    {/*character is leftward facing arrow*/}
         </div>
         <div className="panel-content">
-          <img className="panel-image" src={this.props.photoURL ? this.props.photoURL+"?height=800" : defaultPic} alt="Your profile"/>    {/*if there's a photourl, use it, otherwise use the default image (the ?height=500 to make sure the picture sent is resized to 500px tall*/}
-          <div className="panel-name">{this.props.displayName || "Joe Bruin"}</div>                 {/*if there's no displayName, use the default name "Joe Bruin"*/}
+          <img className="panel-image" src={props.photoURL ? props.photoURL+"?height=800" : defaultPic} alt="Your profile"/>    {/*if there's a photourl, use it, otherwise use the default image (the ?height=500 to make sure the picture sent is resized to 500px tall*/}
+          <div className="panel-name">{props.displayName || "Joe Bruin"}</div>                 {/*if there's no displayName, use the default name "Joe Bruin"*/}
           <div className="panel-options">
           <ul className="panel-options-list">
             <li className="panel-options-item">Profile</li>                         {/** @todo relocate to Profile page*/}

@@ -1,13 +1,9 @@
-import React from 'react'
 import Main from '../components/Main.js'
 import {connect} from 'react-redux'
-import {setRunResult} from '../../../actions/outputActions'
-import {setLanguage, setProgram, setCurrentLine,
-  focusOnEditor, switchToProgram, runCode, createEditorID} from '../../../actions/textEditorActions'
-import {getMostRecentProgram} from '../../../actions/userDataActions'
+import {setOutput} from '../../../actions/outputActions.js'
+import {setMostRecentProgram} from '../../../actions/userDataActions.js'
 // import {nameToMode, generateID} from '../../../constants/helpers.js'
-import {DEFAULT_LANG, PYTHON} from '../../../constants'
-import Immutable from 'immutable'
+import {PYTHON} from '../../../constants'
 
 const mapStateToProps = (state) => {
   return {
@@ -18,7 +14,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateMostRecentLanguage: (value) => dispatch(()=>console.log("updateMostRecentLanguage", value)),
+    setMostRecentProgram: (value) => dispatch(setMostRecentProgram(value)),
     runCode: (code, language) => dispatch(setOutput(code, language))
   }
 }

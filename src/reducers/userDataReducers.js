@@ -1,16 +1,15 @@
-import firebase from 'firebase'
-
-import {PYTHON} from '../constants'
-
 import {
   LOAD_USER_DATA,
   CLEAR_USER_DATA,
   LOAD_FAILURE,
   SET_DISPLAY_NAME,
   SET_PHOTO_URL,
-  SET_PROGRAM,
-  SET_MOST_RECENT_LANGUAGE,
+  SET_MOST_RECENT_PROGRAM,
 } from '../actions/userDataActions'
+
+import {
+  PYTHON
+} from '../constants'
 
 import * as fetch from '../lib/fetch.js'
 
@@ -20,7 +19,7 @@ const initialState = {
   displayName: "",
   photoURL: null,
   uid:"",
-  mostRecentProgram: "",
+  mostRecentProgram: PYTHON,
 }
 
 //the default parameter is also the initial state of the value. i.e. userDataReducers starts off as ""
@@ -58,8 +57,9 @@ function userDataReducers(state = initialState, action) {         //action is a 
           console.log(err)
         })
       return state
-    case SET_MOST_RECENT_LANGUAGE:
-      return Object.assign({}, state, {mostRecentLanguage:action.language})
+    case SET_MOST_RECENT_PROGRAM:
+    console.log(Object.assign({}, state, {mostRecentProgram:action.mostRecentProgram}), action)
+      return Object.assign({}, state, {mostRecentProgram:action.mostRecentProgram})
     default:
       return state
   }

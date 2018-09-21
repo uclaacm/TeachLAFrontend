@@ -1,9 +1,5 @@
-import React from 'react'
 import {connect} from 'react-redux'
 import Output from '../components/Output.js'
-// import {setWorkingLanguage, setMode} from '../../../actions/textEditorActions'
-import { clearOutput } from '../../../actions/outputActions'
-// import {nameToMode} from '../../../constants/helpers.js'
 
 const mapStateToProps = (state, ownProps) => {
   const { mostRecentProgram } =state.userData

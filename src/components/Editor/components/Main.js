@@ -1,11 +1,10 @@
 import React from 'react'
-import firebase from 'firebase'
-import {Controlled as CodeMirror} from 'react-codemirror2';
 import SplitPane from 'react-split-pane'
 import OutputContainer from '../containers/OutputContainer.js'
 import TextEditorContainer from '../containers/TextEditorContainer'
 import DropdownButton from './DropdownButton'
 import RunButton from './RunButton'
+import {PYTHON} from '../../../constants'
 /*
 	Props:
 		bgColor: string representing the color of the background of the img (can be hex color, rgb(r, g, b, a), or color name)
@@ -57,30 +56,31 @@ class Main extends React.Component {
     //programs is an object where each key is a program name
     //and each key goes to an object with a language key that defines what type of language it is
     if(this.props.programs){
-      this.props.programs.forEach((val, key) => {
-        console.log(val)
-        dropdownItems.push({display:key, value:val.get("code")})
+      let keys = this.props.programs.keySeq().forEach(key => {
+        dropdownItems.push({display:key, value:this.props.programs.getIn([key, "language"], PYTHON)}) 
       })
+      // this.props.programs.forEach((val, key) => {
+      //   console.log(val)
+      // })
 
-      Object.keys(this.props.programs).forEach(key => {
-        dropdownItems.push({display:key, value:this.props.programs[key].language})
-      })
+      // // console.log(this.props.programs, Object.keys(this.props.programs))
+
+      // Object.keys(this.props.programs).forEach(key => {
+      //   dropdownItems.push({display:key, value:this.props.programs[key].language})
+      // })
     }
 
     return (
       <DropdownButton
         displayValue={this.props.mostRecentProgram}
-        onSelect={this.props.updateMostRecentLanguage}
+        onSelect={this.props.setMostRecentProgram}
         dropdownItems={dropdownItems}
       />
     )
   }
   
 	render(){																													//called deconstruction; pulling children, triggerLogin, ..., textPadding out of props
-    const {codeStyle, paneStyle, minSize,
-            maxSize, size, allowResize,
-            onSplitPaneChange, mode, runResult,
-            clearOutput, language} = this.props
+    const {codeStyle, paneStyle, size, onSplitPaneChange,} = this.props
 
 		return (
       <div style={codeStyle}>

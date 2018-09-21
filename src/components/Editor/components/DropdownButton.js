@@ -1,6 +1,6 @@
 import React from 'react'
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
-import { PYTHON, JAVASCRIPT, PROCESSING, JAVA, HTML, CPLUS_PLUS} from '../../../constants'
+// import { PYTHON, JAVASCRIPT, PROCESSING, JAVA, HTML, CPLUS_PLUS} from '../../../constants'
 
 
 /**
@@ -21,9 +21,10 @@ export default class DropdownButton extends React.Component {
   }
 
   renderDropdownItems = () => {
+    console.log(this.props.dropdownItems)
     //if no items were passed in or it is not an array
     if(!this.props.dropdownItems || !this.props.dropdownItems.length){
-      return null
+      return "Failed to load programs. Try refreshing the page..."
     }
 
     //each item in the array should be an object with 2 keys
@@ -37,6 +38,7 @@ export default class DropdownButton extends React.Component {
       return (
         <DropdownItem
           //if a onSelect was provided, call it with the value
+          key={display}
           onClick={() => {this.props.onSelect ? this.props.onSelect(value) : null}}
         >
           {display || ""}

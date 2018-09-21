@@ -1,7 +1,7 @@
 import React from 'react';
 import SHA256 from 'crypto-js/sha256'
 import {RingLoader} from 'react-spinners'
-import {RING_LOADER_SIZE, EMAIL_DOMAIN_NAME} from '../../constants'
+import {EMAIL_DOMAIN_NAME} from '../../constants'
 import {Link} from 'react-router-dom'
 import SocialButton from '../common/SocialButton'
 import LoginInput from './LoginInput'

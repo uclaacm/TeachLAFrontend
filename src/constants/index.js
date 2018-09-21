@@ -41,7 +41,7 @@ SUPPORTED_LANGUAGES.forEach(lang=> {
       DEFAULT_LANGUAGE_PROGRAMS[lang] = {
         code: 'System.out.println("Hello World!")',
         language: lang,
-      },
+      }
       CODEMIRROR_CONVERSIONS[lang] = 'text/x-java'
       break
     case PROCESSING:
@@ -86,6 +86,7 @@ module.exports = {
     //Defaults
     DEFAULT_MODE: PYTHON,
     DEFAULT_LANG: PYTHON,
+    DEFAULT_LANGUAGE_PROGRAMS,
     // UI constants
     RING_LOADER_SIZE: 50,
     //codemirror conversions

@@ -1,4 +1,3 @@
-import {loadFailure} from './userDataActions'
 import firebase from 'firebase'
 
 export const REQUEST_LOGIN = 'REQUEST_LOGIN'

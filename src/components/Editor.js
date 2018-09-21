@@ -1,10 +1,6 @@
 import React from 'react';
 import ProfilePanel from './Editor/components/ProfilePanel'
 import MainContainer from './Editor/containers/MainContainer'
-import {Redirect} from 'react-router'
-import {LANGUAGE, CREATION_DATE, MODIFICATION_DATE, CODE, DESCENDING, DEFAULT_MODE} from '../constants';
-import lib from '../lib'
-import firebase from 'firebase'
 // import {nameToMode} from '../constants/helpers.js'
 // Specify imports for codemirror usage
 import 'codemirror/lib/codemirror.css'
@@ -87,9 +83,7 @@ class Editor extends React.Component {
   }
 
 	render() {
-    const {panelVisible, size, prevSize, isOpen, language, mode,
-           codeSize, paneStyle, code, isProcessing,
-           hotReload,
+    const {panelVisible, size, prevSize, codeSize, paneStyle, hotReload,
     } = this.state
 
     //style to be applied to non panel (sections containing text editor and code output)

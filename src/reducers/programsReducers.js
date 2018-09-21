@@ -7,14 +7,7 @@ import {
 import {DEFAULT_LANGUAGE_PROGRAMS} from '../constants'
 import Immutable from 'immutable'
 
-let initialState = Immutable.Map()
-
-//add each default language program to the initial state
-Object.keys(DEFAULT_LANGUAGE_PROGRAMS).forEach(key => {
-  initialState.set(key, DEFAULT_LANGUAGE_PROGRAMS[key])
-})
-
-
+let initialState = Immutable.fromJS(DEFAULT_LANGUAGE_PROGRAMS)
 
 function programsReducers(state = initialState, action){
   switch(action.type){

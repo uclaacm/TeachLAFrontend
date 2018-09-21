@@ -1,8 +1,3 @@
-import firebase from 'firebase'
-import Program from '../constants/Program.js'
-import {MODIFICATION_DATE, DESCENDING} from '../constants'
-// import {progToDoc} from '../constants/helpers.js'
-import * as fetch from '../lib/fetch.js'
 
 export const LOAD_USER_DATA = 'LOAD_USER_DATA'
 export function loadUserData(uid, userData, provider=null) {
@@ -60,9 +55,9 @@ export function programUploadFailure(error){
   return {type: PROGRAM_UPLOAD_FAILURE, message: error.message}
 }
 
-export const SET_MOST_RECENT_LANGUAGE = "SET_MOST_RECENT_LANGUAGE"
-export function setMostRecentLanguage(lang){
-  return {type: SET_MOST_RECENT_LANGUAGE, language:lang}
+export const SET_MOST_RECENT_PROGRAM = "SET_MOST_RECENT_PROGRAM"
+export function setMostRecentProgram(program){
+  return {type: SET_MOST_RECENT_PROGRAM, mostRecentProgram:program}
 }
 
 // /**

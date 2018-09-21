@@ -1,4 +1,4 @@
-import { CLEAR_OUTPUT, SET_RUN_RESULT } from '../actions/outputActions'
+import { CLEAR_OUTPUT, SET_RUN_RESULT, SET_OUTPUT_LANGUAGE, SET_OUTPUT } from '../actions/outputActions'
 import { PYTHON } from '../constants'
 
 const initialState = {
@@ -14,6 +14,8 @@ function outputReducers(state = initialState, action){
       return Object.assign({}, state, {runResult: action.value})
     case SET_OUTPUT_LANGUAGE:
       return Object.assign({}, state, {language: action.value})
+    case SET_OUTPUT:
+      return Object.assign({}, state, {runResult:action.runResult, language: action.language})
     default:
       return state
   }
