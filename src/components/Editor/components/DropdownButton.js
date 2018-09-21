@@ -26,7 +26,9 @@ export default class DropdownButton extends React.Component {
       return null
     }
 
-    //each item in the array should be a 
+    //each item in the array should be an object with 2 keys
+    //display is the value shown in the dropdown
+    //value is the hidden value behind the dropdown called with onSelect
     return this.props.dropdownItems.map(({value, display}) => {
       if(value === undefined || display === undefined){
         return null

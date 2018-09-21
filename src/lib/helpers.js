@@ -101,7 +101,7 @@ import Program from './Program.js'
 // }
 
 
-export const LANGUAGE_TO_DISPLAY = (lang) => {
+export const languageToDisplay = (lang) => {
   switch(lang){
     case JAVA:
       return "Java"

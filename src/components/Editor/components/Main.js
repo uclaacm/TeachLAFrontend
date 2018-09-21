@@ -6,7 +6,6 @@ import OutputContainer from '../containers/OutputContainer.js'
 import TextEditorContainer from '../containers/TextEditorContainer'
 import DropdownButton from './DropdownButton'
 import RunButton from './RunButton'
-import {SUPPORTED_LANGUAGES} from '../.././constants'
 /*
 	Props:
 		bgColor: string representing the color of the background of the img (can be hex color, rgb(r, g, b, a), or color name)
@@ -25,7 +24,10 @@ class Main extends React.Component {
   }
 
 	componentWillMount(){
-
+    //update the most recent program if it doesn't exist or is an empty string
+    if(!this.props.mostRecentProgram.length){
+      this.props.resetMostRecentProgram()
+    }
 	}
 
   renderOpenPanelButton = () => {
@@ -55,6 +57,11 @@ class Main extends React.Component {
     //programs is an object where each key is a program name
     //and each key goes to an object with a language key that defines what type of language it is
     if(this.props.programs){
+      this.props.programs.forEach((val, key) => {
+        console.log(val)
+        dropdownItems.push({display:key, value:val.get("code")})
+      })
+
       Object.keys(this.props.programs).forEach(key => {
         dropdownItems.push({display:key, value:this.props.programs[key].language})
       })

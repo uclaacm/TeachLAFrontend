@@ -1,5 +1,5 @@
 import React from 'react'
-import {Controlled as CodeMirror} from 'react-codemirror2';
+import {CODEMIRROR_CONVERSIONS} from '../../../constants'
 
 let CodeMirror = null
 if(typeof(window) !== 'undefined' && typeof(window.navigator) !== 'undefined'){
@@ -29,41 +29,44 @@ class TextEditor extends React.Component {
     }
   }
 
+  setCodeMirrorInstance = (codeMirrorInstance) => {
+    this.setState({codeMirrorInstance})
+  }
+
   setCurrentLine = (cm)=>{
-      const {codeMirrorInstance, currentLine} = this.state
-      let {line} = cm.getCursor()
-      if(codeMirrorInstance){
-          codeMirrorInstance.removeLineClass(currentLine, 'wrap', 'selected-line')    //removeLineClass removes the back highlight style from the last selected line
-          codeMirrorInstance.addLineClass(line, 'wrap', 'selected-line')              //addLineClass adds the style to the newly selected line
-      }
-      this.setState({currentLine:line})
+    const { codeMirrorInstance, currentLine } = this.state
+    let { line } = cm.getCursor()
+    if(codeMirrorInstance){
+      //removeLineClass removes the back highlight style from the last selected line
+      codeMirrorInstance.removeLineClass(currentLine, 'wrap', 'selected-line')    
+      //addLineClass adds the style to the newly selected line
+      codeMirrorInstance.addLineClass(line, 'wrap', 'selected-line')             
+    }
+    this.setState({currentLine:line})
   }
 
 	render(){					
     //json required by CodeMirror
     const options = {
-      mode,
+      mode: CODEMIRROR_CONVERSIONS[this.props.language],
       theme: 'material',          //requires lots of CSS tuning to get a theme to work, be wary of changing
       lineNumbers: true,          //text editor has line numbers
       lineWrapping:true,          //text editor does not overflow in the x direction, uses word wrap (NOTE: it's like MO Word wrapping, so words are not cut in the middle, if a word overlaps, the whole word is brought to the next line)
     };
-    //called deconstruction; pulling children, triggerLogin, ..., textPadding out of props
+
     return (
       <CodeMirror
-          editorDidMount={(codeMirrorInstance)=>{setCodeMirrorInstance(codeMirrorInstance)}}
-          value={code}
+          editorDidMount={(codeMirrorInstance)=>{this.setCodeMirrorInstance(codeMirrorInstance)}}
+          value={this.props.code}
           lineWrapping
           height="100%"
           options={options}
-          onCursor={(cm)=>{setCurrentLine(cm)}}
+          onCursor={(cm)=>{this.setCurrentLine(cm)}}
           onBeforeChange={(editor, data, newCode) => {
-              // updateCode(newCode)
+            this.props.setProgramCode(this.props.mostRecentProgram, newCode)
           }}
           onChange={(editor, data, newCode) => {
-              // updateCode(newCode)
-              // if(hotReload){
-              //   runCode(newCode)
-              // }
+            this.props.setProgramCode(this.props.mostRecentProgram, newCode)
           }}
       />
     )

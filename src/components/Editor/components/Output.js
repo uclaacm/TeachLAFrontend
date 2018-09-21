@@ -23,12 +23,12 @@ class Output extends React.Component {
 
     return (
       <iframe className="html-output"
-              style={{display: 'flex', height:"92vh"}}
-              srcDoc={this.props.runResult}
-              src='about:blank'
-              onLoad={(e)=>{
-                console.log(e)
-              }}
+        style={{display: 'flex', height:"92vh"}}
+        srcDoc={this.props.runResult}
+        src='about:blank'
+        onLoad={(e)=>{
+          console.log(e)
+        }}
       />
     )
   }
@@ -52,7 +52,19 @@ class Output extends React.Component {
               <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script> 
               <script src="http://www.skulpt.org/static/skulpt.min.js" type="text/javascript"></script> 
               <script src="http://www.skulpt.org/static/skulpt-stdlib.js" type="text/javascript"></script>
-              <style>html,body: {margin:0, width:100%, height:100%}</style> 
+              <style>
+                html,body: {
+                  margin:0, width:100%, height:100%,
+                }
+                #output: {
+                  width:500px,
+                  background-color:#EEE,
+                  color:#D00,
+                },
+                #mycanvas: {
+                  border:2px solid #777
+                }
+              </style> 
               
               </head> 
               
@@ -99,10 +111,10 @@ class Output extends React.Component {
               <form> 
               <button type="button" onclick="runit()">Replay</button> 
               </form> 
-              <pre id="output"></pre> 
               <div style="display:none;" id="runResult">${runResult}</div>
               <!-- If you want turtle graphics include a canvas -->
               <div id="mycanvas"></div> 
+              <pre id="output"></pre> 
               
               </body> 
               
@@ -116,7 +128,7 @@ class Output extends React.Component {
   }
 
   renderProcessingOutput = () => {
-    const {runResult} = this.props
+    const { runResult } = this.props
     
     if(!runResult){
       return null
@@ -140,30 +152,32 @@ class Output extends React.Component {
   }
 
   renderOutput = () => {
-    const {language, runResult} = this.props
+    const { language, runResult } = this.props
+
+    //if there's nothing to run, don't render an output
+    if(!runResult || !runResult.length){
+      return null
+    }
     switch(language){
-      case "Processing":
+      case PROCESSING:
         return this.renderProcessingOutput()
-      case "Javascript":
-      case "C++":
-      case "Java":
-      case "HTML":
-        return this.renderHTMLOutput()
-      case "Python":
+      case JAVASCRIPT:
+      case C++:
+      case PYTHON:
         return this.renderPythonOutput()
+      case JAVA:
+      case HTML:
       default:
         return this.renderHTMLOutput()
     }
   }
 
-  render(){                                                          //called deconstruction; pulling children, triggerLogin, ..., textPadding out of props
-    const {clearOutput} = this.props
-
+  render(){                                                          
     return (
       <div className="editor-output">
         <div className="editor-header">
           <div style={{flex:"1 1 auto"}}> </div>
-          <div className="editor-run" onClick={clearOutput}>
+          <div className="editor-run" onClick={()=>{console.log("clear output")}}>
               <button className="editor-run-button" style={{backgroundColor:"#ec4848"}}>
                   Clear
               </button>

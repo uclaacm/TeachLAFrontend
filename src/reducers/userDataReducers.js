@@ -20,7 +20,7 @@ const initialState = {
   displayName: "",
   photoURL: null,
   uid:"",
-  mostRecentProgram: PYTHON,
+  mostRecentProgram: "",
 }
 
 //the default parameter is also the initial state of the value. i.e. userDataReducers starts off as ""

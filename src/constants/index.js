@@ -17,31 +17,52 @@ let CODEMIRROR_CONVERSIONS = {}
 SUPPORTED_LANGUAGES.forEach(lang=> {
   switch(lang){
     case PYTHON:
-      DEFAULT_LANGUAGE_PROGRAMS[lang] = "import turtle\n\nt = turtle.Turtle()\n\nt.color('red')\nt.forward(75)\nt.left(90)\n\n\nt.color('blue')\nt.forward(75)\nt.left(90)\n"
+      DEFAULT_LANGUAGE_PROGRAMS[lang] = {
+        code: "import turtle\n\nt = turtle.Turtle()\n\nt.color('red')\nt.forward(75)\nt.left(90)\n\n\nt.color('blue')\nt.forward(75)\nt.left(90)\n",
+        language: lang,
+      }
       CODEMIRROR_CONVERSIONS[lang] = "python"
       break
      case JAVASCRIPT:
-      DEFAULT_LANGUAGE_PROGRAMS[lang] = 'console.log("Hello World!")'
+      DEFAULT_LANGUAGE_PROGRAMS[lang] = {
+        code: 'console.log("Hello World!")',
+        language: lang,
+      }
       CODEMIRROR_CONVERSIONS[lang] = "javascript"
       break
     case HTML:
-      DEFAULT_LANGUAGE_PROGRAMS[lang] = "<html>\n  <head>\n  </head>\n  <body>\n    <div style='width: 100px; height: 100px; background-color: black'>\n    </div>\n  </body>\n</html>"
+      DEFAULT_LANGUAGE_PROGRAMS[lang] = {
+        code: "<html>\n  <head>\n  </head>\n  <body>\n    <div style='width: 100px; height: 100px; background-color: black'>\n    </div>\n  </body>\n</html>",
+        language: lang,
+      }
       CODEMIRROR_CONVERSIONS[lang] = 'htmlmixed'
       break
     case JAVA:
-      DEFAULT_LANGUAGE_PROGRAMS[lang] = 'System.out.println("Hello World!")'
+      DEFAULT_LANGUAGE_PROGRAMS[lang] = {
+        code: 'System.out.println("Hello World!")',
+        language: lang,
+      },
       CODEMIRROR_CONVERSIONS[lang] = 'text/x-java'
       break
     case PROCESSING:
-      DEFAULT_LANGUAGE_PROGRAMS[lang] = "function setup() {\n  createCanvas(400, 400);\n}\n\nfunction draw() {\n  background(220);\n  ellipse(mouseX, mouseY, 100, 100);\n}"
+      DEFAULT_LANGUAGE_PROGRAMS[lang] = {
+        code: "function setup() {\n  createCanvas(400, 400);\n}\n\nfunction draw() {\n  background(220);\n  ellipse(mouseX, mouseY, 100, 100);\n}",
+        language: lang,
+      }
       CODEMIRROR_CONVERSIONS[lang] = 'javascript'
       break
     case CPP:
-      DEFAULT_LANGUAGE_PROGRAMS[lang] = 'std::cout << "Hello World!" << std::endl'
+      DEFAULT_LANGUAGE_PROGRAMS[lang] = {
+        code: 'std::cout << "Hello World!" << std::endl',
+        language: lang,
+      }
       CODEMIRROR_CONVERSIONS[lang] = 'text/x-csrc'
       break
     default:
-      DEFAULT_LANGUAGE_PROGRAMS[lang] = ""
+      DEFAULT_LANGUAGE_PROGRAMS[lang] = {
+        code: "",
+        language: PYTHON,
+      }
   }
 })
 

@@ -5,7 +5,7 @@ import {Redirect} from 'react-router'
 import {LANGUAGE, CREATION_DATE, MODIFICATION_DATE, CODE, DESCENDING, DEFAULT_MODE} from '../constants';
 import lib from '../lib'
 import firebase from 'firebase'
-import {nameToMode} from '../constants/helpers.js'
+// import {nameToMode} from '../constants/helpers.js'
 // Specify imports for codemirror usage
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/theme/material.css'
