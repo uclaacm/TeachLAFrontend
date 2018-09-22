@@ -1,17 +1,22 @@
 import constants from '../constants'
 
-export const getUserDataEndpoint = (uid = "") => `${constants.SERVER_URL}/getUserData/${uid}`
+export const getUserDataEndpoint = (uid = "", includePrograms = false) => `${constants.SERVER_URL}/getUserData/${uid}${includePrograms ? "?programs=true" : ""}`
 
-export const getUserData = (uid = "", includePrograms = false) => {
+export const getUserData = async (uid = "", includePrograms = false) => {
+  console.log("getting user data")
   const options = {
-    method: "post",
+    method: "get",
     mode: "cors", // no-cors, cors, *same-origin
-    body:{
-      includePrograms,
-    }
   }
 
-  return fetch(getUserDataEndpoint(uid), options)
+  try{
+    let result = await fetch(getUserDataEndpoint(uid, includePrograms), options)
+    let {ok, data, error} = await result.json()
+
+    return {ok, data, error}
+  } catch(err) {
+    return { ok: "false", error: "CATCH_ERROR", err: err}
+  }
 }
 
 export const initializeUserDataEndpoint = (uid = "") => `${constants.SERVER_URL}/initializeUserData/${uid}`

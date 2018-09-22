@@ -16,6 +16,7 @@ class App extends React.Component {
     this.state = {
       checkedAuth:false,
       errorMsg:"",
+      showErrorPage:false,
 		}
   }
   
@@ -38,11 +39,12 @@ class App extends React.Component {
 	 */
 	onAuthHandler = async (user) => {
     this.setState({checkedAuth:true})
+    console.log("on auth handler", user)
 		if (user) {
+      console.log("found user")
 			const {uid} = user
 			if(uid){
-        this.props.loadUserData(uid)
-        this.setState({errorMsg: ""})
+        this.props.loadUserData(uid, this.showErrorPage)
 			} else {
         this.setState({errorMsg:"No UID provided with user"})
       }
@@ -50,12 +52,21 @@ class App extends React.Component {
       this.props.clearUserData()
       this.setState({errorMsg:""})
 		}
-	}
+  }
+  
+  showErrorPage = (err) => {
+    console.log(err)
+    this.setState({errorMsg:err, showErrorPage:true})
+  }
 
 	render() {
 		//if we haven't checked if the user is logged in yet, show a loading screen
 		if(!this.state.checkedAuth){
 			return (<LoadingPage/>)
+    }
+
+    if(this.state.showErrorPage){
+      return <div>Error page {this.state.errorMsg}</div>
     }
 
     if(this.state.errorMsg){

@@ -1,8 +1,8 @@
 
 export const LOAD_USER_DATA = 'LOAD_USER_DATA'
-export function loadUserData(uid, userData, provider=null) {
-  userData.uid = uid
-  return { type: LOAD_USER_DATA, user: userData, provider: provider}
+export function loadUserData(uid, userData) {
+  // add uid to the userData object
+  return { type: LOAD_USER_DATA, userData: {...userData, uid: uid}}
 }
 
 export const CLEAR_USER_DATA = 'CLEAR_USER_DATA'

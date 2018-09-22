@@ -4,12 +4,10 @@ import { setProgramCode } from '../../../actions/programsActions.js'
 
 const mapStateToProps = (state) => {
 
-  console.log(state.userData.mostRecentProgram)
   const mostRecentProgram = state.userData.mostRecentProgram
 
   const programs = state.programs
 
-  console.log(programs.toJS(), mostRecentProgram, programs.getIn([mostRecentProgram], ""))
   return {
     code: programs.getIn([mostRecentProgram, "code"], ""),
     language: programs.getIn([mostRecentProgram, "language"], "python"),

@@ -21,7 +21,6 @@ export default class DropdownButton extends React.Component {
   }
 
   renderDropdownItems = () => {
-    console.log(this.props.dropdownItems)
     //if no items were passed in or it is not an array
     if(!this.props.dropdownItems || !this.props.dropdownItems.length){
       return "Failed to load programs. Try refreshing the page..."

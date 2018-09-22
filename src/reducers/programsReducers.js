@@ -2,15 +2,17 @@
   // SET_CURRENT_LINE, SET_HOT_RELOAD, SET_CODE, SET_CODE_MIRROR_INSTANCE,
   // CREATE_EDITOR_ID, FOCUS_ON_EDITOR, SET_LANGUAGE, SET_PROGRAM} from '../actions/textEditorActions'
 import {
-  SET_PROGRAM_CODE, SET_PROGRAM_LANGUAGE, DELETE_PROGRAM
+  SET_PROGRAM_CODE, SET_PROGRAM_LANGUAGE, DELETE_PROGRAM, LOAD_PROGRAMS
 } from '../actions/programsActions.js'
 import {DEFAULT_LANGUAGE_PROGRAMS} from '../constants'
 import Immutable from 'immutable'
 
-let initialState = Immutable.fromJS(DEFAULT_LANGUAGE_PROGRAMS)
+let initialState = Immutable.Map()
 
 function programsReducers(state = initialState, action){
   switch(action.type){
+    case LOAD_PROGRAMS:
+      return Immutable.fromJS(action.programs)
     case SET_PROGRAM_CODE:
       return state.setIn([action.program, "code"], action.value)
     case SET_PROGRAM_LANGUAGE:

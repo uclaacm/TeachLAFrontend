@@ -32,7 +32,6 @@ class CreateUser extends React.Component {
       message:null,
       usernameMessage:null,
       passwordMessage:null,
-      displaynameMessage:null,
     }
   }
 
@@ -86,35 +85,6 @@ class CreateUser extends React.Component {
   }
 
   /**
-   * createUserSketches - initializes sample sketches in firestore for the user.
-   * This function is intended for use only on user creation, as it makes an implicit
-   * assumption that the user is currently signed in, as is guaranteed on user creation.
-   */
-  createUserSketches = () => {
-    let uid = firebase.auth().currentUser.uid
-    if(firebase.auth().currentUser.uid){
-      // set general fields of user in firestore
-      let displayName = firebase.auth().currentUser.displayName
-      this.props.firestore.doc(`users/${uid}`).set({
-        displayName: (displayName ? displayName : ''),
-        uid: uid
-      })
-
-      // create template sketches and initialize their fields
-      Object.keys(DEFAULT_LANGUAGE_PROGRAMS).forEach((lang) => {
-        this.props.firestore.doc(`users/${uid}/programs/${lang}`).set({
-          language: lang,
-          title: `my_first_${lang.toLowerCase()}_sketch`,
-          creationDate: new Date(Date.now()),
-          lastModified: new Date(Date.now()),
-          code: DEFAULT_LANGUAGE_PROGRAMS[lang],
-        })
-      })
-    }
-  }
-
-
-  /**
   * submit - this function executes on the click of the button to create a new user on the
   * createUser page
   * @param  {HTMLElement} e - solely used to prevent default page behavior on the clicking
@@ -137,14 +107,16 @@ class CreateUser extends React.Component {
     // We create an email lookalike to trick firebase into thinking the user
     // signed up with an email, instead of a username, display name, and password
     let email = this.state.username + EMAIL_DOMAIN_NAME
-    let pass = SHA256(this.state.password).toString()
+    let passHash = SHA256(this.state.password).toString()
 
-    // regiser user in firebase
-    firebase.auth().createUserWithEmailAndPassword(email, pass).then((user) => {
+    // register user in firebase
+    firebase.auth().createUserWithEmailAndPassword(email, passHash).then(({user}) => {
     }).catch((error) => {
         console.log(error)
         this.setState({waiting:false, errorMessage:error.message || "failed to create user"})
     })
+
+    this.setState({password:""})
   }
 
   renderInputs = () => (

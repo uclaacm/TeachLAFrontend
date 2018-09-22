@@ -24,10 +24,11 @@ export default class LoginModal extends React.Component{
     this.setState({waiting:true})
     
 		e.preventDefault() //prevents page from reloading after submitting form
-		let emailHash = this.state.username + EMAIL_DOMAIN_NAME
-		let passwordHash = SHA256(this.state.password).toString()
-    if(emailHash && passwordHash){
-      firebase.auth().signInWithEmailAndPassword(emailHash, passwordHash).then(() => {
+		let email = this.state.username + EMAIL_DOMAIN_NAME
+    let passwordHash = SHA256(this.state.password).toString()
+    
+    if(email && passwordHash){
+      firebase.auth().signInWithEmailAndPassword(email, passwordHash).then(() => {
       }).catch((err) =>{
         console.log(err)
         this.setState({errorMsg: err.message || "Failed to sign in", waiting:false})
@@ -49,7 +50,6 @@ export default class LoginModal extends React.Component{
   updatePassword = (password) => this.setState({password})
 
   render(){
-    console.log(this.state.username, this.state.password)
     return (
       <form className='login-form' onSubmit={this.handleEmailLogin}>	{/*Form doesn't do anything rn, just an example of a stateful React form.*/}
         <div className="login-header" >{"Welcome to <Teach LA>"}</div>
