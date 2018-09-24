@@ -99,7 +99,6 @@ class Main extends React.Component {
             <div className="text-editor-container">
               <TextEditorContainer key={this.props.mostRecentProgram}/>
             </div>
-            <div className="text-editor-container">{this.renderWindows()}</div>
           </div>
           <OutputContainer />
         </SplitPane>

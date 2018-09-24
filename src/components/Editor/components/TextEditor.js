@@ -42,6 +42,10 @@ class TextEditor extends React.Component {
   }
 
   onLeave = async (ev) =>{
+    if(!ev){
+      console.log(ev, "why'd this get called...")
+      return
+    }
     try{
       ev.preventDefault()
       ev.preventDefault()
