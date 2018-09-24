@@ -27,10 +27,10 @@ function userDataReducers(state = initialState, action) {
       //pull all values we want to pay attention to out of the object
       return Object.assign({}, state, action.userData)
     case CLEAR_USER_DATA:
-    	return initialState
+      return initialState;
     case LOAD_FAILURE:
-      state.error = "Failed to load user data..."
-      return state
+      state.error = "Failed to load user data...";
+      return state;
     case SET_DISPLAY_NAME:
       state.displayName = action.value
       // fetch.updateUserData(state.uid, {displayName: action.value})
@@ -58,7 +58,7 @@ function userDataReducers(state = initialState, action) {
     case SET_MOST_RECENT_PROGRAM:
       return Object.assign({}, state, {mostRecentProgram:action.value})
     default:
-      return state
+      return state;
   }
 }
-export default userDataReducers
+export default userDataReducers;

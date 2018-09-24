@@ -1,25 +1,25 @@
-import { REQUEST_LOGIN, LOGIN_FAILED, LOGIN_COMPLETED } from '../actions/userStateActions'
+import { REQUEST_LOGIN, LOGIN_FAILED, LOGIN_COMPLETED } from "../actions/userStateActions";
 
-const initialState =  {
+const initialState = {
   waiting: false,
-  message: '',
-}
+  message: "",
+};
 
-function userStateReducers(state = initialState, action){
-  switch(action.type){
+function userStateReducers(state = initialState, action) {
+  switch (action.type) {
     case REQUEST_LOGIN:
-      state.waiting = true
-      return state
+      state.waiting = true;
+      return state;
     case LOGIN_COMPLETED:
-      state.waiting = false
-      return state
+      state.waiting = false;
+      return state;
     case LOGIN_FAILED:
-      state.waiting = false
-      state.message = action.message
-      return state
+      state.waiting = false;
+      state.message = action.message;
+      return state;
     default:
-      return state
+      return state;
   }
 }
 
-export default userStateReducers
+export default userStateReducers;

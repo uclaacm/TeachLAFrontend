@@ -10,21 +10,21 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    loadUserData: (user) => {
-      dispatch(loadUserData(user))
+    loadUserData: user => {
+      dispatch(loadUserData(user));
     },
     clearUserData: () => {
-      dispatch(clearUserData())
+      dispatch(clearUserData());
     },
-    loadFailure: (err) => {
-      dispatch(loadFailure(err))
+    loadFailure: err => {
+      dispatch(loadFailure(err));
     },
   }
 }
 
 const LoginPage = connect(
   mapStateToProps,
-  mapDispatchToProps
-)(Login)
+  mapDispatchToProps,
+)(Login);
 
-export default LoginPage
+export default LoginPage;

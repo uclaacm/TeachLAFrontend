@@ -1,5 +1,5 @@
-import React from 'react'
-import '../../styles/Login.css'
+import React from "react";
+import "../../styles/Login.css";
 
 export default ({type, waiting, data, onChange}) => (
   <div>

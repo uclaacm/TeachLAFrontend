@@ -9,3 +9,7 @@
 3. yarn (or npm) install
 4. yarn (or npm) start
 5. The Client should be viewable on localhost:8080
+
+# When pushing
+(TODO is to make this part of a build process)
+1. Run 'make format' to clean up code

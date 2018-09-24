@@ -10,7 +10,7 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     clearOutput: () => {
     }
@@ -19,7 +19,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const OutputContainer = connect(
   mapStateToProps,
-  mapDispatchToProps
-)(Output)
+  mapDispatchToProps,
+)(Output);
 
-export default OutputContainer
+export default OutputContainer;

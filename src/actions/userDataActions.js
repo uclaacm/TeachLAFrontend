@@ -1,58 +1,57 @@
-
 export const LOAD_USER_DATA = 'LOAD_USER_DATA'
 export function loadUserData(uid, userData) {
   // add uid to the userData object
   return { type: LOAD_USER_DATA, userData: {...userData, uid: uid}}
 }
 
-export const CLEAR_USER_DATA = 'CLEAR_USER_DATA'
+export const CLEAR_USER_DATA = "CLEAR_USER_DATA";
 export function clearUserData() {
-  return { type: CLEAR_USER_DATA}
+  return { type: CLEAR_USER_DATA };
 }
 
-export const LOAD_FAILURE = 'LOAD_FAILURE'
-export function loadFailure(err){
-  return { type: LOAD_FAILURE, waiting: false, message: err}
+export const LOAD_FAILURE = "LOAD_FAILURE";
+export function loadFailure(err) {
+  return { type: LOAD_FAILURE, waiting: false, message: err };
 }
 
-export const SET_DISPLAY_NAME = 'SET_DISPLAY_NAME'
-export function setDisplayName(displayName){
-  return { type: SET_DISPLAY_NAME, value: displayName}
+export const SET_DISPLAY_NAME = "SET_DISPLAY_NAME";
+export function setDisplayName(displayName) {
+  return { type: SET_DISPLAY_NAME, value: displayName };
 }
 
-export const SET_PHOTO_URL = 'SET_DISPLAY_NAME'
-export function setPhotoURL(photoURL){
-  return { type: SET_PHOTO_URL, value: photoURL}
+export const SET_PHOTO_URL = "SET_DISPLAY_NAME";
+export function setPhotoURL(photoURL) {
+  return { type: SET_PHOTO_URL, value: photoURL };
 }
 
-export const REQUEST_DATA_UPLOAD = 'REQUEST_DATA_UPLOAD'
-export function requestDataUpload(packet){
-  return {type: REQUEST_DATA_UPLOAD, packet: packet}
+export const REQUEST_DATA_UPLOAD = "REQUEST_DATA_UPLOAD";
+export function requestDataUpload(packet) {
+  return { type: REQUEST_DATA_UPLOAD, packet: packet };
 }
 
-export const REQUEST_PROGRAM_LOAD = 'REQUEST_PROGRAM_LOAD'
-export function requestProgramLoad(collection){
-  return {type: REQUEST_PROGRAM_LOAD, programs: collection}
+export const REQUEST_PROGRAM_LOAD = "REQUEST_PROGRAM_LOAD";
+export function requestProgramLoad(collection) {
+  return { type: REQUEST_PROGRAM_LOAD, programs: collection };
 }
 
-export const PROGRAM_LOAD_FAILURE = 'PROGRAM_LOAD_FAILURE'
-export function programLoadFailure(error){
-  return {type: PROGRAM_LOAD_FAILURE, error: error}
+export const PROGRAM_LOAD_FAILURE = "PROGRAM_LOAD_FAILURE";
+export function programLoadFailure(error) {
+  return { type: PROGRAM_LOAD_FAILURE, error: error };
 }
 
-export const PROGRAM_UPLOAD_SUCCESS = 'PROGRAM_UPLOAD_SUCCESS'
-export function programUploadSuccess(){
-  return {type: PROGRAM_UPLOAD_SUCCESS}
+export const PROGRAM_UPLOAD_SUCCESS = "PROGRAM_UPLOAD_SUCCESS";
+export function programUploadSuccess() {
+  return { type: PROGRAM_UPLOAD_SUCCESS };
 }
 
-export const PROGRAM_LOAD_SUCCESS = 'PROGRAM_LOAD_SUCCESS'
-export function programLoadSuccess(){
-  return {type: PROGRAM_LOAD_SUCCESS}
+export const PROGRAM_LOAD_SUCCESS = "PROGRAM_LOAD_SUCCESS";
+export function programLoadSuccess() {
+  return { type: PROGRAM_LOAD_SUCCESS };
 }
 
-export const PROGRAM_UPLOAD_FAILURE = 'PROGRAM_UPLOAD_FAILURE'
-export function programUploadFailure(error){
-  return {type: PROGRAM_UPLOAD_FAILURE, message: error.message}
+export const PROGRAM_UPLOAD_FAILURE = "PROGRAM_UPLOAD_FAILURE";
+export function programUploadFailure(error) {
+  return { type: PROGRAM_UPLOAD_FAILURE, message: error.message };
 }
 
 export const SET_MOST_RECENT_PROGRAM = "SET_MOST_RECENT_PROGRAM"

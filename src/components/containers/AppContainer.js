@@ -37,7 +37,7 @@ const mapDispatchToProps = dispatch => {
 
 const Root = connect(
   mapStateToProps,
-  mapDispatchToProps
-)(App)
+  mapDispatchToProps,
+)(App);
 
 export default Root;

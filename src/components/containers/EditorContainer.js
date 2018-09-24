@@ -13,6 +13,7 @@ const mapDispatchToProps = dispatch => {
 
 const EditorPage = connect(
   mapStateToProps,
-  mapDispatchToProps)(Editor)
+  mapDispatchToProps,
+)(Editor);
 
-export default EditorPage
+export default EditorPage;

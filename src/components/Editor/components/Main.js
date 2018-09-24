@@ -41,11 +41,15 @@ class Main extends React.Component {
 
     // otherwise show a > that when clicked, opens the panel
     return (
-      <div className='editor-expand-panel' title="Open Profile Panel" onClick={handleOnVisibleChange}>
+      <div
+        className="editor-expand-panel"
+        title="Open Profile Panel"
+        onClick={handleOnVisibleChange}
+      >
         >
       </div>
-    )
-  }
+    );
+  };
 
   renderDropdown = () => {
     //dropdown items should be an array of objects with two keys: value and display
@@ -68,19 +72,23 @@ class Main extends React.Component {
 	render(){																													//called deconstruction; pulling children, triggerLogin, ..., textPadding out of props
     const {codeStyle, paneStyle, size, onSplitPaneChange,} = this.props
 
-		return (
+    return (
       <div style={codeStyle}>
-				{/* TODO: there appears to be a bug with how much the split pane is able to move.  This bug is triggered by
+        {/* TODO: there appears to be a bug with how much the split pane is able to move.  This bug is triggered by
 					minimizing the profile panel, maximizing it again, and trying to move the split pane.  The speed of movement
 					is greatly reduced*/}
         <SplitPane
-            pane1Style={paneStyle}
-            split="vertical"                              //the resizer is a vertical line (horizontal means resizer is a horizontal bar)
-            minSize={window.innerWidth*(1-size)/4}        //minimum size of code is 25% of screen not including panel and max size is 50%
-            maxSize={this.props.paneVisible ? window.innerWidth*(1-size)*3/4 : window.innerWidth*3/4}                             //maximum size is 75% of the screen if the panel  is open, 50% otherwise
-            size={size}                                   //the initial size of the text editor section
-            allowResize={true}
-            onChange={onSplitPaneChange}
+          pane1Style={paneStyle}
+          split="vertical" //the resizer is a vertical line (horizontal means resizer is a horizontal bar)
+          minSize={(window.innerWidth * (1 - size)) / 4} //minimum size of code is 25% of screen not including panel and max size is 50%
+          maxSize={
+            this.props.paneVisible
+              ? (window.innerWidth * (1 - size) * 3) / 4
+              : (window.innerWidth * 3) / 4
+          } //maximum size is 75% of the screen if the panel  is open, 50% otherwise
+          size={size} //the initial size of the text editor section
+          allowResize={true}
+          onChange={onSplitPaneChange}
         >
           <div className="code-section">
             <div className="editor-header">
@@ -91,12 +99,13 @@ class Main extends React.Component {
             <div className="text-editor-container">
               <TextEditorContainer key={this.props.mostRecentProgram}/>
             </div>
+            <div className="text-editor-container">{this.renderWindows()}</div>
           </div>
-          <OutputContainer/>
+          <OutputContainer />
         </SplitPane>
       </div>
-	  )
-	}
+    );
+  }
 }
 
 export default Main

@@ -32,9 +32,9 @@ class Output extends React.Component {
   renderHTMLOutput = () => {
     // html-output is an iframe canvas that displays html typed into the editor.  It only displays when html is the selected language
     //about: blank makes it so that the clear button will clear the html appropriately when pressed.  Otherwise, old content persists.
-    const {runResult} = this.props
-    if(!runResult){
-      return null
+    const { runResult } = this.props;
+    if (!runResult) {
+      return null;
     }
 
     return (
@@ -49,20 +49,18 @@ class Output extends React.Component {
           console.log(e)
         }}
       />
-    )
-  }
+    );
+  };
 
   renderPythonOutput = () => {
     // html-output is an iframe canvas that displays html typed into the editor.  It only displays when html is the selected language
     //about: blank makes it so that the clear button will clear the html appropriately when pressed.  Otherwise, old content persists.
-    let {runResult} = this.props
+    let { runResult } = this.props;
 
-    if(!runResult){
-      return (
-        null
-      )
+    if (!runResult) {
+      return null;
     }
-    
+
     return (
       <iframe
         id={this.state.counter} 
@@ -147,8 +145,8 @@ class Output extends React.Component {
             console.log(e)
           }}
       />
-    )
-  }
+    );
+  };
 
   renderProcessingOutput = () => {
     const { runResult } = this.props
@@ -174,8 +172,8 @@ class Output extends React.Component {
           console.log(e)
         }}
       />
-    )
-  }
+    );
+  };
 
   renderOutput = () => {
     const { language, runResult } = this.props
@@ -194,9 +192,9 @@ class Output extends React.Component {
       case JAVA:
       case HTML:
       default:
-        return this.renderHTMLOutput()
+        return this.renderHTMLOutput();
     }
-  }
+  };
 
   render(){                                                          
     return (
@@ -209,12 +207,10 @@ class Output extends React.Component {
               </button>
           </div>
         </div>
-        <div className="editor-output-content">
-          {this.renderOutput()}
-        </div>
+        <div className="editor-output-content">{this.renderOutput()}</div>
       </div>
-    )
+    );
   }
 }
 
-export default Output
+export default Output;

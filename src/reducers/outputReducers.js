@@ -17,8 +17,8 @@ function outputReducers(state = initialState, action){
     case SET_OUTPUT:
       return Object.assign({}, state, {runResult:action.runResult, language: action.language})
     default:
-      return state
+      return state;
   }
 }
 
-export default outputReducers
+export default outputReducers;

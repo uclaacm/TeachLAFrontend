@@ -1,11 +1,11 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
-import LoginPage from './containers/LoginContainer';
-import EditorPage from './containers/EditorContainer';
-import LoadingPage from './common/LoadingPage';
-import CreateUserPage from './containers/CreateUserContainer';
-import firebase from 'firebase'
-import '../styles/app.css'
+import React from "react";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import LoginPage from "./containers/LoginContainer";
+import EditorPage from "./containers/EditorContainer";
+import LoadingPage from "./common/LoadingPage";
+import CreateUserPage from "./containers/CreateUserContainer";
+import firebase from "firebase";
+import "../styles/app.css";
 
 const provider = new firebase.auth.FacebookAuthProvider();
 

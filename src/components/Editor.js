@@ -1,17 +1,15 @@
 import React from 'react';
 import ProfilePanel from './Editor/components/ProfilePanel'
 import MainContainer from './Editor/containers/MainContainer'
-// import {nameToMode} from '../constants/helpers.js'
 // Specify imports for codemirror usage
-import 'codemirror/lib/codemirror.css'
-import 'codemirror/theme/material.css'
-import '../styles/CustomCM.css'
-import '../styles/Resizer.css'
-import '../styles/Editor.css'
-import '../styles/Panel.css'
+import "codemirror/lib/codemirror.css";
+import "codemirror/theme/material.css";
+import "../styles/CustomCM.css";
+import "../styles/Resizer.css";
+import "../styles/Editor.css";
+import "../styles/Panel.css";
 
 class Editor extends React.Component {
-
   /**
    * constructor
    *
@@ -23,20 +21,20 @@ class Editor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      panelVisible:true,
-      size:0.25,
-      prevSize:0.25,
-      codeSize:"37.5%",
-      isOpen:false,
-      paneStyle:{transition:"none"},
-      hotReload:false,
+      panelVisible: true,
+      size: 0.25,
+      prevSize: 0.25,
+      codeSize: "37.5%",
+      isOpen: false,
+      paneStyle: { transition: "none" },
+      hotReload: false,
     };
 
     // function 'this' context bindings
-    this.splitChangeHandler = this.splitPaneChangeHandler.bind(this)
-    this.handleOnVisibleChange = this.handleOnVisibleChange.bind(this)
-    this.setPaneStyle = this.setPaneStyle.bind(this)
-    this.onSizeChangeHandler = this.onSizeChangeHandler.bind(this)
+    this.splitChangeHandler = this.splitPaneChangeHandler.bind(this);
+    this.handleOnVisibleChange = this.handleOnVisibleChange.bind(this);
+    this.setPaneStyle = this.setPaneStyle.bind(this);
+    this.onSizeChangeHandler = this.onSizeChangeHandler.bind(this);
   }
 
   componentDidMount(){
@@ -49,16 +47,15 @@ class Editor extends React.Component {
    *    if the panel is closed, opens it and sets the size to 0.25 (25% of the screen)
    *
    */
-  handleOnVisibleChange(){
+  handleOnVisibleChange() {
     this.setState({
-      panelVisible: !this.state.panelVisible,           //open it if its closed, close it if its open
-      size:this.state.panelVisible ? 0.0 : 0.25,     //give it a size of 0 if it was open, 0.25 if it was closed
-      prevSize:this.state.panelVisible ? 0.0 : 0.25, //set the previous size to the same as the new size (used to make the slide transition only trigger when the expand/collapse button is pressed)
-      codeSize:"50%",
-      paneStyle:{transition:"width 0.3s ease"},
-    })
+      panelVisible: !this.state.panelVisible, //open it if its closed, close it if its open
+      size: this.state.panelVisible ? 0.0 : 0.25, //give it a size of 0 if it was open, 0.25 if it was closed
+      prevSize: this.state.panelVisible ? 0.0 : 0.25, //set the previous size to the same as the new size (used to make the slide transition only trigger when the expand/collapse button is pressed)
+      codeSize: "50%",
+      paneStyle: { transition: "width 0.3s ease" },
+    });
   }
-
 
   /**
    *  onSizeChangeHandler - handler for when the panel is being resized by the resizer (right edge of the panel)
@@ -66,20 +63,20 @@ class Editor extends React.Component {
    *
    *    @param {float} newSize - the new size of the panel as a fraction of the width of the screen
    */
-  onSizeChangeHandler(newSize){
+  onSizeChangeHandler(newSize) {
     this.setState({
-      size:newSize,
-      prevSize:this.state.size,         //storing the previous size in prevSize
-      paneStyle:{transition:"none"},
-    })
+      size: newSize,
+      prevSize: this.state.size, //storing the previous size in prevSize
+      paneStyle: { transition: "none" },
+    });
   }
 
-  splitPaneChangeHandler(codeSize){
-      this.setState({codeSize, paneStyle:{transition:"none"}})
+  splitPaneChangeHandler(codeSize) {
+    this.setState({ codeSize, paneStyle: { transition: "none" } });
   }
 
-  setPaneStyle(newPaneStyle){
-    this.setState({paneStyle:newPaneStyle})
+  setPaneStyle(newPaneStyle) {
+    this.setState({ paneStyle: newPaneStyle });
   }
 
 	render() {
@@ -118,7 +115,7 @@ class Editor extends React.Component {
         />
       </div>
     );
-	}
+  }
 }
 
 export default Editor;

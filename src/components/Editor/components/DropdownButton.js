@@ -1,7 +1,5 @@
 import React from 'react'
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
-// import { PYTHON, JAVASCRIPT, PROCESSING, JAVA, HTML, CPLUS_PLUS} from '../../../constants'
-
 
 /**
  * props:

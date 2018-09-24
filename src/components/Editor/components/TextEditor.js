@@ -2,14 +2,14 @@ import React from 'react'
 import {CODEMIRROR_CONVERSIONS} from '../../../constants'
 import * as fetch from '../../../lib/fetch.js'
 
-let CodeMirror = null
-if(typeof(window) !== 'undefined' && typeof(window.navigator) !== 'undefined'){
+let CodeMirror = null;
+if (typeof window !== "undefined" && typeof window.navigator !== "undefined") {
   // import {Controlled as CodeMirror} from 'react-codemirror2'
-  CodeMirror = require('react-codemirror2').Controlled
-  require('codemirror/mode/javascript/javascript.js')
-  require('codemirror/mode/htmlmixed/htmlmixed.js')
-  require('codemirror/mode/python/python.js')
-  require('codemirror/mode/clike/clike.js')
+  CodeMirror = require("react-codemirror2").Controlled;
+  require("codemirror/mode/javascript/javascript.js");
+  require("codemirror/mode/htmlmixed/htmlmixed.js");
+  require("codemirror/mode/python/python.js");
+  require("codemirror/mode/clike/clike.js");
 }
 /*
 	Props:

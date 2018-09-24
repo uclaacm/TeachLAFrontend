@@ -16,7 +16,7 @@ const mapStateToProps = (state) => {
     mostRecentProgram,
     uid,
   }
-}
+};
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
@@ -31,4 +31,4 @@ const TextEditorContainer = connect(
   mapDispatchToProps
 )(TextEditor)
 
-export default TextEditorContainer
+export default TextEditorContainer;

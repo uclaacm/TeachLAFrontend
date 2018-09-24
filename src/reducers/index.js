@@ -9,4 +9,4 @@ const appReducers = combineReducers({							//after we get more state, we'll add
   programs: programsReducers,
 })
 
-export default appReducers
+export default appReducers;

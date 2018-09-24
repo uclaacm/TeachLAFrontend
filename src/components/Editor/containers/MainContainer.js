@@ -12,7 +12,7 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     setMostRecentProgram: (value) => dispatch(setMostRecentProgram(value)),
     runCode: (code, language) => dispatch(setOutput(code, language))
@@ -24,4 +24,4 @@ const MainContainer = connect(
   mapDispatchToProps
 )(Main)
 
-export default MainContainer
+export default MainContainer;

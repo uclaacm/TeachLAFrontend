@@ -1,7 +1,7 @@
-import React from 'react'
-import {RingLoader} from 'react-spinners'
-import '../../styles/Loading.css'
- 
+import React from "react";
+import { RingLoader } from "react-spinners";
+import "../../styles/Loading.css";
+
 /*
 	Props:
 		bgColor: string representing the color of the background of the img (can be hex color, rgb(r, g, b, a), or color name)
@@ -10,17 +10,11 @@ import '../../styles/Loading.css'
 		textPadding: string representing padding to the left of the text, i.e. distance from the img (give px units)
 */
 
-const Loading = ({props}) => (
-	<div className="Loading">
-		<div className="Loading-title">
-	 		Loading
-	 	</div>
-		<RingLoader
-          color={'#171124'} 
-          size={250}
-          loading={true} 
-        />
-	</div>
-)
- 
-export default Loading
+const Loading = ({ props }) => (
+  <div className="Loading">
+    <div className="Loading-title">Loading</div>
+    <RingLoader color={"#171124"} size={250} loading={true} />
+  </div>
+);
+
+export default Loading;
