@@ -7,7 +7,7 @@ import {PYTHON} from '../../../constants'
 
 const mapStateToProps = (state) => {
   return {
-    mostRecentProgram: state.userData.mostRecentProgram || PYTHON,
+    mostRecentProgram: state.userData.mostRecentProgram,
     programs: state.programs,
   }
 }

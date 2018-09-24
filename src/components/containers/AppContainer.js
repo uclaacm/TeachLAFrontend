@@ -30,7 +30,7 @@ const mapDispatchToProps = dispatch => {
     },
     clearUserData: () => {
       dispatch(clearUserData())
-    }
+    },
   }
 }
 

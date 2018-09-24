@@ -27,8 +27,8 @@ class App extends React.Component {
 		firebase.auth().onAuthStateChanged((user)=>{
       this.onAuthHandler(user)
     })
-	}
-
+  }
+  
 	/**
 	 *  TODO: Consider reducing the numerous side effects of this function in favor of the one function, one purpose principle
 	 * onAuthHandler - on execution will set a flag checkedAuth to true. If a valid user is passed to the function,

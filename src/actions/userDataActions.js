@@ -57,7 +57,7 @@ export function programUploadFailure(error){
 
 export const SET_MOST_RECENT_PROGRAM = "SET_MOST_RECENT_PROGRAM"
 export function setMostRecentProgram(program){
-  return {type: SET_MOST_RECENT_PROGRAM, mostRecentProgram:program}
+  return {type: SET_MOST_RECENT_PROGRAM, value:program}
 }
 
 // /**

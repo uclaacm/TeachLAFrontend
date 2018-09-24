@@ -1,5 +1,6 @@
 import React from 'react'
 import {CODEMIRROR_CONVERSIONS} from '../../../constants'
+import * as fetch from '../../../lib/fetch.js'
 
 let CodeMirror = null
 if(typeof(window) !== 'undefined' && typeof(window.navigator) !== 'undefined'){
@@ -25,12 +26,51 @@ class TextEditor extends React.Component {
     this.state = {
       codeMirrorInstance:null,
       currentLine:0,
-      code: this.props.code,
+      dirty:false,
+    }
+  }
+  
+  componentDidMount(){
+    window.addEventListener('beforeunload', this.onLeave)
+    window.addEventListener('close', this.onLeave)
+  }
+  
+  componentWillUnmount = () => {
+    this.onLeave()
+    window.removeEventListener('beforeunload', this.onLeave)
+    window.removeEventListener('close', this.onLeave)
+  }
+
+  onLeave = async (ev) =>{
+    try{
+      ev.preventDefault()
+      ev.preventDefault()
+      if(this.state.dirty){
+        console.log("dirty")
+        let programToUpdate = {}
+        programToUpdate[this.props.mostRecentProgram] = {
+          code: this.props.code
+        }
+        // await fetch.updatePrograms(this.props.uid, programToUpdate)
+        ev.returnValue = 'Ask if they want to reload'
+      }
+      return ev
+    } catch(err){
+      console.log(err)
+      return ev.returnValue = 'Are you sure you wanna close'
     }
   }
 
   setCodeMirrorInstance = (codeMirrorInstance) => {
     this.setState({codeMirrorInstance})
+  }
+
+  updateCode = (editor, data, newCode) => {
+    //if the code's not yet dirty, and the old code is different from the new code, make it dirty
+    if(!this.state.dirty && this.props.code !== newCode){
+      this.setState({dirty:true})
+    }
+    this.props.setProgramCode(this.props.mostRecentProgram, newCode)
   }
 
   setCurrentLine = (cm)=>{
@@ -62,12 +102,8 @@ class TextEditor extends React.Component {
           height="100%"
           options={options}
           onCursor={(cm)=>{this.setCurrentLine(cm)}}
-          onBeforeChange={(editor, data, newCode) => {
-            this.props.setProgramCode(this.props.mostRecentProgram, newCode)
-          }}
-          onChange={(editor, data, newCode) => {
-            this.props.setProgramCode(this.props.mostRecentProgram, newCode)
-          }}
+          onBeforeChange={this.updateCode}
+          onChange={this.updateCode}
       />
     )
   }

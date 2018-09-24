@@ -29,9 +29,9 @@ export const initializeUserData = (uid = "") => {
   return fetch(initializeUserDataEndpoint(uid), options)
 }
 
-export const updateUserDataEndpoint = (uid = "") => `${constants.SERVER_URL}/updateUserData/${uid}`
+export const updateProgramsEndpoint = (uid = "") => `${constants.SERVER_URL}/updatePrograms/${uid}`
 
-export const updateUserData = (uid = "", programs) => {
+export const updatePrograms = (uid = "", programs) => {
   let body = ""
 
   try{
@@ -41,6 +41,32 @@ export const updateUserData = (uid = "", programs) => {
     }
   } catch(err) {
     console.log(err)
+  }
+
+  const options = {
+    method: "post",
+    // headers: {
+    //   "Content-Type": "application/json; charset=utf-8",
+    // },
+    body,
+  }
+
+  return fetch(updateProgramsEndpoint(uid), options)
+}
+
+export const updateUserDataEndpoint = (uid = "") => `${constants.SERVER_URL}/updateUserData/${uid}`
+
+export const updateUserData = (uid = "", userData) => {
+  let body = ""
+
+  try{
+    //if programs is an object with at least 1 key, set the body to the stringified programs object
+    if(Object.keys(userData).length){
+      body = JSON.stringify(userData)
+    }
+  } catch(err) {
+    console.log(err)
+    return
   }
 
   const options = {

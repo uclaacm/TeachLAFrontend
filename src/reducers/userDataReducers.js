@@ -56,8 +56,7 @@ function userDataReducers(state = initialState, action) {
       //   })
       return state
     case SET_MOST_RECENT_PROGRAM:
-    console.log(Object.assign({}, state, {mostRecentProgram:action.mostRecentProgram}), action)
-      return Object.assign({}, state, {mostRecentProgram:action.mostRecentProgram})
+      return Object.assign({}, state, {mostRecentProgram:action.value})
     default:
       return state
   }

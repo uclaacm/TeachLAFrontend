@@ -21,32 +21,30 @@ export default class DropdownButton extends React.Component {
   }
 
   renderDropdownItems = () => {
-    //if no items were passed in or it is not an array
-    if(!this.props.dropdownItems || !this.props.dropdownItems.length){
-      return "Failed to load programs. Try refreshing the page..."
-    }
-
-    //each item in the array should be an object with 2 keys
-    //display is the value shown in the dropdown
-    //value is the hidden value behind the dropdown called with onSelect
-    return this.props.dropdownItems.map(({value, display}) => {
-      if(value === undefined || display === undefined){
+    //map each program string in the array to a dropdown item
+    return this.props.dropdownItems.map(program => {
+      if(program === undefined){
         return null
       }
 
       return (
         <DropdownItem
           //if a onSelect was provided, call it with the value
-          key={display}
-          onClick={() => {this.props.onSelect ? this.props.onSelect(value) : null}}
+          key={program}
+          onClick={() => {this.props.onSelect ? this.props.onSelect(program) : null}}
         >
-          {display || ""}
+          {program || ""}
         </DropdownItem>
       )
     })
   }
 
   render(){
+    //if there's no programs in the dropdownItems, just show the display value
+    if(!this.props.dropdownItems || !this.props.dropdownItems.length){
+      return this.props.displayValue
+    }
+
     return (
       <div className="editor-language-dropdown">
         <Dropdown

@@ -17,7 +17,7 @@ export const SET_OUTPUT = 'SET_OUTPUT'
 export function setOutput({output}){
   //if output is not an object
   if(!output){
-    return {}
+    return {type:"IGNORE"}
   }
   return {type:SET_OUTPUT, runResult:output.code, language: output.language}
 }

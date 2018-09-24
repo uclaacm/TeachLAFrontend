@@ -49,25 +49,11 @@ class Main extends React.Component {
 
   renderDropdown = () => {
     //dropdown items should be an array of objects with two keys: value and display
-    //display is the value showed in the dropdown
-    //value is the hidden value that is passed into the onSelect function
     let dropdownItems = []
     
-    //programs is an object where each key is a program name
-    //and each key goes to an object with a language key that defines what type of language it is
+    //keySeq returns an Immutable object, so go through each key and push it into an array
     if(this.props.programs){
-      let keys = this.props.programs.keySeq().forEach(key => {
-        dropdownItems.push({display:key, value:this.props.programs.getIn([key, "language"], PYTHON)}) 
-      })
-      // this.props.programs.forEach((val, key) => {
-      //   console.log(val)
-      // })
-
-      // // console.log(this.props.programs, Object.keys(this.props.programs))
-
-      // Object.keys(this.props.programs).forEach(key => {
-      //   dropdownItems.push({display:key, value:this.props.programs[key].language})
-      // })
+      this.props.programs.keySeq().forEach(key => dropdownItems.push(key))
     }
 
     return (
@@ -103,7 +89,7 @@ class Main extends React.Component {
               <RunButton runCode={this.props.runCode}/>
             </div>
             <div className="text-editor-container">
-              <TextEditorContainer/>
+              <TextEditorContainer key={this.props.mostRecentProgram}/>
             </div>
           </div>
           <OutputContainer/>
