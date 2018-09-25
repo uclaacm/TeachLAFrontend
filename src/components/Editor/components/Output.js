@@ -41,7 +41,7 @@ class Output extends React.Component {
         srcDoc={this.props.runResult}
         src="about:blank"
         onLoad={e => {
-          console.log(e);
+          // console.log(e);
         }}
       />
     );
@@ -137,7 +137,7 @@ class Output extends React.Component {
             </html> `}
         src="about:blank"
         onLoad={e => {
-          console.log(e);
+          // console.log(e);
         }}
       />
     );
@@ -164,7 +164,7 @@ class Output extends React.Component {
         </head><body><script type="text/javascript">${runResult}</script></body></html>`}
         src="about:blank"
         onLoad={e => {
-          console.log(e);
+          // console.log(e);
         }}
       />
     );
@@ -199,7 +199,7 @@ class Output extends React.Component {
           <div
             className="editor-run"
             onClick={() => {
-              console.log("clear output");
+              // console.log("clear output");
             }}
           >
             <button

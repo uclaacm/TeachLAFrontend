@@ -1,7 +1,5 @@
 import constants from "../constants";
 
-export const getUserDataEndpoint = (uid = "", includePrograms = false) =>
-  `${constants.SERVER_URL}/getUserData/${uid}${includePrograms ? "?programs=true" : ""}`;
 /**---------getUserData--------
  * fetches object from server containg information about user at uid
  * includes users' programs in json if includePrograms is true
@@ -17,6 +15,9 @@ export const getUserDataEndpoint = (uid = "", includePrograms = false) =>
  * }
  */
 export const getUserData = async (uid = "", includePrograms = false) => {
+  const getUserDataEndpoint = (uid = "", includePrograms = false) =>
+    `${constants.SERVER_URL}/getUserData/${uid}${includePrograms ? "?programs=true" : ""}`;
+
   console.log("getting user data");
   const options = {
     method: "get",
@@ -33,7 +34,6 @@ export const getUserData = async (uid = "", includePrograms = false) => {
   }
 };
 
-export const updateProgramsEndpoint = (uid = "") => `${constants.SERVER_URL}/updatePrograms/${uid}`;
 /**---------updatePrograms--------
  * updates all programs provided in the parameter "programs"
  *
@@ -49,6 +49,8 @@ export const updateProgramsEndpoint = (uid = "") => `${constants.SERVER_URL}/upd
  * }
  */
 export const updatePrograms = (uid = "", programs) => {
+  const updateProgramsEndpoint = (uid = "") => `${constants.SERVER_URL}/updatePrograms/${uid}`;
+
   let body = "";
 
   try {
@@ -59,19 +61,18 @@ export const updatePrograms = (uid = "", programs) => {
   } catch (err) {
     console.log(err);
   }
-
+  //TODO: update this so it doesn't send OPTIONS bc of cors
   const options = {
-    method: "post",
-    // headers: {
-    //   "Content-Type": "application/json; charset=utf-8",
-    // },
+    method: "put",
+    headers: {
+      "Content-Type": "application/json",
+    },
     body,
   };
 
   return fetch(updateProgramsEndpoint(uid), options);
 };
 
-export const updateUserDataEndpoint = (uid = "") => `${constants.SERVER_URL}/updateUserData/${uid}`;
 /**---------updateUserData--------
  * merges the json parameter userData with the user document in Firestore
  *
@@ -83,6 +84,8 @@ export const updateUserDataEndpoint = (uid = "") => `${constants.SERVER_URL}/upd
  * }
  */
 export const updateUserData = (uid = "", userData) => {
+  const updateUserDataEndpoint = (uid = "") => `${constants.SERVER_URL}/updateUserData/${uid}`;
+
   let body = "";
 
   try {
