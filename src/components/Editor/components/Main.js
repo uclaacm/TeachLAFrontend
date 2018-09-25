@@ -1,10 +1,10 @@
-import React from 'react'
-import SplitPane from 'react-split-pane'
-import OutputContainer from '../containers/OutputContainer.js'
-import TextEditorContainer from '../containers/TextEditorContainer'
-import DropdownButton from './DropdownButton'
-import RunButton from './RunButton'
-import {PYTHON} from '../../../constants'
+import React from "react";
+import SplitPane from "react-split-pane";
+import OutputContainer from "../containers/OutputContainer.js";
+import TextEditorContainer from "../containers/TextEditorContainer";
+import DropdownButton from "./DropdownButton";
+import RunButton from "./RunButton";
+import { PYTHON } from "../../../constants";
 /*
 	Props:
 		bgColor: string representing the color of the background of the img (can be hex color, rgb(r, g, b, a), or color name)
@@ -14,29 +14,27 @@ import {PYTHON} from '../../../constants'
 */
 
 class Main extends React.Component {
-	constructor(props){
-		super(props)
-		this.state = {
-			codeSize: "37.5%",
-			paneStyle:{transition:"none"},
-		}
+  constructor(props) {
+    super(props);
+    this.state = {
+      codeSize: "37.5%",
+      paneStyle: { transition: "none" },
+    };
   }
 
-	componentWillMount(){
+  componentWillMount() {
     //update the most recent program if it doesn't exist or is an empty string
-    if(!this.props.mostRecentProgram.length){
-      this.props.resetMostRecentProgram()
+    if (!this.props.mostRecentProgram.length) {
+      this.props.resetMostRecentProgram();
     }
-	}
+  }
 
   renderOpenPanelButton = () => {
-    const {panelVisible, handleOnVisibleChange} = this.props
+    const { panelVisible, handleOnVisibleChange } = this.props;
 
     //if the left panel is closed, show an empty div
-    if(!panelVisible){
-      return (
-        <div className='editor-expand-panel' style={{width:"0px", padding:"0"}}/>
-      )
+    if (!panelVisible) {
+      return <div className="editor-expand-panel" style={{ width: "0px", padding: "0" }} />;
     }
 
     // otherwise show a > that when clicked, opens the panel
@@ -53,11 +51,11 @@ class Main extends React.Component {
 
   renderDropdown = () => {
     //dropdown items should be an array of objects with two keys: value and display
-    let dropdownItems = []
-    
+    let dropdownItems = [];
+
     //keySeq returns an Immutable object, so go through each key and push it into an array
-    if(this.props.programs){
-      this.props.programs.keySeq().forEach(key => dropdownItems.push(key))
+    if (this.props.programs) {
+      this.props.programs.keySeq().forEach(key => dropdownItems.push(key));
     }
 
     return (
@@ -66,11 +64,12 @@ class Main extends React.Component {
         onSelect={this.props.setMostRecentProgram}
         dropdownItems={dropdownItems}
       />
-    )
-  }
-  
-	render(){																													//called deconstruction; pulling children, triggerLogin, ..., textPadding out of props
-    const {codeStyle, paneStyle, size, onSplitPaneChange,} = this.props
+    );
+  };
+
+  render() {
+    //called deconstruction; pulling children, triggerLogin, ..., textPadding out of props
+    const { codeStyle, paneStyle, size, onSplitPaneChange } = this.props;
 
     return (
       <div style={codeStyle}>
@@ -93,11 +92,11 @@ class Main extends React.Component {
           <div className="code-section">
             <div className="editor-header">
               {this.renderOpenPanelButton()}
-							{this.renderDropdown()}
-              <RunButton runCode={this.props.runCode}/>
+              {this.renderDropdown()}
+              <RunButton runCode={this.props.runCode} />
             </div>
             <div className="text-editor-container">
-              <TextEditorContainer key={this.props.mostRecentProgram}/>
+              <TextEditorContainer key={this.props.mostRecentProgram} />
             </div>
           </div>
           <OutputContainer />
@@ -107,4 +106,4 @@ class Main extends React.Component {
   }
 }
 
-export default Main
+export default Main;
