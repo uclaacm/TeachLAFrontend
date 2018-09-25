@@ -1,5 +1,8 @@
 import React from "react";
 
+/**-------Props--------
+ * runCode: function to be called when button is pressed
+ */
 const RunButton = props => (
   <div className="editor-run" onClick={props.runCode}>
     <button className="editor-run-button">

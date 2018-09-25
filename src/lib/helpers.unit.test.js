@@ -1,15 +1,5 @@
-import { nameToMode } from "./helpers.js";
-import {
-  LANGUAGE_MAP,
-  MODE_MAP,
-  CPLUS_PLUS,
-  JAVASCRIPT,
-  JAVA,
-  HTML,
-  PROCESSING,
-  PYTHON,
-  DEFAULT_MODE,
-} from "./index";
+// import {nameToMode} from './helpers.js'
+import {LANGUAGE_MAP, MODE_MAP, CPLUS_PLUS, JAVASCRIPT, JAVA, HTML, PROCESSING, PYTHON, DEFAULT_MODE} from './index'
 
 // testing nameToMode to ensure all possible languages return correct modes and incorrect
 // language name returns the default mode

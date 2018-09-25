@@ -11,10 +11,14 @@ import {
   MINIMUM_PASSWORD_LENGTH,
   MAXIMUM_USERNAME_LENGTH,
   MAXIMUM_PASSWORD_LENGTH,
-  DEFAULT_LANGUAGE_PROGRAMS,
+  EMAIL_DOMAIN_NAME,
 } from "../constants";
 
 const filter = new Filter();
+
+/**--------Props--------
+ * None
+ */
 
 class CreateUser extends React.Component {
   /**
@@ -31,7 +35,6 @@ class CreateUser extends React.Component {
       message: null,
       usernameMessage: null,
       passwordMessage: null,
-      displaynameMessage: null,
     };
   }
 
@@ -99,45 +102,6 @@ class CreateUser extends React.Component {
   };
 
   /**
-   * createUserSketches - initializes sample sketches in firestore for the user.
-   * This function is intended for use only on user creation, as it makes an implicit
-   * assumption that the user is currently signed in, as is guaranteed on user creation.
-   */
-  createUserSketches = () => {
-    let uid = firebase.auth().currentUser.uid;
-    if (firebase.auth().currentUser.uid) {
-      // set general fields of user in firestore
-      let displayName = firebase.auth().currentUser.displayName;
-      this.props.firestore.doc(`users/${uid}`).set({
-        displayName: displayName ? displayName : "",
-        uid: uid,
-      });
-      // create template sketches and initialize their fields
-      const sketchTemplates = new Map([
-        ["Python", 'print("Hello World!")'],
-        ["Javascript", 'console.log("Hello World!")'],
-        ["Java", 'System.out.println("Hello World!")'],
-        [
-          "HTML",
-          "<html><head></head><body><div style='width: 100px; height: 100px; background-color: black'></div></body></html>",
-        ],
-        ["C++", 'std::cout << "Hello World!" << std::endl'],
-        ["Processing", "void setup(){} void draw(){}"],
-      ]);
-
-      Object.keys(DEFAULT_LANGUAGE_PROGRAMS).forEach(lang => {
-        this.props.firestore.doc(`users/${uid}/programs/${lang}`).set({
-          language: lang,
-          title: `my_first_${lang.toLowerCase()}_sketch`,
-          creationDate: new Date(Date.now()),
-          lastModified: new Date(Date.now()),
-          code: DEFAULT_LANGUAGE_PROGRAMS[lang],
-        });
-      });
-    }
-  };
-
-  /**
    * submit - this function executes on the click of the button to create a new user on the
    * createUser page
    * @param  {HTMLElement} e - solely used to prevent default page behavior on the clicking
@@ -147,8 +111,6 @@ class CreateUser extends React.Component {
    */
   submit = e => {
     e.preventDefault();
-    const { username, password } = this.state;
-
     let badInputs = this.checkInputs();
 
     //if we found any bad inputs, don't try to create the user on the server
@@ -158,28 +120,23 @@ class CreateUser extends React.Component {
 
     this.setState({ waiting: true, message: null });
 
-    let content = {
-      uid: SHA256(username).toString(),
-      password: SHA256(password).toString(),
-    };
-
     // This is part of the firebase email/password workaround.
     // We create an email lookalike to trick firebase into thinking the user
     // signed up with an email, instead of a username, display name, and password
-    let email = String(content.uid) + "@fake.com";
+    let email = this.state.username + EMAIL_DOMAIN_NAME;
+    let passHash = SHA256(this.state.password).toString();
 
-    // regiser user in firebase
+    // register user in firebase
     firebase
       .auth()
-      .createUserWithEmailAndPassword(email, content.password)
-      .then(user => {
-        // initialize user sketches on successful account creation
-        this.createUserSketches();
-      })
+      .createUserWithEmailAndPassword(email, passHash)
+      .then(({ user }) => {})
       .catch(error => {
-        console.log(error.message);
-        this.setState({ waiting: false, errorMessage: error.message });
+        console.log(error);
+        this.setState({ waiting: false, errorMessage: error.message || "failed to create user" });
       });
+
+    this.setState({ password: "" });
   };
 
   renderInputs = () => (
@@ -219,6 +176,28 @@ class CreateUser extends React.Component {
     </div>
   );
 
+  renderHeader = modal => <div style={modal.header}>Create a new account</div>;
+
+  renderButton = () => {
+    const buttonStyle = {
+      border: "0px",
+      borderRadius: "5px",
+      fontFamily: "'Josefin Slab', sans-serif",
+      fontSize: "1.3rem",
+      color: "#dddcdf",
+      backgroundColor: "#857e8f",
+      height: "40px",
+    };
+
+    return (
+      <div style={{ alignSelf: "center", margin: "auto", paddingBottom: "10px" }}>
+        <button style={buttonStyle} type="submit">
+          Create Account
+        </button>
+      </div>
+    );
+  };
+
   renderModal = () => {
     const modal = {
       container: {
@@ -241,7 +220,7 @@ class CreateUser extends React.Component {
     return (
       <div className="create-modal" style={modal.container}>
         <form style={modal.form} onSubmit={this.submit}>
-          <div style={modal.header}>Create a new account</div>
+          {this.renderHeader(modal)}
           <div
             style={{
               width: "70%",

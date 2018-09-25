@@ -1,15 +1,12 @@
-import { combineReducers } from "redux";
-import userDataReducers from "./userDataReducers";
-import userStateReducers from "./userStateReducers";
-import textEditorReducers from "./textEditorReducers";
-import outputReducers from "./outputReducers";
+import { combineReducers } from 'redux'
+import userDataReducers from './userDataReducers'
+import programsReducers from './programsReducers'
+import outputReducers from './outputReducers'
 
-const appReducers = combineReducers({
-  //after we get more state, we'll add more reducers here
-  userDataReducers,
-  userStateReducers,
-  textEditorReducers,
-  outputReducers,
-});
+const appReducers = combineReducers({							//after we get more state, we'll add more reducers here
+  userData: userDataReducers,
+  output: outputReducers,
+  programs: programsReducers,
+})
 
 export default appReducers;

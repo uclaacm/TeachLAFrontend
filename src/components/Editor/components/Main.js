@@ -1,52 +1,48 @@
 import React from "react";
-import firebase from "firebase";
-import { Controlled as CodeMirror } from "react-codemirror2";
 import SplitPane from "react-split-pane";
 import OutputContainer from "../containers/OutputContainer.js";
 import TextEditorContainer from "../containers/TextEditorContainer";
 import DropdownButton from "./DropdownButton";
 import RunButton from "./RunButton";
-/*
-	Props:
-		bgColor: string representing the color of the background of the img (can be hex color, rgb(r, g, b, a), or color name)
-		textColor: string representing the color of the text in the button (can be hex color, rgb(r, g, b, a), or color name)
-		imgSrc: string representing the location of the img used as the icon (can be in the form of URL, path location, or data representing image)
-		textPadding: string representing padding to the left of the text, i.e. distance from the img (give px units)
-*/
+import { PYTHON } from "../../../constants";
 
-class CodeSection extends React.Component {
+/**------Props-------
+ * paneStyle: object used to style the text editor pane
+ * size: number? representing the percentage of space the split pane takes up
+ * onSplitPaneChange: function called when the Split pane bar for resizing is used
+ * handleOnVisibleChange: function to call when you want the Profile Panel to disappear/reapper
+ * panelVisible: boolean telling whether the Profile Panel is open or not
+ * codeStyle: object used to style the whole container //TODO: rename or move this prop
+ * setPaneStyle: function to be called ? //TODO: remove this/find out why this existed in the first place...
+ * hotReload: boolean telling if //TODO: figure out a better place for this/remove it
+ */
+
+class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOpen: false,
       codeSize: "37.5%",
       paneStyle: { transition: "none" },
-      windows: [],
     };
-    this.dropdownToggleHandler = this.dropdownToggleHandler.bind(this);
   }
 
+  //==============React Lifecycle Functions Start===================//
   componentWillMount() {
-    this.props.getMostRecentProgram().then(program => {
-      let id = this.props.createWindow(program);
-      this.setState({
-        windows: [id],
-      });
-    });
+    //update the most recent program if it doesn't exist or is an empty string
+    if (!this.props.mostRecentProgram.length) {
+      this.props.resetMostRecentProgram();
+    }
   }
 
-  dropdownToggleHandler() {
-    this.setState({ isOpen: !this.state.isOpen });
-  }
+  renderOpenPanelButton = () => {
+    const { panelVisible, handleOnVisibleChange } = this.props;
 
-  renderClosePanelButton = () => {
-    const { isVisible, handleOnVisibleChange } = this.props;
-
-    //if the left panel is open, show an empty div, otherwise show a > that when clicked, opens the panel
-    if (isVisible) {
+    //if the left panel is closed, show an empty div
+    if (!panelVisible) {
       return <div className="editor-expand-panel" style={{ width: "0px", padding: "0" }} />;
     }
 
+    // otherwise show a > that when clicked, opens the panel
     return (
       <div
         className="editor-expand-panel"
@@ -58,30 +54,27 @@ class CodeSection extends React.Component {
     );
   };
 
-  renderWindows = () => {
-    return this.state.windows.map(editorWindow => {
-      if (editorWindow) {
-        // key required by react framework to assign each TextEditorContainer a stable identity
-        return <TextEditorContainer key={editorWindow} id={editorWindow} />;
-      }
-    });
+  renderDropdown = () => {
+    //dropdown items should be an array of objects with two keys: value and display
+    let dropdownItems = [];
+
+    //keySeq returns an Immutable object, so go through each key and push it into an array
+    if (this.props.programs) {
+      this.props.programs.keySeq().forEach(key => dropdownItems.push(key));
+    }
+
+    return (
+      <DropdownButton
+        displayValue={this.props.mostRecentProgram}
+        onSelect={this.props.setMostRecentProgram}
+        dropdownItems={dropdownItems}
+      />
+    );
   };
 
   render() {
     //called deconstruction; pulling children, triggerLogin, ..., textPadding out of props
-    const {
-      codeStyle,
-      paneStyle,
-      minSize,
-      maxSize,
-      size,
-      allowResize,
-      onSplitPaneChange,
-      mode,
-      runResult,
-      clearOutput,
-      language,
-    } = this.props;
+    const { codeStyle, paneStyle, size, onSplitPaneChange } = this.props;
 
     return (
       <div style={codeStyle}>
@@ -103,16 +96,13 @@ class CodeSection extends React.Component {
         >
           <div className="code-section">
             <div className="editor-header">
-              {!this.props.panelVisible ? this.renderClosePanelButton() : null}
-              <DropdownButton
-                isOpen={this.state.isOpen}
-                handleDropdownToggle={this.dropdownToggleHandler}
-                language={this.props.language}
-                changeMode={this.props.switchToProgram}
-              />
+              {this.renderOpenPanelButton()}
+              {this.renderDropdown()}
               <RunButton runCode={this.props.runCode} />
             </div>
-            <div className="text-editor-container">{this.renderWindows()}</div>
+            <div className="text-editor-container">
+              <TextEditorContainer key={this.props.mostRecentProgram} />
+            </div>
           </div>
           <OutputContainer />
         </SplitPane>
@@ -121,4 +111,4 @@ class CodeSection extends React.Component {
   }
 }
 
-export default CodeSection;
+export default Main;

@@ -5,13 +5,14 @@ import { compose } from "redux";
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    ...ownProps, //all props passed to the container, put into the props
-  };
-};
+  }
+}
 
 const mapDispatchToProps = dispatch => {
-  return {};
-};
+  return {
+    
+  }
+}
 
 const CreateUserPage = compose(
   connect(

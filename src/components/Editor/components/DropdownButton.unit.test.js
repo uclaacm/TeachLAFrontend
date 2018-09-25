@@ -1,24 +1,27 @@
-import React from "react";
-import { shallow, render, mount } from "enzyme";
-import { SUPPORTED_LANGUAGES, JAVASCRIPT } from "../../../constants";
+import React from 'react'
+import { shallow, render, mount} from 'enzyme'
 
 import DropdownButton from "./DropdownButton";
 import { DropdownItem, DropdownToggle } from "reactstrap";
 
-function setup() {
+const dropdownItems =  ["Python", "HTML", "Processing"]
+
+function setup(){
+
   const props = {
-    changeMode: jest.fn(),
-    isOpen: false,
+    defaultOpen: false,
     handleDropdownToggle: jest.fn(),
-    language: JAVASCRIPT,
-  };
-  const dropdownButton = mount(<DropdownButton {...props} />);
-  return { dropdownButton, props };
+    displayValue: "Python",
+    onSelect: jest.fn(),
+    dropdownItems,
+  }
+  const dropdownButton = mount(<DropdownButton {...props}/>)
+  return { dropdownButton, props }
 }
 
-describe("<DropdownButton />", () => {
-  const { dropdownButton, props } = setup();
-  let dropdownItems = dropdownButton.find(DropdownItem);
+describe('<DropdownButton />', () => {
+  const {dropdownButton, props} = setup()
+  let dropdownRefs = dropdownButton.find(DropdownItem)
 
   it("renders with the correct language being used.", () => {
     let children = dropdownButton.find(DropdownToggle).prop("children");
@@ -26,12 +29,12 @@ describe("<DropdownButton />", () => {
     expect(currentLanguage).toMatch(JAVASCRIPT);
   });
 
-  it("includes all supported languages.", () => {
-    expect(dropdownItems).toHaveLength(SUPPORTED_LANGUAGES.length);
-  });
+  it('includes item for every dropdownItem', () => {
+    expect(dropdownRefs).toHaveLength(dropdownItems.length)
+  })
 
-  it("changes language mode on click.", () => {
-    dropdownItems.first().simulate("click");
-    expect(props.changeMode.mock.calls.length).toBe(1);
-  });
-});
+  it('changes language mode on click.', () => {
+    dropdownRefs.first().simulate('click')
+    expect(props.onSelect.mock.calls.length).toBe(1)
+  })
+})

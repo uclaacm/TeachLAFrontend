@@ -1,6 +1,6 @@
 import React from "react";
-import { nameToMode } from "../../../constants/helpers.js";
-import { lifecycle } from "recompose";
+import { CODEMIRROR_CONVERSIONS } from "../../../constants";
+import * as fetch from "../../../lib/fetch.js";
 
 let CodeMirror = null;
 if (typeof window !== "undefined" && typeof window.navigator !== "undefined") {
@@ -11,64 +11,106 @@ if (typeof window !== "undefined" && typeof window.navigator !== "undefined") {
   require("codemirror/mode/python/python.js");
   require("codemirror/mode/clike/clike.js");
 }
-// import {Controlled as CodeMirror} from 'react-codemirror2'
-// import 'codemirror/mode/javascript/javascript.js';
-// import 'codemirror/mode/htmlmixed/htmlmixed.js';
-// import 'codemirror/mode/python/python.js';
-// import 'codemirror/mode/clike/clike.js';
+/**----------Props--------
+ * None
+ */
 
 class TextEditor extends React.Component {
-  /**
-   * setCurrentLine - removes the line class from the current line and applies it to the new line, which is set in the redux store
-   * @param {CodeMirror} nextState - the new state of code mirror after the line change
-   */
-  setCurrentLine(nextState) {
-    let currentLine = this.props.currentLine;
-    let nextLine = nextState.getCursor().line;
-    if (this.props.cmInstance) {
-      this.props.cmInstance.removeLineClass(currentLine, "wrap", "selected-line");
-      this.props.cmInstance.addLineClass(nextLine, "wrap", "selected-line");
-    }
-    this.props.setCurrentLineInStore(nextLine);
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      codeMirrorInstance: null,
+      currentLine: 0,
+      dirty: false,
+    };
   }
-  /**
-   * @prop {function} editorDidMount - used for selected line highlighting
-   * @prop {function} onCursor - passed a codeMirrorInstance; triggered when the user changes the line the cursor is on;
-   */
-  render() {
-    if (CodeMirror) {
-      return (
-        <CodeMirror
-          editorDidMount={codeMirrorInstance => {
-            this.props.setCodeMirrorInstance(codeMirrorInstance, this.props.id);
-          }}
-          value={this.props.code}
-          lineWrapping
-          height="100%"
-          options={{
-            mode: nameToMode(this.props.language),
-            theme: "material", //requires lots of CSS tuning to get a theme to work, be wary of changing
-            lineNumbers: true, //text editor has line numbers
-            lineWrapping: true, //text editor does not overflow in the x direction, uses word wrap (NOTE: it's like MO Word wrapping, so words are not cut in the middle, if a word overlaps, the whole word is brought to the next line)
-          }}
-          onCursor={nextState => {
-            this.setCurrentLine(nextState);
-          }}
-          onBeforeChange={(editor, data, newCode) => {
-            this.props.updateCode(newCode, this.props.id);
-          }}
-          onChange={(editor, data, newCode) => {
-            this.props.updateCode(newCode, this.props.id);
-            this.props.uploadCode(newCode, this.props.id);
-            if (this.props.hotReload) {
-              this.props.runCode(newCode);
-            }
-          }}
-        />
-      );
-    } else {
-      return null;
+
+  //==============React Lifecycle Functions===================//
+  componentDidMount() {
+    window.addEventListener("beforeunload", this.onLeave);
+    window.addEventListener("close", this.onLeave);
+  }
+
+  componentWillUnmount = () => {
+    this.onLeave();
+    window.removeEventListener("beforeunload", this.onLeave);
+    window.removeEventListener("close", this.onLeave);
+  };
+
+  onLeave = async ev => {
+    if (!ev) {
+      console.log(ev, "why'd this get called...");
+      return;
     }
+    try {
+      ev.preventDefault();
+      ev.preventDefault();
+      if (this.state.dirty) {
+        console.log("dirty");
+        let programToUpdate = {};
+        programToUpdate[this.props.mostRecentProgram] = {
+          code: this.props.code,
+        };
+        // await fetch.updatePrograms(this.props.uid, programToUpdate)
+        ev.returnValue = "Ask if they want to reload";
+      }
+      return ev;
+    } catch (err) {
+      console.log(err);
+      return (ev.returnValue = "Are you sure you wanna close");
+    }
+  };
+
+  setCodeMirrorInstance = codeMirrorInstance => {
+    this.setState({ codeMirrorInstance });
+  };
+
+  updateCode = (editor, data, newCode) => {
+    //if the code's not yet dirty, and the old code is different from the new code, make it dirty
+    if (!this.state.dirty && this.props.code !== newCode) {
+      this.setState({ dirty: true });
+    }
+    this.props.setProgramCode(this.props.mostRecentProgram, newCode);
+  };
+
+  setCurrentLine = cm => {
+    const { codeMirrorInstance, currentLine } = this.state;
+    let { line } = cm.getCursor();
+    if (codeMirrorInstance) {
+      //removeLineClass removes the back highlight style from the last selected line
+      codeMirrorInstance.removeLineClass(currentLine, "wrap", "selected-line");
+      //addLineClass adds the style to the newly selected line
+      codeMirrorInstance.addLineClass(line, "wrap", "selected-line");
+    }
+    this.setState({ currentLine: line });
+  };
+
+  render() {
+    //json required by CodeMirror
+    const options = {
+      mode: CODEMIRROR_CONVERSIONS[this.props.language],
+      theme: "material", //requires lots of CSS tuning to get a theme to work, be wary of changing
+      lineNumbers: true, //text editor has line numbers
+      lineWrapping: true, //text editor does not overflow in the x direction, uses word wrap (NOTE: it's like MO Word wrapping, so words are not cut in the middle, if a word overlaps, the whole word is brought to the next line)
+    };
+
+    return (
+      <CodeMirror
+        editorDidMount={codeMirrorInstance => {
+          this.setCodeMirrorInstance(codeMirrorInstance);
+        }}
+        value={this.props.code}
+        lineWrapping
+        height="100%"
+        options={options}
+        onCursor={cm => {
+          this.setCurrentLine(cm);
+        }}
+        onBeforeChange={this.updateCode}
+        onChange={this.updateCode}
+      />
+    );
   }
 }
 

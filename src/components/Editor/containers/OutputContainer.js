@@ -1,29 +1,21 @@
-import React from "react";
-import { connect } from "react-redux";
-import Output from "../components/Output.js";
-import { setWorkingLanguage, setMode } from "../../../actions/textEditorActions";
-import { clearOutput } from "../../../actions/outputActions";
-import { nameToMode } from "../../../constants/helpers.js";
+import {connect} from 'react-redux'
+import Output from '../components/Output.js'
 
 const mapStateToProps = (state, ownProps) => {
-  let focusedEditor = state.app.textEditorReducers.focusedEditor;
+  const { mostRecentProgram } =state.userData
+
   return {
-    runResult: state.app.outputReducers.runResult,
-    mode:
-      focusedEditor && focusedEditor.program
-        ? nameToMode(focusedEditor.program.language)
-        : "python",
-    language: focusedEditor && focusedEditor.program ? focusedEditor.program.language : "Python",
-  };
-};
+    runResult: state.programs.getIn([mostRecentProgram, "code"]),
+    language: state.programs.getIn([mostRecentProgram, "language"])
+  }
+}
 
 const mapDispatchToProps = dispatch => {
   return {
     clearOutput: () => {
-      dispatch(clearOutput());
-    },
-  };
-};
+    }
+  }
+}
 
 const OutputContainer = connect(
   mapStateToProps,

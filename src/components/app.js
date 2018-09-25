@@ -12,14 +12,21 @@ const provider = new firebase.auth.FacebookAuthProvider();
 class App extends React.Component {
   constructor(props) {
     super(props);
-    // TODO: move checkedAuth into an appropriate reducer. NOTE: checkedAuth is non-UI state.
+
     this.state = {
       checkedAuth: false,
+      errorMsg: "",
+      showErrorPage: false,
     };
   }
 
+  //==============React Lifecycle Functions===================//
+  componentDidUpdate(a, b) {}
+
   componentWillMount = () => {
-    firebase.auth().onAuthStateChanged(this.onAuthHandler);
+    firebase.auth().onAuthStateChanged(user => {
+      this.onAuthHandler(user);
+    });
   };
 
   /**
@@ -32,34 +39,42 @@ class App extends React.Component {
    */
   onAuthHandler = async user => {
     this.setState({ checkedAuth: true });
+    console.log("on auth handler", user);
     if (user) {
-      let { displayName, email, photoURL, refreshToken, uid } = user;
-
-      displayName = displayName || "New User";
-
-      if (email && uid) {
-        this.props.loadUserData({ displayName, email, photoURL, refreshToken, uid });
+      console.log("found user");
+      const { uid } = user;
+      if (uid) {
+        this.props.loadUserData(uid, this.showErrorPage);
       } else {
-        firebase.auth().signOut();
+        this.setState({ errorMsg: "No UID provided with user" });
       }
     } else {
       this.props.clearUserData();
+      this.setState({ errorMsg: "" });
     }
   };
 
+  showErrorPage = err => {
+    console.log(err);
+    this.setState({ errorMsg: err, showErrorPage: true });
+  };
+
   render() {
-    let { loggedInUserData } = this.props;
-    let { checkedAuth } = this.state;
     //if we haven't checked if the user is logged in yet, show a loading screen
-    if (!checkedAuth) {
+    if (!this.state.checkedAuth) {
       return <LoadingPage />;
     }
 
-    let isValidUser = true;
-
-    if (!loggedInUserData || !loggedInUserData.programs) {
-      isValidUser = false;
+    if (this.state.showErrorPage) {
+      return <div>Error page {this.state.errorMsg}</div>;
     }
+
+    if (this.state.errorMsg) {
+      return <div style={{ color: "red" }}>{this.state.errorMsg}</div>;
+    }
+
+    //the user is not valid if there's no UID
+    let isValidUser = this.props.uid;
 
     return (
       <Router>

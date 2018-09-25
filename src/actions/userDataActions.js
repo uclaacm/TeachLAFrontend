@@ -1,11 +1,7 @@
-import firebase from "firebase";
-import Program from "../constants/Program.js";
-import { MODIFICATION_DATE, DESCENDING } from "../constants";
-import { progToDoc } from "../constants/helpers.js";
-
-export const LOAD_USER_DATA = "LOAD_USER_DATA";
-export function loadUserData(userData, provider = null) {
-  return { type: LOAD_USER_DATA, user: userData, provider: provider };
+export const LOAD_USER_DATA = 'LOAD_USER_DATA'
+export function loadUserData(uid, userData) {
+  // add uid to the userData object
+  return { type: LOAD_USER_DATA, userData: {...userData, uid: uid}}
 }
 
 export const CLEAR_USER_DATA = "CLEAR_USER_DATA";
@@ -58,61 +54,60 @@ export function programUploadFailure(error) {
   return { type: PROGRAM_UPLOAD_FAILURE, message: error.message };
 }
 
-/**
- * dataUpload - attempts to upload program of data into firestore to persist it.
- * @param  {[type]} program - the program to upload
- * @param  {[type]} id     [description]
- * @return {[type]}        [description]
- */
-export function programUpload(program, id) {
-  return (dispatch, getState) => {
-    let program = getState().app.textEditorReducers.editors.get(id).program;
-    let doc = progToDoc(program, getState().app.userDataReducers.programs);
-    // if there is already a firestore document corresponding to this program, update it
-    // otherwise, we need to create a new document remotely in firestore to store this data
-    doc.get().then(function(docSnapshot) {
-      if (docSnapshot && docSnapshot.exists) {
-        dispatch(requestDataUpload(program));
-        // merge: true makes it so that the document update is merged with any existing document data,
-        // but the document the new data is merged into does not have to exist
-        doc
-          .set(Object.assign({}, program), { merge: true })
-          .then(function() {
-            dispatch(programUploadSuccess());
-          })
-          .catch(function(error) {
-            console.error(error.message);
-            dispatch(programUploadFailure(error));
-          });
-      }
-    });
-  };
+export const SET_MOST_RECENT_PROGRAM = "SET_MOST_RECENT_PROGRAM"
+export function setMostRecentProgram(program){
+  return {type: SET_MOST_RECENT_PROGRAM, value:program}
 }
 
-export function getMostRecentProgram() {
-  return (dispatch, getState) => {
-    let programs = getState().app.userDataReducers.programs;
+// /**
+//  * dataUpload - attempts to upload program of data into firestore to persist it.
+//  * @param  {[type]} program - the program to upload
+//  * @param  {[type]} id     [description]
+//  * @return {[type]}        [description]
+//  */
+// export function programUpload(program, id){
+//   return (dispatch, getState) => {
+//     let program = getState().textEditor.editors.get(id).program
+//     let doc = progToDoc(program, getState().userData.programs)
+//     // if there is already a firestore document corresponding to this program, update it
+//     // otherwise, we need to create a new document remotely in firestore to store this data
+//     doc.get().then(function(docSnapshot){
+//       if(docSnapshot && docSnapshot.exists){
+//         dispatch(requestDataUpload(program))
+//         // merge: true makes it so that the document update is merged with any existing document data,
+//         // but the document the new data is merged into does not have to exist
+//         doc.set(Object.assign({}, program), {merge: true}).then(function(){
+//           dispatch(programUploadSuccess())
+//         }).catch(function(error){
+//           console.error(error.message)
+//           dispatch(programUploadFailure(error))
+//         })
+//       }
+//     })
+//   }
+// }
 
-    //if for some reason we get no programs back, send back an invalid documnet
-    if (!programs) {
-      return new Promise((resolve, reject) => {
-        resolve(new Program());
-      });
-    }
-    return new Promise((resolve, reject) => {
-      programs
-        .orderBy(MODIFICATION_DATE, DESCENDING)
-        .limit(1)
-        .get()
-        .then(queryResult => {
-          if (queryResult && queryResult.docs[0]) {
-            let doc = queryResult.docs[0];
-            resolve(new Program(doc));
-          }
-        })
-        .catch(function(err) {
-          reject(err);
-        });
-    });
-  };
-}
+// export function getMostRecentProgram(){
+//   return (dispatch, getState) => {
+//     let programs = getState().userData.programs
+//     //if for some reason we get no programs back, send back an invalid documnet
+//     if(!programs){
+//       return new Promise((resolve, reject) =>{
+//         resolve(new Program())
+//       })
+//     }
+//     return new Promise(async (resolve, reject) => {
+
+//       programs.orderBy(MODIFICATION_DATE, DESCENDING).limit(1).get().then((queryResult) => {
+//         if(queryResult && queryResult.docs[0]){
+//           let doc = queryResult.docs[0]
+//           resolve(new Program(doc))
+//         } else {
+//           resolve(new Program())
+//         }
+//       }).catch(function(err){
+//         reject(err)
+//       })
+//     })
+//   }
+// }

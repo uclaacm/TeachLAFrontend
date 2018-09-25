@@ -1,57 +1,34 @@
-import TextEditor from "../components/TextEditor";
-import { connect } from "react-redux";
-import { setCurrentLine, setCodeMirrorInstance, setCode } from "../../../actions/textEditorActions";
-import { programUpload } from "../../../actions/userDataActions";
+import Immutable from 'immutable'
+import TextEditor from '../components/TextEditor'
+import {connect} from 'react-redux'
+import { setProgramCode } from '../../../actions/programsActions.js'
 
-const mapStateToProps = (state, ownProps) => {
-  /* the reason for the decoupling of code, language, and and currentLine from the actual remote sketch
-     is because it is desirable for the local state to persist in working if a network error should develop */
-  let globalEditorInfo = state.app.textEditorReducers;
-  let editor = globalEditorInfo.editors.get(ownProps.id);
-  if (editor) {
-    return {
-      currentLine: editor.currentLine,
-      hotReload: globalEditorInfo.hotReloading,
-      code: editor.program ? editor.program.code : "",
-      language: editor.program ? editor.program.language : "Python",
-      id: ownProps.id,
-      cmInstance: editor.cmInstance,
-    };
-  } else {
-    return {
-      id: ownProps.id,
-      hotReload: globalEditorInfo.hotReloading,
-      code: null,
-      language: null,
-      currentLine: null,
-      cmInstance: null,
-    };
+const mapStateToProps = (state) => {
+
+  const {uid, mostRecentProgram} = state.userData
+
+  //program data should be an object representing the most recent program
+  //should have 2 keys, code (which is the code) and langauge (which is the language the code is written it)
+  const programData = state.programs.get(mostRecentProgram, Immutable.Map()).toJS()
+
+  return {
+    ...programData,
+    mostRecentProgram,
+    uid,
   }
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    setCurrentLineInStore: nextState => {
-      dispatch(setCurrentLine(nextState, ownProps.id));
+    setProgramCode: (program, code) => {
+      dispatch(setProgramCode(program, code))
     },
-    setCodeMirrorInstance: (instance, id) => {
-      dispatch(setCodeMirrorInstance(instance, id));
-    },
-    runCode: code => {
-      ownProps.runCode(code);
-    },
-    uploadCode: (code, id) => {
-      dispatch(programUpload({ code: code, lastModified: new Date(Date.now()) }, id));
-    },
-    updateCode: (code, id) => {
-      dispatch(setCode(code, id));
-    },
-  };
-};
+  }
+}
 
 const TextEditorContainer = connect(
   mapStateToProps,
-  mapDispatchToProps,
-)(TextEditor);
+  mapDispatchToProps
+)(TextEditor)
 
 export default TextEditorContainer;
