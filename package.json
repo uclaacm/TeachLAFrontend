@@ -42,6 +42,19 @@
   "devDependencies": {
     "circular-json": "^0.5.5",
     "enzyme": "^3.3.0",
+    "husky": "^1.0.0-rc.15",
+    "lint-staged": "^7.3.0",
     "prettier": "^1.14.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,json,css,md}": [
+      "prettier --write",
+      "git add"
+    ]
   }
 }

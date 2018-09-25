@@ -5,13 +5,17 @@ import TextEditorContainer from "../containers/TextEditorContainer";
 import DropdownButton from "./DropdownButton";
 import RunButton from "./RunButton";
 import { PYTHON } from "../../../constants";
-/*
-	Props:
-		bgColor: string representing the color of the background of the img (can be hex color, rgb(r, g, b, a), or color name)
-		textColor: string representing the color of the text in the button (can be hex color, rgb(r, g, b, a), or color name)
-		imgSrc: string representing the location of the img used as the icon (can be in the form of URL, path location, or data representing image)
-		textPadding: string representing padding to the left of the text, i.e. distance from the img (give px units)
-*/
+
+/**------Props-------
+ * paneStyle: object used to style the text editor pane
+ * size: number? representing the percentage of space the split pane takes up
+ * onSplitPaneChange: function called when the Split pane bar for resizing is used
+ * handleOnVisibleChange: function to call when you want the Profile Panel to disappear/reapper
+ * panelVisible: boolean telling whether the Profile Panel is open or not
+ * codeStyle: object used to style the whole container //TODO: rename or move this prop
+ * setPaneStyle: function to be called ? //TODO: remove this/find out why this existed in the first place...
+ * hotReload: boolean telling if //TODO: figure out a better place for this/remove it
+ */
 
 class Main extends React.Component {
   constructor(props) {
@@ -22,6 +26,7 @@ class Main extends React.Component {
     };
   }
 
+  //==============React Lifecycle Functions Start===================//
   componentWillMount() {
     //update the most recent program if it doesn't exist or is an empty string
     if (!this.props.mostRecentProgram.length) {

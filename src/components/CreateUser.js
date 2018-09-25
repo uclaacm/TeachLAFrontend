@@ -7,32 +7,35 @@ import Filter from "bad-words";
 import Footer from "./common/Footer.js";
 import "../styles/CreateUser.css";
 import {
-    MINIMUM_USERNAME_LENGTH,
-    MINIMUM_PASSWORD_LENGTH,
-    MAXIMUM_USERNAME_LENGTH,
-    MAXIMUM_PASSWORD_LENGTH,
-    DEFAULT_LANGUAGE_PROGRAMS,
-    EMAIL_DOMAIN_NAME,
-} from '../constants';
+  MINIMUM_USERNAME_LENGTH,
+  MINIMUM_PASSWORD_LENGTH,
+  MAXIMUM_USERNAME_LENGTH,
+  MAXIMUM_PASSWORD_LENGTH,
+  EMAIL_DOMAIN_NAME,
+} from "../constants";
 
 const filter = new Filter();
+
+/**--------Props--------
+ * None
+ */
 
 class CreateUser extends React.Component {
   /**
    * constructor - sets initial state and props
    * @param {Object} props - properties passed down by the super component
    */
-  constructor(props){
-    super(props)
-    this.state= {
-      username:"",
-      password:"",
-      errorMessage:"",
-      waiting:false,
-      message:null,
-      usernameMessage:null,
-      passwordMessage:null,
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: "",
+      password: "",
+      errorMessage: "",
+      waiting: false,
+      message: null,
+      usernameMessage: null,
+      passwordMessage: null,
+    };
   }
 
   /**
@@ -99,16 +102,16 @@ class CreateUser extends React.Component {
   };
 
   /**
-  * submit - this function executes on the click of the button to create a new user on the
-  * createUser page
-  * @param  {HTMLElement} e - solely used to prevent default page behavior on the clicking
-  * of the button
-  * @return {void}   submit returns early if the inputs passed by a prospective user
-  * are bad.
-  */
-  submit = (e) => {
-    e.preventDefault()
-    let badInputs = this.checkInputs()
+   * submit - this function executes on the click of the button to create a new user on the
+   * createUser page
+   * @param  {HTMLElement} e - solely used to prevent default page behavior on the clicking
+   * of the button
+   * @return {void}   submit returns early if the inputs passed by a prospective user
+   * are bad.
+   */
+  submit = e => {
+    e.preventDefault();
+    let badInputs = this.checkInputs();
 
     //if we found any bad inputs, don't try to create the user on the server
     if (badInputs) {
@@ -120,18 +123,21 @@ class CreateUser extends React.Component {
     // This is part of the firebase email/password workaround.
     // We create an email lookalike to trick firebase into thinking the user
     // signed up with an email, instead of a username, display name, and password
-    let email = this.state.username + EMAIL_DOMAIN_NAME
-    let passHash = SHA256(this.state.password).toString()
+    let email = this.state.username + EMAIL_DOMAIN_NAME;
+    let passHash = SHA256(this.state.password).toString();
 
     // register user in firebase
-    firebase.auth().createUserWithEmailAndPassword(email, passHash).then(({user}) => {
-    }).catch((error) => {
-        console.log(error)
-        this.setState({waiting:false, errorMessage:error.message || "failed to create user"})
-    })
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, passHash)
+      .then(({ user }) => {})
+      .catch(error => {
+        console.log(error);
+        this.setState({ waiting: false, errorMessage: error.message || "failed to create user" });
+      });
 
-    this.setState({password:""})
-  }
+    this.setState({ password: "" });
+  };
 
   renderInputs = () => (
     <div className="create-form-input-list" style={{ width: "460px" }}>
@@ -170,11 +176,7 @@ class CreateUser extends React.Component {
     </div>
   );
 
-  renderHeader = (modal) => (
-    <div style={modal.header}>
-      Create a new account
-    </div>
-  )
+  renderHeader = modal => <div style={modal.header}>Create a new account</div>;
 
   renderButton = () => {
     const buttonStyle = {
@@ -185,16 +187,16 @@ class CreateUser extends React.Component {
       color: "#dddcdf",
       backgroundColor: "#857e8f",
       height: "40px",
-    }
+    };
 
     return (
-      <div style={{alignSelf:"center", margin:"auto", paddingBottom:"10px"}}>
+      <div style={{ alignSelf: "center", margin: "auto", paddingBottom: "10px" }}>
         <button style={buttonStyle} type="submit">
           Create Account
         </button>
       </div>
-    )
-  }
+    );
+  };
 
   renderModal = () => {
     const modal = {
@@ -219,7 +221,15 @@ class CreateUser extends React.Component {
       <div className="create-modal" style={modal.container}>
         <form style={modal.form} onSubmit={this.submit}>
           {this.renderHeader(modal)}
-          <div style={{ width:"70%", display:"flex", flexDirection:"column", justifyContent:"flex-start", alignItems:"flex-start",}}>
+          <div
+            style={{
+              width: "70%",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "flex-start",
+              alignItems: "flex-start",
+            }}
+          >
             {this.renderInputs()}
             <div
               style={{

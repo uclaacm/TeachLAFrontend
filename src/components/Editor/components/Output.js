@@ -1,33 +1,28 @@
-import React from 'react'
-import {PYTHON, JAVASCRIPT, CPP, JAVA, HTML, PROCESSING} from '../../../constants'
-/*
-  Props:
-    bgColor: string representing the color of the background of the img (can be hex color, rgb(r, g, b, a), or color name)
-    textColor: string representing the color of the text in the button (can be hex color, rgb(r, g, b, a), or color name)
-    imgSrc: string representing the location of the img used as the icon (can be in the form of URL, path location, or data representing image)
-    textPadding: string representing padding to the left of the text, i.e. distance from the img (give px units)
-*/
+import React from "react";
+import { PYTHON, JAVASCRIPT, CPP, JAVA, HTML, PROCESSING } from "../../../constants";
+/**--------Props--------
+ * None
+ */
 
 class Output extends React.Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
     this.state = {
       //used for the refresh button
-      counter: 0
-    }
+      counter: 0,
+    };
   }
 
-  componentDidUpdate = () => {
-
-  }
+  //==============React Lifecycle Functions===================//
+  componentDidUpdate = () => {};
 
   // a bit hacky, but we're re-rendering the output
   // by updating the state in a novel way
   reRenderOutput = () => {
-    this.setState((prevState) => ({
-      counter:prevState.counter + 1
-    }))
-  }
+    this.setState(prevState => ({
+      counter: prevState.counter + 1,
+    }));
+  };
 
   renderHTMLOutput = () => {
     // html-output is an iframe canvas that displays html typed into the editor.  It only displays when html is the selected language
@@ -39,14 +34,14 @@ class Output extends React.Component {
 
     return (
       <iframe
-        id={this.state.counter} 
-        key={this.state.counter} 
+        id={this.state.counter}
+        key={this.state.counter}
         className="html-output"
-        style={{display: 'flex', height:"92vh"}}
+        style={{ display: "flex", height: "92vh" }}
         srcDoc={this.props.runResult}
-        src='about:blank'
-        onLoad={(e)=>{
-          console.log(e)
+        src="about:blank"
+        onLoad={e => {
+          console.log(e);
         }}
       />
     );
@@ -63,11 +58,11 @@ class Output extends React.Component {
 
     return (
       <iframe
-        id={this.state.counter} 
-        key={this.state.counter} 
+        id={this.state.counter}
+        key={this.state.counter}
         className="html-output"
-          style={{display: 'flex', height:"92vh"}}
-          srcDoc={`<html> 
+        style={{ display: "flex", height: "92vh" }}
+        srcDoc={`<html> 
             <head> 
             <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script> 
             <script src="http://www.skulpt.org/static/skulpt.min.js" type="text/javascript"></script> 
@@ -140,55 +135,55 @@ class Output extends React.Component {
             </body> 
             
             </html> `}
-          src='about:blank'
-          onLoad={(e)=>{
-            console.log(e)
-          }}
+        src="about:blank"
+        onLoad={e => {
+          console.log(e);
+        }}
       />
     );
   };
 
   renderProcessingOutput = () => {
-    const { runResult } = this.props
-    
-    if(!runResult){
-      return null
+    const { runResult } = this.props;
+
+    if (!runResult) {
+      return null;
     }
-    
+
     return (
       <iframe
-        id={this.state.counter} 
-        key={this.state.counter} 
+        id={this.state.counter}
+        key={this.state.counter}
         className="html-output"
-        style={{display: 'flex', height:"92vh"}}
+        style={{ display: "flex", height: "92vh" }}
         srcDoc={`<html><head>
         <style>html,body: {margin:0, width:100%}</style>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/p5.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/addons/p5.dom.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/addons/p5.sound.min.js"></script>
         </head><body><script type="text/javascript">${runResult}</script></body></html>`}
-        src='about:blank'
-        onLoad={(e)=>{
-          console.log(e)
+        src="about:blank"
+        onLoad={e => {
+          console.log(e);
         }}
       />
     );
   };
 
   renderOutput = () => {
-    const { language, runResult } = this.props
+    const { language, runResult } = this.props;
 
     //if there's nothing to run, don't render an output
-    if(!runResult || !runResult.length){
-      return null
+    if (!runResult || !runResult.length) {
+      return null;
     }
-    switch(language){
+    switch (language) {
       case PROCESSING:
-        return this.renderProcessingOutput()
+        return this.renderProcessingOutput();
       case JAVASCRIPT:
       case CPP:
       case PYTHON:
-        return this.renderPythonOutput()
+        return this.renderPythonOutput();
       case JAVA:
       case HTML:
       default:
@@ -196,15 +191,24 @@ class Output extends React.Component {
     }
   };
 
-  render(){                                                          
+  render() {
     return (
       <div className="editor-output">
         <div className="editor-header">
-          <div style={{flex:"1 1 auto"}}> </div>
-          <div className="editor-run" onClick={()=>{console.log("clear output")}}>
-              <button className="editor-run-button" style={{backgroundColor:"#3c52ba"}} onClick={this.reRenderOutput}>
-                  Refresh
-              </button>
+          <div style={{ flex: "1 1 auto" }}> </div>
+          <div
+            className="editor-run"
+            onClick={() => {
+              console.log("clear output");
+            }}
+          >
+            <button
+              className="editor-run-button"
+              style={{ backgroundColor: "#3c52ba" }}
+              onClick={this.reRenderOutput}
+            >
+              Refresh
+            </button>
           </div>
         </div>
         <div className="editor-output-content">{this.renderOutput()}</div>
