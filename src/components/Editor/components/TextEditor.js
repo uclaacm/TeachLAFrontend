@@ -1,6 +1,6 @@
 import React from "react";
 import { CODEMIRROR_CONVERSIONS } from "../../../constants";
-import * as fetch from "../../../lib/fetch.js";
+// import * as fetch from "../../../lib/fetch.js";
 
 let CodeMirror = null;
 if (typeof window !== "undefined" && typeof window.navigator !== "undefined") {

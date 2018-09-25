@@ -36,7 +36,7 @@ export default class DropdownButton extends React.Component {
       return (
         <DropdownItem
           key={program}
-          onClick={this.props.onSelect ? this.props.onSelect(program) : null}
+          onClick={this.props.onSelect ? () => this.props.onSelect(program) : null}
         >
           {program}
         </DropdownItem>
