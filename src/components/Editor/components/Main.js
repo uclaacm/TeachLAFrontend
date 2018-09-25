@@ -4,7 +4,6 @@ import OutputContainer from "../containers/OutputContainer.js";
 import TextEditorContainer from "../containers/TextEditorContainer";
 import DropdownButton from "./DropdownButton";
 import RunButton from "./RunButton";
-import { PYTHON } from "../../../constants";
 
 /**------Props-------
  * paneStyle: object used to style the text editor pane
