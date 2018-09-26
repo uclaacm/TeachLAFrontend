@@ -24,8 +24,8 @@ class App extends React.Component {
   componentDidUpdate(a, b) {}
 
   componentWillMount = () => {
-    firebase.auth().onAuthStateChanged(user => {
-      this.onAuthHandler(user);
+    firebase.auth().onAuthStateChanged(async user => {
+      await this.onAuthHandler(user);
     });
   };
 
@@ -39,19 +39,19 @@ class App extends React.Component {
    */
   onAuthHandler = async user => {
     console.log("checking auth");
-    this.setState({ checkedAuth: true });
     if (user) {
       console.log("found user");
       const { uid } = user;
       if (uid) {
-        this.props.loadUserData(uid, this.showErrorPage);
+        await this.props.loadUserData(uid, this.showErrorPage);
+        this.setState({ checkedAuth: true });
       } else {
-        this.setState({ errorMsg: "No UID provided with user" });
+        this.setState({ checkedAuth: true, errorMsg: "No UID provided with user" });
       }
     } else {
       console.log("no user found");
       this.props.clearUserData();
-      this.setState({ errorMsg: "" });
+      this.setState({ checkedAuth: true, errorMsg: "" });
     }
   };
 
