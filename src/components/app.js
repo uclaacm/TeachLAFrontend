@@ -38,8 +38,8 @@ class App extends React.Component {
    * @param  {firebase.auth().currentUser}  user - a user object as passed by firebase.auth()
    */
   onAuthHandler = async user => {
+    console.log("checking auth");
     this.setState({ checkedAuth: true });
-    console.log("on auth handler", user);
     if (user) {
       console.log("found user");
       const { uid } = user;
@@ -49,6 +49,7 @@ class App extends React.Component {
         this.setState({ errorMsg: "No UID provided with user" });
       }
     } else {
+      console.log("no user found");
       this.props.clearUserData();
       this.setState({ errorMsg: "" });
     }

@@ -1,6 +1,6 @@
 import React from "react";
 import { CODEMIRROR_CONVERSIONS } from "../../../constants";
-// import * as fetch from "../../../lib/fetch.js";
+import * as fetch from "../../../lib/fetch.js";
 
 let CodeMirror = null;
 if (typeof window !== "undefined" && typeof window.navigator !== "undefined") {
@@ -33,16 +33,35 @@ class TextEditor extends React.Component {
   }
 
   componentWillUnmount = () => {
-    this.onLeave();
+    this.checkDirty();
     window.removeEventListener("beforeunload", this.onLeave);
     window.removeEventListener("close", this.onLeave);
   };
 
-  onLeave = async ev => {
-    if (!ev) {
-      console.log(ev, "why'd this get called...");
+  checkDirty = async () => {
+    if (!this.state.dirty) {
       return;
     }
+
+    try {
+      let programToUpdate = {};
+      programToUpdate[this.props.mostRecentProgram] = {
+        code: this.props.code,
+      };
+
+      let result = await fetch.updatePrograms(this.props.uid, programToUpdate);
+      //TODO: add functionality to be able to tell whether the fetch failed
+      this.setState({ dirty: false });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  onLeave = async ev => {
+    if (!ev) {
+      return;
+    }
+
     try {
       ev.preventDefault();
       ev.preventDefault();
@@ -52,7 +71,7 @@ class TextEditor extends React.Component {
         programToUpdate[this.props.mostRecentProgram] = {
           code: this.props.code,
         };
-        // await fetch.updatePrograms(this.props.uid, programToUpdate)
+        let result = await fetch.updatePrograms(this.props.uid, programToUpdate);
         ev.returnValue = "Ask if they want to reload";
       }
       return ev;
