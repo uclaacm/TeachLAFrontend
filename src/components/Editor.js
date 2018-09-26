@@ -1,5 +1,5 @@
 import React from "react";
-import ProfilePanel from "./Editor/components/ProfilePanel";
+import ProfilePanelContainer from "./Editor/containers/ProfilePanelContainer";
 import MainContainer from "./Editor/containers/MainContainer";
 // Specify imports for codemirror usage
 import "codemirror/lib/codemirror.css";
@@ -92,7 +92,7 @@ class Editor extends React.Component {
 
     return (
       <div className="editor">
-        <ProfilePanel
+        <ProfilePanelContainer
           handleOnSizeChange={this.onSizeChangeHandler}
           handleOnVisibleChange={this.handleOnVisibleChange}
           panelVisible={panelVisible}

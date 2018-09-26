@@ -30,7 +30,6 @@ function userDataReducers(state = initialState, action) {
       state.error = "Failed to load user data...";
       return state;
     case SET_DISPLAY_NAME:
-      state.displayName = action.value;
       // fetch.updateUserData(state.uid, {displayName: action.value})
       //   .then((response)=>{
       //     //if nothing went bad, keep the display name, otherwise, change it back (or dont, depends how we wanna do it)
@@ -40,7 +39,8 @@ function userDataReducers(state = initialState, action) {
       //     state.error = err
       //     console.log(err)
       //   })
-      return state;
+      //TODO editUserData: persist the update to the firestore document
+      return Object.assign({}, state, { displayName: action.value });
     case SET_PHOTO_URL:
       state.photoURL = action.value;
       // fetch.updateUserData(state.uid, {photoURL: action.value})
