@@ -68,22 +68,45 @@ class Output extends React.Component {
             <script src="http://www.skulpt.org/static/skulpt.min.js" type="text/javascript"></script> 
             <script src="http://www.skulpt.org/static/skulpt-stdlib.js" type="text/javascript"></script>
             <style>
-              html,body: {
-                margin:0, width:100%, height:100%,
+              html, body {
+                margin:0;
+                width:100%;
+                height:100%;
+                background-color: #585166;
               }
-              #output: {
-                width:500px,
-                background-color:#EEE,
-                color:#D00,
-              },
-              #mycanvas: {
-                border:2px solid #777
+              #output {
+                width:400px;
+                height:100px;
+                background-color:#333;
+                color:#0F0;
+                word-wrap:break-word;
+                overflow:auto scroll;
+              }
+              .editor-run-button{
+                display:flex;
+                width:160px;
+                height:40px;
+                background-color: #4CAF50;
+                display: inline-block;
+                font-size: 24px;
+                cursor: pointer;
+                text-align: center;
+                text-decoration: none;
+                outline: none;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                box-shadow: 1px 3px #999;
+                margin-bottom: 10px;
+              }
+              #mycanvas {
+                border: 2px solid black;
               }
             </style> 
             
             </head> 
             
-            <body onload="runit()"> 
+            <body style="" onload="runit()"> 
             
             <script type="text/javascript"> 
             // output functions are configurable.  This one just appends some text
@@ -122,10 +145,8 @@ class Output extends React.Component {
                 });
             } 
             </script> 
-            
-            <h3>Try This</h3> 
             <form> 
-            <button type="button" onclick="runit()">Replay</button> 
+            <button class="editor-run-button" type="button" onclick="runit()">Replay</button> 
             </form> 
             <div style="display:none;" id="runResult">${runResult}</div>
             <!-- If you want turtle graphics include a canvas -->
