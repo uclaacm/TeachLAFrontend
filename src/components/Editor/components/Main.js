@@ -20,7 +20,6 @@ class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      codeSize: "37.5%",
       paneStyle: { transition: "none" },
     };
   }
@@ -37,7 +36,7 @@ class Main extends React.Component {
     const { panelVisible, handleOnVisibleChange } = this.props;
 
     //if the left panel is closed, show an empty div
-    if (!panelVisible) {
+    if (panelVisible) {
       return <div className="editor-expand-panel" style={{ width: "0px", padding: "0" }} />;
     }
 
@@ -73,7 +72,10 @@ class Main extends React.Component {
 
   render() {
     //called deconstruction; pulling children, triggerLogin, ..., textPadding out of props
-    const { codeStyle, paneStyle, size, onSplitPaneChange } = this.props;
+    const { codeStyle, paneStyle, textEditorSize } = this.props;
+
+    const minSize = this.props.width * 0.25;
+    const maxSize = this.props.panelVisible ? this.props.width * 0.5 : this.props.width * 0.66;
 
     return (
       <div style={codeStyle}>
@@ -81,17 +83,17 @@ class Main extends React.Component {
 					minimizing the profile panel, maximizing it again, and trying to move the split pane.  The speed of movement
 					is greatly reduced*/}
         <SplitPane
+          //makes split pane resizer more consistent
+          //bc you can hover over the iframe while dragging
+          //and it steals the mouse
+          resizerStyle={{ height: "50px" }}
           pane1Style={paneStyle}
           split="vertical" //the resizer is a vertical line (horizontal means resizer is a horizontal bar)
-          minSize={(window.innerWidth * (1 - size)) / 4} //minimum size of code is 25% of screen not including panel and max size is 50%
-          maxSize={
-            this.props.paneVisible
-              ? (window.innerWidth * (1 - size) * 3) / 4
-              : (window.innerWidth * 3) / 4
-          } //maximum size is 75% of the screen if the panel  is open, 50% otherwise
-          size={size} //the initial size of the text editor section
+          minSize={minSize} //minimum size of code is 25% of screen not including panel and max size is 50%
+          maxSize={maxSize} //maximum size is 75% of the screen if the panel  is open, 50% otherwise
+          size={textEditorSize} //the initial size of the text editor section
           allowResize={true}
-          onChange={onSplitPaneChange}
+          // onChange={onSplitPaneChange}
         >
           <div className="code-section">
             <div className="editor-header">
