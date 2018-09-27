@@ -80,7 +80,7 @@ class Output extends React.Component {
                 background-color:#333;
                 color:#0F0;
                 word-wrap:break-word;
-                overflow:auto scroll;
+                overflow:auto;
               }
               .editor-run-button{
                 display:flex;
@@ -142,6 +142,8 @@ class Output extends React.Component {
                 },
                 function(err) {
                     console.log(err.toString());
+                    let a =document.getElementById("output")
+                    a.innerHTML = '<span style="color: #be4040">' + err.toString() + '</span>'
                 });
             } 
             </script> 
@@ -182,7 +184,40 @@ class Output extends React.Component {
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/p5.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/addons/p5.dom.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/addons/p5.sound.min.js"></script>
-        </head><body><script type="text/javascript">${runResult}</script></body></html>`}
+        <style>
+          #console{
+            width:400px;
+            color:#0f0;
+            height:200px;
+            background-color:#333;
+            overflow:auto;
+            margin: 10px 0px;
+          }
+        </style>
+        </head><body>
+        <div id="console"></div>
+        <script type="text/javascript">
+        if (typeof console  != "undefined") 
+          if (typeof console.log != 'undefined')
+            console.olog = console.log;
+          else
+            console.olog = function() {};
+    
+        console.log = (message) => {
+          console.olog(message);
+          let a = document.getElementById("console")
+          if(a){
+            let a = document.getElementById("console")
+            a.innerHTML = a.innerHTML + message + "<br/>";
+          }
+        };
+
+        window.onerror = (err)=>console.log("<p style='color:#be4040'>" + err + "</p>")
+
+        console.error = console.debug = console.info = console.log;
+        
+        ${runResult}
+        </script></body></html>`}
         src="about:blank"
         onLoad={e => {
           // console.log(e);
