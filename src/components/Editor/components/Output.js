@@ -211,7 +211,9 @@ class Output extends React.Component {
             </button>
           </div>
         </div>
-        <div className="editor-output-content">{this.renderOutput()}</div>
+        <div className="editor-output-content" style={{ padding: "5px" }}>
+          {this.renderOutput()}
+        </div>
       </div>
     );
   }

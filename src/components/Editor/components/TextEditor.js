@@ -112,6 +112,7 @@ class TextEditor extends React.Component {
       theme: "material", //requires lots of CSS tuning to get a theme to work, be wary of changing
       lineNumbers: true, //text editor has line numbers
       lineWrapping: true, //text editor does not overflow in the x direction, uses word wrap (NOTE: it's like MO Word wrapping, so words are not cut in the middle, if a word overlaps, the whole word is brought to the next line)
+      indentWithTabs: true,
     };
 
     return (
@@ -121,6 +122,7 @@ class TextEditor extends React.Component {
         }}
         value={this.props.code}
         lineWrapping
+        indentWithTabs={true}
         height="100%"
         options={options}
         onCursor={cm => {
