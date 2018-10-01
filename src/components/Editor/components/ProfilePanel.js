@@ -1,5 +1,4 @@
 import React from "react";
-import Dock from "react-dock";
 import defaultPic from "../../../img/defaultProfile.png";
 import firebase from "firebase";
 
