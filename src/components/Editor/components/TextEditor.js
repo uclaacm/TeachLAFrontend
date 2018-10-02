@@ -118,12 +118,12 @@ class TextEditor extends React.Component {
     return (
       <CodeMirror
         editorDidMount={codeMirrorInstance => {
+          codeMirrorInstance.refresh();
           this.setCodeMirrorInstance(codeMirrorInstance);
         }}
         value={this.props.code}
         lineWrapping
         indentWithTabs={true}
-        height="100%"
         options={options}
         onCursor={cm => {
           this.setCurrentLine(cm);
