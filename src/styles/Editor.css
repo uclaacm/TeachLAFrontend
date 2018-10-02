@@ -92,14 +92,7 @@
 
 .editor-output {
   background-color: #585166;
-  width: auto;
   height: 100%;
-  min-width: 25%;
-  right: 0px;
-}
-
-.editor-output-content {
-  border-top: 1px white solid;
 }
 
 .html-output {

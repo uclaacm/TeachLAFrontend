@@ -37,7 +37,7 @@ class Output extends React.Component {
         id={this.state.counter}
         key={this.state.counter}
         className="html-output"
-        style={{ display: "flex", height: "92vh" }}
+        style={{ display: "flex", height: this.props.height - 61 + "px" }}
         srcDoc={this.props.runResult}
         src="about:blank"
         onLoad={e => {
@@ -61,29 +61,50 @@ class Output extends React.Component {
         id={this.state.counter}
         key={this.state.counter}
         className="html-output"
-        style={{ display: "flex", height: "92vh" }}
+        style={{ display: "flex", height: this.props.height - 61 + "px" }}
         srcDoc={`<html> 
             <head> 
             <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script> 
             <script src="http://www.skulpt.org/static/skulpt.min.js" type="text/javascript"></script> 
             <script src="http://www.skulpt.org/static/skulpt-stdlib.js" type="text/javascript"></script>
             <style>
-              html,body: {
-                margin:0, width:100%, height:100%,
+              html, body {
+                margin:0;
+                background-color: #585166;
               }
-              #output: {
-                width:500px,
-                background-color:#EEE,
-                color:#D00,
-              },
-              #mycanvas: {
-                border:2px solid #777
+              #output {
+                width:400px;
+                height:100px;
+                background-color:#333;
+                color:#0F0;
+                word-wrap:break-word;
+                overflow:auto;
+              }
+              .editor-run-button{
+                display:flex;
+                width:160px;
+                height:40px;
+                background-color: #4CAF50;
+                display: inline-block;
+                font-size: 24px;
+                cursor: pointer;
+                text-align: center;
+                text-decoration: none;
+                outline: none;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                box-shadow: 1px 3px #999;
+                margin-bottom: 10px;
+              }
+              #mycanvas {
+                // border: 2px solid black;
               }
             </style> 
             
             </head> 
             
-            <body onload="runit()"> 
+            <body style="" onload="runit()"> 
             
             <script type="text/javascript"> 
             // output functions are configurable.  This one just appends some text
@@ -119,19 +140,18 @@ class Output extends React.Component {
                 },
                 function(err) {
                     console.log(err.toString());
+                    let a =document.getElementById("output")
+                    a.innerHTML = '<span style="color: #be4040">' + err.toString() + '</span>'
                 });
             } 
             </script> 
-            
-            <h3>Try This</h3> 
             <form> 
-            <button type="button" onclick="runit()">Replay</button> 
+            <!--<button class="editor-run-button" type="button" onclick="runit()">Replay</button> -->
             </form> 
             <div style="display:none;" id="runResult">${runResult}</div>
             <!-- If you want turtle graphics include a canvas -->
-            <div id="mycanvas"></div> 
             <pre id="output"></pre> 
-            
+            <div id="mycanvas"></div> 
             </body> 
             
             </html> `}
@@ -155,13 +175,46 @@ class Output extends React.Component {
         id={this.state.counter}
         key={this.state.counter}
         className="html-output"
-        style={{ display: "flex", height: "92vh" }}
+        style={{ display: "flex", height: this.props.height - 61 + "px" }}
         srcDoc={`<html><head>
         <style>html,body: {margin:0, width:100%}</style>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/p5.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/addons/p5.dom.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/addons/p5.sound.min.js"></script>
-        </head><body><script type="text/javascript">${runResult}</script></body></html>`}
+        <style>
+          #console{
+            width:400px;
+            color:#0f0;
+            height:200px;
+            background-color:#333;
+            overflow:auto;
+            margin: 10px 0px;
+          }
+        </style>
+        </head><body>
+        <div id="console"></div>
+        <script type="text/javascript">
+        if (typeof console  != "undefined") 
+          if (typeof console.log != 'undefined')
+            console.olog = console.log;
+          else
+            console.olog = function() {};
+    
+        console.log = (message) => {
+          console.olog(message);
+          let a = document.getElementById("console")
+          if(a){
+            let a = document.getElementById("console")
+            a.innerHTML = a.innerHTML + message + "<br/>";
+          }
+        };
+
+        window.onerror = (err)=>console.log("<p style='color:#be4040'>" + err + "</p>")
+
+        console.error = console.debug = console.info = console.log;
+        
+        ${runResult}
+        </script></body></html>`}
         src="about:blank"
         onLoad={e => {
           // console.log(e);
@@ -191,17 +244,22 @@ class Output extends React.Component {
     }
   };
 
+  getHeaderStyle = () => ({
+    height: "60px",
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    width: "100%",
+    borderBottom: "1px white solid",
+  });
+
   render() {
     return (
       <div className="editor-output">
-        <div className="editor-header">
+        <div style={this.getHeaderStyle()}>
           <div style={{ flex: "1 1 auto" }}> </div>
-          <div
-            className="editor-run"
-            onClick={() => {
-              // console.log("clear output");
-            }}
-          >
+          <div className="editor-run">
             <button
               className="editor-run-button"
               style={{ backgroundColor: "#3c52ba" }}
@@ -211,9 +269,7 @@ class Output extends React.Component {
             </button>
           </div>
         </div>
-        <div className="editor-output-content" style={{ padding: "5px" }}>
-          {this.renderOutput()}
-        </div>
+        <div>{this.renderOutput()}</div>
       </div>
     );
   }
