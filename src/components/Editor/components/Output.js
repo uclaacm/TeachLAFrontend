@@ -73,12 +73,13 @@ class Output extends React.Component {
                 background-color: #585166;
               }
               #output {
-                width:400px;
+                width:97%;
                 height:100px;
                 background-color:#333;
                 color:#0F0;
                 word-wrap:break-word;
                 overflow:auto;
+                margin: 10px auto;
               }
               .editor-run-button{
                 display:flex;
@@ -148,10 +149,9 @@ class Output extends React.Component {
             <form> 
             <!--<button class="editor-run-button" type="button" onclick="runit()">Replay</button> -->
             </form> 
-            <div style="display:none;" id="runResult">${runResult}</div>
-            <!-- If you want turtle graphics include a canvas -->
             <pre id="output"></pre> 
             <div id="mycanvas"></div> 
+            <div style="display:none;" id="runResult">${runResult}</div>
             </body> 
             
             </html> `}
@@ -183,7 +183,7 @@ class Output extends React.Component {
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/addons/p5.sound.min.js"></script>
         <style>
           #console{
-            width:400px;
+            width: 100%;
             color:#0f0;
             height:200px;
             background-color:#333;
