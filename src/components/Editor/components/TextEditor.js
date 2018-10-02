@@ -49,7 +49,7 @@ class TextEditor extends React.Component {
         code: this.props.code,
       };
 
-      let result = await fetch.updatePrograms(this.props.uid, programToUpdate);
+      await fetch.updatePrograms(this.props.uid, programToUpdate);
       //TODO: add functionality to be able to tell whether the fetch failed
       this.setState({ dirty: false });
     } catch (err) {
@@ -71,7 +71,7 @@ class TextEditor extends React.Component {
         programToUpdate[this.props.mostRecentProgram] = {
           code: this.props.code,
         };
-        let result = await fetch.updatePrograms(this.props.uid, programToUpdate);
+        await fetch.updatePrograms(this.props.uid, programToUpdate);
         ev.returnValue = "Ask if they want to reload";
       }
       return ev;
@@ -112,16 +112,18 @@ class TextEditor extends React.Component {
       theme: "material", //requires lots of CSS tuning to get a theme to work, be wary of changing
       lineNumbers: true, //text editor has line numbers
       lineWrapping: true, //text editor does not overflow in the x direction, uses word wrap (NOTE: it's like MO Word wrapping, so words are not cut in the middle, if a word overlaps, the whole word is brought to the next line)
+      indentWithTabs: true,
     };
 
     return (
       <CodeMirror
         editorDidMount={codeMirrorInstance => {
+          codeMirrorInstance.refresh();
           this.setCodeMirrorInstance(codeMirrorInstance);
         }}
         value={this.props.code}
         lineWrapping
-        height="100%"
+        indentWithTabs={true}
         options={options}
         onCursor={cm => {
           this.setCurrentLine(cm);
