@@ -53,7 +53,7 @@ class ProfilePanel extends React.Component {
   );
 
   render() {
-    const { panelStyle, handleOnVisibleChange, photoURL, displayName } = this.props;
+    const { panelStyle } = this.props;
 
     return <div style={panelStyle}>{this.renderMainContent()}</div>;
   }
