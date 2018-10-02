@@ -1,30 +1,5 @@
-.react-codemirror2 {
-  padding-right: 1px;
-  max-width: 100%;
-  max-height: inherit;
-  border-top: 1px white solid;
-  background-color: #857e8f;
-  padding-top: 20px;
-  height: 100%;
-}
-
-.react-codemirror2 ::-webkit-scrollbar {
-  width: 10px;
-}
-
-/* Track */
-.react-codemirror2 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-/* Handle */
-.react-codemirror2 ::-webkit-scrollbar-thumb {
-  background: #57535e;
-}
-
-/* Handle on hover */
-.react-codemirror2 ::-webkit-scrollbar-thumb:hover {
-  background: #2f2d33;
+.CodeMirror-lines {
+  cursor: default;
 }
 
 .cm-s-material.CodeMirror {
@@ -46,8 +21,6 @@
 
 .cm-s-material .CodeMirror-gutters {
   background-color: #857e8f;
-  /* border-right:1px solid white; */
-  /* color:white; */
 }
 .cm-s-material .CodeMirror-guttermarker,
 .cm-s-material .CodeMirror-guttermarker-subtle,
@@ -96,4 +69,8 @@
   background-size: 20px auto;
   background-repeat: no-repeat;
   background-image: url("./triangle.png");
+}
+
+.CodeMirror-scroll {
+  overflow: hidden !important;
 }
