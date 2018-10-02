@@ -130,7 +130,7 @@ class Main extends React.Component {
               <TextEditorContainer key={this.props.mostRecentProgram} />
             </div>
           </div>
-          <OutputContainer />
+          <OutputContainer height={this.props.height} />
         </SplitPane>
       </div>
     );

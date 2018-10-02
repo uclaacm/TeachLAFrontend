@@ -37,7 +37,7 @@ class Output extends React.Component {
         id={this.state.counter}
         key={this.state.counter}
         className="html-output"
-        style={{ display: "flex", height: "92vh" }}
+        style={{ display: "flex", height: this.props.height - 61 + "px" }}
         srcDoc={this.props.runResult}
         src="about:blank"
         onLoad={e => {
@@ -61,7 +61,7 @@ class Output extends React.Component {
         id={this.state.counter}
         key={this.state.counter}
         className="html-output"
-        style={{ display: "flex", height: "92vh" }}
+        style={{ display: "flex", height: this.props.height - 61 + "px" }}
         srcDoc={`<html> 
             <head> 
             <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script> 
@@ -70,8 +70,6 @@ class Output extends React.Component {
             <style>
               html, body {
                 margin:0;
-                width:100%;
-                height:100%;
                 background-color: #585166;
               }
               #output {
@@ -100,7 +98,7 @@ class Output extends React.Component {
                 margin-bottom: 10px;
               }
               #mycanvas {
-                border: 2px solid black;
+                // border: 2px solid black;
               }
             </style> 
             
@@ -148,13 +146,12 @@ class Output extends React.Component {
             } 
             </script> 
             <form> 
-            <button class="editor-run-button" type="button" onclick="runit()">Replay</button> 
+            <!--<button class="editor-run-button" type="button" onclick="runit()">Replay</button> -->
             </form> 
             <div style="display:none;" id="runResult">${runResult}</div>
             <!-- If you want turtle graphics include a canvas -->
-            <div id="mycanvas"></div> 
             <pre id="output"></pre> 
-            
+            <div id="mycanvas"></div> 
             </body> 
             
             </html> `}
@@ -178,7 +175,7 @@ class Output extends React.Component {
         id={this.state.counter}
         key={this.state.counter}
         className="html-output"
-        style={{ display: "flex", height: "92vh" }}
+        style={{ display: "flex", height: this.props.height - 61 + "px" }}
         srcDoc={`<html><head>
         <style>html,body: {margin:0, width:100%}</style>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/p5.min.js"></script>
@@ -247,17 +244,22 @@ class Output extends React.Component {
     }
   };
 
+  getHeaderStyle = () => ({
+    height: "60px",
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    width: "100%",
+    borderBottom: "1px white solid",
+  });
+
   render() {
     return (
       <div className="editor-output">
-        <div className="editor-header">
+        <div style={this.getHeaderStyle()}>
           <div style={{ flex: "1 1 auto" }}> </div>
-          <div
-            className="editor-run"
-            onClick={() => {
-              // console.log("clear output");
-            }}
-          >
+          <div className="editor-run">
             <button
               className="editor-run-button"
               style={{ backgroundColor: "#3c52ba" }}
@@ -267,9 +269,7 @@ class Output extends React.Component {
             </button>
           </div>
         </div>
-        <div className="editor-output-content" style={{ padding: "5px" }}>
-          {this.renderOutput()}
-        </div>
+        <div>{this.renderOutput()}</div>
       </div>
     );
   }
