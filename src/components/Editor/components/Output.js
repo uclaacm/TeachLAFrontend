@@ -64,9 +64,9 @@ class Output extends React.Component {
         style={{ display: "flex", height: this.props.height - 61 + "px" }}
         srcDoc={`<html> 
             <head> 
-            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script> 
-            <script src="http://www.skulpt.org/static/skulpt.min.js" type="text/javascript"></script> 
-            <script src="http://www.skulpt.org/static/skulpt-stdlib.js" type="text/javascript"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script> 
+            <script src="https://cdn.rawgit.com/skulpt/skulpt-dist/0.11.0/skulpt.min.js" type="text/javascript"></script> 
+            <script src="https://cdn.rawgit.com/skulpt/skulpt-dist/0.11.0/skulpt-stdlib.js" type="text/javascript"></script>
             <style>
               html, body {
                 margin:0;
