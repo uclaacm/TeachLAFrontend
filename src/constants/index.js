@@ -43,6 +43,8 @@ module.exports = {
 
   //Server definitions
   SERVER_URL: "http://localhost:8081",
+  //Heroku URL: "https://teach-la-backend.herokuapp.com"
+  //DEV URL: "http://localhost:8081"
 
   //User value constants
   MINIMUM_USERNAME_LENGTH: 6,
