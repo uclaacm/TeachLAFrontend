@@ -42,7 +42,10 @@ module.exports = {
   CPP,
 
   //Server definitions
+  //Local Server
   SERVER_URL: "http://localhost:8081",
+  //Heroku Server
+  // SERVER_URL: "https://teach-la-backend.herokuapp.com",
   //Heroku URL: "https://teach-la-backend.herokuapp.com"
   //DEV URL: "http://localhost:8081"
 

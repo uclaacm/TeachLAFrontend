@@ -6,13 +6,10 @@ import DropdownButton from "./DropdownButton";
 import RunButton from "./RunButton";
 
 /**------Props-------
- * paneStyle: object used to style the text editor pane
- * size: number? representing the percentage of space the split pane takes up
- * onSplitPaneChange: function called when the Split pane bar for resizing is used
+ * textEditorSize: number? representing the percentage of space the left split pane takes up
  * handleOnVisibleChange: function to call when you want the Profile Panel to disappear/reapper
  * panelVisible: boolean telling whether the Profile Panel is open or not
  * codeStyle: object used to style the whole container //TODO: rename or move this prop
- * setPaneStyle: function to be called ? //TODO: remove this/find out why this existed in the first place...
  * hotReload: boolean telling if //TODO: figure out a better place for this/remove it
  */
 
@@ -20,7 +17,6 @@ class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      paneStyle: { transition: "none" },
     };
   }
 
@@ -37,13 +33,13 @@ class Main extends React.Component {
 
     //if the left panel is closed, show an empty div
     if (panelVisible) {
-      return <div className="editor-expand-panel" style={{ width: "0px", padding: "0" }} />;
+      return <div className="editor-expand-panel-arrow"/>;
     }
 
     // otherwise show a > that when clicked, opens the panel
     return (
       <div
-        className="editor-expand-panel"
+        className="editor-expand-panel-arrow"
         title="Open Profile Panel"
         onClick={handleOnVisibleChange}
       >
@@ -70,19 +66,9 @@ class Main extends React.Component {
     );
   };
 
-  getHeaderStyle = () => ({
-    height: "60px",
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "flex-start",
-    width: "100%",
-    borderBottom: "1px white solid",
-  });
-
   render() {
     //called deconstruction; pulling children, triggerLogin, ..., textPadding out of props
-    const { codeStyle, paneStyle, textEditorSize } = this.props;
+    const { codeStyle, textEditorSize } = this.props;
 
     const minSize = this.props.width * 0.25;
     const maxSize = this.props.panelVisible ? this.props.width * 0.5 : this.props.width * 0.66;
@@ -105,16 +91,14 @@ class Main extends React.Component {
             borderRight: "2px solid #333",
             width: "10px",
           }}
-          pane1Style={paneStyle}
           split="vertical" //the resizer is a vertical line (horizontal means resizer is a horizontal bar)
           minSize={minSize} //minimum size of code is 25% of screen not including panel and max size is 50%
           maxSize={maxSize} //maximum size is 75% of the screen if the panel  is open, 50% otherwise
           size={textEditorSize} //the initial size of the text editor section
           allowResize={true}
-          // onChange={onSplitPaneChange}
         >
           <div className="code-section">
-            <div style={this.getHeaderStyle()}>
+            <div className="code-section-banner">
               {this.renderOpenPanelButton()}
               {this.renderDropdown()}
               <RunButton runCode={this.props.runCode} />

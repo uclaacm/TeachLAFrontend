@@ -25,9 +25,8 @@ class Editor extends React.Component {
       width: window.innerWidth,
       height: window.innerHeight,
       panelVisible: false,
-      panelSize: 0,
+      panelRight: 0,
       textEditorSize: window.innerWidth * 0.5,
-      paneStyle: { transition: "none" },
       hotReload: false,
     };
   }
@@ -46,7 +45,7 @@ class Editor extends React.Component {
       width: window.innerWidth,
       height: window.innerHeight,
       textEditorSize: window.innerWidth * 0.375,
-      panelSize: this.state.panelVisible ? window.innerWidth * 0.25 : 0,
+      panelRight: this.state.panelVisible ? window.innerWidth * 0.25 : 0,
     });
   };
 
@@ -61,36 +60,26 @@ class Editor extends React.Component {
       //open it if its closed, close it if its open
       panelVisible: !prevState.panelVisible,
       //give the profile panel a size of 0 if it was open, PROFILE_PANEL_MAX_SIZE if it was closed
-      panelSize: prevState.panelVisible ? 0 : prevState.width * 0.25,
-      textEditorSize: prevState.width * 0.375,
-      paneStyle: {},
+      panelRight: prevState.panelVisible ? 0 : prevState.width * 0.25,
+      //TODO: change textEditorSize here if you wanna fix the open panel causes output to be small bug (need React Motion)
     }));
   };
 
   splitPaneChangeHandler = textEditorSize => {
-    this.setState({ textEditorSize, paneStyle: {} });
-  };
-
-  setPaneStyle = newPaneStyle => {
-    this.setState({ paneStyle: newPaneStyle });
+    this.setState({ textEditorSize, });
   };
 
   render() {
-    const { panelVisible, panelSize, textEditorSize, paneStyle, hotReload } = this.state;
+    const { panelVisible, panelRight, textEditorSize, hotReload } = this.state;
 
     //style to be applied to non panel (sections containing text editor and code output)
     const codeStyle = {
-      position: "fixed", //fixed bc we're using left
+      position: "fixed", //fixed bc we're using the css property left to set the left edge of the code section/output container
       height: this.state.height,
-      //   //determines how far left of the screen the code should be
-      // left: panelSize+268,
-      //   //if they're using the slider to change the length of the panel, dont use a transition,
-      //   //otherwise (meaning they're using the toggle button) use a transition where when the left changes, it eases out
-      //   transition: ""
     };
 
     const panelStyle = {
-      width: panelSize,
+      width: window.innerWidth * 0.25,      //width doesn't change, the 'right' css property just pushes it off the page
       height: this.state.height,
     };
 
@@ -99,8 +88,8 @@ class Editor extends React.Component {
         <Motion
           defaultStyle={{ x: 0, y: this.state.width }}
           style={{
-            x: spring(this.state.panelSize),
-            y: spring(this.state.width - panelSize),
+            x: spring(this.state.panelRight),
+            y: spring(this.state.width - panelRight),
             damping: 30,
             stiffness: 218,
           }}
@@ -112,17 +101,14 @@ class Editor extends React.Component {
                   handleOnSizeChange={this.onSizeChangeHandler}
                   handleOnVisibleChange={this.togglePanel}
                   panelVisible={panelVisible}
-                  size={panelSize}
                   panelStyle={Object.assign({}, panelStyle, { right: value.x })}
                 />
                 <MainContainer
-                  paneStyle={paneStyle}
                   textEditorSize={textEditorSize}
                   onSplitPaneChange={this.splitPaneChangeHandler}
                   handleOnVisibleChange={this.togglePanel}
                   panelVisible={panelVisible}
                   codeStyle={Object.assign({}, codeStyle, { left: value.x, width: value.y })}
-                  setPaneStyle={this.setPaneStyle}
                   hotReload={hotReload}
                   width={this.state.width}
                   height={this.state.height}
