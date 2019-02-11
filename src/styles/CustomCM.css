@@ -74,3 +74,8 @@
 .CodeMirror-scroll {
   overflow: hidden !important;
 }
+
+.CodeMirror-lines {
+  margin-bottom: 20px; /*adds space for triangle on the bottom of the editor*/
+  padding-left: 3px; /*adds space for triangle on the left of the editor*/
+}

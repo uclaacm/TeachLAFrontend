@@ -47,7 +47,7 @@ class Output extends React.Component {
     );
   };
 
-  getPythonSrcDocHead = () => (`
+  getPythonSrcDocHead = () => `
     <head>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script>
       <script src="https://cdn.rawgit.com/skulpt/skulpt-dist/0.11.0/skulpt.min.js" type="text/javascript"></script>
@@ -57,9 +57,9 @@ class Output extends React.Component {
               #mycanvas { margin: 10px; }}
       </style>
     </head>
-  `)
+  `;
 
-  getPythonSrcDocSkulptScript = () => (`
+  getPythonSrcDocSkulptScript = () => `
     <script type="text/javascript">
       function outf(text) { 
           var mypre = document.getElementById("output"); 
@@ -94,7 +94,7 @@ class Output extends React.Component {
           });
       } 
     </script> 
-  `)
+  `;
 
   getPythonSrcDocBody = () => {
     const { runResult } = this.props;
@@ -106,12 +106,12 @@ class Output extends React.Component {
         <div id="mycanvas"></div>
         <div style="display:none;" id="runResult">${runResult}</div>
       </body> 
-    ` 
-  }
+    `;
+  };
 
   getPythonSrcDoc = () => {
-    return `<html> ${this.getPythonSrcDocHead()} ${this.getPythonSrcDocBody()} </html>`
-  }
+    return `<html> ${this.getPythonSrcDocHead()} ${this.getPythonSrcDocBody()} </html>`;
+  };
 
   renderPythonOutput = () => {
     let { runResult } = this.props;
@@ -119,7 +119,6 @@ class Output extends React.Component {
     if (!runResult) {
       return null;
     }
-
 
     //about: blank makes it so that the clear button will clear the html appropriately when pressed.
     //Otherwise, old content persists.
@@ -138,7 +137,7 @@ class Output extends React.Component {
     );
   };
 
-  getProcessingSrcDocLoggingScript = () => (`
+  getProcessingSrcDocLoggingScript = () => `
       <script type="text/javascript">
         if (typeof console  != "undefined") 
           if (typeof console.log != 'undefined')
@@ -161,16 +160,16 @@ class Output extends React.Component {
         
         ${this.props.runResult}
       </script>
-    `)
+    `;
 
-  getProcessingSrcDocBody = () => (`
+  getProcessingSrcDocBody = () => `
       <body>
         <div id="console"></div>
         ${this.getProcessingSrcDocLoggingScript()}
       </body>
-    `)
+    `;
 
-  getProcessingSrcDocHead = () => (`
+  getProcessingSrcDocHead = () => `
     <head>
         <style>html,body: {margin:0, width:100%}</style>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/p5.min.js"></script>
@@ -180,9 +179,10 @@ class Output extends React.Component {
           #console{  width: 100%; color:#0f0; height:200px; background-color:#333; overflow:auto; margin: 10px 0px; }
         </style>
     </head>
-  `)
+  `;
 
-  getProcessingSrcDoc = () => (`<html> ${this.getProcessingSrcDocHead()} ${this.getProcessingSrcDocBody()}</html>`)
+  getProcessingSrcDoc = () =>
+    `<html> ${this.getProcessingSrcDocHead()} ${this.getProcessingSrcDocBody()}</html>`;
 
   renderProcessingOutput = () => {
     const { runResult } = this.props;
@@ -237,14 +237,14 @@ class Output extends React.Component {
         Refresh
       </button>
     </div>
-  )
+  );
 
   renderBanner = () => (
     <div className="editor-output-banner">
-      <div style={{ flex: "1 1 auto" }}> </div>
+      <div style={{ flex: "1 1 auto" }}> </div> {/*whitespace*/}
       {this.renderRefreshButton()}
     </div>
-  )
+  );
 
   render() {
     return (

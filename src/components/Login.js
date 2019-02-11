@@ -38,29 +38,12 @@ class LoginForm extends React.Component {
     });
   };
 
-  getContainerStyle = () => ({
-    width: this.state.width,
-    margin: "0px",
-  });
-
-  getMainContentContainerStyle = () => ({
-    height: "100vh",
-    backgroundColor: "#272134",
-    backgroundImage: "url('../img/blueguy-transparent-2.png')" /* ABSOLUTE: /src/img/myBg3.png */,
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "right top",
-    backgroundSize: "auto 93%",
-    minHeight: "600px",
-    overflowY: "auto",
-    boxSizing: "border-box",
-    paddingBottom: "8vh",
-  });
-
   renderMainContent = () => {
     return (
-      <div style={this.getMainContentContainerStyle()}>
+      <div className="login-page-content">
         <div style={{ height: "0px" }}>&nbsp;</div>
-        {/*for some reason when you don't have a non empty element above the modal, it leaves a white section above it...so thats why this is here*/}
+        {/*for some reason when you don't have a non empty element above the modal,
+        it leaves a white section above it...so thats why this is here*/}
         <div className="login-modal">
           <LoginModal provider={this.props.provider} />
         </div>
@@ -72,7 +55,7 @@ class LoginForm extends React.Component {
 
   render() {
     return (
-      <div className="login-page" style={this.getContainerStyle()}>
+      <div className="login-page">
         {this.renderMainContent()}
         {this.renderFooter()}
       </div>
