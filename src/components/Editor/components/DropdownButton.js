@@ -58,7 +58,7 @@ export default class DropdownButton extends React.Component {
           toggle={() => this.toggleHandler(this.state.dropdownOpen)}
         >
           <DropdownToggle caret>
-            <div style={{ display: "inline-block" }}>{this.props.displayValue}</div>
+            <div className="editor-language-dropdown-closed-content">{this.props.displayValue}</div>
           </DropdownToggle>
           <DropdownMenu>{this.renderDropdownItems()}</DropdownMenu>
         </Dropdown>

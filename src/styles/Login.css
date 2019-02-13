@@ -1,147 +1,163 @@
-.login-page-content{
-    height: 100vh;                             /*uses the value set in login-page, inherited the prop*/
-    background-color:#272134;
-    background-image: url('../img/myBg3.png'); /* ABSOLUTE: /src/img/myBg3.png */
-    background-repeat:no-repeat;
-    background-position:right top;
-    background-size: 100% 93%;
-    min-height:600px;
-    overflow-y:auto;
-    box-sizing:border-box;
-    padding-bottom:8vh;
+.login-page {
+  margin: 0px;
 }
 
-.login-footer{
-    position:absolute;
-    bottom:0px;
-    width:100%;
-    bottom:0px;
-    height: 8vh;                             /*calc used to do arithmetic*/
-    background-color: #473d5d;
-    text-align:center;
-    align-items: center;
+.login-page-content {
+  height: 100vh;
+  background-color: #272134;
+  background-image: url("../img/blueguy-transparent-2.png");
+  background-repeat: no-repeat;
+  background-position: right top;
+  background-size: auto 93%;
+  min-height: 600px;
+  overflow-y: auto;
+  box-sizing: border-box;
+  padding-bottom: 8vh;
 }
 
-.login-footer-image{
-    height: 100%;
+.login-footer {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  bottom: 0px;
+  height: 8vh; /*calc used to do arithmetic*/
+  background-color: #473d5d;
+  text-align: center;
+  align-items: center;
 }
 
+.login-footer-image {
+  height: 100%;
+}
 
-.login-form{
-    padding:20px 20px;
-    color:#dddcdf;
+.login-form {
+  padding: 20px 20px;
+  color: #dddcdf;
+}
+
+.login-form-loader {
+  width: 100%;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  display: flex;
 }
 
 .login-header {
-    font-size:48px;
-    white-space:nowrap;
-    font-weight: bold;
+  font-size: 48px;
+  white-space: nowrap;
+  font-weight: bold;
 }
 
-.login-form-input-header{
-    color:#dddcdf;
-    font-size:36px;
-    margin-bottom:1rem;
+.login-form-input-header {
+  color: #dddcdf;
+  font-size: 36px;
+  margin-bottom: 1rem;
 }
 
-.login-form-input-list{
-    padding-left:40px;
+.login-form-input-list {
+  padding-left: 40px;
+}
+
+.login-form-input-error {
+  color: red;
+  font-size: 1rem;
 }
 
 .login-button-list {
-    width: 100%;
-    padding: 0 15%;
+  width: 100%;
+  padding: 0 15%;
 }
 
 .login-modal {
-    font-family: 'Josefin Slab', sans-serif;      /*font for the whole login page*/
-    display:block;
-    background-color:#272134;
-    width: 460px;
-    min-width:469px;
-    min-height:550px;
-    margin-top: 30px;                   /*modal distance from top of the screen*/
-    margin-left: 8%;                    /*modal distance from left side of the screen*/
-    padding:15px;
-    box-sizing:border-box;
+  font-family: "Josefin Slab", sans-serif; /*font for the whole login page*/
+  display: block;
+  width: 460px;
+  min-width: 469px;
+  min-height: 550px;
+  margin-top: 30px; /*modal distance from top of the screen*/
+  margin-left: 8%; /*modal distance from left side of the screen*/
+  padding: 15px;
+  box-sizing: border-box;
 }
 
 .login-form-input {
-    font-size: 1.5em;
-    line-height: normal;
-    padding: .25rem .1rem 0px .1rem;
-    border:0px;
-    background-color:#272134;
-    border-top: 0px;
-    border-left: 0px;
-    border-right: 0px;
-    border-bottom: 2px solid #dddcdf;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    outline: 0;
-    width: 70%;
-    min-width: 300px;
-    margin: 0 2px 1rem;                                 /*last value controls how far the next input starts*/
-    font-variant-ligatures: none;
-    -webkit-transition: box-shadow 70ms ease-out,border-color 70ms ease-out;
-    -moz-transition: box-shadow 70ms ease-out,border-color 70ms ease-out;
-    transition: box-shadow 70ms ease-out,border-color 70ms ease-out;
-    box-shadow: none;
-    color:#dddcdf;
-    height: auto;
-    display: inline-block;
+  font-size: 1.5em;
+  line-height: normal;
+  padding: 0.25rem 0.1rem 0px 0.1rem;
+  border: 0px;
+  background-color: #272134;
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  border-bottom: 2px solid #dddcdf;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: 0;
+  width: 70%;
+  min-width: 300px;
+  margin: 0 2px 1rem; /*last value controls how far the next input starts*/
+  font-variant-ligatures: none;
+  -webkit-transition: box-shadow 70ms ease-out, border-color 70ms ease-out;
+  -moz-transition: box-shadow 70ms ease-out, border-color 70ms ease-out;
+  transition: box-shadow 70ms ease-out, border-color 70ms ease-out;
+  box-shadow: none;
+  color: #dddcdf;
+  height: auto;
+  display: inline-block;
 }
 
 .login-form-input:disabled {
-    color:#686868;
+  color: #686868;
 }
 
-.login-modal ::-webkit-input-placeholder { /* Chrome/Opera/Safari */ /*changes to the placeholder text*/
-  color: #C0E2FD;
+.login-modal ::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */ /*changes to the placeholder text*/
+  color: #c0e2fd;
 }
 
 .login-form-button {
-    border: 0px;
-    font-family: 'Josefin Slab', sans-serif;
-    font-size: 1.3rem;
-    color:#dddcdf;
-    margin:20px 32.5% 10px;                                  /*margin leftright is half of 100% - width*/
-    width:35%;
-    background-color:#857e8f;
-    height:40px;
+  border: 0px;
+  font-family: "Josefin Slab", sans-serif;
+  font-size: 1.3rem;
+  color: #dddcdf;
+  margin: 20px 32.5% 10px; /*margin leftright is half of 100% - width*/
+  width: 35%;
+  background-color: #857e8f;
+  height: 40px;
 }
 
-.login-form-link{
-    color:#2d7799;
-    text-decoration: none;
+.login-form-link {
+  color: #2d7799;
+  text-decoration: none;
+  font-size: 1.2rem;
 }
 
-.login-form-link:hover{
-    color:#2d7799;
-    text-decoration: underline;
+.login-form-link:hover {
+  color: #2d7799;
+  text-decoration: underline;
 }
 
 .razor {
   /* position:"relative"; */
   /* width:100%; */
-  height:800px;
-  background:#00FF00;
+  height: 800px;
+  background: #00ff00;
 }
 
-.razor:after{
+.razor:after {
   position: absolute;
-  width:100%;
-  height:100%;
-  content:"";
-  background:inherit;
-  top:0;
-  right:0;
-  bottom:0;
-  left:0;
-  transform-origin:top left;
-  z-index:-1;
-  transform-origin:top left;
-  transform:skewY(4deg);
-
+  width: 100%;
+  height: 100%;
+  content: "";
+  background: inherit;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform-origin: top left;
+  z-index: -1;
+  transform-origin: top left;
+  transform: skewY(4deg);
 }

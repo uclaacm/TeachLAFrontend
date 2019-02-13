@@ -1,11 +1,14 @@
-html, body, #root{	/*without this the background color doesn't affect the whole window*/
+html,
+body,
+#root {
+  /*without this the background color doesn't affect the whole window*/
   margin: 0;
   padding: 0;
 }
 
 body {
-  font-family: 'Josefin Slab', sans-serif;
-  min-width:1000px;
+  font-family: "Josefin Slab", sans-serif;
+  min-width: 1125px;
   overflow: hidden;
   box-sizing: border-box;
 }

@@ -28,7 +28,7 @@ export default class LoginModal extends React.Component {
   componentDidMount() {}
 
   handleEmailLogin = e => {
-    this.setState({ waiting: true });
+    this.setState({ waiting: true, errorMsg: "" });
 
     e.preventDefault(); //prevents page from reloading after submitting form
     let email = this.state.username + EMAIL_DOMAIN_NAME;
@@ -41,7 +41,21 @@ export default class LoginModal extends React.Component {
         .then(() => {})
         .catch(err => {
           console.log(err);
-          this.setState({ errorMsg: err.message || "Failed to sign in", waiting: false });
+          let newMsg = err.message;
+          switch (err.code) {
+            case "auth/user-not-found":
+              newMsg = "No account found for username";
+              break;
+            case "auth/wrong-password":
+              newMsg = "Invalid password provided";
+              break;
+            case "auth/network-request-failed":
+              newMsg = "Login request failed. Please try again later...";
+              break;
+            default:
+              newMsg = "Failed to sign in";
+          }
+          this.setState({ errorMsg: newMsg, waiting: false });
         });
     } else {
       this.setState({ waiting: false, errorMsg: "Failed to reach Firebase login services" });
@@ -61,6 +75,38 @@ export default class LoginModal extends React.Component {
   updateUsername = username => this.setState({ username });
   updatePassword = password => this.setState({ password });
 
+  renderErrorMessage = (msg, addBreak) => {
+    if (msg)
+      return (
+        <span>
+          <div className="login-form-input-error">{msg}</div>
+          {addBreak ? <br /> : null}
+        </span>
+      );
+
+    return <br />;
+  };
+
+  renderInputs = () => (
+    <div className="login-form-input-list">
+      <div>
+        <LoginInput
+          type={"username"}
+          data={this.state.username}
+          waiting={this.state.waiting}
+          onChange={this.updateUsername}
+        />
+        <LoginInput
+          type={"password"}
+          data={this.state.password}
+          waiting={this.state.waiting}
+          onChange={this.updatePassword}
+        />
+      </div>
+      {this.renderErrorMessage(this.state.errorMsg)}
+    </div>
+  );
+
   render() {
     return (
       <form className="login-form" onSubmit={this.handleEmailLogin}>
@@ -68,36 +114,8 @@ export default class LoginModal extends React.Component {
         {/*Form doesn't do anything rn, just an example of a stateful React form.*/}
         <div className="login-header">{"Welcome to <Teach LA>"}</div>
         <br />
-        <div className="login-form-input-list">
-          <div>
-            <LoginInput
-              type={"username"}
-              data={this.state.username}
-              waiting={this.state.waiting}
-              onChange={this.updateUsername}
-            />
-            <LoginInput
-              type={"password"}
-              data={this.state.password}
-              waiting={this.state.waiting}
-              onChange={this.updatePassword}
-            />
-          </div>
-          {this.state.errorMsg ? (
-            <div style={{ color: "red" }}>{this.state.errorMsg}</div>
-          ) : (
-            <span />
-          )}
-        </div>
-        <div
-          style={{
-            width: "100%",
-            alignItems: "center",
-            flexDirection: "column",
-            justifyContent: "center",
-            display: "flex",
-          }}
-        >
+        {this.renderInputs()}
+        <div className="login-form-loader">
           <RingLoader color={"#857e8f"} size={50} loading={this.state.waiting} />
         </div>
         <button className="login-form-button" type="submit">
@@ -116,7 +134,7 @@ export default class LoginModal extends React.Component {
           />
         </div>
         <Link to="/createUser" className="login-form-link">
-          Don't have an account? Click here to register and/or login with your Google Account
+          Don't have an account? Click here to create a new account
         </Link>
       </form>
     );
