@@ -1,22 +1,33 @@
-## This is the frontend code for the <Teach LA> Helper site
+## ACM Teach LA Frontend
 
-# Dependencies
+[![Build Status](https://travis-ci.org/uclaacm/TeachLAFrontend.svg?branch=master)](https://travis-ci.org/uclaacm/TeachLAFrontend)
 
-1. yarn and npm
-2. git
+This is the frontend code for the ACM Teach LA helper site, which functions as an online IDE and code-saver. It's built by the UCLA ACM Teach LA dev team with [React](https://reactjs.org/), [Redux](https://redux.js.org/), and [Firebase](https://firebase.google.com/).
+  
+## Developer Setup
 
-# To Get Started
+You'll need:
+* [Node](https://nodejs.org/en/) (we develop this with Node v10)
+* [git](https://git-scm.com/)
+* either npm (which comes default with Node) or [yarn](https://yarnpkg.com/en/)
 
-1. git clone https://github.com/connorbo97/teachla-frontend.git
-2. git clone https://github.com/connorbo97/TeachLAJSBackend.git
-3. cd TeachLAJSBackend
-4. yarn (or npm) install
-5. yarn (or npm) start
-6. cd ../teachla-frontend
-7. yarn (or npm) install
-8. yarn (or npm) start
-9. The Client should be viewable on localhost:8080
+In addition, you'll need to run our backend on your local machine - you can find more information on that [here](https://github.com/uclaacm/TeachLAJSBackend).
 
-# Pre-commit hook
+Once you have those dependencies, set up is very simple. Type the following lines into your command line:
 
-Using lint-staged and husky to prettify committed files on push
+```bash
+$ git clone https://github.com/uclaacm/TeachLAFrontend.git
+$ git clone https://github.com/uclaacm/TeachLAJSBackend.git
+$ cd TeachLAJSBackend
+$ npm install
+$ npm start 
+$ cd ../teachla-frontend
+$ npm install
+$ npm start 
+```
+
+The client should now be automatically opened in your browser; however, you can also manually visit it on `localhost:8080`. Note that we've also opened a copy of the TeachLAJSBackend on `localhost:8081`.
+
+## Developer Notes
+* We use lint-staged and husky to prettify commited files on push
+* We use Travis CI to automatically check the validity of every commit
