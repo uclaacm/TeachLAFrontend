@@ -40,6 +40,7 @@ class Output extends React.Component {
         style={{ height: this.props.height - 61 + "px" }}
         srcDoc={this.props.runResult}
         src="about:blank"
+        title="html-iframe"
         onLoad={e => {
           // console.log(e);
         }}
@@ -61,10 +62,10 @@ class Output extends React.Component {
 
   getPythonSrcDocSkulptScript = () => `
     <script type="text/javascript">
-      function outf(text) { 
-          var mypre = document.getElementById("output"); 
-          mypre.innerHTML = mypre.innerHTML + text; 
-      } 
+      function outf(text) {
+          var mypre = document.getElementById("output");
+          mypre.innerHTML = mypre.innerHTML + text;
+      }
 
       function builtinRead(x) {
           if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined)
@@ -72,14 +73,14 @@ class Output extends React.Component {
           return Sk.builtinFiles["files"][x];
       }
 
-      function runit() { 
-          var prog = document.getElementById("runResult").innerHTML  ; 
+      function runit() {
+          var prog = document.getElementById("runResult").innerHTML  ;
           //if you want to debug, you can uncomment this console log to see the code being run
           //console.log(prog)
-          var mypre = document.getElementById("output"); 
-          mypre.innerHTML = ''; 
+          var mypre = document.getElementById("output");
+          mypre.innerHTML = '';
           Sk.pre = "output";
-          Sk.configure({output:outf, read:builtinRead}); 
+          Sk.configure({output:outf, read:builtinRead});
           (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = 'mycanvas';
           var myPromise = Sk.misceval.asyncToPromise(function() {
               return Sk.importMainWithBody("<stdin>", false, prog, true);
@@ -92,20 +93,20 @@ class Output extends React.Component {
               let a =document.getElementById("output")
               a.innerHTML = '<span style="color: #be4040">' + err.toString() + '</span>'
           });
-      } 
-    </script> 
+      }
+    </script>
   `;
 
   getPythonSrcDocBody = () => {
     const { runResult } = this.props;
 
     return `
-      <body onload="runit()"> 
+      <body onload="runit()">
         ${this.getPythonSrcDocSkulptScript()}
-        <pre id="output"></pre> 
+        <pre id="output"></pre>
         <div id="mycanvas"></div>
         <div style="display:none;" id="runResult">${runResult}</div>
-      </body> 
+      </body>
     `;
   };
 
@@ -130,6 +131,7 @@ class Output extends React.Component {
         style={{ height: this.props.height - 61 + "px" }}
         srcDoc={this.getPythonSrcDoc()}
         src="about:blank"
+        title="python-iframe"
         onLoad={e => {
           // console.log(e);
         }}
@@ -139,7 +141,7 @@ class Output extends React.Component {
 
   getProcessingSrcDocLoggingScript = () => `
       <script type="text/javascript">
-        if (typeof console  != "undefined") 
+        if (typeof console  != "undefined")
           if (typeof console.log != 'undefined')
             console.olog = console.log;
           else
@@ -157,7 +159,7 @@ class Output extends React.Component {
         window.onerror = (err)=>console.log("<p style='color:#be4040'>" + err + "</p>")
 
         console.error = console.debug = console.info = console.log;
-        
+
         ${this.props.runResult}
       </script>
     `;
@@ -199,6 +201,7 @@ class Output extends React.Component {
         style={{ height: this.props.height - 61 + "px" }}
         srcDoc={this.getProcessingSrcDoc()}
         src="about:blank"
+        title="processing-iframe"
         onLoad={e => {
           // console.log(e);
         }}
