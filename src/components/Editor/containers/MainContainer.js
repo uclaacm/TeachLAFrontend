@@ -5,6 +5,7 @@ import { setMostRecentProgram } from "../../../actions/userDataActions.js";
 
 const mapStateToProps = state => {
   return {
+    uid: state.userData.uid,
     mostRecentProgram: state.userData.mostRecentProgram,
     programs: state.programs,
   };

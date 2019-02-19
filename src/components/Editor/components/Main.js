@@ -4,6 +4,8 @@ import OutputContainer from "../containers/OutputContainer.js";
 import TextEditorContainer from "../containers/TextEditorContainer";
 import DropdownButton from "./DropdownButton";
 import RunButton from "./RunButton";
+import SaveButton from "./SaveButton";
+import * as fetch from "../../../lib/fetch.js";
 
 /**------Props-------
  * textEditorSize: number? representing the percentage of space the left split pane takes up
@@ -17,6 +19,11 @@ class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      paneStyle: { transition: "none" },
+      saveText: "Save code",
+    };
+  }
+
     };
   }
 
@@ -26,6 +33,28 @@ class Main extends React.Component {
     if (!this.props.mostRecentProgram.length) {
       this.props.resetMostRecentProgram();
     }
+  }
+
+  resetSaveText = () => {
+    this.setState({
+      saveText: "Save code",
+    })
+  }
+
+  handleSave = (event) => {
+    var programsJson = {};
+
+    for(var i = 0; i < this.props.programs._root.entries.length; i++){
+      programsJson[this.props.programs._root.entries[i][0]] = this.props.programs._root.entries[i][1]._root.entries[0][1];
+    }
+
+    fetch.updatePrograms(this.props.uid, programsJson).then(() =>{
+      this.setState({
+        saveText: "Saved!",
+      })
+
+      setTimeout(this.resetSaveText, 3000);
+    })
   }
 
   renderOpenPanelButton = () => {
@@ -102,6 +131,7 @@ class Main extends React.Component {
               {this.renderOpenPanelButton()}
               {this.renderDropdown()}
               <RunButton runCode={this.props.runCode} />
+              <SaveButton handleSave={this.handleSave} text={this.state.saveText}/>
             </div>
             <div
               className="text-editor-container"
