@@ -1,5 +1,4 @@
 import React from "react";
-import ProfilePanel from "./Editor/components/ProfilePanel";
 import MainContainer from "./Editor/containers/MainContainer";
 import { Motion, spring } from "react-motion";
 // Specify imports for codemirror usage
@@ -9,6 +8,7 @@ import "../styles/CustomCM.css";
 import "../styles/Resizer.css";
 import "../styles/Editor.css";
 import "../styles/Panel.css";
+import ProfilePanelContainer from "./Editor/containers/ProfilePanelContainer";
 
 class Editor extends React.Component {
   /**
@@ -66,7 +66,7 @@ class Editor extends React.Component {
   };
 
   splitPaneChangeHandler = textEditorSize => {
-    this.setState({ textEditorSize, });
+    this.setState({ textEditorSize });
   };
 
   render() {
@@ -79,7 +79,7 @@ class Editor extends React.Component {
     };
 
     const panelStyle = {
-      width: window.innerWidth * 0.25,      //width doesn't change, the 'right' css property just pushes it off the page
+      width: window.innerWidth * 0.25, //width doesn't change, the 'right' css property just pushes it off the page
       height: this.state.height,
     };
 
@@ -97,7 +97,7 @@ class Editor extends React.Component {
           {value => {
             return (
               <React.Fragment>
-                <ProfilePanel
+                <ProfilePanelContainer
                   handleOnSizeChange={this.onSizeChangeHandler}
                   handleOnVisibleChange={this.togglePanel}
                   panelVisible={panelVisible}
