@@ -6,7 +6,6 @@ import DropdownButton from "./DropdownButton";
 import RunButton from "./RunButton";
 import SaveButton from "./SaveButton";
 import * as fetch from "../../../lib/fetch.js";
-import { Map, List, toJS } from "immutable";
 
 /**------Props-------
  * textEditorSize: number? representing the percentage of space the left split pane takes up
