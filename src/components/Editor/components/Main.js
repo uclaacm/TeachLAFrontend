@@ -127,7 +127,6 @@ class Main extends React.Component {
             <div className="code-section-banner">
               {this.renderOpenPanelButton()}
               {this.renderDropdown()}
-              <RunButton runCode={this.props.runCode} />
               <SaveButton handleSave={this.handleSave} text={this.state.saveText} />
             </div>
             <div
