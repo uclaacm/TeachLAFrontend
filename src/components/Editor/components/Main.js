@@ -3,7 +3,6 @@ import SplitPane from "react-split-pane";
 import OutputContainer from "../containers/OutputContainer.js";
 import TextEditorContainer from "../containers/TextEditorContainer";
 import DropdownButton from "./DropdownButton";
-import RunButton from "./RunButton";
 import SaveButton from "./SaveButton";
 import * as fetch from "../../../lib/fetch.js";
 
