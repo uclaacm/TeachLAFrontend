@@ -1,13 +1,6 @@
 import React from "react";
 import Footer from "./common/Footer.js";
 import CreateUserModal from "./CreateUser/CreateUserModal.js";
-import {
-  MINIMUM_USERNAME_LENGTH,
-  MINIMUM_PASSWORD_LENGTH,
-  MAXIMUM_USERNAME_LENGTH,
-  MAXIMUM_PASSWORD_LENGTH,
-  EMAIL_DOMAIN_NAME,
-} from "../constants";
 
 /**--------Props--------
  * None
