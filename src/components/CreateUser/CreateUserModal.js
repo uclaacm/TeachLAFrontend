@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import firebase from "firebase";
 import SHA256 from "crypto-js/sha256";
 import Filter from "bad-words";
-import Footer from "../common/Footer.js";
 import LoginInput from "../Login/LoginInput.js";
 import {
   MINIMUM_USERNAME_LENGTH,
