@@ -38,11 +38,82 @@ class ProfilePanel extends React.Component {
         {/*if there's no displayName, use the default name "Joe Bruin"*/}
         <div className="panel-options">
           <ul className="panel-options-list">
-            <li className="panel-options-item">Profile</li> {/** @todo relocate to Profile page*/}
-            <li className="panel-options-item">Sketches</li> {/** @todo relocate to sketches page*/}
-            <li className="panel-options-item" onClick={() => firebase.auth().signOut()}>
-              Sign Out
-            </li>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "left",
+                color: "white",
+              }}
+            >
+              <img
+                alt="bullet"
+                src="img/bullet.png"
+                style={{ height: "40px", paddingLeft: "35px", paddingRight: "18px" }}
+              />
+              <span style={{ position: "relative", fontSize: "40px", marginTop: "7px" }}>
+                <img
+                  alt="banner"
+                  src="img/banner2.png"
+                  style={{
+                    position: "absolute",
+                    left: "-10px",
+                    top: "-8px",
+                    width: "156px",
+                    height: "80px",
+                    opacity: "0.9",
+                    transform: "rotate(-8deg)",
+                  }}
+                />
+                Profile
+              </span>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "left",
+                color: "white",
+              }}
+            >
+              <img
+                alt="bullet"
+                src="img/bullet.png"
+                style={{ height: "40px", paddingLeft: "35px", paddingRight: "18px" }}
+              />
+              <span style={{ position: "relative", fontSize: "40px", marginTop: "7px" }}>
+                <img
+                  alt="banner"
+                  src="img/banner2.png"
+                  style={{
+                    position: "absolute",
+                    left: "-10px",
+                    top: "-8px",
+                    width: "156px",
+                    height: "80px",
+                    opacity: "0.9",
+                    transform: "rotate(-8deg)",
+                  }}
+                />
+                Sketches
+              </span>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "left",
+                color: "white",
+              }}
+              onClick={() => firebase.auth().signOut()}
+            >
+              <img
+                alt="bullet"
+                src="img/bullet.png"
+                style={{ height: "40px", paddingLeft: "35px", paddingRight: "18px" }}
+              />
+              <span style={{ fontSize: "40px", marginTop: "7px" }}>Sign Out</span>
+            </div>
           </ul>
         </div>
       </div>
