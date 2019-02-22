@@ -10,6 +10,8 @@ import "../styles/Resizer.css";
 import "../styles/Editor.css";
 import "../styles/Panel.css";
 
+const PANEL_SIZE = 300;
+
 class Editor extends React.Component {
   /**
    * constructor
@@ -45,7 +47,7 @@ class Editor extends React.Component {
       width: window.innerWidth,
       height: window.innerHeight,
       textEditorSize: window.innerWidth * 0.375,
-      panelRight: this.state.panelVisible ? window.innerWidth * 0.25 : 0,
+      panelRight: this.state.panelVisible ? PANEL_SIZE : 0,
     });
   };
 
@@ -60,13 +62,13 @@ class Editor extends React.Component {
       //open it if its closed, close it if its open
       panelVisible: !prevState.panelVisible,
       //give the profile panel a size of 0 if it was open, PROFILE_PANEL_MAX_SIZE if it was closed
-      panelRight: prevState.panelVisible ? 0 : prevState.width * 0.25,
+      panelRight: prevState.panelVisible ? 0 : PANEL_SIZE,
       //TODO: change textEditorSize here if you wanna fix the open panel causes output to be small bug (need React Motion)
     }));
   };
 
   splitPaneChangeHandler = textEditorSize => {
-    this.setState({ textEditorSize, });
+    this.setState({ textEditorSize });
   };
 
   render() {
@@ -79,7 +81,7 @@ class Editor extends React.Component {
     };
 
     const panelStyle = {
-      width: window.innerWidth * 0.25,      //width doesn't change, the 'right' css property just pushes it off the page
+      width: PANEL_SIZE, //width doesn't change, the 'right' css property just pushes it off the page
       height: this.state.height,
     };
 
