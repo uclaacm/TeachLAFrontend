@@ -3,7 +3,8 @@ import SplitPane from "react-split-pane";
 import OutputContainer from "../containers/OutputContainer.js";
 import TextEditorContainer from "../containers/TextEditorContainer";
 import DropdownButton from "./DropdownButton";
-import RunButton from "./RunButton";
+import SaveButton from "./SaveButton";
+import * as fetch from "../../../lib/fetch.js";
 
 /**------Props-------
  * textEditorSize: number? representing the percentage of space the left split pane takes up
@@ -17,6 +18,7 @@ class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      saveText: "Save code",
     };
   }
 
@@ -28,12 +30,34 @@ class Main extends React.Component {
     }
   }
 
+  resetSaveText = () => {
+    this.setState({
+      saveText: "Save code",
+    });
+  };
+
+  handleSave = event => {
+    var programsJson = {};
+
+    programsJson["HTML"] = this.props.programs.getIn(["HTML", "code"]);
+    programsJson["Processing"] = this.props.programs.getIn(["Processing", "code"]);
+    programsJson["Python"] = this.props.programs.getIn(["Python", "code"]);
+
+    fetch.updatePrograms(this.props.uid, programsJson).then(() => {
+      this.setState({
+        saveText: "Saved!",
+      });
+
+      setTimeout(this.resetSaveText, 3000);
+    });
+  };
+
   renderOpenPanelButton = () => {
     const { panelVisible, handleOnVisibleChange } = this.props;
 
     //if the left panel is closed, show an empty div
     if (panelVisible) {
-      return <div className="editor-expand-panel-arrow"/>;
+      return <div className="editor-expand-panel-arrow" />;
     }
 
     // otherwise show a > that when clicked, opens the panel
@@ -101,7 +125,7 @@ class Main extends React.Component {
             <div className="code-section-banner">
               {this.renderOpenPanelButton()}
               {this.renderDropdown()}
-              <RunButton runCode={this.props.runCode} />
+              <SaveButton handleSave={this.handleSave} text={this.state.saveText} />
             </div>
             <div
               className="text-editor-container"
