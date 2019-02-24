@@ -54,15 +54,15 @@ class ProfilePanel extends React.Component {
               <span style={{ position: "relative", fontSize: "40px", marginTop: "7px" }}>
                 <img
                   alt="banner"
-                  src="img/banner2.png"
+                  src="img/wip-grey.png"
                   style={{
                     position: "absolute",
                     left: "-10px",
                     top: "-8px",
                     width: "156px",
                     height: "80px",
-                    opacity: "0.9",
-                    transform: "rotate(-8deg)",
+                    opacity: "0.8",
+                    transform: "rotate(-5deg)",
                   }}
                 />
                 Profile
@@ -84,15 +84,15 @@ class ProfilePanel extends React.Component {
               <span style={{ position: "relative", fontSize: "40px", marginTop: "7px" }}>
                 <img
                   alt="banner"
-                  src="img/banner2.png"
+                  src="img/wip-grey.png"
                   style={{
                     position: "absolute",
                     left: "-10px",
                     top: "-8px",
                     width: "156px",
                     height: "80px",
-                    opacity: "0.9",
-                    transform: "rotate(-8deg)",
+                    opacity: "0.8",
+                    transform: "rotate(-5deg)",
                   }}
                 />
                 Sketches
