@@ -23,8 +23,7 @@ class ProfilePanel extends React.Component {
   renderMainContent = () => (
     <div className="panel">
       <div className="panel-collapse-button">
-        <div />
-        <div onClick={this.props.handleOnVisibleChange}>&larr;</div>{" "}
+        <div onClick={this.props.handleOnVisibleChange}>&larr;</div>
         {/*character is leftward facing arrow*/}
       </div>
       <div className="panel-content">
@@ -38,71 +37,63 @@ class ProfilePanel extends React.Component {
         {/*if there's no displayName, use the default name "Joe Bruin"*/}
         <div className="panel-options">
           <ul className="panel-options-list">
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "left",
-                color: "white",
-              }}
-            >
-              <img
-                alt="bullet"
-                src="img/bullet.png"
-                style={{ height: "40px", paddingLeft: "35px", paddingRight: "18px" }}
-              />
-              <span style={{ position: "relative", fontSize: "40px", marginTop: "7px" }}>
+            <div className="test">
+              <span
+                style={{
+                  position: "relative",
+                  fontSize: "33px",
+                  marginTop: "7px",
+                  marginRight: "5px",
+                  display: "flex",
+                  justifyContent: "flex-start",
+                  alignItems: "center",
+                  flex: "1",
+                }}
+              >
                 <img
-                  alt="banner"
-                  src="img/wip-grey.png"
+                  alt="house"
+                  src="img/house2.png"
                   style={{
-                    position: "absolute",
-                    left: "-10px",
-                    top: "-8px",
-                    width: "156px",
-                    height: "80px",
-                    opacity: "0.8",
-                    transform: "rotate(-5deg)",
+                    height: "30px",
+                    paddingRight: "10px",
+                    marginBottom: "12px",
+                    marginLeft: "5px",
                   }}
                 />
-                Profile
+                <span>Profile</span>
+              </span>
+            </div>
+            <div className="test">
+              <span
+                style={{
+                  position: "relative",
+                  fontSize: "33px",
+                  marginTop: "7px",
+                  marginRight: "5px",
+                  display: "flex",
+                  justifyContent: "flex-start",
+                  alignItems: "center",
+                  flex: "1",
+                }}
+              >
+                <img
+                  alt="house"
+                  src="img/pencil.png"
+                  style={{
+                    height: "30px",
+                    paddingRight: "10px",
+                    marginBottom: "12px",
+                    marginLeft: "5px",
+                  }}
+                />
+                <span>Sketches</span>
               </span>
             </div>
             <div
               style={{
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "left",
-                color: "white",
-              }}
-            >
-              <img
-                alt="bullet"
-                src="img/bullet.png"
-                style={{ height: "40px", paddingLeft: "35px", paddingRight: "18px" }}
-              />
-              <span style={{ position: "relative", fontSize: "40px", marginTop: "7px" }}>
-                <img
-                  alt="banner"
-                  src="img/wip-grey.png"
-                  style={{
-                    position: "absolute",
-                    left: "-10px",
-                    top: "-8px",
-                    width: "156px",
-                    height: "80px",
-                    opacity: "0.8",
-                    transform: "rotate(-5deg)",
-                  }}
-                />
-                Sketches
-              </span>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "left",
+                justifyContent: "flex-start",
                 color: "white",
               }}
               onClick={() => firebase.auth().signOut()}
