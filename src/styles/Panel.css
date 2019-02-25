@@ -9,47 +9,68 @@
   justify-content: flex-start;
   box-sizing: content-box;
   margin: 0;
-  min-width: 225px;
   padding: 0;
   overflow: hidden;
+  position: relative;
 }
 
 .panel-collapse-button {
-  display: flex;
-  padding: 1rem;
+  position: absolute;
+  top: 10px;
+  right: 10px;
   color: #dddcdf;
-  width: 100%;
-  justify-content: flex-end;
   cursor: pointer;
+  font-size: 35px;
 }
 
 .panel-content {
   display: flex;
   width: 100%;
-  min-width: 300px;
+  padding-top: 40px;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   overflow-y: auto;
   overflow-x: hidden;
+  box-sizing: content-box;
 }
 
 .panel-image {
   border-radius: 500px;
   border: 1px solid #dddcdf;
-  width: 30%;
-  min-width: 225px;
+  width: 200px;
   /*background:#000;*/ /*if you leave this out, transparent profile pictures will show the background behind it*/
 }
 
 .panel-name {
-  width: 25vw;
   float: middle;
   text-align: center;
-  padding: 27px 0 5px;
-  font-size: 2.5rem;
+  margin: 0px 10px;
+  max-width: 90%;
+  padding: 20px 0 5px;
+  font-size: 2rem;
   font-weight: bold;
+  word-wrap: break-word;
   color: #dddcdf;
+}
+.test {
+  border: 2px solid transparent;
+  border-radius: 10px;
+  background-color: #857e8f;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: rgb(133, 129, 129);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  margin-right: 35px;
+  margin-left: 35px;
+  margin-bottom: 20px;
+}
+.test:hover {
+  border: 2px solid white;
+  border-radius: 10px;
 }
 
 .panel-options {

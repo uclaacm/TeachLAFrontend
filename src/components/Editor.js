@@ -10,7 +10,7 @@ import "../styles/Resizer.css";
 import "../styles/Editor.css";
 import "../styles/Panel.css";
 
-const PANEL_SIZE = 300;
+const PANEL_SIZE = 250;
 
 class Editor extends React.Component {
   /**
@@ -26,8 +26,8 @@ class Editor extends React.Component {
     this.state = {
       width: window.innerWidth,
       height: window.innerHeight,
-      panelVisible: false,
-      panelRight: 0,
+      panelVisible: true,
+      panelRight: PANEL_SIZE,
       textEditorSize: window.innerWidth * 0.5,
       hotReload: false,
     };
