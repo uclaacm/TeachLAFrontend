@@ -20,6 +20,51 @@ class ProfilePanel extends React.Component {
 
   componentDidUpdate() {}
 
+  renderProfileButton = disabled => (
+    <div className={"panel-options-item" + (disabled ? "-disabled" : "")}>
+      {disabled && (
+        <img
+          style={{ position: "absolute", height: "60px", right: "-2px", zIndex: 20, opacity: 0.9 }}
+          alt="banner"
+          src="img/longyellow2.png"
+        />
+      )}
+      <span className={"panel-item-content"}>
+        <img className={"panel-item-icon"} alt="house" src="img/house2.png" />
+        <span className={"panel-item-name"}>Profile</span>
+      </span>
+    </div>
+  );
+
+  renderSketchesButton = disabled => (
+    <div className={"panel-options-item" + (disabled ? "-disabled" : "")}>
+      {disabled && (
+        <img
+          style={{ position: "absolute", height: "60px", right: "-2px", zIndex: 20, opacity: 0.9 }}
+          alt="banner"
+          src="img/longyellow2.png"
+        />
+      )}
+      <span className="panel-item-content">
+        <span className="panel-item-icon">
+          <img className="reverse-image" alt="pencil" src="img/pencil.png" />
+        </span>
+        <span className="panel-item-name">Sketches</span>
+      </span>
+    </div>
+  );
+
+  renderSignOutButton = () => (
+    <div className={"panel-options-item"} onClick={() => firebase.auth().signOut()}>
+      <span className="panel-item-content">
+        <span className="panel-item-icon">
+          <img className={"panel-item-icon"} alt="exit" src="img/exit-icon.png" />
+        </span>
+        <span className="panel-item-name">Log Out</span>
+      </span>
+    </div>
+  );
+
   renderMainContent = () => (
     <div className="panel">
       <div className="panel-collapse-button">
@@ -36,76 +81,11 @@ class ProfilePanel extends React.Component {
         <div className="panel-name">{this.props.displayName || "Joe Bruin"}</div>{" "}
         {/*if there's no displayName, use the default name "Joe Bruin"*/}
         <div className="panel-options">
-          <ul className="panel-options-list">
-            <div className="test">
-              <span
-                style={{
-                  position: "relative",
-                  fontSize: "33px",
-                  marginTop: "7px",
-                  marginRight: "5px",
-                  display: "flex",
-                  justifyContent: "flex-start",
-                  alignItems: "center",
-                  flex: "1",
-                }}
-              >
-                <img
-                  alt="house"
-                  src="img/house2.png"
-                  style={{
-                    height: "30px",
-                    paddingRight: "10px",
-                    marginBottom: "12px",
-                    marginLeft: "5px",
-                  }}
-                />
-                <span>Profile</span>
-              </span>
-            </div>
-            <div className="test">
-              <span
-                style={{
-                  position: "relative",
-                  fontSize: "33px",
-                  marginTop: "7px",
-                  marginRight: "5px",
-                  display: "flex",
-                  justifyContent: "flex-start",
-                  alignItems: "center",
-                  flex: "1",
-                }}
-              >
-                <img
-                  alt="house"
-                  src="img/pencil.png"
-                  style={{
-                    height: "30px",
-                    paddingRight: "10px",
-                    marginBottom: "12px",
-                    marginLeft: "5px",
-                  }}
-                />
-                <span>Sketches</span>
-              </span>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "flex-start",
-                color: "white",
-              }}
-              onClick={() => firebase.auth().signOut()}
-            >
-              <img
-                alt="bullet"
-                src="img/bullet.png"
-                style={{ height: "40px", paddingLeft: "35px", paddingRight: "18px" }}
-              />
-              <span style={{ fontSize: "40px", marginTop: "7px" }}>Sign Out</span>
-            </div>
-          </ul>
+          <div className="panel-options-list">
+            {this.renderProfileButton(true)}
+            {this.renderSketchesButton(true)}
+            {this.renderSignOutButton()}
+          </div>
         </div>
       </div>
       <div className="editor-footer">
