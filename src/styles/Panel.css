@@ -38,7 +38,8 @@
 .panel-image {
   border-radius: 500px;
   border: 1px solid #dddcdf;
-  width: 200px;
+  width: 205px;
+  height: 200px;
   /*background:#000;*/ /*if you leave this out, transparent profile pictures will show the background behind it*/
 }
 

@@ -65,6 +65,16 @@ class ProfilePanel extends React.Component {
     </div>
   );
 
+  renderButtons = () => (
+    <div className="panel-options">
+      <div className="panel-options-list">
+        {this.renderProfileButton(true)}
+        {this.renderSketchesButton(true)}
+        {this.renderSignOutButton()}
+      </div>
+    </div>
+  );
+
   renderMainContent = () => (
     <div className="panel">
       <div className="panel-collapse-button">
@@ -74,19 +84,12 @@ class ProfilePanel extends React.Component {
       <div className="panel-content">
         <img
           className="panel-image"
-          src={this.props.photoURL ? this.props.photoURL + "?height=800" : defaultPic}
+          src={this.props.photoURL ? this.props.photoURL : defaultPic}
           alt="Your profile"
         />{" "}
-        {/*if there's a photourl, use it, otherwise use the default image (the ?height=500 to make sure the picture sent is resized to 500px tall*/}
         <div className="panel-name">{this.props.displayName || "Joe Bruin"}</div>{" "}
         {/*if there's no displayName, use the default name "Joe Bruin"*/}
-        <div className="panel-options">
-          <div className="panel-options-list">
-            {this.renderProfileButton(true)}
-            {this.renderSketchesButton(true)}
-            {this.renderSignOutButton()}
-          </div>
-        </div>
+        {this.renderButtons()}
       </div>
       <div className="editor-footer">
         <img className="editor-footer-image" src="img/tla-footer.png" alt="footer" />
