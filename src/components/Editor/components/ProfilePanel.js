@@ -2,6 +2,7 @@ import React from "react";
 import defaultPic from "../../../img/defaultProfile.png";
 import firebase from "firebase";
 import Filter from "../../../../node_modules/bad-words/lib/badwords.js";
+import { updateUserData } from "../../../lib/fetch.js";
 
 /**--------Props--------
  * handleOnSizeChange: function to be called when the panel is resized
@@ -49,6 +50,43 @@ class ProfilePanel extends React.Component {
 
     if (badInputs) {
       this.setState({ name: "", isHovering: true, editing: false });
+      return;
+    } else {
+      this.setState({ name: "", isHovering: true, editing: false });
+      return;
+    }
+  };
+
+  renderName = () => {
+    if (!this.state.editing) {
+      return (
+        <div
+          className="panel-name"
+          onMouseEnter={() => this.setState({ isHovering: true })}
+          onMouseLeave={() => this.setState({ isHovering: false })}
+          onDoubleClick={this.handleEditClick}
+        >
+          {this.props.displayName || "Joe Bruin"}
+          {this.state.isHovering && (
+            <button class="edit-icon-image" onClick={this.handleEditClick}>
+              <img src="https://i.imgur.com/wQgAOcF.png" width="20px" />
+            </button>
+          )}
+        </div>
+      );
+    } else {
+      return (
+        <form onMouseLeave={this.handleMouseHover} onSubmit={this.onSubmit}>
+          <input
+            autoFocus
+            className="panel-edit"
+            placeholder={this.props.displayName}
+            onChange={this.onChange}
+            onSubmit={this.onSubmit}
+            value={this.state.name}
+          />
+        </form>
+      );
     }
   };
 
@@ -66,29 +104,7 @@ class ProfilePanel extends React.Component {
           alt="Your profile"
         />{" "}
         {/*if there's a photourl, use it, otherwise use the default image (the ?height=500 to make sure the picture sent is resized to 500px tall*/}
-        <div className="name-container">
-          {!this.state.editing && (
-            <div
-              className="panel-name"
-              onMouseEnter={() => this.setState({ isHovering: true })}
-              onMouseLeave={() => this.setState({ isHovering: false })}
-            >
-              {this.props.displayName || "Joe Bruin"}{" "}
-              {this.state.isHovering && <button onClick={this.handleEditClick} />}
-            </div>
-          )}
-          {this.state.editing && (
-            <form onMouseLeave={this.handleMouseHover} onSubmit={this.onSubmit}>
-              <input
-                className="panel-edit"
-                placeHolder={this.props.displayName}
-                onChange={this.onChange}
-                onSubmit={this.onSubmit}
-                value={this.state.name}
-              />
-            </form>
-          )}{" "}
-        </div>
+        <div className="name-container">{this.renderName()} </div>
         {/*if there's no displayName, use the default name "Joe Bruin"*/}
         <div className="panel-options">
           <ul className="panel-options-list">

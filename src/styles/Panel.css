@@ -49,6 +49,7 @@
   font-size: 2.5rem;
   font-weight: bold;
   color: #dddcdf;
+  word-wrap: break-word;
 }
 
 .panel-edit {
@@ -60,6 +61,7 @@
   color: #dddcdf;
   background-color: #272134;
   align-items: baseline;
+  border: none;
 }
 
 .name-container {
@@ -70,7 +72,10 @@
 }
 
 .edit-icon-image {
-  height: 20px;
+  position: absolute;
+  border: none;
+  right: 20px;
+  background-color: transparent;
 }
 
 .panel-options {
