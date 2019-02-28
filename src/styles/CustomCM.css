@@ -57,12 +57,12 @@
 
 /*for python: print, range, all built-in functions */
 .cm-s-material .cm-builtin {
-  color: #ffa04b;
+  color: #ffb36f;
 }
 
 /* 1 2 -11 etc */
 .cm-s-material .cm-number {
-  color: #ff6464;
+  color: #f69797;
 }
 
 /* + - > < etc */
