@@ -3,9 +3,9 @@ import { RingLoader } from "react-spinners";
 import { Link } from "react-router-dom";
 import firebase from "firebase";
 import SHA256 from "crypto-js/sha256";
-import Filter from "bad-words";
 import Footer from "./common/Footer.js";
 import LoginInput from "./Login/LoginInput.js";
+import filter from "@honeyscience/honey-swearjar";
 import {
   MINIMUM_USERNAME_LENGTH,
   MINIMUM_PASSWORD_LENGTH,
@@ -13,8 +13,6 @@ import {
   MAXIMUM_PASSWORD_LENGTH,
   EMAIL_DOMAIN_NAME,
 } from "../constants";
-
-const filter = new Filter();
 
 /**--------Props--------
  * None
@@ -69,7 +67,7 @@ class CreateUser extends React.Component {
           "Username must only use upper case and lower case letters, numbers, and/or the special characters !@#$%",
       });
       badInputs = true;
-    } else if (filter.isProfane(username)) {
+    } else if (filter.isSubstringProfane(username)) {
       this.setState({ usernameMessage: "Username must not contain profanity" });
       badInputs = true;
     } else {
@@ -176,6 +174,7 @@ class CreateUser extends React.Component {
           waiting={this.state.waiting}
           onChange={this.updatePassword}
         />
+        {this.renderErrorMessage(this.state.usernameMessage)}
         {this.renderErrorMessage(this.state.passwordMessage)}
         {this.renderErrorMessage(this.state.errorMessage, true)}
       </div>
