@@ -9,59 +9,38 @@
   justify-content: flex-start;
   box-sizing: content-box;
   margin: 0;
-  min-width: 225px;
   padding: 0;
   overflow: hidden;
+  position: relative;
 }
 
 .panel-collapse-button {
-  display: flex;
-  padding: 1rem;
+  position: absolute;
+  top: 10px;
+  right: 10px;
   color: #dddcdf;
-  width: 100%;
-  justify-content: flex-end;
   cursor: pointer;
+  font-size: 35px;
 }
 
 .panel-content {
   display: flex;
   width: 100%;
-  min-width: 300px;
+  padding-top: 40px;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   overflow-y: auto;
   overflow-x: hidden;
+  box-sizing: content-box;
 }
 
 .panel-image {
   border-radius: 500px;
   border: 1px solid #dddcdf;
-  width: 30%;
-  min-width: 225px;
+  width: 205px;
+  height: 200px;
   /*background:#000;*/ /*if you leave this out, transparent profile pictures will show the background behind it*/
-}
-
-.panel-name {
-  width: 25vw;
-  float: middle;
-  text-align: center;
-  font-size: 2.5rem;
-  font-weight: bold;
-  color: #dddcdf;
-  word-wrap: break-word;
-}
-
-.panel-edit {
-  width: 25vw;
-  float: middle;
-  text-align: center;
-  font-size: 2.5rem;
-  font-weight: bold;
-  color: #dddcdf;
-  background-color: #272134;
-  align-items: baseline;
-  border: none;
 }
 
 .name-container {
@@ -74,8 +53,103 @@
 .edit-icon-image {
   position: absolute;
   border: none;
-  right: 20px;
+  right: 15px;
   background-color: transparent;
+}
+
+.panel-edit {
+  width: 25vw;
+  float: middle;
+  padding: 20px 0 5px;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #dddcdf;
+  word-wrap: break-word;
+  background-color: #272134;
+  align-items: baseline;
+  border: none;
+}
+
+.profile-input-error {
+  color: red;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.panel-name {
+  float: middle;
+  text-align: center;
+  margin: 0px 50px;
+  width: 150px;
+  padding: 20px 0 5px;
+  font-size: 2rem;
+  font-weight: bold;
+  word-wrap: break-word;
+  color: #dddcdf;
+}
+
+.panel-options-item {
+  border: 2px solid transparent;
+  border-radius: 10px;
+  background-color: #857e8f;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: rgb(133, 129, 129);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.panel-options-item:hover {
+  border: 2px solid white;
+  border-radius: 10px;
+}
+
+.panel-options-item-disabled {
+  border: 2px solid transparent;
+  border-radius: 10px;
+  background-color: #857e8f;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: rgb(133, 129, 129);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  position: relative;
+  margin-bottom: 20px;
+}
+.panel-item-content {
+  position: relative;
+  font-size: 33px;
+  margin-top: 7px;
+  margin-right: 5px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex: 1;
+}
+
+.panel-item-content .panel-item-icon {
+  display: flex;
+  height: 30px;
+  padding-right: 10px;
+  margin-bottom: 12px;
+  margin-left: 5px;
+}
+
+.panel-item-content .reverse-image {
+  transform: scaleX(-1);
+  height: 30px;
+}
+.panel-item-name {
+  display: flex;
+  flex: 1;
+  justify-content: center;
 }
 
 .panel-options {
@@ -90,19 +164,19 @@
 .panel-options-list {
   display: inline-block;
   padding: 0px;
-  margin-top: 25px;
+  margin: 35px 25px;
 }
 
-.panel-options-item {
+/* .panel-options-item {
   font-weight: normal;
   font-size: 2.5rem;
   width: fit-content;
   margin: 0px;
   color: #dddcdf;
   justify-content: flex-start;
-}
-
+} */
+/* 
 .panel-options-item:hover {
   font-weight: bold;
   color: "#cdcccf";
-}
+} */

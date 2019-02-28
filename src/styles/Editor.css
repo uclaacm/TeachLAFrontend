@@ -6,6 +6,7 @@
   align-items: flex-start;
   background-color: #585166;
   justify-content: flex-start;
+  position: relative;
 }
 
 .code-section {
