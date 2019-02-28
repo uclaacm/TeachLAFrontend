@@ -97,7 +97,7 @@ class Editor extends React.Component {
           }}
           style={{
             panelLeft: spring(this.state.panelLeft),
-            textEditorAndOutputWidth: spring(this.state.width + panelLeft + PANEL_SIZE),
+            textEditorAndOutputWidth: spring(this.state.width - (panelLeft + PANEL_SIZE)),
             damping: 30,
             stiffness: 218,
           }}
