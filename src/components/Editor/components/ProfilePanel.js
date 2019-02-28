@@ -26,7 +26,7 @@ class ProfilePanel extends React.Component {
         <img
           style={{ position: "absolute", height: "60px", right: "-2px", zIndex: 20, opacity: 0.9 }}
           alt="banner"
-          src="img/longyellow2.png"
+          src="img/coming-soon-banner.png"
         />
       )}
       <span className={"panel-item-content"}>
@@ -42,7 +42,7 @@ class ProfilePanel extends React.Component {
         <img
           style={{ position: "absolute", height: "60px", right: "-2px", zIndex: 20, opacity: 0.9 }}
           alt="banner"
-          src="img/longyellow2.png"
+          src="img/coming-soon-banner.png"
         />
       )}
       <span className="panel-item-content">
