@@ -2,7 +2,6 @@ import React from "react";
 import defaultPic from "../../../img/defaultProfile.png";
 import firebase from "firebase";
 import Filter from "../../../../node_modules/bad-words/lib/badwords.js";
-import { updateUserData } from "../../../lib/fetch.js";
 
 /**--------Props--------
  * handleOnSizeChange: function to be called when the panel is resized
@@ -52,6 +51,7 @@ class ProfilePanel extends React.Component {
       this.setState({ name: "", isHovering: true, editing: false });
       return;
     } else {
+      this.props.setDisplayName(this.state.name);
       this.setState({ name: "", isHovering: true, editing: false });
       return;
     }
@@ -68,8 +68,8 @@ class ProfilePanel extends React.Component {
         >
           {this.props.displayName || "Joe Bruin"}
           {this.state.isHovering && (
-            <button class="edit-icon-image" onClick={this.handleEditClick}>
-              <img src="https://i.imgur.com/wQgAOcF.png" width="20px" />
+            <button className="edit-icon-image" onClick={this.handleEditClick}>
+              <img src="https://i.imgur.com/wQgAOcF.png" width="20px" alt="" />
             </button>
           )}
         </div>
