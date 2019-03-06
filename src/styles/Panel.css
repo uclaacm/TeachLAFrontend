@@ -52,6 +52,7 @@
   width: 400px;
   background-color: rgb(255, 255, 255);
   padding: 40px;
+  border-radius: 20px;
 }
 
 .profile-image-overlay {
@@ -91,7 +92,7 @@
   height: 80px;
   object-fit: cover;
   border-radius: 100%;
-  border: 2px #272134 solid;
+  border: 2px white solid;
 }
 
 .gallery__img:hover {

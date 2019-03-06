@@ -11,6 +11,18 @@ import {
   PROFILE_IMG_2_URL,
   PROFILE_IMG_3,
   PROFILE_IMG_3_URL,
+  PROFILE_IMG_4,
+  PROFILE_IMG_4_URL,
+  PROFILE_IMG_5,
+  PROFILE_IMG_5_URL,
+  PROFILE_IMG_6,
+  PROFILE_IMG_6_URL,
+  PROFILE_IMG_7,
+  PROFILE_IMG_7_URL,
+  PROFILE_IMG_8,
+  PROFILE_IMG_8_URL,
+  PROFILE_IMG_9,
+  PROFILE_IMG_9_URL,
 } from "../../../constants";
 import ReactModal from "react-modal";
 
@@ -165,28 +177,32 @@ class ProfilePanel extends React.Component {
             <figure className="gallery__item" onClick={() => this.onImageClick(PROFILE_IMG_3)}>
               <img src={PROFILE_IMG_3_URL} className="gallery__img" />
             </figure>
-            <figure className="gallery__item" onClick={() => this.onImageClick(PROFILE_IMG_1)}>
-              <img src={PROFILE_IMG_1_URL} className="gallery__img" />
+            <figure className="gallery__item" onClick={() => this.onImageClick(PROFILE_IMG_4)}>
+              <img src={PROFILE_IMG_4_URL} className="gallery__img" />
             </figure>
-            <figure className="gallery__item" onClick={() => this.onImageClick(PROFILE_IMG_2)}>
-              <img src={PROFILE_IMG_2_URL} className="gallery__img" />
+            <figure className="gallery__item" onClick={() => this.onImageClick(PROFILE_IMG_5)}>
+              <img src={PROFILE_IMG_5_URL} className="gallery__img" />
             </figure>
-            <figure className="gallery__item" onClick={() => this.onImageClick(PROFILE_IMG_3)}>
-              <img src={PROFILE_IMG_3_URL} className="gallery__img" />
+            <figure className="gallery__item" onClick={() => this.onImageClick(PROFILE_IMG_6)}>
+              <img src={PROFILE_IMG_6_URL} className="gallery__img" />
             </figure>
-            <figure className="gallery__item" onClick={() => this.onImageClick(PROFILE_IMG_1)}>
-              <img src={PROFILE_IMG_1_URL} className="gallery__img" />
+            <figure className="gallery__item" onClick={() => this.onImageClick(PROFILE_IMG_7)}>
+              <img src={PROFILE_IMG_7_URL} className="gallery__img" />
             </figure>
-            <figure className="gallery__item" onClick={() => this.onImageClick(PROFILE_IMG_2)}>
-              <img src={PROFILE_IMG_2_URL} className="gallery__img" />
+            <figure className="gallery__item" onClick={() => this.onImageClick(PROFILE_IMG_8)}>
+              <img src={PROFILE_IMG_8_URL} className="gallery__img" />
             </figure>
-            <figure className="gallery__item" onClick={() => this.onImageClick(PROFILE_IMG_3)}>
-              <img src={PROFILE_IMG_3_URL} className="gallery__img" />
+            <figure className="gallery__item" onClick={() => this.onImageClick(PROFILE_IMG_9)}>
+              <img src={PROFILE_IMG_9_URL} className="gallery__img" />
             </figure>
           </div>
 
-          <button onClick={this.handleCloseModal}>Cancel</button>
-          <button onClick={this.onImageSubmit}>Submit</button>
+          <button onClick={this.handleCloseModal} style={{ margin: "5px" }}>
+            Cancel
+          </button>
+          <button onClick={this.onImageSubmit} style={{ margin: "5px" }}>
+            Submit
+          </button>
         </ReactModal>
       </div>
     );

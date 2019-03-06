@@ -61,6 +61,12 @@ module.exports = {
   PROFILE_IMG_1: "bananaleaf",
   PROFILE_IMG_2: "elephant",
   PROFILE_IMG_3: "flower",
+  PROFILE_IMG_4: "apple",
+  PROFILE_IMG_5: "hotdog",
+  PROFILE_IMG_6: "icecream",
+  PROFILE_IMG_7: "cloud",
+  PROFILE_IMG_8: "earth",
+  PROFILE_IMG_9: "heart",
 
   PROFILE_IMG_1_URL:
     "https://www.pngkey.com/png/detail/8-88141_88-banana-leaf-png-tropical-banana-leaves-png.png",
@@ -68,7 +74,12 @@ module.exports = {
     "https://www.pngkey.com/png/detail/65-654139_vector-royalty-free-library-elephant-cute-clipart-elephant.png",
   PROFILE_IMG_3_URL:
     "https://www.pngkey.com/png/detail/0-4694_flower-watercolor-painting-clip-art-transparent-watercolor-flower.png",
-
+  PROFILE_IMG_4_URL: "https://i.imgur.com/5S83eug.png",
+  PROFILE_IMG_5_URL: "https://i.imgur.com/CWwlIOF.png",
+  PROFILE_IMG_6_URL: "https://i.imgur.com/OBHz5An.png",
+  PROFILE_IMG_7_URL: "https://i.imgur.com/Cw6IRTu.png",
+  PROFILE_IMG_8_URL: "https://i.imgur.com/SBlnUnG.png",
+  PROFILE_IMG_9_URL: "https://i.imgur.com/ySz1WAS.png",
   //Defaults
   DEFAULT_MODE: PYTHON,
   DEFAULT_LANG: PYTHON,
