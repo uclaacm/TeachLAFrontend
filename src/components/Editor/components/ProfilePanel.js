@@ -90,7 +90,7 @@ class ProfilePanel extends React.Component {
           className="panel-name"
           onMouseEnter={() => this.setState({ isHovering: true })}
           onMouseLeave={() => this.setState({ isHovering: false })}
-          onDoubleClick={this.handleEditClick}
+          onClick={this.handleEditClick}
         >
           {this.props.displayName || "Joe Bruin"}
           {this.state.isHovering && (
