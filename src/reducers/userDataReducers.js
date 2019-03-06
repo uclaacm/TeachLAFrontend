@@ -27,8 +27,7 @@ function userDataReducers(state = initialState, action) {
     case CLEAR_USER_DATA:
       return initialState;
     case LOAD_FAILURE:
-      state.error = "Failed to load user data...";
-      return state;
+      return Object.assign({}, state, { error: "Failed to load user data..." });
     case SET_DISPLAY_NAME:
       state.displayName = action.value;
       // fetch.updateUserData(state.uid, {displayName: action.value})
@@ -55,6 +54,7 @@ function userDataReducers(state = initialState, action) {
       return state;
     case SET_MOST_RECENT_PROGRAM:
       return Object.assign({}, state, { mostRecentProgram: action.value });
+
     default:
       return state;
   }

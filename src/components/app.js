@@ -1,9 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
 import LoginPage from "./containers/LoginContainer";
 import EditorPage from "./containers/EditorContainer";
 import LoadingPage from "./common/LoadingPage";
 import CreateUserPage from "./containers/CreateUserContainer";
+import Error from "./Error";
 import firebase from "firebase";
 import "../styles/app.css";
 
@@ -15,7 +16,6 @@ class App extends React.Component {
 
     this.state = {
       checkedAuth: false,
-      errorMsg: "",
       showErrorPage: false,
     };
   }
@@ -46,12 +46,14 @@ class App extends React.Component {
         await this.props.loadUserData(uid, this.showErrorPage);
         this.setState({ checkedAuth: true });
       } else {
-        this.setState({ checkedAuth: true, errorMsg: "No UID provided with user" });
+        this.props.loadFailure(this.errorMsg);
+        this.setState({ checkedAuth: true }); //errorMsg: "No UID provided with user" });
       }
     } else {
       console.log("no user found");
       this.props.clearUserData();
-      this.setState({ checkedAuth: true, errorMsg: "" });
+      this.props.loadFailure(this.errorMsg);
+      this.setState({ checkedAuth: true }); //errorMsg: "" });
     }
   };
 
@@ -66,13 +68,13 @@ class App extends React.Component {
       return <LoadingPage />;
     }
 
-    if (this.state.showErrorPage) {
-      return <div>Error page {this.state.errorMsg}</div>;
-    }
+    // if (this.state.showErrorPage) {
+    //   return <div>Error page {this.state.errorMsg}</div>;
+    // }
 
-    if (this.state.errorMsg) {
-      return <div style={{ color: "red" }}>{this.state.errorMsg}</div>;
-    }
+    // if (this.state.errorMsg) {
+    //   return <div style={{ color: "red" }}>{this.state.errorMsg}</div>;
+    // }
 
     //the user is not valid if there's no UID
     let isValidUser = this.props.uid;
@@ -80,31 +82,47 @@ class App extends React.Component {
     return (
       <Router>
         <div className="App">
-          {/*if the user is loggedIn, redirect them to the editor, otherwise, show the login page*?*/}
-          <Route
-            exact
-            path="/"
-            render={() =>
-              isValidUser ? <Redirect to="/editor" /> : <LoginPage provider={provider} />
-            }
-          />
-          {/*if the user is loggedIn, redirect them to the editor, otherwise, show the login page*?*/}
-          <Route
-            path="/login"
-            render={() =>
-              isValidUser ? <Redirect to="/editor" /> : <LoginPage provider={provider} />
-            }
-          />
-          {/*if the user is not loggedIn, redirect them to the login page, otherwise, show the editor page*?*/}
-          <Route
-            path="/editor"
-            render={() => (!isValidUser ? <Redirect to="/login" /> : <EditorPage />)}
-          />
-          {/*if the user is loggedIn, redirect them to the editor page, otherwise, show the createUser page*?*/}
-          <Route
-            path="/createUser"
-            render={() => (isValidUser ? <Redirect to="/editor" /> : <CreateUserPage />)}
-          />
+          <Switch>
+            {/*if the user is loggedIn, redirect them to the editor, otherwise, show the login page*?*/}
+            <Route
+              exact
+              path="/"
+              render={() =>
+                isValidUser ? <Redirect to="/editor" /> : <LoginPage provider={provider} />
+              }
+            />
+            {/*if the user is loggedIn, redirect them to the editor, otherwise, show the login page*?*/}
+            <Route
+              path="/login"
+              render={() =>
+                isValidUser ? <Redirect to="/editor" /> : <LoginPage provider={provider} />
+              }
+            />
+            {/*if the user is not loggedIn, redirect them to the login page, otherwise, show the editor page*?*/}
+            <Route
+              path="/editor"
+              render={() => (!isValidUser ? <Redirect to="/login" /> : <EditorPage />)}
+            />
+            {/*if the user is loggedIn, redirect them to the editor page, otherwise, show the createUser page*?*/}
+            <Route
+              path="/createUser"
+              render={() => (isValidUser ? <Redirect to="/editor" /> : <CreateUserPage />)}
+            />
+            {/* Default error page */}
+            <Route
+              path="/error"
+              render={() =>
+                this.props.errorMsg ? (
+                  <Error errorMsg={this.props.errorMsg} />
+                ) : isValidUser ? (
+                  <Redirect to="/editor" />
+                ) : (
+                  <Redirect to="/login" />
+                )
+              }
+            />
+            <Route component={Error} />
+          </Switch>
         </div>
       </Router>
     );
