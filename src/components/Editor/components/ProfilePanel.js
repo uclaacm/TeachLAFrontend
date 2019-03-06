@@ -86,8 +86,8 @@ class ProfilePanel extends React.Component {
           className="panel-image"
           src={this.props.photoURL ? this.props.photoURL : defaultPic}
           alt="Your profile"
-        />{" "}
-        <div className="panel-name">{this.props.displayName || "Joe Bruin"}</div>{" "}
+        />
+        <div className="panel-name">{this.props.displayName || "Joe Bruin"}</div>
         {/*if there's no displayName, use the default name "Joe Bruin"*/}
         {this.renderButtons()}
       </div>

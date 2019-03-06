@@ -110,7 +110,6 @@ export default class LoginModal extends React.Component {
   render() {
     return (
       <form className="login-form" onSubmit={this.handleEmailLogin}>
-        {" "}
         {/*Form doesn't do anything rn, just an example of a stateful React form.*/}
         <div className="login-header">{"Welcome to <Teach LA>"}</div>
         <br />
