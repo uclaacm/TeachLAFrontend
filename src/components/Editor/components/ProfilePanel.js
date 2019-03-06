@@ -2,7 +2,17 @@ import React from "react";
 import defaultPic from "../../../img/defaultProfile.png";
 import firebase from "firebase";
 import Filter from "../../../../node_modules/bad-words/lib/badwords.js";
-import { MINIMUM_DISPLAY_NAME_LENGTH, MAXIMUM_DISPLAY_NAME_LENGTH } from "../../../constants";
+import {
+  MINIMUM_DISPLAY_NAME_LENGTH,
+  MAXIMUM_DISPLAY_NAME_LENGTH,
+  PROFILE_IMG_1,
+  PROFILE_IMG_1_URL,
+  PROFILE_IMG_2,
+  PROFILE_IMG_2_URL,
+  PROFILE_IMG_3,
+  PROFILE_IMG_3_URL,
+} from "../../../constants";
+import ReactModal from "react-modal";
 
 /**--------Props--------
  * handleOnSizeChange: function to be called when the panel is resized
@@ -19,22 +29,42 @@ class ProfilePanel extends React.Component {
     this.state = {
       prevWidth: 0,
       width: this.props.width,
-      isHovering: false,
+      nameIsHovering: false,
+      imageIsHovering: false,
       editing: false,
+      showModal: false,
       name: "",
+      profileImage: "",
       displayNameMessage: "",
     };
+
+    this.handleOpenModal = this.handleOpenModal.bind(this);
+    this.handleCloseModal = this.handleCloseModal.bind(this);
   }
 
   componentDidUpdate() {}
 
-  handleEditClick = () => {
+  handleOpenModal() {
+    this.setState({ showModal: true, profileImage: "" });
+  }
+
+  handleCloseModal() {
+    this.setState({ profileImage: "", showModal: false });
+  }
+
+  handleEditNameClick = () => {
     this.setState(prevState => {
       return { editing: true };
     });
   };
 
-  onChange = e => {
+  handleEditImageClick = () => {
+    this.setState(prevState => {
+      return { showModal: true };
+    });
+  };
+
+  onNameChange = e => {
     this.setState({ name: e.target.value });
   };
 
@@ -58,18 +88,24 @@ class ProfilePanel extends React.Component {
     return false;
   };
 
-  onSubmit = e => {
+  onNameSubmit = e => {
     e.preventDefault();
     let badInputs = this.checkInputs();
 
     if (badInputs) {
-      this.setState({ name: "", isHovering: true, editing: false });
+      this.setState({ name: "", nameIsHovering: true, editing: false });
       return;
     } else {
       this.props.setDisplayName(this.state.name);
-      this.setState({ name: "", isHovering: true, editing: false, displayNameMessage: "" });
+      this.setState({ name: "", nameIsHovering: true, editing: false, displayNameMessage: "" });
       return;
     }
+  };
+
+  onImageSubmit = () => {
+    // SEND IMAGE NAME TO BACKEND, CHANGE IMAGE
+    this.handleCloseModal();
+    this.setState({ profileImage: "" });
   };
 
   renderErrorMessage = (msg, addBreak) => {
@@ -83,18 +119,91 @@ class ProfilePanel extends React.Component {
     return addBreak ? <br /> : null;
   };
 
+  renderPanelImage = () => {
+    return (
+      <div
+        onMouseEnter={() => this.setState({ imageIsHovering: true })}
+        onMouseLeave={() => this.setState({ imageIsHovering: false })}
+      >
+        <img
+          className="panel-image"
+          src={this.props.photoURL ? this.props.photoURL : defaultPic} // needs to be edited to use profile image name
+          alt="Your profile"
+        />{" "}
+        {this.state.imageIsHovering && (
+          <button className="image-edit-button" onClick={this.handleOpenModal}>
+            Edit
+          </button>
+        )}
+      </div>
+    );
+  };
+
+  onImageClick = name => {
+    console.log(name);
+    this.setState(prevState => {
+      return { profileImage: name };
+    });
+  };
+
+  renderImageModal = () => {
+    return (
+      <div>
+        <ReactModal
+          isOpen={this.state.showModal}
+          onRequestClose={this.handleCloseModal}
+          className="profile-image-modal"
+          overlayClassName="profile-image-overlay"
+        >
+          <div className="gallery">
+            <figure className="gallery__item" onClick={() => this.onImageClick(PROFILE_IMG_1)}>
+              <img src={PROFILE_IMG_1_URL} className="gallery__img" />
+            </figure>
+            <figure className="gallery__item" onClick={() => this.onImageClick(PROFILE_IMG_2)}>
+              <img src={PROFILE_IMG_2_URL} className="gallery__img" />
+            </figure>
+            <figure className="gallery__item" onClick={() => this.onImageClick(PROFILE_IMG_3)}>
+              <img src={PROFILE_IMG_3_URL} className="gallery__img" />
+            </figure>
+            <figure className="gallery__item" onClick={() => this.onImageClick(PROFILE_IMG_1)}>
+              <img src={PROFILE_IMG_1_URL} className="gallery__img" />
+            </figure>
+            <figure className="gallery__item" onClick={() => this.onImageClick(PROFILE_IMG_2)}>
+              <img src={PROFILE_IMG_2_URL} className="gallery__img" />
+            </figure>
+            <figure className="gallery__item" onClick={() => this.onImageClick(PROFILE_IMG_3)}>
+              <img src={PROFILE_IMG_3_URL} className="gallery__img" />
+            </figure>
+            <figure className="gallery__item" onClick={() => this.onImageClick(PROFILE_IMG_1)}>
+              <img src={PROFILE_IMG_1_URL} className="gallery__img" />
+            </figure>
+            <figure className="gallery__item" onClick={() => this.onImageClick(PROFILE_IMG_2)}>
+              <img src={PROFILE_IMG_2_URL} className="gallery__img" />
+            </figure>
+            <figure className="gallery__item" onClick={() => this.onImageClick(PROFILE_IMG_3)}>
+              <img src={PROFILE_IMG_3_URL} className="gallery__img" />
+            </figure>
+          </div>
+
+          <button onClick={this.handleCloseModal}>Cancel</button>
+          <button onClick={this.onImageSubmit}>Submit</button>
+        </ReactModal>
+      </div>
+    );
+  };
+
   renderName = () => {
     if (!this.state.editing) {
       return (
         <div
           className="panel-name"
-          onMouseEnter={() => this.setState({ isHovering: true })}
-          onMouseLeave={() => this.setState({ isHovering: false })}
-          onDoubleClick={this.handleEditClick}
+          onMouseEnter={() => this.setState({ nameIsHovering: true })}
+          onMouseLeave={() => this.setState({ nameIsHovering: false })}
+          onClick={this.handleEditNameClick}
         >
           {this.props.displayName || "Joe Bruin"}
-          {this.state.isHovering && (
-            <button className="edit-icon-image" onClick={this.handleEditClick}>
+          {this.state.nameIsHovering && (
+            <button className="edit-icon-image" onClick={this.handleEditNameClick}>
               <img src="https://i.imgur.com/wQgAOcF.png" width="20px" alt="" />
             </button>
           )}
@@ -102,13 +211,13 @@ class ProfilePanel extends React.Component {
       );
     } else {
       return (
-        <form onMouseLeave={this.handleMouseHover} onSubmit={this.onSubmit}>
+        <form onMouseLeave={this.handleMouseHover} onSubmit={this.onNameSubmit}>
           <input
             autoFocus
             className="panel-edit"
             placeholder={this.props.displayName}
-            onChange={this.onChange}
-            onSubmit={this.onSubmit}
+            onChange={this.onNameChange}
+            onSubmit={this.onNameSubmit}
             value={this.state.name}
           />
         </form>
@@ -178,11 +287,8 @@ class ProfilePanel extends React.Component {
         {/*character is leftward facing arrow*/}
       </div>
       <div className="panel-content">
-        <img
-          className="panel-image"
-          src={this.props.photoURL ? this.props.photoURL : defaultPic}
-          alt="Your profile"
-        />{" "}
+        <div>{this.renderPanelImage()}</div>
+        <div>{this.renderImageModal()}</div>
         {/*if there's a photourl, use it, otherwise use the default image (the ?height=500 to make sure the picture sent is resized to 500px tall*/}
         <div>{this.renderName()} </div>
         <div>{this.renderErrorMessage(this.state.displayNameMessage)}</div>

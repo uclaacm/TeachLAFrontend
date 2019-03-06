@@ -5,6 +5,7 @@ import {
   SET_DISPLAY_NAME,
   SET_PHOTO_URL,
   SET_MOST_RECENT_PROGRAM,
+  SET_PHOTO_NAME,
 } from "../actions/userDataActions";
 
 import { PYTHON } from "../constants";
@@ -17,6 +18,7 @@ const initialState = {
   photoURL: null,
   uid: "",
   mostRecentProgram: PYTHON,
+  photoName: "",
 };
 
 function userDataReducers(state = initialState, action) {
@@ -57,6 +59,10 @@ function userDataReducers(state = initialState, action) {
       return state;
     case SET_MOST_RECENT_PROGRAM:
       return Object.assign({}, state, { mostRecentProgram: action.value });
+    case SET_PHOTO_NAME:
+      let photoName = action.photoName;
+      // some type of fetch call here
+      return Object.assign({}, state, { photoName: photoName });
     default:
       return state;
   }

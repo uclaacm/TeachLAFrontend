@@ -57,6 +57,18 @@ module.exports = {
   MAXIMUM_PASSWORD_LENGTH: 20,
   MAXIMUM_DISPLAY_NAME_LENGTH: 25,
 
+  // Profile picture constants
+  PROFILE_IMG_1: "bananaleaf",
+  PROFILE_IMG_2: "elephant",
+  PROFILE_IMG_3: "flower",
+
+  PROFILE_IMG_1_URL:
+    "https://www.pngkey.com/png/detail/8-88141_88-banana-leaf-png-tropical-banana-leaves-png.png",
+  PROFILE_IMG_2_URL:
+    "https://www.pngkey.com/png/detail/65-654139_vector-royalty-free-library-elephant-cute-clipart-elephant.png",
+  PROFILE_IMG_3_URL:
+    "https://www.pngkey.com/png/detail/0-4694_flower-watercolor-painting-clip-art-transparent-watercolor-flower.png",
+
   //Defaults
   DEFAULT_MODE: PYTHON,
   DEFAULT_LANG: PYTHON,

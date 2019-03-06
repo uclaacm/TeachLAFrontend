@@ -38,9 +38,68 @@
 .panel-image {
   border-radius: 500px;
   border: 1px solid #dddcdf;
-  width: 205px;
+  width: 200px;
   height: 200px;
   /*background:#000;*/ /*if you leave this out, transparent profile pictures will show the background behind it*/
+}
+
+.profile-image-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 480px;
+  width: 400px;
+  background-color: rgb(255, 255, 255);
+  padding: 40px;
+}
+
+.profile-image-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(59, 59, 59, 0.514);
+  z-index: 80;
+}
+
+.image-edit-button {
+  height: 100px;
+  width: 200px;
+  border-bottom-left-radius: 100px;
+  border-bottom-right-radius: 100px;
+  font-size: 2rem;
+  font-weight: bold;
+  position: absolute;
+  top: 140px;
+  border-color: #383838;
+  background-color: rgba(107, 107, 107, 0.6);
+  color: #dddcdf;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: 80px 80px 80px;
+  grid-template-rows: 80px 80px 80px;
+  grid-gap: 40px;
+  padding-bottom: 40px;
+}
+
+.gallery__img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 100%;
+  border: 2px #272134 solid;
+}
+
+.gallery__img:hover {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 100%;
+  border: 2px #846fb1 solid;
 }
 
 .name-container {

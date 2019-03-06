@@ -1,7 +1,7 @@
-export const LOAD_USER_DATA = 'LOAD_USER_DATA'
+export const LOAD_USER_DATA = "LOAD_USER_DATA";
 export function loadUserData(uid, userData) {
   // add uid to the userData object
-  return { type: LOAD_USER_DATA, userData: {...userData, uid: uid}}
+  return { type: LOAD_USER_DATA, userData: { ...userData, uid: uid } };
 }
 
 export const CLEAR_USER_DATA = "CLEAR_USER_DATA";
@@ -54,9 +54,14 @@ export function programUploadFailure(error) {
   return { type: PROGRAM_UPLOAD_FAILURE, message: error.message };
 }
 
-export const SET_MOST_RECENT_PROGRAM = "SET_MOST_RECENT_PROGRAM"
-export function setMostRecentProgram(program){
-  return {type: SET_MOST_RECENT_PROGRAM, value:program}
+export const SET_MOST_RECENT_PROGRAM = "SET_MOST_RECENT_PROGRAM";
+export function setMostRecentProgram(program) {
+  return { type: SET_MOST_RECENT_PROGRAM, value: program };
+}
+
+export const SET_PHOTO_NAME = "SET_PHOTO_NAME";
+export function setPhotoName(photoName) {
+  return { type: SET_PHOTO_NAME, photoName: photoName };
 }
 
 // /**
