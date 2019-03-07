@@ -10,6 +10,7 @@ import * as fetch from "../../lib/fetch.js";
 const mapStateToProps = state => {
   return {
     uid: state.userData.uid,
+    errorMsg: state.userData.error,
   };
 };
 

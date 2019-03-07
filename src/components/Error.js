@@ -10,9 +10,16 @@ class Error extends React.Component {
 
   renderError = () => {
     return (
-      <div className="Loading">
-        <div className="Loading-title">Uh oh!</div>
-        <h2>{this.props.errorMsg}</h2>
+      <div className="login-page-content">
+        <div className="login-modal">
+          <div className="login-form">
+            <div className="login-header">{"Oops!"}</div>
+            <br />
+            <h1>Something went wrong. Try again later!</h1>
+            <br />
+            <h1>{this.props.errorMsg}</h1>
+          </div>
+        </div>
       </div>
     );
   };
@@ -23,7 +30,7 @@ class Error extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="login-page">
         {this.renderError()}
         {this.renderFooter()}
       </div>
