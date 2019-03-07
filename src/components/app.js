@@ -46,14 +46,14 @@ class App extends React.Component {
         await this.props.loadUserData(uid, this.showErrorPage);
         this.setState({ checkedAuth: true });
       } else {
-        this.props.loadFailure(this.errorMsg);
-        this.setState({ checkedAuth: true }); //errorMsg: "No UID provided with user" });
+        this.props.loadFailure();
+        this.setState({ checkedAuth: true });
       }
     } else {
       console.log("no user found");
       this.props.clearUserData();
-      this.props.loadFailure(this.errorMsg);
-      this.setState({ checkedAuth: true }); //errorMsg: "" });
+      this.props.loadFailure("No user could be found");
+      this.setState({ checkedAuth: true });
     }
   };
 
@@ -75,10 +75,6 @@ class App extends React.Component {
     if (this.state.showErrorPage) {
       return <Error errorMsg={this.state.errorMsg} />;
     }
-
-    // if (this.state.errorMsg) {
-    //   return <div style={{ color: "red" }}>{this.state.errorMsg}</div>;
-    // }
 
     //the user is not valid if there's no UID
     let isValidUser = this.props.uid;
