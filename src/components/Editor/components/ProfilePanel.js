@@ -1,7 +1,6 @@
 import React from "react";
 import defaultPic from "../../../img/defaultProfile.png";
 import firebase from "firebase";
-import Filter from "../../../../node_modules/bad-words/lib/badwords.js";
 import { MINIMUM_DISPLAY_NAME_LENGTH, MAXIMUM_DISPLAY_NAME_LENGTH } from "../../../constants";
 
 /**--------Props--------
@@ -10,8 +9,6 @@ import { MINIMUM_DISPLAY_NAME_LENGTH, MAXIMUM_DISPLAY_NAME_LENGTH } from "../../
  * panelVisible: boolean to determine if the panel should be open or not
  * size: number? representing the pixel width of the panel
  */
-
-const filter = new Filter();
 
 class ProfilePanel extends React.Component {
   constructor(props) {
@@ -45,14 +42,11 @@ class ProfilePanel extends React.Component {
         displayNameMessage: `Display name must be between ${MINIMUM_DISPLAY_NAME_LENGTH}-${MAXIMUM_DISPLAY_NAME_LENGTH} characters long`,
       });
       return true;
-    } else if (name.match(/[^a-zA-Z0-9!@#$%]/)) {
+    } else if (name.match(/[^a-zA-Z0-9!@#$% ]/)) {
       this.setState({
         displayNameMessage:
-          "Display name must only use upper case and lower case letters, numbers, and/or the special characters !@#$%",
+          "Display name must only use upper case and lower case letters, numbers, spaces, and/or the special characters !@#$%",
       });
-      return true;
-    } else if (filter.isProfane(name)) {
-      this.setState({ displayNameMessage: "Display name must not contain profanity" });
       return true;
     }
     return false;
@@ -102,7 +96,7 @@ class ProfilePanel extends React.Component {
       );
     } else {
       return (
-        <form onMouseLeave={this.handleMouseHover} onSubmit={this.onSubmit}>
+        <form onSubmit={this.onSubmit}>
           <input
             autoFocus
             className="panel-edit"

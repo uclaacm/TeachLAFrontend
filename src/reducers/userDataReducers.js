@@ -34,7 +34,6 @@ function userDataReducers(state = initialState, action) {
       fetch
         .updateUserData(state.uid, { displayName: action.value })
         .then(response => {
-          console.log(action.value);
           //if nothing went bad, keep the display name, otherwise, change it back (or dont, depends how we wanna do it)
           console.log(response);
         })
