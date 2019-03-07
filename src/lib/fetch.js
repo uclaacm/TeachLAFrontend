@@ -98,11 +98,13 @@ export const updateUserData = (uid = "", userData) => {
     return;
   }
 
+  console.log(body);
+
   const options = {
     method: "post",
-    // headers: {
-    //   "Content-Type": "application/json; charset=utf-8",
-    // },
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+    },
     body,
   };
 

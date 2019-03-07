@@ -1,11 +1,6 @@
-import React from "react";
 import ProfilePanel from "../components/ProfilePanel";
 import { connect } from "react-redux";
 import { setDisplayName } from "../../../actions/userDataActions";
-
-const DISPLAY_NAME_INPUT = "display-name-input";
-const DISPLAY_NAME_WRAPPER = "panel-name";
-const PHOTO_WRAPPER = "panel-image";
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -31,6 +26,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     //   }
     // },
     collectUserPhoto: () => {},
+    setDisplayName: name => dispatch(setDisplayName(name)),
   };
 };
 
