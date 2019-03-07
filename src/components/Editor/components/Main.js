@@ -3,7 +3,7 @@ import SplitPane from "react-split-pane";
 import OutputContainer from "../containers/OutputContainer.js";
 import TextEditorContainer from "../containers/TextEditorContainer";
 import DropdownButton from "./DropdownButton";
-import SaveButton from "./SaveButton";
+import EditorButton from "./EditorButton";
 import * as fetch from "../../../lib/fetch.js";
 
 /**------Props-------
@@ -125,7 +125,7 @@ class Main extends React.Component {
             <div className="code-section-banner">
               {this.renderOpenPanelButton()}
               {this.renderDropdown()}
-              <SaveButton handleSave={this.handleSave} text={this.state.saveText} />
+              <EditorButton handleClick={this.handleSave} text={this.state.saveText} />
             </div>
             <div
               className="text-editor-container"
