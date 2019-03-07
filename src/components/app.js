@@ -72,9 +72,9 @@ class App extends React.Component {
       return <LoadingPage />;
     }
 
-    // if (this.state.showErrorPage) {
-    //   return <div>Error page {this.state.errorMsg}</div>;
-    // }
+    if (this.state.showErrorPage) {
+      return <Error errorMsg={this.state.errorMsg} />;
+    }
 
     // if (this.state.errorMsg) {
     //   return <div style={{ color: "red" }}>{this.state.errorMsg}</div>;
