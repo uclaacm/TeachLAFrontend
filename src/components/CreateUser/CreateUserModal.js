@@ -3,25 +3,16 @@ import { RingLoader } from "react-spinners";
 import { Link } from "react-router-dom";
 import firebase from "firebase";
 import SHA256 from "crypto-js/sha256";
-import Footer from "./common/Footer.js";
-import LoginInput from "./Login/LoginInput.js";
+import LoginInput from "../Login/LoginInput.js";
 import {
   MINIMUM_USERNAME_LENGTH,
   MINIMUM_PASSWORD_LENGTH,
   MAXIMUM_USERNAME_LENGTH,
   MAXIMUM_PASSWORD_LENGTH,
   EMAIL_DOMAIN_NAME,
-} from "../constants";
+} from "../../constants";
 
-/**--------Props--------
- * None
- */
-
-class CreateUser extends React.Component {
-  /**
-   * constructor - sets initial state and props
-   * @param {Object} props - properties passed down by the super component
-   */
+export default class CreateUserModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -49,12 +40,7 @@ class CreateUser extends React.Component {
     let badInputs = false;
 
     //if username is too long, too short, has non ascii and some special characters, reject it
-    if (username.length < MINIMUM_USERNAME_LENGTH) {
-      this.setState({
-        usernameMessage: `Username must be between ${MINIMUM_USERNAME_LENGTH}-${MAXIMUM_USERNAME_LENGTH} characters long`,
-      });
-      badInputs = true;
-    } else if (username.length > MAXIMUM_USERNAME_LENGTH) {
+    if (username.length < MINIMUM_USERNAME_LENGTH || username.length > MAXIMUM_USERNAME_LENGTH) {
       this.setState({
         usernameMessage: `Username must be between ${MINIMUM_USERNAME_LENGTH}-${MAXIMUM_USERNAME_LENGTH} characters long`,
       });
@@ -70,14 +56,9 @@ class CreateUser extends React.Component {
     }
 
     //if password is too long, too short, has non ascii and some special characters, reject it
-    if (password.length < MINIMUM_PASSWORD_LENGTH) {
+    if (password.length < MINIMUM_PASSWORD_LENGTH || password.length > MAXIMUM_PASSWORD_LENGTH) {
       this.setState({
         passwordMessage: `Password must be between ${MINIMUM_PASSWORD_LENGTH}-${MAXIMUM_PASSWORD_LENGTH} characters long`,
-      });
-      badInputs = true;
-    } else if (password.length > MAXIMUM_PASSWORD_LENGTH) {
-      this.setState({
-        passwordMessage: `Password must be between ${MINIMUM_USERNAME_LENGTH}-${MAXIMUM_PASSWORD_LENGTH} characters long`,
       });
       badInputs = true;
     } else if (password.match(/[^a-zA-Z0-9!@#$%]/)) {
@@ -196,37 +177,17 @@ class CreateUser extends React.Component {
     </Link>
   );
 
-  renderModal = () => {
-    return (
-      <div className="login-page-content">
-        <div style={{ height: "0px" }}>&nbsp;</div>
-        {/*for some reason when you don't have a non empty element above the modal,
-        it leaves a white section above it...so thats why this is here*/}
-        <div className="login-modal">
-          <CreateUserModal />
-        </div>
-      </div>
-    );
-  };
-
-  renderFooter = () => {
-    return <Footer />;
-  };
-
   render() {
-    //if we haven't checked if the user is logged in yet, show a loading screen
     return (
-      <div className="login-page">
-        <div className="login-page-content">
-          <div style={{ height: "0px" }}>&nbsp;</div>
-          {/*for some reason when you don't have a non empty element above the modal,
-          it leaves a white section above it...so thats why this is here*/}
-          {this.renderModal()}
-        </div>
-        {this.renderFooter()}
-      </div>
+      <form className="login-form" onSubmit={this.submit}>
+        {" "}
+        {this.renderHeader()}
+        <br />
+        {this.renderInputs()}
+        {this.renderButton()}
+        {this.renderLoader()}
+        {this.renderLink()}
+      </form>
     );
   }
 }
-
-export default CreateUser;
