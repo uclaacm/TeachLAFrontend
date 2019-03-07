@@ -86,6 +86,7 @@ class Editor extends React.Component {
       width: PANEL_SIZE, //width doesn't change, the 'right' css property just pushes it off the page
       height: this.state.height,
       position: "absolute",
+      display: "flex",
     };
 
     return (
