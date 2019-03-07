@@ -10,6 +10,10 @@ import "../styles/Resizer.css";
 import "../styles/Editor.css";
 import "../styles/Panel.css";
 
+const PANEL_SIZE = 250;
+const CLOSED_PANEL_LEFT = -1 * PANEL_SIZE;
+const OPEN_PANEL_LEFT = 0;
+
 class Editor extends React.Component {
   /**
    * constructor
@@ -25,7 +29,7 @@ class Editor extends React.Component {
       width: window.innerWidth,
       height: window.innerHeight,
       panelVisible: false,
-      panelRight: 0,
+      panelLeft: CLOSED_PANEL_LEFT,
       textEditorSize: window.innerWidth * 0.5,
       hotReload: false,
     };
@@ -45,7 +49,7 @@ class Editor extends React.Component {
       width: window.innerWidth,
       height: window.innerHeight,
       textEditorSize: window.innerWidth * 0.375,
-      panelRight: this.state.panelVisible ? window.innerWidth * 0.25 : 0,
+      panelLeft: this.state.panelVisible ? OPEN_PANEL_LEFT : CLOSED_PANEL_LEFT,
     });
   };
 
@@ -60,17 +64,17 @@ class Editor extends React.Component {
       //open it if its closed, close it if its open
       panelVisible: !prevState.panelVisible,
       //give the profile panel a size of 0 if it was open, PROFILE_PANEL_MAX_SIZE if it was closed
-      panelRight: prevState.panelVisible ? 0 : prevState.width * 0.25,
+      panelLeft: prevState.panelVisible ? CLOSED_PANEL_LEFT : OPEN_PANEL_LEFT,
       //TODO: change textEditorSize here if you wanna fix the open panel causes output to be small bug (need React Motion)
     }));
   };
 
   splitPaneChangeHandler = textEditorSize => {
-    this.setState({ textEditorSize, });
+    this.setState({ textEditorSize });
   };
 
   render() {
-    const { panelVisible, panelRight, textEditorSize, hotReload } = this.state;
+    const { panelVisible, panelLeft, textEditorSize, hotReload } = this.state;
 
     //style to be applied to non panel (sections containing text editor and code output)
     const codeStyle = {
@@ -79,17 +83,21 @@ class Editor extends React.Component {
     };
 
     const panelStyle = {
-      width: window.innerWidth * 0.25,      //width doesn't change, the 'right' css property just pushes it off the page
+      width: PANEL_SIZE, //width doesn't change, the 'right' css property just pushes it off the page
       height: this.state.height,
+      position: "absolute",
     };
 
     return (
       <div className="editor">
         <Motion
-          defaultStyle={{ x: 0, y: this.state.width }}
+          defaultStyle={{
+            panelLeft: CLOSED_PANEL_LEFT,
+            textEditorAndOutputWidth: this.state.width,
+          }}
           style={{
-            x: spring(this.state.panelRight),
-            y: spring(this.state.width - panelRight),
+            panelLeft: spring(this.state.panelLeft),
+            textEditorAndOutputWidth: spring(this.state.width - (panelLeft + PANEL_SIZE)),
             damping: 30,
             stiffness: 218,
           }}
@@ -98,17 +106,19 @@ class Editor extends React.Component {
             return (
               <React.Fragment>
                 <ProfilePanel
-                  handleOnSizeChange={this.onSizeChangeHandler}
                   handleOnVisibleChange={this.togglePanel}
                   panelVisible={panelVisible}
-                  panelStyle={Object.assign({}, panelStyle, { right: value.x })}
+                  panelStyle={Object.assign({}, panelStyle, { left: value.panelLeft })}
                 />
                 <MainContainer
                   textEditorSize={textEditorSize}
                   onSplitPaneChange={this.splitPaneChangeHandler}
                   handleOnVisibleChange={this.togglePanel}
                   panelVisible={panelVisible}
-                  codeStyle={Object.assign({}, codeStyle, { left: value.x, width: value.y })}
+                  codeStyle={Object.assign({}, codeStyle, {
+                    left: value.panelLeft + PANEL_SIZE,
+                    width: value.textEditorAndOutputWidth,
+                  })}
                   hotReload={hotReload}
                   width={this.state.width}
                   height={this.state.height}
