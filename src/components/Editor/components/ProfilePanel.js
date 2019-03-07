@@ -18,7 +18,7 @@ class ProfilePanel extends React.Component {
       width: this.props.width,
       isHovering: false,
       editing: false,
-      name: "",
+      name: this.props.displayName,
       displayNameMessage: "",
     };
   }
