@@ -5,7 +5,6 @@ import firebase from "firebase";
 import SHA256 from "crypto-js/sha256";
 import Footer from "./common/Footer.js";
 import LoginInput from "./Login/LoginInput.js";
-import filter from "@honeyscience/honey-swearjar";
 import {
   MINIMUM_USERNAME_LENGTH,
   MINIMUM_PASSWORD_LENGTH,
@@ -40,7 +39,6 @@ class CreateUser extends React.Component {
    * The criteria checked:
    *    -Username length: as defined in constants file
    *    -Username characters: only alphanumeric characters, plus !@#$%
-   *    -Username profanity: please see bad-words package
    *    -Password length: as defined in constants file
    *    -Password characters: only alphanumeric characters, plus !@#$%
    * @return {boolean} badInputs - indicates whether any of the inputs given do
@@ -50,7 +48,7 @@ class CreateUser extends React.Component {
     const { username, password } = this.state;
     let badInputs = false;
 
-    //if username is too long, too short, has non ascii and some special characters, or has profanity in it, reject it
+    //if username is too long, too short, has non ascii and some special characters, reject it
     if (username.length < MINIMUM_USERNAME_LENGTH) {
       this.setState({
         usernameMessage: `Username must be between ${MINIMUM_USERNAME_LENGTH}-${MAXIMUM_USERNAME_LENGTH} characters long`,
@@ -66,9 +64,6 @@ class CreateUser extends React.Component {
         usernameMessage:
           "Username must only use upper case and lower case letters, numbers, and/or the special characters !@#$%",
       });
-      badInputs = true;
-    } else if (filter.isSubstringProfane(username)) {
-      this.setState({ usernameMessage: "Username must not contain profanity" });
       badInputs = true;
     } else {
       this.setState({ usernameMessage: null });
