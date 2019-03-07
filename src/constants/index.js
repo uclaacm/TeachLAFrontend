@@ -32,6 +32,18 @@ SUPPORTED_LANGUAGES.forEach(lang => {
   }
 });
 
+const PHOTO_NAMES = {
+  lightbulb: "https://i.imgur.com/WKDHPon.pngg",
+  orange: "https://i.imgur.com/DMc0L0P.png",
+  pear: "https://i.imgur.com/T03MlZH.png",
+  apple: "https://i.imgur.com/5S83eug.png",
+  hotdog: "https://i.imgur.com/CWwlIOF.png",
+  icecream: "https://i.imgur.com/OBHz5An.png",
+  cloud: "https://i.imgur.com/Cw6IRTu.png",
+  earth: "https://i.imgur.com/SBlnUnG.png",
+  heart: "https://i.imgur.com/ySz1WAS.png",
+};
+
 module.exports = {
   //Language definitions
   PYTHON,
@@ -40,6 +52,10 @@ module.exports = {
   JAVA,
   PROCESSING,
   CPP,
+
+  // photo names
+  PHOTO_NAMES,
+  DEFAULT_PHOTO_NAME: "icecream",
 
   //Server definitions
   //Local Server
@@ -57,29 +73,6 @@ module.exports = {
   MAXIMUM_PASSWORD_LENGTH: 20,
   MAXIMUM_DISPLAY_NAME_LENGTH: 25,
 
-  // Profile picture constants
-  PROFILE_IMG_1: "bananaleaf",
-  PROFILE_IMG_2: "elephant",
-  PROFILE_IMG_3: "flower",
-  PROFILE_IMG_4: "apple",
-  PROFILE_IMG_5: "hotdog",
-  PROFILE_IMG_6: "icecream",
-  PROFILE_IMG_7: "cloud",
-  PROFILE_IMG_8: "earth",
-  PROFILE_IMG_9: "heart",
-
-  PROFILE_IMG_1_URL:
-    "https://www.pngkey.com/png/detail/8-88141_88-banana-leaf-png-tropical-banana-leaves-png.png",
-  PROFILE_IMG_2_URL:
-    "https://www.pngkey.com/png/detail/65-654139_vector-royalty-free-library-elephant-cute-clipart-elephant.png",
-  PROFILE_IMG_3_URL:
-    "https://www.pngkey.com/png/detail/0-4694_flower-watercolor-painting-clip-art-transparent-watercolor-flower.png",
-  PROFILE_IMG_4_URL: "https://i.imgur.com/5S83eug.png",
-  PROFILE_IMG_5_URL: "https://i.imgur.com/CWwlIOF.png",
-  PROFILE_IMG_6_URL: "https://i.imgur.com/OBHz5An.png",
-  PROFILE_IMG_7_URL: "https://i.imgur.com/Cw6IRTu.png",
-  PROFILE_IMG_8_URL: "https://i.imgur.com/SBlnUnG.png",
-  PROFILE_IMG_9_URL: "https://i.imgur.com/ySz1WAS.png",
   //Defaults
   DEFAULT_MODE: PYTHON,
   DEFAULT_LANG: PYTHON,

@@ -1,28 +1,10 @@
 import React from "react";
-import defaultPic from "../../../img/defaultProfile.png";
 import firebase from "firebase";
 import Filter from "../../../../node_modules/bad-words/lib/badwords.js";
 import {
   MINIMUM_DISPLAY_NAME_LENGTH,
   MAXIMUM_DISPLAY_NAME_LENGTH,
-  PROFILE_IMG_1,
-  PROFILE_IMG_1_URL,
-  PROFILE_IMG_2,
-  PROFILE_IMG_2_URL,
-  PROFILE_IMG_3,
-  PROFILE_IMG_3_URL,
-  PROFILE_IMG_4,
-  PROFILE_IMG_4_URL,
-  PROFILE_IMG_5,
-  PROFILE_IMG_5_URL,
-  PROFILE_IMG_6,
-  PROFILE_IMG_6_URL,
-  PROFILE_IMG_7,
-  PROFILE_IMG_7_URL,
-  PROFILE_IMG_8,
-  PROFILE_IMG_8_URL,
-  PROFILE_IMG_9,
-  PROFILE_IMG_9_URL,
+  PHOTO_NAMES,
 } from "../../../constants";
 import ReactModal from "react-modal";
 
@@ -46,7 +28,7 @@ class ProfilePanel extends React.Component {
       editing: false,
       showModal: false,
       name: "",
-      profileImage: "",
+      selectedImage: "",
       displayNameMessage: "",
     };
 
@@ -57,11 +39,11 @@ class ProfilePanel extends React.Component {
   componentDidUpdate() {}
 
   handleOpenModal() {
-    this.setState({ showModal: true, profileImage: "" });
+    this.setState({ showModal: true, selectedImage: this.props.photoName });
   }
 
   handleCloseModal() {
-    this.setState({ profileImage: "", showModal: false });
+    this.setState({ selectedImage: "", showModal: false });
   }
 
   handleEditNameClick = () => {
@@ -116,8 +98,9 @@ class ProfilePanel extends React.Component {
 
   onImageSubmit = () => {
     // SEND IMAGE NAME TO BACKEND, CHANGE IMAGE
+    this.props.setPhotoName(this.state.selectedImage);
     this.handleCloseModal();
-    this.setState({ profileImage: "" });
+    this.setState({ selectedImage: "" });
   };
 
   renderErrorMessage = (msg, addBreak) => {
@@ -139,7 +122,7 @@ class ProfilePanel extends React.Component {
       >
         <img
           className="panel-image"
-          src={this.props.photoURL ? this.props.photoURL : defaultPic} // needs to be edited to use profile image name
+          src={PHOTO_NAMES[this.props.photoName] || PHOTO_NAMES["icecream"]} // needs to be edited to use profile image name
           alt="Your profile"
         />{" "}
         {this.state.imageIsHovering && (
@@ -154,11 +137,23 @@ class ProfilePanel extends React.Component {
   onImageClick = name => {
     console.log(name);
     this.setState(prevState => {
-      return { profileImage: name };
+      return { selectedImage: name };
     });
   };
 
   renderImageModal = () => {
+    let names = Object.keys(PHOTO_NAMES);
+    let icons = names.map(val => {
+      return (
+        <figure className="gallery__item" onClick={() => this.onImageClick(val)}>
+          <img
+            src={PHOTO_NAMES[val]}
+            className={"gallery__img" + (this.state.selectedImage === val ? "Selected" : "")}
+            alt="icon"
+          />
+        </figure>
+      );
+    });
     return (
       <div>
         <ReactModal
@@ -167,40 +162,9 @@ class ProfilePanel extends React.Component {
           className="profile-image-modal"
           overlayClassName="profile-image-overlay"
         >
-          <div className="gallery">
-            <figure className="gallery__item" onClick={() => this.onImageClick(PROFILE_IMG_1)}>
-              <img src={PROFILE_IMG_1_URL} className="gallery__img" />
-            </figure>
-            <figure className="gallery__item" onClick={() => this.onImageClick(PROFILE_IMG_2)}>
-              <img src={PROFILE_IMG_2_URL} className="gallery__img" />
-            </figure>
-            <figure className="gallery__item" onClick={() => this.onImageClick(PROFILE_IMG_3)}>
-              <img src={PROFILE_IMG_3_URL} className="gallery__img" />
-            </figure>
-            <figure className="gallery__item" onClick={() => this.onImageClick(PROFILE_IMG_4)}>
-              <img src={PROFILE_IMG_4_URL} className="gallery__img" />
-            </figure>
-            <figure className="gallery__item" onClick={() => this.onImageClick(PROFILE_IMG_5)}>
-              <img src={PROFILE_IMG_5_URL} className="gallery__img" />
-            </figure>
-            <figure className="gallery__item" onClick={() => this.onImageClick(PROFILE_IMG_6)}>
-              <img src={PROFILE_IMG_6_URL} className="gallery__img" />
-            </figure>
-            <figure className="gallery__item" onClick={() => this.onImageClick(PROFILE_IMG_7)}>
-              <img src={PROFILE_IMG_7_URL} className="gallery__img" />
-            </figure>
-            <figure className="gallery__item" onClick={() => this.onImageClick(PROFILE_IMG_8)}>
-              <img src={PROFILE_IMG_8_URL} className="gallery__img" />
-            </figure>
-            <figure className="gallery__item" onClick={() => this.onImageClick(PROFILE_IMG_9)}>
-              <img src={PROFILE_IMG_9_URL} className="gallery__img" />
-            </figure>
-          </div>
+          <div className="gallery">{icons}</div>
 
-          <button onClick={this.handleCloseModal} style={{ margin: "5px" }}>
-            Cancel
-          </button>
-          <button onClick={this.onImageSubmit} style={{ margin: "5px" }}>
+          <button onClick={this.onImageSubmit} className="modal-submit-button">
             Submit
           </button>
         </ReactModal>

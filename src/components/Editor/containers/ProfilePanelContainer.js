@@ -1,11 +1,13 @@
 import ProfilePanel from "../components/ProfilePanel";
 import { connect } from "react-redux";
-import { setDisplayName } from "../../../actions/userDataActions";
+import { setDisplayName, setPhotoName } from "../../../actions/userDataActions";
+import { DEFAULT_PHOTO_NAME } from "../../../constants";
 
 const mapStateToProps = (state, ownProps) => {
   return {
     displayName: state.userData.displayName,
     uid: state.userData.uid,
+    photoName: state.userData.photoName || DEFAULT_PHOTO_NAME,
     // photoURL: state.userData.photoURL,
   };
 };
@@ -27,6 +29,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     // },
     collectUserPhoto: () => {},
     setDisplayName: name => dispatch(setDisplayName(name)),
+    setPhotoName: name => dispatch(setPhotoName(name)),
   };
 };
 

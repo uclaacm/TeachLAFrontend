@@ -34,7 +34,7 @@ function userDataReducers(state = initialState, action) {
     case SET_DISPLAY_NAME:
       let newName = action.value;
       fetch
-        .updateUserData(state.uid, { displayName: action.value })
+        .updateUserData(state.uid, { displayName: newName })
         .then(response => {
           console.log(action.value);
           //if nothing went bad, keep the display name, otherwise, change it back (or dont, depends how we wanna do it)
@@ -60,9 +60,18 @@ function userDataReducers(state = initialState, action) {
     case SET_MOST_RECENT_PROGRAM:
       return Object.assign({}, state, { mostRecentProgram: action.value });
     case SET_PHOTO_NAME:
-      let photoName = action.photoName;
-      // some type of fetch call here
-      return Object.assign({}, state, { photoName: photoName });
+      let newPhotoName = action.photoName;
+      fetch
+        .updateUserData(state.uid, { photoName: newPhotoName })
+        .then(response => {
+          console.log(action.value);
+          console.log(response);
+        })
+        .catch(err => {
+          state.error = err;
+          console.log(err);
+        });
+      return Object.assign({}, state, { photoName: newPhotoName });
     default:
       return state;
   }
