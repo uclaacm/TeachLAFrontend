@@ -27,7 +27,7 @@ class ProfilePanel extends React.Component {
       imageIsHovering: false,
       editing: false,
       showModal: false,
-      name: "",
+      name: this.props.displayName,
       selectedImage: "",
       displayNameMessage: "",
     };
