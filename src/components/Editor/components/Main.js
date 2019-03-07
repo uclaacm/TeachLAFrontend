@@ -80,7 +80,8 @@ class Main extends React.Component {
     if (this.props.programs) {
       this.props.programs.keySeq().forEach(key => dropdownItems.push(key));
     }
-
+    //console.log(this.props.mostRecentProgram)
+    //console.log(this.props.mostRecentProgram.length)
     return (
       <DropdownButton
         displayValue={this.props.mostRecentProgram}
