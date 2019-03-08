@@ -36,8 +36,6 @@
 }
 
 .panel-image {
-  border-radius: 500px;
-  border: 1px solid #dddcdf;
   width: 200px;
   height: 200px;
   /*background:#000;*/ /*if you leave this out, transparent profile pictures will show the background behind it*/
@@ -80,15 +78,23 @@
   box-shadow: 1px 3px #999;
   right: 142px;
 }
-.image-edit-button {
-  height: 100px;
+
+.panel-image-container {
+  position: relative;
+  border-radius: 500px;
+  border: 1px solid #dddcdf;
   width: 200px;
-  border-bottom-left-radius: 100px;
-  border-bottom-right-radius: 100px;
+  height: 200px;
+  overflow: hidden;
+}
+
+.image-edit-button {
+  height: 80px;
+  width: 200px;
   font-size: 2rem;
   font-weight: bold;
   position: absolute;
-  top: 140px;
+  top: 120px;
   border-color: #383838;
   background-color: rgba(107, 107, 107, 0.6);
   color: #dddcdf;

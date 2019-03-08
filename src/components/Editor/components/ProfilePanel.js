@@ -117,6 +117,7 @@ class ProfilePanel extends React.Component {
   renderPanelImage = () => {
     return (
       <div
+        className="panel-image-container"
         onMouseEnter={() => this.setState({ imageIsHovering: true })}
         onMouseLeave={() => this.setState({ imageIsHovering: false })}
       >
@@ -124,7 +125,7 @@ class ProfilePanel extends React.Component {
           className="panel-image"
           src={PHOTO_NAMES[this.props.photoName] || PHOTO_NAMES["icecream"]} // needs to be edited to use profile image name
           alt="Your profile"
-        />{" "}
+        />
         {this.state.imageIsHovering && (
           <button className="image-edit-button" onClick={this.handleOpenModal}>
             Edit
