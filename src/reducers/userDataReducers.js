@@ -9,7 +9,7 @@ import {
 
 import { PYTHON } from "../constants";
 
-// import * as fetch from '../lib/fetch.js'
+import * as fetch from "../lib/fetch.js";
 
 const initialState = {
   error: "",
@@ -30,17 +30,18 @@ function userDataReducers(state = initialState, action) {
       state.error = "Failed to load user data...";
       return state;
     case SET_DISPLAY_NAME:
-      state.displayName = action.value;
-      // fetch.updateUserData(state.uid, {displayName: action.value})
-      //   .then((response)=>{
-      //     //if nothing went bad, keep the display name, otherwise, change it back (or dont, depends how we wanna do it)
-      //     console.log(response)
-      //   })
-      //   .catch(err => {
-      //     state.error = err
-      //     console.log(err)
-      //   })
-      return state;
+      let newName = action.value;
+      fetch
+        .updateUserData(state.uid, { displayName: action.value })
+        .then(response => {
+          //if nothing went bad, keep the display name, otherwise, change it back (or dont, depends how we wanna do it)
+          console.log(response);
+        })
+        .catch(err => {
+          state.error = err;
+          console.log(err);
+        });
+      return Object.assign({}, state, { displayName: newName });
     case SET_PHOTO_URL:
       state.photoURL = action.value;
       // fetch.updateUserData(state.uid, {photoURL: action.value})

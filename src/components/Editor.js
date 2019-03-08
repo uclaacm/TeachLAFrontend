@@ -1,5 +1,4 @@
 import React from "react";
-import ProfilePanel from "./Editor/components/ProfilePanel";
 import MainContainer from "./Editor/containers/MainContainer";
 import { Motion, spring } from "react-motion";
 // Specify imports for codemirror usage
@@ -9,6 +8,7 @@ import "../styles/CustomCM.css";
 import "../styles/Resizer.css";
 import "../styles/Editor.css";
 import "../styles/Panel.css";
+import ProfilePanelContainer from "./Editor/containers/ProfilePanelContainer";
 
 const PANEL_SIZE = 250;
 const CLOSED_PANEL_LEFT = -1 * PANEL_SIZE;
@@ -86,6 +86,7 @@ class Editor extends React.Component {
       width: PANEL_SIZE, //width doesn't change, the 'right' css property just pushes it off the page
       height: this.state.height,
       position: "absolute",
+      display: "flex",
     };
 
     return (
@@ -105,7 +106,7 @@ class Editor extends React.Component {
           {value => {
             return (
               <React.Fragment>
-                <ProfilePanel
+                <ProfilePanelContainer
                   handleOnVisibleChange={this.togglePanel}
                   panelVisible={panelVisible}
                   panelStyle={Object.assign({}, panelStyle, { left: value.panelLeft })}
