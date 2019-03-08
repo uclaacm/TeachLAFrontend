@@ -45,7 +45,7 @@ class ProfilePanel extends React.Component {
     } else if (name.match(/[^a-zA-Z0-9!@#$% ]/)) {
       this.setState({
         displayNameMessage:
-          "Display name must only use upper case and lower case letters, numbers, spaces, and/or the special characters !@#$%",
+          "Only use upper case, lower case, numbers, spaces, and/or the following special characters !@#$%",
       });
       return true;
     }
@@ -57,11 +57,11 @@ class ProfilePanel extends React.Component {
     let badInputs = this.checkInputs();
 
     if (badInputs) {
-      this.setState({ name: "", isHovering: true, editing: false });
+      this.setState({ name: this.props.displayName, isHovering: true, editing: false });
       return;
     } else {
       this.props.setDisplayName(this.state.name);
-      this.setState({ name: "", isHovering: true, editing: false, displayNameMessage: "" });
+      this.setState({ isHovering: true, editing: false, displayNameMessage: "" });
       return;
     }
   };
