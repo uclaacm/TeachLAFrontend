@@ -37,7 +37,7 @@ class Output extends React.Component {
         id={this.state.counter}
         key={this.state.counter}
         className="editor-output-iframe"
-        style={{ height: this.props.height - 61 + "px" }}
+        style={{ height: this.props.screenHeight - 61 + "px" }}
         srcDoc={this.props.runResult}
         src="about:blank"
         title="html-iframe"
@@ -128,7 +128,7 @@ class Output extends React.Component {
         id={this.state.counter}
         key={this.state.counter}
         className="editor-output-iframe"
-        style={{ height: this.props.height - 61 + "px" }}
+        style={{ height: this.props.screenHeight - 61 + "px" }}
         srcDoc={this.getPythonSrcDoc()}
         src="about:blank"
         title="python-iframe"
@@ -198,7 +198,7 @@ class Output extends React.Component {
         id={this.state.counter}
         key={this.state.counter}
         className="editor-output-iframe"
-        style={{ height: this.props.height - 61 + "px" }}
+        style={{ height: this.props.screenHeight - 61 + "px" }}
         srcDoc={this.getProcessingSrcDoc()}
         src="about:blank"
         title="processing-iframe"
