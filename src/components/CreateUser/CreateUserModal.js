@@ -180,7 +180,6 @@ export default class CreateUserModal extends React.Component {
   render() {
     return (
       <form className="login-form" onSubmit={this.submit}>
-        {" "}
         {this.renderHeader()}
         <br />
         {this.renderInputs()}
