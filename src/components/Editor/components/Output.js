@@ -1,5 +1,6 @@
 import React from "react";
 import { PYTHON, JAVASCRIPT, CPP, JAVA, HTML, PROCESSING } from "../../../constants";
+import EditorButton from "./EditorButton";
 /**--------Props--------
  * None
  */
@@ -230,22 +231,10 @@ class Output extends React.Component {
     }
   };
 
-  renderRefreshButton = () => (
-    <div className="editor-run">
-      <button
-        className="editor-run-button"
-        style={{ backgroundColor: "#3c52ba" }}
-        onClick={this.reRenderOutput}
-      >
-        Refresh
-      </button>
-    </div>
-  );
-
   renderBanner = () => (
     <div className="editor-output-banner">
       <div style={{ flex: "1 1 auto" }}> </div> {/*whitespace*/}
-      {this.renderRefreshButton()}
+      <EditorButton handleClick={this.reRenderOutput} text="Refresh" color="#3c52ba" />
     </div>
   );
 
