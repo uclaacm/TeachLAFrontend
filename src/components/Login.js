@@ -7,36 +7,14 @@ import LoginModal from "./Login/LoginModal";
  * provider: Facebook Provider used to login with Facebook
  */
 
-class LoginForm extends React.Component {
+class Login extends React.Component {
   /**
    * constructor - sets initial state
    */
   constructor(props) {
     super(props);
-
-    this.state = {
-      width: window.innerWidth,
-      height: window.innerHeight,
-    };
+    this.state = {};
   }
-
-  componentDidMount() {
-    window.addEventListener("resize", this.handleResize, true);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener("resize", this.handleResize, true);
-  }
-
-  /**
-   * handleResize - called when browser is resized, changes state.width on resize
-   * @param  {Event} e - event fired by resize event listener
-   */
-  handleResize = e => {
-    this.setState({
-      width: window.innerWidth,
-    });
-  };
 
   renderMainContent = () => {
     return (
@@ -51,16 +29,14 @@ class LoginForm extends React.Component {
     );
   };
 
-  renderFooter = () => <Footer />;
-
   render() {
     return (
       <div className="login-page">
         {this.renderMainContent()}
-        {this.renderFooter()}
+        <Footer />
       </div>
     );
   }
 }
 
-export default LoginForm;
+export default Login;

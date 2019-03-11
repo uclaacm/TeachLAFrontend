@@ -8,6 +8,8 @@ const mapStateToProps = state => {
     uid: state.userData.uid,
     mostRecentProgram: state.userData.mostRecentProgram,
     programs: state.programs,
+    screenWidth: state.ui.screenWidth,
+    screenHeight: state.ui.screenHeight,
   };
 };
 

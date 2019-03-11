@@ -94,11 +94,13 @@ class Main extends React.Component {
     //called deconstruction; pulling children, triggerLogin, ..., textPadding out of props
     const { codeStyle, textEditorSize } = this.props;
 
-    const minSize = this.props.width * 0.25;
-    const maxSize = this.props.panelVisible ? this.props.width * 0.5 : this.props.width * 0.66;
+    const minSize = this.props.screenWidth * 0.25;
+    const maxSize = this.props.panelVisible
+      ? this.props.screenWidth * 0.5
+      : this.props.screenWidth * 0.66;
 
     //header is 60 pixels with a 1 pixel border and 20 for the top padding
-    const textEditorHeight = this.props.height - 61 - 20;
+    const textEditorHeight = this.props.screenHeight - 61 - 20;
 
     return (
       <div style={codeStyle}>
@@ -138,7 +140,7 @@ class Main extends React.Component {
               <TextEditorContainer key={this.props.mostRecentProgram} />
             </div>
           </div>
-          <OutputContainer height={this.props.height} />
+          <OutputContainer />
         </SplitPane>
       </div>
     );

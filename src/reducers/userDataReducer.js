@@ -19,7 +19,7 @@ const initialState = {
   mostRecentProgram: PYTHON,
 };
 
-function userDataReducers(state = initialState, action) {
+function userDataReducer(state = initialState, action) {
   switch (action.type) {
     case LOAD_USER_DATA:
       //pull all values we want to pay attention to out of the object
@@ -60,4 +60,4 @@ function userDataReducers(state = initialState, action) {
       return state;
   }
 }
-export default userDataReducers;
+export default userDataReducer;
