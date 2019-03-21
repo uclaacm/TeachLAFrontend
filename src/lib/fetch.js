@@ -30,7 +30,7 @@ export const getUserData = async (uid = "", includePrograms = false) => {
 
     return { ok, data, error };
   } catch (err) {
-    return { ok: "false", error: "CATCH_ERROR", err: err };
+    return { ok: "false", error: "SERVER ERROR: Unable to get user data from server", err: err };
   }
 };
 
