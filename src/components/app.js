@@ -52,7 +52,6 @@ class App extends React.Component {
     } else {
       console.log("no user found");
       this.props.clearUserData();
-      this.props.loadFailure("No user could be found");
       this.setState({ checkedAuth: true });
     }
   };
