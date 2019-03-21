@@ -27,7 +27,7 @@ function userDataReducers(state = initialState, action) {
     case CLEAR_USER_DATA:
       return initialState;
     case LOAD_FAILURE:
-      return Object.assign({}, state, { error: "Failed to load user data..." });
+      return Object.assign({}, state, { error: action.message });
     case SET_DISPLAY_NAME:
       state.displayName = action.value;
       // fetch.updateUserData(state.uid, {displayName: action.value})

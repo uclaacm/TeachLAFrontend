@@ -46,7 +46,7 @@ class App extends React.Component {
         await this.props.loadUserData(uid, this.showErrorPage);
         this.setState({ checkedAuth: true });
       } else {
-        this.props.loadFailure();
+        this.props.loadFailure("Failed to load user data...");
         this.setState({ checkedAuth: true });
       }
     } else {
