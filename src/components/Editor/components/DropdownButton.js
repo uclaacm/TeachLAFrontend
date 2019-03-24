@@ -32,7 +32,6 @@ export default class DropdownButton extends React.Component {
       if (!program || !program.length) {
         return null;
       }
-      //console.log(program)
 
       return (
         <DropdownItem
