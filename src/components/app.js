@@ -16,7 +16,6 @@ class App extends React.Component {
 
     this.state = {
       checkedAuth: false,
-      showErrorPage: false,
     };
   }
 
@@ -58,7 +57,7 @@ class App extends React.Component {
 
   showErrorPage = err => {
     console.log(err);
-    this.setState({ errorMsg: err, showErrorPage: true });
+    this.props.loadFailure(err);
   };
 
   renderHome = isValidUser => {
@@ -71,8 +70,8 @@ class App extends React.Component {
       return <LoadingPage />;
     }
 
-    if (this.state.showErrorPage) {
-      return <Error errorMsg={this.state.errorMsg} />;
+    if (this.props.errorMsg !== "") {
+      return <Error errorMsg={this.props.errorMsg} />;
     }
 
     //the user is not valid if there's no UID
