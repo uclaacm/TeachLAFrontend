@@ -4,6 +4,7 @@ import LoginPage from "./containers/LoginContainer";
 import EditorPage from "./containers/EditorContainer";
 import LoadingPage from "./common/LoadingPage";
 import CreateUserPage from "./containers/CreateUserContainer";
+import Error from "./Error";
 import firebase from "firebase";
 import "../styles/app.css";
 
@@ -15,8 +16,6 @@ class App extends React.Component {
 
     this.state = {
       checkedAuth: false,
-      errorMsg: "",
-      showErrorPage: false,
     };
   }
 
@@ -55,18 +54,23 @@ class App extends React.Component {
         await this.props.loadUserData(uid, this.showErrorPage);
         this.setState({ checkedAuth: true });
       } else {
-        this.setState({ checkedAuth: true, errorMsg: "No UID provided with user" });
+        this.props.loadFailure("Failed to load user data...");
+        this.setState({ checkedAuth: true });
       }
     } else {
       console.log("no user found");
       this.props.clearUserData();
-      this.setState({ checkedAuth: true, errorMsg: "" });
+      this.setState({ checkedAuth: true });
     }
   };
 
   showErrorPage = err => {
     console.log(err);
-    this.setState({ errorMsg: err, showErrorPage: true });
+    this.props.loadFailure(err);
+  };
+
+  renderHome = isValidUser => {
+    return isValidUser ? <Redirect to="/editor" /> : <Redirect to="/login" />;
   };
 
   render() {
@@ -75,12 +79,8 @@ class App extends React.Component {
       return <LoadingPage />;
     }
 
-    if (this.state.showErrorPage) {
-      return <div>Error page {this.state.errorMsg}</div>;
-    }
-
-    if (this.state.errorMsg) {
-      return <div style={{ color: "red" }}>{this.state.errorMsg}</div>;
+    if (this.props.errorMsg !== "") {
+      return <Error errorMsg={this.props.errorMsg} />;
     }
 
     //the user is not valid if there's no UID
@@ -113,6 +113,17 @@ class App extends React.Component {
           <Route
             path="/createUser"
             render={() => (isValidUser ? <Redirect to="/editor" /> : <CreateUserPage />)}
+          />
+          {/* Default error page */}
+          <Route
+            path="/error"
+            render={() =>
+              this.props.errorMsg ? (
+                <Error errorMsg={this.props.errorMsg} />
+              ) : (
+                this.renderHome(isValidUser)
+              )
+            }
           />
         </div>
       </Router>

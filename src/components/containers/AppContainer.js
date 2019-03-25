@@ -3,7 +3,7 @@
 */
 import App from "../app.js";
 import { connect } from "react-redux";
-import { loadUserData, clearUserData } from "../../actions/userDataActions.js";
+import { loadUserData, clearUserData, loadFailure } from "../../actions/userDataActions.js";
 import { loadPrograms } from "../../actions/programsActions";
 import { screenResize } from "../../actions/uiActions";
 import * as fetch from "../../lib/fetch.js";
@@ -11,6 +11,7 @@ import * as fetch from "../../lib/fetch.js";
 const mapStateToProps = state => {
   return {
     uid: state.userData.uid,
+    errorMsg: state.userData.error,
     screenWidth: state.ui.screenWidth,
     screenHeight: state.ui.screenHeight,
   };
@@ -19,7 +20,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     loadUserData: async (uid, onFailure) => {
-      const { ok, data, error } = await fetch.getUserData(uid, true);
+      const { ok, data /*error*/ } = await fetch.getUserData(uid, true);
       //if the request went fine, and there's a non empty userData
       if (ok && data && data.userData && Object.keys(data.userData).length) {
         dispatch(loadUserData(uid, data.userData));
@@ -27,10 +28,15 @@ const mapDispatchToProps = dispatch => {
           dispatch(loadPrograms(data.programs));
         }
       } else {
-        onFailure(error);
+        onFailure("SERVER ERROR: Unable to get user data from server");
       }
     },
-    clearUserData: () => dispatch(clearUserData()),
+    clearUserData: () => {
+      dispatch(clearUserData());
+    },
+    loadFailure: err => {
+      dispatch(loadFailure(err));
+    },
     screenResize: (width, height) => dispatch(screenResize(width, height)),
   };
 };
