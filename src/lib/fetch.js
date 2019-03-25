@@ -100,9 +100,9 @@ export const updateUserData = (uid = "", userData) => {
 
   const options = {
     method: "post",
-    // headers: {
-    //   "Content-Type": "application/json; charset=utf-8",
-    // },
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+    },
     body,
   };
 

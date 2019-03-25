@@ -9,7 +9,7 @@ import {
 
 import { PYTHON } from "../constants";
 
-// import * as fetch from '../lib/fetch.js'
+import * as fetch from "../lib/fetch.js";
 
 const initialState = {
   error: "",
@@ -19,7 +19,7 @@ const initialState = {
   mostRecentProgram: PYTHON,
 };
 
-function userDataReducers(state = initialState, action) {
+function userDataReducer(state = initialState, action) {
   switch (action.type) {
     case LOAD_USER_DATA:
       //pull all values we want to pay attention to out of the object
@@ -29,17 +29,18 @@ function userDataReducers(state = initialState, action) {
     case LOAD_FAILURE:
       return Object.assign({}, state, { error: action.message });
     case SET_DISPLAY_NAME:
-      state.displayName = action.value;
-      // fetch.updateUserData(state.uid, {displayName: action.value})
-      //   .then((response)=>{
-      //     //if nothing went bad, keep the display name, otherwise, change it back (or dont, depends how we wanna do it)
-      //     console.log(response)
-      //   })
-      //   .catch(err => {
-      //     state.error = err
-      //     console.log(err)
-      //   })
-      return state;
+      let newName = action.value;
+      fetch
+        .updateUserData(state.uid, { displayName: action.value })
+        .then(response => {
+          //if nothing went bad, keep the display name, otherwise, change it back (or dont, depends how we wanna do it)
+          console.log(response);
+        })
+        .catch(err => {
+          state.error = err;
+          console.log(err);
+        });
+      return Object.assign({}, state, { displayName: newName });
     case SET_PHOTO_URL:
       state.photoURL = action.value;
       // fetch.updateUserData(state.uid, {photoURL: action.value})
@@ -59,4 +60,4 @@ function userDataReducers(state = initialState, action) {
       return state;
   }
 }
-export default userDataReducers;
+export default userDataReducer;

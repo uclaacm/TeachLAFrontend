@@ -26,6 +26,15 @@ class App extends React.Component {
     firebase.auth().onAuthStateChanged(async user => {
       await this.onAuthHandler(user);
     });
+    window.addEventListener("resize", this.handleResize, true);
+  };
+
+  componentWillUnmout = () => {
+    window.removeEventListener("resize", this.handleResize, true);
+  };
+
+  handleResize = () => {
+    this.props.screenResize(window.innerWidth, window.innerHeight);
   };
 
   /**

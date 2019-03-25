@@ -4,13 +4,13 @@
   "private": true,
   "dependencies": {
     "ajv": "^6.4.0",
-    "bad-words": "^1.6.1",
     "bootstrap": ">=4.1.2",
     "codemirror": "^5.37.0",
     "crypto-js": "^3.1.9-1",
     "enzyme-adapter-react-16": "^1.1.1",
     "firebase": "^5.0.3",
     "immutable": "^3.8.2",
+    "jquery": "^3.3.1",
     "prop-types": "^15.6.2",
     "react": "^16.3.2",
     "react-codemirror2": "^4.2.1",
@@ -21,7 +21,7 @@
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^4.0.8",
-    "react-scripts": "1.1.4",
+    "react-scripts": "^2.1.5",
     "react-social-login": "^3.4.2",
     "react-spinners": "^0.3.2",
     "react-split-pane": "^0.1.77",
@@ -56,5 +56,11 @@
       "prettier --write",
       "git add"
     ]
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

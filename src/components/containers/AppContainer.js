@@ -5,12 +5,15 @@ import App from "../app.js";
 import { connect } from "react-redux";
 import { loadUserData, clearUserData, loadFailure } from "../../actions/userDataActions.js";
 import { loadPrograms } from "../../actions/programsActions";
+import { screenResize } from "../../actions/uiActions";
 import * as fetch from "../../lib/fetch.js";
 
 const mapStateToProps = state => {
   return {
     uid: state.userData.uid,
     errorMsg: state.userData.error,
+    screenWidth: state.ui.screenWidth,
+    screenHeight: state.ui.screenHeight,
   };
 };
 
@@ -34,6 +37,7 @@ const mapDispatchToProps = dispatch => {
     loadFailure: err => {
       dispatch(loadFailure(err));
     },
+    screenResize: (width, height) => dispatch(screenResize(width, height)),
   };
 };
 

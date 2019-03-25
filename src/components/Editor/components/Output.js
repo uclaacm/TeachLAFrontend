@@ -1,5 +1,6 @@
 import React from "react";
 import { PYTHON, JAVASCRIPT, CPP, JAVA, HTML, PROCESSING } from "../../../constants";
+import EditorButton from "./EditorButton";
 /**--------Props--------
  * None
  */
@@ -37,7 +38,7 @@ class Output extends React.Component {
         id={this.state.counter}
         key={this.state.counter}
         className="editor-output-iframe"
-        style={{ height: this.props.height - 61 + "px" }}
+        style={{ height: this.props.screenHeight - 61 + "px" }}
         srcDoc={this.props.runResult}
         src="about:blank"
         title="html-iframe"
@@ -128,7 +129,7 @@ class Output extends React.Component {
         id={this.state.counter}
         key={this.state.counter}
         className="editor-output-iframe"
-        style={{ height: this.props.height - 61 + "px" }}
+        style={{ height: this.props.screenHeight - 61 + "px" }}
         srcDoc={this.getPythonSrcDoc()}
         src="about:blank"
         title="python-iframe"
@@ -198,7 +199,7 @@ class Output extends React.Component {
         id={this.state.counter}
         key={this.state.counter}
         className="editor-output-iframe"
-        style={{ height: this.props.height - 61 + "px" }}
+        style={{ height: this.props.screenHeight - 61 + "px" }}
         srcDoc={this.getProcessingSrcDoc()}
         src="about:blank"
         title="processing-iframe"
@@ -230,22 +231,10 @@ class Output extends React.Component {
     }
   };
 
-  renderRefreshButton = () => (
-    <div className="editor-run">
-      <button
-        className="editor-run-button"
-        style={{ backgroundColor: "#3c52ba" }}
-        onClick={this.reRenderOutput}
-      >
-        Refresh
-      </button>
-    </div>
-  );
-
   renderBanner = () => (
     <div className="editor-output-banner">
       <div style={{ flex: "1 1 auto" }}> </div> {/*whitespace*/}
-      {this.renderRefreshButton()}
+      <EditorButton handleClick={this.reRenderOutput} text="Refresh" color="#3c52ba" />
     </div>
   );
 
