@@ -7,8 +7,6 @@ import {
   SET_MOST_RECENT_PROGRAM,
 } from "../actions/userDataActions";
 
-import { PYTHON } from "../constants";
-
 import * as fetch from "../lib/fetch.js";
 
 const initialState = {
@@ -16,7 +14,7 @@ const initialState = {
   displayName: "",
   photoURL: null,
   uid: "",
-  mostRecentProgram: PYTHON,
+  mostRecentProgram: "",
 };
 
 function userDataReducer(state = initialState, action) {
@@ -54,6 +52,15 @@ function userDataReducer(state = initialState, action) {
       //   })
       return state;
     case SET_MOST_RECENT_PROGRAM:
+      fetch
+        .updateUserData(state.uid, { mostRecentProgram: action.value })
+        .then(response => {
+          console.log(response);
+        })
+        .catch(err => {
+          state.error = err;
+          console.log(err);
+        });
       return Object.assign({}, state, { mostRecentProgram: action.value });
 
     default:
