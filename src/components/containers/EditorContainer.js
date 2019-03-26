@@ -1,15 +1,16 @@
-import Editor from '../Editor.js'
-import {connect} from 'react-redux'
+import Editor from "../Editor.js";
+import { connect } from "react-redux";
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
-  }
-}
+    screenWidth: state.ui.screenWidth,
+    screenHeight: state.ui.screenHeight,
+  };
+};
 
 const mapDispatchToProps = dispatch => {
-	return {
-	}
-}
+  return {};
+};
 
 const EditorPage = connect(
   mapStateToProps,

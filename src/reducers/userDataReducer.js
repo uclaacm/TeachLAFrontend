@@ -7,19 +7,17 @@ import {
   SET_PHOTO_NAME,
 } from "../actions/userDataActions";
 
-import { PYTHON } from "../constants";
-
 import * as fetch from "../lib/fetch.js";
 
 const initialState = {
   error: "",
   displayName: "",
   uid: "",
-  mostRecentProgram: PYTHON,
+  mostRecentProgram: "",
   photoName: "",
 };
 
-function userDataReducers(state = initialState, action) {
+function userDataReducer(state = initialState, action) {
   switch (action.type) {
     case LOAD_USER_DATA:
       //pull all values we want to pay attention to out of the object
@@ -27,8 +25,7 @@ function userDataReducers(state = initialState, action) {
     case CLEAR_USER_DATA:
       return initialState;
     case LOAD_FAILURE:
-      state.error = "Failed to load user data...";
-      return state;
+      return Object.assign({}, state, { error: action.message });
     case SET_DISPLAY_NAME:
       let newName = action.value;
       fetch
@@ -39,23 +36,32 @@ function userDataReducers(state = initialState, action) {
           console.log(err);
         });
       return Object.assign({}, state, { displayName: newName });
-    case SET_MOST_RECENT_PROGRAM:
-      return Object.assign({}, state, { mostRecentProgram: action.value });
     case SET_PHOTO_NAME:
       let newPhotoName = action.photoName;
       fetch
         .updateUserData(state.uid, { photoName: newPhotoName })
         .then(response => {
-          console.log(action.value);
-          console.log(response);
+          //if nothing went bad, keep the display name, otherwise, change it back (or dont, depends how we wanna do it)
         })
         .catch(err => {
           state.error = err;
           console.log(err);
         });
       return Object.assign({}, state, { photoName: newPhotoName });
+    case SET_MOST_RECENT_PROGRAM:
+      fetch
+        .updateUserData(state.uid, { mostRecentProgram: action.value })
+        .then(response => {
+          console.log(response);
+        })
+        .catch(err => {
+          state.error = err;
+          console.log(err);
+        });
+      return Object.assign({}, state, { mostRecentProgram: action.value });
+
     default:
       return state;
   }
 }
-export default userDataReducers;
+export default userDataReducer;

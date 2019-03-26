@@ -8,7 +8,7 @@ import Immutable from "immutable";
 
 let initialState = Immutable.Map();
 
-function programsReducers(state = initialState, action) {
+function programsReducer(state = initialState, action) {
   switch (action.type) {
     case LOAD_PROGRAMS:
       return Immutable.fromJS(action.programs);
@@ -24,4 +24,4 @@ function programsReducers(state = initialState, action) {
   }
 }
 
-export default programsReducers;
+export default programsReducer;

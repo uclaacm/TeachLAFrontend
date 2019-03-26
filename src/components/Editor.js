@@ -26,32 +26,23 @@ class Editor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      width: window.innerWidth,
-      height: window.innerHeight,
       panelVisible: false,
       panelLeft: CLOSED_PANEL_LEFT,
-      textEditorSize: window.innerWidth * 0.5,
+      textEditorSize: this.props.screenWidth * 0.5,
       hotReload: false,
     };
   }
 
   //==============React Lifecycle Functions===================//
-  componentDidMount() {
-    window.addEventListener("resize", this.handleResize, true);
+  componentDidMount() {}
+
+  componentDidUpdate(prevProps) {
+    if (this.props.screenWidth !== prevProps.screenWidth) {
+      this.setState({ textEditorSize: this.props.screenWidth * 0.5 });
+    }
   }
 
-  componentWillUnmount() {
-    window.removeEventListener("resize", this.handleResize, true);
-  }
-
-  handleResize = () => {
-    this.setState({
-      width: window.innerWidth,
-      height: window.innerHeight,
-      textEditorSize: window.innerWidth * 0.375,
-      panelLeft: this.state.panelVisible ? OPEN_PANEL_LEFT : CLOSED_PANEL_LEFT,
-    });
-  };
+  componentWillUnmount() {}
 
   /**
    *  handleOnVisibleChange - handler for when the collapse panel button or expand panel button is pressed
@@ -79,13 +70,14 @@ class Editor extends React.Component {
     //style to be applied to non panel (sections containing text editor and code output)
     const codeStyle = {
       position: "fixed", //fixed bc we're using the css property left to set the left edge of the code section/output container
-      height: this.state.height,
+      height: this.props.screenHeight,
     };
 
     const panelStyle = {
       width: PANEL_SIZE, //width doesn't change, the 'right' css property just pushes it off the page
-      height: this.state.height,
+      height: this.props.screenHeight,
       position: "absolute",
+      display: "flex",
     };
 
     return (
@@ -93,11 +85,11 @@ class Editor extends React.Component {
         <Motion
           defaultStyle={{
             panelLeft: CLOSED_PANEL_LEFT,
-            textEditorAndOutputWidth: this.state.width,
+            textEditorAndOutputWidth: this.props.screenWidth,
           }}
           style={{
             panelLeft: spring(this.state.panelLeft),
-            textEditorAndOutputWidth: spring(this.state.width + panelLeft + PANEL_SIZE),
+            textEditorAndOutputWidth: spring(this.props.screenWidth - (panelLeft + PANEL_SIZE)),
             damping: 30,
             stiffness: 218,
           }}
@@ -120,8 +112,6 @@ class Editor extends React.Component {
                     width: value.textEditorAndOutputWidth,
                   })}
                   hotReload={hotReload}
-                  width={this.state.width}
-                  height={this.state.height}
                 />
               </React.Fragment>
             );

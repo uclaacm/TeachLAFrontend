@@ -1,8 +1,6 @@
 .panel {
   display: flex;
-  height: 100%;
   box-sizing: border-box;
-  width: 100%;
   background-color: #272134;
   flex-direction: column;
   align-items: center;
@@ -145,7 +143,9 @@
 .edit-icon-image {
   position: absolute;
   border: none;
-  right: 15px;
+  right: -30px;
+  top: 50%;
+  margin-top: -15px;
   background-color: transparent;
 }
 
@@ -164,9 +164,10 @@
 }
 
 .profile-input-error {
-  color: red;
+  color: #f34d4d;
   font-size: 1rem;
   text-align: center;
+  padding: 0px 25px;
 }
 
 .panel-name {
@@ -179,6 +180,7 @@
   font-weight: bold;
   word-wrap: break-word;
   color: #dddcdf;
+  position: relative;
 }
 
 .panel-options-item {
@@ -217,7 +219,7 @@
 }
 .panel-item-content {
   position: relative;
-  font-size: 33px;
+  font-size: 32px;
   margin-top: 7px;
   margin-right: 5px;
   display: flex;
@@ -238,6 +240,7 @@
   transform: scaleX(-1);
   height: 30px;
 }
+
 .panel-item-name {
   display: flex;
   flex: 1;
@@ -259,16 +262,22 @@
   margin: 35px 25px;
 }
 
-/* .panel-options-item {
-  font-weight: normal;
-  font-size: 2.5rem;
-  width: fit-content;
-  margin: 0px;
-  color: #dddcdf;
-  justify-content: flex-start;
-} */
-/* 
-.panel-options-item:hover {
-  font-weight: bold;
-  color: "#cdcccf";
-} */
+/*scrollbar stuff*/
+.panel-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+.panel-content::-webkit-scrollbar-track {
+  background: #333333;
+}
+
+/* Handle */
+.panel-content::-webkit-scrollbar-thumb {
+  background: #585166;
+}
+
+/* Handle on hover */
+.panel-content::-webkit-scrollbar-thumb:hover {
+  background: #fff;
+}

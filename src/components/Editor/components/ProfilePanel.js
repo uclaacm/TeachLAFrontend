@@ -1,6 +1,5 @@
 import React from "react";
 import firebase from "firebase";
-import Filter from "../../../../node_modules/bad-words/lib/badwords.js";
 import {
   MINIMUM_DISPLAY_NAME_LENGTH,
   MAXIMUM_DISPLAY_NAME_LENGTH,
@@ -15,8 +14,6 @@ import ReactModal from "react-modal";
  * panelVisible: boolean to determine if the panel should be open or not
  * size: number? representing the pixel width of the panel
  */
-
-const filter = new Filter();
 
 class ProfilePanel extends React.Component {
   constructor(props) {
@@ -67,14 +64,11 @@ class ProfilePanel extends React.Component {
         displayNameMessage: `Display name must be between ${MINIMUM_DISPLAY_NAME_LENGTH}-${MAXIMUM_DISPLAY_NAME_LENGTH} characters long`,
       });
       return true;
-    } else if (name.match(/[^a-zA-Z0-9!@#$%]/)) {
+    } else if (name.match(/[^a-zA-Z0-9!@#$% ]/)) {
       this.setState({
         displayNameMessage:
-          "Display name must only use upper case and lower case letters, numbers, and/or the special characters !@#$%",
+          "Only use upper case, lower case, numbers, spaces, and/or the following special characters !@#$%",
       });
-      return true;
-    } else if (filter.isProfane(name)) {
-      this.setState({ displayNameMessage: "Display name must not contain profanity" });
       return true;
     }
     return false;
@@ -85,11 +79,11 @@ class ProfilePanel extends React.Component {
     let badInputs = this.checkInputs();
 
     if (badInputs) {
-      this.setState({ name: "", nameIsHovering: true, editing: false });
+      this.setState({ name: this.props.displayName, editing: false });
       return;
     } else {
       this.props.setDisplayName(this.state.name);
-      this.setState({ name: "", nameIsHovering: true, editing: false, displayNameMessage: "" });
+      this.setState({ editing: false, displayNameMessage: "" });
       return;
     }
   };
@@ -189,7 +183,7 @@ class ProfilePanel extends React.Component {
       );
     } else {
       return (
-        <form onMouseLeave={this.handleMouseHover} onSubmit={this.onNameSubmit}>
+        <form onSubmit={this.onSubmit}>
           <input
             autoFocus
             className="panel-edit"
@@ -209,7 +203,7 @@ class ProfilePanel extends React.Component {
         <img
           style={{ position: "absolute", height: "60px", right: "-2px", zIndex: 20, opacity: 0.9 }}
           alt="banner"
-          src="img/longyellow2.png"
+          src="img/coming-soon-banner.png"
         />
       )}
       <span className={"panel-item-content"}>
@@ -225,7 +219,7 @@ class ProfilePanel extends React.Component {
         <img
           style={{ position: "absolute", height: "60px", right: "-2px", zIndex: 20, opacity: 0.9 }}
           alt="banner"
-          src="img/longyellow2.png"
+          src="img/coming-soon-banner.png"
         />
       )}
       <span className="panel-item-content">

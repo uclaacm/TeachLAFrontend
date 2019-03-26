@@ -3,7 +3,6 @@ import { RingLoader } from "react-spinners";
 import { Link } from "react-router-dom";
 import firebase from "firebase";
 import SHA256 from "crypto-js/sha256";
-import Filter from "bad-words";
 import LoginInput from "../Login/LoginInput.js";
 import {
   MINIMUM_USERNAME_LENGTH,
@@ -12,8 +11,6 @@ import {
   MAXIMUM_PASSWORD_LENGTH,
   EMAIL_DOMAIN_NAME,
 } from "../../constants";
-
-const filter = new Filter();
 
 export default class CreateUserModal extends React.Component {
   constructor(props) {
@@ -33,7 +30,6 @@ export default class CreateUserModal extends React.Component {
    * The criteria checked:
    *    -Username length: as defined in constants file
    *    -Username characters: only alphanumeric characters, plus !@#$%
-   *    -Username profanity: please see bad-words package
    *    -Password length: as defined in constants file
    *    -Password characters: only alphanumeric characters, plus !@#$%
    * @return {boolean} badInputs - indicates whether any of the inputs given do
@@ -43,7 +39,7 @@ export default class CreateUserModal extends React.Component {
     const { username, password } = this.state;
     let badInputs = false;
 
-    //if username is too long, too short, has non ascii and some special characters, or has profanity in it, reject it
+    //if username is too long, too short, has non ascii and some special characters, reject it
     if (username.length < MINIMUM_USERNAME_LENGTH || username.length > MAXIMUM_USERNAME_LENGTH) {
       this.setState({
         usernameMessage: `Username must be between ${MINIMUM_USERNAME_LENGTH}-${MAXIMUM_USERNAME_LENGTH} characters long`,
@@ -54,9 +50,6 @@ export default class CreateUserModal extends React.Component {
         usernameMessage:
           "Username must only use upper case and lower case letters, numbers, and/or the special characters !@#$%",
       });
-      badInputs = true;
-    } else if (filter.isProfane(username)) {
-      this.setState({ usernameMessage: "Username must not contain profanity" });
       badInputs = true;
     } else {
       this.setState({ usernameMessage: null });
@@ -157,8 +150,8 @@ export default class CreateUserModal extends React.Component {
           waiting={this.state.waiting}
           onChange={this.updatePassword}
         />
-        {this.renderErrorMessage(this.state.passwordMessage)}
         {this.renderErrorMessage(this.state.usernameMessage)}
+        {this.renderErrorMessage(this.state.passwordMessage)}
         {this.renderErrorMessage(this.state.errorMessage, true)}
       </div>
     </div>
@@ -187,7 +180,6 @@ export default class CreateUserModal extends React.Component {
   render() {
     return (
       <form className="login-form" onSubmit={this.submit}>
-        {" "}
         {this.renderHeader()}
         <br />
         {this.renderInputs()}
