@@ -149,8 +149,15 @@
   background-color: transparent;
 }
 
+.panel-edit-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+}
+
 .panel-edit {
-  width: 25vw;
+  width: 90%;
   float: middle;
   padding: 20px 0 5px;
   text-align: center;

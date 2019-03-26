@@ -184,7 +184,7 @@ class ProfilePanel extends React.Component {
       );
     } else {
       return (
-        <form onSubmit={this.onNameSubmit}>
+        <form className="panel-edit-container" onSubmit={this.onNameSubmit}>
           <input
             autoFocus
             className="panel-edit"
