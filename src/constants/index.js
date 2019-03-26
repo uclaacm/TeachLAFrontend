@@ -44,6 +44,13 @@ const PHOTO_NAMES = {
   heart: "https://i.imgur.com/ySz1WAS.png",
 };
 
+//Local Server
+var SERVER_URL = "http://localhost:8081";
+if (process && process.env && process.env.REACT_APP_SERVER_TYPE === "prod") {
+  //Heroku Server
+  SERVER_URL = "https://teach-la-backend.herokuapp.com";
+}
+
 module.exports = {
   //Language definitions
   PYTHON,
@@ -57,13 +64,8 @@ module.exports = {
   PHOTO_NAMES,
   DEFAULT_PHOTO_NAME: "icecream",
 
-  //Server definitions
-  //Local Server
-  SERVER_URL: "http://localhost:8081",
-  //Heroku Server
-  // SERVER_URL: "https://teach-la-backend.herokuapp.com",
-  // Heroku URL: "https://teach-la-backend.herokuapp.com"
-  //DEV URL: "http://localhost:8081"
+  //Server Host Name
+  SERVER_URL,
 
   //User value constants
   MINIMUM_USERNAME_LENGTH: 6,

@@ -7,7 +7,7 @@ cache:
   - node_modules
 
 script:
-  - npm run build
+  - npm run prod_build
 
 notifications:
   email:
