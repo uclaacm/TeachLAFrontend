@@ -19,11 +19,6 @@ export function setDisplayName(displayName) {
   return { type: SET_DISPLAY_NAME, value: displayName };
 }
 
-export const SET_PHOTO_URL = "SET_DISPLAY_NAME";
-export function setPhotoURL(photoURL) {
-  return { type: SET_PHOTO_URL, value: photoURL };
-}
-
 export const REQUEST_DATA_UPLOAD = "REQUEST_DATA_UPLOAD";
 export function requestDataUpload(packet) {
   return { type: REQUEST_DATA_UPLOAD, packet: packet };

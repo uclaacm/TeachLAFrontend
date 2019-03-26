@@ -267,10 +267,8 @@ class ProfilePanel extends React.Component {
       <div className="panel-content">
         {this.renderPanelImage()}
         {this.renderImageModal()}
-        {/*if there's a photourl, use it, otherwise use the default image (the ?height=500 to make sure the picture sent is resized to 500px tall*/}
         {this.renderName()}
         {this.renderErrorMessage(this.state.displayNameMessage)}
-        {/*if there's no displayName, use the default name "Joe Bruin"*/}
         {this.renderButtons()}
       </div>
       <div className="editor-footer">
