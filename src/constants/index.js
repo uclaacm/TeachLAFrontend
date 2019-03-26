@@ -32,6 +32,18 @@ SUPPORTED_LANGUAGES.forEach(lang => {
   }
 });
 
+const PHOTO_NAMES = {
+  lightbulb: "https://i.imgur.com/WKDHPon.pngg",
+  orange: "https://i.imgur.com/DMc0L0P.png",
+  pear: "https://i.imgur.com/T03MlZH.png",
+  apple: "https://i.imgur.com/5S83eug.png",
+  hotdog: "https://i.imgur.com/CWwlIOF.png",
+  icecream: "https://i.imgur.com/OBHz5An.png",
+  cloud: "https://i.imgur.com/Cw6IRTu.png",
+  earth: "https://i.imgur.com/SBlnUnG.png",
+  heart: "https://i.imgur.com/ySz1WAS.png",
+};
+
 module.exports = {
   //Language definitions
   PYTHON,
@@ -40,6 +52,10 @@ module.exports = {
   JAVA,
   PROCESSING,
   CPP,
+
+  // photo names
+  PHOTO_NAMES,
+  DEFAULT_PHOTO_NAME: "icecream",
 
   //Server definitions
   //Local Server

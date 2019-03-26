@@ -3,8 +3,8 @@ import {
   CLEAR_USER_DATA,
   LOAD_FAILURE,
   SET_DISPLAY_NAME,
-  SET_PHOTO_URL,
   SET_MOST_RECENT_PROGRAM,
+  SET_PHOTO_NAME,
 } from "../actions/userDataActions";
 
 import * as fetch from "../lib/fetch.js";
@@ -12,9 +12,9 @@ import * as fetch from "../lib/fetch.js";
 const initialState = {
   error: "",
   displayName: "",
-  photoURL: null,
   uid: "",
   mostRecentProgram: "",
+  photoName: "",
 };
 
 function userDataReducer(state = initialState, action) {
@@ -29,28 +29,25 @@ function userDataReducer(state = initialState, action) {
     case SET_DISPLAY_NAME:
       let newName = action.value;
       fetch
-        .updateUserData(state.uid, { displayName: action.value })
-        .then(response => {
-          //if nothing went bad, keep the display name, otherwise, change it back (or dont, depends how we wanna do it)
-          console.log(response);
-        })
+        .updateUserData(state.uid, { displayName: newName })
+        .then(response => {})
         .catch(err => {
           state.error = err;
           console.log(err);
         });
       return Object.assign({}, state, { displayName: newName });
-    case SET_PHOTO_URL:
-      state.photoURL = action.value;
-      // fetch.updateUserData(state.uid, {photoURL: action.value})
-      //   .then((response)=>{
-      //     //if nothing went bad, keep the display name, otherwise, change it back (or dont, depends how we wanna do it)
-      //     console.log(response)
-      //   })
-      //   .catch(err => {
-      //     state.error = err
-      //     console.log(err)
-      //   })
-      return state;
+    case SET_PHOTO_NAME:
+      let newPhotoName = action.photoName;
+      fetch
+        .updateUserData(state.uid, { photoName: newPhotoName })
+        .then(response => {
+          //if nothing went bad, keep the display name, otherwise, change it back (or dont, depends how we wanna do it)
+        })
+        .catch(err => {
+          state.error = err;
+          console.log(err);
+        });
+      return Object.assign({}, state, { photoName: newPhotoName });
     case SET_MOST_RECENT_PROGRAM:
       fetch
         .updateUserData(state.uid, { mostRecentProgram: action.value })
