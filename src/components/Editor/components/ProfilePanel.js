@@ -77,7 +77,7 @@ class ProfilePanel extends React.Component {
   onNameSubmit = e => {
     e.preventDefault();
     let badInputs = this.checkInputs();
-
+    console.log("submit");
     if (badInputs) {
       this.setState({ name: this.props.displayName, editing: false });
       return;
@@ -137,7 +137,7 @@ class ProfilePanel extends React.Component {
     let names = Object.keys(PHOTO_NAMES);
     let icons = names.map(val => {
       return (
-        <figure className="gallery-item" onClick={() => this.onImageClick(val)}>
+        <figure className="gallery-item" key={val} onClick={() => this.onImageClick(val)}>
           <img
             src={PHOTO_NAMES[val]}
             className={"gallery-img" + (this.state.selectedImage === val ? "-selected" : "")}
@@ -153,6 +153,7 @@ class ProfilePanel extends React.Component {
           onRequestClose={this.handleCloseModal}
           className="profile-image-modal"
           overlayClassName="profile-image-overlay"
+          ariaHideApp={false}
         >
           <div className="gallery">{icons}</div>
 
@@ -183,14 +184,14 @@ class ProfilePanel extends React.Component {
       );
     } else {
       return (
-        <form onSubmit={this.onSubmit}>
+        <form onSubmit={this.onNameSubmit}>
           <input
             autoFocus
             className="panel-edit"
             placeholder={this.props.displayName}
             onChange={this.onNameChange}
-            onSubmit={this.onNameSubmit}
             value={this.state.name}
+            onBlur={this.onNameSubmit}
           />
         </form>
       );
