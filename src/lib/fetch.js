@@ -98,8 +98,6 @@ export const updateUserData = (uid = "", userData) => {
     return;
   }
 
-  console.log(body);
-
   const options = {
     method: "post",
     headers: {

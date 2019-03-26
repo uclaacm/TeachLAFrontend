@@ -36,7 +36,7 @@
 }
 
 .panel-image {
-  width: 200px;
+  width: 205px;
   height: 200px;
   /*background:#000;*/ /*if you leave this out, transparent profile pictures will show the background behind it*/
 }
@@ -83,14 +83,14 @@
   position: relative;
   border-radius: 500px;
   border: 1px solid #dddcdf;
-  width: 200px;
+  width: 205px;
   height: 200px;
   overflow: hidden;
 }
 
 .image-edit-button {
   height: 80px;
-  width: 200px;
+  width: 205px;
   font-size: 2rem;
   font-weight: bold;
   position: absolute;
@@ -108,7 +108,7 @@
   padding-bottom: 40px;
 }
 
-.gallery__img {
+.gallery-img {
   width: 80px;
   height: 80px;
   object-fit: cover;
@@ -117,7 +117,7 @@
   border: 3px white solid;
 }
 
-.gallery__imgSelected {
+.gallery-img-selected {
   width: 80px;
   height: 80px;
   object-fit: cover;
@@ -126,7 +126,7 @@
   border: 3px #83dadd solid;
 }
 
-.gallery__img:hover {
+.gallery-img:hover {
   width: 80px;
   height: 80px;
   object-fit: cover;

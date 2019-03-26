@@ -5,6 +5,7 @@ import {
   MINIMUM_DISPLAY_NAME_LENGTH,
   MAXIMUM_DISPLAY_NAME_LENGTH,
   PHOTO_NAMES,
+  DEFAULT_PHOTO_NAME,
 } from "../../../constants";
 import ReactModal from "react-modal";
 
@@ -31,20 +32,17 @@ class ProfilePanel extends React.Component {
       selectedImage: "",
       displayNameMessage: "",
     };
-
-    this.handleOpenModal = this.handleOpenModal.bind(this);
-    this.handleCloseModal = this.handleCloseModal.bind(this);
   }
 
   componentDidUpdate() {}
 
-  handleOpenModal() {
+  handleOpenModal = () => {
     this.setState({ showModal: true, selectedImage: this.props.photoName });
-  }
+  };
 
-  handleCloseModal() {
+  handleCloseModal = () => {
     this.setState({ selectedImage: "", showModal: false });
-  }
+  };
 
   handleEditNameClick = () => {
     this.setState(prevState => {
@@ -123,7 +121,7 @@ class ProfilePanel extends React.Component {
       >
         <img
           className="panel-image"
-          src={PHOTO_NAMES[this.props.photoName] || PHOTO_NAMES["icecream"]} // needs to be edited to use profile image name
+          src={PHOTO_NAMES[this.props.photoName] || PHOTO_NAMES[DEFAULT_PHOTO_NAME]} // needs to be edited to use profile image name
           alt="Your profile"
         />
         {this.state.imageIsHovering && (
@@ -136,7 +134,6 @@ class ProfilePanel extends React.Component {
   };
 
   onImageClick = name => {
-    console.log(name);
     this.setState(prevState => {
       return { selectedImage: name };
     });
@@ -146,10 +143,10 @@ class ProfilePanel extends React.Component {
     let names = Object.keys(PHOTO_NAMES);
     let icons = names.map(val => {
       return (
-        <figure className="gallery__item" onClick={() => this.onImageClick(val)}>
+        <figure className="gallery-item" onClick={() => this.onImageClick(val)}>
           <img
             src={PHOTO_NAMES[val]}
-            className={"gallery__img" + (this.state.selectedImage === val ? "Selected" : "")}
+            className={"gallery-img" + (this.state.selectedImage === val ? "-selected" : "")}
             alt="icon"
           />
         </figure>
@@ -268,11 +265,11 @@ class ProfilePanel extends React.Component {
         {/*character is leftward facing arrow*/}
       </div>
       <div className="panel-content">
-        <div>{this.renderPanelImage()}</div>
-        <div>{this.renderImageModal()}</div>
+        {this.renderPanelImage()}
+        {this.renderImageModal()}
         {/*if there's a photourl, use it, otherwise use the default image (the ?height=500 to make sure the picture sent is resized to 500px tall*/}
-        <div>{this.renderName()} </div>
-        <div>{this.renderErrorMessage(this.state.displayNameMessage)}</div>
+        {this.renderName()}
+        {this.renderErrorMessage(this.state.displayNameMessage)}
         {/*if there's no displayName, use the default name "Joe Bruin"*/}
         {this.renderButtons()}
       </div>

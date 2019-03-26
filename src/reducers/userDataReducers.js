@@ -35,11 +35,7 @@ function userDataReducers(state = initialState, action) {
       let newName = action.value;
       fetch
         .updateUserData(state.uid, { displayName: newName })
-        .then(response => {
-          console.log(action.value);
-          //if nothing went bad, keep the display name, otherwise, change it back (or dont, depends how we wanna do it)
-          console.log(response);
-        })
+        .then(response => {})
         .catch(err => {
           state.error = err;
           console.log(err);
