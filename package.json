@@ -6,6 +6,7 @@
     "ajv": "^6.4.0",
     "bootstrap": ">=4.1.2",
     "codemirror": "^5.37.0",
+    "cross-env": "^5.2.0",
     "crypto-js": "^3.1.9-1",
     "enzyme-adapter-react-16": "^1.1.1",
     "firebase": "^5.0.3",
@@ -38,7 +39,8 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "dev": "concurrently --kill-others-on-fail \"yarn start\" \"yarn server\"",
-    "server": "nodemon app.js"
+    "prod_start": "cross-env REACT_APP_FS_PROJ=prod REACT_APP_SERVER_TYPE=prod react-scripts start",
+    "prod_build": "cross-env REACT_APP_FS_PROJ=prod REACT_APP_SERVER_TYPE=prod react-scripts build"
   },
   "devDependencies": {
     "circular-json": "^0.5.5",
