@@ -117,23 +117,22 @@ export default class LoginModal extends React.Component {
         <div className="login-form-loader">
           <RingLoader color={"#857e8f"} size={50} loading={this.state.waiting} />
         </div>
-        <button className="login-form-button" type="submit">
-          Login
-        </button>
-        <div className="login-button-list">
+        <div>
+          <button className="login-form-button" type="submit">
+            Login
+          </button>
           {/*imgSrc is relative to the public folder if you put a path, hence why theres no img folder in src */}
-          {/*textPadding's value is kinda arbitrary, it's kind of a fiddling game*/}
           <SocialButton
             imgSrc="img/fbLogo1.png"
             bgColor="#4267b2"
             textColor="white"
-            textPadding="15px"
             value="Login with Facebook"
             handleLogin={this.handleSocialLogin}
           />
         </div>
+        <br />
         <Link to="/createUser" className="login-form-link">
-          Don't have an account? Click here to create a new account
+          Don't have an account? Create one now!
         </Link>
       </form>
     );

@@ -8,7 +8,7 @@ body,
 
 body {
   font-family: "Josefin Slab", sans-serif;
-  min-width: 1125px;
+  /*min-width: 1125px;*/
   overflow: hidden;
   box-sizing: border-box;
 }

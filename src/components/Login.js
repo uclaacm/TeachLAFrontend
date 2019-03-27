@@ -22,8 +22,13 @@ class Login extends React.Component {
         <div style={{ height: "0px" }}>&nbsp;</div>
         {/*for some reason when you don't have a non empty element above the modal,
         it leaves a white section above it...so thats why this is here*/}
-        <div className="login-modal">
-          <LoginModal provider={this.props.provider} />
+        <div className="row">
+          <div className="col">
+            <div className="login-modal">
+              <LoginModal provider={this.props.provider} />
+            </div>
+          </div>
+          <div className="col hidden-small" />
         </div>
       </div>
     );
