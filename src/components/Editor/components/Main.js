@@ -37,13 +37,15 @@ class Main extends React.Component {
   };
 
   handleSave = event => {
-    var programsJson = {};
+    this.setState({
+      saveText: "Saving...",
+    });
+    let programToUpdate = {};
+    programToUpdate[this.props.mostRecentProgram] = {
+      code: this.props.code,
+    };
 
-    programsJson["HTML"] = this.props.programs.getIn(["HTML", "code"]);
-    programsJson["Processing"] = this.props.programs.getIn(["Processing", "code"]);
-    programsJson["Python"] = this.props.programs.getIn(["Python", "code"]);
-
-    fetch.updatePrograms(this.props.uid, programsJson).then(() => {
+    fetch.updatePrograms(this.props.uid, programToUpdate).then(() => {
       this.setState({
         saveText: "Saved!",
       });
