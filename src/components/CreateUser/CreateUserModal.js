@@ -166,7 +166,7 @@ export default class CreateUserModal extends React.Component {
   );
 
   renderButton = () => (
-    <button className="login-form-button" style={{ width: "37.5%" }} type="submit">
+    <button className="login-form-button" type="submit">
       Create Account
     </button>
   );
@@ -185,6 +185,7 @@ export default class CreateUserModal extends React.Component {
         {this.renderInputs()}
         {this.renderButton()}
         {this.renderLoader()}
+        <br />
         {this.renderLink()}
       </form>
     );
