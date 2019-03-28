@@ -40,7 +40,9 @@ class Main extends React.Component {
     this.setState({
       saveText: "Saving...",
     });
+
     let programToUpdate = {};
+
     programToUpdate[this.props.mostRecentProgram] = {
       code: this.props.code,
     };
@@ -76,12 +78,8 @@ class Main extends React.Component {
 
   renderDropdown = () => {
     //dropdown items should be an array of objects with two keys: value and display
-    let dropdownItems = [];
+    let dropdownItems = this.props.listOfPrograms;
 
-    //keySeq returns an Immutable object, so go through each key and push it into an array
-    if (this.props.programs) {
-      this.props.programs.keySeq().forEach(key => dropdownItems.push(key));
-    }
     return (
       <DropdownButton
         displayValue={this.props.mostRecentProgram}
