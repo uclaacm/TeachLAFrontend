@@ -10,7 +10,7 @@ import "../../styles/Loading.css";
 		textPadding: string representing padding to the left of the text, i.e. distance from the img (give px units)
 */
 
-const Loading = ({ props }) => (
+const Loading = props => (
   <div className="Loading">
     <div className="Loading-title">Loading</div>
     <RingLoader color={"#171124"} size={250} loading={true} />

@@ -21,9 +21,9 @@
 }
 
 .code-section-banner {
-  height: 60px;
   display: flex;
   flex-direction: row;
+  padding: 5px 0px;
   align-items: center;
   justify-content: flex-start;
   width: 100%;
@@ -51,8 +51,7 @@
   font-family: "Josefin Sans", sans-serif;
   flex: 0 1 auto;
   justify-self: flex-end;
-  padding-right: 5px;
-  margin-left: auto;
+  margin-left: 10px;
   margin-right: 10px;
 }
 
@@ -121,7 +120,8 @@
 }
 
 .editor-output-banner {
-  height: 60px;
+  height: 67px;
+  padding: 5px 0px;
   display: flex;
   flex-direction: row;
   align-items: center;

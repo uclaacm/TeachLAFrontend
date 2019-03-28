@@ -65,7 +65,7 @@ class Editor extends React.Component {
   };
 
   render() {
-    const { panelVisible, panelLeft, textEditorSize, hotReload } = this.state;
+    const { panelVisible, textEditorSize, hotReload } = this.state;
 
     //style to be applied to non panel (sections containing text editor and code output)
     const codeStyle = {
@@ -85,11 +85,9 @@ class Editor extends React.Component {
         <Motion
           defaultStyle={{
             panelLeft: CLOSED_PANEL_LEFT,
-            textEditorAndOutputWidth: this.props.screenWidth,
           }}
           style={{
             panelLeft: spring(this.state.panelLeft),
-            textEditorAndOutputWidth: spring(this.props.screenWidth - (panelLeft + PANEL_SIZE)),
             damping: 30,
             stiffness: 218,
           }}
@@ -109,7 +107,7 @@ class Editor extends React.Component {
                   panelVisible={panelVisible}
                   codeStyle={Object.assign({}, codeStyle, {
                     left: value.panelLeft + PANEL_SIZE,
-                    width: value.textEditorAndOutputWidth,
+                    width: this.props.screenWidth - (value.panelLeft + PANEL_SIZE),
                   })}
                   hotReload={hotReload}
                 />
