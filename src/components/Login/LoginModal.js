@@ -121,7 +121,7 @@ export default class LoginModal extends React.Component {
           <button className="login-form-button" type="submit">
             Login
           </button>
-          {/*imgSrc is relative to the public folder if you put a path, hence why theres no img folder in src */}
+          {/*
           <SocialButton
             imgSrc="img/fbLogo1.png"
             bgColor="#4267b2"
@@ -129,6 +129,7 @@ export default class LoginModal extends React.Component {
             value="Login with Facebook"
             handleLogin={this.handleSocialLogin}
           />
+          */}
         </div>
         <br />
         <Link to="/createUser" className="login-form-link">
