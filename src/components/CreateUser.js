@@ -23,23 +23,6 @@ class CreateUser extends React.Component {
     };
   }
 
-  renderModal = () => {
-    return (
-      <div className="login-page-content">
-        <div style={{ height: "0px" }}>&nbsp;</div>
-        {/*for some reason when you don't have a non empty element above the modal,
-        it leaves a white section above it...so thats why this is here*/}
-        <div className="login-modal">
-          <CreateUserModal />
-        </div>
-      </div>
-    );
-  };
-
-  renderFooter = () => {
-    return <Footer />;
-  };
-
   render() {
     //if we haven't checked if the user is logged in yet, show a loading screen
     return (
@@ -48,9 +31,11 @@ class CreateUser extends React.Component {
           <div style={{ height: "0px" }}>&nbsp;</div>
           {/*for some reason when you don't have a non empty element above the modal,
           it leaves a white section above it...so thats why this is here*/}
-          {this.renderModal()}
+          <div className="login-modal">
+            <CreateUserModal />
+          </div>
         </div>
-        {this.renderFooter()}
+        <Footer />
       </div>
     );
   }
