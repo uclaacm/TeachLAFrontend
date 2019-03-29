@@ -37,13 +37,17 @@ class Main extends React.Component {
   };
 
   handleSave = event => {
-    var programsJson = {};
+    this.setState({
+      saveText: "Saving...",
+    });
 
-    programsJson["HTML"] = this.props.programs.getIn(["HTML", "code"]);
-    programsJson["Processing"] = this.props.programs.getIn(["Processing", "code"]);
-    programsJson["Python"] = this.props.programs.getIn(["Python", "code"]);
+    let programToUpdate = {};
 
-    fetch.updatePrograms(this.props.uid, programsJson).then(() => {
+    programToUpdate[this.props.mostRecentProgram] = {
+      code: this.props.code,
+    };
+
+    fetch.updatePrograms(this.props.uid, programToUpdate).then(() => {
       this.setState({
         saveText: "Saved!",
       });
@@ -74,12 +78,8 @@ class Main extends React.Component {
 
   renderDropdown = () => {
     //dropdown items should be an array of objects with two keys: value and display
-    let dropdownItems = [];
+    let dropdownItems = this.props.listOfPrograms;
 
-    //keySeq returns an Immutable object, so go through each key and push it into an array
-    if (this.props.programs) {
-      this.props.programs.keySeq().forEach(key => dropdownItems.push(key));
-    }
     return (
       <DropdownButton
         displayValue={this.props.mostRecentProgram}
