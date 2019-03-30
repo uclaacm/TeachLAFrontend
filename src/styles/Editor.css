@@ -150,7 +150,6 @@
 .btn:not(:disabled):not(.disabled) {
   font-size: 24px;
   font-family: "Josefin Sans", sans-serif; /*font for the whole login page */
-  background-color: #857e8f;
   color: white;
   border: 0px;
 }

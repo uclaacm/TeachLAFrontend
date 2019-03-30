@@ -2,7 +2,7 @@ import React from "react";
 import SplitPane from "react-split-pane";
 import OutputContainer from "../containers/OutputContainer.js";
 import TextEditorContainer from "../containers/TextEditorContainer";
-import DropdownButton from "./DropdownButton";
+import DropdownButtonContainer from "../containers/DropdownButtonContainer";
 import EditorButton from "./EditorButton";
 import * as fetch from "../../../lib/fetch.js";
 import EditorRadio from "./EditorRadio.js";
@@ -92,18 +92,7 @@ class Main extends React.Component {
     );
   };
 
-  renderDropdown = () => {
-    //dropdown items should be an array of objects with two keys: value and display
-    let dropdownItems = this.props.listOfPrograms;
-
-    return (
-      <DropdownButton
-        displayValue={this.props.mostRecentProgram}
-        onSelect={this.props.setMostRecentProgram}
-        dropdownItems={dropdownItems}
-      />
-    );
-  };
+  renderDropdown = () => <DropdownButtonContainer />;
 
   renderCodeAndOutput = () => (
     <SplitPane
