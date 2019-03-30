@@ -3,7 +3,7 @@ import SHA256 from "crypto-js/sha256";
 import { RingLoader } from "react-spinners";
 import { EMAIL_DOMAIN_NAME } from "../../constants";
 import { Link } from "react-router-dom";
-import SocialButton from "../common/SocialButton";
+//import SocialButton from "../common/SocialButton";
 import LoginInput from "./LoginInput";
 import firebase from "firebase";
 import "../../styles/Login.css";
@@ -111,29 +111,31 @@ export default class LoginModal extends React.Component {
     return (
       <form className="login-form" onSubmit={this.handleEmailLogin}>
         {/*Form doesn't do anything rn, just an example of a stateful React form.*/}
-        <div className="login-header">{"Welcome to <Teach LA>"}</div>
+        <div className="login-header">
+          Welcome to <span className="force-no-wrap">&lt;Teach LA&gt;</span>
+        </div>
         <br />
         {this.renderInputs()}
         <div className="login-form-loader">
           <RingLoader color={"#857e8f"} size={50} loading={this.state.waiting} />
         </div>
-        <button className="login-form-button" type="submit">
-          Login
-        </button>
-        <div className="login-button-list">
-          {/*imgSrc is relative to the public folder if you put a path, hence why theres no img folder in src */}
-          {/*textPadding's value is kinda arbitrary, it's kind of a fiddling game*/}
+        <div>
+          <button className="login-form-button" type="submit">
+            Login
+          </button>
+          {/*
           <SocialButton
             imgSrc="img/fbLogo1.png"
             bgColor="#4267b2"
             textColor="white"
-            textPadding="15px"
             value="Login with Facebook"
             handleLogin={this.handleSocialLogin}
           />
+          */}
         </div>
+        <br />
         <Link to="/createUser" className="login-form-link">
-          Don't have an account? Click here to create a new account
+          Don't have an account? Create one now!
         </Link>
       </form>
     );
