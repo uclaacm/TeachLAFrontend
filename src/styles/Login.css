@@ -1,18 +1,30 @@
 .login-page {
   margin: 0px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .login-page-content {
+  width: 100%;
   height: 100vh;
-  background-color: #272134;
   background-image: url("../img/blueguy-transparent-2.png");
   background-repeat: no-repeat;
   background-position: right top;
   background-size: auto 93%;
-  min-height: 600px;
   overflow-y: auto;
   box-sizing: border-box;
+  background-color: #272134;
   padding-bottom: 8vh;
+}
+
+@media only screen and (max-width: 1024px) {
+  .hidden-small {
+    display: none;
+  }
+  .login-page-content {
+    background-image: none;
+  }
 }
 
 .login-footer {
@@ -31,7 +43,7 @@
 }
 
 .login-form {
-  padding: 20px 20px;
+  padding: 0 1.5em;
   color: #dddcdf;
 }
 
@@ -44,8 +56,7 @@
 }
 
 .login-header {
-  font-size: 48px;
-  white-space: nowrap;
+  font-size: 40px;
   font-weight: bold;
 }
 
@@ -55,30 +66,24 @@
   margin-bottom: 1rem;
 }
 
-.login-form-input-list {
-  padding-left: 40px;
-}
-
 .login-form-input-error {
   color: red;
   font-size: 1rem;
 }
 
-.login-button-list {
-  width: 100%;
-  padding: 0 15%;
-}
-
 .login-modal {
   font-family: "Josefin Slab", sans-serif; /*font for the whole login page*/
   display: block;
-  width: 460px;
-  min-width: 469px;
-  min-height: 550px;
   margin-top: 30px; /*modal distance from top of the screen*/
-  margin-left: 8%; /*modal distance from left side of the screen*/
-  padding: 15px;
   box-sizing: border-box;
+  width: 50%;
+}
+
+@media only screen and (max-width: 1024px) {
+  .login-modal {
+    text-align: center;
+    width: 100%;
+  }
 }
 
 .login-form-input {
@@ -95,8 +100,9 @@
   -moz-appearance: none;
   appearance: none;
   outline: 0;
-  width: 70%;
+  width: 50%;
   min-width: 300px;
+  max-width: 500px;
   margin: 0 2px 1rem; /*last value controls how far the next input starts*/
   font-variant-ligatures: none;
   -webkit-transition: box-shadow 70ms ease-out, border-color 70ms ease-out;
@@ -118,14 +124,21 @@
 }
 
 .login-form-button {
-  border: 0px;
+  display: inline-block;
   font-family: "Josefin Slab", sans-serif;
-  font-size: 1.3rem;
   color: #dddcdf;
-  margin: 20px 32.5% 10px; /*margin leftright is half of 100% - width*/
-  width: 35%;
   background-color: #857e8f;
-  height: 40px;
+  cursor: pointer;
+  overflow: visible;
+  text-align: center;
+  border: 0;
+  border-radius: 3px;
+  user-select: none;
+  text-decoration: none;
+  padding: 0.5em 1em;
+  font-size: 1.3rem;
+  line-height: 1.4em;
+  margin-right: 0.5em;
 }
 
 .login-form-link {
@@ -139,25 +152,6 @@
   text-decoration: underline;
 }
 
-.razor {
-  /* position:"relative"; */
-  /* width:100%; */
-  height: 800px;
-  background: #00ff00;
-}
-
-.razor:after {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  content: "";
-  background: inherit;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  transform-origin: top left;
-  z-index: -1;
-  transform-origin: top left;
-  transform: skewY(4deg);
+.force-no-wrap {
+  white-space: nowrap;
 }

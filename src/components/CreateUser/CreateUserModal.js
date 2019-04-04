@@ -157,7 +157,7 @@ export default class CreateUserModal extends React.Component {
     </div>
   );
 
-  renderHeader = () => <div className="login-header">Create a new Account</div>;
+  renderHeader = () => <div className="login-header">Create a new account</div>;
 
   renderLoader = () => (
     <div className="login-form-loader">
@@ -166,14 +166,14 @@ export default class CreateUserModal extends React.Component {
   );
 
   renderButton = () => (
-    <button className="login-form-button" style={{ width: "37.5%" }} type="submit">
+    <button className="login-form-button" type="submit">
       Create Account
     </button>
   );
 
   renderLink = () => (
     <Link to="/login" className="login-form-link">
-      Already have an account? Click here to login
+      Already have an account? Click here to login.
     </Link>
   );
 
@@ -185,6 +185,7 @@ export default class CreateUserModal extends React.Component {
         {this.renderInputs()}
         {this.renderButton()}
         {this.renderLoader()}
+        <br />
         {this.renderLink()}
       </form>
     );

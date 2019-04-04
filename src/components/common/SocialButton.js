@@ -16,22 +16,16 @@ const SocialButton = props => (
     onClick={props.handleLogin}
   >
     {/*Style in React is different than css, you give it a JSON with camelcased keys of css like background-color is backgroundColor*/}
-    <div style={{ position: "relative" }}>
-      <span className="login-button-content">
-        {props.imgSrc ? (
-          <img className="login-button-img" alt="Login" src={props.imgSrc} />
-        ) : (
-          <span />
-        )}
-        <span
-          className="login-button-text"
-          style={{ left: props.textPadding ? props.textPadding : "0px" }}
-        >
-          {props.children ? props.children : props.value ? props.value : "Login"}
-          {/*if there's children, render the children, otherwise if value is defined, render value, otherwise just render "Login"*/}
-        </span>
-      </span>
-    </div>
+
+    <span className="login-button-content">
+      {props.imgSrc ? (
+        <img className="login-button-img" alt="Login" src={props.imgSrc} />
+      ) : (
+        <span />
+      )}
+      {props.children ? props.children : props.value ? props.value : "Login"}
+      {/*if there's children, render the children, otherwise if value is defined, render value, otherwise just render "Login"*/}
+    </span>
   </button>
 );
 

@@ -35,23 +35,45 @@
   padding-left: 15px;
 }
 
+/* comments, e.g. // # /* */
 .cm-s-material .cm-comment {
-  color: #c792ea;
+  color: #1d3c69;
 }
 
+/* import for while in etc */
 .cm-s-material span.cm-keyword {
-  color: #583c4f;
+  color: #deb0ff;
 }
 
+/*e.g. var *blah*, blah will be colored */
 .cm-s-material span.cm-def {
-  color: #9deaf4;
+  color: #47e2d5;
 }
 
+/*e.g. var *blah*, blah will be colored */
 .cm-s-material span.cm-variable {
-  /* color:#8dade2; */
-  color: #e8c406;
+  color: #f5e83c;
 }
 
+/*for python: print, range, all built-in functions */
+.cm-s-material .cm-builtin {
+  color: #ffb36f;
+}
+
+/* 1 2 -11 etc */
+.cm-s-material .cm-number {
+  color: #f69797;
+}
+
+/* + - > < etc */
+.cm-s-material .cm-operator {
+  color: rgba(233, 237, 237, 1);
+}
+
+/* e.g. turtle.*Blah*(), Blah will be colored */
+.cm-s-material .cm-property {
+  color: #80cbae;
+}
 .cm-s-material .CodeMirror-cursor {
   border-left: 1px solid rgb(167, 139, 49);
 }
@@ -79,3 +101,25 @@
   margin-bottom: 20px; /*adds space for triangle on the bottom of the editor*/
   padding-left: 3px; /*adds space for triangle on the left of the editor*/
 }
+
+/* most of the codemirror styles we can override for text
+.cm-s-material .CodeMirror-activeline-background { background: rgba(0, 0, 0, 0); }
+.cm-s-material .cm-operator { color: rgba(233, 237, 237, 1); }
+.cm-s-material .cm-variable-2 { color: #80CBC4; }
+.cm-s-material .cm-variable-3, .cm-s-material .cm-type { color: #82B1FF; }
+.cm-s-material .cm-builtin { color: #DECB6B; }
+.cm-s-material .cm-atom { color: #F77669; }
+.cm-s-material .cm-number { color: #F77669; }
+.cm-s-material .cm-def { color: rgba(233, 237, 237, 1); }
+.cm-s-material .cm-string { color: #C3E88D; }
+.cm-s-material .cm-string-2 { color: #80CBC4; }
+.cm-s-material .cm-comment { color: #546E7A; }
+.cm-s-material .cm-variable { color: #82B1FF; }
+.cm-s-material .cm-tag { color: #80CBC4; }
+.cm-s-material .cm-meta { color: #80CBC4; }
+.cm-s-material .cm-attribute { color: #FFCB6B; }
+.cm-s-material .cm-property { color: #80CBAE; }
+.cm-s-material .cm-qualifier { color: #DECB6B; }
+.cm-s-material .cm-variable-3, .cm-s-material .cm-type { color: #DECB6B; }
+.cm-s-material .cm-tag { color: rgba(255, 83, 112, 1); }
+*/
