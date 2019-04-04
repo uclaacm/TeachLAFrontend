@@ -38,10 +38,6 @@ class Main extends React.Component {
         if (this.state.viewMode === CODE_AND_OUTPUT) {
           this.setState({ viewMode: CODE_ONLY });
         }
-      } else {
-        if (this.state.viewMode !== CODE_AND_OUTPUT) {
-          this.setState({ viewMode: CODE_AND_OUTPUT });
-        }
       }
     }
   }
