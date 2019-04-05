@@ -57,7 +57,8 @@ export default class DropdownButton extends React.Component {
           isOpen={this.state.dropdownOpen}
           toggle={() => this.toggleHandler(this.state.dropdownOpen)}
         >
-          <DropdownToggle caret>
+          {/* HACK: disables the colors entirely, makes the dropdown transparent */}
+          <DropdownToggle color={""} caret>
             <div className="editor-language-dropdown-closed-content">{this.props.displayValue}</div>
           </DropdownToggle>
           <DropdownMenu>{this.renderDropdownItems()}</DropdownMenu>

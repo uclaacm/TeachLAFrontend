@@ -1,6 +1,10 @@
 import React from "react";
 import { PYTHON, JAVASCRIPT, CPP, JAVA, HTML, PROCESSING } from "../../../constants";
+import { OUTPUT_ONLY } from "../constants";
 import EditorButton from "./EditorButton";
+import EditorRadio from "./EditorRadio";
+import DropdownButtonContainer from "../containers/DropdownButtonContainer";
+
 /**--------Props--------
  * None
  */
@@ -231,9 +235,24 @@ class Output extends React.Component {
     }
   };
 
+  renderLanguageDropdown = () => this.props.viewMode === OUTPUT_ONLY && <DropdownButtonContainer />;
+
+  renderRadio = () =>
+    this.props.viewMode === OUTPUT_ONLY && (
+      <div style={{ marginLeft: "auto" }}>
+        <EditorRadio
+          viewMode={this.props.viewMode}
+          updateViewMode={this.props.updateViewMode}
+          isSmall={this.props.isSmall}
+        />
+      </div>
+    );
+
   renderBanner = () => (
     <div className="editor-output-banner">
+      <div style={{ marginLeft: "10px" }}>{this.renderLanguageDropdown()}</div>
       <div style={{ flex: "1 1 auto" }}> </div> {/*whitespace*/}
+      {this.renderRadio()}
       <EditorButton handleClick={this.reRenderOutput} text="Refresh" color="#3c52ba" />
     </div>
   );
