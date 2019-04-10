@@ -7,10 +7,11 @@ import {
   DEFAULT_PHOTO_NAME,
 } from "../../../constants";
 import ReactModal from "react-modal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 /**--------Props--------
  * handleOnSizeChange: function to be called when the panel is resized
- * handleOnVisibleChange: function to be called when the panel is collapsed or opened
+ * handleOnVisibleChange: function to be called when the panel is collapsed or opened //TODO: Prop not needed
  * panelVisible: boolean to determine if the panel should be open or not
  * size: number? representing the pixel width of the panel
  */
@@ -255,10 +256,6 @@ class ProfilePanel extends React.Component {
 
   renderMainContent = () => (
     <div className="panel">
-      <div className="panel-collapse-button">
-        <div onClick={this.props.handleOnVisibleChange}>&larr;</div>
-        {/*character is leftward facing arrow*/}
-      </div>
       <div className="panel-content">
         {this.renderPanelImage()}
         {this.renderImageModal()}

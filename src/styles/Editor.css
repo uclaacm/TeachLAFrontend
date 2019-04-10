@@ -31,12 +31,20 @@
 }
 
 .editor-expand-panel-arrow {
-  color: #dddcdf;
-  font-weight: bold;
+  color: rgb(39, 33, 52);
   padding: 1rem;
   cursor: pointer;
   flex: 0 1 auto;
-  width: 20px;
+  transition: 0.5s;
+}
+
+.editor-collapse-panel-arrow {
+  color: #dddcdf;
+  padding: 1rem;
+  cursor: pointer;
+  flex: 0 1 auto;
+  background-color: rgb(39, 33, 52);
+  transition: 0.5s;
 }
 
 .editor-language-dropdown {

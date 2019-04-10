@@ -8,6 +8,10 @@ import Error from "./Error";
 import firebase from "firebase";
 import "../styles/app.css";
 
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faChevronLeft, faBars } from "@fortawesome/free-solid-svg-icons";
+library.add(faChevronLeft, faBars);
+
 const provider = new firebase.auth.FacebookAuthProvider();
 
 class App extends React.Component {
