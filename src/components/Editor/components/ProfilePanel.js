@@ -246,8 +246,9 @@ class ProfilePanel extends React.Component {
   renderButtons = () => (
     <div className="panel-options">
       <div className="panel-options-list">
-        {this.renderProfileButton(true)}
-        {this.renderSketchesButton(true)}
+        {/* STABLE BUILD HACK */}
+        {/* {this.renderProfileButton(true)} */}
+        {/* {this.renderSketchesButton(true)} */}
         {this.renderSignOutButton()}
       </div>
     </div>

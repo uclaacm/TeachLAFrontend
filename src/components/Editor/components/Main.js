@@ -2,7 +2,8 @@ import React from "react";
 import SplitPane from "react-split-pane";
 import OutputContainer from "../containers/OutputContainer.js";
 import TextEditorContainer from "../containers/TextEditorContainer";
-import DropdownButtonContainer from "../containers/DropdownButtonContainer";
+// STABLE BUILD HACK
+// import DropdownButtonContainer from "../containers/DropdownButtonContainer";
 import EditorButton from "./EditorButton";
 import * as fetch from "../../../lib/fetch.js";
 import EditorRadio from "./EditorRadio.js";
@@ -88,7 +89,9 @@ class Main extends React.Component {
     );
   };
 
-  renderDropdown = () => <DropdownButtonContainer />;
+  // STABLE BUILD HACK
+  // renderDropdown = () => <DropdownButtonContainer />;
+  renderDropdown = () => null;
 
   renderCodeAndOutput = () => (
     <SplitPane
