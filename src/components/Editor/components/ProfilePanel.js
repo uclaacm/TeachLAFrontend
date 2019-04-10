@@ -120,7 +120,7 @@ class ProfilePanel extends React.Component {
         />
         {this.state.imageIsHovering && (
           <button className="image-edit-button" onClick={this.handleOpenModal}>
-            Edit
+            <img src="http://i.imgur.com/wQgAOcF.png" alt="" width="20px" />
           </button>
         )}
       </div>
