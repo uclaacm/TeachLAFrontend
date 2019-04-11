@@ -5,7 +5,7 @@ import {
   MAXIMUM_DISPLAY_NAME_LENGTH,
   PHOTO_NAMES,
   DEFAULT_PHOTO_NAME,
-} from "../../../constants";
+} from "../../constants";
 import ReactModal from "react-modal";
 
 /**--------Props--------

@@ -1,4 +1,4 @@
-import ProfilePanel from "../components/ProfilePanel";
+import ProfilePanel from "../ProfilePanel";
 import { connect } from "react-redux";
 import { setDisplayName, setPhotoName } from "../../../actions/userDataActions";
 import { DEFAULT_PHOTO_NAME } from "../../../constants";

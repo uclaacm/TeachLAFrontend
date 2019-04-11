@@ -4,6 +4,7 @@ import LoginPage from "./containers/LoginContainer";
 import EditorPage from "./containers/EditorContainer";
 import LoadingPage from "./common/LoadingPage";
 import CreateUserPage from "./containers/CreateUserContainer";
+import SketchesPage from "./containers/SketchesContainer";
 import Error from "./Error";
 import firebase from "firebase";
 import "../styles/app.css";
@@ -113,6 +114,11 @@ class App extends React.Component {
           <Route
             path="/createUser"
             render={() => (isValidUser ? <Redirect to="/editor" /> : <CreateUserPage />)}
+          />
+          {/*if the user isn't loggedIn, redirect them to the login page, otherwise, show the view page*?*/}
+          <Route
+            path="/sketches"
+            render={() => (isValidUser ? <SketchesPage /> : <Redirect to="/login" />)}
           />
           {/* Default error page */}
           <Route

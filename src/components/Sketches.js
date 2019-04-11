@@ -1,13 +1,5 @@
 import React from "react";
-import MainContainer from "./Editor/containers/MainContainer";
 import { Motion, spring } from "react-motion";
-// Specify imports for codemirror usage
-import "codemirror/lib/codemirror.css";
-import "codemirror/theme/material.css";
-import "../styles/CustomCM.css";
-import "../styles/Resizer.css";
-import "../styles/Editor.css";
-import "../styles/Panel.css";
 import ProfilePanelContainer from "./common/containers/ProfilePanelContainer";
 
 const PANEL_SIZE = 250;
@@ -65,13 +57,7 @@ class Editor extends React.Component {
   };
 
   render() {
-    const { panelVisible, textEditorSize, hotReload } = this.state;
-
-    //style to be applied to non panel (sections containing text editor and code output)
-    const codeStyle = {
-      position: "fixed", //fixed bc we're using the css property left to set the left edge of the code section/output container
-      height: this.props.screenHeight,
-    };
+    const { panelVisible } = this.state;
 
     const panelStyle = {
       width: PANEL_SIZE, //width doesn't change, the 'right' css property just pushes it off the page
@@ -100,17 +86,7 @@ class Editor extends React.Component {
                   panelVisible={panelVisible}
                   panelStyle={Object.assign({}, panelStyle, { left: value.panelLeft })}
                 />
-                <MainContainer
-                  textEditorSize={textEditorSize}
-                  onSplitPaneChange={this.splitPaneChangeHandler}
-                  handleOnVisibleChange={this.togglePanel}
-                  panelVisible={panelVisible}
-                  codeStyle={Object.assign({}, codeStyle, {
-                    left: value.panelLeft + PANEL_SIZE,
-                    width: this.props.screenWidth - (value.panelLeft + PANEL_SIZE),
-                  })}
-                  hotReload={hotReload}
-                />
+                Sketches Page here
               </React.Fragment>
             );
           }}
