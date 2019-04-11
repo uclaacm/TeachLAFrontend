@@ -7,7 +7,6 @@ import {
   DEFAULT_PHOTO_NAME,
 } from "../../../constants";
 import ReactModal from "react-modal";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 /**--------Props--------
  * handleOnSizeChange: function to be called when the panel is resized
