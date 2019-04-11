@@ -1,0 +1,63 @@
+.sketches-expand-panel-arrow {
+  color: #dddcdf;
+  font-weight: bold;
+  padding: 1rem;
+  cursor: pointer;
+  flex: 0 1 auto;
+  width: 20px;
+}
+
+.sketches-header-text {
+  color: #dddcdf;
+  font-weight: bold;
+  padding: 1rem;
+  cursor: pointer;
+  flex: 0 1 auto;
+  font-size: 45px;
+}
+
+.sketches-header {
+  height: 100px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom: 2px solid #dddcdf;
+}
+
+.sketches-grid {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.sketches-grid-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  padding: 20px 50px;
+}
+
+.sketch-thumbnail {
+  width: 80px;
+  height: 80px;
+}
+
+.sketch-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 150px;
+  background-color: #dddcdf;
+  border-radius: 5px;
+  color: #0d0d0e;
+  margin: 0px 10px;
+  padding: 5px;
+  cursor: pointer;
+}

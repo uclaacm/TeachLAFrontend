@@ -1,4 +1,5 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 import firebase from "firebase";
 import {
   MINIMUM_DISPLAY_NAME_LENGTH,
@@ -28,6 +29,7 @@ class ProfilePanel extends React.Component {
       name: this.props.displayName,
       selectedImage: "",
       displayNameMessage: "",
+      redirectTo: "",
     };
   }
 
@@ -215,7 +217,14 @@ class ProfilePanel extends React.Component {
   );
 
   renderSketchesButton = disabled => (
-    <div className={"panel-options-item" + (disabled ? "-disabled" : "")}>
+    <div
+      className={"panel-options-item" + (disabled ? "-disabled" : "")}
+      onClick={() => {
+        if (!disabled) {
+          this.setState({ redirectTo: "/sketches" });
+        }
+      }}
+    >
       {disabled && (
         <img
           style={{ position: "absolute", height: "60px", right: "-2px", zIndex: 20, opacity: 0.9 }}
@@ -247,7 +256,7 @@ class ProfilePanel extends React.Component {
     <div className="panel-options">
       <div className="panel-options-list">
         {this.renderProfileButton(true)}
-        {this.renderSketchesButton(true)}
+        {this.renderSketchesButton()}
         {this.renderSignOutButton()}
       </div>
     </div>
@@ -274,6 +283,10 @@ class ProfilePanel extends React.Component {
 
   render() {
     const { panelStyle } = this.props;
+
+    if (this.state.redirectTo) {
+      return <Redirect to={this.state.redirectTo} />;
+    }
 
     return <div style={panelStyle}>{this.renderMainContent()}</div>;
   }

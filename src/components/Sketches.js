@@ -1,6 +1,8 @@
 import React from "react";
 import { Motion, spring } from "react-motion";
 import ProfilePanelContainer from "./common/containers/ProfilePanelContainer";
+import MainContainer from "./Sketches/containers/MainContainer";
+import "../styles/Sketches.css";
 
 const PANEL_SIZE = 250;
 const CLOSED_PANEL_LEFT = -1 * PANEL_SIZE;
@@ -18,8 +20,8 @@ class Editor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      panelVisible: false,
-      panelLeft: CLOSED_PANEL_LEFT,
+      panelVisible: true,
+      panelLeft: OPEN_PANEL_LEFT,
       textEditorSize: this.props.screenWidth * 0.5,
       hotReload: false,
     };
@@ -66,11 +68,17 @@ class Editor extends React.Component {
       display: "flex",
     };
 
+    //style to be applied to sketches area
+    const codeStyle = {
+      position: "fixed", //fixed bc we're using the css property left to set the left edge of the code section/output container
+      height: this.props.screenHeight,
+    };
+
     return (
       <div className="editor">
         <Motion
           defaultStyle={{
-            panelLeft: CLOSED_PANEL_LEFT,
+            panelLeft: OPEN_PANEL_LEFT,
           }}
           style={{
             panelLeft: spring(this.state.panelLeft),
@@ -86,7 +94,14 @@ class Editor extends React.Component {
                   panelVisible={panelVisible}
                   panelStyle={Object.assign({}, panelStyle, { left: value.panelLeft })}
                 />
-                Sketches Page here
+                <MainContainer
+                  handleOnVisibleChange={this.togglePanel}
+                  panelVisible={panelVisible}
+                  codeStyle={Object.assign({}, codeStyle, {
+                    left: value.panelLeft + PANEL_SIZE,
+                    width: this.props.screenWidth - (value.panelLeft + PANEL_SIZE),
+                  })}
+                />
               </React.Fragment>
             );
           }}
