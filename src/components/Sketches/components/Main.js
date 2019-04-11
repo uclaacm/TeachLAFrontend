@@ -1,6 +1,6 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
-import { EDITOR_WIDTH_BREAKPOINT, CODE_AND_OUTPUT, CODE_ONLY } from "../../Editor/constants";
+// import { EDITOR_WIDTH_BREAKPOINT, CODE_AND_OUTPUT, CODE_ONLY } from "../../Editor/constants";
 
 /**------Props-------
  * textEditorSize: number? representing the percentage of space the left split pane takes up
@@ -88,7 +88,11 @@ class Main extends React.Component {
             this.setState({ redirectTo: "/editor" });
           }}
         >
-          <img src={this.mapLanguageToThumbnail(language)} className="sketch-thumbnail" />
+          <img
+            alt={"" + language + "-icon"}
+            src={this.mapLanguageToThumbnail(language)}
+            className="sketch-thumbnail"
+          />
           <span>{name}</span>
         </div>,
       );
