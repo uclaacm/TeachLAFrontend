@@ -30,11 +30,14 @@ class Editor extends React.Component {
       panelLeft: CLOSED_PANEL_LEFT,
       textEditorSize: this.props.screenWidth * 0.5,
       hotReload: false,
+      changesMade: false,
     };
   }
 
   //==============React Lifecycle Functions===================//
-  componentDidMount() {}
+  componentDidMount() {
+    //window.addEventListener('beforeunload', this.promptSave());
+  }
 
   componentDidUpdate(prevProps) {
     if (this.props.screenWidth !== prevProps.screenWidth) {
@@ -42,7 +45,9 @@ class Editor extends React.Component {
     }
   }
 
-  componentWillUnmount() {}
+  componentWillUnmount() {
+    //window.removeEventListener('beforeunload', this.promptSave())
+  }
 
   /**
    *  handleOnVisibleChange - handler for when the collapse panel button or expand panel button is pressed
@@ -63,6 +68,19 @@ class Editor extends React.Component {
   splitPaneChangeHandler = textEditorSize => {
     this.setState({ textEditorSize });
   };
+
+  // enableSaveCheck = () => {
+  //   this.setState({changesMade: true})
+  // }
+
+  // disableSaveCheck = () => {
+  //   this.setState({changesMade: false})
+  // }
+
+  // promptSave = () => {
+  //   if(this.state.changesMade)
+  //     event.returnValue = "Changes have been made to your code. Are you sure you want to exit?"
+  // }
 
   render() {
     const { panelVisible, textEditorSize, hotReload } = this.state;

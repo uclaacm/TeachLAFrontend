@@ -6,6 +6,7 @@ import {
   SET_MOST_RECENT_PROGRAM,
   SET_PHOTO_NAME,
 } from "../actions/userDataActions";
+import { setProgramCode } from "../actions/programsActions";
 
 import * as fetch from "../lib/fetch.js";
 
@@ -49,6 +50,7 @@ function userDataReducer(state = initialState, action) {
         });
       return Object.assign({}, state, { photoName: newPhotoName });
     case SET_MOST_RECENT_PROGRAM:
+      setProgramCode(state.mostRecentProgram);
       fetch
         .updateUserData(state.uid, { mostRecentProgram: action.value })
         .then(response => {

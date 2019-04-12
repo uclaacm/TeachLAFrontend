@@ -17,7 +17,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onSelect: value => dispatch(setMostRecentProgram(value)),
+    onSelect: value => {
+      dispatch(setMostRecentProgram(value));
+    },
   };
 };
 

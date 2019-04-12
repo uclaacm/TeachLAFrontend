@@ -32,10 +32,12 @@ class TextEditor extends React.Component {
     window.addEventListener("close", this.onLeave);
   }
 
+  componentWillUpdate() {}
+
   componentWillUnmount = () => {
     //this.checkDirty();
-    window.removeEventListener("beforeunload", this.onLeave);
-    window.removeEventListener("close", this.onLeave);
+    //window.removeEventListener("beforeunload", this.onLeave);
+    //window.removeEventListener("close", this.onLeave);
   };
 
   checkDirty = async () => {
@@ -58,13 +60,25 @@ class TextEditor extends React.Component {
   };
 
   onLeave = async ev => {
+    console.log("hello");
+    if (this.state.dirty) {
+      console.log("dirty");
+      ev.returnValue = "Are you sure you wanna close";
+      // not gonna do this bc what if they wanna not save
+      // let programToUpdate = {};
+      // programToUpdate[this.props.mostRecentProgram] = {
+      //   code: this.props.code,
+      // };
+      // await fetch.updatePrograms(this.props.uid, programToUpdate);
+    }
+    return ev;
     if (!ev) {
       return;
     }
 
     try {
-      ev.preventDefault();
-      ev.preventDefault();
+      // ev.preventDefault();
+      // ev.preventDefault();
       if (this.state.dirty) {
         console.log("dirty");
         let programToUpdate = {};

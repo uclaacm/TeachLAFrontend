@@ -22,6 +22,7 @@ class Main extends React.Component {
     this.state = {
       saveText: "Save code",
       viewMode: CODE_AND_OUTPUT,
+      languageChange: false,
     };
   }
 
@@ -39,6 +40,9 @@ class Main extends React.Component {
           this.setState({ viewMode: CODE_ONLY });
         }
       }
+    }
+    if (this.state.languageChange) {
+      this.handleSave();
     }
   }
 
@@ -88,7 +92,7 @@ class Main extends React.Component {
     );
   };
 
-  renderDropdown = () => <DropdownButtonContainer />;
+  renderDropdown = () => <DropdownButtonContainer onClick={this.handleSave} />;
 
   renderCodeAndOutput = () => (
     <SplitPane
