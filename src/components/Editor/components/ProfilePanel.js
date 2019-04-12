@@ -120,7 +120,7 @@ class ProfilePanel extends React.Component {
         />
         {this.state.imageIsHovering && (
           <button className="image-edit-button" onClick={this.handleOpenModal}>
-            Edit
+            <img src="http://i.imgur.com/wQgAOcF.png" alt="" width="20px" />
           </button>
         )}
       </div>
@@ -246,8 +246,9 @@ class ProfilePanel extends React.Component {
   renderButtons = () => (
     <div className="panel-options">
       <div className="panel-options-list">
-        {this.renderProfileButton(true)}
-        {this.renderSketchesButton(true)}
+        {/* STABLE BUILD HACK */}
+        {/* {this.renderProfileButton(true)} */}
+        {/* {this.renderSketchesButton(true)} */}
         {this.renderSignOutButton()}
       </div>
     </div>

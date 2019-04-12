@@ -79,23 +79,20 @@
 
 .panel-image-container {
   position: relative;
-  border-radius: 500px;
-  border: 1px solid #dddcdf;
   width: 205px;
   height: 200px;
-  overflow: hidden;
 }
 
 .image-edit-button {
-  height: 80px;
-  width: 205px;
   font-size: 2rem;
   font-weight: bold;
-  position: absolute;
-  top: 120px;
-  border-color: #383838;
   background-color: rgba(107, 107, 107, 0.6);
+  border: none;
+  background-color: transparent;
   color: #dddcdf;
+  position: absolute;
+  right: -15px;
+  bottom: -15px;
 }
 
 .gallery {

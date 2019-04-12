@@ -272,7 +272,8 @@ class Output extends React.Component {
 
   renderBanner = () => (
     <div className="editor-output-banner">
-      <div style={{ marginLeft: "10px" }}>{this.renderLanguageDropdown()}</div>
+      {/* STABLE BUILD HACK */}
+      {/* <div style={{ marginLeft: "10px" }}>{this.renderLanguageDropdown()}</div> */}
       <div style={{ flex: "1 1 auto" }}> </div> {/*whitespace*/}
       {this.renderRadio()}
       <EditorButton handleClick={this.runCode} text="Run Code" color="#3c52ba" />
