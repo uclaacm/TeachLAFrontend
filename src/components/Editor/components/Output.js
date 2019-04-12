@@ -3,6 +3,7 @@ import { PYTHON, JAVASCRIPT, CPP, JAVA, HTML, PROCESSING } from "../../../consta
 import { OUTPUT_ONLY } from "../constants";
 import EditorButton from "./EditorButton";
 import EditorRadio from "./EditorRadio";
+import OpenPanelButton from "../../common/OpenPanelButton";
 import DropdownButtonContainer from "../containers/DropdownButtonContainer";
 
 /**--------Props--------
@@ -235,6 +236,14 @@ class Output extends React.Component {
     }
   };
 
+  renderOpenPanelButton = () =>
+    this.props.viewMode === OUTPUT_ONLY && (
+      <OpenPanelButton
+        panelVisible={this.props.panelVisible}
+        handleOnVisibleChange={this.props.handleOnVisibleChange}
+      />
+    );
+
   renderLanguageDropdown = () => this.props.viewMode === OUTPUT_ONLY && <DropdownButtonContainer />;
 
   renderRadio = () =>
@@ -250,7 +259,8 @@ class Output extends React.Component {
 
   renderBanner = () => (
     <div className="editor-output-banner">
-      <div style={{ marginLeft: "10px" }}>{this.renderLanguageDropdown()}</div>
+      {this.renderOpenPanelButton()}
+      {this.renderLanguageDropdown()}
       <div style={{ flex: "1 1 auto" }}> </div> {/*whitespace*/}
       {this.renderRadio()}
       <EditorButton handleClick={this.reRenderOutput} text="Refresh" color="#3c52ba" />

@@ -6,11 +6,12 @@ import DropdownButtonContainer from "../containers/DropdownButtonContainer";
 import EditorButton from "./EditorButton";
 import * as fetch from "../../../lib/fetch.js";
 import EditorRadio from "./EditorRadio.js";
+import OpenPanelButton from "../../common/OpenPanelButton";
 import { EDITOR_WIDTH_BREAKPOINT, CODE_AND_OUTPUT, CODE_ONLY, OUTPUT_ONLY } from "../constants";
 
 /**------Props-------
  * textEditorSize: number? representing the percentage of space the left split pane takes up
- * handleOnVisibleChange: function to call when you want the Profile Panel to disappear/reapper
+ * handleOnVisibleChange: function to call when you want the Profile Panel to disappear/reappear
  * panelVisible: boolean telling whether the Profile Panel is open or not
  * codeStyle: object used to style the whole container //TODO: rename or move this prop
  * hotReload: boolean telling if //TODO: figure out a better place for this/remove it
@@ -68,6 +69,7 @@ class Main extends React.Component {
     });
   };
 
+  /*
   renderOpenPanelButton = () => {
     const { panelVisible, handleOnVisibleChange } = this.props;
 
@@ -87,6 +89,7 @@ class Main extends React.Component {
       </div>
     );
   };
+  */
 
   renderDropdown = () => <DropdownButtonContainer />;
 
@@ -121,7 +124,10 @@ class Main extends React.Component {
   renderCode = () => (
     <div className="code-section">
       <div className="code-section-banner">
-        {this.renderOpenPanelButton()}
+        <OpenPanelButton
+          panelVisible={this.props.panelVisible}
+          handleOnVisibleChange={this.props.handleOnVisibleChange}
+        />
         {this.renderDropdown()}
         <div style={{ marginLeft: "auto" }}>
           <EditorRadio
@@ -150,6 +156,8 @@ class Main extends React.Component {
       viewMode={this.state.viewMode}
       updateViewMode={this.updateViewMode}
       isSmall={this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
+      panelVisible={this.props.panelVisible}
+      handleOnVisibleChange={this.props.handleOnVisibleChange}
     />
   );
 
