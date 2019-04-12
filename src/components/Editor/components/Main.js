@@ -72,18 +72,7 @@ class Main extends React.Component {
   renderOpenPanelButton = () => {
     const { panelVisible, handleOnVisibleChange } = this.props;
 
-    //if the left panel is closed, show <,
-    if (panelVisible) {
-      return (
-        <div
-          className="editor-collapse-panel-arrow"
-          title="Close Profile Panel"
-          onClick={handleOnVisibleChange}
-        >
-          <FontAwesomeIcon icon="chevron-left" />
-        </div>
-      );
-    }
+    //if the left panel is closed, show nothing
     //otherwise show hamburger icon
     return (
       <div
@@ -91,7 +80,7 @@ class Main extends React.Component {
         title="Open Profile Panel"
         onClick={handleOnVisibleChange}
       >
-        <FontAwesomeIcon icon="bars" />
+        {panelVisible ? "" : <FontAwesomeIcon icon="bars" />}
       </div>
     );
   };
