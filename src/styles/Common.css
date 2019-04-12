@@ -13,6 +13,10 @@
   cursor: pointer;
 }
 
+.radio-option:hover {
+  background-color: rgb(190, 153, 72);
+}
+
 .radio-option-selected {
   border: 2px solid #ddd;
   background-color: #4caf50;
@@ -20,6 +24,10 @@
   color: #eee;
   padding: 5px;
   cursor: pointer;
+}
+
+.radio-option-selected:hover {
+  background-color: #63966b;
 }
 
 #left {
