@@ -63,13 +63,7 @@ class TextEditor extends React.Component {
     console.log("hello");
     if (this.state.dirty) {
       console.log("dirty");
-      ev.returnValue = "Are you sure you wanna close";
-      // not gonna do this bc what if they wanna not save
-      // let programToUpdate = {};
-      // programToUpdate[this.props.mostRecentProgram] = {
-      //   code: this.props.code,
-      // };
-      // await fetch.updatePrograms(this.props.uid, programToUpdate);
+      ev.returnValue = "Sadly u will never see me ;^;";
     }
     return ev;
     if (!ev) {
