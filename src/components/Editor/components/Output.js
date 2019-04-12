@@ -17,6 +17,7 @@ class Output extends React.Component {
       counter: 0,
       run: 0,
     };
+    this.firstLoad = true;
   }
 
   //==============React Lifecycle Functions===================//
@@ -25,8 +26,10 @@ class Output extends React.Component {
       this.state.run !== nextState.run ||
       this.state.counter !== nextState.counter ||
       this.props.mostRecentProgram !== nextProps.mostRecentProgram
-    )
+    ) {
+      this.firstLoad = false;
       return true;
+    }
     return false;
   };
 
@@ -225,6 +228,10 @@ class Output extends React.Component {
 
   renderOutput = () => {
     const { language, runResult } = this.props;
+
+    if (this.firstLoad) {
+      return null;
+    }
 
     //if there's nothing to run, don't render an output
     if (!runResult || !runResult.length) {
