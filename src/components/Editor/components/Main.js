@@ -20,7 +20,7 @@ class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      saveText: "Save code",
+      saveText: "Save Code",
       viewMode: CODE_AND_OUTPUT,
     };
   }
@@ -44,7 +44,7 @@ class Main extends React.Component {
 
   resetSaveText = () => {
     this.setState({
-      saveText: "Save code",
+      saveText: "Save Code",
     });
   };
 

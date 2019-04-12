@@ -15,11 +15,23 @@ class Output extends React.Component {
     this.state = {
       //used for the refresh button
       counter: 0,
+      run: 0,
     };
+    this.firstLoad = true;
   }
 
   //==============React Lifecycle Functions===================//
-  componentDidUpdate = () => {};
+  shouldComponentUpdate = (nextProps, nextState) => {
+    if (
+      this.state.run !== nextState.run ||
+      this.state.counter !== nextState.counter ||
+      this.props.mostRecentProgram !== nextProps.mostRecentProgram
+    ) {
+      this.firstLoad = false;
+      return true;
+    }
+    return false;
+  };
 
   // a bit hacky, but we're re-rendering the output
   // by updating the state in a novel way
@@ -39,8 +51,8 @@ class Output extends React.Component {
 
     return (
       <iframe
-        id={this.state.counter}
-        key={this.state.counter}
+        id={this.state.counter + " " + this.state.run}
+        key={this.state.counter + " " + this.state.run}
         className="editor-output-iframe"
         style={{ height: this.props.screenHeight - 61 + "px" }}
         srcDoc={this.props.runResult}
@@ -130,8 +142,8 @@ class Output extends React.Component {
     //Otherwise, old content persists.
     return (
       <iframe
-        id={this.state.counter}
-        key={this.state.counter}
+        id={this.state.counter + " " + this.state.run}
+        key={this.state.counter + " " + this.state.run}
         className="editor-output-iframe"
         style={{ height: this.props.screenHeight - 61 + "px" }}
         srcDoc={this.getPythonSrcDoc()}
@@ -200,8 +212,8 @@ class Output extends React.Component {
 
     return (
       <iframe
-        id={this.state.counter}
-        key={this.state.counter}
+        id={this.state.counter + " " + this.state.run}
+        key={this.state.counter + " " + this.state.run}
         className="editor-output-iframe"
         style={{ height: this.props.screenHeight - 61 + "px" }}
         srcDoc={this.getProcessingSrcDoc()}
@@ -216,6 +228,10 @@ class Output extends React.Component {
 
   renderOutput = () => {
     const { language, runResult } = this.props;
+
+    if (this.firstLoad) {
+      return null;
+    }
 
     //if there's nothing to run, don't render an output
     if (!runResult || !runResult.length) {
@@ -248,12 +264,18 @@ class Output extends React.Component {
       </div>
     );
 
+  runCode = () => {
+    this.setState(prevState => ({
+      run: prevState.run + 1,
+    }));
+  };
+
   renderBanner = () => (
     <div className="editor-output-banner">
       <div style={{ marginLeft: "10px" }}>{this.renderLanguageDropdown()}</div>
       <div style={{ flex: "1 1 auto" }}> </div> {/*whitespace*/}
       {this.renderRadio()}
-      <EditorButton handleClick={this.reRenderOutput} text="Refresh" color="#3c52ba" />
+      <EditorButton handleClick={this.runCode} text="Run Code" color="#3c52ba" />
     </div>
   );
 
