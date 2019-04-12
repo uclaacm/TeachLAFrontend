@@ -4,9 +4,10 @@ const getPythonSrcDocHead = () => `
   <script src="https://cdn.rawgit.com/skulpt/skulpt-dist/0.11.0/skulpt.min.js" type="text/javascript"></script>
   <script src="https://cdn.rawgit.com/skulpt/skulpt-dist/0.11.0/skulpt-stdlib.js" type="text/javascript"></script>
   <style> html, body { margin:0; background-color: #585166;}
-          #output { width:97%; height:100px; background-color:#333; color:#0F0;word-wrap:break-word; overflow:auto; margin: 10px auto;}
-          #emptyOutput { width:97%; height:100px; background-color:#333; color:#0F0;word-wrap:break-word; overflow:auto; margin: 10px auto;}
+          #inner { height:100px; background-color:#333; color:#0F0;word-wrap:break-word; overflow:auto; margin: 10px auto; position:relative; padding: 10px 35px 10px 10px;}
+          #output { margin: 0px 10px; display: block; position: relative;}
           #mycanvas { margin: 10px; }
+          #closeConsoleButton { position: fixed; top: 20px; right: 30px; color: #ddd;}
           canvas { border: 1px solid black; }
   </style>
 </head>
@@ -14,9 +15,18 @@ const getPythonSrcDocHead = () => `
 
 const getPythonSrcDocSkulptScript = () => `
   <script type="text/javascript">
+    var received = false;
     function outf(text) {
-        var mypre = document.getElementById("output");
-        mypre.innerHTML = mypre.innerHTML + text;
+        var mypre = document.getElementById("inner");
+        if(!received)
+         mypre.innerHTML = mypre.innerHTML + "><span>&nbsp</span>" + text + "<br>";
+        received = !received
+        mypre.scrollTop = mypre.scrollHeight;
+    }
+
+    function closeConsole(){
+      var mypre = document.getElementById("inner");
+      mypre.style.display = "none"
     }
 
     function builtinRead(x) {
@@ -30,7 +40,7 @@ const getPythonSrcDocSkulptScript = () => `
         //if you want to debug, you can uncomment this console log to see the code being run
         //console.log(prog)
         var mypre = document.getElementById("output");
-        mypre.innerHTML = '';
+        mypre.innerHTML = '<div id="inner"><div id="closeConsoleButton" onclick="closeConsole()" title="Hide Console">X</div></div>';
         Sk.pre = "output";
         Sk.configure({output:outf, read:builtinRead});
         (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = 'mycanvas';
@@ -54,7 +64,7 @@ const getPythonSrcDocBody = (code, showConsole) => {
   return `
     <body onload="runit()">
       ${getPythonSrcDocSkulptScript()}
-      ${showConsole ? `<pre id="output"></pre>` : `<pre id="output" style="display:none;"></pre>`}
+      ${showConsole ? `<div id="output"> </div>` : `<div id="output" style="display:none;"> </div>`}
       <div id="mycanvas"></div>
       <div style="display:none;" id="runResult">${code}</div>
     </body>

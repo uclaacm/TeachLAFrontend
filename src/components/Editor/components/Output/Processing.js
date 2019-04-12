@@ -8,26 +8,41 @@ const getProcessingSrcDocLoggingScript = code => `
 
       console.log = (message) => {
         console.olog(message);
-        let a = document.getElementById("console")
+        let a = document.getElementById("inner")
         if(a){
-          let a = document.getElementById("console")
           a.style.display = "block"
-          a.innerHTML = a.innerHTML + message + "<br/>";
+          a.innerHTML = a.innerHTML + "><span>&nbsp;</span>" + message + "<br/>";
+          a.scrollTop = a.scrollHeight;
         }
       };
 
-      window.onerror = (err)=>console.log("<p style='color:#be4040'>" + err + "</p>")
+      window.onerror = (err)=>console.log("<span style='color:#be4040'>" + err + "</span>")
 
       console.error = console.debug = console.info = console.log;
 
-      ${code}
+      
+      function closeConsole(){
+        var mypre = document.getElementById("inner");
+        mypre.style.display = "none"
+      }
     </script>
   `;
 
+const getUserScript = code => `
+  <script type="text/javascript">
+    ${code}
+  </script>
+`;
+
 const getProcessingSrcDocBody = (code, showConsole) => `
     <body>
-      ${showConsole ? `<div id="console"></div>` : `<div id="console" style="display:none;"></div>`}
+      ${
+        showConsole
+          ? `<div id="outer"><div id="inner"><div id="closeConsoleButton" onclick="closeConsole()" title="Hide Console">X</div></div></div>`
+          : `<div id="outer" style="display:none;"><div id="inner"><div id="closeConsoleButton" onclick="closeConsole()" title="Hide Console">X</div></div></div>`
+      }
       ${getProcessingSrcDocLoggingScript(code)}
+      ${getUserScript(code)}
     </body>
   `;
 
@@ -38,7 +53,9 @@ const getProcessingSrcDocHead = () => `
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/addons/p5.dom.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/addons/p5.sound.min.js"></script>
         <style>
-          #console{  width: 100%; color:#0f0; height:200px; background-color:#333; overflow:auto; margin: 10px 0px; }
+          #inner { height:100px; background-color:#333; color:#0F0;word-wrap:break-word; overflow:auto; margin: 10px auto; position:relative; padding: 10px 35px 10px 10px;}
+          #output { margin: 0px 10px; display: block; position: relative;}
+          #closeConsoleButton { position: fixed; top: 20px; right: 30px; color: #ddd;}
         </style>
     </head>
   `;
