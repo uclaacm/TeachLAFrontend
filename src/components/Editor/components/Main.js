@@ -69,28 +69,6 @@ class Main extends React.Component {
     });
   };
 
-  /*
-  renderOpenPanelButton = () => {
-    const { panelVisible, handleOnVisibleChange } = this.props;
-
-    //if the left panel is closed, show an empty div
-    if (panelVisible) {
-      return <div className="editor-expand-panel-arrow" />;
-    }
-
-    // otherwise show a > that when clicked, opens the panel
-    return (
-      <div
-        className="editor-expand-panel-arrow"
-        title="Open Profile Panel"
-        onClick={handleOnVisibleChange}
-      >
-        >
-      </div>
-    );
-  };
-  */
-
   renderDropdown = () => <DropdownButtonContainer />;
 
   renderCodeAndOutput = () => (
