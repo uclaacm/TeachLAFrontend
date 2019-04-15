@@ -3,7 +3,7 @@ import { SCREEN_RESIZE, TOGGLE_PANEL, SET_PANEL } from "../actions/uiActions";
 const initialState = {
   screenWidth: typeof window === "object" ? window.innerWidth : null,
   screenHeight: typeof window === "object" ? window.innerHeight : null,
-  panelOpen: true,
+  panelOpen: false,
 };
 
 function uiReducer(state = initialState, action) {
