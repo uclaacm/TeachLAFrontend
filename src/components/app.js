@@ -1,10 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import LoginPage from "./containers/LoginContainer";
-import EditorPage from "./containers/EditorContainer";
+import MainContainer from "./containers/MainContainer";
 import LoadingPage from "./common/LoadingPage";
 import CreateUserPage from "./containers/CreateUserContainer";
-import SketchesPage from "./containers/SketchesContainer";
 import Error from "./Error";
 import firebase from "firebase";
 import "../styles/app.css";
@@ -108,7 +107,9 @@ class App extends React.Component {
           {/*if the user is not loggedIn, redirect them to the login page, otherwise, show the editor page*?*/}
           <Route
             path="/editor"
-            render={() => (!isValidUser ? <Redirect to="/login" /> : <EditorPage />)}
+            render={() =>
+              !isValidUser ? <Redirect to="/login" /> : <MainContainer contentType="editor" />
+            }
           />
           {/*if the user is loggedIn, redirect them to the editor page, otherwise, show the createUser page*?*/}
           <Route
@@ -118,7 +119,9 @@ class App extends React.Component {
           {/*if the user isn't loggedIn, redirect them to the login page, otherwise, show the view page*?*/}
           <Route
             path="/sketches"
-            render={() => (isValidUser ? <SketchesPage /> : <Redirect to="/login" />)}
+            render={() =>
+              isValidUser ? <MainContainer contentType="sketches" /> : <Redirect to="/login" />
+            }
           />
           {/* Default error page */}
           <Route

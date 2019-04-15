@@ -1,4 +1,4 @@
-import Editor from "../Editor.js";
+import Main from "../Main.js";
 import { connect } from "react-redux";
 import { togglePanel } from "../../actions/uiActions.js";
 import { CLOSED_PANEL_LEFT, OPEN_PANEL_LEFT } from "../../constants";
@@ -20,9 +20,9 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-const EditorPage = connect(
+const MainContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Editor);
+)(Main);
 
-export default EditorPage;
+export default MainContainer;

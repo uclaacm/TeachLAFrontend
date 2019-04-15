@@ -278,14 +278,22 @@ class ProfilePanel extends React.Component {
     </div>
   );
 
-  render() {
-    const { panelStyle } = this.props;
-
+  renderRedirect() {
     if (this.state.redirectTo) {
       return <Redirect to={this.state.redirectTo} />;
     }
+    return null;
+  }
 
-    return <div style={panelStyle}>{this.renderMainContent()}</div>;
+  render() {
+    const { panelStyle } = this.props;
+
+    return (
+      <div style={panelStyle}>
+        {this.renderMainContent()}
+        {this.renderRedirect()}
+      </div>
+    );
   }
 }
 

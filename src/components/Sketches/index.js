@@ -1,11 +1,10 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
-// import { EDITOR_WIDTH_BREAKPOINT, CODE_AND_OUTPUT, CODE_ONLY } from "../../Editor/constants";
 
 /**------Props-------
  * textEditorSize: number? representing the percentage of space the left split pane takes up
- * handleOnVisibleChange: function to call when you want the Profile Panel to disappear/reapper
- * panelVisible: boolean telling whether the Profile Panel is open or not
+ * togglePanel: function to call when you want the Profile Panel to disappear/reapper
+ * panelOpen: boolean telling whether the Profile Panel is open or not
  * codeStyle: object used to style the whole container //TODO: rename or move this prop
  * hotReload: boolean telling if //TODO: figure out a better place for this/remove it
  */
@@ -16,7 +15,6 @@ class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // viewMode: CODE_AND_OUTPUT,
       redirectTo: "",
     };
   }
@@ -39,20 +37,16 @@ class Main extends React.Component {
   }
 
   renderOpenPanelButton = () => {
-    const { panelVisible, handleOnVisibleChange } = this.props;
+    const { panelOpen, togglePanel } = this.props;
 
     //if the left panel is closed, show an empty div
-    if (panelVisible) {
+    if (panelOpen) {
       return <div className="sketches-expand-panel-arrow" />;
     }
 
     // otherwise show a > that when clicked, opens the panel
     return (
-      <div
-        className="sketches-expand-panel-arrow"
-        title="Open Profile Panel"
-        onClick={handleOnVisibleChange}
-      >
+      <div className="sketches-expand-panel-arrow" title="Open Profile Panel" onClick={togglePanel}>
         >
       </div>
     );
@@ -82,6 +76,7 @@ class Main extends React.Component {
     this.props.listOfPrograms.forEach(({ name, language }) => {
       sketches.push(
         <div
+          key={name}
           className="sketch-box"
           onClick={() => {
             this.props.setMostRecentProgram(name);
@@ -102,7 +97,7 @@ class Main extends React.Component {
 
     for (var i = 0; i < sketches.length / MAX_SKETCHES_PER_ROW; i++) {
       rows.push(
-        <div className="sketches-grid-row">
+        <div className="sketches-grid-row" key={i}>
           {sketches.splice(i * MAX_SKETCHES_PER_ROW, MAX_SKETCHES_PER_ROW)}
         </div>,
       );

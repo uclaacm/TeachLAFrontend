@@ -17,7 +17,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     collectUserPhoto: () => {},
     setDisplayName: name => dispatch(setDisplayName(name)),
     setPhotoName: name => dispatch(setPhotoName(name)),
-    togglePanel: () => dispatch(togglePanel()),
+    togglePanel: () => {
+      dispatch(togglePanel());
+    },
   };
 };
 
