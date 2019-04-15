@@ -14,11 +14,9 @@ import "../../styles/CustomCM.css";
 import "../../styles/Resizer.css";
 import "../../styles/Editor.css";
 /**------Props-------
- * textEditorSize: number? representing the percentage of space the left split pane takes up
  * togglePanel: function to call when you want the Profile Panel to disappear/reapper
  * panelOpen: boolean telling whether the Profile Panel is open or not
  * codeStyle: object used to style the whole container //TODO: rename or move this prop
- * hotReload: boolean telling if //TODO: figure out a better place for this/remove it
  */
 
 class Editor extends React.Component {

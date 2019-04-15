@@ -18,7 +18,6 @@ export const getUserData = async (uid = "", includePrograms = false) => {
   const getUserDataEndpoint = (uid = "", includePrograms = false) =>
     `${constants.SERVER_URL}/getUserData/${uid}${includePrograms ? "?programs=true" : ""}`;
 
-  console.log("getting user data");
   const options = {
     method: "get",
     mode: "cors", // no-cors, cors, *same-origin

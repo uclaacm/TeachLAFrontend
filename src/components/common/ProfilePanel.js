@@ -76,7 +76,7 @@ class ProfilePanel extends React.Component {
   onNameSubmit = e => {
     e.preventDefault();
     let badInputs = this.checkInputs();
-    console.log("submit");
+
     if (badInputs) {
       this.setState({ name: this.props.displayName, editing: false });
       return;

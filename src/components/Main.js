@@ -30,8 +30,6 @@ class Editor extends React.Component {
   componentDidMount() {}
 
   componentDidUpdate(prevProps) {
-    console.log(this.props);
-
     if (this.props.screenWidth !== prevProps.screenWidth) {
       this.setState({ textEditorSize: this.props.screenWidth * 0.5 });
     }
@@ -88,8 +86,6 @@ class Editor extends React.Component {
   };
 
   render() {
-    const { textEditorSize } = this.state;
-
     const panelStyle = {
       width: PANEL_SIZE, //width doesn't change, the 'right' css property just pushes it off the page
       height: this.props.screenHeight,

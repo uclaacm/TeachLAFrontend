@@ -1,17 +1,10 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
-
-/**------Props-------
- * textEditorSize: number? representing the percentage of space the left split pane takes up
- * togglePanel: function to call when you want the Profile Panel to disappear/reapper
- * panelOpen: boolean telling whether the Profile Panel is open or not
- * codeStyle: object used to style the whole container //TODO: rename or move this prop
- * hotReload: boolean telling if //TODO: figure out a better place for this/remove it
- */
+import "../../styles/Sketches.css";
 
 const MAX_SKETCHES_PER_ROW = 5;
 
-class Main extends React.Component {
+class Sketches extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -125,4 +118,4 @@ class Main extends React.Component {
   }
 }
 
-export default Main;
+export default Sketches;
