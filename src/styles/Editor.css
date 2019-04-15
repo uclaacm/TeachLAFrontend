@@ -70,6 +70,7 @@
   border: none;
   border-radius: 5px;
   box-shadow: 1px 3px #999;
+  line-height: 45px;
 }
 
 .editor-run-button-content {

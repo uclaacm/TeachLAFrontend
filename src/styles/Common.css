@@ -11,6 +11,7 @@
   color: #eee;
   padding: 5px;
   cursor: pointer;
+  line-height: 27.5px;
 }
 
 .radio-option-selected {
@@ -20,6 +21,7 @@
   color: #eee;
   padding: 5px;
   cursor: pointer;
+  line-height: 27.5px;
 }
 
 #left {

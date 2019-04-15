@@ -8,11 +8,8 @@ import "../styles/CustomCM.css";
 import "../styles/Resizer.css";
 import "../styles/Editor.css";
 import "../styles/Panel.css";
-import ProfilePanelContainer from "./common/containers/ProfilePanelContainer";
-
-const PANEL_SIZE = 250;
-const CLOSED_PANEL_LEFT = -1 * PANEL_SIZE;
-const OPEN_PANEL_LEFT = 0;
+import ProfilePanelContainer from "./Editor/containers/ProfilePanelContainer";
+import { PANEL_SIZE, CLOSED_PANEL_LEFT, OPEN_PANEL_LEFT } from "../constants";
 
 class Editor extends React.Component {
   /**
@@ -26,11 +23,11 @@ class Editor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      panelVisible: false,
       panelLeft: CLOSED_PANEL_LEFT,
       textEditorSize: this.props.screenWidth * 0.5,
-      hotReload: false,
     };
+
+    this.panelStartedOpen = this.props.panelOpen;
   }
 
   //==============React Lifecycle Functions===================//
@@ -60,12 +57,8 @@ class Editor extends React.Component {
     }));
   };
 
-  splitPaneChangeHandler = textEditorSize => {
-    this.setState({ textEditorSize });
-  };
-
   render() {
-    const { panelVisible, textEditorSize, hotReload } = this.state;
+    const { textEditorSize } = this.state;
 
     //style to be applied to non panel (sections containing text editor and code output)
     const codeStyle = {
@@ -84,10 +77,10 @@ class Editor extends React.Component {
       <div className="editor">
         <Motion
           defaultStyle={{
-            panelLeft: CLOSED_PANEL_LEFT,
+            panelLeft: this.panelStartedOpen ? OPEN_PANEL_LEFT : CLOSED_PANEL_LEFT,
           }}
           style={{
-            panelLeft: spring(this.state.panelLeft),
+            panelLeft: spring(this.props.panelLeft),
             damping: 30,
             stiffness: 218,
           }}
@@ -96,20 +89,14 @@ class Editor extends React.Component {
             return (
               <React.Fragment>
                 <ProfilePanelContainer
-                  handleOnVisibleChange={this.togglePanel}
-                  panelVisible={panelVisible}
                   panelStyle={Object.assign({}, panelStyle, { left: value.panelLeft })}
                 />
                 <MainContainer
                   textEditorSize={textEditorSize}
-                  onSplitPaneChange={this.splitPaneChangeHandler}
-                  handleOnVisibleChange={this.togglePanel}
-                  panelVisible={panelVisible}
                   codeStyle={Object.assign({}, codeStyle, {
                     left: value.panelLeft + PANEL_SIZE,
                     width: this.props.screenWidth - (value.panelLeft + PANEL_SIZE),
                   })}
-                  hotReload={hotReload}
                 />
               </React.Fragment>
             );
