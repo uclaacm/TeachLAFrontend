@@ -9,10 +9,7 @@ import {
 import ReactModal from "react-modal";
 
 /**--------Props--------
- * handleOnSizeChange: function to be called when the panel is resized
- * handleOnVisibleChange: function to be called when the panel is collapsed or opened
- * panelVisible: boolean to determine if the panel should be open or not
- * size: number? representing the pixel width of the panel
+ * togglePanel: function to be called when the panel is collapsed or opened
  */
 
 class ProfilePanel extends React.Component {
@@ -256,7 +253,7 @@ class ProfilePanel extends React.Component {
   renderMainContent = () => (
     <div className="panel">
       <div className="panel-collapse-button">
-        <div onClick={this.props.handleOnVisibleChange}>&larr;</div>
+        <div onClick={this.props.togglePanel}>&larr;</div>
         {/*character is leftward facing arrow*/}
       </div>
       <div className="panel-content">
