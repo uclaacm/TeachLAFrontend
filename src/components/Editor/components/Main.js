@@ -7,6 +7,7 @@ import EditorButton from "./EditorButton";
 import * as fetch from "../../../lib/fetch.js";
 import EditorRadio from "./EditorRadio.js";
 import { EDITOR_WIDTH_BREAKPOINT, CODE_AND_OUTPUT, CODE_ONLY, OUTPUT_ONLY } from "../constants";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 /**------Props-------
  * textEditorSize: number? representing the percentage of space the left split pane takes up
@@ -71,19 +72,15 @@ class Main extends React.Component {
   renderOpenPanelButton = () => {
     const { panelVisible, handleOnVisibleChange } = this.props;
 
-    //if the left panel is closed, show an empty div
-    if (panelVisible) {
-      return <div className="editor-expand-panel-arrow" />;
-    }
-
-    // otherwise show a > that when clicked, opens the panel
+    //if the left panel is closed, show nothing
+    //otherwise show hamburger icon
     return (
       <div
         className="editor-expand-panel-arrow"
         title="Open Profile Panel"
         onClick={handleOnVisibleChange}
       >
-        >
+        {panelVisible ? "" : <FontAwesomeIcon icon="bars" />}
       </div>
     );
   };
