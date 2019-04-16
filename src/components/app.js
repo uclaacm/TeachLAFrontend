@@ -9,7 +9,8 @@ import firebase from "firebase";
 import "../styles/app.css";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faBars } from "@fortawesome/free-solid-svg-icons/faBars";
+import { faTimes } from "@fortawesome/free-solid-svg-icons/faTimes";
 library.add(faBars, faTimes);
 
 const provider = new firebase.auth.FacebookAuthProvider();

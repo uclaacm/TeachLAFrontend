@@ -32,11 +32,10 @@
 }
 
 .editor-expand-panel-arrow {
-  color: rgb(39, 33, 52);
+  color: #dddcdf;
   padding: 1rem;
   cursor: pointer;
   flex: 0 1 auto;
-  transition: 1s;
 }
 
 .editor-language-dropdown {
