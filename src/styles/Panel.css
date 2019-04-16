@@ -62,6 +62,7 @@
   background-color: rgba(59, 59, 59, 0.514);
   z-index: 80;
 }
+
 .modal-submit-button {
   position: fixed;
   width: 116px;
@@ -86,8 +87,7 @@
 }
 
 .image-edit-button {
-  font-size: 2rem;
-  font-weight: bold;
+  font-size: 1.25rem;
   border: none;
   background-color: transparent;
   color: #dddcdf;
@@ -139,6 +139,8 @@
 }
 
 .edit-icon-image {
+  font-size: 1.25rem;
+  color: #dddcdf;
   position: absolute;
   border: none;
   right: -30px;
@@ -180,7 +182,7 @@
   text-align: center;
   margin: 0px 50px;
   width: 150px;
-  padding: 20px 0 5px;
+  padding: 20px 0 20px;
   font-size: 2rem;
   font-weight: bold;
   word-wrap: break-word;
@@ -256,15 +258,12 @@
   width: 100%;
   list-style-position: inside;
   list-style-type: square;
-  font-size: 2.5rem;
   text-align: center;
   justify-content: flex-start;
 }
 
 .panel-options-list {
   display: inline-block;
-  padding: 0px;
-  margin: 35px 25px;
 }
 
 /*scrollbar stuff*/

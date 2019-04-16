@@ -121,7 +121,7 @@ class ProfilePanel extends React.Component {
         />
         {this.state.imageIsHovering && (
           <button className="image-edit-button" onClick={this.handleOpenModal}>
-            <img src="http://i.imgur.com/wQgAOcF.png" alt="" width="20px" />
+            <FontAwesomeIcon icon="edit" />
           </button>
         )}
       </div>
@@ -178,7 +178,7 @@ class ProfilePanel extends React.Component {
           {this.props.displayName || "Joe Bruin"}
           {this.state.nameIsHovering && (
             <button className="edit-icon-image" onClick={this.handleEditNameClick}>
-              <img src="https://i.imgur.com/wQgAOcF.png" width="20px" alt="" />
+              <FontAwesomeIcon icon="edit" />
             </button>
           )}
         </div>
