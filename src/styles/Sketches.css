@@ -17,7 +17,7 @@
 }
 
 .sketches-header {
-  height: 100px;
+  height: 67px;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -60,4 +60,110 @@
   margin: 0px 10px;
   padding: 5px;
   cursor: pointer;
+}
+
+.sketches-language-dropdown {
+  flex: 0 1 auto;
+  color: #0d0d0e;
+}
+
+.sketches-language-dropdown-closed-content {
+  display: inline-block;
+}
+
+.sketches-gallery {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  overflow-y: auto;
+  width: 325px;
+  height: 250px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.sketches-image-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 470px;
+  width: 400px;
+  background-color: rgb(255, 255, 255);
+  padding: 40px;
+  border-radius: 20px;
+}
+.sketches-gallery-img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 100%;
+  padding: 2px;
+  border: 3px white solid;
+}
+
+.sketches-gallery-img-selected {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 100%;
+  padding: 2px;
+  border: 3px #83dadd solid;
+}
+
+.sketches-gallery-img:hover {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 100%;
+  padding: 2px;
+  border: 3px #846fb1 solid;
+}
+
+.sketches-gallery::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+.sketches-gallery::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+.sketches-gallery::-webkit-scrollbar-thumb {
+  background: #37343d;
+}
+
+/* Handle on hover */
+.sketches-gallery::-webkit-scrollbar-thumb:hover {
+  background: #2f2d33;
+}
+
+.sketches-modal-header-text {
+  text-align: center;
+}
+
+.sketches-modal-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sketches-bottom-modal-button {
+}
+
+.sketches-modal-input {
+  text-align: center;
+}
+
+.sketches-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 320px;
+  width: 400px;
+  background-color: rgb(255, 255, 255);
+  padding: 40px;
+  border-radius: 20px;
 }
