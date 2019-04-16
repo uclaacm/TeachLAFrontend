@@ -260,6 +260,8 @@
   list-style-type: square;
   text-align: center;
   justify-content: flex-start;
+  padding-top: 25px;
+  cursor: default;
 }
 
 .panel-options-list {
