@@ -66,27 +66,6 @@ class TextEditor extends React.Component {
       ev.returnValue = "Sadly u will never see me ;^;";
     }
     return ev;
-    if (!ev) {
-      return;
-    }
-
-    try {
-      // ev.preventDefault();
-      // ev.preventDefault();
-      if (this.state.dirty) {
-        console.log("dirty");
-        let programToUpdate = {};
-        programToUpdate[this.props.mostRecentProgram] = {
-          code: this.props.code,
-        };
-        await fetch.updatePrograms(this.props.uid, programToUpdate);
-        ev.returnValue = "Ask if they want to reload";
-      }
-      return ev;
-    } catch (err) {
-      console.log(err);
-      return (ev.returnValue = "Are you sure you wanna close");
-    }
   };
 
   setCodeMirrorInstance = codeMirrorInstance => {
