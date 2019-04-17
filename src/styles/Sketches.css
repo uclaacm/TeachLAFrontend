@@ -167,3 +167,11 @@
   padding: 40px;
   border-radius: 20px;
 }
+
+.sketches-form-spinner {
+  width: 59.02px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}

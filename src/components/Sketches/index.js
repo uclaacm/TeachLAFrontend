@@ -1,8 +1,7 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
 import SketchesButton from "./components/SketchesButton";
-import DropdownButton from "./components/DropdownButton";
-import ReactModal from "react-modal";
+import CreateSketchModalContainer from "./containers/CreateSketchModalContainer";
 import { SketchThumbnailArray } from "./constants";
 import "../../styles/Sketches.css";
 
@@ -14,16 +13,6 @@ class Sketches extends React.Component {
     this.state = {
       redirectTo: "",
       createSketchModalOpen: false,
-      createSketchModalNext: false,
-      createSketchLanguage: { display: "Python", value: "python" },
-      createSketchName: "",
-      createSketchThumbnail: "",
-    };
-
-    this.createSketch = {
-      language: "",
-      name: "",
-      thumbnail: "",
     };
   }
 
@@ -60,8 +49,9 @@ class Sketches extends React.Component {
     );
   };
 
-  getRandomSketchThumbnail = () =>
-    SketchThumbnailArray[Math.floor(Math.random() * SketchThumbnailArray.length)];
+  getRandomSketchThumbnail = () => {
+    return SketchThumbnailArray[Math.floor(Math.random() * SketchThumbnailArray.length)];
+  };
 
   setCreateSketchModalOpen = val => {
     this.setState({ createSketchModalOpen: val });
@@ -75,6 +65,7 @@ class Sketches extends React.Component {
         <SketchesButton
           handleClick={() => this.setCreateSketchModalOpen(true)}
           text={"Create Sketch"}
+          width={"200px"}
         />
       </div>
     </div>
@@ -92,19 +83,24 @@ class Sketches extends React.Component {
     }
   };
 
-  closeModal = () => {
-    this.setState({
-      createSketchModalOpen: false,
-      createSketchModalNext: false,
-      createSketchLanguage: "",
-      createSketchName: "",
-      createSketchThumbnail: "",
-    });
+  getThumbnailSrc = val => {
+    if (val === undefined || val === "" || val >= SketchThumbnailArray.length || val < 0) {
+      return SketchThumbnailArray[0];
+    }
+    return SketchThumbnailArray[val];
   };
 
   renderSketches = () => {
+    let newList = this.props.listOfPrograms.concat([]);
     let sketches = [];
-    this.props.listOfPrograms.forEach(({ name, language }) => {
+
+    newList.sort((a, b) => {
+      if (a.name < b.name) return -1;
+      if (a.name === b.name) return 0;
+      if (a.name > b.name) return 1;
+    });
+
+    newList.forEach(({ name, language, thumbnail }) => {
       sketches.push(
         <div
           key={name}
@@ -116,7 +112,7 @@ class Sketches extends React.Component {
         >
           <img
             alt={"" + language + "-icon"}
-            src={this.mapLanguageToThumbnail(language)}
+            src={`img/sketch-thumbnails/${this.getThumbnailSrc(thumbnail)}.svg`}
             className="sketch-thumbnail"
           />
           <span>{name}</span>
@@ -125,11 +121,11 @@ class Sketches extends React.Component {
     });
 
     let rows = [];
-
-    for (var i = 0; i < sketches.length / MAX_SKETCHES_PER_ROW; i++) {
+    let originalLength = sketches.length;
+    for (let i = 0; i < originalLength / MAX_SKETCHES_PER_ROW; i++) {
       rows.push(
         <div className="sketches-grid-row" key={i}>
-          {sketches.splice(i * MAX_SKETCHES_PER_ROW, MAX_SKETCHES_PER_ROW)}
+          {sketches.splice(0, MAX_SKETCHES_PER_ROW)}
         </div>,
       );
     }
@@ -139,112 +135,12 @@ class Sketches extends React.Component {
     return <div className="sketches-grid">{rows}</div>;
   };
 
-  badThumbnailInputs = () => {
-    if (
-      !this.state.createSketchThumbnail ||
-      SketchThumbnailArray.find(element => element === this.state.createSketchThumbnail) ===
-        undefined
-    ) {
-      return true;
-    }
-
-    return false;
-  };
-
-  renderNextModal = () => {
-    let icons = SketchThumbnailArray.map(val => {
-      return (
-        <figure
-          className="sketches-gallery-item"
-          key={val}
-          onClick={() => this.setState({ createSketchThumbnail: val })}
-        >
-          <img
-            src={`img/sketch-thumbnails/${val}.svg`}
-            className={
-              "sketches-gallery-img" + (this.state.createSketchThumbnail === val ? "-selected" : "")
-            }
-            alt="icon"
-          />
-        </figure>
-      );
-    });
-    return (
-      <ReactModal
-        isOpen={this.state.createSketchModalOpen}
-        onRequestClose={this.closeModal}
-        className="sketches-image-modal"
-        overlayClassName="profile-image-overlay"
-        ariaHideApp={false}
-      >
-        <form className="sketches-modal-form">
-          <h1 className="sketches-modal-header-text">Choose a thumbnail</h1>
-
-          <div className="sketches-gallery">{icons}</div>
-          <button onClick={() => console.log("hye")} disabled={this.badThumbnailInputs()}>
-            Create Sketch
-          </button>
-        </form>
-      </ReactModal>
-    );
-  };
-
-  badNameOrLanguageInputs = () => {
-    if (
-      !this.state.createSketchName ||
-      !this.state.createSketchLanguage ||
-      this.state.createSketchName.length > 15
-    ) {
-      return true;
-    }
-
-    return false;
-  };
-
-  renderModal = () => {
-    if (this.state.createSketchModalNext) {
-      return this.renderNextModal();
-    }
-
-    return (
-      <ReactModal
-        isOpen={this.state.createSketchModalOpen}
-        onRequestClose={this.closeModal}
-        className="sketches-modal"
-        overlayClassName="profile-image-overlay"
-        ariaHideApp={false}
-      >
-        <form className="sketches-modal-form">
-          <h1 className="sketches-modal-header-text">Create a Sketch</h1>
-          Name
-          <input
-            className="sketches-modal-input"
-            onChange={e => this.setState({ createSketchName: e.target.value })}
-          />
-          Language
-          <DropdownButton
-            dropdownItems={[
-              { display: "HTML", value: "html" },
-              { display: "Processing", value: "processing" },
-              { display: "Python", value: "python" },
-            ]}
-            onSelect={lang => {
-              this.setState({ createSketchLanguage: lang });
-            }}
-            displayValue={this.state.createSketchLanguage.display || "Python"}
-          />
-          <br />
-          <button
-            className="sketches-bottom-modal-button"
-            onClick={() => this.setState({ createSketchModalNext: true })}
-            disabled={this.badNameOrLanguageInputs()}
-          >
-            Next
-          </button>
-        </form>
-      </ReactModal>
-    );
-  };
+  renderModal = () => (
+    <CreateSketchModalContainer
+      isOpen={this.state.createSketchModalOpen}
+      onClose={() => this.setCreateSketchModalOpen(false)}
+    />
+  );
 
   renderContent = () => {
     return (

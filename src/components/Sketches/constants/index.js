@@ -3,7 +3,6 @@ const SketchThumbnailArray = [
   "Badger",
   "Bear",
   "Beaver",
-  "Bee",
   "Bird",
   "Bug",
   "Bull",
@@ -30,7 +29,6 @@ const SketchThumbnailArray = [
   "Giraffe",
   "Gorilla",
   "Grasshopper",
-  "Hornet",
   "Horse",
   "Hummingbird",
   "Insect",
@@ -57,11 +55,20 @@ const SketchThumbnailArray = [
   "Stork",
   "Turtle",
   "Unicorn",
-  "Wasp",
   "Whale",
   "Wolf",
 ];
 
+const LanguageDropdownValues = [
+  { display: "Python", value: "python" },
+  { display: "Processing", value: "processing" },
+  { display: "HTML", value: "html" },
+];
+
+const LanguageDropdownDefault = { display: "Python", value: "python" };
+
 module.exports = {
   SketchThumbnailArray,
+  LanguageDropdownValues,
+  LanguageDropdownDefault,
 };

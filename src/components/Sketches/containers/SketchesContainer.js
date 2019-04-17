@@ -15,6 +15,7 @@ const mapStateToProps = state => {
     listOfPrograms.push({
       name: key,
       language: state.programs.getIn([key, "language"], "HTML"),
+      thumbnail: state.programs.getIn([key, "thumbnail"], 0),
     });
   });
 
