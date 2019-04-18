@@ -107,6 +107,31 @@ export default class LoginModal extends React.Component {
     </div>
   );
 
+  renderAction = () => {
+    if (this.state.waiting) {
+      return (
+        <div className="login-form-loader">
+          <RingLoader color={"#857e8f"} size={50} loading={true} />
+        </div>
+      );
+    } else {
+      /* We've disabled the social button for now, but here it is.
+        <SocialButton
+          imgSrc="img/fbLogo1.png"
+          bgColor="#4267b2"
+          textColor="white"
+          value="Login with Facebook"
+          handleLogin={this.handleSocialLogin}
+        />
+      */
+      return (
+        <button className="login-form-button" type="submit">
+          Login
+        </button>
+      );
+    }
+  };
+
   render() {
     return (
       <form className="login-form" onSubmit={this.handleEmailLogin}>
@@ -116,23 +141,8 @@ export default class LoginModal extends React.Component {
         </div>
         <br />
         {this.renderInputs()}
-        <div className="login-form-loader">
-          <RingLoader color={"#857e8f"} size={50} loading={this.state.waiting} />
-        </div>
-        <div>
-          <button className="login-form-button" type="submit">
-            Login
-          </button>
-          {/*
-          <SocialButton
-            imgSrc="img/fbLogo1.png"
-            bgColor="#4267b2"
-            textColor="white"
-            value="Login with Facebook"
-            handleLogin={this.handleSocialLogin}
-          />
-          */}
-        </div>
+        {this.renderAction()}
+        <br />
         <br />
         <Link to="/createUser" className="login-form-link">
           Don't have an account? Create one now!

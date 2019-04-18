@@ -27,16 +27,16 @@
   align-items: center;
   justify-content: flex-start;
   width: 100%;
+  height: 67px;
   border-bottom: 1px white solid;
 }
 
 .editor-expand-panel-arrow {
   color: #dddcdf;
-  font-weight: bold;
   padding: 1rem;
   cursor: pointer;
   flex: 0 1 auto;
-  width: 20px;
+  width: 46px;
 }
 
 .editor-language-dropdown {
@@ -70,6 +70,7 @@
   border: none;
   border-radius: 5px;
   box-shadow: 1px 3px #999;
+  line-height: 45px;
 }
 
 .editor-run-button-content {

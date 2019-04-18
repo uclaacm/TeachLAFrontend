@@ -3,7 +3,7 @@ import { PYTHON, JAVASCRIPT, CPP, JAVA, HTML, PROCESSING } from "../../../consta
 import { OUTPUT_ONLY } from "../constants";
 import EditorButton from "./EditorButton";
 import EditorRadio from "./EditorRadio";
-import OpenPanelButton from "../../common/OpenPanelButton";
+import OpenPanelButtonContainer from "../../common/containers/OpenPanelButtonContainer";
 import DropdownButtonContainer from "../containers/DropdownButtonContainer";
 
 /**--------Props--------
@@ -236,13 +236,7 @@ class Output extends React.Component {
     }
   };
 
-  renderOpenPanelButton = () =>
-    this.props.viewMode === OUTPUT_ONLY && (
-      <OpenPanelButton
-        panelVisible={this.props.panelVisible}
-        handleOnVisibleChange={this.props.handleOnVisibleChange}
-      />
-    );
+  renderOpenPanelButton = () => this.props.viewMode === OUTPUT_ONLY && <OpenPanelButtonContainer />;
 
   renderLanguageDropdown = () => this.props.viewMode === OUTPUT_ONLY && <DropdownButtonContainer />;
 

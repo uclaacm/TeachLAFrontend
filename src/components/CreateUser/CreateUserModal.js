@@ -159,17 +159,21 @@ export default class CreateUserModal extends React.Component {
 
   renderHeader = () => <div className="login-header">Create a new account</div>;
 
-  renderLoader = () => (
-    <div className="login-form-loader">
-      <RingLoader color={"#857e8f"} size={50} loading={this.state.waiting} />
-    </div>
-  );
-
-  renderButton = () => (
-    <button className="login-form-button" type="submit">
-      Create Account
-    </button>
-  );
+  renderAction = () => {
+    if (this.state.waiting) {
+      return (
+        <div className="login-form-loader">
+          <RingLoader color={"#857e8f"} size={50} loading={true} />
+        </div>
+      );
+    } else {
+      return (
+        <button className="login-form-button" type="submit">
+          Create Account
+        </button>
+      );
+    }
+  };
 
   renderLink = () => (
     <Link to="/login" className="login-form-link">
@@ -183,8 +187,8 @@ export default class CreateUserModal extends React.Component {
         {this.renderHeader()}
         <br />
         {this.renderInputs()}
-        {this.renderButton()}
-        {this.renderLoader()}
+        {this.renderAction()}
+        <br />
         <br />
         {this.renderLink()}
       </form>

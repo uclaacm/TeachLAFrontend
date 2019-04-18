@@ -1,26 +1,17 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 /**-------Props--------
- * panelVisible: boolean, is profile panel visible
- * handleOnVisibleChange: function to call when you want the Profile Panel to disappear/reappear
+ * panelOpen: boolean, is profile panel visible
+ * togglePanel: function to call when you want the Profile Panel to disappear/reappear
  */
 
-const OpenPanelButton = props => {
-  const { panelVisible, handleOnVisibleChange } = props;
-
-  //if the left panel is closed, show an empty div
-  if (panelVisible) {
-    return <div className="editor-expand-panel-arrow" />;
-  }
-
-  // otherwise show a > that when clicked, opens the panel
+const OpenPanelButton = ({ panelOpen, togglePanel }) => {
+  //if the left panel is closed, show nothing
+  //otherwise show hamburger icon
   return (
-    <div
-      className="editor-expand-panel-arrow"
-      title="Open Profile Panel"
-      onClick={handleOnVisibleChange}
-    >
-      >
+    <div className="editor-expand-panel-arrow" title="Open Profile Panel" onClick={togglePanel}>
+      {panelOpen ? "" : <FontAwesomeIcon icon="bars" />}
     </div>
   );
 };
