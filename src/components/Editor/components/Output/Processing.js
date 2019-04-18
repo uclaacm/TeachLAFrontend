@@ -10,9 +10,11 @@ const getProcessingSrcDocLoggingScript = code => `
         console.olog(message);
         let a = document.getElementById("inner")
         if(a){
-          a.style.display = "block"
+          // a.style.display = "block"
           a.innerHTML = a.innerHTML + "><span>&nbsp;</span>" + message + "<br/>";
-          a.scrollTop = a.scrollHeight;
+          if(a.scrollTop >= (a.scrollHeight - a.offsetHeight) - a.offsetHeight){
+            a.scrollTop = a.scrollHeight
+          }
         }
       };
 
@@ -20,7 +22,6 @@ const getProcessingSrcDocLoggingScript = code => `
 
       console.error = console.debug = console.info = console.log;
 
-      
       function closeConsole(){
         var mypre = document.getElementById("inner");
         mypre.style.display = "none"
@@ -38,8 +39,8 @@ const getProcessingSrcDocBody = (code, showConsole) => `
     <body>
       ${
         showConsole
-          ? `<div id="outer"><div id="inner"><div id="closeConsoleButton" onclick="closeConsole()" title="Hide Console">X</div></div></div>`
-          : `<div id="outer" style="display:none;"><div id="inner"><div id="closeConsoleButton" onclick="closeConsole()" title="Hide Console">X</div></div></div>`
+          ? `<div id="outer"><div id="inner"></div></div>`
+          : `<div id="outer" style="display:none;"><div id="inner"></div></div>`
       }
       ${getProcessingSrcDocLoggingScript(code)}
       ${getUserScript(code)}

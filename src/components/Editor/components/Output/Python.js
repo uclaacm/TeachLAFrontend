@@ -21,7 +21,9 @@ const getPythonSrcDocSkulptScript = () => `
         if(!received)
          mypre.innerHTML = mypre.innerHTML + "><span>&nbsp</span>" + text + "<br>";
         received = !received
-        mypre.scrollTop = mypre.scrollHeight;
+        if(mypre.scrollTop >= (mypre.scrollHeight - mypre.offsetHeight) - mypre.offsetHeight){
+          mypre.scrollTop = mypre.scrollHeight
+        }
     }
 
     function closeConsole(){
@@ -40,7 +42,8 @@ const getPythonSrcDocSkulptScript = () => `
         //if you want to debug, you can uncomment this console log to see the code being run
         //console.log(prog)
         var mypre = document.getElementById("output");
-        mypre.innerHTML = '<div id="inner"><div id="closeConsoleButton" onclick="closeConsole()" title="Hide Console">X</div></div>';
+        // mypre.innerHTML = '<div id="inner"><div id="closeConsoleButton" onclick="closeConsole()" title="Hide Console">X</div></div>';
+        mypre.innerHTML = '<div id="inner"></div>';
         Sk.pre = "output";
         Sk.configure({output:outf, read:builtinRead});
         (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = 'mycanvas';
@@ -52,9 +55,9 @@ const getPythonSrcDocSkulptScript = () => `
         },
         function(err) {
             console.log(err.toString());
-            let a = document.getElementById("output")
-            a.style.display = "block"
-            a.innerHTML = '<span style="color: #be4040">' + err.toString() + '</span>'
+            let a = document.getElementById("inner")
+            // a.style.display = "block"
+            a.innerHTML += '<span style="color: #be4040">' + err.toString() + '</span>'
         });
     }
   </script>

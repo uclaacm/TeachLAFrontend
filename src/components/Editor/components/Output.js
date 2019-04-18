@@ -17,7 +17,7 @@ class Output extends React.Component {
     this.state = {
       //used for the refresh button
       counter: 0,
-      showConsole: false,
+      showConsole: true,
     };
   }
 
