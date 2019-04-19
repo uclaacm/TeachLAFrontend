@@ -9,11 +9,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const OpenPanelButton = ({ panelOpen, togglePanel }) => {
   //if the left panel is closed, show nothing
   //otherwise show hamburger icon
-  return (
-    <div className="editor-expand-panel-arrow" title="Open Profile Panel" onClick={togglePanel}>
-      {panelOpen ? "" : <FontAwesomeIcon icon="bars" />}
-    </div>
-  );
+  if (!panelOpen) {
+    return (
+      <div className="editor-expand-panel-arrow" title="Open Profile Panel" onClick={togglePanel}>
+        {panelOpen ? "" : <FontAwesomeIcon icon="bars" />}
+      </div>
+    );
+  } else return <div className="editor-expand-panel-arrow-hidden" />;
 };
 
 export default OpenPanelButton;
