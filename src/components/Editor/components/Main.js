@@ -11,8 +11,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 /**------Props-------
  * textEditorSize: number? representing the percentage of space the left split pane takes up
- * handleOnVisibleChange: function to call when you want the Profile Panel to disappear/reapper
- * panelVisible: boolean telling whether the Profile Panel is open or not
+ * togglePanel: function to call when you want the Profile Panel to disappear/reapper
+ * panelOpen: boolean telling whether the Profile Panel is open or not
  * codeStyle: object used to style the whole container //TODO: rename or move this prop
  * hotReload: boolean telling if //TODO: figure out a better place for this/remove it
  */
@@ -70,17 +70,13 @@ class Main extends React.Component {
   };
 
   renderOpenPanelButton = () => {
-    const { panelVisible, handleOnVisibleChange } = this.props;
+    const { panelOpen, togglePanel } = this.props;
 
     //if the left panel is closed, show nothing
     //otherwise show hamburger icon
     return (
-      <div
-        className="editor-expand-panel-arrow"
-        title="Open Profile Panel"
-        onClick={handleOnVisibleChange}
-      >
-        {panelVisible ? "" : <FontAwesomeIcon icon="bars" />}
+      <div className="editor-expand-panel-arrow" title="Open Profile Panel" onClick={togglePanel}>
+        {panelOpen ? "" : <FontAwesomeIcon icon="bars" />}
       </div>
     );
   };
