@@ -7,6 +7,7 @@ import EditorButton from "./EditorButton";
 import * as fetch from "../../../lib/fetch.js";
 import EditorRadio from "./EditorRadio.js";
 import { EDITOR_WIDTH_BREAKPOINT, CODE_AND_OUTPUT, CODE_ONLY, OUTPUT_ONLY } from "../constants";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 /**------Props-------
@@ -76,7 +77,7 @@ class Main extends React.Component {
     //otherwise show hamburger icon
     return (
       <div className="editor-expand-panel-arrow" title="Open Profile Panel" onClick={togglePanel}>
-        {panelOpen ? "" : <FontAwesomeIcon icon="bars" />}
+        {panelOpen ? "" : <FontAwesomeIcon icon={faBars} />}
       </div>
     );
   };

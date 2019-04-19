@@ -7,6 +7,8 @@ import {
   DEFAULT_PHOTO_NAME,
 } from "../../../constants";
 import ReactModal from "react-modal";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 /**--------Props--------
@@ -118,7 +120,7 @@ class ProfilePanel extends React.Component {
         />
         {this.state.imageIsHovering && (
           <button className="image-edit-button" onClick={this.handleOpenModal}>
-            <FontAwesomeIcon icon="edit" />
+            <FontAwesomeIcon icon={faEdit} />
           </button>
         )}
       </div>
@@ -175,7 +177,7 @@ class ProfilePanel extends React.Component {
           {this.props.displayName || "Joe Bruin"}
           {this.state.nameIsHovering && (
             <button className="edit-icon-image" onClick={this.handleEditNameClick}>
-              <FontAwesomeIcon icon="edit" />
+              <FontAwesomeIcon icon={faEdit} />
             </button>
           )}
         </div>
@@ -255,7 +257,7 @@ class ProfilePanel extends React.Component {
     <div className="panel">
       <div className="panel-collapse-button">
         <div onClick={this.props.togglePanel}>
-          <FontAwesomeIcon icon="times" />
+          <FontAwesomeIcon icon={faTimes} />
         </div>
       </div>
       <div className="panel-content">
