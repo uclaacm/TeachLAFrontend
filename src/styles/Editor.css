@@ -36,6 +36,13 @@
   padding: 1rem;
   cursor: pointer;
   flex: 0 1 auto;
+  width: 46px;
+}
+
+.editor-expand-panel-arrow-hidden {
+  padding: 1rem;
+  flex: 0 1 auto;
+  width: 46px;
 }
 
 .editor-language-dropdown {
