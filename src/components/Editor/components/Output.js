@@ -1,4 +1,5 @@
 import React from "react";
+import * as sanitize from "sanitize-html";
 import { PYTHON, JAVASCRIPT, CPP, JAVA, HTML, PROCESSING } from "../../../constants";
 import { OUTPUT_ONLY } from "../constants";
 import EditorButton from "./EditorButton";
@@ -105,13 +106,13 @@ class Output extends React.Component {
 
   getPythonSrcDocBody = () => {
     const { runResult } = this.props;
-
+    const sanitizedRunResult = sanitize(runResult);
     return `
       <body onload="runit()">
         ${this.getPythonSrcDocSkulptScript()}
         <pre id="output"></pre>
         <div id="mycanvas"></div>
-        <div style="display:none;" id="runResult">${runResult}</div>
+        <div style="display:none;" id="runResult">${sanitizedRunResult}</div>
       </body>
     `;
   };
@@ -166,7 +167,7 @@ class Output extends React.Component {
 
         console.error = console.debug = console.info = console.log;
 
-        ${this.props.runResult}
+        ${sanitize(this.props.runResult)}
       </script>
     `;
 
