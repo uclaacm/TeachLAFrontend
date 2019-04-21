@@ -98,7 +98,7 @@
 }
 
 .editor-run-button:hover {
-  background-color: #63966b;
+  box-shadow: inset 0 0 0 100px rgba(0, 0, 0, 0.2);
 }
 
 .editor-run-button:active {

@@ -208,6 +208,7 @@
 .panel-options-item:hover {
   border: 2px solid white;
   border-radius: 10px;
+  cursor: pointer;
 }
 
 .panel-options-item-disabled {
