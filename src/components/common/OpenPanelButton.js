@@ -1,4 +1,5 @@
 import React from "react";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 /**-------Props--------
@@ -12,7 +13,7 @@ const OpenPanelButton = ({ panelOpen, togglePanel }) => {
   if (!panelOpen) {
     return (
       <div className="editor-expand-panel-arrow" title="Open Profile Panel" onClick={togglePanel}>
-        {panelOpen ? "" : <FontAwesomeIcon icon="bars" />}
+        {panelOpen ? "" : <FontAwesomeIcon icon={faBars} />}
       </div>
     );
   } else return <div className="editor-expand-panel-arrow-hidden" />;
