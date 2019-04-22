@@ -3,6 +3,7 @@ import { PYTHON, JAVASCRIPT, CPP, JAVA, HTML, PROCESSING } from "../../../consta
 import { OUTPUT_ONLY } from "../constants";
 import EditorButton from "./EditorButton";
 import EditorRadio from "./EditorRadio";
+import OpenPanelButtonContainer from "../../common/containers/OpenPanelButtonContainer";
 import DropdownButtonContainer from "../containers/DropdownButtonContainer";
 import CreateProcessingDoc from "./Output/Processing";
 import CreatePythonDoc from "./Output/Python";
@@ -84,6 +85,8 @@ class Output extends React.Component {
     return this.renderIframe(srcDocFunc);
   };
 
+  renderOpenPanelButton = () => this.props.viewMode === OUTPUT_ONLY && <OpenPanelButtonContainer />;
+
   renderLanguageDropdown = () => this.props.viewMode === OUTPUT_ONLY && <DropdownButtonContainer />;
 
   renderRadio = () =>
@@ -117,7 +120,8 @@ class Output extends React.Component {
 
   renderBanner = () => (
     <div className="editor-output-banner">
-      <div style={{ marginLeft: "10px" }}>{this.renderLanguageDropdown()}</div>
+      {this.renderOpenPanelButton()}
+      {this.renderLanguageDropdown()}
       <div style={{ flex: "1 1 auto" }}> </div> {/*whitespace*/}
       {this.renderRadio()}
       {this.renderConsoleButton()}

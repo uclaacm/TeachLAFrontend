@@ -1,3 +1,5 @@
+import * as sanitize from "sanitize-html";
+
 const getProcessingSrcDocLoggingScript = code => `
     <script type="text/javascript">
       if (typeof console  != "undefined")
@@ -62,5 +64,8 @@ const getProcessingSrcDocHead = () => `
   `;
 
 export default function(code, showConsole) {
-  return `<html> ${getProcessingSrcDocHead()} ${getProcessingSrcDocBody(code, showConsole)}</html>`;
+  return `<html> ${getProcessingSrcDocHead()} ${getProcessingSrcDocBody(
+    sanitize(code),
+    showConsole,
+  )}</html>`;
 }

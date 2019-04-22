@@ -2,6 +2,7 @@ import Main from "../components/Main.js";
 import { connect } from "react-redux";
 import { setOutput } from "../../../actions/outputActions.js";
 import { setMostRecentProgram } from "../../../actions/userDataActions.js";
+import { togglePanel } from "../../../actions/uiActions.js";
 
 const mapStateToProps = state => {
   const { mostRecentProgram } = state.userData;
@@ -21,6 +22,7 @@ const mapStateToProps = state => {
     listOfPrograms,
     screenWidth: state.ui.screenWidth,
     screenHeight: state.ui.screenHeight,
+    panelOpen: state.ui.panelOpen,
   };
 };
 
@@ -28,6 +30,7 @@ const mapDispatchToProps = dispatch => {
   return {
     setMostRecentProgram: value => dispatch(setMostRecentProgram(value)),
     runCode: (code, language) => dispatch(setOutput(code, language)),
+    togglePanel: () => dispatch(togglePanel()),
   };
 };
 
