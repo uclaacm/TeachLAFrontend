@@ -6,9 +6,8 @@ import DropdownButtonContainer from "../containers/DropdownButtonContainer";
 import EditorButton from "./EditorButton";
 import * as fetch from "../../../lib/fetch.js";
 import EditorRadio from "./EditorRadio.js";
+import OpenPanelButtonContainer from "../../common/containers/OpenPanelButtonContainer";
 import { EDITOR_WIDTH_BREAKPOINT, CODE_AND_OUTPUT, CODE_ONLY, OUTPUT_ONLY } from "../constants";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 /**------Props-------
  * textEditorSize: number? representing the percentage of space the left split pane takes up
@@ -70,18 +69,6 @@ class Main extends React.Component {
     });
   };
 
-  renderOpenPanelButton = () => {
-    const { panelOpen, togglePanel } = this.props;
-
-    //if the left panel is closed, show nothing
-    //otherwise show hamburger icon
-    return (
-      <div className="editor-expand-panel-arrow" title="Open Profile Panel" onClick={togglePanel}>
-        {panelOpen ? "" : <FontAwesomeIcon icon={faBars} />}
-      </div>
-    );
-  };
-
   renderDropdown = () => <DropdownButtonContainer />;
 
   renderCodeAndOutput = () => (
@@ -115,7 +102,7 @@ class Main extends React.Component {
   renderCode = () => (
     <div className="code-section">
       <div className="code-section-banner">
-        {this.renderOpenPanelButton()}
+        <OpenPanelButtonContainer />
         {this.renderDropdown()}
         <div style={{ marginLeft: "auto" }}>
           <EditorRadio
