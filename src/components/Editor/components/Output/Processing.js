@@ -1,5 +1,3 @@
-import * as sanitize from "sanitize-html";
-
 const getProcessingSrcDocLoggingScript = code => `
     <script type="text/javascript">
       if (typeof console  != "undefined")
@@ -13,14 +11,20 @@ const getProcessingSrcDocLoggingScript = code => `
         let a = document.getElementById("inner")
         if(a){
           // a.style.display = "block"
-          a.innerHTML = a.innerHTML + "><span>&nbsp;</span>" + message + "<br/>";
+          a.value = a.value + "> " + message + "\\n";
           if(a.scrollTop >= (a.scrollHeight - a.offsetHeight) - a.offsetHeight){
             a.scrollTop = a.scrollHeight
           }
         }
       };
 
-      window.onerror = (err)=>console.log("<span style='color:#be4040'>" + err + "</span>")
+      window.onerror = (err)=> {
+        let a = document.getElementById("outer")
+        if(a){
+          a.style.display = "block"
+        }
+        console.log("\\n\\nERROR: " + err + "\\n")
+      }
 
       console.error = console.debug = console.info = console.log;
 
@@ -41,8 +45,8 @@ const getProcessingSrcDocBody = (code, showConsole) => `
     <body>
       ${
         showConsole
-          ? `<div id="outer"><div id="inner"></div></div>`
-          : `<div id="outer" style="display:none;"><div id="inner"></div></div>`
+          ? `<div id="outer"><textarea id="inner"></textarea></div>`
+          : `<div id="outer" style="display:none;"><textarea id="inner"></textarea></div>`
       }
       ${getProcessingSrcDocLoggingScript(code)}
       ${getUserScript(code)}
@@ -56,7 +60,21 @@ const getProcessingSrcDocHead = () => `
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/addons/p5.dom.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/addons/p5.sound.min.js"></script>
         <style>
-          #inner { height:100px; background-color:#333; color:#0F0;word-wrap:break-word; overflow:auto; margin: 10px auto; position:relative; padding: 10px 35px 10px 10px;}
+          #inner {
+            height:100px;
+            background-color:#222;
+            color: #DDD;
+            font-family: monospace;
+            word-wrap:break-word;
+            overflow:auto;
+            margin: 10px auto;
+            position:relative;
+            padding: 10px 35px 10px 10px;
+            width: 100%;
+            box-sizing: border-box;         /* For IE and modern versions of Chrome */
+            -moz-box-sizing: border-box;    /* For Firefox                          */
+            -webkit-box-sizing: border-box; /* For Safari                           */
+          }
           #output { margin: 0px 10px; display: block; position: relative;}
           #closeConsoleButton { position: fixed; top: 20px; right: 30px; color: #ddd;}
         </style>
@@ -64,8 +82,5 @@ const getProcessingSrcDocHead = () => `
   `;
 
 export default function(code, showConsole) {
-  return `<html> ${getProcessingSrcDocHead()} ${getProcessingSrcDocBody(
-    sanitize(code),
-    showConsole,
-  )}</html>`;
+  return `<html> ${getProcessingSrcDocHead()} ${getProcessingSrcDocBody(code, showConsole)}</html>`;
 }

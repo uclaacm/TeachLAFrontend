@@ -57,7 +57,7 @@ class Output extends React.Component {
   };
 
   renderOutput = () => {
-    const { language, runResult } = this.props;
+    let { language, runResult } = this.props;
     const { showConsole } = this.state;
 
     //if there's nothing to run, don't render an output
@@ -72,6 +72,7 @@ class Output extends React.Component {
         srcDocFunc = () => CreateProcessingDoc(runResult, showConsole);
         break;
       case PYTHON:
+        runResult = btoa(runResult);
         srcDocFunc = () => CreatePythonDoc(runResult, showConsole);
         break;
       case JAVA:
