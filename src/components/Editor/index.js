@@ -3,16 +3,19 @@ import SplitPane from "react-split-pane";
 import OutputContainer from "./containers/OutputContainer.js";
 import TextEditorContainer from "./containers/TextEditorContainer";
 import DropdownButtonContainer from "./containers/DropdownButtonContainer";
+import OpenPanelButtonContainer from "../common/containers/OpenPanelButtonContainer";
 import EditorButton from "./components/EditorButton";
 import * as fetch from "../../lib/fetch.js";
 import EditorRadio from "./components/EditorRadio.js";
 import { EDITOR_WIDTH_BREAKPOINT, CODE_AND_OUTPUT, CODE_ONLY, OUTPUT_ONLY } from "./constants";
+
 import { PANEL_SIZE } from "../../constants";
 import "codemirror/lib/codemirror.css";
 import "codemirror/theme/material.css";
 import "../../styles/CustomCM.css";
 import "../../styles/Resizer.css";
 import "../../styles/Editor.css";
+
 /**------Props-------
  * togglePanel: function to call when you want the Profile Panel to disappear/reapper
  * panelOpen: boolean telling whether the Profile Panel is open or not
@@ -71,22 +74,6 @@ class Editor extends React.Component {
     });
   };
 
-  renderOpenPanelButton = () => {
-    const { panelOpen, togglePanel } = this.props;
-
-    //if the left panel is closed, show an empty div
-    if (panelOpen) {
-      return <div className="editor-expand-panel-arrow" />;
-    }
-
-    // otherwise show a > that when clicked, opens the panel
-    return (
-      <div className="editor-expand-panel-arrow" title="Open Profile Panel" onClick={togglePanel}>
-        >
-      </div>
-    );
-  };
-
   renderDropdown = () => <DropdownButtonContainer />;
 
   renderCodeAndOutput = () => (
@@ -124,7 +111,7 @@ class Editor extends React.Component {
   renderCode = () => (
     <div className="code-section">
       <div className="code-section-banner">
-        {this.renderOpenPanelButton()}
+        <OpenPanelButtonContainer />
         {this.renderDropdown()}
         <div style={{ marginLeft: "auto" }}>
           <EditorRadio

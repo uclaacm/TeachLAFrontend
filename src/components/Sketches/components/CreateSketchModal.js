@@ -145,7 +145,7 @@ class CreateSketchModal extends React.Component {
           if (!json.ok) {
             this.setState({
               spinner: false,
-              error: "Failed to create sketch, please try again later",
+              error: json.error || "Failed to create sketch, please try again later",
             });
             return;
           }

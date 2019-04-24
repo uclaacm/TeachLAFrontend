@@ -8,6 +8,9 @@ import {
   DEFAULT_PHOTO_NAME,
 } from "../../constants";
 import ReactModal from "react-modal";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 /**--------Props--------
  * togglePanel: function to be called when the panel is collapsed or opened
@@ -119,7 +122,7 @@ class ProfilePanel extends React.Component {
         />
         {this.state.imageIsHovering && (
           <button className="image-edit-button" onClick={this.handleOpenModal}>
-            Edit
+            <FontAwesomeIcon icon={faEdit} />
           </button>
         )}
       </div>
@@ -176,7 +179,7 @@ class ProfilePanel extends React.Component {
           {this.props.displayName || "Joe Bruin"}
           {this.state.nameIsHovering && (
             <button className="edit-icon-image" onClick={this.handleEditNameClick}>
-              <img src="https://i.imgur.com/wQgAOcF.png" width="20px" alt="" />
+              <FontAwesomeIcon icon={faEdit} />
             </button>
           )}
         </div>
@@ -262,8 +265,9 @@ class ProfilePanel extends React.Component {
   renderMainContent = () => (
     <div className="panel">
       <div className="panel-collapse-button">
-        <div onClick={this.props.togglePanel}>&larr;</div>
-        {/*character is leftward facing arrow*/}
+        <div onClick={this.props.togglePanel}>
+          <FontAwesomeIcon icon={faTimes} />
+        </div>
       </div>
       <div className="panel-content">
         {this.renderPanelImage()}

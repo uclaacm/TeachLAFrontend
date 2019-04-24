@@ -1,8 +1,10 @@
 import React from "react";
+import * as sanitize from "sanitize-html";
 import { PYTHON, JAVASCRIPT, CPP, JAVA, HTML, PROCESSING } from "../../../constants";
 import { OUTPUT_ONLY } from "../constants";
 import EditorButton from "./EditorButton";
 import EditorRadio from "./EditorRadio";
+import OpenPanelButtonContainer from "../../common/containers/OpenPanelButtonContainer";
 import DropdownButtonContainer from "../containers/DropdownButtonContainer";
 
 /**--------Props--------
@@ -104,13 +106,13 @@ class Output extends React.Component {
 
   getPythonSrcDocBody = () => {
     const { runResult } = this.props;
-
+    const sanitizedRunResult = sanitize(runResult);
     return `
       <body onload="runit()">
         ${this.getPythonSrcDocSkulptScript()}
         <pre id="output"></pre>
         <div id="mycanvas"></div>
-        <div style="display:none;" id="runResult">${runResult}</div>
+        <div style="display:none;" id="runResult">${sanitizedRunResult}</div>
       </body>
     `;
   };
@@ -165,7 +167,7 @@ class Output extends React.Component {
 
         console.error = console.debug = console.info = console.log;
 
-        ${this.props.runResult}
+        ${sanitize(this.props.runResult)}
       </script>
     `;
 
@@ -235,6 +237,8 @@ class Output extends React.Component {
     }
   };
 
+  renderOpenPanelButton = () => this.props.viewMode === OUTPUT_ONLY && <OpenPanelButtonContainer />;
+
   renderLanguageDropdown = () => this.props.viewMode === OUTPUT_ONLY && <DropdownButtonContainer />;
 
   renderRadio = () =>
@@ -250,7 +254,8 @@ class Output extends React.Component {
 
   renderBanner = () => (
     <div className="editor-output-banner">
-      <div style={{ marginLeft: "10px" }}>{this.renderLanguageDropdown()}</div>
+      {this.renderOpenPanelButton()}
+      {this.renderLanguageDropdown()}
       <div style={{ flex: "1 1 auto" }}> </div> {/*whitespace*/}
       {this.renderRadio()}
       <EditorButton handleClick={this.reRenderOutput} text="Refresh" color="#3c52ba" />
