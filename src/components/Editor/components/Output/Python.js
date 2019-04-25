@@ -18,6 +18,7 @@ const getPythonSrcDocHead = () => `
             box-sizing: border-box;         /* For IE and modern versions of Chrome */
             -moz-box-sizing: border-box;    /* For Firefox                          */
             -webkit-box-sizing: border-box; /* For Safari                           */
+            resize: vertical;
           }
           #output { margin: 0px 10px; position: relative;}
           #mycanvas { margin: 10px; }
@@ -32,9 +33,17 @@ const getPythonSrcDocSkulptScript = code => `
     var received = false;
     function outf(text) {
         var mypre = document.getElementById("inner");
-        if(!received)
-         mypre.value = mypre.value + "> " + text + "\\n";
-        received = !received
+        console.log(text)
+        if (text != "\\n") {
+          received = true
+        } else if (received == true) {
+          received = false
+        } else {
+          received = true
+        }
+        if(received){
+          mypre.value = mypre.value + "> " + text + "\\n";
+        }
         if(mypre.scrollTop >= (mypre.scrollHeight - mypre.offsetHeight) - mypre.offsetHeight){
           mypre.scrollTop = mypre.scrollHeight
         }
@@ -53,7 +62,7 @@ const getPythonSrcDocSkulptScript = code => `
 
     function runit() {
         var prog = atob('${code}');
-        console.log(prog)
+        // console.log(prog)
         //if you want to debug, you can uncomment this console log to see the code being run
         //console.log(prog)
         var mypre = document.getElementById("output");
@@ -63,6 +72,7 @@ const getPythonSrcDocSkulptScript = code => `
         Sk.configure({output:outf, read:builtinRead});
         (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = 'mycanvas';
         var myPromise = Sk.misceval.asyncToPromise(function() {
+
             return Sk.importMainWithBody("<stdin>", false, prog, true);
         });
         myPromise.then(function(mod) {
