@@ -7,12 +7,12 @@ import {
   DEFAULT_PHOTO_NAME,
 } from "../../../constants";
 import ReactModal from "react-modal";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 /**--------Props--------
- * handleOnSizeChange: function to be called when the panel is resized
- * handleOnVisibleChange: function to be called when the panel is collapsed or opened
- * panelVisible: boolean to determine if the panel should be open or not
- * size: number? representing the pixel width of the panel
+ * togglePanel: function to be called when the panel is collapsed or opened
  */
 
 class ProfilePanel extends React.Component {
@@ -120,7 +120,7 @@ class ProfilePanel extends React.Component {
         />
         {this.state.imageIsHovering && (
           <button className="image-edit-button" onClick={this.handleOpenModal}>
-            <img src="http://i.imgur.com/wQgAOcF.png" alt="" width="20px" />
+            <FontAwesomeIcon icon={faEdit} />
           </button>
         )}
       </div>
@@ -177,7 +177,7 @@ class ProfilePanel extends React.Component {
           {this.props.displayName || "Joe Bruin"}
           {this.state.nameIsHovering && (
             <button className="edit-icon-image" onClick={this.handleEditNameClick}>
-              <img src="https://i.imgur.com/wQgAOcF.png" width="20px" alt="" />
+              <FontAwesomeIcon icon={faEdit} />
             </button>
           )}
         </div>
@@ -257,8 +257,9 @@ class ProfilePanel extends React.Component {
   renderMainContent = () => (
     <div className="panel">
       <div className="panel-collapse-button">
-        <div onClick={this.props.handleOnVisibleChange}>&larr;</div>
-        {/*character is leftward facing arrow*/}
+        <div onClick={this.props.togglePanel}>
+          <FontAwesomeIcon icon={faTimes} />
+        </div>
       </div>
       <div className="panel-content">
         {this.renderPanelImage()}
