@@ -87,7 +87,7 @@ class App extends React.Component {
     let isValidUser = this.props.uid;
 
     return (
-      <Router>
+      <Router basename="/TeachLAFrontend">
         <div className="App">
           {/*if the user is loggedIn, redirect them to the editor, otherwise, show the login page*?*/}
           <Route
