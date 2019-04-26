@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom";
 import SketchesButton from "./components/SketchesButton";
 import CreateSketchModalContainer from "./containers/CreateSketchModalContainer";
 import { SketchThumbnailArray } from "./constants";
-import { PANEL_SIZE } from "../../constants";
+// import { PANEL_SIZE } from "../../constants";
 import "../../styles/Sketches.css";
 
 const ROW_PADDING = 100;
