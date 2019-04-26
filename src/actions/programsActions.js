@@ -22,3 +22,8 @@ export const CLEAR_PROGRAMS = "CLEAR_PROGRAMS";
 export function clearPrograms() {
   return { type: CLEAR_PROGRAMS };
 }
+
+export const ADD_PROGRAM = "ADD_PROGRAM";
+export function addProgram(program, data) {
+  return { type: ADD_PROGRAM, program, data };
+}

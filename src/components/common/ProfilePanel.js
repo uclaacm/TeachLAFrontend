@@ -1,18 +1,19 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 import firebase from "firebase";
 import {
   MINIMUM_DISPLAY_NAME_LENGTH,
   MAXIMUM_DISPLAY_NAME_LENGTH,
   PHOTO_NAMES,
   DEFAULT_PHOTO_NAME,
-} from "../../../constants";
+} from "../../constants";
 import ReactModal from "react-modal";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 /**--------Props--------
- * handleOnSizeChange: function to be called when the panel is resized
- * handleOnVisibleChange: function to be called when the panel is collapsed or opened
- * panelVisible: boolean to determine if the panel should be open or not
- * size: number? representing the pixel width of the panel
+ * togglePanel: function to be called when the panel is collapsed or opened
  */
 
 class ProfilePanel extends React.Component {
@@ -28,6 +29,7 @@ class ProfilePanel extends React.Component {
       name: this.props.displayName,
       selectedImage: "",
       displayNameMessage: "",
+      redirectTo: "",
     };
   }
 
@@ -77,7 +79,7 @@ class ProfilePanel extends React.Component {
   onNameSubmit = e => {
     e.preventDefault();
     let badInputs = this.checkInputs();
-    console.log("submit");
+
     if (badInputs) {
       this.setState({ name: this.props.displayName, editing: false });
       return;
@@ -120,7 +122,7 @@ class ProfilePanel extends React.Component {
         />
         {this.state.imageIsHovering && (
           <button className="image-edit-button" onClick={this.handleOpenModal}>
-            <img src="http://i.imgur.com/wQgAOcF.png" alt="" width="20px" />
+            <FontAwesomeIcon icon={faEdit} />
           </button>
         )}
       </div>
@@ -177,7 +179,7 @@ class ProfilePanel extends React.Component {
           {this.props.displayName || "Joe Bruin"}
           {this.state.nameIsHovering && (
             <button className="edit-icon-image" onClick={this.handleEditNameClick}>
-              <img src="https://i.imgur.com/wQgAOcF.png" width="20px" alt="" />
+              <FontAwesomeIcon icon={faEdit} />
             </button>
           )}
         </div>
@@ -215,7 +217,14 @@ class ProfilePanel extends React.Component {
   );
 
   renderSketchesButton = disabled => (
-    <div className={"panel-options-item" + (disabled ? "-disabled" : "")}>
+    <div
+      className={"panel-options-item" + (disabled ? "-disabled" : "")}
+      onClick={() => {
+        if (!disabled) {
+          this.setState({ redirectTo: "/sketches" });
+        }
+      }}
+    >
       {disabled && (
         <img
           style={{ position: "absolute", height: "60px", right: "-2px", zIndex: 20, opacity: 0.9 }}
@@ -248,7 +257,7 @@ class ProfilePanel extends React.Component {
       <div className="panel-options-list">
         {/* STABLE BUILD HACK */}
         {/* {this.renderProfileButton(true)} */}
-        {/* {this.renderSketchesButton(true)} */}
+        {this.renderSketchesButton()}
         {this.renderSignOutButton()}
       </div>
     </div>
@@ -257,8 +266,9 @@ class ProfilePanel extends React.Component {
   renderMainContent = () => (
     <div className="panel">
       <div className="panel-collapse-button">
-        <div onClick={this.props.handleOnVisibleChange}>&larr;</div>
-        {/*character is leftward facing arrow*/}
+        <div onClick={this.props.togglePanel}>
+          <FontAwesomeIcon icon={faTimes} />
+        </div>
       </div>
       <div className="panel-content">
         {this.renderPanelImage()}
@@ -273,10 +283,22 @@ class ProfilePanel extends React.Component {
     </div>
   );
 
+  renderRedirect() {
+    if (this.state.redirectTo) {
+      return <Redirect to={this.state.redirectTo} />;
+    }
+    return null;
+  }
+
   render() {
     const { panelStyle } = this.props;
 
-    return <div style={panelStyle}>{this.renderMainContent()}</div>;
+    return (
+      <div style={panelStyle}>
+        {this.renderMainContent()}
+        {this.renderRedirect()}
+      </div>
+    );
   }
 }
 

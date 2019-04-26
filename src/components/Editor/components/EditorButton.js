@@ -5,7 +5,11 @@ import React from "react";
  */
 const EditorButton = props => (
   <div className="editor-run" onClick={props.handleClick}>
-    <button className="editor-run-button" style={{ backgroundColor: props.color }}>
+    <button
+      title={props.title || ""}
+      className="editor-run-button"
+      style={{ backgroundColor: props.color, width: props.width }}
+    >
       <span style={{ flex: "0 0 auto" }}>{props.text}</span>
     </button>
   </div>

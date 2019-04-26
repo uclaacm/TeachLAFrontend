@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?><!-- Generator: Adobe Illustrator 15.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  --><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" width="500" height="500" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve">
+<g>
+	<path fill="#5D4037" d="M27,13c0,1.656-1.343,3-3,3l0,0c-1.657,0-3-1.344-3-3l-2-2c0-1.656,3.343-4,5-4l0,0c1.657,0,5,2.344,5,4   L27,13z"/>
+	<path fill="#5D4037" d="M17,15l5,2h4l5-2c0-3-2-4-2-4H19C19,11,17,12,17,15z"/>
+	<polyline fill="none" stroke="#5D4037" stroke-width="2" stroke-linecap="round" points="34,20.002 35,26 41,28.002  "/>
+	<polyline fill="none" stroke="#5D4037" stroke-width="2" stroke-linecap="round" points="35,33.002 37,39.002 41,41.002  "/>
+	<polyline fill="none" stroke="#5D4037" stroke-width="2" stroke-linecap="round" points="14,20.002 13,26 7,28.002  "/>
+	<polyline fill="none" stroke="#5D4037" stroke-width="2" stroke-linecap="round" points="13,33.002 11,39.002 7,41.002  "/>
+	<polyline fill="none" stroke="#5D4037" stroke-width="2" stroke-linecap="round" points="24,18 37,18 40,13  "/>
+	<polyline fill="none" stroke="#5D4037" stroke-width="2" stroke-linecap="round" points="24,18 11,18 8,13  "/>
+	<path fill="none" stroke="#5D4037" stroke-width="2" stroke-linecap="round" d="M23,9c0,0-2-2-6-2"/>
+	<path fill="none" stroke="#5D4037" stroke-width="2" stroke-linecap="round" d="M25,9c0,0,2-2,6-2"/>
+</g>
+<rect x="23" y="20.002" fill="#B71C1C" width="2" height="22"/>
+<path fill="#FF3D00" d="M15.204,17.002C12.777,19.385,11,22.764,11,27c0,8.836,7.667,15.002,12,15.002l1-23l1,23  c4.333,0,12-6.166,12-15.002c0-4.236-1.777-7.615-4.204-9.998H15.204z"/>
+<g>
+	<path fill="#3E2723" d="M24,22.002c2.762,0,5-2.24,5-5H19C19,19.762,21.238,22.002,24,22.002z"/>
+	<circle fill="#3E2723" cx="29.5" cy="28.5" r="2.5"/>
+	<circle fill="#3E2723" cx="18.5" cy="28.5" r="2.5"/>
+	<ellipse transform="matrix(-0.881 -0.4731 0.4731 -0.881 16.582 50.3705)" fill="#3E2723" cx="14.625" cy="23.1" rx="1.5" ry="2"/>
+	<ellipse transform="matrix(0.881 -0.4731 0.4731 0.881 -6.9274 18.6553)" fill="#3E2723" cx="33.625" cy="23.1" rx="1.5" ry="2"/>
+	
+		<ellipse transform="matrix(-0.7071 0.7071 -0.7071 -0.7071 78.1437 40.0966)" fill="#3E2723" cx="30.768" cy="36.232" rx="2" ry="1.5"/>
+	
+		<ellipse transform="matrix(0.7071 0.7071 -0.7071 0.7071 30.8242 -1.9513)" fill="#3E2723" cx="17.768" cy="36.232" rx="2" ry="1.5"/>
+</g>
+<g>
+	<path fill="#A1887F" d="M29,11h-2v2c0,0.553,0.447,1,1,1h2.917C30.543,11.775,29,11,29,11z"/>
+	<path fill="#A1887F" d="M19,11h2v2c0,0.553-0.447,1-1,1h-2.917C17.457,11.775,19,11,19,11z"/>
+</g>
+</svg>

@@ -1,27 +1,32 @@
 import React from "react";
 import SplitPane from "react-split-pane";
-import OutputContainer from "../containers/OutputContainer.js";
-import TextEditorContainer from "../containers/TextEditorContainer";
-// STABLE BUILD HACK
-// import DropdownButtonContainer from "../containers/DropdownButtonContainer";
-import EditorButton from "./EditorButton";
-import * as fetch from "../../../lib/fetch.js";
-import EditorRadio from "./EditorRadio.js";
-import { EDITOR_WIDTH_BREAKPOINT, CODE_AND_OUTPUT, CODE_ONLY, OUTPUT_ONLY } from "../constants";
+import OutputContainer from "./containers/OutputContainer.js";
+import TextEditorContainer from "./containers/TextEditorContainer";
+import DropdownButtonContainer from "./containers/DropdownButtonContainer";
+import OpenPanelButtonContainer from "../common/containers/OpenPanelButtonContainer";
+import EditorButton from "./components/EditorButton";
+import * as fetch from "../../lib/fetch.js";
+import EditorRadio from "./components/EditorRadio.js";
+import { EDITOR_WIDTH_BREAKPOINT, CODE_AND_OUTPUT, CODE_ONLY, OUTPUT_ONLY } from "./constants";
+
+import { PANEL_SIZE } from "../../constants";
+import "codemirror/lib/codemirror.css";
+import "codemirror/theme/material.css";
+import "../../styles/CustomCM.css";
+import "../../styles/Resizer.css";
+import "../../styles/Editor.css";
 
 /**------Props-------
- * textEditorSize: number? representing the percentage of space the left split pane takes up
- * handleOnVisibleChange: function to call when you want the Profile Panel to disappear/reapper
- * panelVisible: boolean telling whether the Profile Panel is open or not
+ * togglePanel: function to call when you want the Profile Panel to disappear/reapper
+ * panelOpen: boolean telling whether the Profile Panel is open or not
  * codeStyle: object used to style the whole container //TODO: rename or move this prop
- * hotReload: boolean telling if //TODO: figure out a better place for this/remove it
  */
 
-class Main extends React.Component {
+class Editor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      saveText: "Save Code",
+      saveText: "Save code",
       viewMode: CODE_AND_OUTPUT,
     };
   }
@@ -45,7 +50,7 @@ class Main extends React.Component {
 
   resetSaveText = () => {
     this.setState({
-      saveText: "Save Code",
+      saveText: "Save code",
     });
   };
 
@@ -69,29 +74,7 @@ class Main extends React.Component {
     });
   };
 
-  renderOpenPanelButton = () => {
-    const { panelVisible, handleOnVisibleChange } = this.props;
-
-    //if the left panel is closed, show an empty div
-    if (panelVisible) {
-      return <div className="editor-expand-panel-arrow" />;
-    }
-
-    // otherwise show a > that when clicked, opens the panel
-    return (
-      <div
-        className="editor-expand-panel-arrow"
-        title="Open Profile Panel"
-        onClick={handleOnVisibleChange}
-      >
-        >
-      </div>
-    );
-  };
-
-  // STABLE BUILD HACK
-  // renderDropdown = () => <DropdownButtonContainer />;
-  renderDropdown = () => null;
+  renderDropdown = () => <DropdownButtonContainer />;
 
   renderCodeAndOutput = () => (
     <SplitPane
@@ -105,11 +88,15 @@ class Main extends React.Component {
         width: "10px",
       }}
       split="vertical" //the resizer is a vertical line (horizontal means resizer is a horizontal bar)
-      minSize={this.props.screenWidth * 0.25} //minimum size of code is 25% of screen not including panel and max size is 50%
+      minSize={
+        (this.props.panelOpen ? this.props.screenWidth - PANEL_SIZE : this.props.screenWidth) * 0.33
+      } //minimum size of code is 33% of the remaining screen size
       maxSize={
-        this.props.panelVisible ? this.props.screenWidth * 0.5 : this.props.screenWidth * 0.66
-      } //maximum size is 75% of the screen if the panel  is open, 50% otherwise
-      size={this.props.textEditorSize} //the initial size of the text editor section
+        (this.props.panelOpen ? this.props.screenWidth - PANEL_SIZE : this.props.screenWidth) * 0.75
+      } //max size of code is 75% of the remaining screen size
+      size={
+        (this.props.panelOpen ? this.props.screenWidth - PANEL_SIZE : this.props.screenWidth) / 2
+      } //the initial size of the text editor section
       allowResize={true}
     >
       {this.renderCode()}
@@ -124,7 +111,7 @@ class Main extends React.Component {
   renderCode = () => (
     <div className="code-section">
       <div className="code-section-banner">
-        {this.renderOpenPanelButton()}
+        <OpenPanelButtonContainer />
         {this.renderDropdown()}
         <div style={{ marginLeft: "auto" }}>
           <EditorRadio
@@ -172,4 +159,4 @@ class Main extends React.Component {
   }
 }
 
-export default Main;
+export default Editor;
