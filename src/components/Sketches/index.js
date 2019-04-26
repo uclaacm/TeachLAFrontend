@@ -7,7 +7,7 @@ import { SketchThumbnailArray } from "./constants";
 import "../../styles/Sketches.css";
 
 const ROW_PADDING = 100;
-const SKETCH_WIDTH = 150;
+const SKETCH_WIDTH = 170;
 
 class Sketches extends React.Component {
   constructor(props) {
@@ -128,8 +128,11 @@ class Sketches extends React.Component {
         </div>,
       );
     });
-
-    let numSketchesPerRow = (this.props.viewSize - ROW_PADDING) / SKETCH_WIDTH - 1;
+    console.log(
+      this.props.viewSize,
+      Math.floor((this.props.viewSize - ROW_PADDING) / SKETCH_WIDTH),
+    );
+    let numSketchesPerRow = Math.floor((this.props.viewSize - ROW_PADDING) / SKETCH_WIDTH);
     // let numSketchesPerRow = (this.originalWidth - ROW_PADDING) / SKETCH_WIDTH
     let rows = [];
     let originalLength = sketches.length;
