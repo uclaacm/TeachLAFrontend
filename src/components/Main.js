@@ -55,6 +55,7 @@ class Editor extends React.Component {
 
   renderSketchesPage = value => (
     <SketchesPageContainer
+      viewSize={this.props.screenWidth - (value.panelLeft + PANEL_SIZE)}
       codeStyle={{
         left: value.panelLeft + PANEL_SIZE,
         width: this.props.screenWidth - (value.panelLeft + PANEL_SIZE),

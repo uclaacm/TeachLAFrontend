@@ -3,9 +3,11 @@ import { Redirect } from "react-router-dom";
 import SketchesButton from "./components/SketchesButton";
 import CreateSketchModalContainer from "./containers/CreateSketchModalContainer";
 import { SketchThumbnailArray } from "./constants";
+import { PANEL_SIZE } from "../../constants";
 import "../../styles/Sketches.css";
 
-const MAX_SKETCHES_PER_ROW = 5;
+const ROW_PADDING = 100;
+const SKETCH_WIDTH = 150;
 
 class Sketches extends React.Component {
   constructor(props) {
@@ -14,6 +16,8 @@ class Sketches extends React.Component {
       redirectTo: "",
       createSketchModalOpen: false,
     };
+
+    // this.originalWidth = this.props.viewSize
   }
 
   //==============React Lifecycle Functions Start===================//
@@ -30,6 +34,10 @@ class Sketches extends React.Component {
     //       this.setState({ viewMode: CODE_ONLY });
     //     }
     //   }
+    // }
+    // if (Math.abs(this.props.viewSize - this.originalWidth) >= (PANEL_SIZE - 10)) {
+    //   console.log(this.props.viewSize, this.originalWidth)
+    //   this.originalWidth = this.props.viewSize
     // }
   }
 
@@ -121,12 +129,14 @@ class Sketches extends React.Component {
       );
     });
 
+    let numSketchesPerRow = (this.props.viewSize - ROW_PADDING) / SKETCH_WIDTH - 1;
+    // let numSketchesPerRow = (this.originalWidth - ROW_PADDING) / SKETCH_WIDTH
     let rows = [];
     let originalLength = sketches.length;
-    for (let i = 0; i < originalLength / MAX_SKETCHES_PER_ROW; i++) {
+    for (let i = 0; i < originalLength / numSketchesPerRow; i++) {
       rows.push(
         <div className="sketches-grid-row" key={i}>
-          {sketches.splice(0, MAX_SKETCHES_PER_ROW)}
+          {sketches.splice(0, numSketchesPerRow)}
         </div>,
       );
     }
