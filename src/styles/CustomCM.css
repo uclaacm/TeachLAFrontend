@@ -20,7 +20,7 @@
 }
 
 .cm-s-material .CodeMirror-gutters {
-  background-color: #857e8f;
+  background-color: #252132;
 }
 .cm-s-material .CodeMirror-guttermarker,
 .cm-s-material .CodeMirror-guttermarker-subtle,
@@ -37,7 +37,7 @@
 
 /* comments, e.g. // # /* */
 .cm-s-material .cm-comment {
-  color: #1d3c69;
+  color: white;
 }
 
 /* import for while in etc */
