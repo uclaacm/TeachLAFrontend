@@ -111,6 +111,7 @@ class Editor extends React.Component {
               <React.Fragment>
                 <ProfilePanelContainer
                   panelStyle={Object.assign({}, panelStyle, { left: value.panelLeft })}
+                  contentType={this.props.contentType}
                 />
                 {this.renderContent(value)}
               </React.Fragment>

@@ -26,10 +26,15 @@ class Output extends React.Component {
 
   //==============React Lifecycle Functions===================//
   shouldComponentUpdate = (nextProps, nextState) => {
+    if (this.state.showConsole !== nextState.showConsole) {
+      return true;
+    }
+
     if (
       this.state.run !== nextState.run ||
       this.state.counter !== nextState.counter ||
-      this.props.mostRecentProgram !== nextProps.mostRecentProgram
+      this.props.mostRecentProgram !== nextProps.mostRecentProgram ||
+      this.state.showConsole !== nextState.showConsole
     ) {
       this.firstLoad = false;
       return true;
@@ -142,7 +147,7 @@ class Output extends React.Component {
       <div style={{ flex: "1 1 auto" }}> </div> {/*whitespace*/}
       {this.renderRadio()}
       {this.renderConsoleButton()}
-      <EditorButton handleClick={this.runCode} text="Refresh" color="#3c52ba" />
+      <EditorButton handleClick={this.runCode} text="Run Code" color="#3c52ba" />
     </div>
   );
 
