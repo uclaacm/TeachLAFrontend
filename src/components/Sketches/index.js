@@ -2,6 +2,7 @@ import React from "react";
 import { Redirect } from "react-router-dom";
 import SketchesButton from "./components/SketchesButton";
 import CreateSketchModalContainer from "./containers/CreateSketchModalContainer";
+import OpenPanelButtonContainer from "../common/containers/OpenPanelButtonContainer";
 import { SketchThumbnailArray } from "./constants";
 // import { PANEL_SIZE } from "../../constants";
 import "../../styles/Sketches.css";
@@ -41,22 +42,6 @@ class Sketches extends React.Component {
     // }
   }
 
-  renderOpenPanelButton = () => {
-    const { panelOpen, togglePanel } = this.props;
-
-    //if the left panel is closed, show an empty div
-    if (panelOpen) {
-      return <div className="sketches-expand-panel-arrow" />;
-    }
-
-    // otherwise show a > that when clicked, opens the panel
-    return (
-      <div className="sketches-expand-panel-arrow" title="Open Profile Panel" onClick={togglePanel}>
-        >
-      </div>
-    );
-  };
-
   getRandomSketchThumbnail = () => {
     return SketchThumbnailArray[Math.floor(Math.random() * SketchThumbnailArray.length)];
   };
@@ -67,7 +52,7 @@ class Sketches extends React.Component {
 
   renderHeader = () => (
     <div className="sketches-header">
-      {this.renderOpenPanelButton()}
+      <OpenPanelButtonContainer />
       <div className="sketches-header-text">Sketches</div>
       <div style={{ marginLeft: "auto" }}>
         <SketchesButton

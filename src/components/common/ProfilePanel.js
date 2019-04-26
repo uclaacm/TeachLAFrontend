@@ -216,6 +216,31 @@ class ProfilePanel extends React.Component {
     </div>
   );
 
+  renderEditorButton = disabled => (
+    <div
+      className={"panel-options-item" + (disabled ? "-disabled" : "")}
+      onClick={() => {
+        if (!disabled) {
+          this.setState({ redirectTo: "/editor" });
+        }
+      }}
+    >
+      {disabled && (
+        <img
+          style={{ position: "absolute", height: "60px", right: "-2px", zIndex: 20, opacity: 0.9 }}
+          alt="banner"
+          src="img/coming-soon-banner.png"
+        />
+      )}
+      <span className="panel-item-content">
+        <span className="panel-item-icon">
+          <img className={"panel-item-icon"} alt="house" src="img/house2.png" />
+        </span>
+        <span className="panel-item-name">Editor</span>
+      </span>
+    </div>
+  );
+
   renderSketchesButton = disabled => (
     <div
       className={"panel-options-item" + (disabled ? "-disabled" : "")}
@@ -252,15 +277,28 @@ class ProfilePanel extends React.Component {
     </div>
   );
 
-  renderButtons = () => (
-    <div className="panel-options">
-      <div className="panel-options-list">
-        {this.renderProfileButton(true)}
-        {this.renderSketchesButton()}
-        {this.renderSignOutButton()}
+  renderButtons = () => {
+    let panelButtons = [];
+
+    switch (this.props.contentType) {
+      case "sketches":
+        panelButtons.push(this.renderEditorButton());
+        break;
+      case "editor":
+        panelButtons.push(this.renderSketchesButton());
+        break;
+      default:
+        break;
+    }
+
+    panelButtons.push(this.renderSignOutButton());
+
+    return (
+      <div className="panel-options">
+        <div className="panel-options-list">{panelButtons}</div>
       </div>
-    </div>
-  );
+    );
+  };
 
   renderMainContent = () => (
     <div className="panel">
