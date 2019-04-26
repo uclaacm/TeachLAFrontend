@@ -139,8 +139,24 @@
   background: #2f2d33;
 }
 
-.sketches-modal-header-text {
-  text-align: center;
+.sketches-modal-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.sketches-modal-header-thumbnail-container {
+  width: 100px;
+  height: 100px;
+  flex: 0 0;
+}
+
+.sketches-modal-header-thumbnail {
+  width: 100px;
+  height: 100px;
+  flex: 0 0;
 }
 
 .sketches-modal-form {

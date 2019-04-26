@@ -175,19 +175,24 @@ class CreateSketchModal extends React.Component {
         style={{
           display: "flex",
           alignItems: "center",
-          justifyContent: "center",
+          justifyContent: "space-between",
           flexDirection: "row",
+          width: "150px",
         }}
       >
-        <button onClick={this.onBack} disabled={this.state.spinner}>
+        <button style={{ width: "60px" }} onClick={this.onBack} disabled={this.state.spinner}>
           Back
         </button>
         {this.state.spinner ? (
-          <div className="sketches-form-spinner" style={{ width: "106.56" }}>
+          <div className="sketches-form-spinner" style={{ width: "60px" }}>
             <RingLoader color={"#171124"} size={30} loading={this.state.spinner} />
           </div>
         ) : (
-          <button onClick={this.onSecondSubmit} disabled={this.badThumbnailInput()}>
+          <button
+            style={{ width: "60px" }}
+            onClick={this.onSecondSubmit}
+            disabled={this.badThumbnailInput()}
+          >
             Create
           </button>
         )}
@@ -212,6 +217,15 @@ class CreateSketchModal extends React.Component {
       );
     });
 
+    let thumbnailPreview =
+      this.state.thumbnail !== -1 ? (
+        <img
+          src={`img/sketch-thumbnails/${SketchThumbnailArray[this.state.thumbnail]}.svg`}
+          className={"sketches-modal-header-thumbnail"}
+          alt="icon"
+        />
+      ) : null;
+
     return (
       <ReactModal
         isOpen={this.props.isOpen}
@@ -221,13 +235,40 @@ class CreateSketchModal extends React.Component {
         ariaHideApp={false}
       >
         <form className="sketches-modal-form">
-          <h1 className="sketches-modal-header-text">Choose a thumbnail</h1>
-
+          <div className="sketches-modal-header">
+            <h1>Choose a thumbnail</h1>
+            <div className="sketches-modal-header-thumbnail-container">{thumbnailPreview}</div>
+          </div>
           <div className="sketches-gallery">{icons}</div>
           <div style={{ color: "red", textAlign: "center" }}>{this.state.error || <br />}</div>
           {this.renderSecondButtonClump()}
         </form>
       </ReactModal>
+    );
+  };
+
+  renderFirstButtonClump = () => {
+    return (
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          flexDirection: "row",
+          width: "150px",
+        }}
+      >
+        <button style={{ width: "60px" }} onClick={this.closeModal}>
+          Cancel
+        </button>
+        <button
+          style={{ width: "60px" }}
+          className="sketches-bottom-modal-button"
+          onClick={this.onFirstSubmit}
+        >
+          Next
+        </button>
+      </div>
     );
   };
 
@@ -255,9 +296,7 @@ class CreateSketchModal extends React.Component {
             displayValue={this.state.language.display || LanguageDropdownDefault.display}
           />
           <div style={{ color: "red", textAlign: "center" }}>{this.state.error || <br />}</div>
-          <button className="sketches-bottom-modal-button" onClick={this.onFirstSubmit}>
-            Next
-          </button>
+          {this.renderFirstButtonClump()}
         </form>
       </ReactModal>
     );
