@@ -97,7 +97,8 @@ class Sketches extends React.Component {
     newList.sort((a, b) => {
       if (a.name < b.name) return -1;
       if (a.name === b.name) return 0;
-      if (a.name > b.name) return 1;
+      // if (a.name > b.name) return 1;
+      else return 1;
     });
 
     newList.forEach(({ name, language, thumbnail }) => {

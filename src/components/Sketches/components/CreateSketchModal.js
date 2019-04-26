@@ -7,6 +7,7 @@ import {
 } from "../constants";
 import { RingLoader } from "react-spinners";
 import * as fetch from "../../../lib/fetch.js";
+import { Redirect } from "react-router-dom";
 
 import ReactModal from "react-modal";
 
@@ -20,6 +21,7 @@ class CreateSketchModal extends React.Component {
       thumbnail: -1,
       spinner: false,
       error: "",
+      redirect: false,
     };
   }
 
@@ -150,6 +152,8 @@ class CreateSketchModal extends React.Component {
             return;
           }
           this.props.addProgram(this.state.name, json.data || {});
+          this.props.setMostRecentProgram(this.state.name);
+          this.setState({ redirect: true });
           this.closeModal();
         })
         .catch(err => {
@@ -260,6 +264,10 @@ class CreateSketchModal extends React.Component {
   };
 
   render() {
+    if (this.state.redirect) {
+      return <Redirect to="/editor" />;
+    }
+
     if (this.state.next) {
       return this.renderSecondModal();
     }
