@@ -75,7 +75,7 @@
   color: #80cbae;
 }
 .cm-s-material .CodeMirror-cursor {
-  border-left: 1px solid rgb(167, 139, 49);
+  border-left: 1px solid #f4ee94;
 }
 
 .cm-s-material .CodeMirror-cursor::after {
