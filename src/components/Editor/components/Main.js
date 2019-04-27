@@ -53,6 +53,7 @@ class Main extends React.Component {
   };
 
   handleSave = event => {
+    if (!this.props.dirty) return; // Don't save if not dirty (unedited)
     this.setState({
       saveText: "Saving...",
     });
@@ -70,6 +71,7 @@ class Main extends React.Component {
 
       setTimeout(this.resetSaveText, 3000);
     });
+    this.props.cleanCode(); // Set code's "dirty" state to false
   };
 
   renderOpenPanelButton = () => {
@@ -92,7 +94,7 @@ class Main extends React.Component {
     );
   };
 
-  renderDropdown = () => <DropdownButtonContainer onClick={this.handleSave} />;
+  renderDropdown = () => <DropdownButtonContainer />;
 
   renderCodeAndOutput = () => (
     <SplitPane

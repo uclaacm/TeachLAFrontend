@@ -22,7 +22,6 @@ class TextEditor extends React.Component {
     this.state = {
       codeMirrorInstance: null,
       currentLine: 0,
-      dirty: false,
     };
   }
 
@@ -34,14 +33,10 @@ class TextEditor extends React.Component {
 
   componentWillUpdate() {}
 
-  componentWillUnmount = () => {
-    //this.checkDirty();
-    //window.removeEventListener("beforeunload", this.onLeave);
-    //window.removeEventListener("close", this.onLeave);
-  };
+  componentWillUnmount = () => {};
 
   checkDirty = async () => {
-    if (!this.state.dirty) {
+    if (!this.props.dirty) {
       return;
     }
 
@@ -60,10 +55,8 @@ class TextEditor extends React.Component {
   };
 
   onLeave = async ev => {
-    console.log("hello");
-    if (this.state.dirty) {
-      console.log("dirty");
-      ev.returnValue = "Sadly u will never see me ;^;";
+    if (this.props.dirty) {
+      ev.returnValue = "";
     }
     return ev;
   };
@@ -74,8 +67,8 @@ class TextEditor extends React.Component {
 
   updateCode = (editor, data, newCode) => {
     //if the code's not yet dirty, and the old code is different from the new code, make it dirty
-    if (!this.state.dirty && this.props.code !== newCode) {
-      this.setState({ dirty: true });
+    if (!this.props.dirty && this.props.code !== newCode) {
+      this.props.dirtyCode();
     }
     this.props.setProgramCode(this.props.mostRecentProgram, newCode);
   };

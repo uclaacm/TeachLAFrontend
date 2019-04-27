@@ -56,7 +56,6 @@ export default class DropdownButton extends React.Component {
         <Dropdown
           isOpen={this.state.dropdownOpen}
           toggle={() => this.toggleHandler(this.state.dropdownOpen)}
-          onClick={this.props.onClick}
         >
           {/* HACK: disables the colors entirely, makes the dropdown transparent */}
           <DropdownToggle color={""} caret>

@@ -45,7 +45,7 @@ const PHOTO_NAMES = {
 };
 
 //Local Server
-var SERVER_URL = "http://localhost:8081";
+var SERVER_URL = "https://teach-la-backend.herokuapp.com"; //"http://localhost:8081";
 if (process && process.env && process.env.REACT_APP_SERVER_TYPE === "prod") {
   //Heroku Server
   SERVER_URL = "https://teach-la-backend.herokuapp.com";
