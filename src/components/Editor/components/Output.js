@@ -30,10 +30,14 @@ class Output extends React.Component {
       return true;
     }
 
+    if (this.props.mostRecentProgram !== nextProps.mostRecentProgram) {
+      this.firstLoad = true;
+      return true;
+    }
+
     if (
       this.state.run !== nextState.run ||
       this.state.counter !== nextState.counter ||
-      this.props.mostRecentProgram !== nextProps.mostRecentProgram ||
       this.state.showConsole !== nextState.showConsole
     ) {
       this.firstLoad = false;
