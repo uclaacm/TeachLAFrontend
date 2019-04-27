@@ -18,7 +18,6 @@ export const getUserData = async (uid = "", includePrograms = false) => {
   const getUserDataEndpoint = (uid = "", includePrograms = false) =>
     `${constants.SERVER_URL}/getUserData/${uid}${includePrograms ? "?programs=true" : ""}`;
 
-  console.log("getting user data");
   const options = {
     method: "get",
     mode: "cors", // no-cors, cors, *same-origin
@@ -107,4 +106,28 @@ export const updateUserData = (uid = "", userData) => {
   };
 
   return fetch(updateUserDataEndpoint(uid), options);
+};
+
+export const createSketch = data => {
+  let body = "";
+
+  try {
+    //if programs is an object with at least 1 key, set the body to the stringified programs object
+    if (Object.keys(data).length) {
+      body = JSON.stringify(data);
+    }
+  } catch (err) {
+    console.log(err);
+    return;
+  }
+
+  const options = {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+    },
+    body,
+  };
+
+  return fetch(`${constants.SERVER_URL}/createProgram`, options);
 };

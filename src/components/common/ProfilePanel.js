@@ -1,11 +1,12 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 import firebase from "firebase";
 import {
   MINIMUM_DISPLAY_NAME_LENGTH,
   MAXIMUM_DISPLAY_NAME_LENGTH,
   PHOTO_NAMES,
   DEFAULT_PHOTO_NAME,
-} from "../../../constants";
+} from "../../constants";
 import ReactModal from "react-modal";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
@@ -28,6 +29,7 @@ class ProfilePanel extends React.Component {
       name: this.props.displayName,
       selectedImage: "",
       displayNameMessage: "",
+      redirectTo: "",
     };
   }
 
@@ -77,7 +79,7 @@ class ProfilePanel extends React.Component {
   onNameSubmit = e => {
     e.preventDefault();
     let badInputs = this.checkInputs();
-    console.log("submit");
+
     if (badInputs) {
       this.setState({ name: this.props.displayName, editing: false });
       return;
@@ -214,8 +216,40 @@ class ProfilePanel extends React.Component {
     </div>
   );
 
+  renderEditorButton = disabled => (
+    <div
+      className={"panel-options-item" + (disabled ? "-disabled" : "")}
+      onClick={() => {
+        if (!disabled) {
+          this.setState({ redirectTo: "/editor" });
+        }
+      }}
+    >
+      {disabled && (
+        <img
+          style={{ position: "absolute", height: "60px", right: "-2px", zIndex: 20, opacity: 0.9 }}
+          alt="banner"
+          src="img/coming-soon-banner.png"
+        />
+      )}
+      <span className="panel-item-content">
+        <span className="panel-item-icon">
+          <img className={"panel-item-icon"} alt="house" src="img/house2.png" />
+        </span>
+        <span className="panel-item-name">Editor</span>
+      </span>
+    </div>
+  );
+
   renderSketchesButton = disabled => (
-    <div className={"panel-options-item" + (disabled ? "-disabled" : "")}>
+    <div
+      className={"panel-options-item" + (disabled ? "-disabled" : "")}
+      onClick={() => {
+        if (!disabled) {
+          this.setState({ redirectTo: "/sketches" });
+        }
+      }}
+    >
       {disabled && (
         <img
           style={{ position: "absolute", height: "60px", right: "-2px", zIndex: 20, opacity: 0.9 }}
@@ -243,15 +277,28 @@ class ProfilePanel extends React.Component {
     </div>
   );
 
-  renderButtons = () => (
-    <div className="panel-options">
-      <div className="panel-options-list">
-        {this.renderProfileButton(true)}
-        {this.renderSketchesButton(true)}
-        {this.renderSignOutButton()}
+  renderButtons = () => {
+    let panelButtons = [];
+
+    switch (this.props.contentType) {
+      case "sketches":
+        panelButtons.push(this.renderEditorButton());
+        break;
+      case "editor":
+        panelButtons.push(this.renderSketchesButton());
+        break;
+      default:
+        break;
+    }
+
+    panelButtons.push(this.renderSignOutButton());
+
+    return (
+      <div className="panel-options">
+        <div className="panel-options-list">{panelButtons}</div>
       </div>
-    </div>
-  );
+    );
+  };
 
   renderMainContent = () => (
     <div className="panel">
@@ -273,10 +320,22 @@ class ProfilePanel extends React.Component {
     </div>
   );
 
+  renderRedirect() {
+    if (this.state.redirectTo) {
+      return <Redirect to={this.state.redirectTo} />;
+    }
+    return null;
+  }
+
   render() {
     const { panelStyle } = this.props;
 
-    return <div style={panelStyle}>{this.renderMainContent()}</div>;
+    return (
+      <div style={panelStyle}>
+        {this.renderMainContent()}
+        {this.renderRedirect()}
+      </div>
+    );
   }
 }
 

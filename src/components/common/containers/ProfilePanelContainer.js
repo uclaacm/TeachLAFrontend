@@ -1,4 +1,4 @@
-import ProfilePanel from "../components/ProfilePanel";
+import ProfilePanel from "../ProfilePanel";
 import { connect } from "react-redux";
 import { setDisplayName, setPhotoName } from "../../../actions/userDataActions";
 import { togglePanel } from "../../../actions/uiActions";
@@ -17,7 +17,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     collectUserPhoto: () => {},
     setDisplayName: name => dispatch(setDisplayName(name)),
     setPhotoName: name => dispatch(setPhotoName(name)),
-    togglePanel: () => dispatch(togglePanel()),
+    togglePanel: () => {
+      dispatch(togglePanel());
+    },
   };
 };
 

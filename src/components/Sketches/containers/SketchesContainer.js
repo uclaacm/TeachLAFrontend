@@ -1,24 +1,26 @@
-import Main from "../components/Main.js";
+import Sketches from "../index.js";
 import { connect } from "react-redux";
-import { setOutput } from "../../../actions/outputActions.js";
 import { setMostRecentProgram } from "../../../actions/userDataActions.js";
 import { togglePanel } from "../../../actions/uiActions.js";
 
 const mapStateToProps = state => {
   const { mostRecentProgram } = state.userData;
 
-  //program data should be an object representing the most recent program
-  //should have 2 keys, code (which is the code) and langauge (which is the language the code is written it)
-  const code = state.programs.getIn([mostRecentProgram, "code"], undefined);
-
   let listOfPrograms = [];
 
-  state.programs.keySeq().forEach(key => listOfPrograms.push(key));
+  //create list of jsons with 2 keys
+  //name: the name of the sketch
+  //language: language the sketch uses
+  state.programs.keySeq().forEach(key => {
+    listOfPrograms.push({
+      name: key,
+      language: state.programs.getIn([key, "language"], "HTML"),
+      thumbnail: state.programs.getIn([key, "thumbnail"], 0),
+    });
+  });
 
   return {
-    uid: state.userData.uid,
     mostRecentProgram,
-    code,
     listOfPrograms,
     screenWidth: state.ui.screenWidth,
     screenHeight: state.ui.screenHeight,
@@ -29,14 +31,13 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     setMostRecentProgram: value => dispatch(setMostRecentProgram(value)),
-    runCode: (code, language) => dispatch(setOutput(code, language)),
     togglePanel: () => dispatch(togglePanel()),
   };
 };
 
-const MainContainer = connect(
+const SketchesContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Main);
+)(Sketches);
 
-export default MainContainer;
+export default SketchesContainer;

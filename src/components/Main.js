@@ -1,14 +1,10 @@
 import React from "react";
-import MainContainer from "./Editor/containers/MainContainer";
+import EditorContainer from "./Editor/containers/EditorContainer";
+import SketchesPageContainer from "./Sketches/containers/SketchesContainer";
 import { Motion, spring } from "react-motion";
 // Specify imports for codemirror usage
-import "codemirror/lib/codemirror.css";
-import "codemirror/theme/material.css";
-import "../styles/CustomCM.css";
-import "../styles/Resizer.css";
-import "../styles/Editor.css";
 import "../styles/Panel.css";
-import ProfilePanelContainer from "./Editor/containers/ProfilePanelContainer";
+import ProfilePanelContainer from "./common/containers/ProfilePanelContainer";
 import { PANEL_SIZE, CLOSED_PANEL_LEFT, OPEN_PANEL_LEFT } from "../constants";
 
 class Editor extends React.Component {
@@ -57,15 +53,40 @@ class Editor extends React.Component {
     }));
   };
 
+  renderSketchesPage = value => (
+    <SketchesPageContainer
+      viewSize={this.props.screenWidth - (value.panelLeft + PANEL_SIZE)}
+      codeStyle={{
+        left: value.panelLeft + PANEL_SIZE,
+        width: this.props.screenWidth - (value.panelLeft + PANEL_SIZE),
+        position: "fixed",
+        height: this.props.screenHeight,
+      }}
+    />
+  );
+
+  renderEditor = value => (
+    <EditorContainer
+      codeStyle={{
+        left: value.panelLeft + PANEL_SIZE,
+        width: this.props.screenWidth - (value.panelLeft + PANEL_SIZE),
+        position: "fixed",
+        height: this.props.screenHeight,
+      }}
+    />
+  );
+
+  renderContent = value => {
+    switch (this.props.contentType) {
+      case "sketches":
+        return this.renderSketchesPage(value);
+      case "editor":
+      default:
+        return this.renderEditor(value);
+    }
+  };
+
   render() {
-    const { textEditorSize } = this.state;
-
-    //style to be applied to non panel (sections containing text editor and code output)
-    const codeStyle = {
-      position: "fixed", //fixed bc we're using the css property left to set the left edge of the code section/output container
-      height: this.props.screenHeight,
-    };
-
     const panelStyle = {
       width: PANEL_SIZE, //width doesn't change, the 'right' css property just pushes it off the page
       height: this.props.screenHeight,
@@ -90,14 +111,9 @@ class Editor extends React.Component {
               <React.Fragment>
                 <ProfilePanelContainer
                   panelStyle={Object.assign({}, panelStyle, { left: value.panelLeft })}
+                  contentType={this.props.contentType}
                 />
-                <MainContainer
-                  textEditorSize={textEditorSize}
-                  codeStyle={Object.assign({}, codeStyle, {
-                    left: value.panelLeft + PANEL_SIZE,
-                    width: this.props.screenWidth - (value.panelLeft + PANEL_SIZE),
-                  })}
-                />
+                {this.renderContent(value)}
               </React.Fragment>
             );
           }}

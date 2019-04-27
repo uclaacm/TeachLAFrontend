@@ -66,7 +66,6 @@ class TextEditor extends React.Component {
       ev.preventDefault();
       ev.preventDefault();
       if (this.state.dirty) {
-        console.log("dirty");
         let programToUpdate = {};
         programToUpdate[this.props.mostRecentProgram] = {
           code: this.props.code,
