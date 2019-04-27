@@ -4,7 +4,7 @@
   width: 100%;
   flex-direction: row;
   align-items: flex-start;
-  background-color: #585166;
+  background-color: #252132;
   justify-content: flex-start;
   position: relative;
 }
@@ -17,7 +17,7 @@
   align-items: flex-start;
   max-height: 100vh;
   overflow-y: auto;
-  background-color: #857e8f;
+  background-color: #252132;
 }
 
 .code-section-banner {
