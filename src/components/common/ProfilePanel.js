@@ -201,7 +201,7 @@ class ProfilePanel extends React.Component {
   };
 
   renderProfileButton = disabled => (
-    <div className={"panel-options-item" + (disabled ? "-disabled" : "")}>
+    <div className={"panel-options-item" + (disabled ? "-disabled" : "")} key="profile">
       {disabled && (
         <img
           style={{ position: "absolute", height: "60px", right: "-2px", zIndex: 20, opacity: 0.9 }}
@@ -218,6 +218,7 @@ class ProfilePanel extends React.Component {
 
   renderEditorButton = disabled => (
     <div
+      key="editor"
       className={"panel-options-item" + (disabled ? "-disabled" : "")}
       onClick={() => {
         if (!disabled) {
@@ -244,6 +245,7 @@ class ProfilePanel extends React.Component {
   renderSketchesButton = disabled => (
     <div
       className={"panel-options-item" + (disabled ? "-disabled" : "")}
+      key="sketches"
       onClick={() => {
         if (!disabled) {
           this.setState({ redirectTo: "/sketches" });
@@ -267,7 +269,7 @@ class ProfilePanel extends React.Component {
   );
 
   renderSignOutButton = () => (
-    <div className={"panel-options-item"} onClick={() => firebase.auth().signOut()}>
+    <div className={"panel-options-item"} onClick={() => firebase.auth().signOut()} key="signout">
       <span className="panel-item-content">
         <span className="panel-item-icon">
           <img className={"panel-item-icon"} alt="exit" src="img/exit-icon.png" />

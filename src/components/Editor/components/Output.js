@@ -73,7 +73,7 @@ class Output extends React.Component {
         onLoad={e => {
           // console.log(e);
         }}
-        allowTransparency="true"
+        allowtransparency="true"
       />
     );
   };

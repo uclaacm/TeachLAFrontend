@@ -1,7 +1,7 @@
 .panel {
   display: flex;
   box-sizing: border-box;
-  background-color: #f99d19; /*#f9b219; /*#FFEE75;*/
+  background-color: #ff7739; /*#f9b219; /*#FFEE75;*/
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
