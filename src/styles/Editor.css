@@ -4,7 +4,7 @@
   width: 100%;
   flex-direction: row;
   align-items: flex-start;
-  background-color: #fcd450;
+  background-color: #ffad39; /*#fcd450;*/
   justify-content: flex-start;
   position: relative;
 }
@@ -17,7 +17,7 @@
   align-items: flex-start;
   max-height: 100vh;
   overflow-y: auto;
-  background-color: #fcd450;
+  background-color: #ffad39; /*#fcd450;*/
 }
 
 .code-section-banner {
@@ -128,7 +128,7 @@
 }
 
 .editor-output {
-  background-color: #ffee75;
+  background-color: #ffeb60; /*#ffee75;*/
   height: 100%;
 }
 
@@ -146,7 +146,6 @@
 .editor-output-iframe {
   width: 100%;
   height: 100%;
-  background-color: #ffffff;
   display: flex;
 }
 
