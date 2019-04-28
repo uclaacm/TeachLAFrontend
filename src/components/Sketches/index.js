@@ -74,6 +74,7 @@ class Sketches extends React.Component {
           handleClick={() => this.setCreateSketchModalOpen(true)}
           text={"Create Sketch"}
           width={"200px"}
+          color={"#7fa945"}
         />
       </div>
     </div>

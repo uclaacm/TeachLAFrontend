@@ -122,7 +122,7 @@ class ProfilePanel extends React.Component {
         />
         {this.state.imageIsHovering && (
           <button className="image-edit-button" onClick={this.handleOpenModal}>
-            <FontAwesomeIcon icon={faEdit} color={"#444"} />
+            <FontAwesomeIcon icon={faEdit} color={"#ddd"} />
           </button>
         )}
       </div>
@@ -179,7 +179,7 @@ class ProfilePanel extends React.Component {
           {this.props.displayName || "Joe Bruin"}
           {this.state.nameIsHovering && (
             <button className="edit-icon-image" onClick={this.handleEditNameClick}>
-              <FontAwesomeIcon icon={faEdit} color={"#444"} />
+              <FontAwesomeIcon icon={faEdit} color={"#ddd"} />
             </button>
           )}
         </div>
@@ -306,7 +306,7 @@ class ProfilePanel extends React.Component {
     <div className="panel">
       <div className="panel-collapse-button">
         <div onClick={this.props.togglePanel}>
-          <FontAwesomeIcon icon={faTimes} color={"#444"} />
+          <FontAwesomeIcon icon={faTimes} color={"#ddd"} />
         </div>
       </div>
       <div className="panel-content">

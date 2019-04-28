@@ -13,7 +13,6 @@
 }
 
 .panel-collapse-button {
-  color: #dddcdf;
   padding-right: 15px;
   flex: 0 0 auto;
   font-size: 1.25rem;
@@ -186,7 +185,7 @@
   font-size: 2rem;
   font-weight: bold;
   word-wrap: break-word;
-  color: #292929;
+  color: #eee;
   position: relative;
 }
 
@@ -196,7 +195,7 @@
   background-color: #fcd450;
   padding-left: 5px;
   padding-right: 5px;
-  color: #292929;
+  color: #4b385e;
   display: flex;
   align-items: center;
   justify-content: center;

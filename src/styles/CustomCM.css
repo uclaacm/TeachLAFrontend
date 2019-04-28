@@ -112,6 +112,7 @@
 
 .CodeMirror pre {
   color: #787878;
+  mix-blend-mode: difference;
 }
 
 .CodeMirror-gutter .cm-s-material .CodeMirror-guttermarker,
