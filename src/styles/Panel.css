@@ -186,7 +186,7 @@
   font-size: 2rem;
   font-weight: bold;
   word-wrap: break-word;
-  color: #787878;
+  color: #292929;
   position: relative;
 }
 
@@ -196,7 +196,7 @@
   background-color: #fcd450;
   padding-left: 5px;
   padding-right: 5px;
-  color: #787878;
+  color: #292929;
   display: flex;
   align-items: center;
   justify-content: center;

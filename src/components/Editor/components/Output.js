@@ -152,7 +152,7 @@ class Output extends React.Component {
       <div style={{ flex: "1 1 auto" }}> </div> {/*whitespace*/}
       {this.renderRadio()}
       {this.renderConsoleButton()}
-      <EditorButton handleClick={this.runCode} text="Run Code" color="#3c52ba" />
+      <EditorButton handleClick={this.runCode} text="Run Code" color="#167CB8" />
     </div>
   );
 

@@ -52,7 +52,7 @@
 
 .editor-language-dropdown .dropdown .btn:not(:disabled):not(.disabled) {
   color: #eee;
-  background-color: #787878;
+  background-color: #9152c0;
 }
 
 .editor-language-dropdown-closed-content {
@@ -81,7 +81,7 @@
   color: #fff;
   border: none;
   border-radius: 5px;
-  box-shadow: 1px 3px #999;
+  box-shadow: 1px 3px #ddd;
   line-height: 45px;
 }
 

@@ -120,7 +120,7 @@ class Editor extends React.Component {
             isSmall={this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
           />
         </div>
-        <EditorButton handleClick={this.handleSave} text={this.state.saveText} />
+        <EditorButton handleClick={this.handleSave} text={this.state.saveText} color={"#7fa945"} />
       </div>
       <div
         className="text-editor-container"
