@@ -122,7 +122,7 @@ class ProfilePanel extends React.Component {
         />
         {this.state.imageIsHovering && (
           <button className="image-edit-button" onClick={this.handleOpenModal}>
-            <FontAwesomeIcon icon={faEdit} />
+            <FontAwesomeIcon icon={faEdit} color={"#444"} />
           </button>
         )}
       </div>
@@ -179,7 +179,7 @@ class ProfilePanel extends React.Component {
           {this.props.displayName || "Joe Bruin"}
           {this.state.nameIsHovering && (
             <button className="edit-icon-image" onClick={this.handleEditNameClick}>
-              <FontAwesomeIcon icon={faEdit} />
+              <FontAwesomeIcon icon={faEdit} color={"#444"} />
             </button>
           )}
         </div>
@@ -304,7 +304,7 @@ class ProfilePanel extends React.Component {
     <div className="panel">
       <div className="panel-collapse-button">
         <div onClick={this.props.togglePanel}>
-          <FontAwesomeIcon icon={faTimes} />
+          <FontAwesomeIcon icon={faTimes} color={"#444"} />
         </div>
       </div>
       <div className="panel-content">
@@ -314,9 +314,7 @@ class ProfilePanel extends React.Component {
         {this.renderErrorMessage(this.state.displayNameMessage)}
         {this.renderButtons()}
       </div>
-      <div className="editor-footer">
-        <img className="editor-footer-image" src="img/tla-footer.png" alt="footer" />
-      </div>
+      <div className="editor-footer" />
     </div>
   );
 

@@ -4,7 +4,7 @@
   width: 100%;
   flex-direction: row;
   align-items: flex-start;
-  background-color: #252132;
+  background-color: #fcd450;
   justify-content: flex-start;
   position: relative;
 }
@@ -17,7 +17,7 @@
   align-items: flex-start;
   max-height: 100vh;
   overflow-y: auto;
-  background-color: #252132;
+  background-color: #fcd450;
 }
 
 .code-section-banner {
@@ -29,7 +29,7 @@
   justify-content: flex-start;
   width: 100%;
   height: 67px;
-  border-bottom: 1px white solid;
+  border-bottom: 1px #787878 solid;
 }
 
 .editor-expand-panel-arrow {
@@ -48,6 +48,11 @@
 
 .editor-language-dropdown {
   flex: 0 1 auto;
+}
+
+.editor-language-dropdown .dropdown .btn:not(:disabled):not(.disabled) {
+  color: #eee;
+  background-color: #787878;
 }
 
 .editor-language-dropdown-closed-content {
@@ -112,7 +117,7 @@
   width: 100%;
   margin-top: auto;
   height: 10vh; /*calc used to do arithmetic*/
-  background-color: #473d5d;
+  background-color: inherit;
   text-align: center;
   align-items: center;
   padding-top: auto;
@@ -123,7 +128,7 @@
 }
 
 .editor-output {
-  background-color: #585166;
+  background-color: #ffee75;
   height: 100%;
 }
 
@@ -135,7 +140,7 @@
   align-items: center;
   justify-content: flex-start;
   width: 100%;
-  border-bottom: 1px white solid;
+  border-bottom: 1px #787878 solid;
 }
 
 .editor-output-iframe {

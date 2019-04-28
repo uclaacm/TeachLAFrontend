@@ -1,7 +1,7 @@
 .panel {
   display: flex;
   box-sizing: border-box;
-  background-color: #473d5d;
+  background-color: #f9b219; /*#FFEE75;*/
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
@@ -186,21 +186,20 @@
   font-size: 2rem;
   font-weight: bold;
   word-wrap: break-word;
-  color: #dddcdf;
+  color: #787878;
   position: relative;
 }
 
 .panel-options-item {
   border: 2px solid transparent;
   border-radius: 10px;
-  background-color: #857e8f;
+  background-color: #fcd450;
   padding-left: 5px;
   padding-right: 5px;
-  color: rgb(133, 129, 129);
+  color: #787878;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
   position: relative;
   margin-bottom: 20px;
 }

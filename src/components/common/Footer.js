@@ -16,8 +16,4 @@ import React from "react";
 //   }
 // }
 
-export default props => (
-  <div className="login-footer">
-    <img className="login-footer-image" src="img/tla-footer.png" alt="TEACH LA"/>
-  </div>
-);
+export default props => <div className="login-footer" />;

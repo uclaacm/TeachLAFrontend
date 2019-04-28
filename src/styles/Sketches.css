@@ -1,5 +1,5 @@
 .sketches-expand-panel-arrow {
-  color: #dddcdf;
+  color: #787878;
   font-weight: bold;
   padding: 1rem;
   cursor: pointer;
@@ -8,7 +8,7 @@
 }
 
 .sketches-header-text {
-  color: #dddcdf;
+  color: #787878;
   font-weight: bold;
   padding: 1rem;
   cursor: pointer;
@@ -23,7 +23,7 @@
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  border-bottom: 2px solid #dddcdf;
+  border-bottom: 2px solid #787878;
 }
 
 .sketches-grid {

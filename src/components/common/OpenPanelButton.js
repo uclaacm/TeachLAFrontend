@@ -13,7 +13,7 @@ const OpenPanelButton = ({ panelOpen, togglePanel }) => {
   if (!panelOpen) {
     return (
       <div className="editor-expand-panel-arrow" title="Open Profile Panel" onClick={togglePanel}>
-        {panelOpen ? "" : <FontAwesomeIcon icon={faBars} />}
+        {panelOpen ? "" : <FontAwesomeIcon icon={faBars} color={"#444"} />}
       </div>
     );
   } else return <div className="editor-expand-panel-arrow-hidden" />;
