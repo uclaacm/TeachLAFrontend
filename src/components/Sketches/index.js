@@ -159,11 +159,11 @@ class Sketches extends React.Component {
 
   renderContent = () => {
     return (
-      <div>
+      <React.Fragment>
         {this.renderHeader()}
         {this.renderSketches()}
         {this.renderModal()}
-      </div>
+      </React.Fragment>
     );
   };
 
@@ -171,7 +171,11 @@ class Sketches extends React.Component {
     if (this.state.redirectTo) {
       return <Redirect to={this.state.redirectTo} />;
     }
-    return <div style={this.props.codeStyle}>{this.renderContent()}</div>;
+    return (
+      <div className="sketches" style={this.props.codeStyle}>
+        {this.renderContent()}
+      </div>
+    );
   }
 }
 

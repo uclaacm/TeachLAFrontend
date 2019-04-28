@@ -1,3 +1,7 @@
+.CodeMirror {
+  --default-color: #ddd;
+}
+
 .CodeMirror-lines {
   cursor: default;
 }
@@ -20,7 +24,7 @@
 }
 
 .cm-s-material .CodeMirror-gutters {
-  background-color: #ffad39;
+  background-color: var(--code-section);
 }
 .cm-s-material .CodeMirror-guttermarker,
 .cm-s-material .CodeMirror-guttermarker-subtle,
@@ -33,53 +37,6 @@
 .cm-s-material .CodeMirror-linenumber {
   text-align: left;
   padding-left: 15px;
-}
-
-/* comments, e.g. // # /* */
-.cm-s-material .cm-comment {
-  color: #575757;
-}
-
-/* import for while in etc */
-.cm-s-material span.cm-keyword {
-  color: #9b40de;
-}
-
-/*e.g. var *blah*, blah will be colored */
-.cm-s-material span.cm-def {
-  color: #47e2d5;
-}
-
-/*e.g. var *blah*, blah will be colored */
-.cm-s-material span.cm-variable {
-  color: #e46eaa;
-}
-
-/*for python: print, range, all built-in functions */
-.cm-s-material .cm-builtin {
-  color: #197ca3;
-}
-
-/* 1 2 -11 etc */
-.cm-s-material .cm-number {
-  color: #ff5e00;
-}
-
-/* + - > < etc */
-.cm-s-material .cm-operator {
-  color: #787878;
-}
-
-/* e.g. turtle.*Blah*(), Blah will be colored */
-.cm-s-material .cm-property {
-  color: #22a499; /*#274792;/*#30c1ee;*/
-}
-.cm-s-material span.cm-def {
-  color: #22a499;
-}
-
-.cm-s-material .cm-string {
-  color: #dc4040; /*#168929;*/
 }
 
 .cm-s-material .CodeMirror-cursor {
@@ -101,6 +58,10 @@
   background-image: url("./triangle.png");
 }
 
+.cm-s-material .cm-variable {
+  color: #55d65a;
+}
+
 .CodeMirror-scroll {
   overflow: hidden !important;
 }
@@ -111,14 +72,14 @@
 }
 
 .CodeMirror pre {
-  color: #787878;
-  mix-blend-mode: difference;
+  color: var(--default-color);
+  /*mix-blend-mode: color-burn;*/
 }
 
 .CodeMirror-gutter .cm-s-material .CodeMirror-guttermarker,
 .cm-s-material .CodeMirror-guttermarker-subtle,
 .cm-s-material .CodeMirror-linenumber {
-  color: #787878;
+  color: var(--default-color);
 }
 
 /* most of the codemirror styles we can override for text

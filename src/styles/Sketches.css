@@ -1,3 +1,9 @@
+.sketches {
+  --bg-color: #5584b2;
+  --text-color: #ddd;
+  background-color: var(--bgcolor);
+}
+
 .sketches-expand-panel-arrow {
   color: #eee;
   font-weight: bold;
