@@ -107,7 +107,7 @@ class Output extends React.Component {
     });
   };
 
-  getConsoleButtonContent = () => <img alt="console-icon" width="38" src="img/console-icon.png" />;
+  getConsoleButtonContent = () => <img alt="console-icon" width="38" src="/img/console-icon.png" />;
 
   renderConsoleButton = () => (
     <EditorButton

@@ -204,11 +204,11 @@ class ProfilePanel extends React.Component {
         <img
           style={{ position: "absolute", height: "60px", right: "-2px", zIndex: 20, opacity: 0.9 }}
           alt="banner"
-          src="img/coming-soon-banner.png"
+          src="/img/coming-soon-banner.png"
         />
       )}
       <span className={"panel-item-content"}>
-        <img className={"panel-item-icon"} alt="house" src="img/house2.png" />
+        <img className={"panel-item-icon"} alt="house" src="/img/house2.png" />
         <span className={"panel-item-name"}>Profile</span>
       </span>
     </div>
@@ -220,12 +220,12 @@ class ProfilePanel extends React.Component {
         <img
           style={{ position: "absolute", height: "60px", right: "-2px", zIndex: 20, opacity: 0.9 }}
           alt="banner"
-          src="img/coming-soon-banner.png"
+          src="/img/coming-soon-banner.png"
         />
       )}
       <span className="panel-item-content">
         <span className="panel-item-icon">
-          <img className="reverse-image" alt="pencil" src="img/pencil.png" />
+          <img className="reverse-image" alt="pencil" src="/img/pencil.png" />
         </span>
         <span className="panel-item-name">Sketches</span>
       </span>
@@ -236,7 +236,7 @@ class ProfilePanel extends React.Component {
     <div className={"panel-options-item"} onClick={() => firebase.auth().signOut()}>
       <span className="panel-item-content">
         <span className="panel-item-icon">
-          <img className={"panel-item-icon"} alt="exit" src="img/exit-icon.png" />
+          <img className={"panel-item-icon"} alt="exit" src="/img/exit-icon.png" />
         </span>
         <span className="panel-item-name">Log Out</span>
       </span>
@@ -268,7 +268,7 @@ class ProfilePanel extends React.Component {
         {this.renderButtons()}
       </div>
       <div className="editor-footer">
-        <img className="editor-footer-image" src="img/tla-footer.png" alt="footer" />
+        <img className="editor-footer-image" src="/img/tla-footer.png" alt="footer" />
       </div>
     </div>
   );
