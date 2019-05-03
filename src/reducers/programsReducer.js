@@ -3,6 +3,7 @@ import {
   SET_PROGRAM_LANGUAGE,
   DELETE_PROGRAM,
   LOAD_PROGRAMS,
+  CLEAR_PROGRAMS,
   SET_PROGRAM_DIRTY,
   ADD_PROGRAM,
 } from "../actions/programsActions.js";
@@ -25,6 +26,8 @@ function programsReducer(state = initialState, action) {
     case DELETE_PROGRAM:
       //TODO: look up Immutable API on how to remove a nested key
       return state;
+    case CLEAR_PROGRAMS:
+      return Immutable.Map();
     default:
       return state;
   }
