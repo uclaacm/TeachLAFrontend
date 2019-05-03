@@ -2,10 +2,7 @@ import React from "react";
 import Footer from "./common/Footer";
 import "../styles/Login.css";
 import LoginModal from "./Login/LoginModal";
-
-/**--------Props--------
- * provider: Facebook Provider used to login with Facebook
- */
+import LoginGuy from "../img/blueguy.png";
 
 class Login extends React.Component {
   /**
@@ -18,7 +15,7 @@ class Login extends React.Component {
 
   renderMainContent = () => {
     return (
-      <div className="login-page-content">
+      <div className="login-page-content" style={{ backgroundImage: `url(${LoginGuy})` }}>
         <div style={{ height: "0px" }}>&nbsp;</div>
         {/*for some reason when you don't have a non empty element above the modal,
         it leaves a white section above it...so thats why this is here*/}
