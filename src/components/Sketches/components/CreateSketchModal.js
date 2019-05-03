@@ -209,7 +209,7 @@ class CreateSketchModal extends React.Component {
           onClick={() => this.setState({ thumbnail: index })}
         >
           <img
-            src={`img/sketch-thumbnails/${val}.svg`}
+            src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${val}.svg`}
             className={"sketches-gallery-img" + (this.state.thumbnail === index ? "-selected" : "")}
             alt="icon"
           />
@@ -220,12 +220,13 @@ class CreateSketchModal extends React.Component {
     let thumbnailPreview =
       this.state.thumbnail !== -1 ? (
         <img
-          src={`img/sketch-thumbnails/${SketchThumbnailArray[this.state.thumbnail]}.svg`}
+          src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${
+            SketchThumbnailArray[this.state.thumbnail]
+          }.svg`}
           className={"sketches-modal-header-thumbnail"}
           alt="icon"
         />
       ) : null;
-
     return (
       <ReactModal
         isOpen={this.props.isOpen}
