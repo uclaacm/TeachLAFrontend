@@ -14,7 +14,7 @@ class SketchBox extends React.Component {
         <div className="sketch-box-body" onClick={this.props.redirFunc}>
           <img
             alt={"User's sketch icon"}
-            src={`img/sketch-thumbnails/${this.props.img}.svg`}
+            src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${this.props.img}.svg`}
             className="sketch-thumbnail"
           />
           <Row>
