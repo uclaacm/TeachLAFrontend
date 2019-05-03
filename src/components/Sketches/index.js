@@ -22,25 +22,9 @@ class Sketches extends React.Component {
   }
 
   //==============React Lifecycle Functions Start===================//
-  componentWillMount() {
-    // if (this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT) {
-    //   this.setState({ viewMode: CODE_ONLY });
-    // }
-  }
+  componentWillMount() {}
 
-  componentDidUpdate(prevProps) {
-    // if (this.props.screenWidth !== prevProps.screenWidth) {
-    //   if (this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT) {
-    //     if (this.state.viewMode === CODE_AND_OUTPUT) {
-    //       this.setState({ viewMode: CODE_ONLY });
-    //     }
-    //   }
-    // }
-    // if (Math.abs(this.props.viewSize - this.originalWidth) >= (PANEL_SIZE - 10)) {
-    //   console.log(this.props.viewSize, this.originalWidth)
-    //   this.originalWidth = this.props.viewSize
-    // }
-  }
+  componentDidUpdate(prevProps) {}
 
   getRandomSketchThumbnail = () => {
     return SketchThumbnailArray[Math.floor(Math.random() * SketchThumbnailArray.length)];
@@ -115,10 +99,7 @@ class Sketches extends React.Component {
         </div>,
       );
     });
-    console.log(
-      this.props.viewSize,
-      Math.floor((this.props.viewSize - ROW_PADDING) / SKETCH_WIDTH),
-    );
+
     let numSketchesPerRow = Math.floor((this.props.viewSize - ROW_PADDING) / SKETCH_WIDTH);
     // let numSketchesPerRow = (this.originalWidth - ROW_PADDING) / SKETCH_WIDTH
     let rows = [];
