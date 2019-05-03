@@ -128,30 +128,6 @@ class Sketches extends React.Component {
           }}
         />,
       );
-      /*
-        <Col
-          key={name}
-          className="sketch-box"
-          onClick={() => {
-            this.props.setMostRecentProgram(name);
-            this.setState({ redirectTo: "/editor" });
-          }}
-        >
-          <img
-            alt={"User's sketch icon"}
-            src={`img/sketch-thumbnails/${this.getThumbnailSrc(thumbnail)}.svg`}
-            className="sketch-thumbnail"
-          />
-          <Row>
-            <Col className="text-left">
-              <span>{name}</span>
-            </Col>
-            <Col className="text-right">
-              <FontAwesomeIcon icon={faLanguage}></FontAwesomeIcon>
-            </Col>
-          </Row>
-        </Col>,
-        */
     });
     console.log(
       this.props.viewSize,
