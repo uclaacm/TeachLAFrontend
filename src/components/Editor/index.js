@@ -55,6 +55,7 @@ class Editor extends React.Component {
   };
 
   handleSave = event => {
+    if (!this.props.dirty) return; // Don't save if not dirty (unedited)
     this.setState({
       saveText: "Saving...",
     });
@@ -72,6 +73,7 @@ class Editor extends React.Component {
 
       setTimeout(this.resetSaveText, 3000);
     });
+    this.props.cleanCode(this.props.mostRecentProgram); // Set code's "dirty" state to false
   };
 
   renderDropdown = () => <DropdownButtonContainer />;

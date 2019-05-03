@@ -23,6 +23,11 @@ export function clearPrograms() {
   return { type: CLEAR_PROGRAMS };
 }
 
+export const SET_PROGRAM_DIRTY = "SET_PROGRAM_DIRTY";
+export function setProgramDirty(program, value) {
+  return { type: SET_PROGRAM_DIRTY, program, value };
+}
+
 export const ADD_PROGRAM = "ADD_PROGRAM";
 export function addProgram(program, data) {
   return { type: ADD_PROGRAM, program, data };
