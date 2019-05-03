@@ -2,7 +2,6 @@ import Immutable from "immutable";
 import TextEditor from "../components/TextEditor";
 import { connect } from "react-redux";
 import { setProgramCode, setProgramDirty } from "../../../actions/programsActions.js";
-import {} from "../../../actions/userDataActions";
 
 const mapStateToProps = state => {
   const { uid, mostRecentProgram } = state.userData;
