@@ -71,7 +71,7 @@ class Main extends React.Component {
 
       setTimeout(this.resetSaveText, 3000);
     });
-    this.props.cleanCode(); // Set code's "dirty" state to false
+    this.props.cleanCode(this.props.mostRecentProgram); // Set code's "dirty" state to false
   };
 
   renderOpenPanelButton = () => {

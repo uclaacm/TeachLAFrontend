@@ -48,7 +48,6 @@ class TextEditor extends React.Component {
 
       await fetch.updatePrograms(this.props.uid, programToUpdate);
       //TODO: add functionality to be able to tell whether the fetch failed
-      this.setState({ dirty: false });
     } catch (err) {
       console.log(err);
     }
@@ -68,7 +67,7 @@ class TextEditor extends React.Component {
   updateCode = (editor, data, newCode) => {
     //if the code's not yet dirty, and the old code is different from the new code, make it dirty
     if (!this.props.dirty && this.props.code !== newCode) {
-      this.props.dirtyCode();
+      this.props.dirtyCode(this.props.mostRecentProgram);
     }
     this.props.setProgramCode(this.props.mostRecentProgram, newCode);
   };

@@ -59,11 +59,6 @@ export function setPhotoName(photoName) {
   return { type: SET_PHOTO_NAME, photoName: photoName };
 }
 
-export const SET_PROGRAM_DIRTY = "SET_PROGRAM_DIRTY";
-export function setProgramDirty(isDirty) {
-  return { type: SET_PROGRAM_DIRTY, dirty: isDirty };
-}
-
 // /**
 //  * dataUpload - attempts to upload program of data into firestore to persist it.
 //  * @param  {[type]} program - the program to upload

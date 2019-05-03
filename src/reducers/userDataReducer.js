@@ -5,9 +5,7 @@ import {
   SET_DISPLAY_NAME,
   SET_MOST_RECENT_PROGRAM,
   SET_PHOTO_NAME,
-  SET_PROGRAM_DIRTY,
 } from "../actions/userDataActions";
-import { setProgramCode } from "../actions/programsActions";
 
 import * as fetch from "../lib/fetch.js";
 
@@ -17,7 +15,6 @@ const initialState = {
   uid: "",
   mostRecentProgram: "",
   photoName: "",
-  dirty: "",
 };
 
 function userDataReducer(state = initialState, action) {
@@ -62,8 +59,6 @@ function userDataReducer(state = initialState, action) {
           console.log(err);
         });
       return Object.assign({}, state, { mostRecentProgram: action.value });
-    case SET_PROGRAM_DIRTY:
-      return Object.assign({}, state, { dirty: action.dirty });
     default:
       return state;
   }
