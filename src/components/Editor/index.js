@@ -28,7 +28,6 @@ class Editor extends React.Component {
     this.state = {
       saveText: "Save code",
       viewMode: CODE_AND_OUTPUT,
-      languageChange: false,
     };
   }
 
@@ -46,9 +45,6 @@ class Editor extends React.Component {
           this.setState({ viewMode: CODE_ONLY });
         }
       }
-    }
-    if (this.state.languageChange) {
-      this.handleSave();
     }
   }
 
