@@ -1,11 +1,16 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
 import SketchesButton from "./components/SketchesButton";
+import SketchBox from "./components/SketchBox";
 import CreateSketchModalContainer from "./containers/CreateSketchModalContainer";
 import OpenPanelButtonContainer from "../common/containers/OpenPanelButtonContainer";
 import { SketchThumbnailArray } from "./constants";
 // import { PANEL_SIZE } from "../../constants";
 import "../../styles/Sketches.css";
+
+import { faCogs } from "@fortawesome/free-solid-svg-icons";
+import { faPython } from "@fortawesome/free-brands-svg-icons";
+import { faHtml5 } from "@fortawesome/free-brands-svg-icons";
 
 const ROW_PADDING = 100;
 const SKETCH_WIDTH = 170;
@@ -48,6 +53,11 @@ class Sketches extends React.Component {
 
   setCreateSketchModalOpen = val => {
     this.setState({ createSketchModalOpen: val });
+  };
+
+  redirectToEditor = name => {
+    this.props.setMostRecentProgram(name);
+    this.setState({ redirectTo: "/editor" });
   };
 
   renderHeader = () => (
@@ -95,8 +105,31 @@ class Sketches extends React.Component {
     });
 
     newList.forEach(({ name, language, thumbnail }) => {
+      let faLanguage;
+      switch (language) {
+        case "python":
+          faLanguage = faPython;
+          break;
+        case "processing":
+          faLanguage = faCogs;
+          break;
+        case "html":
+        default:
+          faLanguage = faHtml5;
+      }
       sketches.push(
-        <div
+        <SketchBox
+          img={this.getThumbnailSrc(thumbnail)}
+          icon={faLanguage}
+          name={name}
+          key={name}
+          redirFunc={() => {
+            this.redirectToEditor(name);
+          }}
+        />,
+      );
+      /*
+        <Col
           key={name}
           className="sketch-box"
           onClick={() => {
@@ -105,13 +138,20 @@ class Sketches extends React.Component {
           }}
         >
           <img
-            alt={"" + language + "-icon"}
+            alt={"User's sketch icon"}
             src={`img/sketch-thumbnails/${this.getThumbnailSrc(thumbnail)}.svg`}
             className="sketch-thumbnail"
           />
-          <span>{name}</span>
-        </div>,
-      );
+          <Row>
+            <Col className="text-left">
+              <span>{name}</span>
+            </Col>
+            <Col className="text-right">
+              <FontAwesomeIcon icon={faLanguage}></FontAwesomeIcon>
+            </Col>
+          </Row>
+        </Col>,
+        */
     });
     console.log(
       this.props.viewSize,
@@ -128,8 +168,6 @@ class Sketches extends React.Component {
         </div>,
       );
     }
-
-    //<div className="sketches-grid-row"></div>
 
     return <div className="sketches-grid">{rows}</div>;
   };
