@@ -33,7 +33,10 @@ class TextEditor extends React.Component {
 
   componentWillUpdate() {}
 
-  componentWillUnmount = () => {};
+  componentWillUnmount = () => {
+    window.removeEventListener("beforeunload");
+    window.removeEventListener("close");
+  };
 
   checkDirty = async () => {
     if (!this.props.dirty) {
