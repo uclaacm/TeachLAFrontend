@@ -11,6 +11,11 @@ import ReactModal from "react-modal";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ComingSoonBanner } from "../../img/coming-soon-banner.png";
+import Pencil from "../../img/pencil.png";
+import House from "../../img/house.png";
+import Exit from "../../img/exit-icon.png";
+import TLAFooter from "../../img/tla-footer.png";
 
 /**--------Props--------
  * togglePanel: function to be called when the panel is collapsed or opened
@@ -206,11 +211,11 @@ class ProfilePanel extends React.Component {
         <img
           style={{ position: "absolute", height: "60px", right: "-2px", zIndex: 20, opacity: 0.9 }}
           alt="banner"
-          src="img/coming-soon-banner.png"
+          src={ComingSoonBanner}
         />
       )}
       <span className={"panel-item-content"}>
-        <img className={"panel-item-icon"} alt="house" src="img/house2.png" />
+        <img className={"panel-item-icon"} alt="house" src={"img/house2.png"} />
         <span className={"panel-item-name"}>Profile</span>
       </span>
     </div>
@@ -229,12 +234,12 @@ class ProfilePanel extends React.Component {
         <img
           style={{ position: "absolute", height: "60px", right: "-2px", zIndex: 20, opacity: 0.9 }}
           alt="banner"
-          src="img/coming-soon-banner.png"
+          src={ComingSoonBanner}
         />
       )}
       <span className="panel-item-content">
         <span className="panel-item-icon">
-          <img className={"panel-item-icon"} alt="house" src="img/house2.png" />
+          <img className={"panel-item-icon"} alt="house" src={House} />
         </span>
         <span className="panel-item-name">Editor</span>
       </span>
@@ -254,12 +259,12 @@ class ProfilePanel extends React.Component {
         <img
           style={{ position: "absolute", height: "60px", right: "-2px", zIndex: 20, opacity: 0.9 }}
           alt="banner"
-          src="img/coming-soon-banner.png"
+          src={ComingSoonBanner}
         />
       )}
       <span className="panel-item-content">
         <span className="panel-item-icon">
-          <img className="reverse-image" alt="pencil" src="img/pencil.png" />
+          <img className="reverse-image" alt="pencil" src={Pencil} />
         </span>
         <span className="panel-item-name">Sketches</span>
       </span>
@@ -270,7 +275,7 @@ class ProfilePanel extends React.Component {
     <div className={"panel-options-item"} onClick={() => firebase.auth().signOut()}>
       <span className="panel-item-content">
         <span className="panel-item-icon">
-          <img className={"panel-item-icon"} alt="exit" src="img/exit-icon.png" />
+          <img className={"panel-item-icon"} alt="exit" src={Exit} />
         </span>
         <span className="panel-item-name">Log Out</span>
       </span>
@@ -315,7 +320,7 @@ class ProfilePanel extends React.Component {
         {this.renderButtons()}
       </div>
       <div className="editor-footer">
-        <img className="editor-footer-image" src="img/tla-footer.png" alt="footer" />
+        <img className="editor-footer-image" src={TLAFooter} alt="footer" />
       </div>
     </div>
   );
