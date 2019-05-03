@@ -27,16 +27,22 @@
   align-items: center;
   justify-content: flex-start;
   width: 100%;
+  height: 67px;
   border-bottom: 1px white solid;
 }
 
 .editor-expand-panel-arrow {
   color: #dddcdf;
-  font-weight: bold;
   padding: 1rem;
   cursor: pointer;
   flex: 0 1 auto;
-  width: 20px;
+  width: 46px;
+}
+
+.editor-expand-panel-arrow-hidden {
+  padding: 1rem;
+  flex: 0 1 auto;
+  width: 46px;
 }
 
 .editor-language-dropdown {
@@ -70,6 +76,7 @@
   border: none;
   border-radius: 5px;
   box-shadow: 1px 3px #999;
+  line-height: 45px;
 }
 
 .editor-run-button-content {
@@ -91,7 +98,7 @@
 }
 
 .editor-run-button:hover {
-  background-color: #63966b;
+  box-shadow: inset 0 0 0 100px rgba(0, 0, 0, 0.2);
 }
 
 .editor-run-button:active {

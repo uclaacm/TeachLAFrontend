@@ -51,9 +51,7 @@ function userDataReducer(state = initialState, action) {
     case SET_MOST_RECENT_PROGRAM:
       fetch
         .updateUserData(state.uid, { mostRecentProgram: action.value })
-        .then(response => {
-          console.log(response);
-        })
+        .then(response => {})
         .catch(err => {
           state.error = err;
           console.log(err);

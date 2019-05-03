@@ -3,7 +3,10 @@ import { PYTHON, JAVASCRIPT, CPP, JAVA, HTML, PROCESSING } from "../../../consta
 import { OUTPUT_ONLY } from "../constants";
 import EditorButton from "./EditorButton";
 import EditorRadio from "./EditorRadio";
+import OpenPanelButtonContainer from "../../common/containers/OpenPanelButtonContainer";
 import DropdownButtonContainer from "../containers/DropdownButtonContainer";
+import CreateProcessingDoc from "./Output/Processing";
+import CreatePythonDoc from "./Output/Python";
 
 /**--------Props--------
  * None
@@ -15,6 +18,7 @@ class Output extends React.Component {
     this.state = {
       //used for the refresh button
       counter: 0,
+      showConsole: true,
     };
   }
 
@@ -29,11 +33,10 @@ class Output extends React.Component {
     }));
   };
 
-  renderHTMLOutput = () => {
-    // html-output is an iframe canvas that displays html typed into the editor.  It only displays when html is the selected language
-    //about: blank makes it so that the clear button will clear the html appropriately when pressed.  Otherwise, old content persists.
-    const { runResult } = this.props;
-    if (!runResult) {
+  renderIframe = getSrcDoc => {
+    //check if getsrcdoc is a function
+    if (!getSrcDoc && {}.toString.call(getSrcDoc) === "[object Function]") {
+      console.log("Null src doc function found");
       return null;
     }
 
@@ -43,170 +46,9 @@ class Output extends React.Component {
         key={this.state.counter}
         className="editor-output-iframe"
         style={{ height: this.props.screenHeight - 61 + "px" }}
-        srcDoc={this.props.runResult}
-        src="about:blank"
-        title="html-iframe"
-        onLoad={e => {
-          // console.log(e);
-        }}
-      />
-    );
-  };
-
-  getPythonSrcDocHead = () => `
-    <head>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script>
-      <script src="https://cdn.rawgit.com/skulpt/skulpt-dist/0.11.0/skulpt.min.js" type="text/javascript"></script>
-      <script src="https://cdn.rawgit.com/skulpt/skulpt-dist/0.11.0/skulpt-stdlib.js" type="text/javascript"></script>
-      <style> html, body { margin:0; background-color: #585166;}
-              #output { width:97%; height:100px; background-color:#333; color:#0F0;word-wrap:break-word; overflow:auto; margin: 10px auto;}
-              #mycanvas { margin: 10px; }}
-      </style>
-    </head>
-  `;
-
-  getPythonSrcDocSkulptScript = () => `
-    <script type="text/javascript">
-      function outf(text) {
-          var mypre = document.getElementById("output");
-          mypre.innerHTML = mypre.innerHTML + text;
-      }
-
-      function builtinRead(x) {
-          if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined)
-                  throw "File not found: '" + x + "'";
-          return Sk.builtinFiles["files"][x];
-      }
-
-      function runit() {
-          var prog = document.getElementById("runResult").innerHTML  ;
-          //if you want to debug, you can uncomment this console log to see the code being run
-          //console.log(prog)
-          var mypre = document.getElementById("output");
-          mypre.innerHTML = '';
-          Sk.pre = "output";
-          Sk.configure({output:outf, read:builtinRead});
-          (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = 'mycanvas';
-          var myPromise = Sk.misceval.asyncToPromise(function() {
-              return Sk.importMainWithBody("<stdin>", false, prog, true);
-          });
-          myPromise.then(function(mod) {
-              //console.log('success');
-          },
-          function(err) {
-              console.log(err.toString());
-              let a =document.getElementById("output")
-              a.innerHTML = '<span style="color: #be4040">' + err.toString() + '</span>'
-          });
-      }
-    </script>
-  `;
-
-  getPythonSrcDocBody = () => {
-    const { runResult } = this.props;
-
-    return `
-      <body onload="runit()">
-        ${this.getPythonSrcDocSkulptScript()}
-        <pre id="output"></pre>
-        <div id="mycanvas"></div>
-        <div style="display:none;" id="runResult">${runResult}</div>
-      </body>
-    `;
-  };
-
-  getPythonSrcDoc = () => {
-    return `<html> ${this.getPythonSrcDocHead()} ${this.getPythonSrcDocBody()} </html>`;
-  };
-
-  renderPythonOutput = () => {
-    let { runResult } = this.props;
-
-    if (!runResult) {
-      return null;
-    }
-
-    //about: blank makes it so that the clear button will clear the html appropriately when pressed.
-    //Otherwise, old content persists.
-    return (
-      <iframe
-        id={this.state.counter}
-        key={this.state.counter}
-        className="editor-output-iframe"
-        style={{ height: this.props.screenHeight - 61 + "px" }}
-        srcDoc={this.getPythonSrcDoc()}
-        src="about:blank"
-        title="python-iframe"
-        onLoad={e => {
-          // console.log(e);
-        }}
-      />
-    );
-  };
-
-  getProcessingSrcDocLoggingScript = () => `
-      <script type="text/javascript">
-        if (typeof console  != "undefined")
-          if (typeof console.log != 'undefined')
-            console.olog = console.log;
-          else
-            console.olog = function() {};
-
-        console.log = (message) => {
-          console.olog(message);
-          let a = document.getElementById("console")
-          if(a){
-            let a = document.getElementById("console")
-            a.innerHTML = a.innerHTML + message + "<br/>";
-          }
-        };
-
-        window.onerror = (err)=>console.log("<p style='color:#be4040'>" + err + "</p>")
-
-        console.error = console.debug = console.info = console.log;
-
-        ${this.props.runResult}
-      </script>
-    `;
-
-  getProcessingSrcDocBody = () => `
-      <body>
-        <div id="console"></div>
-        ${this.getProcessingSrcDocLoggingScript()}
-      </body>
-    `;
-
-  getProcessingSrcDocHead = () => `
-    <head>
-        <style>html,body: {margin:0, width:100%}</style>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/p5.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/addons/p5.dom.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/addons/p5.sound.min.js"></script>
-        <style>
-          #console{  width: 100%; color:#0f0; height:200px; background-color:#333; overflow:auto; margin: 10px 0px; }
-        </style>
-    </head>
-  `;
-
-  getProcessingSrcDoc = () =>
-    `<html> ${this.getProcessingSrcDocHead()} ${this.getProcessingSrcDocBody()}</html>`;
-
-  renderProcessingOutput = () => {
-    const { runResult } = this.props;
-
-    if (!runResult) {
-      return null;
-    }
-
-    return (
-      <iframe
-        id={this.state.counter}
-        key={this.state.counter}
-        className="editor-output-iframe"
-        style={{ height: this.props.screenHeight - 61 + "px" }}
-        srcDoc={this.getProcessingSrcDoc()}
-        src="about:blank"
-        title="processing-iframe"
+        srcDoc={getSrcDoc()}
+        src=""
+        title="output-iframe"
         onLoad={e => {
           // console.log(e);
         }}
@@ -215,25 +57,36 @@ class Output extends React.Component {
   };
 
   renderOutput = () => {
-    const { language, runResult } = this.props;
+    let { language, runResult } = this.props;
+    const { showConsole } = this.state;
 
     //if there's nothing to run, don't render an output
     if (!runResult || !runResult.length) {
       return null;
     }
+
+    let srcDocFunc = () => runResult;
+
     switch (language) {
       case PROCESSING:
-        return this.renderProcessingOutput();
+        srcDocFunc = () => CreateProcessingDoc(runResult, showConsole);
+        break;
+      case PYTHON:
+        runResult = btoa(runResult);
+        srcDocFunc = () => CreatePythonDoc(runResult, showConsole);
+        break;
+      case JAVA:
       case JAVASCRIPT:
       case CPP:
-      case PYTHON:
-        return this.renderPythonOutput();
-      case JAVA:
       case HTML:
       default:
-        return this.renderHTMLOutput();
+        break;
     }
+
+    return this.renderIframe(srcDocFunc);
   };
+
+  renderOpenPanelButton = () => this.props.viewMode === OUTPUT_ONLY && <OpenPanelButtonContainer />;
 
   renderLanguageDropdown = () => this.props.viewMode === OUTPUT_ONLY && <DropdownButtonContainer />;
 
@@ -248,11 +101,31 @@ class Output extends React.Component {
       </div>
     );
 
+  toggleConsole = () => {
+    this.setState(prevState => {
+      return { showConsole: !prevState.showConsole };
+    });
+  };
+
+  getConsoleButtonContent = () => <img alt="console-icon" width="38" src="img/console-icon.png" />;
+
+  renderConsoleButton = () => (
+    <EditorButton
+      handleClick={this.toggleConsole}
+      text={this.getConsoleButtonContent()}
+      color={this.state.showConsole ? "#D6A2AD" : "#8EB8E5"}
+      width="50px"
+      title={this.state.showConsole ? "Hide Console" : "Show Console"}
+    />
+  );
+
   renderBanner = () => (
     <div className="editor-output-banner">
-      <div style={{ marginLeft: "10px" }}>{this.renderLanguageDropdown()}</div>
+      {this.renderOpenPanelButton()}
+      {this.renderLanguageDropdown()}
       <div style={{ flex: "1 1 auto" }}> </div> {/*whitespace*/}
       {this.renderRadio()}
+      {this.renderConsoleButton()}
       <EditorButton handleClick={this.reRenderOutput} text="Refresh" color="#3c52ba" />
     </div>
   );

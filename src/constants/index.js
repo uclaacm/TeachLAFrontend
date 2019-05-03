@@ -51,6 +51,8 @@ if (process && process.env && process.env.REACT_APP_SERVER_TYPE === "prod") {
   SERVER_URL = "https://teach-la-backend.herokuapp.com";
 }
 
+const PANEL_SIZE = 250;
+
 module.exports = {
   //Language definitions
   PYTHON,
@@ -81,6 +83,9 @@ module.exports = {
 
   // UI constants
   RING_LOADER_SIZE: 50,
+  PANEL_SIZE,
+  CLOSED_PANEL_LEFT: -1 * PANEL_SIZE,
+  OPEN_PANEL_LEFT: 0,
 
   //codemirror conversions
   CODEMIRROR_CONVERSIONS,
