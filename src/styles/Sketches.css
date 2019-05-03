@@ -1,0 +1,194 @@
+.sketches-expand-panel-arrow {
+  color: #dddcdf;
+  font-weight: bold;
+  padding: 1rem;
+  cursor: pointer;
+  flex: 0 1 auto;
+  width: 20px;
+}
+
+.sketches-header-text {
+  color: #dddcdf;
+  font-weight: bold;
+  padding: 1rem;
+  cursor: pointer;
+  flex: 0 1 auto;
+  font-size: 45px;
+}
+
+.sketches-header {
+  height: 67px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom: 2px solid #dddcdf;
+}
+
+.sketches-grid {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.sketches-grid-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  padding: 20px 50px;
+}
+
+.sketch-thumbnail {
+  width: 80px;
+  height: 80px;
+}
+
+.sketch-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 150px;
+  background-color: #dddcdf;
+  border-radius: 5px;
+  color: #0d0d0e;
+  margin: 0px 10px;
+  padding: 5px;
+  cursor: pointer;
+  flex: 0 0 auto;
+}
+
+.sketches-language-dropdown {
+  flex: 0 1 auto;
+  color: #0d0d0e;
+}
+
+.sketches-language-dropdown-closed-content {
+  display: inline-block;
+}
+
+.sketches-gallery {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  overflow-y: auto;
+  width: 325px;
+  height: 250px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.sketches-image-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 470px;
+  width: 400px;
+  background-color: rgb(255, 255, 255);
+  padding: 40px;
+  border-radius: 20px;
+}
+.sketches-gallery-img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 100%;
+  padding: 2px;
+  border: 3px white solid;
+}
+
+.sketches-gallery-img-selected {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 100%;
+  padding: 2px;
+  border: 3px #83dadd solid;
+}
+
+.sketches-gallery-img:hover {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 100%;
+  padding: 2px;
+  border: 3px #846fb1 solid;
+}
+
+.sketches-gallery::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+.sketches-gallery::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+.sketches-gallery::-webkit-scrollbar-thumb {
+  background: #37343d;
+}
+
+/* Handle on hover */
+.sketches-gallery::-webkit-scrollbar-thumb:hover {
+  background: #2f2d33;
+}
+
+.sketches-modal-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.sketches-modal-header-thumbnail-container {
+  width: 100px;
+  height: 100px;
+  flex: 0 0;
+}
+
+.sketches-modal-header-thumbnail {
+  width: 100px;
+  height: 100px;
+  flex: 0 0;
+}
+
+.sketches-modal-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sketches-bottom-modal-button {
+}
+
+.sketches-modal-input {
+  text-align: center;
+}
+
+.sketches-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 320px;
+  width: 400px;
+  background-color: rgb(255, 255, 255);
+  padding: 40px;
+  border-radius: 20px;
+}
+
+.sketches-form-spinner {
+  width: 59.02px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}

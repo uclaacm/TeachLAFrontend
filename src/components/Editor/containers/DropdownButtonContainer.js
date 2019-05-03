@@ -8,8 +8,9 @@ const mapStateToProps = state => {
   let listOfPrograms = [];
 
   state.programs.keySeq().forEach(key => listOfPrograms.push(key));
-
+  const dirty = state.programs.getIn([mostRecentProgram, "dirty"], false);
   return {
+    dirty,
     dropdownItems: listOfPrograms,
     displayValue: mostRecentProgram,
   };
@@ -17,7 +18,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onSelect: value => dispatch(setMostRecentProgram(value)),
+    onSelect: value => {
+      dispatch(setMostRecentProgram(value));
+    },
   };
 };
 
