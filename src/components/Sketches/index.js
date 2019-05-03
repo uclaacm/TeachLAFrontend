@@ -106,7 +106,9 @@ class Sketches extends React.Component {
         >
           <img
             alt={"" + language + "-icon"}
-            src={`img/sketch-thumbnails/${this.getThumbnailSrc(thumbnail)}.svg`}
+            src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${this.getThumbnailSrc(
+              thumbnail,
+            )}.svg`}
             className="sketch-thumbnail"
           />
           <span>{name}</span>

@@ -7,6 +7,7 @@ import OpenPanelButtonContainer from "../../common/containers/OpenPanelButtonCon
 import DropdownButtonContainer from "../containers/DropdownButtonContainer";
 import CreateProcessingDoc from "./Output/Processing";
 import CreatePythonDoc from "./Output/Python";
+import ConsoleIcon from "../../../img/console-icon.png";
 
 /**--------Props--------
  * None
@@ -107,7 +108,7 @@ class Output extends React.Component {
     });
   };
 
-  getConsoleButtonContent = () => <img alt="console-icon" width="38" src="img/console-icon.png" />;
+  getConsoleButtonContent = () => <img alt="console-icon" width="38" src={ConsoleIcon} />;
 
   renderConsoleButton = () => (
     <EditorButton
