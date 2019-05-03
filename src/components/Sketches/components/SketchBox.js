@@ -19,19 +19,20 @@ class SketchBox extends React.Component {
           />
           <Row>
             <Col className="text-left">
-              <span>{this.props.name}</span>
+              <b>{this.props.name}</b>
             </Col>
             <Col className="text-right">
               <FontAwesomeIcon icon={this.props.icon} />
             </Col>
           </Row>
         </div>
-        <hr />
-        <Row className="sketch-box-body">
-          <Col className="text-left text-success">
+        <hr className="sketch-divider" />
+        <Row className="sketch-box-body text-center">
+          <Col className="text-success">
             <FontAwesomeIcon icon={faEdit} />
           </Col>
-          <Col className="text-right text-danger">
+          <div className="sketch-button-divider" />
+          <Col className="text-danger">
             <FontAwesomeIcon icon={faTrashAlt} />
           </Col>
         </Row>
