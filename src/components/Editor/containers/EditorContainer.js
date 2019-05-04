@@ -4,6 +4,7 @@ import { setOutput } from "../../../actions/outputActions.js";
 import { setMostRecentProgram } from "../../../actions/userDataActions.js";
 import { setProgramDirty } from "../../../actions/programsActions.js";
 import { togglePanel } from "../../../actions/uiActions.js";
+import { CLOSED_PANEL_LEFT, OPEN_PANEL_LEFT, PANEL_SIZE } from "../../../constants";
 
 const mapStateToProps = state => {
   const { mostRecentProgram } = state.userData;
@@ -26,6 +27,7 @@ const mapStateToProps = state => {
     screenHeight: state.ui.screenHeight,
     dirty,
     panelOpen: state.ui.panelOpen,
+    left: (state.ui.panelOpen ? OPEN_PANEL_LEFT : CLOSED_PANEL_LEFT) + PANEL_SIZE,
   };
 };
 

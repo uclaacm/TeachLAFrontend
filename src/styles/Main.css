@@ -1,0 +1,8 @@
+.main {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  background-color: #252132;
+  justify-content: flex-start;
+  position: relative;
+}

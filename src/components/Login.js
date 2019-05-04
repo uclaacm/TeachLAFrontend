@@ -2,7 +2,6 @@ import React from "react";
 import Footer from "./common/Footer";
 import "../styles/Login.css";
 import LoginForm from "./Login/LoginForm";
-import LoginModal from "./Login/LoginModal";
 import LoginGuy from "../img/blueguy.png";
 
 /**--------Props--------
