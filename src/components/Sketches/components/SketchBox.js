@@ -32,7 +32,7 @@ class SketchBox extends React.Component {
             <FontAwesomeIcon icon={faEdit} />
           </Col>
           <div className="sketch-button-divider" />
-          <Col className="text-danger">
+          <Col className="text-danger" onClick={this.props.deleteFunc}>
             <FontAwesomeIcon icon={faTrashAlt} />
           </Col>
         </Row>
