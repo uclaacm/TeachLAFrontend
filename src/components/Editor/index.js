@@ -7,6 +7,7 @@ import OpenPanelButtonContainer from "../common/containers/OpenPanelButtonContai
 import EditorButton from "./components/EditorButton";
 import * as fetch from "../../lib/fetch.js";
 import EditorRadio from "./components/EditorRadio.js";
+import { Redirect } from "react-router-dom";
 import { EDITOR_WIDTH_BREAKPOINT, CODE_AND_OUTPUT, CODE_ONLY, OUTPUT_ONLY } from "./constants";
 
 import { PANEL_SIZE } from "../../constants";
@@ -28,6 +29,7 @@ class Editor extends React.Component {
     this.state = {
       saveText: "Save code",
       viewMode: CODE_AND_OUTPUT,
+      redirect: "",
     };
   }
 
@@ -35,6 +37,9 @@ class Editor extends React.Component {
   componentWillMount() {
     if (this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT) {
       this.setState({ viewMode: CODE_ONLY });
+    }
+    if (this.props.listOfPrograms.length === 0) {
+      this.setState({ redirect: "/sketches" });
     }
   }
 
@@ -157,6 +162,9 @@ class Editor extends React.Component {
   };
 
   render() {
+    if (this.state.redirect) {
+      return <Redirect to={this.state.redirect} />;
+    }
     return <div style={this.props.codeStyle}>{this.renderContent()}</div>;
   }
 }

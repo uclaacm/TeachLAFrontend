@@ -7,12 +7,11 @@ const mapStateToProps = state => {
 
   let listOfPrograms = [];
 
-  state.programs.keySeq().forEach(key => listOfPrograms.push(key));
   const dirty = state.programs.getIn([mostRecentProgram, "dirty"], false);
   return {
     dirty,
-    dropdownItems: listOfPrograms,
-    displayValue: mostRecentProgram,
+    programs: state.programs,
+    displayValue: state.programs.getIn([mostRecentProgram, "name"], "N/A"),
   };
 };
 

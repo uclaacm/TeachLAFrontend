@@ -68,7 +68,7 @@ class Sketches extends React.Component {
   };
 
   renderSketches = () => {
-    let newList = this.props.listOfPrograms.concat([]);
+    let newList = this.props.programs.concat([]);
     let sketches = [];
 
     newList.sort((a, b) => {
@@ -78,13 +78,13 @@ class Sketches extends React.Component {
       else return 1;
     });
 
-    newList.forEach(({ name, language, thumbnail }) => {
+    newList.forEach(({ name, language, thumbnail, key }) => {
       sketches.push(
         <div
-          key={name}
+          key={key}
           className="sketch-box"
           onClick={() => {
-            this.props.setMostRecentProgram(name);
+            this.props.setMostRecentProgram(key);
             this.setState({ redirectTo: "/editor" });
           }}
         >
