@@ -72,7 +72,7 @@
   font-size: 1rem;
 }
 
-.login-modal {
+.login-form-container {
   font-family: "Josefin Slab", sans-serif; /*font for the whole login page*/
   display: block;
   margin-top: 30px; /*modal distance from top of the screen*/
@@ -81,7 +81,7 @@
 }
 
 @media only screen and (max-width: 1024px) {
-  .login-modal {
+  .login-form-container {
     text-align: center;
     width: 100%;
   }
