@@ -1,7 +1,7 @@
 .sketches {
   --bg-color: #5584b2;
   --text-color: #ddd;
-  background-color: var(--bgcolor);
+  background-color: var(--bg-color);
 }
 
 .sketches-expand-panel-arrow {
