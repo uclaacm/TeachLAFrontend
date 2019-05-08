@@ -1,5 +1,6 @@
 import React from "react";
 import Footer from "./common/Footer";
+import firebase from "firebase";
 import "../styles/app.css";
 
 class Error extends React.Component {
@@ -18,6 +19,9 @@ class Error extends React.Component {
             <h1>Something went wrong. Try again later!</h1>
             <br />
             <h1>{this.props.errorMsg}</h1>
+            <button className="login-form-button" onClick={() => firebase.auth().signOut()}>
+              Log Out
+            </button>
           </div>
         </div>
       </div>

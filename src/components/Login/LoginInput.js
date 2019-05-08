@@ -10,10 +10,10 @@ import "../../styles/Login.css";
 
 export default ({ type, waiting, data, onChange }) => (
   <div>
-    <div className="login-form-input-header">{type.charAt(0).toUpperCase() + type.substr(1)}</div>
+    <div className="login-form-input-header">{type}</div>
     <input
       className="login-form-input"
-      type={type === "password" ? "password" : "text"}
+      type={type === "Password" || type === "Confirm Password" ? "password" : "text"}
       disabled={waiting}
       name={type}
       placeholder=""
