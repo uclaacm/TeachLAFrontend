@@ -1,7 +1,7 @@
 .panel {
   display: flex;
   box-sizing: border-box;
-  background-color: #ffdd6f; /*#f9b219; /*#FFEE75;*/
+  background-color: #f2ab15; /*#ffdd6f; /*#f9b219; /*#FFEE75;*/
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
@@ -185,7 +185,7 @@
   font-size: 2rem;
   font-weight: bold;
   word-wrap: break-word;
-  color: #eee;
+  color: #292929;
   position: relative;
 }
 
@@ -204,7 +204,7 @@
 }
 
 .panel-options-item:hover {
-  border: 2px solid white;
+  border: 2px solid #292929;
   border-radius: 10px;
   cursor: pointer;
 }
