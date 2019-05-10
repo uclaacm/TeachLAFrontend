@@ -3,9 +3,6 @@ import ReactModal from "react-modal";
 import { Button } from "reactstrap";
 
 class ConfirmDeleteModal extends React.Component {
-  constructor(props) {
-    super(props);
-  }
   componentWillMount() {}
   componentDidUpdate() {}
 

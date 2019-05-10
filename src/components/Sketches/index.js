@@ -4,6 +4,7 @@ import SketchesButton from "./components/SketchesButton";
 import SketchBox from "./components/SketchBox";
 import ConfirmDeleteModalContainer from "./containers/ConfirmDeleteModalContainer";
 import CreateSketchModalContainer from "./containers/CreateSketchModalContainer";
+import EditSketchModalContainer from "./containers/EditSketchModalContainer";
 import OpenPanelButtonContainer from "../common/containers/OpenPanelButtonContainer";
 import { SketchThumbnailArray } from "./constants";
 // import { PANEL_SIZE } from "../../constants";
@@ -23,7 +24,9 @@ class Sketches extends React.Component {
       redirectTo: "",
       confirmDeleteModalOpen: false,
       createSketchModalOpen: false,
+      editSketchModalOpen: false,
       selectedSketch: "",
+      selectedImg: "",
     };
 
     // this.originalWidth = this.props.viewSize
@@ -60,6 +63,10 @@ class Sketches extends React.Component {
 
   setConfirmDeleteModalOpen = (val, sketch) => {
     this.setState({ confirmDeleteModalOpen: val, selectedSketch: sketch });
+  };
+
+  setEditSketchModalOpen = (val, sketch, img) => {
+    this.setState({ editSketchModalOpen: val, selectedSketch: sketch, selectedImg: img });
   };
 
   redirectToEditor = name => {
@@ -133,6 +140,9 @@ class Sketches extends React.Component {
           deleteFunc={() => {
             this.setConfirmDeleteModalOpen(true, name);
           }}
+          editFunc={() => {
+            this.setEditSketchModalOpen(true, name, this.getThumbnailSrc(thumbnail));
+          }}
           redirFunc={() => {
             this.redirectToEditor(name);
           }}
@@ -173,6 +183,15 @@ class Sketches extends React.Component {
     />
   );
 
+  renderEditSketchModal = () => (
+    <EditSketchModalContainer
+      isOpen={this.state.editSketchModalOpen}
+      onClose={() => this.setEditSketchModalOpen(false)}
+      sketchName={this.state.selectedSketch}
+      sketchImg={this.state.selectedImg}
+    />
+  );
+
   renderContent = () => {
     return (
       <div>
@@ -180,6 +199,7 @@ class Sketches extends React.Component {
         {this.renderSketches()}
         {this.renderCreateSketchModal()}
         {this.renderConfirmDeleteModal()}
+        {this.renderEditSketchModal()}
       </div>
     );
   };

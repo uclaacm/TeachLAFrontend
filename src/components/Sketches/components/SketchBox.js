@@ -28,7 +28,7 @@ class SketchBox extends React.Component {
         </div>
         <hr className="sketch-divider" />
         <Row className="sketch-box-body text-center">
-          <Col className="text-success">
+          <Col className="text-success" onClick={this.props.editFunc}>
             <FontAwesomeIcon icon={faEdit} />
           </Col>
           <div className="sketch-button-divider" />
