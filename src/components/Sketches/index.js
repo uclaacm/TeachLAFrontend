@@ -27,31 +27,13 @@ class Sketches extends React.Component {
       editSketchModalOpen: false,
       selectedSketch: "",
       selectedImg: "",
+      selectedLang: "",
     };
-
-    // this.originalWidth = this.props.viewSize
   }
 
   //==============React Lifecycle Functions Start===================//
-  componentWillMount() {
-    // if (this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT) {
-    //   this.setState({ viewMode: CODE_ONLY });
-    // }
-  }
-
-  componentDidUpdate(prevProps) {
-    // if (this.props.screenWidth !== prevProps.screenWidth) {
-    //   if (this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT) {
-    //     if (this.state.viewMode === CODE_AND_OUTPUT) {
-    //       this.setState({ viewMode: CODE_ONLY });
-    //     }
-    //   }
-    // }
-    // if (Math.abs(this.props.viewSize - this.originalWidth) >= (PANEL_SIZE - 10)) {
-    //   console.log(this.props.viewSize, this.originalWidth)
-    //   this.originalWidth = this.props.viewSize
-    // }
-  }
+  componentWillMount() {}
+  componentDidUpdate() {}
 
   getRandomSketchThumbnail = () => {
     return SketchThumbnailArray[Math.floor(Math.random() * SketchThumbnailArray.length)];
@@ -65,8 +47,13 @@ class Sketches extends React.Component {
     this.setState({ confirmDeleteModalOpen: val, selectedSketch: sketch });
   };
 
-  setEditSketchModalOpen = (val, sketch, img) => {
-    this.setState({ editSketchModalOpen: val, selectedSketch: sketch, selectedImg: img });
+  setEditSketchModalOpen = (val, sketch, img, lang) => {
+    this.setState({
+      editSketchModalOpen: val,
+      selectedSketch: sketch,
+      selectedImg: img,
+      selectedLang: lang,
+    });
   };
 
   redirectToEditor = name => {
@@ -87,18 +74,6 @@ class Sketches extends React.Component {
       </div>
     </div>
   );
-
-  mapLanguageToThumbnail = lang => {
-    switch (lang) {
-      case "python":
-        return `img/python.png`;
-      case "processing":
-        return "img/processing.png";
-      case "html":
-      default:
-        return "img/html.png";
-    }
-  };
 
   getThumbnailSrc = val => {
     if (val === undefined || val === "" || val >= SketchThumbnailArray.length || val < 0) {
@@ -141,7 +116,7 @@ class Sketches extends React.Component {
             this.setConfirmDeleteModalOpen(true, name);
           }}
           editFunc={() => {
-            this.setEditSketchModalOpen(true, name, this.getThumbnailSrc(thumbnail));
+            this.setEditSketchModalOpen(true, name, this.getThumbnailSrc(thumbnail), language);
           }}
           redirFunc={() => {
             this.redirectToEditor(name);
@@ -189,6 +164,7 @@ class Sketches extends React.Component {
       onClose={() => this.setEditSketchModalOpen(false)}
       sketchName={this.state.selectedSketch}
       sketchImg={this.state.selectedImg}
+      sketchLang={this.state.selectedLang}
     />
   );
 

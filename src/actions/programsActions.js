@@ -8,6 +8,16 @@ export function setProgramLanguage(program, value) {
   return { type: SET_PROGRAM_LANGUAGE, program, value };
 }
 
+export const SET_PROGRAM_NAME = "SET_PROGRAM_NAME";
+export function setProgramName(program, value) {
+  return { type: SET_PROGRAM_NAME, program, value };
+}
+
+export const SET_PROGRAM_THUMBNAIL = "SET_PROGRAM_THUMBNAIL";
+export function setProgramThumbnail(program, value) {
+  return { type: SET_PROGRAM_THUMBNAIL, program, value };
+}
+
 export const DELETE_PROGRAM = "DELETE_PROGRAM";
 export function setRunResult(result) {
   return { type: DELETE_PROGRAM, runResult: result };

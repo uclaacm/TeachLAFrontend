@@ -1,6 +1,8 @@
 import {
   SET_PROGRAM_CODE,
   SET_PROGRAM_LANGUAGE,
+  SET_PROGRAM_NAME,
+  SET_PROGRAM_THUMBNAIL,
   DELETE_PROGRAM,
   LOAD_PROGRAMS,
   ADD_PROGRAM,
@@ -17,6 +19,10 @@ function programsReducer(state = initialState, action) {
       return state.setIn([action.program, "code"], action.value);
     case SET_PROGRAM_LANGUAGE:
       return state.setIn([action.program, "language"], action.value);
+    case SET_PROGRAM_NAME:
+      return state.setIn([action.program, "name"], action.value);
+    case SET_PROGRAM_THUMBNAIL:
+      return state.setIn([action.program, "thumbnail"], action.value);
     case ADD_PROGRAM:
       return state.set(action.program, Immutable.fromJS(action.data));
     case DELETE_PROGRAM:

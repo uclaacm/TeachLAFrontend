@@ -11,7 +11,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addProgram: (program, data) => dispatch(addProgram(program, data)),
+    setProgramLanguage: (program, value) => dispatch(setProgramLanguage(program, value)),
+    setProgramThumbnail: (program, value) => dispatch(setProgramThumbnail(program, value)),
   };
 };
 
