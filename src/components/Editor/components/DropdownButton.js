@@ -43,13 +43,22 @@ export default class DropdownButton extends React.Component {
   renderDropdownItems = () => {
     //map each program string in the array to a dropdown item
     return this.props.dropdownItems.map(program => {
-      //if the program doesn't exist, or is an empty string, return null
-      if (!program || !program.length) {
-        return null;
+      console.log(program);
+      let faLanguage;
+      switch (program.language) {
+        case "python":
+          faLanguage = faPython;
+          break;
+        case "processing":
+          faLanguage = faCogs;
+          break;
+        case "html":
+        default:
+          faLanguage = faHtml5;
       }
       return (
-        <DropdownItem key={program} onClick={() => this.selectLanguage(program)}>
-          {program}
+        <DropdownItem key={program.name} onClick={() => this.selectLanguage(program.name)}>
+          <FontAwesomeIcon icon={faLanguage} fixedWidth /> {program.name}
         </DropdownItem>
       );
     });
@@ -89,7 +98,7 @@ export default class DropdownButton extends React.Component {
           {/* HACK: disables the colors entirely, makes the dropdown transparent */}
           <DropdownToggle color={""} caret>
             <div className="editor-language-dropdown-closed-content">
-              <FontAwesomeIcon icon={faLanguage} /> {this.props.displayValue}
+              <FontAwesomeIcon icon={faLanguage} fixedWidth /> {this.props.displayValue}
             </div>
           </DropdownToggle>
           <DropdownMenu>{this.renderDropdownItems()}</DropdownMenu>
