@@ -43,7 +43,6 @@ export default class DropdownButton extends React.Component {
   renderDropdownItems = () => {
     //map each program string in the array to a dropdown item
     return this.props.dropdownItems.map(program => {
-      console.log(program);
       let faLanguage;
       switch (program.language) {
         case "python":
