@@ -57,6 +57,7 @@ function userDataReducer(state = initialState, action) {
           console.log(err);
         });
       return Object.assign({}, state, { mostRecentProgram: action.value });
+
     default:
       return state;
   }

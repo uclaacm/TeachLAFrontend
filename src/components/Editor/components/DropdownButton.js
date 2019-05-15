@@ -25,17 +25,6 @@ export default class DropdownButton extends React.Component {
     this.setState({ dropdownOpen: !prevVal });
   };
 
-  selectLanguage = program => {
-    let result = true;
-    if (this.props.dirty) {
-      result = window.confirm("Are you sure you want to change programs? You have unsaved changes");
-    }
-
-    if (this.props.onSelect && result) {
-      this.props.onSelect(program);
-    }
-  };
-
   renderDropdownItems = () => {
     //map each program string in the array to a dropdown item
     return this.props.dropdownItems.map(program => {
@@ -45,7 +34,10 @@ export default class DropdownButton extends React.Component {
       }
 
       return (
-        <DropdownItem key={program} onClick={() => this.selectLanguage(program)}>
+        <DropdownItem
+          key={program}
+          onClick={this.props.onSelect ? () => this.props.onSelect(program) : null}
+        >
           {program}
         </DropdownItem>
       );
@@ -58,11 +50,6 @@ export default class DropdownButton extends React.Component {
       //TODO: add better error logic for this
       return this.props.displayValue;
     }
-
-    // let value = this.props.displayValue
-    // if(this.props.dirty){
-    //   value = (<span>&#8226;{this.props.displayValue}</span>)
-    // }
 
     return (
       <div className="editor-language-dropdown">

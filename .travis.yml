@@ -9,14 +9,6 @@ cache:
 script:
   - npm run prod_build
 
-deploy:
-  provider: pages
-  skip_cleanup: true
-  github_token: $github_token
-  local_dir: build
-  on:
-    branch: master
-
 notifications:
   email:
     on_success: never

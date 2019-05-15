@@ -1,5 +1,4 @@
 import React from "react";
-import TLAFooter from "../../img/tla-footer.png";
 
 // const styles = {
 //   container: {
@@ -17,8 +16,4 @@ import TLAFooter from "../../img/tla-footer.png";
 //   }
 // }
 
-export default props => (
-  <div className="login-footer">
-    <img className="login-footer-image" src={TLAFooter} alt="TEACH LA" />
-  </div>
-);
+export default props => <div className="login-footer" />;

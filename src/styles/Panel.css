@@ -1,15 +1,15 @@
 .panel {
   display: flex;
   box-sizing: border-box;
-  position: absolute;
-  background-color: #473d5d;
+  background-color: #f2ab15; /*#ffdd6f; /*#f9b219; /*#FFEE75;*/
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   box-sizing: content-box;
   margin: 0;
   padding: 0;
-  transition: left 0.5s ease;
+  overflow: hidden;
+  position: relative;
 }
 
 .panel-collapse-button {

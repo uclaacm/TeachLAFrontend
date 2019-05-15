@@ -22,6 +22,7 @@ class TextEditor extends React.Component {
     this.state = {
       codeMirrorInstance: null,
       currentLine: 0,
+      dirty: false,
     };
   }
 
@@ -31,15 +32,14 @@ class TextEditor extends React.Component {
     window.addEventListener("close", this.onLeave);
   }
 
-  componentWillUpdate() {}
-
   componentWillUnmount = () => {
+    //this.checkDirty();
     window.removeEventListener("beforeunload", this.onLeave);
     window.removeEventListener("close", this.onLeave);
   };
 
   checkDirty = async () => {
-    if (!this.props.dirty) {
+    if (!this.state.dirty) {
       return;
     }
 
@@ -51,16 +51,33 @@ class TextEditor extends React.Component {
 
       await fetch.updatePrograms(this.props.uid, programToUpdate);
       //TODO: add functionality to be able to tell whether the fetch failed
+      this.setState({ dirty: false });
     } catch (err) {
       console.log(err);
     }
   };
 
   onLeave = async ev => {
-    if (this.props.dirty) {
-      ev.returnValue = "";
+    if (!ev) {
+      return;
     }
-    return ev;
+
+    try {
+      ev.preventDefault();
+      ev.preventDefault();
+      if (this.state.dirty) {
+        let programToUpdate = {};
+        programToUpdate[this.props.mostRecentProgram] = {
+          code: this.props.code,
+        };
+        await fetch.updatePrograms(this.props.uid, programToUpdate);
+        ev.returnValue = "Ask if they want to reload";
+      }
+      return ev;
+    } catch (err) {
+      console.log(err);
+      return (ev.returnValue = "Are you sure you wanna close");
+    }
   };
 
   setCodeMirrorInstance = codeMirrorInstance => {
@@ -69,8 +86,8 @@ class TextEditor extends React.Component {
 
   updateCode = (editor, data, newCode) => {
     //if the code's not yet dirty, and the old code is different from the new code, make it dirty
-    if (!this.props.dirty && this.props.code !== newCode) {
-      this.props.dirtyCode(this.props.mostRecentProgram);
+    if (!this.state.dirty && this.props.code !== newCode) {
+      this.setState({ dirty: true });
     }
     this.props.setProgramCode(this.props.mostRecentProgram, newCode);
   };
