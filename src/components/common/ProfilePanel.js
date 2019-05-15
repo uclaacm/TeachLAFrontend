@@ -6,11 +6,18 @@ import {
   MAXIMUM_DISPLAY_NAME_LENGTH,
   PHOTO_NAMES,
   DEFAULT_PHOTO_NAME,
+  PANEL_SIZE,
 } from "../../constants";
 import ReactModal from "react-modal";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ComingSoonBanner } from "../../img/coming-soon-banner.png";
+import Pencil from "../../img/pencil.png";
+import House from "../../img/house.png";
+import Exit from "../../img/exit-icon.png";
+import TLAFooter from "../../img/tla-footer.png";
+import "../../styles/Panel.css";
 
 /**--------Props--------
  * togglePanel: function to be called when the panel is collapsed or opened
@@ -206,11 +213,11 @@ class ProfilePanel extends React.Component {
         <img
           style={{ position: "absolute", height: "60px", right: "-2px", zIndex: 20, opacity: 0.9 }}
           alt="banner"
-          src="img/coming-soon-banner.png"
+          src={ComingSoonBanner}
         />
       )}
       <span className={"panel-item-content"}>
-        <img className={"panel-item-icon"} alt="house" src="img/house2.png" />
+        <img className={"panel-item-icon"} alt="house" src={"img/house2.png"} />
         <span className={"panel-item-name"}>Profile</span>
       </span>
     </div>
@@ -230,12 +237,12 @@ class ProfilePanel extends React.Component {
         <img
           style={{ position: "absolute", height: "60px", right: "-2px", zIndex: 20, opacity: 0.9 }}
           alt="banner"
-          src="img/coming-soon-banner.png"
+          src={ComingSoonBanner}
         />
       )}
       <span className="panel-item-content">
         <span className="panel-item-icon">
-          <img className={"panel-item-icon"} alt="house" src="img/house2.png" />
+          <img className={"panel-item-icon"} alt="house" src={House} />
         </span>
         <span className="panel-item-name">Editor</span>
       </span>
@@ -256,12 +263,12 @@ class ProfilePanel extends React.Component {
         <img
           style={{ position: "absolute", height: "60px", right: "-2px", zIndex: 20, opacity: 0.9 }}
           alt="banner"
-          src="img/coming-soon-banner.png"
+          src={ComingSoonBanner}
         />
       )}
       <span className="panel-item-content">
         <span className="panel-item-icon">
-          <img className="reverse-image" alt="pencil" src="img/pencil.png" />
+          <img className="reverse-image" alt="pencil" src={Pencil} />
         </span>
         <span className="panel-item-name">Sketches</span>
       </span>
@@ -272,7 +279,7 @@ class ProfilePanel extends React.Component {
     <div className={"panel-options-item"} onClick={() => firebase.auth().signOut()} key="signout">
       <span className="panel-item-content">
         <span className="panel-item-icon">
-          <img className={"panel-item-icon"} alt="exit" src="img/exit-icon.png" />
+          <img className={"panel-item-icon"} alt="exit" src={Exit} />
         </span>
         <span className="panel-item-name">Log Out</span>
       </span>
@@ -302,24 +309,6 @@ class ProfilePanel extends React.Component {
     );
   };
 
-  renderMainContent = () => (
-    <div className="panel">
-      <div className="panel-collapse-button">
-        <div onClick={this.props.togglePanel}>
-          <FontAwesomeIcon icon={faTimes} color={"#292929"} />
-        </div>
-      </div>
-      <div className="panel-content">
-        {this.renderPanelImage()}
-        {this.renderImageModal()}
-        {this.renderName()}
-        {this.renderErrorMessage(this.state.displayNameMessage)}
-        {this.renderButtons()}
-      </div>
-      <div className="editor-footer" />
-    </div>
-  );
-
   renderRedirect() {
     if (this.state.redirectTo) {
       return <Redirect to={this.state.redirectTo} />;
@@ -327,13 +316,42 @@ class ProfilePanel extends React.Component {
     return null;
   }
 
-  render() {
-    const { panelStyle } = this.props;
+  renderContent = () => (
+    <div className="panel-content">
+      {this.renderPanelImage()}
+      {this.renderImageModal()}
+      {this.renderName()}
+      {this.renderErrorMessage(this.state.displayNameMessage)}
+      {this.renderButtons()}
+    </div>
+  );
 
+  renderCollapseButton = () => (
+    <div className="panel-collapse-button">
+      <div onClick={this.props.togglePanel}>
+        <FontAwesomeIcon icon={faTimes} />
+      </div>
+    </div>
+  );
+
+  renderFooter = () => (
+    <div className="editor-footer">
+      <img className="editor-footer-image" src={TLAFooter} alt="footer" />
+    </div>
+  );
+
+  render() {
+    const panelStyle = {
+      left: this.props.left,
+      height: this.props.screenHeight,
+      width: PANEL_SIZE,
+    };
     return (
-      <div style={panelStyle}>
-        {this.renderMainContent()}
+      <div className="panel" style={panelStyle}>
+        {this.renderCollapseButton()}
+        {this.renderContent()}
         {this.renderRedirect()}
+        {this.renderFooter()}
       </div>
     );
   }

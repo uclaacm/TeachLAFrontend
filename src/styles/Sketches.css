@@ -2,6 +2,12 @@
   --bg-color: #5584b2;
   --text-color: #ddd;
   background-color: var(--bg-color);
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  transition: all 0.5s ease;
+  overflow: hidden;
 }
 
 .sketches-expand-panel-arrow {
@@ -38,6 +44,8 @@
   justify-content: flex-start;
   align-items: flex-start;
   width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .sketches-grid-row {
