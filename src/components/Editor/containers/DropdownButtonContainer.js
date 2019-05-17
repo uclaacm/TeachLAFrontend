@@ -4,15 +4,21 @@ import { setMostRecentProgram } from "../../../actions/userDataActions.js";
 
 const mapStateToProps = state => {
   const { mostRecentProgram } = state.userData;
-
+  let mostRecentLanguage;
   let listOfPrograms = [];
-
-  state.programs.keySeq().forEach(key => listOfPrograms.push(key));
+  let programsJSON = state.programs.toJS();
+  Object.keys(programsJSON).forEach(function(key) {
+    listOfPrograms.push({ name: key, language: programsJSON[key]["language"] });
+    if (key === mostRecentProgram) {
+      mostRecentLanguage = programsJSON[key]["language"];
+    }
+  });
   const dirty = state.programs.getIn([mostRecentProgram, "dirty"], false);
   return {
     dirty,
     dropdownItems: listOfPrograms,
     displayValue: mostRecentProgram,
+    currentLanguage: mostRecentLanguage,
   };
 };
 
