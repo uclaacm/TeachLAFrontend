@@ -199,7 +199,8 @@
   left: 50%;
   transform: translate(-50%, -50%);
   min-height: 320px;
-  width: 400px;
+  min-width: 400px;
+  width: 40%;
   background-color: rgb(255, 255, 255);
   padding: 40px;
   border-radius: 20px;

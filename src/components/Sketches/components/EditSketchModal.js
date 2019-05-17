@@ -4,6 +4,7 @@ import { Button } from "reactstrap";
 import { Redirect } from "react-router-dom";
 import DropdownButton from "./DropdownButton";
 import { SketchThumbnailArray, LanguageDropdownValues } from "../constants";
+import { Container, Row, Col, Form, FormGroup, Label, Input } from "reactstrap";
 
 class EditSketchModal extends React.Component {
   constructor(props) {
@@ -17,7 +18,6 @@ class EditSketchModal extends React.Component {
       onThumbnails: false,
       redirect: false,
     };
-    console.log(LanguageDropdownValues);
   }
   componentWillMount() {}
   componentDidUpdate() {}
@@ -139,7 +139,6 @@ class EditSketchModal extends React.Component {
   };
 
   renderMainModal() {
-    console.log(this.props.sketchImg);
     let thumbnailPreview =
       this.state.newThumbnail !== -1 ? (
         <img
@@ -164,46 +163,77 @@ class EditSketchModal extends React.Component {
         overlayClassName="profile-image-overlay"
         ariaHideApp={false}
       >
-        <h2 className="text-center">Editing "{this.props.sketchName}"</h2>
-        <hr />
-        <form className="sketches-modal-form">
-          Name
-          <input
-            className="sketches-modal-input"
-            onChange={e => this.setState({ newName: e.target.value })}
-            value={this.state.newName !== -1 ? this.state.newName : this.props.sketchName}
-          />
-          Language
-          <DropdownButton
-            dropdownItems={LanguageDropdownValues}
-            onSelect={lang => this.setState({ newLanguage: lang })}
-            displayValue={
-              this.state.newLanguage !== -1
-                ? this.state.newLanguage.display
-                : this.props
-                    .sketchLang /*LanguageDropdownValues[LanguageDropdownValues.indexOf(this.props.sketchLang)].display*/
-            }
-          />
+        <Container>
+          <h2 className="text-center">Editing "{this.props.sketchName}"</h2>
+          <hr />
+          <FormGroup row>
+            <Label className="text-right" for="sketch-name" xs={6}>
+              Name
+            </Label>
+            <Col xs={6}>
+              <Input
+                className="sketches-modal-input"
+                onChange={e => this.setState({ newName: e.target.value })}
+                value={this.state.newName !== -1 ? this.state.newName : this.props.sketchName}
+                id="sketch-name"
+              />
+            </Col>
+          </FormGroup>
           <br />
-          <div className="sketches-modal-header-thumbnail-container">{thumbnailPreview}</div>
+          <Row>
+            <Col xs="6" className="text-right">
+              Language
+            </Col>
+            <Col xs="6" className="d-flex align-items-center">
+              <DropdownButton
+                dropdownItems={LanguageDropdownValues}
+                onSelect={lang => this.setState({ newLanguage: lang })}
+                displayValue={
+                  this.state.newLanguage !== -1
+                    ? this.state.newLanguage.display
+                    : this.props
+                        .sketchLang /*LanguageDropdownValues[LanguageDropdownValues.indexOf(this.props.sketchLang)].display*/
+                }
+              />
+            </Col>
+          </Row>
           <br />
-          <Button
-            color="primary"
-            onClick={() => {
-              this.setState({ onThumbnails: true });
-            }}
-          >
-            Change Thumbnail
-          </Button>
+          <Row>
+            <Col xs="6" className="text-right">
+              <div
+                className="sketches-modal-header-thumbnail-container"
+                style={{ display: "block", marginLeft: "auto", marginRight: "0" }}
+              >
+                {thumbnailPreview}
+              </div>
+            </Col>
+            <Col xs="6" className="d-flex align-items-center">
+              <Button
+                color="primary"
+                onClick={() => {
+                  this.setState({ onThumbnails: true });
+                }}
+              >
+                Change
+              </Button>
+            </Col>
+          </Row>
+
           <div style={{ color: "red", textAlign: "center" }}>{this.state.error || <br />}</div>
-        </form>
-        <hr />
-        <Button color="danger" onClick={this.closeModal} size="lg" block>
-          Cancel
-        </Button>{" "}
-        <Button color="success" size="lg" block>
-          Confirm
-        </Button>{" "}
+          <hr />
+          <Row>
+            <Col>
+              <Button color="danger" onClick={this.closeModal} size="lg" block>
+                Cancel
+              </Button>
+            </Col>
+            <Col>
+              <Button color="success" size="lg" block>
+                Confirm
+              </Button>
+            </Col>
+          </Row>
+        </Container>
       </ReactModal>
     );
   }
