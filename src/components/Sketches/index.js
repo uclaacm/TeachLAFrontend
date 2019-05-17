@@ -15,7 +15,7 @@ import { faPython } from "@fortawesome/free-brands-svg-icons";
 import { faHtml5 } from "@fortawesome/free-brands-svg-icons";
 
 const ROW_PADDING = 100;
-const SKETCH_WIDTH = 170;
+const SKETCH_WIDTH = 220;
 
 class Sketches extends React.Component {
   constructor(props) {

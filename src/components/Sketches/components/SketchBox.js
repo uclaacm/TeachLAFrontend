@@ -15,25 +15,25 @@ class SketchBox extends React.Component {
           <img
             alt={"User's sketch icon"}
             src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${this.props.img}.svg`}
-            className="sketch-thumbnail"
+            className="sketch-thumbnail mt-2"
           />
-          <Row>
+          <Row className="my-2">
             <Col className="text-left">
-              <b>{this.props.name}</b>
+              <b className="fa-lg">{this.props.name}</b>
             </Col>
             <Col className="text-right">
-              <FontAwesomeIcon icon={this.props.icon} />
+              <FontAwesomeIcon className="fa-lg" icon={this.props.icon} />
             </Col>
           </Row>
         </div>
         <hr className="sketch-divider" />
-        <Row className="sketch-box-body text-center">
-          <Col className="text-success" onClick={this.props.editFunc}>
-            <FontAwesomeIcon icon={faEdit} />
+        <Row className="sketch-box-body">
+          <Col className="p-2 text-center" onClick={this.props.editFunc}>
+            <FontAwesomeIcon className="fa-lg" icon={faEdit} />
           </Col>
           <div className="sketch-button-divider" />
-          <Col className="text-danger" onClick={this.props.deleteFunc}>
-            <FontAwesomeIcon icon={faTrashAlt} />
+          <Col className="p-2 text-center" onClick={this.props.deleteFunc}>
+            <FontAwesomeIcon className="fa-lg" icon={faTrashAlt} />
           </Col>
         </Row>
       </div>
