@@ -16,8 +16,8 @@ import { ComingSoonBanner } from "../../img/coming-soon-banner.png";
 import Pencil from "../../img/pencil.png";
 import House from "../../img/house.png";
 import Exit from "../../img/exit-icon.png";
-import TLAFooter from "../../img/tla-footer.png";
 import "../../styles/Panel.css";
+import Footer from "./Footer";
 
 /**--------Props--------
  * togglePanel: function to be called when the panel is collapsed or opened
@@ -332,11 +332,7 @@ class ProfilePanel extends React.Component {
     </div>
   );
 
-  renderFooter = () => (
-    <div className="editor-footer">
-      <img className="editor-footer-image" src={TLAFooter} alt="footer" />
-    </div>
-  );
+  renderFooter = () => <Footer />;
 
   render() {
     const panelStyle = {
