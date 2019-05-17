@@ -28,6 +28,7 @@ class Sketches extends React.Component {
       selectedSketch: "",
       selectedImg: "",
       selectedLang: "",
+      selectedKey: "",
     };
   }
 
@@ -47,12 +48,13 @@ class Sketches extends React.Component {
     this.setState({ confirmDeleteModalOpen: val, selectedSketch: sketch });
   };
 
-  setEditSketchModalOpen = (val, sketch, img, lang) => {
+  setEditSketchModalOpen = (val, sketch, img, lang, key) => {
     this.setState({
       editSketchModalOpen: val,
       selectedSketch: sketch,
       selectedImg: img,
       selectedLang: lang,
+      selectedKey: key,
     });
   };
 
@@ -93,30 +95,40 @@ class Sketches extends React.Component {
       else return 1;
     });
 
-    newList.forEach(({ name, language, thumbnail }) => {
+    newList.forEach(({ key, name, language, thumbnail }) => {
       let faLanguage;
+      let languageDisplay; // not a great way to do this!
       switch (language) {
         case "python":
           faLanguage = faPython;
+          languageDisplay = "Python";
           break;
         case "processing":
           faLanguage = faCogs;
+          languageDisplay = "Processing";
           break;
         case "html":
         default:
           faLanguage = faHtml5;
+          languageDisplay = "HTML";
       }
       sketches.push(
         <SketchBox
           img={this.getThumbnailSrc(thumbnail)}
           icon={faLanguage}
           name={name}
-          key={name}
+          key={key}
           deleteFunc={() => {
             this.setConfirmDeleteModalOpen(true, name);
           }}
           editFunc={() => {
-            this.setEditSketchModalOpen(true, name, this.getThumbnailSrc(thumbnail), language);
+            this.setEditSketchModalOpen(
+              true,
+              name,
+              this.getThumbnailSrc(thumbnail),
+              languageDisplay,
+              key,
+            );
           }}
           redirFunc={() => {
             this.redirectToEditor(name);
@@ -124,12 +136,7 @@ class Sketches extends React.Component {
         />,
       );
     });
-    console.log(
-      this.props.viewSize,
-      Math.floor((this.props.viewSize - ROW_PADDING) / SKETCH_WIDTH),
-    );
     let numSketchesPerRow = Math.floor((this.props.viewSize - ROW_PADDING) / SKETCH_WIDTH);
-    // let numSketchesPerRow = (this.originalWidth - ROW_PADDING) / SKETCH_WIDTH
     let rows = [];
     let originalLength = sketches.length;
     for (let i = 0; i < originalLength / numSketchesPerRow; i++) {
@@ -165,6 +172,7 @@ class Sketches extends React.Component {
       sketchName={this.state.selectedSketch}
       sketchImg={this.state.selectedImg}
       sketchLang={this.state.selectedLang}
+      sketchKey={this.state.selectedKey}
     />
   );
 

@@ -5,6 +5,7 @@ import { Redirect } from "react-router-dom";
 import DropdownButton from "./DropdownButton";
 import { SketchThumbnailArray, LanguageDropdownValues } from "../constants";
 import { Container, Row, Col, FormGroup, Label, Input } from "reactstrap";
+import * as fetch from "../../../lib/fetch.js";
 
 class EditSketchModal extends React.Component {
   constructor(props) {
@@ -86,7 +87,7 @@ class EditSketchModal extends React.Component {
     return false;
   };
 
-  onFormSubmit = async e => {
+  handleSubmitEdit = async e => {
     e.preventDefault();
 
     if (this.badNameInput() || this.badLanguageInput()) {
@@ -95,20 +96,27 @@ class EditSketchModal extends React.Component {
     }
 
     let data = {};
+    let doUpdate = false;
 
     if (this.state.newLanguage !== -1) {
       data["language"] = this.state.newLanguage.value;
+      doUpdate = true;
     }
     if (this.state.newName !== -1) {
       data["name"] = this.state.newName;
+      doUpdate = true;
     }
     if (this.state.newThumbnail !== -1) {
       data["thumbnail"] = this.state.newThumbnail;
+      doUpdate = true;
     }
-    if (!(Object.keys(data).length === 0 && data.constructor === Object)) {
+    console.log(this.props.sketchKey);
+    if (doUpdate) {
+      let updateData = {};
+      updateData[this.props.sketchKey] = data;
       try {
         fetch
-          .updatePrograms(this.props.uid, data)
+          .updatePrograms(this.props.uid, updateData)
           .then(res => {
             return res.json();
           })
@@ -120,8 +128,15 @@ class EditSketchModal extends React.Component {
               });
               return;
             }
-            this.props.addProgram(this.state.name, json.data || {}); // update this!
-            this.setState({ redirect: true });
+            if (this.state.newLanguage !== -1) {
+              this.props.setProgramLanguage(this.props.sketchKey, this.state.newLanguage);
+            }
+            if (this.state.newName !== -1) {
+              this.props.setProgramName(this.props.sketchKey, this.state.newName);
+            }
+            if (this.state.newThumbnail !== -1) {
+              this.props.setProgramThumbnail(this.props.sketchKey, this.state.newThumbnail);
+            }
             this.closeModal();
           })
           .catch(err => {
@@ -191,8 +206,7 @@ class EditSketchModal extends React.Component {
                 displayValue={
                   this.state.newLanguage !== -1
                     ? this.state.newLanguage.display
-                    : this.props
-                        .sketchLang /*LanguageDropdownValues[LanguageDropdownValues.indexOf(this.props.sketchLang)].display*/
+                    : this.props.sketchLang
                 }
               />
             </Col>
@@ -228,7 +242,7 @@ class EditSketchModal extends React.Component {
               </Button>
             </Col>
             <Col>
-              <Button color="success" size="lg" block>
+              <Button color="success" onClick={this.handleSubmitEdit} size="lg" block>
                 Confirm
               </Button>
             </Col>

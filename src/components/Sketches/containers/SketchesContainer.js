@@ -8,12 +8,15 @@ const mapStateToProps = state => {
 
   let listOfPrograms = [];
 
-  //create list of jsons with 2 keys
-  //name: the name of the sketch
-  //language: language the sketch uses
+  //create list of jsons with 4 keys
+  // key: the key of the sketch
+  // name: the name of the sketch
+  // language: language the sketch uses
+  // thumbnail: thumbnail for sketch
   state.programs.keySeq().forEach(key => {
     listOfPrograms.push({
-      name: key,
+      key: key,
+      name: state.programs.getIn([key, "name"], key),
       language: state.programs.getIn([key, "language"], "HTML"),
       thumbnail: state.programs.getIn([key, "thumbnail"], 0),
     });

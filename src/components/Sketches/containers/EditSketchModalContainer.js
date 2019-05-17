@@ -1,7 +1,10 @@
 import EditSketchModal from "../components/EditSketchModal.js";
 import { connect } from "react-redux";
-import { setProgramLanguage } from "../../../actions/programsActions";
-import { setProgramThumbnail } from "../../../actions/programsActions";
+import {
+  setProgramLanguage,
+  setProgramName,
+  setProgramThumbnail,
+} from "../../../actions/programsActions";
 
 const mapStateToProps = state => {
   return {
@@ -12,6 +15,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     setProgramLanguage: (program, value) => dispatch(setProgramLanguage(program, value)),
+    setProgramName: (program, value) => dispatch(setProgramName(program, value)),
     setProgramThumbnail: (program, value) => dispatch(setProgramThumbnail(program, value)),
   };
 };

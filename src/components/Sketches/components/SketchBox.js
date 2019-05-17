@@ -18,10 +18,10 @@ class SketchBox extends React.Component {
             className="sketch-thumbnail mt-2"
           />
           <Row className="my-2">
-            <Col className="text-left">
+            <Col className="text-left" xs="9">
               <b className="fa-lg">{this.props.name}</b>
             </Col>
-            <Col className="text-right">
+            <Col className="text-right" xs="3">
               <FontAwesomeIcon className="fa-lg" icon={this.props.icon} />
             </Col>
           </Row>
