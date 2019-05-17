@@ -4,7 +4,7 @@ import { Button } from "reactstrap";
 import { Redirect } from "react-router-dom";
 import DropdownButton from "./DropdownButton";
 import { SketchThumbnailArray, LanguageDropdownValues } from "../constants";
-import { Container, Row, Col, Form, FormGroup, Label, Input } from "reactstrap";
+import { Container, Row, Col, FormGroup, Label, Input } from "reactstrap";
 
 class EditSketchModal extends React.Component {
   constructor(props) {
@@ -167,10 +167,10 @@ class EditSketchModal extends React.Component {
           <h2 className="text-center">Editing "{this.props.sketchName}"</h2>
           <hr />
           <FormGroup row>
-            <Label className="text-right" for="sketch-name" xs={6}>
+            <Label className="text-right" for="sketch-name" xs={4}>
               Name
             </Label>
-            <Col xs={6}>
+            <Col xs={8}>
               <Input
                 className="sketches-modal-input"
                 onChange={e => this.setState({ newName: e.target.value })}
@@ -181,10 +181,10 @@ class EditSketchModal extends React.Component {
           </FormGroup>
           <br />
           <Row>
-            <Col xs="6" className="text-right">
+            <Col xs="4" className="text-right">
               Language
             </Col>
-            <Col xs="6" className="d-flex align-items-center">
+            <Col xs="8" className="d-flex align-items-center">
               <DropdownButton
                 dropdownItems={LanguageDropdownValues}
                 onSelect={lang => this.setState({ newLanguage: lang })}
@@ -199,7 +199,7 @@ class EditSketchModal extends React.Component {
           </Row>
           <br />
           <Row>
-            <Col xs="6" className="text-right">
+            <Col xs="4" className="text-right">
               <div
                 className="sketches-modal-header-thumbnail-container"
                 style={{ display: "block", marginLeft: "auto", marginRight: "0" }}
@@ -207,7 +207,7 @@ class EditSketchModal extends React.Component {
                 {thumbnailPreview}
               </div>
             </Col>
-            <Col xs="6" className="d-flex align-items-center">
+            <Col xs="8" className="d-flex align-items-center">
               <Button
                 color="primary"
                 onClick={() => {
@@ -218,8 +218,8 @@ class EditSketchModal extends React.Component {
               </Button>
             </Col>
           </Row>
-
-          <div style={{ color: "red", textAlign: "center" }}>{this.state.error || <br />}</div>
+          <br />
+          <div className="text-center text-danger">{this.state.error || <br />}</div>
           <hr />
           <Row>
             <Col>
