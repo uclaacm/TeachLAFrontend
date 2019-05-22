@@ -1,7 +1,6 @@
 import ConfirmDeleteModal from "../components/ConfirmDeleteModal.js";
 import { connect } from "react-redux";
-import { addProgram } from "../../../actions/programsActions";
-import { setMostRecentProgram } from "../../../actions/userDataActions.js";
+import { deleteProgram } from "../../../actions/programsActions";
 
 const mapStateToProps = state => {
   return {
@@ -11,8 +10,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addProgram: (program, data) => dispatch(addProgram(program, data)),
-    setMostRecentProgram: value => dispatch(setMostRecentProgram(value)),
+    deleteProgram: (program, data) => dispatch(deleteProgram(program, data)),
   };
 };
 

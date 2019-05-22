@@ -26,8 +26,7 @@ function programsReducer(state = initialState, action) {
     case ADD_PROGRAM:
       return state.set(action.program, Immutable.fromJS(action.data));
     case DELETE_PROGRAM:
-      //TODO: look up Immutable API on how to remove a nested key
-      return state;
+      return state.delete(action.program);
     default:
       return state;
   }

@@ -44,8 +44,8 @@ class Sketches extends React.Component {
     this.setState({ createSketchModalOpen: val });
   };
 
-  setConfirmDeleteModalOpen = (val, sketch) => {
-    this.setState({ confirmDeleteModalOpen: val, selectedSketch: sketch });
+  setConfirmDeleteModalOpen = (val, sketch, key) => {
+    this.setState({ confirmDeleteModalOpen: val, selectedSketch: sketch, selectedKey: key });
   };
 
   setEditSketchModalOpen = (val, sketch, img, lang, key) => {
@@ -119,7 +119,7 @@ class Sketches extends React.Component {
           name={name}
           key={key}
           deleteFunc={() => {
-            this.setConfirmDeleteModalOpen(true, name);
+            this.setConfirmDeleteModalOpen(true, name, key);
           }}
           editFunc={() => {
             this.setEditSketchModalOpen(
@@ -155,6 +155,7 @@ class Sketches extends React.Component {
       isOpen={this.state.confirmDeleteModalOpen}
       onClose={() => this.setConfirmDeleteModalOpen(false)}
       sketchName={this.state.selectedSketch}
+      sketchKey={this.state.selectedKey}
     />
   );
 

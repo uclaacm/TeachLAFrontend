@@ -19,8 +19,8 @@ export function setProgramThumbnail(program, value) {
 }
 
 export const DELETE_PROGRAM = "DELETE_PROGRAM";
-export function setRunResult(result) {
-  return { type: DELETE_PROGRAM, runResult: result };
+export function deleteProgram(program) {
+  return { type: DELETE_PROGRAM, program };
 }
 
 export const LOAD_PROGRAMS = "LOAD_PROGRAMS";

@@ -1,6 +1,7 @@
 import React from "react";
 import ReactModal from "react-modal";
 import { Container, Row, Col, Button } from "reactstrap";
+import * as fetch from "../../../lib/fetch.js";
 
 class ConfirmDeleteModal extends React.Component {
   componentWillMount() {}
@@ -10,6 +11,42 @@ class ConfirmDeleteModal extends React.Component {
     if (this.props.onClose && {}.toString.call(this.props.onClose) === "[object Function]") {
       this.props.onClose();
     }
+  };
+
+  onDeleteSubmit = () => {
+    let data = {
+      key: this.props.sketchKey,
+    };
+    try {
+      fetch
+        .deleteSketch(this.props.uid, data)
+        .then(res => {
+          //return res.json();
+          return { ok: true };
+        })
+        .then(json => {
+          console.log("yay!");
+          if (!json.ok) {
+            this.setState({
+              spinner: false,
+              error: json.error || "Failed to create sketch, please try again later",
+            });
+            return;
+          }
+          this.props.deleteProgram(this.props.sketchKey);
+          this.closeModal();
+        })
+        .catch(err => {
+          this.setState({
+            spinner: false,
+            error: "Failed to create sketch, please try again later",
+          });
+          console.log(err);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+    this.setState({ spinner: true, error: "" });
   };
 
   render() {
@@ -33,7 +70,7 @@ class ConfirmDeleteModal extends React.Component {
               </Button>
             </Col>
             <Col>
-              <Button color="danger" size="lg" block>
+              <Button color="danger" onClick={this.onDeleteSubmit} size="lg" block>
                 Delete Forever!
               </Button>
             </Col>
