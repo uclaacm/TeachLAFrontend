@@ -4,7 +4,7 @@ import OpenPanelButton from "./OpenPanelButton";
 
 const clickFn = jest.fn();
 
-describe("LoadingPage", () => {
+describe("OpenPanelButton", () => {
   it("panelOpen=true snapshot", () => {
     const component = shallow(<OpenPanelButton panelOpen={true} />);
 
@@ -20,16 +20,17 @@ describe("LoadingPage", () => {
   it("handles undefined togglePanel prop", () => {
     const component = shallow(<OpenPanelButton panelOpen={false} />);
 
-    component.find("div#editor-expand-panel-arrow", {}, results => {
-      expect(results.length).toBe(1);
-      results[0].simulate("click");
-    });
+    const res = component.find(".editor-expand-panel-arrow");
+    expect(res.length).toBe(1);
+    res.simulate("click");
   });
 
   it("calls togglePanel on click", () => {
     const component = shallow(<OpenPanelButton panelOpen={false} togglePanel={clickFn} />);
 
-    component.find("div#editor-expand-panel-arrow").simulate("click");
+    const res = component.find(".editor-expand-panel-arrow");
+    expect(res.length).toBe(1);
+    res.simulate("click");
 
     expect(clickFn).toHaveBeenCalled();
   });
