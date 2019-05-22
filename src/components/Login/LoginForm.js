@@ -117,7 +117,7 @@ export default class LoginModal extends React.Component {
     } else {
       /* We've disabled the social button for now, but here it is.
         <SocialButton
-          imgSrc="img/fbLogo1.png"
+          imgSrc="/img/fbLogo1.png"
           bgColor="#4267b2"
           textColor="white"
           value="Login with Facebook"
@@ -134,20 +134,21 @@ export default class LoginModal extends React.Component {
 
   render() {
     return (
-      <form className="login-form" onSubmit={this.handleEmailLogin}>
-        {/*Form doesn't do anything rn, just an example of a stateful React form.*/}
-        <div className="login-header">
-          Welcome to <span className="force-no-wrap">&lt;Teach LA&gt;</span>
-        </div>
-        <br />
-        {this.renderInputs()}
-        {this.renderAction()}
-        <br />
-        <br />
-        <Link to="/createUser" className="login-form-link">
-          Don't have an account? Create one now!
-        </Link>
-      </form>
+      <div className="login-form-container">
+        <form className="login-form" onSubmit={this.handleEmailLogin}>
+          <div className="login-header">
+            Welcome to <span className="force-no-wrap">&lt;Teach LA&gt;</span>
+          </div>
+          <br />
+          {this.renderInputs()}
+          {this.renderAction()}
+          <br />
+          <br />
+          <Link to="/createUser" className="login-form-link">
+            Don't have an account? Create one now!
+          </Link>
+        </form>
+      </div>
     );
   }
 }
