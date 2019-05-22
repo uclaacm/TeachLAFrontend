@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoadingPage should render correctly 1`] = `
+<div
+  className="Loading"
+>
+  <div
+    className="Loading-title"
+  >
+    Loading
+  </div>
+  <onlyUpdateForKeys(Loader)
+    color="#171124"
+    loading={true}
+    size={250}
+    sizeUnit="px"
+  />
+</div>
+`;

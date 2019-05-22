@@ -60,6 +60,11 @@
       "pre-commit": "lint-staged"
     }
   },
+  "jest": {
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ]
+  },
   "lint-staged": {
     "*.{js,json,css,md}": [
       "prettier --write",
