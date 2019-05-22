@@ -6,6 +6,7 @@ import {
   MAXIMUM_DISPLAY_NAME_LENGTH,
   PHOTO_NAMES,
   DEFAULT_PHOTO_NAME,
+  PANEL_SIZE,
 } from "../../constants";
 import ReactModal from "react-modal";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
@@ -15,7 +16,8 @@ import { ComingSoonBanner } from "../../img/coming-soon-banner.png";
 import Pencil from "../../img/pencil.png";
 import House from "../../img/house.png";
 import Exit from "../../img/exit-icon.png";
-import TLAFooter from "../../img/tla-footer.png";
+import "../../styles/Panel.css";
+import Footer from "./Footer";
 
 /**--------Props--------
  * togglePanel: function to be called when the panel is collapsed or opened
@@ -305,26 +307,6 @@ class ProfilePanel extends React.Component {
     );
   };
 
-  renderMainContent = () => (
-    <div className="panel">
-      <div className="panel-collapse-button">
-        <div onClick={this.props.togglePanel}>
-          <FontAwesomeIcon icon={faTimes} />
-        </div>
-      </div>
-      <div className="panel-content">
-        {this.renderPanelImage()}
-        {this.renderImageModal()}
-        {this.renderName()}
-        {this.renderErrorMessage(this.state.displayNameMessage)}
-        {this.renderButtons()}
-      </div>
-      <div className="editor-footer">
-        <img className="editor-footer-image" src={TLAFooter} alt="footer" />
-      </div>
-    </div>
-  );
-
   renderRedirect() {
     if (this.state.redirectTo) {
       return <Redirect to={this.state.redirectTo} />;
@@ -332,13 +314,38 @@ class ProfilePanel extends React.Component {
     return null;
   }
 
-  render() {
-    const { panelStyle } = this.props;
+  renderContent = () => (
+    <div className="panel-content">
+      {this.renderPanelImage()}
+      {this.renderImageModal()}
+      {this.renderName()}
+      {this.renderErrorMessage(this.state.displayNameMessage)}
+      {this.renderButtons()}
+    </div>
+  );
 
+  renderCollapseButton = () => (
+    <div className="panel-collapse-button">
+      <div onClick={this.props.togglePanel}>
+        <FontAwesomeIcon icon={faTimes} />
+      </div>
+    </div>
+  );
+
+  renderFooter = () => <Footer />;
+
+  render() {
+    const panelStyle = {
+      left: this.props.left,
+      height: this.props.screenHeight,
+      width: PANEL_SIZE,
+    };
     return (
-      <div style={panelStyle}>
-        {this.renderMainContent()}
+      <div className="panel" style={panelStyle}>
+        {this.renderCollapseButton()}
+        {this.renderContent()}
         {this.renderRedirect()}
+        {this.renderFooter()}
       </div>
     );
   }

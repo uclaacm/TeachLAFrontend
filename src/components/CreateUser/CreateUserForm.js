@@ -12,7 +12,7 @@ import {
   EMAIL_DOMAIN_NAME,
 } from "../../constants";
 
-export default class CreateUserModal extends React.Component {
+export default class CreateUserForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -183,15 +183,17 @@ export default class CreateUserModal extends React.Component {
 
   render() {
     return (
-      <form className="login-form" onSubmit={this.submit}>
-        {this.renderHeader()}
-        <br />
-        {this.renderInputs()}
-        {this.renderAction()}
-        <br />
-        <br />
-        {this.renderLink()}
-      </form>
+      <div className="login-form-container">
+        <form className="login-form" onSubmit={this.submit}>
+          {this.renderHeader()}
+          <br />
+          {this.renderInputs()}
+          {this.renderAction()}
+          <br />
+          <br />
+          {this.renderLink()}
+        </form>
+      </div>
     );
   }
 }

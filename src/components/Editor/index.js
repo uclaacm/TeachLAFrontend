@@ -20,7 +20,7 @@ import "../../styles/Editor.css";
 /**------Props-------
  * togglePanel: function to call when you want the Profile Panel to disappear/reapper
  * panelOpen: boolean telling whether the Profile Panel is open or not
- * codeStyle: object used to style the whole container //TODO: rename or move this prop
+ * left: the left css property that should be applied on the top level element
  */
 
 class Editor extends React.Component {
@@ -30,6 +30,7 @@ class Editor extends React.Component {
       saveText: "Save code",
       viewMode: CODE_AND_OUTPUT,
       redirect: "",
+      pane1Style: { transition: "width .5s ease" },
     };
   }
 
@@ -85,15 +86,17 @@ class Editor extends React.Component {
 
   renderCodeAndOutput = () => (
     <SplitPane
-      //makes split pane resizer more consistent
-      //bc you can hover over the iframe while dragging
-      //and it steals the mouse
       resizerStyle={{
         height: "67px",
         borderLeft: "2px solid #333",
         borderRight: "2px solid #333",
         width: "10px",
       }}
+      pane1Style={this.state.pane1Style}
+      //functions called when you start and finish a drag
+      //removes and re-addsthe transition effect on the first panel when manually resizing
+      onDragStarted={() => this.setState({ pane1Style: {} })}
+      onDragFinished={() => this.setState({ pane1Style: { transition: "width .5s ease" } })}
       split="vertical" //the resizer is a vertical line (horizontal means resizer is a horizontal bar)
       minSize={
         (this.props.panelOpen ? this.props.screenWidth - PANEL_SIZE : this.props.screenWidth) * 0.33
@@ -151,11 +154,16 @@ class Editor extends React.Component {
   );
 
   renderContent = () => {
+    const codeStyle = {
+      width: this.props.screenWidth - (this.props.left || 0),
+      height: this.props.screenHeight,
+    };
+
     switch (this.state.viewMode) {
       case CODE_ONLY:
-        return this.renderCode();
+        return <div style={codeStyle}>{this.renderCode()}</div>;
       case OUTPUT_ONLY:
-        return this.renderOutput();
+        return <div style={codeStyle}>{this.renderOutput()}</div>;
       default:
         return this.renderCodeAndOutput();
     }
@@ -165,7 +173,18 @@ class Editor extends React.Component {
     if (this.state.redirect) {
       return <Redirect to={this.state.redirect} />;
     }
-    return <div style={this.props.codeStyle}>{this.renderContent()}</div>;
+
+    const codeStyle = {
+      left: this.props.left || 0,
+      width: this.props.screenWidth - (this.props.left || 0),
+      height: this.props.screenHeight,
+    };
+
+    return (
+      <div className="editor" style={codeStyle}>
+        {this.renderContent()}
+      </div>
+    );
   }
 }
 

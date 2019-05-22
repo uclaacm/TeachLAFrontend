@@ -70,7 +70,6 @@ class Sketches extends React.Component {
   renderSketches = () => {
     let newList = this.props.programs.concat([]);
     let sketches = [];
-
     newList.sort((a, b) => {
       if (a.name < b.name) return -1;
       if (a.name === b.name) return 0;
@@ -100,7 +99,7 @@ class Sketches extends React.Component {
       );
     });
 
-    let numSketchesPerRow = Math.floor((this.props.viewSize - ROW_PADDING) / SKETCH_WIDTH);
+    let numSketchesPerRow = Math.floor((this.props.calculatedWidth - ROW_PADDING) / SKETCH_WIDTH);
     // let numSketchesPerRow = (this.originalWidth - ROW_PADDING) / SKETCH_WIDTH
     let rows = [];
     let originalLength = sketches.length;
@@ -111,8 +110,6 @@ class Sketches extends React.Component {
         </div>,
       );
     }
-
-    //<div className="sketches-grid-row"></div>
 
     return <div className="sketches-grid">{rows}</div>;
   };
@@ -126,11 +123,11 @@ class Sketches extends React.Component {
 
   renderContent = () => {
     return (
-      <div>
+      <React.Fragment>
         {this.renderHeader()}
         {this.renderSketches()}
         {this.renderModal()}
-      </div>
+      </React.Fragment>
     );
   };
 
@@ -138,7 +135,18 @@ class Sketches extends React.Component {
     if (this.state.redirectTo) {
       return <Redirect to={this.state.redirectTo} />;
     }
-    return <div style={this.props.codeStyle}>{this.renderContent()}</div>;
+
+    const containerStyle = {
+      left: this.props.left || 0,
+      width: this.props.calculatedWidth,
+      height: this.props.screenHeight,
+    };
+
+    return (
+      <div className="sketches" style={containerStyle}>
+        {this.renderContent()}
+      </div>
+    );
   }
 }
 
