@@ -5,6 +5,11 @@ import OpenPanelButton from "./OpenPanelButton";
 const clickFn = jest.fn();
 
 describe("OpenPanelButton", () => {
+  it("smoke test", () => {
+    const component = shallow(<OpenPanelButton />);
+    expect(component.exists()).toBe(true);
+  });
+
   it("panelOpen=true snapshot", () => {
     const component = shallow(<OpenPanelButton panelOpen={true} />);
 

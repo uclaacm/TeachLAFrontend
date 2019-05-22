@@ -12,6 +12,12 @@ import {
   EMAIL_DOMAIN_NAME,
 } from "../../constants";
 
+/**
+ * Props
+ *
+ * None
+ */
+
 export default class CreateUserForm extends React.Component {
   constructor(props) {
     super(props);
@@ -20,8 +26,8 @@ export default class CreateUserForm extends React.Component {
       password: "",
       errorMessage: "",
       waiting: false,
-      usernameMessage: null,
-      passwordMessage: null,
+      usernameMessage: "",
+      passwordMessage: "",
     };
   }
 
@@ -32,27 +38,26 @@ export default class CreateUserForm extends React.Component {
    *    -Username characters: only alphanumeric characters, plus !@#$%
    *    -Password length: as defined in constants file
    *    -Password characters: only alphanumeric characters, plus !@#$%
-   * @return {boolean} badInputs - indicates whether any of the inputs given do
-   * not fall within the criteria above
+   * @return {boolean} - false when bad inputs given
    */
   checkInputs = () => {
     const { username, password } = this.state;
-    let badInputs = false;
+    let badInputs = true;
 
     //if username is too long, too short, has non ascii and some special characters, reject it
     if (username.length < MINIMUM_USERNAME_LENGTH || username.length > MAXIMUM_USERNAME_LENGTH) {
       this.setState({
         usernameMessage: `Username must be between ${MINIMUM_USERNAME_LENGTH}-${MAXIMUM_USERNAME_LENGTH} characters long`,
       });
-      badInputs = true;
+      badInputs = false;
     } else if (username.match(/[^a-zA-Z0-9!@#$%]/)) {
       this.setState({
         usernameMessage:
           "Username must only use upper case and lower case letters, numbers, and/or the special characters !@#$%",
       });
-      badInputs = true;
+      badInputs = false;
     } else {
-      this.setState({ usernameMessage: null });
+      this.setState({ usernameMessage: "" });
     }
 
     //if password is too long, too short, has non ascii and some special characters, reject it
@@ -60,15 +65,15 @@ export default class CreateUserForm extends React.Component {
       this.setState({
         passwordMessage: `Password must be between ${MINIMUM_PASSWORD_LENGTH}-${MAXIMUM_PASSWORD_LENGTH} characters long`,
       });
-      badInputs = true;
+      badInputs = false;
     } else if (password.match(/[^a-zA-Z0-9!@#$%]/)) {
       this.setState({
         passwordMessage:
           "Password must only use upper case and lower case letters, numbers, and/or the special characters !@#$%",
       });
-      badInputs = true;
+      badInputs = false;
     } else {
-      this.setState({ passwordMessage: null });
+      this.setState({ passwordMessage: "" });
     }
 
     return badInputs;
@@ -92,10 +97,10 @@ export default class CreateUserForm extends React.Component {
       passwordMessage: "",
     });
 
-    let badInputs = this.checkInputs();
+    let validInputs = this.checkInputs();
 
     //if we found any bad inputs, don't try to create the user on the server
-    if (badInputs) {
+    if (!validInputs) {
       this.setState({ waiting: false });
       return;
     }

@@ -1,15 +1,15 @@
 import React from "react";
 import { shallow } from "enzyme";
-import Footer from "./Footer";
+import CreateUser from "./CreateUser";
 
-describe("Footer", () => {
+describe("CreateUser", () => {
   it("smoke test", () => {
-    const component = shallow(<Footer />);
+    const component = shallow(<CreateUser />);
     expect(component.exists()).toBe(true);
   });
 
   it("should render correctly", () => {
-    const component = shallow(<Footer />);
+    const component = shallow(<CreateUser />);
 
     expect(component).toMatchSnapshot();
   });

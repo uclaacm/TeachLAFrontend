@@ -3,9 +3,13 @@ import { shallow } from "enzyme";
 import ProfilePanel from "./ProfilePanel";
 import ReactModal from "react-modal";
 import { DEFAULT_PHOTO_NAME, PHOTO_NAMES } from "../../constants";
-import { cpus } from "os";
 
 describe("ProfilePanel", () => {
+  it("smoke test", () => {
+    const component = shallow(<ProfilePanel />);
+    expect(component.exists()).toBe(true);
+  });
+
   it("handles displayName prop properly", () => {
     const component = shallow(<ProfilePanel displayName={"Mark"} />);
     expect(component.find(".panel-name").text()).toEqual("Mark");

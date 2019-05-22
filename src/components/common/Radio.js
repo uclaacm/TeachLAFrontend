@@ -72,18 +72,22 @@ export default class Radio extends React.Component {
     const id = index === 0 ? "left" : index === this.props.options.length - 1 ? "right" : "";
 
     let optionStyle;
-    if (isSelected)
+    if (isSelected) {
       optionStyle = Object.assign(
         {},
         this.props.optionStyle || {},
         this.props.selectedOptionStyle || {},
-        { bgColor: this.props.selectedBgColor || "", color: this.props.selectedColor || "" },
+        this.props.selectedBgColor ? { backgroundColor: this.props.selectedBgColor } : {},
+        this.props.selectedColor ? { color: this.props.selectedColor } : {},
       );
-    else
-      optionStyle = Object.assign({}, this.props.optionStyle || {}, {
-        bgColor: this.props.bgColor || "",
-        color: this.props.color || "",
-      });
+    } else {
+      optionStyle = Object.assign(
+        {},
+        this.props.optionStyle || {},
+        this.props.bgColor ? { backgroundColor: this.props.bgColor } : {},
+        this.props.color ? { color: this.props.color } : {},
+      );
+    }
 
     return (
       <div
