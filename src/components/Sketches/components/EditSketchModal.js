@@ -110,7 +110,6 @@ class EditSketchModal extends React.Component {
       data["thumbnail"] = this.state.newThumbnail;
       doUpdate = true;
     }
-    console.log(this.props.sketchKey);
     if (doUpdate) {
       let updateData = {};
       updateData[this.props.sketchKey] = data;
@@ -129,7 +128,7 @@ class EditSketchModal extends React.Component {
               return;
             }
             if (this.state.newLanguage !== -1) {
-              this.props.setProgramLanguage(this.props.sketchKey, this.state.newLanguage);
+              this.props.setProgramLanguage(this.props.sketchKey, this.state.newLanguage.value);
             }
             if (this.state.newName !== -1) {
               this.props.setProgramName(this.props.sketchKey, this.state.newName);
