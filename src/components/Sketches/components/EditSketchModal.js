@@ -1,7 +1,6 @@
 import React from "react";
 import ReactModal from "react-modal";
 import { Button } from "reactstrap";
-import { Redirect } from "react-router-dom";
 import DropdownButton from "./DropdownButton";
 import { SketchThumbnailArray, LanguageDropdownValues } from "../constants";
 import { Container, Row, Col, FormGroup, Label, Input } from "reactstrap";
@@ -17,7 +16,6 @@ class EditSketchModal extends React.Component {
       spinner: false,
       error: "",
       onThumbnails: false,
-      redirect: false,
     };
   }
   componentWillMount() {}
@@ -52,11 +50,6 @@ class EditSketchModal extends React.Component {
       this.setState({ error: "Name must be 15 characters or less" });
       return true;
     }
-    // if( this.state.name.match(/[^a-zA-Z0-9!@#$%'" .]/)){
-    //   this.setState({error: "Sketch name nust be less than 20 characters"})
-    //   return true
-    // }
-
     return false;
   };
 
@@ -318,10 +311,6 @@ class EditSketchModal extends React.Component {
   }
 
   render() {
-    if (this.state.redirect) {
-      return <Redirect to="/editor" />;
-    }
-
     if (this.state.onThumbnails) {
       return this.renderThumbnailModal();
     }

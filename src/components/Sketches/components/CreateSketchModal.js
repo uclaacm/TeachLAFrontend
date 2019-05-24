@@ -125,12 +125,6 @@ class CreateSketchModal extends React.Component {
 
     if (this.badThumbnailInput()) return;
 
-    // let data = {}
-    // data[this.state.name] = {
-    //   thumbnail: this.state.thumbnail,
-    //   language: this.state.language.value,
-    //   code: "",
-    // }
     let data = {
       uid: this.props.uid,
       thumbnail: this.state.thumbnail,
@@ -153,8 +147,9 @@ class CreateSketchModal extends React.Component {
             });
             return;
           }
-          this.props.addProgram(this.state.name, json.data || {});
-          this.props.setMostRecentProgram(this.state.name);
+          console.log(json);
+          this.props.addProgram(json.data.key, json.data.programData || {});
+          this.props.setMostRecentProgram(json.data.key);
           this.setState({ redirect: true });
           this.closeModal();
         })
