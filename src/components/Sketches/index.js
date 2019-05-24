@@ -131,7 +131,8 @@ class Sketches extends React.Component {
         />,
       );
     });
-    let numSketchesPerRow = Math.floor((this.props.viewSize - ROW_PADDING) / SKETCH_WIDTH);
+    console.log(sketches);
+    let numSketchesPerRow = Math.floor((this.props.calculatedWidth - ROW_PADDING) / SKETCH_WIDTH);
     let rows = [];
     let originalLength = sketches.length;
     for (let i = 0; i < originalLength / numSketchesPerRow; i++) {
