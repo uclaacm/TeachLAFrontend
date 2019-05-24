@@ -18,6 +18,7 @@ export default class CreateUserForm extends React.Component {
     this.state = {
       username: "",
       password: "",
+      confirmPassword: "",
       errorMessage: "",
       waiting: false,
       usernameMessage: null,
@@ -36,7 +37,7 @@ export default class CreateUserForm extends React.Component {
    * not fall within the criteria above
    */
   checkInputs = () => {
-    const { username, password } = this.state;
+    const { username, password, confirmPassword } = this.state;
     let badInputs = false;
 
     //if username is too long, too short, has non ascii and some special characters, reject it
@@ -65,6 +66,13 @@ export default class CreateUserForm extends React.Component {
       this.setState({
         passwordMessage:
           "Password must only use upper case and lower case letters, numbers, and/or the special characters !@#$%",
+      });
+      badInputs = true;
+    } else if (password !== confirmPassword) {
+      this.setState({
+        passwordMessage: `Password and Confirm Password don't match`,
+        password: "",
+        confirmPassword: "",
       });
       badInputs = true;
     } else {
@@ -118,7 +126,7 @@ export default class CreateUserForm extends React.Component {
         this.setState({ waiting: false, errorMessage: newErr || "failed to create user" });
       });
 
-    this.setState({ password: "" });
+    this.setState({ password: "", confirmPassword: "" });
   };
 
   renderErrorMessage = (msg, addBreak) => {
@@ -134,21 +142,28 @@ export default class CreateUserForm extends React.Component {
 
   updateUsername = username => this.setState({ username });
   updatePassword = password => this.setState({ password });
+  updateConfirmPassword = confirmPassword => this.setState({ confirmPassword });
 
   renderInputs = () => (
     <div className="login-form-input-list">
       <div>
         <LoginInput
-          type={"username"}
+          type={"Username"}
           data={this.state.username}
           waiting={this.state.waiting}
           onChange={this.updateUsername}
         />
         <LoginInput
-          type={"password"}
+          type={"Password"}
           data={this.state.password}
           waiting={this.state.waiting}
           onChange={this.updatePassword}
+        />
+        <LoginInput
+          type={"Confirm Password"}
+          data={this.state.confirmPassword}
+          waiting={this.state.waiting}
+          onChange={this.updateConfirmPassword}
         />
         {this.renderErrorMessage(this.state.usernameMessage)}
         {this.renderErrorMessage(this.state.passwordMessage)}
