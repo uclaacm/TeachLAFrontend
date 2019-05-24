@@ -179,12 +179,6 @@
   flex: 0 0;
 }
 
-.sketches-modal-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .sketches-modal-input {
   text-align: center;
 }
@@ -195,6 +189,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: 40%;
+  min-width: 400px;
   background-color: rgb(255, 255, 255);
   padding: 40px;
   border-radius: 20px;

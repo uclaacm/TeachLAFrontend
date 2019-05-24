@@ -287,11 +287,12 @@ class EditSketchModal extends React.Component {
         overlayClassName="profile-image-overlay"
         ariaHideApp={false}
       >
-        <form className="sketches-modal-form">
-          <div className="sketches-modal-header">
+        <form>
+          <div className="sketches-modal-header d-flex align-items-center">
             <h1>Choose a thumbnail</h1>
-            <div className="sketches-modal-header-thumbnail-container">{thumbnailPreview}</div>
+            <div className="ml-4 sketches-modal-header-thumbnail-container">{thumbnailPreview}</div>
           </div>
+          <hr />
           <div className="sketches-gallery">{icons}</div>
           <div style={{ color: "red", textAlign: "center" }}>{this.state.error || <br />}</div>
         </form>

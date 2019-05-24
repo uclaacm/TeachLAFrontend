@@ -202,7 +202,7 @@ class CreateSketchModal extends React.Component {
         ariaHideApp={false}
       >
         <Container>
-          <div className="sketches-modal-header">
+          <div className="sketches-modal-header d-flex align-items-center">
             <h1>Choose a thumbnail</h1>
             <div className="sketches-modal-header-thumbnail-container">{thumbnailPreview}</div>
           </div>
