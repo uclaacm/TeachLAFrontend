@@ -1,12 +1,11 @@
 .editor {
   display: flex;
-  height: 100%;
-  width: 100%;
   flex-direction: row;
   align-items: flex-start;
-  background-color: #585166;
+  background-color: #252132;
   justify-content: flex-start;
-  position: relative;
+  position: absolute;
+  transition: all 0.5s ease;
 }
 
 .code-section {
@@ -17,13 +16,14 @@
   align-items: flex-start;
   max-height: 100vh;
   overflow-y: auto;
-  background-color: #857e8f;
+  background-color: #252132;
 }
 
 .code-section-banner {
   display: flex;
   flex-direction: row;
   padding: 5px 0px;
+  height: 67px;
   align-items: center;
   justify-content: flex-start;
   width: 100%;

@@ -32,10 +32,6 @@ class Sketches extends React.Component {
     };
   }
 
-  //==============React Lifecycle Functions Start===================//
-  componentWillMount() {}
-  componentDidUpdate() {}
-
   getRandomSketchThumbnail = () => {
     return SketchThumbnailArray[Math.floor(Math.random() * SketchThumbnailArray.length)];
   };
@@ -85,9 +81,8 @@ class Sketches extends React.Component {
   };
 
   renderSketches = () => {
-    let newList = this.props.listOfPrograms.concat([]);
+    let newList = this.props.programs.concat([]);
     let sketches = [];
-
     newList.sort((a, b) => {
       if (a.name < b.name) return -1;
       if (a.name === b.name) return 0;
@@ -131,7 +126,7 @@ class Sketches extends React.Component {
             );
           }}
           redirFunc={() => {
-            this.redirectToEditor(name);
+            this.redirectToEditor(key);
           }}
         />,
       );
@@ -179,13 +174,13 @@ class Sketches extends React.Component {
 
   renderContent = () => {
     return (
-      <div>
+      <React.Fragment>
         {this.renderHeader()}
         {this.renderSketches()}
         {this.renderCreateSketchModal()}
         {this.renderConfirmDeleteModal()}
         {this.renderEditSketchModal()}
-      </div>
+      </React.Fragment>
     );
   };
 
@@ -193,7 +188,18 @@ class Sketches extends React.Component {
     if (this.state.redirectTo) {
       return <Redirect to={this.state.redirectTo} />;
     }
-    return <div style={this.props.codeStyle}>{this.renderContent()}</div>;
+
+    const containerStyle = {
+      left: this.props.left || 0,
+      width: this.props.calculatedWidth,
+      height: this.props.screenHeight,
+    };
+
+    return (
+      <div className="sketches" style={containerStyle}>
+        {this.renderContent()}
+      </div>
+    );
   }
 }
 

@@ -4,6 +4,7 @@ import Output from "../components/Output.js";
 const mapStateToProps = state => {
   const { mostRecentProgram } = state.userData;
   return {
+    mostRecentProgram,
     runResult: state.programs.getIn([mostRecentProgram, "code"]),
     language: state.programs.getIn([mostRecentProgram, "language"]),
     screenHeight: state.ui.screenHeight,

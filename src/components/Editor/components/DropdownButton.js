@@ -1,5 +1,9 @@
 import React from "react";
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";
+import { faCogs } from "@fortawesome/free-solid-svg-icons";
+import { faPython } from "@fortawesome/free-brands-svg-icons";
+import { faHtml5 } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 /**--------Props---------------
  * dropdownItems: array of strings, each string being the name of a Program
@@ -25,30 +29,58 @@ export default class DropdownButton extends React.Component {
     this.setState({ dropdownOpen: !prevVal });
   };
 
+  selectLanguage = program => {
+    let result = true;
+    if (this.props.dirty) {
+      result = window.confirm("Are you sure you want to change programs? You have unsaved changes");
+    }
+
+    if (this.props.onSelect && result) {
+      this.props.onSelect(program);
+    }
+  };
+
   renderDropdownItems = () => {
     //map each program string in the array to a dropdown item
     return this.props.dropdownItems.map(program => {
-      //if the program doesn't exist, or is an empty string, return null
-      if (!program || !program.length) {
-        return null;
+      let faLanguage;
+      switch (program.language) {
+        case "python":
+          faLanguage = faPython;
+          break;
+        case "processing":
+          faLanguage = faCogs;
+          break;
+        case "html":
+        default:
+          faLanguage = faHtml5;
       }
-
       return (
-        <DropdownItem
-          key={program}
-          onClick={this.props.onSelect ? () => this.props.onSelect(program) : null}
-        >
-          {program}
+        <DropdownItem key={program.key} onClick={() => this.selectLanguage(program.key)}>
+          <FontAwesomeIcon icon={faLanguage} fixedWidth />
+          <span style={{ marginLeft: "10px" }}>{program.name}</span>
         </DropdownItem>
       );
     });
   };
 
   render() {
-    //if there's no programs in the dropdownItems, just show the display value
-    if (!this.props.dropdownItems || !this.props.dropdownItems.length) {
-      //TODO: add better error logic for this
-      return this.props.displayValue;
+    // let value = this.props.displayValue
+    // if(this.props.dirty){
+    //   value = (<span>&#8226;{this.props.displayValue}</span>)
+    // }
+
+    let faLanguage;
+    switch (this.props.currentLanguage) {
+      case "python":
+        faLanguage = faPython;
+        break;
+      case "processing":
+        faLanguage = faCogs;
+        break;
+      case "html":
+      default:
+        faLanguage = faHtml5;
     }
 
     return (
@@ -59,7 +91,9 @@ export default class DropdownButton extends React.Component {
         >
           {/* HACK: disables the colors entirely, makes the dropdown transparent */}
           <DropdownToggle color={""} caret>
-            <div className="editor-language-dropdown-closed-content">{this.props.displayValue}</div>
+            <div className="editor-language-dropdown-closed-content">
+              <FontAwesomeIcon icon={faLanguage} fixedWidth /> {this.props.displayValue}
+            </div>
           </DropdownToggle>
           <DropdownMenu>{this.renderDropdownItems()}</DropdownMenu>
         </Dropdown>

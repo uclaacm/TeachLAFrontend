@@ -19,12 +19,33 @@ class Output extends React.Component {
     this.state = {
       //used for the refresh button
       counter: 0,
+      run: 0,
       showConsole: true,
     };
+    this.firstLoad = true;
   }
 
   //==============React Lifecycle Functions===================//
-  componentDidUpdate = () => {};
+  shouldComponentUpdate = (nextProps, nextState) => {
+    if (this.state.showConsole !== nextState.showConsole) {
+      return true;
+    }
+
+    if (this.props.mostRecentProgram !== nextProps.mostRecentProgram) {
+      this.firstLoad = true;
+      return true;
+    }
+
+    if (
+      this.state.run !== nextState.run ||
+      this.state.counter !== nextState.counter ||
+      this.state.showConsole !== nextState.showConsole
+    ) {
+      this.firstLoad = false;
+      return true;
+    }
+    return false;
+  };
 
   // a bit hacky, but we're re-rendering the output
   // by updating the state in a novel way
@@ -43,8 +64,8 @@ class Output extends React.Component {
 
     return (
       <iframe
-        id={this.state.counter}
-        key={this.state.counter}
+        id={this.state.counter + " " + this.state.run}
+        key={this.state.counter + " " + this.state.run}
         className="editor-output-iframe"
         style={{ height: this.props.screenHeight - 61 + "px" }}
         srcDoc={getSrcDoc()}
@@ -60,6 +81,10 @@ class Output extends React.Component {
   renderOutput = () => {
     let { language, runResult } = this.props;
     const { showConsole } = this.state;
+
+    if (this.firstLoad) {
+      return null;
+    }
 
     //if there's nothing to run, don't render an output
     if (!runResult || !runResult.length) {
@@ -127,9 +152,15 @@ class Output extends React.Component {
       <div style={{ flex: "1 1 auto" }}> </div> {/*whitespace*/}
       {this.renderRadio()}
       {this.renderConsoleButton()}
-      <EditorButton handleClick={this.reRenderOutput} text="Refresh" color="#3c52ba" />
+      <EditorButton handleClick={this.runCode} text="Run Code" color="#3c52ba" />
     </div>
   );
+
+  runCode = () => {
+    this.setState(prevState => ({
+      run: prevState.run + 1,
+    }));
+  };
 
   render() {
     return (
