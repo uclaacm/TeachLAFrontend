@@ -55,7 +55,6 @@ class ConfirmDeleteModal extends React.Component {
         isOpen={this.props.isOpen}
         onRequestClose={this.closeModal}
         className="sketches-modal"
-        overlayClassName="profile-image-overlay"
         ariaHideApp={false}
       >
         <Container>
