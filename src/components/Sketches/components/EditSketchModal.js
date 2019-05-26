@@ -26,7 +26,6 @@ class EditSketchModal extends React.Component {
       this.props.onClose();
     }
     this.setState({
-      next: false,
       newLanguage: -1,
       newName: -1,
       newThumbnail: -1,
