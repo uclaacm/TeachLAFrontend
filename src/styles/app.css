@@ -3,6 +3,13 @@
   height: 100%;
 }
 
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
 * {
   /*needed for the modal's button to stay within the window*/
   box-sizing: border-box;

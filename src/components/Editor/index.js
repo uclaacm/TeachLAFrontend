@@ -11,9 +11,6 @@ import { Redirect } from "react-router-dom";
 import { EDITOR_WIDTH_BREAKPOINT, CODE_AND_OUTPUT, CODE_ONLY, OUTPUT_ONLY } from "./constants";
 
 import { PANEL_SIZE } from "../../constants";
-import "codemirror/lib/codemirror.css";
-import "codemirror/theme/material.css";
-import "../../styles/CustomCM.css";
 import "../../styles/Resizer.css";
 import "../../styles/Editor.css";
 
@@ -132,14 +129,7 @@ class Editor extends React.Component {
         </div>
         <EditorButton handleClick={this.handleSave} text={this.state.saveText} />
       </div>
-      <div
-        className="text-editor-container"
-        style={{
-          height: this.props.screenHeight - 61 - 20,
-          minHeight: this.props.screenHeight - 61 - 20,
-          maxHeight: this.props.screenHeight - 61 - 20,
-        }}
-      >
+      <div className="text-editor-container">
         <TextEditorContainer key={this.props.mostRecentProgram} />
       </div>
     </div>

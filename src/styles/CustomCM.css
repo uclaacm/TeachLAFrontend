@@ -1,84 +1,22 @@
-.CodeMirror-lines {
-  cursor: default;
-}
-
-.cm-s-material.CodeMirror {
-  box-sizing: border-box;
-  max-width: inherit;
-  max-height: inherit;
-  min-height: inherit;
-  background-color: rgb(38, 50, 56, 0);
-  font-family: "Ubuntu Mono", monospace;
-  color: white;
-  font-size: 18px;
+.react-codemirror2 {
   height: 100%;
 }
 
+.CodeMirror {
+  height: 100%;
+}
+
+/* around each line (padding adds space between line and the gutter/edge of the editor */
 .CodeMirror pre {
   padding-left: 5px;
   padding-right: 4px;
 }
 
-.cm-s-material .CodeMirror-gutters {
-  background-color: #252132;
-}
-.cm-s-material .CodeMirror-guttermarker,
-.cm-s-material .CodeMirror-guttermarker-subtle,
-.cm-s-material .CodeMirror-linenumber {
-  color: white;
-}
-
-.cm-s-material .CodeMirror-guttermarker,
-.cm-s-material .CodeMirror-guttermarker-subtle,
-.cm-s-material .CodeMirror-linenumber {
-  text-align: left;
-  padding-left: 15px;
-}
-
-/* comments, e.g. // # /* */
-.cm-s-material .cm-comment {
-  color: white;
-}
-
-/* import for while in etc */
-.cm-s-material span.cm-keyword {
-  color: #deb0ff;
-}
-
-/*e.g. var *blah*, blah will be colored */
-.cm-s-material span.cm-def {
-  color: #47e2d5;
-}
-
-/*e.g. var *blah*, blah will be colored */
-.cm-s-material span.cm-variable {
-  color: #f5e83c;
-}
-
-/*for python: print, range, all built-in functions */
-.cm-s-material .cm-builtin {
-  color: #ffb36f;
-}
-
-/* 1 2 -11 etc */
-.cm-s-material .cm-number {
-  color: #f69797;
-}
-
-/* + - > < etc */
-.cm-s-material .cm-operator {
-  color: rgba(233, 237, 237, 1);
-}
-
-/* e.g. turtle.*Blah*(), Blah will be colored */
-.cm-s-material .cm-property {
-  color: #80cbae;
-}
-.cm-s-material .CodeMirror-cursor {
+.CodeMirror-cursor {
   border-left: 1px solid #f4ee94;
 }
 
-.cm-s-material .CodeMirror-cursor::after {
+.CodeMirror-cursor::after {
   position: absolute;
   margin-top: 2px;
   left: -10px;
@@ -94,12 +32,16 @@
 }
 
 .CodeMirror-scroll {
-  overflow: hidden !important;
+  overflow: auto !important;
+  padding-bottom: 0px;
+  height: 100%;
 }
 
 .CodeMirror-lines {
+  padding-top: 15px;
   margin-bottom: 20px; /*adds space for triangle on the bottom of the editor*/
   padding-left: 3px; /*adds space for triangle on the left of the editor*/
+  cursor: default;
 }
 
 /* most of the codemirror styles we can override for text
