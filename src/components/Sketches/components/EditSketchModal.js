@@ -92,7 +92,7 @@ class EditSketchModal extends React.Component {
     let doUpdate = false;
 
     if (this.state.newLanguage !== -1) {
-      data["language"] = this.state.newLanguage.value;
+      data.language = this.state.newLanguage.value;
       doUpdate = true;
     }
     if (this.state.newName !== -1) {
@@ -116,7 +116,7 @@ class EditSketchModal extends React.Component {
             if (!json.ok) {
               this.setState({
                 spinner: false,
-                error: json.error || "Failed to create sketch, please try again later",
+                error: json.error || "Failed to edut sketch, please try again later",
               });
               return;
             }
@@ -134,7 +134,7 @@ class EditSketchModal extends React.Component {
           .catch(err => {
             this.setState({
               spinner: false,
-              error: "Failed to create sketch, please try again later",
+              error: "Failed to edit sketch, please try again later",
             });
             console.log(err);
           });
@@ -146,22 +146,17 @@ class EditSketchModal extends React.Component {
   };
 
   renderMainModal() {
-    let thumbnailPreview =
-      this.state.newThumbnail !== -1 ? (
-        <img
-          src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${
-            SketchThumbnailArray[this.state.newThumbnail]
-          }.svg`}
-          className={"sketches-modal-header-thumbnail"}
-          alt="icon"
-        />
-      ) : (
-        <img
-          src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${this.props.sketchImg}.svg`}
-          className={"sketches-modal-header-thumbnail"}
-          alt="icodn"
-        />
-      );
+    let thumbnailPreview = (
+      <img
+        src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${
+          this.state.newThumbnail !== -1
+            ? SketchThumbnailArray[this.state.newThumbnail]
+            : this.props.sketchImg
+        }.svg`}
+        className={"sketches-modal-header-thumbnail"}
+        alt="icon"
+      />
+    );
     return (
       <ReactModal
         isOpen={this.props.isOpen}

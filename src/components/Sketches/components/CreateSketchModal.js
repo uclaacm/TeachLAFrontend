@@ -147,7 +147,6 @@ class CreateSketchModal extends React.Component {
             });
             return;
           }
-          console.log(json);
           this.props.addProgram(json.data.key, json.data.programData || {});
           this.props.setMostRecentProgram(json.data.key);
           this.setState({ redirect: true });
