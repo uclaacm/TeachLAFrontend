@@ -70,11 +70,6 @@ export default class DropdownButton extends React.Component {
       return this.props.displayValue;
     }
 
-    // let value = this.props.displayValue
-    // if(this.props.dirty){
-    //   value = (<span>&#8226;{this.props.displayValue}</span>)
-    // }
-
     let faLanguage;
     switch (this.props.currentLanguage) {
       case "python":
@@ -97,7 +92,8 @@ export default class DropdownButton extends React.Component {
           {/* HACK: disables the colors entirely, makes the dropdown transparent */}
           <DropdownToggle color={""} caret>
             <div className="editor-language-dropdown-closed-content">
-              <FontAwesomeIcon icon={faLanguage} fixedWidth /> {this.props.displayValue}
+              {this.props.useThumbnail ? null : <FontAwesomeIcon icon={faLanguage} fixedWidth />}
+              {this.props.displayValue}
             </div>
           </DropdownToggle>
           <DropdownMenu>{this.renderDropdownItems()}</DropdownMenu>

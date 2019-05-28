@@ -23,10 +23,9 @@ const mapStateToProps = state => {
     mostRecentProgram,
     code,
     listOfPrograms,
-    screenWidth: state.ui.screenWidth,
+    editorWidth: state.ui.screenWidth - (state.ui.panelOpen ? PANEL_SIZE : 0),
     screenHeight: state.ui.screenHeight,
     dirty,
-    panelOpen: state.ui.panelOpen,
     left: (state.ui.panelOpen ? OPEN_PANEL_LEFT : CLOSED_PANEL_LEFT) + PANEL_SIZE,
   };
 };

@@ -7,6 +7,7 @@ import Radio from "../../common/Radio.js";
  */
 const EditorRadio = props => {
   let options = [];
+
   if (!props.isSmall) options.push({ display: "Both", value: CODE_AND_OUTPUT });
   options = options.concat([
     { display: "Code", value: CODE_ONLY },

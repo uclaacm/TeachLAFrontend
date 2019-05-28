@@ -5,3 +5,5 @@ export const OUTPUT_ONLY = 2;
 
 //UI
 export const EDITOR_WIDTH_BREAKPOINT = 1000;
+export const CODE_WIDTH_BREAKPOINT = 600;
+export const CODE_MIN_TEXT_EDITOR_SIZE = 500;

@@ -1,8 +1,10 @@
+import React from "react";
 import { connect } from "react-redux";
 import DropdownButton from "../components/DropdownButton.js";
 import { setMostRecentProgram } from "../../../actions/userDataActions.js";
+import { SketchThumbnailArray } from "../../Sketches/constants";
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   const { mostRecentProgram } = state.userData;
   let mostRecentLanguage;
   let listOfPrograms = [];
@@ -14,10 +16,22 @@ const mapStateToProps = state => {
     }
   });
   const dirty = state.programs.getIn([mostRecentProgram, "dirty"], false);
+
+  let displayValue = mostRecentProgram;
+  if (ownProps.useThumbnail) {
+    displayValue = (
+      <img
+        src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${
+          SketchThumbnailArray[state.programs.getIn([mostRecentProgram, "thumbnail"], 0)]
+        }.svg`}
+        width={"50px"}
+      />
+    );
+  }
   return {
     dirty,
     dropdownItems: listOfPrograms,
-    displayValue: mostRecentProgram,
+    displayValue,
     currentLanguage: mostRecentLanguage,
   };
 };

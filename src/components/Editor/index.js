@@ -7,7 +7,16 @@ import OpenPanelButtonContainer from "../common/containers/OpenPanelButtonContai
 import EditorButton from "./components/EditorButton";
 import * as fetch from "../../lib/fetch.js";
 import EditorRadio from "./components/EditorRadio.js";
-import { EDITOR_WIDTH_BREAKPOINT, CODE_AND_OUTPUT, CODE_ONLY, OUTPUT_ONLY } from "./constants";
+import {
+  EDITOR_WIDTH_BREAKPOINT,
+  CODE_AND_OUTPUT,
+  CODE_ONLY,
+  OUTPUT_ONLY,
+  CODE_WIDTH_BREAKPOINT,
+  CODE_MIN_TEXT_EDITOR_SIZE,
+} from "./constants";
+import { faSave } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { PANEL_SIZE } from "../../constants";
 import "codemirror/lib/codemirror.css";
@@ -18,40 +27,76 @@ import "../../styles/Editor.css";
 
 /**------Props-------
  * togglePanel: function to call when you want the Profile Panel to disappear/reapper
- * panelOpen: boolean telling whether the Profile Panel is open or not
  * left: the left css property that should be applied on the top level element
  */
 
+const saveIconText = (
+  <div
+    style={{
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center",
+      width: "100%",
+      height: "100%",
+      padding: "0 5px",
+    }}
+  >
+    <FontAwesomeIcon icon={faSave} color={"#ddd"} />
+    <span style={{ height: "100%", lineHeight: "42px", width: "100%", float: "center" }}>Save</span>
+  </div>
+);
 class Editor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      saveText: "Save code",
+      saveText: saveIconText,
       viewMode: CODE_AND_OUTPUT,
       pane1Style: { transition: "width .5s ease" },
+      codeHeaderMode: "BIG",
     };
   }
 
   //==============React Lifecycle Functions Start===================//
   componentWillMount() {
-    if (this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT) {
+    if (this.props.editorWidth <= EDITOR_WIDTH_BREAKPOINT) {
       this.setState({ viewMode: CODE_ONLY });
+      if (this.props.editorWidth < CODE_WIDTH_BREAKPOINT) {
+        this.setState({ codeHeaderMode: "SMALL" });
+      }
+    }
+
+    if (this.props.editorWidth / 2 < CODE_WIDTH_BREAKPOINT) {
+      this.setState({ codeHeaderMode: "SMALL" });
     }
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.screenWidth !== prevProps.screenWidth) {
-      if (this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT) {
+    const textEditorSize = this.props.editorWidth / 2;
+    if (this.props.editorWidth !== prevProps.editorWidth) {
+      if (this.props.editorWidth <= EDITOR_WIDTH_BREAKPOINT) {
         if (this.state.viewMode === CODE_AND_OUTPUT) {
           this.setState({ viewMode: CODE_ONLY });
         }
+      }
+
+      if (this.state.codeHeaderMode == "BIG") {
+        if (textEditorSize <= CODE_WIDTH_BREAKPOINT) {
+          this.setState({ codeHeaderMode: "SMALL" });
+        }
+      } else if (textEditorSize > CODE_WIDTH_BREAKPOINT) {
+        this.setState({ codeHeaderMode: "BIG" });
+      }
+
+      if (this.editorWidth < CODE_WIDTH_BREAKPOINT) {
+        this.setState({ codeHeaderMode: "SMALL" });
       }
     }
   }
 
   resetSaveText = () => {
     this.setState({
-      saveText: "Save code",
+      saveText: saveIconText,
     });
   };
 
@@ -77,8 +122,6 @@ class Editor extends React.Component {
     this.props.cleanCode(this.props.mostRecentProgram); // Set code's "dirty" state to false
   };
 
-  renderDropdown = () => <DropdownButtonContainer />;
-
   renderCodeAndOutput = () => (
     <SplitPane
       resizerStyle={{
@@ -92,16 +135,17 @@ class Editor extends React.Component {
       //removes and re-addsthe transition effect on the first panel when manually resizing
       onDragStarted={() => this.setState({ pane1Style: {} })}
       onDragFinished={() => this.setState({ pane1Style: { transition: "width .5s ease" } })}
+      onChange={size => {
+        if (size > CODE_WIDTH_BREAKPOINT && this.state.codeHeaderMode == "SMALL") {
+          this.setState({ codeHeaderMode: "BIG" });
+        } else if (size < CODE_WIDTH_BREAKPOINT && this.state.codeHeaderMode == "BIG") {
+          this.setState({ codeHeaderMode: "SMALL" });
+        }
+      }}
       split="vertical" //the resizer is a vertical line (horizontal means resizer is a horizontal bar)
-      minSize={
-        (this.props.panelOpen ? this.props.screenWidth - PANEL_SIZE : this.props.screenWidth) * 0.33
-      } //minimum size of code is 33% of the remaining screen size
-      maxSize={
-        (this.props.panelOpen ? this.props.screenWidth - PANEL_SIZE : this.props.screenWidth) * 0.75
-      } //max size of code is 75% of the remaining screen size
-      size={
-        (this.props.panelOpen ? this.props.screenWidth - PANEL_SIZE : this.props.screenWidth) / 2
-      } //the initial size of the text editor section
+      minSize={CODE_MIN_TEXT_EDITOR_SIZE} //minimum size of code is 33% of the remaining screen size
+      maxSize={this.props.editorWidth * 0.75} //max size of code is 75% of the remaining screen size
+      size={this.props.editorWidth / 2} //the initial size of the text editor section
       allowResize={true}
     >
       {this.renderCode()}
@@ -111,22 +155,42 @@ class Editor extends React.Component {
 
   updateViewMode = viewMode => {
     this.setState({ viewMode });
+    if (viewMode === CODE_ONLY) {
+      if (this.props.editorWidth > CODE_WIDTH_BREAKPOINT) {
+        this.setState({ codeHeaderMode: "BIG" });
+      } else {
+        this.setState({ codeHeaderMode: "SMALL" });
+      }
+    } else if (viewMode === CODE_AND_OUTPUT) {
+      if (this.props.editorWidth / 2 < CODE_WIDTH_BREAKPOINT) {
+        this.setState({ codeHeaderMode: "SMALL" });
+      } else {
+        this.setState({ codeHeaderMode: "BIG" });
+      }
+    }
   };
 
-  renderCode = () => (
-    <div className="code-section">
-      <div className="code-section-banner">
+  renderCodeHeader = () => {
+    return (
+      <div className="code-section-header">
         <OpenPanelButtonContainer />
-        {this.renderDropdown()}
+        <DropdownButtonContainer useThumbnail={this.state.codeHeaderMode === "SMALL"} />
         <div style={{ marginLeft: "auto" }}>
           <EditorRadio
             viewMode={this.state.viewMode}
+            codeHeaderMode={this.state.codeHeaderMode}
             updateViewMode={this.updateViewMode}
-            isSmall={this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
+            isSmall={this.props.editorWidth <= EDITOR_WIDTH_BREAKPOINT}
           />
         </div>
         <EditorButton handleClick={this.handleSave} text={this.state.saveText} />
       </div>
+    );
+  };
+
+  renderCode = () => (
+    <div className="code-section">
+      {this.renderCodeHeader()}
       <div
         className="text-editor-container"
         style={{
@@ -144,13 +208,13 @@ class Editor extends React.Component {
     <OutputContainer
       viewMode={this.state.viewMode}
       updateViewMode={this.updateViewMode}
-      isSmall={this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
+      isSmall={this.props.editorWidth <= EDITOR_WIDTH_BREAKPOINT}
     />
   );
 
   renderContent = () => {
     const codeStyle = {
-      width: this.props.screenWidth - (this.props.left || 0),
+      width: this.props.editorWidth,
       height: this.props.screenHeight,
     };
 
@@ -167,7 +231,7 @@ class Editor extends React.Component {
   render() {
     const codeStyle = {
       left: this.props.left || 0,
-      width: this.props.screenWidth - (this.props.left || 0),
+      width: this.props.editorWidth,
       height: this.props.screenHeight,
     };
 

@@ -19,7 +19,7 @@
   background-color: #252132;
 }
 
-.code-section-banner {
+.code-section-header {
   display: flex;
   flex-direction: row;
   padding: 5px 0px;
