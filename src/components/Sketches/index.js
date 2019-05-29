@@ -1,30 +1,36 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
 import SketchesButton from "./components/SketchesButton";
+import SketchBox from "./components/SketchBox";
+import ConfirmDeleteModalContainer from "./containers/ConfirmDeleteModalContainer";
 import CreateSketchModalContainer from "./containers/CreateSketchModalContainer";
+import EditSketchModalContainer from "./containers/EditSketchModalContainer";
 import OpenPanelButtonContainer from "../common/containers/OpenPanelButtonContainer";
 import { SketchThumbnailArray } from "./constants";
 // import { PANEL_SIZE } from "../../constants";
 import "../../styles/Sketches.css";
 
+import { faCogs } from "@fortawesome/free-solid-svg-icons";
+import { faPython } from "@fortawesome/free-brands-svg-icons";
+import { faHtml5 } from "@fortawesome/free-brands-svg-icons";
+
 const ROW_PADDING = 100;
-const SKETCH_WIDTH = 170;
+const SKETCH_WIDTH = 220;
 
 class Sketches extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       redirectTo: "",
+      confirmDeleteModalOpen: false,
       createSketchModalOpen: false,
+      editSketchModalOpen: false,
+      selectedSketch: "",
+      selectedImg: "",
+      selectedLang: "",
+      selectedKey: "",
     };
-
-    // this.originalWidth = this.props.viewSize
   }
-
-  //==============React Lifecycle Functions Start===================//
-  componentWillMount() {}
-
-  componentDidUpdate(prevProps) {}
 
   getRandomSketchThumbnail = () => {
     return SketchThumbnailArray[Math.floor(Math.random() * SketchThumbnailArray.length)];
@@ -32,6 +38,25 @@ class Sketches extends React.Component {
 
   setCreateSketchModalOpen = val => {
     this.setState({ createSketchModalOpen: val });
+  };
+
+  setConfirmDeleteModalOpen = (val, sketch, key) => {
+    this.setState({ confirmDeleteModalOpen: val, selectedSketch: sketch, selectedKey: key });
+  };
+
+  setEditSketchModalOpen = (val, sketch, img, lang, key) => {
+    this.setState({
+      editSketchModalOpen: val,
+      selectedSketch: sketch,
+      selectedImg: img,
+      selectedLang: lang,
+      selectedKey: key,
+    });
+  };
+
+  redirectToEditor = name => {
+    this.props.setMostRecentProgram(name);
+    this.setState({ redirectTo: "/editor" });
   };
 
   renderHeader = () => (
@@ -48,18 +73,6 @@ class Sketches extends React.Component {
     </div>
   );
 
-  mapLanguageToThumbnail = lang => {
-    switch (lang) {
-      case "python":
-        return `img/python.png`;
-      case "processing":
-        return "img/processing.png";
-      case "html":
-      default:
-        return "img/html.png";
-    }
-  };
-
   getThumbnailSrc = val => {
     if (val === undefined || val === "" || val >= SketchThumbnailArray.length || val < 0) {
       return SketchThumbnailArray[0];
@@ -68,7 +81,7 @@ class Sketches extends React.Component {
   };
 
   renderSketches = () => {
-    let newList = this.props.listOfPrograms.concat([]);
+    let newList = this.props.programs.concat([]);
     let sketches = [];
     newList.sort((a, b) => {
       if (a.name < b.name) return -1;
@@ -77,30 +90,48 @@ class Sketches extends React.Component {
       else return 1;
     });
 
-    newList.forEach(({ name, language, thumbnail }) => {
+    newList.forEach(({ key, name, language, thumbnail }) => {
+      let faLanguage;
+      let languageDisplay; // not a great way to do this!
+      switch (language) {
+        case "python":
+          faLanguage = faPython;
+          languageDisplay = "Python";
+          break;
+        case "processing":
+          faLanguage = faCogs;
+          languageDisplay = "Processing";
+          break;
+        case "html":
+        default:
+          faLanguage = faHtml5;
+          languageDisplay = "HTML";
+      }
       sketches.push(
-        <div
-          key={name}
-          className="sketch-box"
-          onClick={() => {
-            this.props.setMostRecentProgram(name);
-            this.setState({ redirectTo: "/editor" });
+        <SketchBox
+          img={this.getThumbnailSrc(thumbnail)}
+          icon={faLanguage}
+          name={name}
+          key={key}
+          deleteFunc={() => {
+            this.setConfirmDeleteModalOpen(true, name, key);
           }}
-        >
-          <img
-            alt={"" + language + "-icon"}
-            src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${this.getThumbnailSrc(
-              thumbnail,
-            )}.svg`}
-            className="sketch-thumbnail"
-          />
-          <span>{name}</span>
-        </div>,
+          editFunc={() => {
+            this.setEditSketchModalOpen(
+              true,
+              name,
+              this.getThumbnailSrc(thumbnail),
+              languageDisplay,
+              key,
+            );
+          }}
+          redirFunc={() => {
+            this.redirectToEditor(key);
+          }}
+        />,
       );
     });
-
     let numSketchesPerRow = Math.floor((this.props.calculatedWidth - ROW_PADDING) / SKETCH_WIDTH);
-    // let numSketchesPerRow = (this.originalWidth - ROW_PADDING) / SKETCH_WIDTH
     let rows = [];
     let originalLength = sketches.length;
     for (let i = 0; i < originalLength / numSketchesPerRow; i++) {
@@ -114,10 +145,30 @@ class Sketches extends React.Component {
     return <div className="sketches-grid">{rows}</div>;
   };
 
-  renderModal = () => (
+  renderConfirmDeleteModal = () => (
+    <ConfirmDeleteModalContainer
+      isOpen={this.state.confirmDeleteModalOpen}
+      onClose={() => this.setConfirmDeleteModalOpen(false)}
+      sketchName={this.state.selectedSketch}
+      sketchKey={this.state.selectedKey}
+    />
+  );
+
+  renderCreateSketchModal = () => (
     <CreateSketchModalContainer
       isOpen={this.state.createSketchModalOpen}
       onClose={() => this.setCreateSketchModalOpen(false)}
+    />
+  );
+
+  renderEditSketchModal = () => (
+    <EditSketchModalContainer
+      isOpen={this.state.editSketchModalOpen}
+      onClose={() => this.setEditSketchModalOpen(false)}
+      sketchName={this.state.selectedSketch}
+      sketchImg={this.state.selectedImg}
+      sketchLang={this.state.selectedLang}
+      sketchKey={this.state.selectedKey}
     />
   );
 
@@ -126,7 +177,9 @@ class Sketches extends React.Component {
       <React.Fragment>
         {this.renderHeader()}
         {this.renderSketches()}
-        {this.renderModal()}
+        {this.renderCreateSketchModal()}
+        {this.renderConfirmDeleteModal()}
+        {this.renderEditSketchModal()}
       </React.Fragment>
     );
   };

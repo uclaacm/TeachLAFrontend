@@ -3,12 +3,13 @@ import firebase from "firebase";
 export const provider = new firebase.auth.FacebookAuthProvider();
 
 let config = {
-  apiKey: "AIzaSyC8sbXsPzWRHVyPRLQ_dfCUqYsqbRc-S5U",
-  authDomain: "teachlacodingplatform.firebaseapp.com",
-  databaseURL: "https://teachlacodingplatform.firebaseio.com",
-  projectId: "teachlacodingplatform",
-  storageBucket: "teachlacodingplatform.appspot.com",
-  messagingSenderId: "232833950160",
+  apiKey: "AIzaSyDVyHkYHjs7LeHyOWMSPRMTRgr8BrdkXis",
+  authDomain: "aseemconnorpracticedb.firebaseapp.com",
+  databaseURL: "https://aseemconnorpracticedb.firebaseio.com",
+  projectId: "aseemconnorpracticedb",
+  storageBucket: "aseemconnorpracticedb.appspot.com",
+  messagingSenderId: "849734484070",
+  appId: "1:849734484070:web:8d3eff0ee977915b",
 };
 
 if (process && process.env && process.env.REACT_APP_FS_PROJ === "prod") {

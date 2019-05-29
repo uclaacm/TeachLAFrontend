@@ -56,8 +56,11 @@
 }
 
 .sketch-thumbnail {
+  display: block;
   width: 80px;
   height: 80px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .sketch-box {
@@ -65,14 +68,31 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  width: 150px;
+  width: 200px;
   background-color: #dddcdf;
   border-radius: 5px;
   color: #0d0d0e;
   margin: 0px 10px;
-  padding: 5px;
   cursor: pointer;
   flex: 0 0 auto;
+}
+
+.sketch-box-body {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sketch-divider {
+  border-top: 1px solid #575265;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.sketch-button-divider {
+  width: 1px;
+  border: 0.5px solid #575265;
 }
 
 .sketches-language-dropdown {
@@ -89,7 +109,7 @@
   justify-content: space-evenly;
   flex-wrap: wrap;
   overflow-y: auto;
-  width: 325px;
+  width: 100%;
   height: 250px;
   margin-left: 10px;
   margin-bottom: 10px;
@@ -100,8 +120,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  height: 470px;
-  width: 400px;
+  min-height: 470px;
   background-color: rgb(255, 255, 255);
   padding: 40px;
   border-radius: 20px;
@@ -172,15 +191,6 @@
   flex: 0 0;
 }
 
-.sketches-modal-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.sketches-bottom-modal-button {
-}
-
 .sketches-modal-input {
   text-align: center;
 }
@@ -190,8 +200,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  height: 320px;
-  width: 400px;
+  width: 50%;
+  min-width: 400px;
   background-color: rgb(255, 255, 255);
   padding: 40px;
   border-radius: 20px;
