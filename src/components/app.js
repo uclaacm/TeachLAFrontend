@@ -1,10 +1,11 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
 import LoginPage from "./containers/LoginContainer";
 import MainContainer from "./containers/MainContainer";
 import LoadingPage from "./common/LoadingPage";
 import CreateUserPage from "./containers/CreateUserContainer";
 import Error from "./Error";
+import PageNotFound from "./PageNotFound";
 import firebase from "firebase";
 import "../styles/app.css";
 
@@ -89,51 +90,56 @@ class App extends React.Component {
     return (
       <Router basename="/TeachLAFrontend">
         <div className="App">
-          {/*if the user is loggedIn, redirect them to the editor, otherwise, show the login page*?*/}
-          <Route
-            exact
-            path="/"
-            render={() =>
-              isValidUser ? <Redirect to="/editor" /> : <LoginPage provider={provider} />
-            }
-          />
-          {/*if the user is loggedIn, redirect them to the editor, otherwise, show the login page*?*/}
-          <Route
-            path="/login"
-            render={() =>
-              isValidUser ? <Redirect to="/editor" /> : <LoginPage provider={provider} />
-            }
-          />
-          {/*if the user is not loggedIn, redirect them to the login page, otherwise, show the editor page*?*/}
-          <Route
-            path="/editor"
-            render={() =>
-              !isValidUser ? <Redirect to="/login" /> : <MainContainer contentType="editor" />
-            }
-          />
-          {/*if the user is loggedIn, redirect them to the editor page, otherwise, show the createUser page*?*/}
-          <Route
-            path="/createUser"
-            render={() => (isValidUser ? <Redirect to="/editor" /> : <CreateUserPage />)}
-          />
-          {/*if the user isn't loggedIn, redirect them to the login page, otherwise, show the view page*?*/}
-          <Route
-            path="/sketches"
-            render={() =>
-              isValidUser ? <MainContainer contentType="sketches" /> : <Redirect to="/login" />
-            }
-          />
-          {/* Default error page */}
-          <Route
-            path="/error"
-            render={() =>
-              this.props.errorMsg ? (
-                <Error errorMsg={this.props.errorMsg} />
-              ) : (
-                this.renderHome(isValidUser)
-              )
-            }
-          />
+          <Switch>
+            {/*if the user is loggedIn, redirect them to the editor, otherwise, show the login page*?*/}
+            <Route
+              exact
+              path="/"
+              render={() =>
+                isValidUser ? <Redirect to="/editor" /> : <LoginPage provider={provider} />
+              }
+            />
+            {/*if the user is loggedIn, redirect them to the editor, otherwise, show the login page*?*/}
+            <Route
+              path="/login"
+              render={() =>
+                isValidUser ? <Redirect to="/editor" /> : <LoginPage provider={provider} />
+              }
+            />
+            {/*if the user is not loggedIn, redirect them to the login page, otherwise, show the editor page*?*/}
+            <Route
+              path="/editor"
+              render={() =>
+                !isValidUser ? <Redirect to="/login" /> : <MainContainer contentType="editor" />
+              }
+            />
+            {/*if the user is loggedIn, redirect them to the editor page, otherwise, show the createUser page*?*/}
+            <Route
+              path="/createUser"
+              render={() => (isValidUser ? <Redirect to="/editor" /> : <CreateUserPage />)}
+            />
+            {/*if the user isn't loggedIn, redirect them to the login page, otherwise, show the view page*?*/}
+            <Route
+              path="/sketches"
+              render={() =>
+                isValidUser ? <MainContainer contentType="sketches" /> : <Redirect to="/login" />
+              }
+            />
+            {/* Default error page */}
+            <Route
+              path="/error"
+              render={() =>
+                this.props.errorMsg ? (
+                  <Error errorMsg={this.props.errorMsg} />
+                ) : (
+                  this.renderHome(isValidUser)
+                )
+              }
+            />
+
+            {/* Matches all other paths */}
+            <Route render={() => <PageNotFound />} />
+          </Switch>
         </div>
       </Router>
     );

@@ -1,8 +1,8 @@
 import React from "react";
 import Footer from "./common/Footer";
-import firebase from "firebase";
-import LoginGuy from "img/blueguy.png";
+import { Link } from "react-router-dom";
 import "../styles/app.css";
+import LoginGuy from "img/blueguy.png";
 
 class Error extends React.Component {
   constructor(props) {
@@ -16,14 +16,11 @@ class Error extends React.Component {
         <div className="login-modal">
           <div className="login-form">
             <br />
-            <div className="login-header">{"Oops!"}</div>
+            <div className="login-header">{"Page not found!"}</div>
             <br />
-            <h1>Something went wrong. Try again later!</h1>
-            <br />
-            <h1>{this.props.errorMsg}</h1>
-            <button className="login-form-button" onClick={() => firebase.auth().signOut()}>
-              Log Out
-            </button>
+            <Link to="/">
+              <button className="login-form-button">Back to safety</button>
+            </Link>
           </div>
         </div>
       </div>
