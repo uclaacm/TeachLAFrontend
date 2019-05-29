@@ -5,7 +5,6 @@ import {
   LanguageDropdownValues,
   LanguageDropdownDefault,
 } from "../constants";
-import { RingLoader } from "react-spinners";
 import * as fetch from "../../../lib/fetch.js";
 import { Redirect } from "react-router-dom";
 
@@ -21,7 +20,7 @@ class CreateSketchModal extends React.Component {
       name: "",
       next: false,
       thumbnail: -1,
-      spinner: false,
+      disableSubmit: false,
       error: "",
       redirect: false,
     };
@@ -43,7 +42,7 @@ class CreateSketchModal extends React.Component {
       name: "",
       thumbnail: -1,
       error: "",
-      spinner: false,
+      disableSubmit: false,
     });
   };
 
@@ -51,7 +50,7 @@ class CreateSketchModal extends React.Component {
     this.setState({
       next: val,
       error: "",
-      spinner: false,
+      disableSubmit: false,
     });
   };
 
@@ -142,7 +141,7 @@ class CreateSketchModal extends React.Component {
         .then(json => {
           if (!json.ok) {
             this.setState({
-              spinner: false,
+              disableSubmit: false,
               error: json.error || "Failed to create sketch, please try again later",
             });
             return;
@@ -154,7 +153,7 @@ class CreateSketchModal extends React.Component {
         })
         .catch(err => {
           this.setState({
-            spinner: false,
+            disableSubmit: false,
             error: "Failed to create sketch, please try again later",
           });
           console.log(err);
@@ -162,7 +161,7 @@ class CreateSketchModal extends React.Component {
     } catch (err) {
       console.log(err);
     }
-    this.setState({ spinner: true, error: "" });
+    this.setState({ disableSubmit: true, error: "" });
   };
 
   renderSecondModal = () => {
@@ -215,7 +214,7 @@ class CreateSketchModal extends React.Component {
               <Button
                 color="secondary"
                 onClick={this.onBack}
-                disabled={this.state.spinner}
+                disabled={this.state.disableSubmit}
                 size="lg"
                 block
               >
@@ -223,21 +222,15 @@ class CreateSketchModal extends React.Component {
               </Button>
             </Col>
             <Col>
-              {this.state.spinner ? (
-                <div className="sketches-form-spinner" style={{ width: "60px" }}>
-                  <RingLoader color={"#171124"} size={30} loading={this.state.spinner} />
-                </div>
-              ) : (
-                <Button
-                  color="success"
-                  onClick={this.onSecondSubmit}
-                  size="lg"
-                  disabled={this.badThumbnailInput()}
-                  block
-                >
-                  Create
-                </Button>
-              )}
+              <Button
+                color="success"
+                onClick={this.onSecondSubmit}
+                size="lg"
+                disabled={this.badThumbnailInput() || this.state.disableSubmit}
+                block
+              >
+                Create
+              </Button>
             </Col>
           </Row>
         </Container>

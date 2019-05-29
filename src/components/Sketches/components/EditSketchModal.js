@@ -13,7 +13,7 @@ class EditSketchModal extends React.Component {
       newLanguage: -1,
       newName: -1,
       newThumbnail: -1,
-      spinner: false,
+      disableSubmit: false,
       error: "",
       onThumbnails: false,
     };
@@ -31,7 +31,7 @@ class EditSketchModal extends React.Component {
       newThumbnail: -1,
       error: "",
       onThumbnails: false,
-      spinner: false,
+      disableSubmit: false,
     });
   };
 
@@ -114,8 +114,8 @@ class EditSketchModal extends React.Component {
           .then(json => {
             if (!json.ok) {
               this.setState({
-                spinner: false,
-                error: json.error || "Failed to edut sketch, please try again later",
+                disableSubmit: false,
+                error: json.error || "Failed to edit sketch, please try again later",
               });
               return;
             }
@@ -132,7 +132,7 @@ class EditSketchModal extends React.Component {
           })
           .catch(err => {
             this.setState({
-              spinner: false,
+              disableSubmit: false,
               error: "Failed to edit sketch, please try again later",
             });
             console.log(err);
@@ -140,7 +140,9 @@ class EditSketchModal extends React.Component {
       } catch (err) {
         console.log(err);
       }
-      this.setState({ spinner: true, error: "" });
+      this.setState({ disableSubmit: true, error: "" });
+    } else {
+      this.closeModal();
     }
   };
 
@@ -223,12 +225,24 @@ class EditSketchModal extends React.Component {
           <hr />
           <Row>
             <Col>
-              <Button color="danger" onClick={this.closeModal} size="lg" block>
+              <Button
+                color="danger"
+                onClick={this.closeModal}
+                size="lg"
+                disabled={this.state.disableSubmit}
+                block
+              >
                 Cancel
               </Button>
             </Col>
             <Col>
-              <Button color="success" onClick={this.handleSubmitEdit} size="lg" block>
+              <Button
+                color="success"
+                onClick={this.handleSubmitEdit}
+                size="lg"
+                disabled={this.state.disableSubmit}
+                block
+              >
                 Confirm
               </Button>
             </Col>
