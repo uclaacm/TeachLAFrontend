@@ -91,13 +91,13 @@ export default class LoginModal extends React.Component {
     <div className="login-form-input-list">
       <div>
         <LoginInput
-          type={"username"}
+          type={"Username"}
           data={this.state.username}
           waiting={this.state.waiting}
           onChange={this.updateUsername}
         />
         <LoginInput
-          type={"password"}
+          type={"Password"}
           data={this.state.password}
           waiting={this.state.waiting}
           onChange={this.updatePassword}

@@ -1,6 +1,8 @@
 import {
   SET_PROGRAM_CODE,
   SET_PROGRAM_LANGUAGE,
+  SET_PROGRAM_NAME,
+  SET_PROGRAM_THUMBNAIL,
   DELETE_PROGRAM,
   LOAD_PROGRAMS,
   CLEAR_PROGRAMS,
@@ -21,11 +23,14 @@ function programsReducer(state = initialState, action) {
       return state.setIn([action.program, "language"], action.value);
     case SET_PROGRAM_DIRTY:
       return state.setIn([action.program, "dirty"], action.value);
+    case SET_PROGRAM_NAME:
+      return state.setIn([action.program, "name"], action.value);
+    case SET_PROGRAM_THUMBNAIL:
+      return state.setIn([action.program, "thumbnail"], action.value);
     case ADD_PROGRAM:
       return state.set(action.program, Immutable.fromJS(action.data));
     case DELETE_PROGRAM:
-      //TODO: look up Immutable API on how to remove a nested key
-      return state;
+      return state.delete(action.program);
     case CLEAR_PROGRAMS:
       return Immutable.Map();
     default:

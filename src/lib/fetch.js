@@ -131,3 +131,26 @@ export const createSketch = data => {
 
   return fetch(`${constants.SERVER_URL}/createProgram`, options);
 };
+
+export const deleteSketch = data => {
+  let body = "";
+
+  try {
+    //if programs is an object with at least 1 key, set the body to the stringified programs object
+    if (Object.keys(data).length) {
+      body = JSON.stringify(data);
+    }
+  } catch (err) {
+    console.log(err);
+    return;
+  }
+
+  const options = {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+    },
+    body,
+  };
+  return fetch(`${constants.SERVER_URL}/deleteProgram`, options);
+};
