@@ -6,18 +6,19 @@ import { SketchThumbnailArray } from "../../Sketches/constants";
 
 const mapStateToProps = (state, ownProps) => {
   const { mostRecentProgram } = state.userData;
-  let mostRecentLanguage;
-  let listOfPrograms = [];
-  let programsJSON = state.programs.toJS();
-  Object.keys(programsJSON).forEach(function(key) {
-    listOfPrograms.push({ name: key, language: programsJSON[key]["language"] });
-    if (key === mostRecentProgram) {
-      mostRecentLanguage = programsJSON[key]["language"];
-    }
-  });
-  const dirty = state.programs.getIn([mostRecentProgram, "dirty"], false);
+  let mostRecentLanguage = state.programs.getIn([mostRecentProgram, "language"], "python");
+  let displayValue = state.programs.getIn([mostRecentProgram, "name"], mostRecentProgram);
 
-  let displayValue = mostRecentProgram;
+  let listOfPrograms = state.programs.keySeq().map(id => {
+    return {
+      name: state.programs.getIn([id, "name"], id),
+      language: state.programs.getIn([id, "language"], "python"),
+      key: id,
+    };
+  });
+
+  const dirty = state.programs.getIn([mostRecentProgram, "dirty"], false);
+  console.log(state.programs.getIn([mostRecentProgram, "thumbnail"], 0));
   if (ownProps.useThumbnail) {
     displayValue = (
       <img
@@ -28,6 +29,7 @@ const mapStateToProps = (state, ownProps) => {
       />
     );
   }
+
   return {
     dirty,
     dropdownItems: listOfPrograms,

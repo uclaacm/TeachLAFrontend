@@ -56,19 +56,19 @@ export default class DropdownButton extends React.Component {
           faLanguage = faHtml5;
       }
       return (
-        <DropdownItem key={program.name} onClick={() => this.selectLanguage(program.name)}>
-          <FontAwesomeIcon icon={faLanguage} fixedWidth /> {program.name}
+        <DropdownItem key={program.key} onClick={() => this.selectLanguage(program.key)}>
+          <FontAwesomeIcon icon={faLanguage} fixedWidth />
+          <span style={{ marginLeft: "10px" }}>{program.name}</span>
         </DropdownItem>
       );
     });
   };
 
   render() {
-    //if there's no programs in the dropdownItems, just show the display value
-    if (!this.props.dropdownItems || !this.props.dropdownItems.length) {
-      //TODO: add better error logic for this
-      return this.props.displayValue;
-    }
+    // let value = this.props.displayValue
+    // if(this.props.dirty){
+    //   value = (<span>&#8226;{this.props.displayValue}</span>)
+    // }
 
     let faLanguage;
     switch (this.props.currentLanguage) {

@@ -17,6 +17,7 @@ import {
 } from "./constants";
 import { faSave } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Redirect } from "react-router-dom";
 
 import { PANEL_SIZE } from "../../constants";
 import "codemirror/lib/codemirror.css";
@@ -52,6 +53,7 @@ class Editor extends React.Component {
     this.state = {
       saveText: saveIconText,
       viewMode: CODE_AND_OUTPUT,
+      redirect: "",
       pane1Style: { transition: "width .5s ease" },
       codeHeaderMode: "BIG",
     };
@@ -68,6 +70,9 @@ class Editor extends React.Component {
 
     if (this.props.editorWidth / 2 < CODE_WIDTH_BREAKPOINT) {
       this.setState({ codeHeaderMode: "SMALL" });
+    }
+    if (this.props.listOfPrograms.length === 0) {
+      this.setState({ redirect: "/sketches" });
     }
   }
 
@@ -229,6 +234,10 @@ class Editor extends React.Component {
   };
 
   render() {
+    if (this.state.redirect) {
+      return <Redirect to={this.state.redirect} />;
+    }
+
     const codeStyle = {
       left: this.props.left || 0,
       width: this.props.editorWidth,

@@ -5,9 +5,10 @@ import {
   LanguageDropdownValues,
   LanguageDropdownDefault,
 } from "../constants";
-import { RingLoader } from "react-spinners";
 import * as fetch from "../../../lib/fetch.js";
 import { Redirect } from "react-router-dom";
+
+import { Button, Container, Row, Col, FormGroup, Label, Input } from "reactstrap";
 
 import ReactModal from "react-modal";
 
@@ -19,7 +20,7 @@ class CreateSketchModal extends React.Component {
       name: "",
       next: false,
       thumbnail: -1,
-      spinner: false,
+      disableSubmit: false,
       error: "",
       redirect: false,
     };
@@ -41,7 +42,7 @@ class CreateSketchModal extends React.Component {
       name: "",
       thumbnail: -1,
       error: "",
-      spinner: false,
+      disableSubmit: false,
     });
   };
 
@@ -49,7 +50,7 @@ class CreateSketchModal extends React.Component {
     this.setState({
       next: val,
       error: "",
-      spinner: false,
+      disableSubmit: false,
     });
   };
 
@@ -123,12 +124,6 @@ class CreateSketchModal extends React.Component {
 
     if (this.badThumbnailInput()) return;
 
-    // let data = {}
-    // data[this.state.name] = {
-    //   thumbnail: this.state.thumbnail,
-    //   language: this.state.language.value,
-    //   code: "",
-    // }
     let data = {
       uid: this.props.uid,
       thumbnail: this.state.thumbnail,
@@ -146,19 +141,19 @@ class CreateSketchModal extends React.Component {
         .then(json => {
           if (!json.ok) {
             this.setState({
-              spinner: false,
+              disableSubmit: false,
               error: json.error || "Failed to create sketch, please try again later",
             });
             return;
           }
-          this.props.addProgram(this.state.name, json.data || {});
-          this.props.setMostRecentProgram(this.state.name);
+          this.props.addProgram(json.data.key, json.data.programData || {});
+          this.props.setMostRecentProgram(json.data.key);
           this.setState({ redirect: true });
           this.closeModal();
         })
         .catch(err => {
           this.setState({
-            spinner: false,
+            disableSubmit: false,
             error: "Failed to create sketch, please try again later",
           });
           console.log(err);
@@ -166,38 +161,7 @@ class CreateSketchModal extends React.Component {
     } catch (err) {
       console.log(err);
     }
-    this.setState({ spinner: true, error: "" });
-  };
-
-  renderSecondButtonClump = () => {
-    return (
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          flexDirection: "row",
-          width: "150px",
-        }}
-      >
-        <button style={{ width: "60px" }} onClick={this.onBack} disabled={this.state.spinner}>
-          Back
-        </button>
-        {this.state.spinner ? (
-          <div className="sketches-form-spinner" style={{ width: "60px" }}>
-            <RingLoader color={"#171124"} size={30} loading={this.state.spinner} />
-          </div>
-        ) : (
-          <button
-            style={{ width: "60px" }}
-            onClick={this.onSecondSubmit}
-            disabled={this.badThumbnailInput()}
-          >
-            Create
-          </button>
-        )}
-      </div>
-    );
+    this.setState({ disableSubmit: true, error: "" });
   };
 
   renderSecondModal = () => {
@@ -235,41 +199,42 @@ class CreateSketchModal extends React.Component {
         overlayClassName="profile-image-overlay"
         ariaHideApp={false}
       >
-        <form className="sketches-modal-form">
-          <div className="sketches-modal-header">
+        <Container>
+          <div className="sketches-modal-header d-flex align-items-center">
             <h1>Choose a thumbnail</h1>
             <div className="sketches-modal-header-thumbnail-container">{thumbnailPreview}</div>
           </div>
+          <hr />
           <div className="sketches-gallery">{icons}</div>
-          <div style={{ color: "red", textAlign: "center" }}>{this.state.error || <br />}</div>
-          {this.renderSecondButtonClump()}
-        </form>
+          <br />
+          <div className="text-center text-danger">{this.state.error || <br />}</div>
+          <hr />
+          <Row>
+            <Col>
+              <Button
+                color="secondary"
+                onClick={this.onBack}
+                disabled={this.state.disableSubmit}
+                size="lg"
+                block
+              >
+                Back
+              </Button>
+            </Col>
+            <Col>
+              <Button
+                color="success"
+                onClick={this.onSecondSubmit}
+                size="lg"
+                disabled={this.badThumbnailInput() || this.state.disableSubmit}
+                block
+              >
+                Create
+              </Button>
+            </Col>
+          </Row>
+        </Container>
       </ReactModal>
-    );
-  };
-
-  renderFirstButtonClump = () => {
-    return (
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          flexDirection: "row",
-          width: "150px",
-        }}
-      >
-        <button style={{ width: "60px" }} onClick={this.closeModal}>
-          Cancel
-        </button>
-        <button
-          style={{ width: "60px" }}
-          className="sketches-bottom-modal-button"
-          onClick={this.onFirstSubmit}
-        >
-          Next
-        </button>
-      </div>
     );
   };
 
@@ -282,23 +247,51 @@ class CreateSketchModal extends React.Component {
         overlayClassName="profile-image-overlay"
         ariaHideApp={false}
       >
-        <form className="sketches-modal-form">
-          <h1 className="sketches-modal-header-text">Create a Sketch</h1>
-          Name
-          <input
-            className="sketches-modal-input"
-            onChange={e => this.setState({ name: e.target.value })}
-            value={this.state.name}
-          />
-          Language
-          <DropdownButton
-            dropdownItems={LanguageDropdownValues}
-            onSelect={lang => this.setState({ language: lang })}
-            displayValue={this.state.language.display || LanguageDropdownDefault.display}
-          />
-          <div style={{ color: "red", textAlign: "center" }}>{this.state.error || <br />}</div>
-          {this.renderFirstButtonClump()}
-        </form>
+        <Container>
+          <h1 className="text-center">Create a Sketch</h1>
+          <hr />
+          <FormGroup row>
+            <Label className="text-right" for="sketch-name" xs={4}>
+              Name
+            </Label>
+            <Col xs={8}>
+              <Input
+                className="sketches-modal-input"
+                onChange={e => this.setState({ name: e.target.value })}
+                value={this.state.name}
+                id="sketch-name"
+              />
+            </Col>
+          </FormGroup>
+          <br />
+          <Row>
+            <Col xs="4" className="text-right">
+              Language
+            </Col>
+            <Col xs="8" className="d-flex align-items-center">
+              <DropdownButton
+                dropdownItems={LanguageDropdownValues}
+                onSelect={lang => this.setState({ language: lang })}
+                displayValue={this.state.language.display || LanguageDropdownDefault.display}
+              />
+            </Col>
+          </Row>
+          <br />
+          <div className="text-center text-danger">{this.state.error || <br />}</div>
+          <hr />
+          <Row>
+            <Col>
+              <Button color="danger" onClick={this.closeModal} size="lg" block>
+                Cancel
+              </Button>
+            </Col>
+            <Col>
+              <Button color="success" onClick={this.onFirstSubmit} size="lg" block>
+                Next
+              </Button>
+            </Col>
+          </Row>
+        </Container>
       </ReactModal>
     );
   };
