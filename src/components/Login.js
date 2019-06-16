@@ -2,7 +2,7 @@ import React from "react";
 import Footer from "./common/Footer";
 import "../styles/Login.css";
 import LoginForm from "./Login/LoginForm";
-import LoginGuy from "../img/blueguy.png";
+import LoginGuy from "img/blueguy.png";
 
 /**--------Props--------
  * provider: Facebook Provider used to login with Facebook
