@@ -36,6 +36,30 @@ class Sketches extends React.Component {
     return SketchThumbnailArray[Math.floor(Math.random() * SketchThumbnailArray.length)];
   };
 
+  downloadSketchCode = (name, language, code) => {
+    let extension = ".";
+    switch (language) {
+      case "python":
+        extension += "py";
+        break;
+      case "processing":
+        extension += "processing";
+        break;
+      case "html":
+        extension += "html";
+        break;
+      default:
+        extension += "txt";
+    }
+    // taken from this: https://stackoverflow.com/questions/44656610/download-a-string-as-txt-file-in-react
+    const element = document.createElement("a");
+    const file = new Blob([code], { type: "text/plain" });
+    element.href = URL.createObjectURL(file);
+    element.download = name + extension;
+    document.body.appendChild(element); // Required for this to work in FireFox
+    element.click();
+  };
+
   setCreateSketchModalOpen = val => {
     this.setState({ createSketchModalOpen: val });
   };
@@ -89,8 +113,7 @@ class Sketches extends React.Component {
       // if (a.name > b.name) return 1;
       else return 1;
     });
-
-    newList.forEach(({ key, name, language, thumbnail }) => {
+    newList.forEach(({ key, name, language, thumbnail, code }) => {
       let faLanguage;
       let languageDisplay; // not a great way to do this!
       switch (language) {
@@ -115,6 +138,9 @@ class Sketches extends React.Component {
           key={key}
           deleteFunc={() => {
             this.setConfirmDeleteModalOpen(true, name, key);
+          }}
+          downloadFunc={() => {
+            this.downloadSketchCode(name, language, code);
           }}
           editFunc={() => {
             this.setEditSketchModalOpen(
