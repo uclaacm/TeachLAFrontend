@@ -27,11 +27,9 @@ class ProfilePanel extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      prevWidth: 0,
-      width: this.props.width,
       nameIsHovering: false,
       imageIsHovering: false,
-      editing: false,
+      editingName: false,
       showModal: false,
       name: this.props.displayName,
       selectedImage: "",
@@ -52,7 +50,7 @@ class ProfilePanel extends React.Component {
 
   handleEditNameClick = () => {
     this.setState(prevState => {
-      return { editing: true };
+      return { editingName: true };
     });
   };
 
@@ -88,11 +86,11 @@ class ProfilePanel extends React.Component {
     let badInputs = this.checkInputs();
 
     if (badInputs) {
-      this.setState({ name: this.props.displayName, editing: false });
+      this.setState({ name: this.props.displayName, editingName: false });
       return;
     } else {
       this.props.setDisplayName(this.state.name);
-      this.setState({ editing: false, displayNameMessage: "" });
+      this.setState({ editingName: false, displayNameMessage: "" });
       return;
     }
   };
@@ -175,7 +173,7 @@ class ProfilePanel extends React.Component {
   };
 
   renderName = () => {
-    if (!this.state.editing) {
+    if (!this.state.editingName) {
       return (
         <div
           className="panel-name"
@@ -225,6 +223,7 @@ class ProfilePanel extends React.Component {
 
   renderEditorButton = disabled => (
     <div
+      key="editor"
       className={"panel-options-item" + (disabled ? "-disabled" : "")}
       onClick={() => {
         if (!disabled) {
@@ -250,6 +249,7 @@ class ProfilePanel extends React.Component {
 
   renderSketchesButton = disabled => (
     <div
+      key="sketches"
       className={"panel-options-item" + (disabled ? "-disabled" : "")}
       onClick={() => {
         if (!disabled) {
@@ -274,7 +274,7 @@ class ProfilePanel extends React.Component {
   );
 
   renderSignOutButton = () => (
-    <div className={"panel-options-item"} onClick={() => firebase.auth().signOut()}>
+    <div className={"panel-options-item"} onClick={() => firebase.auth().signOut()} key="signout">
       <span className="panel-item-content">
         <span className="panel-item-icon">
           <img className={"panel-item-icon"} alt="exit" src={Exit} />
@@ -325,10 +325,8 @@ class ProfilePanel extends React.Component {
   );
 
   renderCollapseButton = () => (
-    <div className="panel-collapse-button">
-      <div onClick={this.props.togglePanel}>
-        <FontAwesomeIcon icon={faTimes} />
-      </div>
+    <div className="panel-collapse-button" onClick={this.props.togglePanel}>
+      <FontAwesomeIcon icon={faTimes} />
     </div>
   );
 
