@@ -43,17 +43,37 @@ export default class LoginModal extends React.Component {
           console.log(err);
           let newMsg = err.message;
           switch (err.code) {
+            case "auth/invalid-email":
+              newMsg =
+                "Invalid username inputted. Usernames must only have alphanumeric characters plus !@#$%.";
+              break;
             case "auth/user-not-found":
-              newMsg = "No account found for username";
+              newMsg = "No account found for username.";
               break;
             case "auth/wrong-password":
-              newMsg = "Invalid password provided";
+              newMsg = "Invalid password provided.";
               break;
             case "auth/network-request-failed":
-              newMsg = "Login request failed. Please try again later...";
+              newMsg = "Network error - check your internet connection.";
+              break;
+            case "auth/app-deleted":
+            case "auth/app-not-authorized":
+            case "auth/argument-error":
+            case "auth/invalid-api-key":
+            case "auth/operation-not-allowed":
+            case "auth/requires-recent-login":
+            case "auth/unauthorized-domain":
+              newMsg =
+                "App was not properly configured. Please contact administrator. Error: " + err.code;
+              break;
+            case "auth/invalid-user-token":
+            case "auth/user-disabled":
+            case "auth/user-token-expired":
+            case "auth/web-storage-unsupported":
+              newMsg = "Issue with user. Please contact administrator. Error: " + err.code;
               break;
             default:
-              newMsg = "Failed to sign in";
+              newMsg = "Failed to sign in: " + err.code;
           }
           this.setState({ errorMsg: newMsg, waiting: false });
         });
