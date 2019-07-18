@@ -1,5 +1,6 @@
 import React from "react";
 import SHA256 from "crypto-js/sha256";
+import { Button } from "reactstrap";
 import { RingLoader } from "react-spinners";
 import { EMAIL_DOMAIN_NAME } from "../../constants";
 import { Link } from "react-router-dom";
@@ -125,9 +126,9 @@ export default class LoginModal extends React.Component {
         />
       */
       return (
-        <button className="login-form-button" type="submit">
+        <Button className="login-form-button" size="lg" type="submit">
           Login
-        </button>
+        </Button>
       );
     }
   };

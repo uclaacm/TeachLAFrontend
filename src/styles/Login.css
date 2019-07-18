@@ -125,21 +125,15 @@
 }
 
 .login-form-button {
-  display: inline-block;
-  font-family: "Josefin Slab", sans-serif;
-  color: #dddcdf;
   background-color: #857e8f;
-  cursor: pointer;
-  overflow: visible;
-  text-align: center;
-  border: 0;
-  border-radius: 3px;
-  user-select: none;
-  text-decoration: none;
-  padding: 0.5em 1em;
-  font-size: 1.3rem;
-  line-height: 1.4em;
-  margin-right: 0.5em;
+}
+
+.login-form-button:hover {
+  background: none !important;
+}
+
+.login-form-button:active {
+  background: none !important;
 }
 
 .login-form-link {

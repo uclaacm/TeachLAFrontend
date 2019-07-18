@@ -205,7 +205,11 @@
 }
 
 .panel-button:hover {
-  background-color: #453e5b;
+  background: none !important;
+}
+
+.panel-button:active {
+  background: none !important;
 }
 
 /*scrollbar stuff*/

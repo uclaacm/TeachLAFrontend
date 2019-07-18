@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "reactstrap";
 import { RingLoader } from "react-spinners";
 import { Link } from "react-router-dom";
 import firebase from "firebase";
@@ -188,9 +189,9 @@ export default class CreateUserForm extends React.Component {
       );
     } else {
       return (
-        <button className="login-form-button" type="submit">
+        <Button className="login-form-button" size="lg" type="submit">
           Create Account
-        </button>
+        </Button>
       );
     }
   };
