@@ -4,10 +4,12 @@ exports[`Footer should render correctly 1`] = `
 <div
   className="login-footer"
 >
-  <img
-    alt="TEACH LA"
-    className="login-footer-image"
-    src="tla-logo.svg"
-  />
+  <a href="https://github.com/uclaacm/TeachLAFrontend" target="_blank" rel="noopener noreferrer">
+    <img
+      alt="Teach LA logo and link to GitHub Repository"
+      className="login-footer-image"
+      src="tla-logo.svg"
+    />
+  </a>
 </div>
 `;
