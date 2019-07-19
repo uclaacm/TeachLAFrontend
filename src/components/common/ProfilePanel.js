@@ -163,7 +163,7 @@ class ProfilePanel extends React.Component {
       >
         <div className="gallery">{icons}</div>
         <div className="text-center">
-          <Button color="success" onClick={this.onImageSubmit}>
+          <Button color="success" size="lg" onClick={this.onImageSubmit}>
             Submit
           </Button>
         </div>

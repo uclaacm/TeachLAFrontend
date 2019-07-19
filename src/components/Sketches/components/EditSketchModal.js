@@ -212,6 +212,7 @@ class EditSketchModal extends React.Component {
             <Col xs="8" className="d-flex align-items-center">
               <Button
                 color="primary"
+                size="lg"
                 onClick={() => {
                   this.setState({ onThumbnails: true });
                 }}
