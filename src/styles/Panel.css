@@ -183,10 +183,10 @@
   width: 150px;
   padding: 20px 0 20px;
   font-size: 2rem;
-  font-weight: bold;
   word-wrap: break-word;
   color: #dddcdf;
   position: relative;
+  font-family: "Poppins", sans-serif;
 }
 
 .panel-buttons {

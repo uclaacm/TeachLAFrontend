@@ -178,8 +178,6 @@ export default class CreateUserForm extends React.Component {
     </div>
   );
 
-  renderHeader = () => <div className="login-header">Create a new account</div>;
-
   renderAction = () => {
     if (this.state.waiting) {
       return (
@@ -206,7 +204,7 @@ export default class CreateUserForm extends React.Component {
     return (
       <div className="login-form-container">
         <form className="login-form" onSubmit={this.submit}>
-          {this.renderHeader()}
+          <h1>Create a new account</h1>
           <br />
           {this.renderInputs()}
           {this.renderAction()}

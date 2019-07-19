@@ -137,9 +137,9 @@ export default class LoginModal extends React.Component {
     return (
       <div className="login-form-container">
         <form className="login-form" onSubmit={this.handleEmailLogin}>
-          <div className="login-header">
+          <h1>
             Welcome to <span className="force-no-wrap">&lt;Teach LA&gt;</span>
-          </div>
+          </h1>
           <br />
           {this.renderInputs()}
           {this.renderAction()}

@@ -73,7 +73,6 @@
 }
 
 .login-form-container {
-  font-family: "Josefin Slab", sans-serif; /*font for the whole login page*/
   display: block;
   margin-top: 30px; /*modal distance from top of the screen*/
   box-sizing: border-box;
@@ -137,13 +136,13 @@
 }
 
 .login-form-link {
-  color: #2d7799;
+  color: inherit;
   text-decoration: none;
   font-size: 1.2rem;
 }
 
 .login-form-link:hover {
-  color: #2d7799;
+  color: inherit;
   text-decoration: underline;
 }
 
