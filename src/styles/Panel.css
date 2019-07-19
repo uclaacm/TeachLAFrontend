@@ -201,15 +201,18 @@
 
 .panel-button {
   background-color: #262133;
+  border-color: #262133;
   font-size: 2em !important; /* reactstrap also has a !important somewhere, so we need to do this */
 }
 
 .panel-button:hover {
   background: none !important;
+  border-color: #262133;
 }
 
 .panel-button:active {
   background: none !important;
+  border-color: #262133;
 }
 
 /*scrollbar stuff*/

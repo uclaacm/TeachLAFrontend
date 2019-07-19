@@ -10,8 +10,8 @@ import {
   PANEL_SIZE,
 } from "../../constants";
 import ReactModal from "react-modal";
+import { faBook } from "@fortawesome/free-solid-svg-icons";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
-import { faFolder } from "@fortawesome/free-solid-svg-icons";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
@@ -154,21 +154,20 @@ class ProfilePanel extends React.Component {
       );
     });
     return (
-      <div>
-        <ReactModal
-          isOpen={this.state.showModal}
-          onRequestClose={this.handleCloseModal}
-          className="profile-image-modal"
-          overlayClassName="profile-image-overlay"
-          ariaHideApp={false}
-        >
-          <div className="gallery">{icons}</div>
-
-          <button onClick={this.onImageSubmit} className="modal-submit-button">
+      <ReactModal
+        isOpen={this.state.showModal}
+        onRequestClose={this.handleCloseModal}
+        className="profile-image-modal"
+        overlayClassName="profile-image-overlay"
+        ariaHideApp={false}
+      >
+        <div className="gallery">{icons}</div>
+        <div className="text-center">
+          <Button color="success" onClick={this.onImageSubmit}>
             Submit
-          </button>
-        </ReactModal>
-      </div>
+          </Button>
+        </div>
+      </ReactModal>
     );
   };
 
@@ -230,7 +229,7 @@ class ProfilePanel extends React.Component {
         this.setState({ redirectTo: "/sketches" });
       }}
     >
-      <FontAwesomeIcon icon={faFolder} />
+      <FontAwesomeIcon icon={faBook} />
       <span> Sketches</span>
     </Button>
   );

@@ -1,6 +1,5 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
-import SketchesButton from "./components/SketchesButton";
 import SketchBox from "./components/SketchBox";
 import ConfirmDeleteModalContainer from "./containers/ConfirmDeleteModalContainer";
 import CreateSketchModalContainer from "./containers/CreateSketchModalContainer";
@@ -10,7 +9,11 @@ import { SketchThumbnailArray } from "./constants";
 // import { PANEL_SIZE } from "../../constants";
 import "../../styles/Sketches.css";
 
+import { Button } from "reactstrap";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCogs } from "@fortawesome/free-solid-svg-icons";
+import { faFile } from "@fortawesome/free-solid-svg-icons";
 import { faPython } from "@fortawesome/free-brands-svg-icons";
 import { faHtml5 } from "@fortawesome/free-brands-svg-icons";
 
@@ -63,13 +66,14 @@ class Sketches extends React.Component {
     <div className="sketches-header">
       <OpenPanelButtonContainer />
       <div className="sketches-header-text">Sketches</div>
-      <div style={{ marginLeft: "auto" }}>
-        <SketchesButton
-          handleClick={() => this.setCreateSketchModalOpen(true)}
-          text={"Create Sketch"}
-          width={"200px"}
-        />
-      </div>
+      <Button
+        className="ml-auto mr-2"
+        color="success"
+        size="lg"
+        onClick={() => this.setCreateSketchModalOpen(true)}
+      >
+        <FontAwesomeIcon icon={faFile} /> Create Sketch
+      </Button>
     </div>
   );
 
