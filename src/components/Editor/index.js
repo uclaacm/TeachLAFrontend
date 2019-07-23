@@ -134,7 +134,8 @@ class Editor extends React.Component {
           />
         </div>
         <Button className="mx-2" color="success" size="lg" onClick={this.handleSave}>
-          <FontAwesomeIcon icon={faSave} /> {this.state.saveText}
+          <FontAwesomeIcon icon={faSave} />
+          &nbsp;&nbsp;{this.state.saveText}
         </Button>
       </div>
       <div

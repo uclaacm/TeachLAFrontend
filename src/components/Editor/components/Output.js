@@ -157,7 +157,8 @@ class Output extends React.Component {
       {this.renderRadio()}
       {this.renderConsoleButton()}
       <Button className="mx-2" color="primary" size="lg" onClick={this.runCode}>
-        <FontAwesomeIcon icon={faCheck} /> Run Code
+        <FontAwesomeIcon icon={faCheck} />
+        &nbsp;&nbsp;Run
       </Button>
     </div>
   );

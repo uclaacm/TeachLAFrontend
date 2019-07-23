@@ -230,7 +230,7 @@ class ProfilePanel extends React.Component {
       }}
     >
       <FontAwesomeIcon icon={faBook} />
-      <span> Sketches</span>
+      &nbsp;&nbsp; Sketches
     </Button>
   );
 
@@ -243,7 +243,7 @@ class ProfilePanel extends React.Component {
       onClick={() => firebase.auth().signOut()}
     >
       <FontAwesomeIcon icon={faSignOutAlt} />
-      <span> Log Out</span>
+      &nbsp;&nbsp; Log Out
     </Button>
   );
 

@@ -193,7 +193,6 @@
   width: 90%;
   margin-left: auto;
   margin-right: auto;
-  text-align: center;
   justify-content: flex-start;
   padding-top: 25px;
   cursor: default;
@@ -202,6 +201,7 @@
 .panel-button {
   background-color: #262133;
   border-color: #262133;
+  text-align: left;
   font-size: 2em !important; /* reactstrap also has a !important somewhere, so we need to do this */
 }
 
