@@ -7,6 +7,7 @@ import CreateSketchModalContainer from "./containers/CreateSketchModalContainer"
 import EditSketchModalContainer from "./containers/EditSketchModalContainer";
 import OpenPanelButtonContainer from "../common/containers/OpenPanelButtonContainer";
 import { SketchThumbnailArray } from "./constants";
+import ProcessingConstructor from "../Editor/components/Output/Processing";
 // import { PANEL_SIZE } from "../../constants";
 import "../../styles/Sketches.css";
 
@@ -42,9 +43,7 @@ class Sketches extends React.Component {
       case "python":
         extension += "py";
         break;
-      case "processing":
-        extension += "processing";
-        break;
+      case "processing": // this is because we construct the processing result as an HTML file. jank.
       case "html":
         extension += "html";
         break;
@@ -53,7 +52,12 @@ class Sketches extends React.Component {
     }
     // taken from this: https://stackoverflow.com/questions/44656610/download-a-string-as-txt-file-in-react
     const element = document.createElement("a");
-    const file = new Blob([code], { type: "text/plain" });
+    let file;
+    if (language === "processing") {
+      file = new Blob([ProcessingConstructor(code, true)], { type: "text/plain" });
+    } else {
+      file = new Blob([code], { type: "text/plain" });
+    }
     element.href = URL.createObjectURL(file);
     element.download = name + extension;
     document.body.appendChild(element); // Required for this to work in FireFox
