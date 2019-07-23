@@ -206,13 +206,15 @@
 }
 
 .panel-button:hover {
-  background: none !important;
-  border-color: #262133;
+  color: #262133;
+  border-color: #dddcdf;
+  background-color: #dddcdf;
 }
 
 .panel-button:active {
-  background: none !important;
-  border-color: #262133;
+  color: #262133;
+  border-color: #dddcdf;
+  background-color: #dddcdf;
 }
 
 /*scrollbar stuff*/

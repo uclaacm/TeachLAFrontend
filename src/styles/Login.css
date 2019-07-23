@@ -124,15 +124,21 @@
 }
 
 .login-form-button {
-  background-color: #857e8f;
+  background-color: #443d59;
+  border-color: #443d59;
+  text-align: left;
 }
 
 .login-form-button:hover {
-  background: none !important;
+  color: #443d59;
+  border-color: #dddcdf;
+  background-color: #dddcdf;
 }
 
 .login-form-button:active {
-  background: none !important;
+  color: #443d59;
+  border-color: #dddcdf;
+  background-color: #dddcdf;
 }
 
 .login-form-link {
