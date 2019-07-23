@@ -40,12 +40,12 @@ export default class LoginModal extends React.Component {
         .signInWithEmailAndPassword(email, passwordHash)
         .then(() => {})
         .catch(err => {
-          console.log(err);
+          console.error(err);
           let newMsg = err.message;
           switch (err.code) {
             case "auth/invalid-email":
               newMsg =
-                "Invalid username inputted. Usernames must only have alphanumeric characters plus !@#$%.";
+                "Invalid username. Usernames must only have alphanumeric characters plus !@#$%.";
               break;
             case "auth/user-not-found":
               newMsg = "No account found for username.";

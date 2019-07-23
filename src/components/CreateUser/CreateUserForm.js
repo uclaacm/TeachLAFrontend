@@ -125,12 +125,12 @@ export default class CreateUserForm extends React.Component {
       .createUserWithEmailAndPassword(email, passHash)
       .then(({ user }) => {})
       .catch(err => {
-        console.log(err);
+        console.error(err);
         let newMsg = err.message;
         switch (err.code) {
           case "auth/invalid-email":
             newMsg =
-              "Invalid username inputted. Usernames must only have alphanumeric characters plus !@#$%.";
+              "Invalid username. Usernames must only have alphanumeric characters plus !@#$%.";
             break;
           case "auth/email-already-in-use":
             newMsg = "Username is taken; please use another one.";
@@ -163,7 +163,7 @@ export default class CreateUserForm extends React.Component {
           default:
             newMsg = "Failed to create user: " + err.code;
         }
-        this.setState({ waiting: false, errorMessage: newMsg || "failed to create user" });
+        this.setState({ waiting: false, errorMessage: newMsg || "Failed to create user." });
       });
 
     this.setState({ password: "", confirmPassword: "" });
