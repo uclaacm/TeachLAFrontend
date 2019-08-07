@@ -203,6 +203,11 @@
   border-color: #262133;
   text-align: left;
   font-size: 2em !important; /* reactstrap also has a !important somewhere, so we need to do this */
+  /* this next block of CSS properly aligns button content */
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .panel-button:hover {
@@ -215,6 +220,11 @@
   color: #262133;
   border-color: #dddcdf;
   background-color: #dddcdf;
+}
+
+.panel-button-text {
+  flex: 1;
+  text-align: center;
 }
 
 /*scrollbar stuff*/
