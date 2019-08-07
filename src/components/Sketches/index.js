@@ -119,12 +119,11 @@ class Sketches extends React.Component {
         <div>
           <div className="no-sketches-container">
             <h2>There's nothing here! Why don't you try creating a sketch?</h2>
+            <br />
             <p>
-              <SketchesButton
-                handleClick={() => this.setCreateSketchModalOpen(true)}
-                text={"Create A Sketch"}
-                width={"200px"}
-              />
+              <Button color="success" size="lg" onClick={() => this.setCreateSketchModalOpen(true)}>
+                Create A Sketch
+              </Button>
             </p>
           </div>
         </div>
