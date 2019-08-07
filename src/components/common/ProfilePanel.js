@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Button } from "reactstrap";
 import firebase from "firebase";
 import {
@@ -34,7 +34,6 @@ class ProfilePanel extends React.Component {
       name: this.props.displayName,
       selectedImage: "",
       displayNameMessage: "",
-      redirectTo: "",
     };
   }
 
@@ -205,33 +204,25 @@ class ProfilePanel extends React.Component {
   };
 
   renderEditorButton = () => (
-    <Button
-      className="panel-button"
-      key="editor-button"
-      size="lg"
-      block
-      onClick={() => {
-        this.setState({ redirectTo: "/editor" });
-      }}
+    <Link
+      to={{ pathname: "/editor" }}
+      className="panel-button btn btn-secondary btn-lg btn-block"
+      key="sketches-button"
     >
       <FontAwesomeIcon icon={faPencilAlt} />
       <span className="panel-button-text">Editor</span>
-    </Button>
+    </Link>
   );
 
   renderSketchesButton = () => (
-    <Button
-      className="panel-button"
+    <Link
+      to={{ pathname: "/sketches" }}
+      className="panel-button btn btn-secondary btn-lg btn-block"
       key="sketches-button"
-      size="lg"
-      block
-      onClick={() => {
-        this.setState({ redirectTo: "/sketches" });
-      }}
     >
       <FontAwesomeIcon icon={faBook} />
       <span className="panel-button-text">Sketches</span>
-    </Button>
+    </Link>
   );
 
   renderSignOutButton = () => (
@@ -266,13 +257,6 @@ class ProfilePanel extends React.Component {
     return <div className="panel-buttons">{panelButtons}</div>;
   };
 
-  renderRedirect() {
-    if (this.state.redirectTo) {
-      return <Redirect to={this.state.redirectTo} />;
-    }
-    return null;
-  }
-
   renderContent = () => (
     <div className="panel-content">
       {this.renderPanelImage()}
@@ -299,7 +283,6 @@ class ProfilePanel extends React.Component {
       <div className="panel" style={panelStyle}>
         {this.renderCollapseButton()}
         {this.renderContent()}
-        {this.renderRedirect()}
         <Footer />
       </div>
     );
