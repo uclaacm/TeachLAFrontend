@@ -93,6 +93,13 @@
   background-image: url("./triangle.png");
 }
 
+/* required for firefox because it places the ::after element differently than chrome */
+@-moz-document url-prefix() {
+  .cm-s-material .CodeMirror-cursor::after {
+    margin-top: 26px;
+  }
+}
+
 .CodeMirror-scroll {
   overflow: hidden !important;
 }
