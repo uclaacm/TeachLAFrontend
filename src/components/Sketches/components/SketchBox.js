@@ -3,6 +3,7 @@ import React from "react";
 import "../../../styles/Sketches.css";
 
 import { Row, Col } from "reactstrap";
+import { faDownload } from "@fortawesome/free-solid-svg-icons";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -30,6 +31,10 @@ class SketchBox extends React.Component {
         <Row className="sketch-box-body">
           <Col className="p-2 text-center" onClick={this.props.editFunc}>
             <FontAwesomeIcon className="fa-lg" icon={faEdit} />
+          </Col>
+          <div className="sketch-button-divider" />
+          <Col className="p-2 text-center" onClick={this.props.downloadFunc}>
+            <FontAwesomeIcon className="fa-lg" icon={faDownload} />
           </Col>
           <div className="sketch-button-divider" />
           <Col className="p-2 text-center" onClick={this.props.deleteFunc}>

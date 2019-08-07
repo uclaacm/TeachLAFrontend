@@ -125,11 +125,46 @@ export default class CreateUserForm extends React.Component {
       .auth()
       .createUserWithEmailAndPassword(email, passHash)
       .then(({ user }) => {})
-      .catch(error => {
-        console.log(error);
-        let newErr = error.message || "";
-        newErr = newErr.replace("email address", "username");
-        this.setState({ waiting: false, errorMessage: newErr || "failed to create user" });
+      .catch(err => {
+        console.error(err);
+        let newMsg = err.message;
+        switch (err.code) {
+          case "auth/invalid-email":
+            newMsg =
+              "Invalid username. Usernames must only have alphanumeric characters plus !@#$%.";
+            break;
+          case "auth/email-already-in-use":
+            newMsg = "Username is taken; please use another one.";
+            break;
+          case "auth/user-not-found": // this shouldn't ever happen
+            newMsg = "No account found for username.";
+            break;
+          case "auth/wrong-password":
+            newMsg = "Invalid password provided.";
+            break;
+          case "auth/network-request-failed":
+            newMsg = "Network error - check your internet connection.";
+            break;
+          case "auth/app-deleted":
+          case "auth/app-not-authorized":
+          case "auth/argument-error":
+          case "auth/invalid-api-key":
+          case "auth/operation-not-allowed":
+          case "auth/requires-recent-login":
+          case "auth/unauthorized-domain":
+            newMsg =
+              "App was not properly configured. Please contact administrator. Error: " + err.code;
+            break;
+          case "auth/invalid-user-token":
+          case "auth/user-disabled":
+          case "auth/user-token-expired":
+          case "auth/web-storage-unsupported":
+            newMsg = "Issue with user. Please contact administrator. Error: " + err.code;
+            break;
+          default:
+            newMsg = "Failed to create user: " + err.code;
+        }
+        this.setState({ waiting: false, errorMessage: newMsg || "Failed to create user." });
       });
 
     this.setState({ password: "", confirmPassword: "" });
