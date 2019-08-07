@@ -110,6 +110,22 @@ class Sketches extends React.Component {
 
   renderSketches = () => {
     let newList = this.props.programs.concat([]);
+    if (newList.size === 0) {
+      return (
+        <div>
+          <div className="no-sketches-container">
+            <h2>There's nothing here! Why don't you try creating a sketch?</h2>
+            <p>
+              <SketchesButton
+                handleClick={() => this.setCreateSketchModalOpen(true)}
+                text={"Create A Sketch"}
+                width={"200px"}
+              />
+            </p>
+          </div>
+        </div>
+      );
+    }
     let sketches = [];
     newList.sort((a, b) => {
       if (a.name < b.name) return -1;
