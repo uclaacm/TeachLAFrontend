@@ -1,14 +1,17 @@
 import React from "react";
 import SplitPane from "react-split-pane";
+import { Button } from "reactstrap";
 import OutputContainer from "./containers/OutputContainer.js";
 import TextEditorContainer from "./containers/TextEditorContainer";
 import DropdownButtonContainer from "./containers/DropdownButtonContainer";
 import OpenPanelButtonContainer from "../common/containers/OpenPanelButtonContainer";
-import EditorButton from "./components/EditorButton";
 import * as fetch from "../../lib/fetch.js";
 import EditorRadio from "./components/EditorRadio.js";
 import { Redirect } from "react-router-dom";
 import { EDITOR_WIDTH_BREAKPOINT, CODE_AND_OUTPUT, CODE_ONLY, OUTPUT_ONLY } from "./constants";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSave } from "@fortawesome/free-solid-svg-icons";
 
 import { PANEL_SIZE } from "../../constants";
 import "codemirror/lib/codemirror.css";
@@ -27,7 +30,7 @@ class Editor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      saveText: "Save code",
+      saveText: "Save",
       viewMode: CODE_AND_OUTPUT,
       redirect: "",
       pane1Style: { transition: "width .5s ease" },
@@ -56,7 +59,7 @@ class Editor extends React.Component {
 
   resetSaveText = () => {
     this.setState({
-      saveText: "Save code",
+      saveText: "Save",
     });
   };
 
@@ -130,7 +133,10 @@ class Editor extends React.Component {
             isSmall={this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
           />
         </div>
-        <EditorButton handleClick={this.handleSave} text={this.state.saveText} />
+        <Button className="mx-2" color="success" size="lg" onClick={this.handleSave}>
+          <FontAwesomeIcon icon={faSave} />
+          &nbsp;&nbsp;{this.state.saveText}
+        </Button>
       </div>
       <div
         className="text-editor-container"

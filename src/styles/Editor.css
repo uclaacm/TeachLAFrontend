@@ -154,11 +154,15 @@
   overflow: auto;
 }
 
-.btn:not(:disabled):not(.disabled) {
+.btn-language-dropdown {
   font-size: 24px;
-  font-family: "Josefin Sans", sans-serif; /*font for the whole login page */
+  font-family: "Chivo", sans-serif;
   color: white;
   border: 0px;
+}
+
+.btn-language-dropdown:hover {
+  color: white;
 }
 
 .selected-line {

@@ -90,7 +90,7 @@ export default class DropdownButton extends React.Component {
           toggle={() => this.toggleHandler(this.state.dropdownOpen)}
         >
           {/* HACK: disables the colors entirely, makes the dropdown transparent */}
-          <DropdownToggle color={""} caret>
+          <DropdownToggle className="btn-language-dropdown" color={""} caret>
             <div className="editor-language-dropdown-closed-content">
               <FontAwesomeIcon icon={faLanguage} fixedWidth /> {this.props.displayValue}
             </div>

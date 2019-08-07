@@ -1,16 +1,16 @@
-.Loading{
-	display:flex;
-	flex-direction:column;
-	align-items:center;
-	justify-content:center;
-    background-color: #473d5d;  
-	width:100%;
-	height:100%;
+.Loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #473d5d;
+  width: 100%;
+  height: 100%;
 }
 
-.Loading-title{
-	margin: 0 0 2rem;
-	font-size:5rem;
-    font-family: 'Josefin Slab', sans-serif;      
-    color:#dddcdf;
+.Loading-title {
+  margin: 0 0 2rem;
+  font-size: 5rem;
+  font-family: "Poppins", sans-serif;
+  color: #dddcdf;
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
+import { Button } from "reactstrap";
 import firebase from "firebase";
 import {
   MINIMUM_DISPLAY_NAME_LENGTH,
@@ -9,13 +10,12 @@ import {
   PANEL_SIZE,
 } from "../../constants";
 import ReactModal from "react-modal";
+import { faBook } from "@fortawesome/free-solid-svg-icons";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
+import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ComingSoonBanner } from "../../img/coming-soon-banner.png";
-import Pencil from "../../img/pencil.png";
-import House from "../../img/house.png";
-import Exit from "../../img/exit-icon.png";
 import "../../styles/Panel.css";
 import Footer from "./Footer";
 
@@ -154,21 +154,20 @@ class ProfilePanel extends React.Component {
       );
     });
     return (
-      <div>
-        <ReactModal
-          isOpen={this.state.showModal}
-          onRequestClose={this.handleCloseModal}
-          className="profile-image-modal"
-          overlayClassName="profile-image-overlay"
-          ariaHideApp={false}
-        >
-          <div className="gallery">{icons}</div>
-
-          <button onClick={this.onImageSubmit} className="modal-submit-button">
+      <ReactModal
+        isOpen={this.state.showModal}
+        onRequestClose={this.handleCloseModal}
+        className="profile-image-modal"
+        overlayClassName="profile-image-overlay"
+        ariaHideApp={false}
+      >
+        <div className="gallery">{icons}</div>
+        <div className="text-center">
+          <Button color="success" size="lg" onClick={this.onImageSubmit}>
             Submit
-          </button>
-        </ReactModal>
-      </div>
+          </Button>
+        </div>
+      </ReactModal>
     );
   };
 
@@ -205,83 +204,47 @@ class ProfilePanel extends React.Component {
     }
   };
 
-  renderProfileButton = disabled => (
-    <div className={"panel-options-item" + (disabled ? "-disabled" : "")}>
-      {disabled && (
-        <img
-          style={{ position: "absolute", height: "60px", right: "-2px", zIndex: 20, opacity: 0.9 }}
-          alt="banner"
-          src={ComingSoonBanner}
-        />
-      )}
-      <span className={"panel-item-content"}>
-        <img className={"panel-item-icon"} alt="house" src={"img/house2.png"} />
-        <span className={"panel-item-name"}>Profile</span>
-      </span>
-    </div>
-  );
-
-  renderEditorButton = disabled => (
-    <div
-      key="editor"
-      className={"panel-options-item" + (disabled ? "-disabled" : "")}
+  renderEditorButton = () => (
+    <Button
+      className="panel-button"
+      key="editor-button"
+      size="lg"
+      block
       onClick={() => {
-        if (!disabled) {
-          this.setState({ redirectTo: "/editor" });
-        }
+        this.setState({ redirectTo: "/editor" });
       }}
     >
-      {disabled && (
-        <img
-          style={{ position: "absolute", height: "60px", right: "-2px", zIndex: 20, opacity: 0.9 }}
-          alt="banner"
-          src={ComingSoonBanner}
-        />
-      )}
-      <span className="panel-item-content">
-        <span className="panel-item-icon">
-          <img className={"panel-item-icon"} alt="house" src={House} />
-        </span>
-        <span className="panel-item-name">Editor</span>
-      </span>
-    </div>
+      <FontAwesomeIcon icon={faPencilAlt} />
+      <span className="panel-button-text">Editor</span>
+    </Button>
   );
 
-  renderSketchesButton = disabled => (
-    <div
-      key="sketches"
-      className={"panel-options-item" + (disabled ? "-disabled" : "")}
+  renderSketchesButton = () => (
+    <Button
+      className="panel-button"
+      key="sketches-button"
+      size="lg"
+      block
       onClick={() => {
-        if (!disabled) {
-          this.setState({ redirectTo: "/sketches" });
-        }
+        this.setState({ redirectTo: "/sketches" });
       }}
     >
-      {disabled && (
-        <img
-          style={{ position: "absolute", height: "60px", right: "-2px", zIndex: 20, opacity: 0.9 }}
-          alt="banner"
-          src={ComingSoonBanner}
-        />
-      )}
-      <span className="panel-item-content">
-        <span className="panel-item-icon">
-          <img className="reverse-image" alt="pencil" src={Pencil} />
-        </span>
-        <span className="panel-item-name">Sketches</span>
-      </span>
-    </div>
+      <FontAwesomeIcon icon={faBook} />
+      <span className="panel-button-text">Sketches</span>
+    </Button>
   );
 
   renderSignOutButton = () => (
-    <div className={"panel-options-item"} onClick={() => firebase.auth().signOut()} key="signout">
-      <span className="panel-item-content">
-        <span className="panel-item-icon">
-          <img className={"panel-item-icon"} alt="exit" src={Exit} />
-        </span>
-        <span className="panel-item-name">Log Out</span>
-      </span>
-    </div>
+    <Button
+      className="panel-button"
+      key="sign-out-button"
+      size="lg"
+      block
+      onClick={() => firebase.auth().signOut()}
+    >
+      <FontAwesomeIcon icon={faSignOutAlt} />
+      <span className="panel-button-text">Log Out</span>
+    </Button>
   );
 
   renderButtons = () => {
@@ -300,11 +263,7 @@ class ProfilePanel extends React.Component {
 
     panelButtons.push(this.renderSignOutButton());
 
-    return (
-      <div className="panel-options">
-        <div className="panel-options-list">{panelButtons}</div>
-      </div>
-    );
+    return <div className="panel-buttons">{panelButtons}</div>;
   };
 
   renderRedirect() {
@@ -330,8 +289,6 @@ class ProfilePanel extends React.Component {
     </div>
   );
 
-  renderFooter = () => <Footer />;
-
   render() {
     const panelStyle = {
       left: this.props.left,
@@ -343,7 +300,7 @@ class ProfilePanel extends React.Component {
         {this.renderCollapseButton()}
         {this.renderContent()}
         {this.renderRedirect()}
-        {this.renderFooter()}
+        <Footer />
       </div>
     );
   }

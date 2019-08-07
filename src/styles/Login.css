@@ -73,7 +73,6 @@
 }
 
 .login-form-container {
-  font-family: "Josefin Slab", sans-serif; /*font for the whole login page*/
   display: block;
   margin-top: 30px; /*modal distance from top of the screen*/
   box-sizing: border-box;
@@ -125,31 +124,31 @@
 }
 
 .login-form-button {
-  display: inline-block;
-  font-family: "Josefin Slab", sans-serif;
-  color: #dddcdf;
-  background-color: #857e8f;
-  cursor: pointer;
-  overflow: visible;
-  text-align: center;
-  border: 0;
-  border-radius: 3px;
-  user-select: none;
-  text-decoration: none;
-  padding: 0.5em 1em;
-  font-size: 1.3rem;
-  line-height: 1.4em;
-  margin-right: 0.5em;
+  background-color: #443d59;
+  border-color: #443d59;
+  text-align: left;
+}
+
+.login-form-button:hover {
+  color: #443d59;
+  border-color: #dddcdf;
+  background-color: #dddcdf;
+}
+
+.login-form-button:active {
+  color: #443d59;
+  border-color: #dddcdf;
+  background-color: #dddcdf;
 }
 
 .login-form-link {
-  color: #2d7799;
+  color: inherit;
   text-decoration: none;
   font-size: 1.2rem;
 }
 
 .login-form-link:hover {
-  color: #2d7799;
+  color: inherit;
   text-decoration: underline;
 }
 

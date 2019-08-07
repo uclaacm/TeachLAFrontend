@@ -183,89 +183,48 @@
   width: 150px;
   padding: 20px 0 20px;
   font-size: 2rem;
-  font-weight: bold;
   word-wrap: break-word;
   color: #dddcdf;
   position: relative;
+  font-family: "Poppins", sans-serif;
 }
 
-.panel-options-item {
-  border: 2px solid transparent;
-  border-radius: 10px;
-  background-color: #857e8f;
-  padding-left: 5px;
-  padding-right: 5px;
-  color: rgb(133, 129, 129);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  position: relative;
-  margin-bottom: 20px;
-}
-
-.panel-options-item:hover {
-  border: 2px solid white;
-  border-radius: 10px;
-  cursor: pointer;
-}
-
-.panel-options-item-disabled {
-  border: 2px solid transparent;
-  border-radius: 10px;
-  background-color: #857e8f;
-  padding-left: 5px;
-  padding-right: 5px;
-  color: rgb(133, 129, 129);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  position: relative;
-  margin-bottom: 20px;
-}
-.panel-item-content {
-  position: relative;
-  font-size: 32px;
-  margin-top: 7px;
-  margin-right: 5px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex: 1;
-}
-
-.panel-item-content .panel-item-icon {
-  display: flex;
-  height: 30px;
-  padding-right: 10px;
-  margin-bottom: 12px;
-  margin-left: 5px;
-}
-
-.panel-item-content .reverse-image {
-  transform: scaleX(-1);
-  height: 30px;
-}
-
-.panel-item-name {
-  display: flex;
-  flex: 1;
-  justify-content: center;
-}
-
-.panel-options {
-  width: 100%;
-  list-style-position: inside;
-  list-style-type: square;
-  text-align: center;
+.panel-buttons {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
   justify-content: flex-start;
   padding-top: 25px;
   cursor: default;
 }
 
-.panel-options-list {
-  display: inline-block;
+.panel-button {
+  background-color: #262133;
+  border-color: #262133;
+  text-align: left;
+  font-size: 2em !important; /* reactstrap also has a !important somewhere, so we need to do this */
+  /* this next block of CSS properly aligns button content */
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.panel-button:hover {
+  color: #262133;
+  border-color: #dddcdf;
+  background-color: #dddcdf;
+}
+
+.panel-button:active {
+  color: #262133;
+  border-color: #dddcdf;
+  background-color: #dddcdf;
+}
+
+.panel-button-text {
+  flex: 1;
+  text-align: center;
 }
 
 /*scrollbar stuff*/

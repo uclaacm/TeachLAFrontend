@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "reactstrap";
 import { RingLoader } from "react-spinners";
 import { Link } from "react-router-dom";
 import firebase from "firebase";
@@ -212,8 +213,6 @@ export default class CreateUserForm extends React.Component {
     </div>
   );
 
-  renderHeader = () => <div className="login-header">Create a new account</div>;
-
   renderAction = () => {
     if (this.state.waiting) {
       return (
@@ -223,9 +222,9 @@ export default class CreateUserForm extends React.Component {
       );
     } else {
       return (
-        <button className="login-form-button" type="submit">
+        <Button className="login-form-button" size="lg" type="submit">
           Create Account
-        </button>
+        </Button>
       );
     }
   };
@@ -240,7 +239,7 @@ export default class CreateUserForm extends React.Component {
     return (
       <div className="login-form-container">
         <form className="login-form" onSubmit={this.submit}>
-          {this.renderHeader()}
+          <h1>Create a new account</h1>
           <br />
           {this.renderInputs()}
           {this.renderAction()}

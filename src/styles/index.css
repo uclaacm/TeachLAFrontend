@@ -7,8 +7,16 @@ body,
 }
 
 body {
-  font-family: "Josefin Slab", sans-serif;
-  /*min-width: 1125px;*/
+  font-family: "Chivo", sans-serif;
   overflow: hidden;
   box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Poppins", sans-serif;
 }

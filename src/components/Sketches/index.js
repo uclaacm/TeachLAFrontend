@@ -1,6 +1,5 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
-import SketchesButton from "./components/SketchesButton";
 import SketchBox from "./components/SketchBox";
 import ConfirmDeleteModalContainer from "./containers/ConfirmDeleteModalContainer";
 import CreateSketchModalContainer from "./containers/CreateSketchModalContainer";
@@ -11,7 +10,11 @@ import ProcessingConstructor from "../Editor/components/Output/Processing";
 // import { PANEL_SIZE } from "../../constants";
 import "../../styles/Sketches.css";
 
+import { Button } from "reactstrap";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCogs } from "@fortawesome/free-solid-svg-icons";
+import { faFile } from "@fortawesome/free-solid-svg-icons";
 import { faPython } from "@fortawesome/free-brands-svg-icons";
 import { faHtml5 } from "@fortawesome/free-brands-svg-icons";
 
@@ -91,13 +94,14 @@ class Sketches extends React.Component {
     <div className="sketches-header">
       <OpenPanelButtonContainer />
       <div className="sketches-header-text">Sketches</div>
-      <div style={{ marginLeft: "auto" }}>
-        <SketchesButton
-          handleClick={() => this.setCreateSketchModalOpen(true)}
-          text={"Create Sketch"}
-          width={"200px"}
-        />
-      </div>
+      <Button
+        className="ml-auto mr-2"
+        color="success"
+        size="lg"
+        onClick={() => this.setCreateSketchModalOpen(true)}
+      >
+        <FontAwesomeIcon icon={faFile} /> Create Sketch
+      </Button>
     </div>
   );
 
@@ -115,12 +119,11 @@ class Sketches extends React.Component {
         <div>
           <div className="no-sketches-container">
             <h2>There's nothing here! Why don't you try creating a sketch?</h2>
+            <br />
             <p>
-              <SketchesButton
-                handleClick={() => this.setCreateSketchModalOpen(true)}
-                text={"Create A Sketch"}
-                width={"200px"}
-              />
+              <Button color="success" size="lg" onClick={() => this.setCreateSketchModalOpen(true)}>
+                Create A Sketch
+              </Button>
             </p>
           </div>
         </div>

@@ -1,12 +1,15 @@
 import React from "react";
 import { PYTHON, JAVASCRIPT, CPP, JAVA, HTML, PROCESSING } from "../../../constants";
 import { OUTPUT_ONLY } from "../constants";
-import EditorButton from "./EditorButton";
 import EditorRadio from "./EditorRadio";
 import OpenPanelButtonContainer from "../../common/containers/OpenPanelButtonContainer";
 import DropdownButtonContainer from "../containers/DropdownButtonContainer";
 import CreateProcessingDoc from "./Output/Processing";
 import CreatePythonDoc from "./Output/Python";
+
+import { Button } from "reactstrap";
+
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { faTerminal } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -134,16 +137,16 @@ class Output extends React.Component {
     });
   };
 
-  getConsoleButtonContent = () => <FontAwesomeIcon icon={faTerminal} />;
-
   renderConsoleButton = () => (
-    <EditorButton
-      handleClick={this.toggleConsole}
-      text={this.getConsoleButtonContent()}
-      color={this.state.showConsole ? "#D6A2AD" : "#8EB8E5"}
-      width="50px"
+    <Button
+      className="mx-2"
+      color={this.state.showConsole ? "danger" : "primary"}
+      onClick={this.toggleConsole}
       title={this.state.showConsole ? "Hide Console" : "Show Console"}
-    />
+      size="lg"
+    >
+      <FontAwesomeIcon icon={faTerminal} />
+    </Button>
   );
 
   renderBanner = () => (
@@ -153,7 +156,10 @@ class Output extends React.Component {
       <div style={{ flex: "1 1 auto" }}> </div> {/*whitespace*/}
       {this.renderRadio()}
       {this.renderConsoleButton()}
-      <EditorButton handleClick={this.runCode} text="Run Code" color="#3c52ba" />
+      <Button className="mx-2" color="primary" size="lg" onClick={this.runCode}>
+        <FontAwesomeIcon icon={faCheck} />
+        &nbsp;&nbsp;Run
+      </Button>
     </div>
   );
 
