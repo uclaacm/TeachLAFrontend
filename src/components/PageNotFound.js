@@ -1,8 +1,8 @@
 import React from "react";
+import { Button } from "reactstrap";
 import Footer from "./common/Footer";
 import { Link } from "react-router-dom";
-import "../styles/app.css";
-import LoginGuy from "img/blueguy.png";
+import "styles/Page.scss";
 
 class Error extends React.Component {
   constructor(props) {
@@ -10,32 +10,18 @@ class Error extends React.Component {
     this.state = {};
   }
 
-  renderError = () => {
-    return (
-      <div className="login-page-content" style={{ backgroundImage: `url(${LoginGuy})` }}>
-        <div className="login-modal">
-          <div className="login-form">
-            <br />
-            <div className="login-header">{"Page not found!"}</div>
-            <br />
-            <Link to="/">
-              <button className="login-form-button">Back to safety</button>
-            </Link>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  renderFooter = () => {
-    return <Footer />;
-  };
-
   render() {
     return (
-      <div className="login-page">
-        {this.renderError()}
-        {this.renderFooter()}
+      <div className="page-container">
+        <span>Error: 404</span>
+        <h1>Uh oh, page not found!</h1>
+        <br />
+        <Link to="/">
+          <Button color="success" size="lg">
+            Back to safety
+          </Button>
+        </Link>
+        <Footer />
       </div>
     );
   }

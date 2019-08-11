@@ -1,0 +1,11 @@
+@import 'styles/variables.scss';
+
+.page-container{
+    background-color: $theme-light;
+    color: $off-white;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

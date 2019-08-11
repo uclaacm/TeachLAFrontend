@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "bootstrap/dist/css/bootstrap.css";
-import "./styles/index.css";
+import "./styles/global.scss";
 import Root from "./components/containers/AppContainer.js";
 import registerServiceWorker from "./registerServiceWorker";
 import { createStore } from "redux";

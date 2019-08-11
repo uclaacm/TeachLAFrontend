@@ -1,5 +1,5 @@
 import React from "react";
-import "../../styles/Login.css";
+import "styles/Login.scss";
 
 /**-------Props-------
  * type: string, if password, hides the input with dots; also used as the header for the input

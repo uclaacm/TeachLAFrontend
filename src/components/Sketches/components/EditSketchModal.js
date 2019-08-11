@@ -6,6 +6,8 @@ import { SketchThumbnailArray, LanguageDropdownValues } from "../constants";
 import { Container, Row, Col, FormGroup, Label, Input } from "reactstrap";
 import * as fetch from "../../../lib/fetch.js";
 
+import "styles/SketchesModal.scss";
+
 class EditSketchModal extends React.Component {
   constructor(props) {
     super(props);
@@ -175,7 +177,6 @@ class EditSketchModal extends React.Component {
             </Label>
             <Col xs={8}>
               <Input
-                className="sketches-modal-input"
                 onChange={e => this.setState({ newName: e.target.value })}
                 value={this.state.newName !== -1 ? this.state.newName : this.props.sketchName}
                 id="sketch-name"

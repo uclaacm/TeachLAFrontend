@@ -1,8 +1,10 @@
+@import 'styles/variables.scss';
+
 .main {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  background-color: #252132;
+  background-color: $theme-dark;
   justify-content: flex-start;
   position: relative;
 }

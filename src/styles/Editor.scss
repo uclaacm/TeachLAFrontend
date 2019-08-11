@@ -1,8 +1,10 @@
+@import 'styles/variables.scss';
+
 .editor {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  background-color: #252132;
+  background-color: $theme-dark;
   justify-content: flex-start;
   position: absolute;
   transition: all 0.5s ease;
@@ -16,7 +18,7 @@
   align-items: flex-start;
   max-height: 100vh;
   overflow-y: auto;
-  background-color: #252132;
+  background-color: $theme-dark;
 }
 
 .code-section-banner {
@@ -53,76 +55,8 @@
   display: inline-block;
 }
 
-.editor-run {
-  font-family: "Josefin Sans", sans-serif;
-  flex: 0 1 auto;
-  justify-self: flex-end;
-  margin-left: 10px;
-  margin-right: 10px;
-}
-
-.editor-run-button {
-  display: flex;
-  width: 160px;
-  height: 40px;
-  background-color: #4caf50;
-  display: inline-block;
-  font-size: 24px;
-  cursor: pointer;
-  text-align: center;
-  text-decoration: none;
-  outline: none;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  box-shadow: 1px 3px #999;
-  line-height: 45px;
-}
-
-.editor-run-button-content {
-  height: auto;
-  width: 100%;
-  display: flex;
-  text-align: left;
-  padding: 3px;
-  align-items: center;
-}
-
-.editor-run-button-arrow {
-  flex: 1 1 auto;
-  width: 100%;
-}
-
-.editor-run-button-text {
-  flex: 0 0 auto;
-}
-
-.editor-run-button:hover {
-  box-shadow: inset 0 0 0 100px rgba(0, 0, 0, 0.2);
-}
-
-.editor-run-button:active {
-  background-color: #63966b;
-  box-shadow: 1px 1px #666;
-  transform: translateY(2px);
-}
-
-.editor-footer {
-  width: 100%;
-  margin-top: auto;
-  height: 10vh; /*calc used to do arithmetic*/
-  background-color: #473d5d;
-  text-align: center;
-  align-items: center;
-  padding-top: auto;
-}
-
-.editor-footer-image {
-  height: 100%;
-}
-
 .editor-output {
-  background-color: #585166;
+  background-color: $theme-tertiary;
   height: 100%;
 }
 
@@ -140,23 +74,19 @@
 .editor-output-iframe {
   width: 100%;
   height: 100%;
-  background-color: #ffffff;
+  background-color: white;
   display: flex;
 }
 
 .text-editor-container {
   width: 100%;
   margin-top: 10px;
-  /* height: 600px;
-  min-height:600px;
-  max-height:600px; */
   top: 61px;
   overflow: auto;
 }
 
 .btn-language-dropdown {
   font-size: 24px;
-  font-family: "Chivo", sans-serif;
   color: white;
   border: 0px;
 }
@@ -166,7 +96,7 @@
 }
 
 .selected-line {
-  background-color: rgb(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .text-editor-container::-webkit-scrollbar {

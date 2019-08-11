@@ -89,7 +89,7 @@ describe("ProfilePanel", () => {
     expect(component.state().selectedImage).toBe(Object.keys(PHOTO_NAMES)[3]);
 
     //submit change
-    component.find(".modal-submit-button").simulate("click");
+    component.find("#modal-change-image-button").simulate("click");
     expect(component.find(ReactModal).prop("isOpen")).toEqual(false);
     expect(component.state().showModal).toBe(false);
     expect(clickFn.mock.calls[0][0] == Object.keys(PHOTO_NAMES)[3]);

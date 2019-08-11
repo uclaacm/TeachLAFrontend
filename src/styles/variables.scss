@@ -1,0 +1,21 @@
+// Fonts - currently the ACM Brand
+
+$font-family-heading: "Poppins", sans-serif;
+$font-family-body: "Chivo", sans-serif;
+
+// Colours - not creatively named
+
+$light-purple: #473d5d;
+$dark-purple: #252132;
+$gray-purple: #585166;
+$off-white: #dddcdf;
+$select-cyan: #83dadd;
+$error-red: #f34d4d;
+
+// "Theme" Colours - specifically designed to allow for hot-swapping later
+
+$theme-light: $light-purple;
+$theme-dark: $dark-purple;
+$theme-tertiary: $gray-purple;
+$theme-highlight: $select-cyan;
+$theme-error: $error-red;

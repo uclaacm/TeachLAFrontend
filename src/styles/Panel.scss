@@ -1,7 +1,9 @@
+@import 'styles/variables.scss';
+
 .panel {
   display: flex;
   position: absolute;
-  background-color: #473d5d;
+  background-color: $theme-light;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
@@ -12,7 +14,7 @@
 }
 
 .panel-collapse-button {
-  color: #dddcdf;
+  color: $off-white;
   padding-right: 15px;
   flex: 0 0 auto;
   font-size: 1.25rem;
@@ -47,7 +49,7 @@
   transform: translate(-50%, -50%);
   height: 470px;
   width: 400px;
-  background-color: rgb(255, 255, 255);
+  background-color: white;
   padding: 40px;
   border-radius: 20px;
 }
@@ -62,23 +64,6 @@
   z-index: 80;
 }
 
-.modal-submit-button {
-  position: fixed;
-  width: 116px;
-  height: 35px;
-  background-color: #4caf50;
-  display: inline-block;
-  font-size: 24px;
-  text-align: center;
-  text-decoration: none;
-  outline: none;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  box-shadow: 1px 3px #999;
-  right: 142px;
-}
-
 .panel-image-container {
   position: relative;
   width: 205px;
@@ -89,7 +74,7 @@
   font-size: 1.25rem;
   border: none;
   background-color: transparent;
-  color: #dddcdf;
+  color: $off-white;
   position: absolute;
   right: -15px;
   bottom: -15px;
@@ -118,7 +103,7 @@
   object-fit: cover;
   border-radius: 100%;
   padding: 2px;
-  border: 3px #83dadd solid;
+  border: 3px $theme-highlight solid;
 }
 
 .gallery-img:hover {
@@ -127,7 +112,7 @@
   object-fit: cover;
   border-radius: 100%;
   padding: 2px;
-  border: 3px #846fb1 solid;
+  border: 3px $theme-light solid;
 }
 
 .name-container {
@@ -139,7 +124,7 @@
 
 .edit-icon-image {
   font-size: 1.25rem;
-  color: #dddcdf;
+  color: $off-white;
   position: absolute;
   border: none;
   right: -30px;
@@ -162,15 +147,15 @@
   text-align: center;
   font-size: 2rem;
   font-weight: bold;
-  color: #dddcdf;
+  color: $off-white;
   word-wrap: break-word;
-  background-color: #272134;
+  background-color: $theme-dark;
   align-items: baseline;
   border: none;
 }
 
 .profile-input-error {
-  color: #f34d4d;
+  color: $error-red;
   font-size: 1rem;
   text-align: center;
   padding: 0px 25px;
@@ -184,9 +169,9 @@
   padding: 20px 0 20px;
   font-size: 2rem;
   word-wrap: break-word;
-  color: #dddcdf;
+  color: white;
   position: relative;
-  font-family: "Poppins", sans-serif;
+  font-family: $font-family-heading;
 }
 
 .panel-buttons {
@@ -199,8 +184,8 @@
 }
 
 .panel-button {
-  background-color: #262133;
-  border-color: #262133;
+  background-color: $theme-dark;
+  border-color: $theme-dark;
   text-align: left;
   font-size: 2em !important; /* reactstrap also has a !important somewhere, so we need to do this */
   /* this next block of CSS properly aligns button content */
@@ -210,16 +195,10 @@
   align-items: center;
 }
 
-.panel-button:hover {
-  color: #262133;
-  border-color: #dddcdf;
-  background-color: #dddcdf;
-}
-
-.panel-button:active {
-  color: #262133;
-  border-color: #dddcdf;
-  background-color: #dddcdf;
+.panel-button:hover, .panel-button:active {
+  color: $theme-dark !important;
+  border-color: $off-white !important;
+  background-color: $off-white !important;
 }
 
 .panel-button-text {

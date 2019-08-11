@@ -4,10 +4,9 @@ import { Button } from "reactstrap";
 import { RingLoader } from "react-spinners";
 import { EMAIL_DOMAIN_NAME } from "../../constants";
 import { Link } from "react-router-dom";
-//import SocialButton from "../common/SocialButton";
 import LoginInput from "./LoginInput";
 import firebase from "firebase";
-import "../../styles/Login.css";
+import "styles/Login.scss";
 
 /**-------Props--------
  * provider: Firebase Provider that allows the app to do Facebook Logins

@@ -16,7 +16,7 @@ import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "../../styles/Panel.css";
+import "styles/Panel.scss";
 import Footer from "./Footer";
 
 /**--------Props--------
@@ -163,7 +163,12 @@ class ProfilePanel extends React.Component {
       >
         <div className="gallery">{icons}</div>
         <div className="text-center">
-          <Button color="success" size="lg" onClick={this.onImageSubmit}>
+          <Button
+            color="success"
+            size="lg"
+            onClick={this.onImageSubmit}
+            id="modal-change-image-button"
+          >
             Submit
           </Button>
         </div>

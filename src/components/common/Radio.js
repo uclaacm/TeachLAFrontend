@@ -1,5 +1,5 @@
 import React from "react";
-import "../../styles/Common.css";
+import "styles/Radio.scss";
 /**
  * Props
  *
@@ -68,8 +68,9 @@ export default class Radio extends React.Component {
       (this.props.allowMultipleSelected && this.state.selected.includes(value));
     //attach -selected if the value matches the selected state
     const className = "radio-option" + (isSelected ? "-selected" : "");
-    //add an id of left if its the first option or right if its the last option
-    const id = index === 0 ? "left" : index === this.props.options.length - 1 ? "right" : "";
+    //add an id of radio-left if its the first option or radio-right if its the last option
+    const id =
+      index === 0 ? "radio-left" : index === this.props.options.length - 1 ? "radio-right" : "";
 
     let optionStyle;
     if (isSelected) {

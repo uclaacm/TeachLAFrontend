@@ -1,8 +1,9 @@
 import React from "react";
+import { Button } from "reactstrap";
 import Footer from "./common/Footer";
+import { Link } from "react-router-dom";
 import firebase from "firebase";
-import LoginGuy from "img/blueguy.png";
-import "../styles/app.css";
+import "styles/Page.scss";
 
 class Error extends React.Component {
   constructor(props) {
@@ -10,35 +11,22 @@ class Error extends React.Component {
     this.state = {};
   }
 
-  renderError = () => {
-    return (
-      <div className="login-page-content" style={{ backgroundImage: `url(${LoginGuy})` }}>
-        <div className="login-modal">
-          <div className="login-form">
-            <br />
-            <div className="login-header">{"Oops!"}</div>
-            <br />
-            <h1>Something went wrong. Try again later!</h1>
-            <br />
-            <h1>{this.props.errorMsg}</h1>
-            <button className="login-form-button" onClick={() => firebase.auth().signOut()}>
-              Log Out
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  renderFooter = () => {
-    return <Footer />;
-  };
-
   render() {
     return (
-      <div className="login-page">
-        {this.renderError()}
-        {this.renderFooter()}
+      <div className="page-container">
+        <h2>Uh oh, something went wrong!</h2>
+        <h1>Error: {this.props.errorMsg}</h1>
+        <br />
+        <Link to="/">
+          <Button color="success" size="lg">
+            Back to safety
+          </Button>
+        </Link>
+        &nbsp;
+        <Button color="danger" size="lg" onClick={() => firebase.auth().signOut()}>
+          Log Out
+        </Button>
+        <Footer />
       </div>
     );
   }

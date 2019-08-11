@@ -1,6 +1,6 @@
 import React from "react";
 
-import "../../../styles/Sketches.css";
+import "styles/SketchBox.scss";
 
 import { Row, Col } from "reactstrap";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";

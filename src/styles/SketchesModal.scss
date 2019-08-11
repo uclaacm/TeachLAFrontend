@@ -1,0 +1,118 @@
+@import 'styles/variables.scss';
+
+.sketches-language-dropdown {
+    flex: 0 1 auto;
+    color: #0d0d0e;
+}
+
+.sketches-language-dropdown-closed-content {
+    display: inline-block;
+}
+
+.sketches-gallery {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    overflow-y: auto;
+    width: 100%;
+    height: 250px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.sketches-image-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-height: 470px;
+    background-color: rgb(255, 255, 255);
+    padding: 40px;
+    border-radius: 20px;
+}
+
+.sketches-gallery-img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 100%;
+    padding: 2px;
+    border: 3px white solid;
+}
+
+.sketches-gallery-img-selected {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 100%;
+    padding: 2px;
+    border: 3px $theme-highlight solid;
+}
+
+.sketches-gallery-img:hover {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 100%;
+    padding: 2px;
+    border: 3px $theme-light solid;
+}
+
+.sketches-gallery::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+.sketches-gallery::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+.sketches-gallery::-webkit-scrollbar-thumb {
+    background: #37343d;
+}
+
+/* Handle on hover */
+.sketches-gallery::-webkit-scrollbar-thumb:hover {
+    background: #2f2d33;
+}
+
+.sketches-modal-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    text-align: left;
+}
+
+.sketches-modal-header-thumbnail-container {
+    width: 100px;
+    height: 100px;
+    flex: 0 0;
+}
+
+.sketches-modal-header-thumbnail {
+    width: 100px;
+    height: 100px;
+    flex: 0 0;
+}
+
+.sketches-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    min-width: 400px;
+    background-color: rgb(255, 255, 255);
+    padding: 40px;
+    border-radius: 20px;
+}
+
+.sketches-form-spinner {
+    width: 59.02px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}

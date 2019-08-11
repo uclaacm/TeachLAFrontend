@@ -1,8 +1,7 @@
 import React from "react";
 import EditorContainer from "./Editor/containers/EditorContainer";
 import SketchesPageContainer from "./Sketches/containers/SketchesContainer";
-// Specify imports for codemirror usage
-import "../styles/Main.css";
+import "styles/Main.scss";
 import ProfilePanelContainer from "./common/containers/ProfilePanelContainer";
 
 class Editor extends React.Component {
