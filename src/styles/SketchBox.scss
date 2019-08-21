@@ -24,9 +24,15 @@
 }
 
 .sketch-box-body {
+    color: inherit;
     width: 90%;
     margin-left: auto;
     margin-right: auto;
+}
+
+.sketch-box-body:hover {
+    color: inherit;
+    text-decoration: none;
 }
 
 .sketch-divider {
