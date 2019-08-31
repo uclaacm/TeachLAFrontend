@@ -5,6 +5,7 @@ import { EDITOR_WIDTH_BREAKPOINT, CODE_AND_OUTPUT, CODE_ONLY } from '../constant
 import * as cookies from '../lib/cookies.js';
 import * as fetch from '../lib/fetch.js';
 
+import ClassesPageContainer from "./Classes/containers/ClassesContainer";
 import ProfilePanelContainer from './common/containers/ProfilePanelContainer';
 import EditorAndOutput from './EditorAndOutput/EditorAndOutput';
 import SketchesPageContainer from './Sketches/containers/SketchesContainer';
@@ -76,11 +77,13 @@ class Main extends React.Component {
 
   renderContent = () => {
     switch (this.props.contentType) {
-    case 'editor':
-      return this.renderEditor();
-    case 'sketches':
-    default:
-      return <SketchesPageContainer />;
+      case "editor":
+        return this.renderEditor();
+      case "classes":
+        return <ClassesPageContainer />;
+      case "sketches":
+      default:
+        return <SketchesPageContainer />;
     }
   };
 

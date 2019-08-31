@@ -230,6 +230,18 @@ function ProfilePanel(props) {
     </Link>
   );
 
+  const renderClassesButton = () => (
+    <Link
+      to={{ pathname: "/classes" }}
+      className="panel-button btn btn-secondary btn-lg btn-block"
+      // key="sketches-button"
+      // id="sketches-button"
+    >
+      <FontAwesomeIcon icon={faBook} />
+      <span className="panel-button-text">Classes</span>
+    </Link>
+  );
+
   const renderSketchesButton = () => (
     <Link
       to={{ pathname: '/sketches' }}
@@ -259,12 +271,18 @@ function ProfilePanel(props) {
   const renderButtons = () => {
     const panelButtons = [];
     switch (contentType) {
-      case 'sketches':
-        panelButtons.push(renderEditorButton());
+      case "classes":
+        panelButtons.push(this.renderEditorButton());
+        panelButtons.push(this.renderSketchesButton());
         break;
-      case 'editor':
+      case "sketches":
+        panelButtons.push(this.renderEditorButton());
+        panelButtons.push(this.renderClassesButton());
+        break;
+      case "editor":
       default:
-        panelButtons.push(renderSketchesButton());
+        panelButtons.push(this.renderSketchesButton());
+        panelButtons.push(this.renderClassesButton());
         break;
     }
 
