@@ -167,6 +167,15 @@ export default class LoginModal extends React.Component {
           <Link to="/createUser" className="login-form-link">
             Don't have an account? Create one now!
           </Link>
+          <br />
+          <br />
+          <details>
+            <summary>Forgot your password?</summary>
+            <p>
+              Send us an email at <a href="mailto:acmteachla@gmail.com">acmteachla@gmail.com</a>{" "}
+              with "Forgot Password" in the subject, and we'll do our best to help you out!
+            </p>
+          </details>
         </form>
       </div>
     );

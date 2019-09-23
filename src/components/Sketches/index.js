@@ -1,5 +1,4 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
 import SketchBox from "./components/SketchBox";
 import ConfirmDeleteModalContainer from "./containers/ConfirmDeleteModalContainer";
 import CreateSketchModalContainer from "./containers/CreateSketchModalContainer";
@@ -25,7 +24,6 @@ class Sketches extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      redirectTo: "",
       confirmDeleteModalOpen: false,
       createSketchModalOpen: false,
       editSketchModalOpen: false,
@@ -85,9 +83,8 @@ class Sketches extends React.Component {
     });
   };
 
-  redirectToEditor = name => {
+  setProgram = name => {
     this.props.setMostRecentProgram(name);
-    this.setState({ redirectTo: "/editor" });
   };
 
   renderHeader = () => (
@@ -175,7 +172,7 @@ class Sketches extends React.Component {
             );
           }}
           redirFunc={() => {
-            this.redirectToEditor(key);
+            this.setProgram(key);
           }}
         />,
       );
@@ -234,10 +231,6 @@ class Sketches extends React.Component {
   };
 
   render() {
-    if (this.state.redirectTo) {
-      return <Redirect to={this.state.redirectTo} />;
-    }
-
     const containerStyle = {
       left: this.props.left || 0,
       width: this.props.calculatedWidth,
