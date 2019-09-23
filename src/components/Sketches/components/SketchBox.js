@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 import "../../../styles/Sketches.css";
 
 import { Row, Col } from "reactstrap";
@@ -12,7 +12,11 @@ class SketchBox extends React.Component {
   render() {
     return (
       <div className="sketch-box">
-        <div className="sketch-box-body" onClick={this.props.redirFunc}>
+        <Link
+          className="sketch-box-body"
+          onClick={this.props.redirFunc}
+          to={{ pathname: "/editor" }}
+        >
           <img
             alt={"User's sketch icon"}
             src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${this.props.img}.svg`}
@@ -26,7 +30,7 @@ class SketchBox extends React.Component {
               <FontAwesomeIcon className="fa-lg" icon={this.props.icon} />
             </Col>
           </Row>
-        </div>
+        </Link>
         <hr className="sketch-divider" />
         <Row className="sketch-box-body">
           <Col className="p-2 text-center" onClick={this.props.editFunc}>
