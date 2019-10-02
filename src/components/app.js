@@ -7,7 +7,7 @@ import CreateUserPage from "./containers/CreateUserContainer";
 import Error from "./Error";
 import PageNotFound from "./PageNotFound";
 import firebase from "firebase";
-import "../styles/app.css";
+import "styles/app.scss";
 
 const provider = new firebase.auth.FacebookAuthProvider();
 

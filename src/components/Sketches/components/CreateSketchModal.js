@@ -12,6 +12,8 @@ import { Button, Container, Row, Col, FormGroup, Label, Input } from "reactstrap
 
 import ReactModal from "react-modal";
 
+import "styles/SketchesModal.scss";
+
 class CreateSketchModal extends React.Component {
   constructor(props) {
     super(props);
@@ -256,7 +258,6 @@ class CreateSketchModal extends React.Component {
             </Label>
             <Col xs={8}>
               <Input
-                className="sketches-modal-input"
                 onChange={e => this.setState({ name: e.target.value })}
                 value={this.state.name}
                 id="sketch-name"

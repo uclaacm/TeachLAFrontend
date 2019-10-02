@@ -1,3 +1,5 @@
+@import 'styles/variables.scss';
+
 .CodeMirror-lines {
   cursor: default;
 }
@@ -7,7 +9,7 @@
   max-width: inherit;
   max-height: inherit;
   min-height: inherit;
-  background-color: rgb(38, 50, 56, 0);
+  background-color: rgba(38, 50, 56, 0);
   font-family: "Ubuntu Mono", monospace;
   color: white;
   font-size: 18px;
@@ -20,7 +22,7 @@
 }
 
 .cm-s-material .CodeMirror-gutters {
-  background-color: #252132;
+  background-color: $theme-dark;
 }
 .cm-s-material .CodeMirror-guttermarker,
 .cm-s-material .CodeMirror-guttermarker-subtle,

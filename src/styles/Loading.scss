@@ -1,9 +1,11 @@
+@import 'styles/variables.scss';
+
 .Loading {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #473d5d;
+  background-color: $theme-light;
   width: 100%;
   height: 100%;
 }
@@ -11,6 +13,6 @@
 .Loading-title {
   margin: 0 0 2rem;
   font-size: 5rem;
-  font-family: "Poppins", sans-serif;
-  color: #dddcdf;
+  font-family: $font-family-heading;
+  color: $off-white;
 }

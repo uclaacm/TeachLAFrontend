@@ -1,0 +1,26 @@
+@import 'styles/variables.scss';
+
+html, body, #root {
+  /*without this the background color doesn't affect the whole window*/
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: $font-family-body;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-family-heading;
+}
+
+* {
+  /*needed for the modal's button to stay within the window*/
+  box-sizing: border-box;
+}
+
+.force-no-wrap {
+  white-space: nowrap;
+}

@@ -1,0 +1,58 @@
+@import 'styles/variables.scss';
+
+.sketches-container {
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: $theme-dark;
+  justify-content: flex-start;
+  position: absolute;
+  transition: all 0.5s ease;
+  overflow: hidden;
+}
+
+.sketches-header-text {
+  color: $off-white;
+  font-weight: bold;
+  padding: 1rem;
+  cursor: pointer;
+  flex: 0 1 auto;
+  font-size: 45px;
+}
+
+.sketches-header {
+  height: 67px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom: 2px solid $off-white;
+}
+
+.sketches-grid {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.sketches-grid-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  padding: 20px 50px;
+}
+
+.no-sketches-container {
+  margin-top: 3em;
+  text-align: center;
+  color: $off-white;
+  width: 100%;
+  height: 100%;
+  padding: 1em;
+}

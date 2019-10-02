@@ -1,3 +1,5 @@
+@import 'styles/variables.scss';
+
 .login-page {
   margin: 0px;
   width: 100%;
@@ -13,37 +15,19 @@
   background-size: auto 93%;
   overflow-y: auto;
   box-sizing: border-box;
-  background-color: #272134;
+  background-color: $theme-dark;
   padding-bottom: 8vh;
 }
 
 @media only screen and (max-width: 1024px) {
-  .hidden-small {
-    display: none;
-  }
   .login-page-content {
     background-image: none;
   }
 }
 
-.login-footer {
-  position: absolute;
-  bottom: 0px;
-  width: 100%;
-  bottom: 0px;
-  height: 8vh; /*calc used to do arithmetic*/
-  background-color: #473d5d;
-  text-align: center;
-  align-items: center;
-}
-
-.login-footer-image {
-  height: 100%;
-}
-
 .login-form {
   padding: 0 1.5em;
-  color: #dddcdf;
+  color: $off-white;
 }
 
 @media only screen and (max-width: 1024px) {
@@ -56,19 +40,14 @@
   }
 }
 
-.login-header {
-  font-size: 40px;
-  font-weight: bold;
-}
-
 .login-form-input-header {
-  color: #dddcdf;
+  color: $off-white;
   font-size: 36px;
   margin-bottom: 1rem;
 }
 
 .login-form-input-error {
-  color: red;
+  color: $theme-error;
   font-size: 1rem;
 }
 
@@ -91,11 +70,11 @@
   line-height: normal;
   padding: 0.25rem 0.1rem 0px 0.1rem;
   border: 0px;
-  background-color: #272134;
+  background-color: $theme-dark;
   border-top: 0px;
   border-left: 0px;
   border-right: 0px;
-  border-bottom: 2px solid #dddcdf;
+  border-bottom: 2px solid $off-white;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -109,7 +88,7 @@
   -moz-transition: box-shadow 70ms ease-out, border-color 70ms ease-out;
   transition: box-shadow 70ms ease-out, border-color 70ms ease-out;
   box-shadow: none;
-  color: #dddcdf;
+  color: $off-white;
   height: auto;
   display: inline-block;
 }
@@ -124,21 +103,15 @@
 }
 
 .login-form-button {
-  background-color: #443d59;
-  border-color: #443d59;
+  background-color: $theme-light;
+  border-color: $theme-light;
   text-align: left;
 }
 
-.login-form-button:hover {
-  color: #443d59;
-  border-color: #dddcdf;
-  background-color: #dddcdf;
-}
-
-.login-form-button:active {
-  color: #443d59;
-  border-color: #dddcdf;
-  background-color: #dddcdf;
+.login-form-button:hover, .login-form-button:active {
+  color: $theme-light !important;
+  border-color: $off-white !important;
+  background-color: $off-white !important;
 }
 
 .login-form-link {
@@ -150,8 +123,4 @@
 .login-form-link:hover {
   color: inherit;
   text-decoration: underline;
-}
-
-.force-no-wrap {
-  white-space: nowrap;
 }

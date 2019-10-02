@@ -1,6 +1,6 @@
 import React from "react";
 import Footer from "./common/Footer";
-import "../styles/Login.css";
+import "styles/Login.scss";
 import LoginForm from "./Login/LoginForm";
 import LoginGuy from "img/blueguy.png";
 

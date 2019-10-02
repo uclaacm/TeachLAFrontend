@@ -1,0 +1,41 @@
+.radio-selector {
+    display: flex;
+    height: 60px;
+    font-size: 1rem;
+}
+
+.radio-option {
+    border: 2px solid #ddd;
+    background-color: rgb(238, 170, 25);
+    color: #eee;
+    padding: 5px;
+    cursor: pointer;
+    line-height: 27.5px;
+}
+
+.radio-option:hover {
+    box-shadow: inset 0 0 0 50px rgba(0, 0, 0, 0.2);
+}
+
+.radio-option-selected {
+    border: 2px solid #ddd;
+    background-color: #4caf50;
+    color: #eee;
+    padding: 5px;
+    cursor: pointer;
+    line-height: 27.5px;
+}
+
+.radio-option-selected:hover {
+    box-shadow: inset 0 0 0 50px rgba(0, 0, 0, 0.2);
+}
+
+#radio-left {
+    border-radius: 25px 0 0 25px;
+    padding: 5px 5px 5px 10px;
+}
+
+#radio-right {
+    border-radius: 0 25px 25px 0;
+    padding: 5px 10px 5px 5px;
+}

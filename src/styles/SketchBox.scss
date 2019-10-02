@@ -1,0 +1,48 @@
+@import 'styles/variables.scss';
+
+
+.sketch-thumbnail {
+    display: block;
+    width: 80px;
+    height: 80px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.sketch-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 200px;
+    background-color: $off-white;
+    border-radius: 5px;
+    color: $theme-dark;
+    margin: 0px 10px;
+    cursor: pointer;
+    flex: 0 0 auto;
+}
+
+.sketch-box-body {
+    color: inherit;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.sketch-box-body:hover {
+    color: inherit;
+    text-decoration: none;
+}
+
+.sketch-divider {
+    border-top: 1px solid $theme-dark;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.sketch-button-divider {
+    width: 1px;
+    border: 0.5px solid $theme-dark;
+}

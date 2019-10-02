@@ -1,0 +1,16 @@
+@import 'styles/variables.scss';
+
+.footer {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    bottom: 0px;
+    height: 8vh; /*calc used to do arithmetic*/
+    background-color: $theme-light;
+    text-align: center;
+    align-items: center;
+}
+
+.footer-image {
+    height: 100%;
+}

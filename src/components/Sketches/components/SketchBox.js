@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "../../../styles/Sketches.css";
+import "styles/SketchBox.scss";
 
 import { Row, Col } from "reactstrap";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";

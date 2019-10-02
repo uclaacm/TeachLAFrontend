@@ -16,9 +16,9 @@ import { faSave } from "@fortawesome/free-solid-svg-icons";
 import { PANEL_SIZE } from "../../constants";
 import "codemirror/lib/codemirror.css";
 import "codemirror/theme/material.css";
-import "../../styles/CustomCM.css";
-import "../../styles/Resizer.css";
-import "../../styles/Editor.css";
+import "styles/CustomCM.scss";
+import "styles/Resizer.scss";
+import "styles/Editor.scss";
 
 /**------Props-------
  * togglePanel: function to call when you want the Profile Panel to disappear/reapper

@@ -7,7 +7,7 @@ import OpenPanelButtonContainer from "../common/containers/OpenPanelButtonContai
 import { SketchThumbnailArray } from "./constants";
 import ProcessingConstructor from "../Editor/components/Output/Processing";
 // import { PANEL_SIZE } from "../../constants";
-import "../../styles/Sketches.css";
+import "styles/Sketches.scss";
 
 import { Button } from "reactstrap";
 
@@ -238,7 +238,7 @@ class Sketches extends React.Component {
     };
 
     return (
-      <div className="sketches" style={containerStyle}>
+      <div className="sketches-container" style={containerStyle}>
         {this.renderContent()}
       </div>
     );
