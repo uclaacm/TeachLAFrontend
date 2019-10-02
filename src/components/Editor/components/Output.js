@@ -9,7 +9,7 @@ import CreatePythonDoc from "./Output/Python";
 
 import { Button } from "reactstrap";
 
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import { faTerminal } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -157,7 +157,7 @@ class Output extends React.Component {
       {this.renderRadio()}
       {this.renderConsoleButton()}
       <Button className="mx-2" color="primary" size="lg" onClick={this.runCode}>
-        <FontAwesomeIcon icon={faCheck} />
+        <FontAwesomeIcon icon={faPlay} />
         &nbsp;&nbsp;Run
       </Button>
     </div>
