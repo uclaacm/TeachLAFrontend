@@ -73,14 +73,24 @@ describe("CreateUserForm", () => {
     component.setState({
       username: "valid222",
       password: "testueiowruewoiruewioruwerouweoriuwoiu",
+      confirmPassword: "testueiowruewoiruewioruwerouweoriuwoiu",
     });
     expect(instance.checkInputs()).toBe(false);
     expect(component.state().passwordMessage).toBe(
       `Password must be between ${MINIMUM_PASSWORD_LENGTH}-${MAXIMUM_PASSWORD_LENGTH} characters long`,
     );
 
+    //returns false on not matching passwords
+    component.setState({
+      username: "valid222",
+      password: "valid111",
+      confirmPassword: "valid333",
+    });
+    expect(instance.checkInputs()).toBe(false);
+    expect(component.state().passwordMessage).toBe(`Password and Confirm Password don't match`);
+
     //returns true with valid inputs
-    component.setState({ username: "valid222", password: "valid333" });
+    component.setState({ username: "valid222", password: "valid333", confirmPassword: "valid333" });
     expect(instance.checkInputs()).toBe(true);
     expect(component.state().passwordMessage).toBe("");
     expect(component.state().usernameMessage).toBe("");
