@@ -18,6 +18,7 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "styles/Panel.scss";
 import Footer from "./Footer";
+import Hook from "components/common/Hook.js";
 
 /**--------Props--------
  * togglePanel: function to be called when the panel is collapsed or opened
@@ -286,6 +287,15 @@ class ProfilePanel extends React.Component {
     };
     return (
       <div className="panel" style={panelStyle}>
+        <Hook
+          url={"https://picsum.photos/200/300"}
+          interval={1000}
+          onSuccess={a => console.log(a)}
+          onStart={() => console.log("hey")}
+          onError={err => {
+            console.error("this is an error", err);
+          }}
+        />
         {this.renderCollapseButton()}
         {this.renderContent()}
         <Footer />
