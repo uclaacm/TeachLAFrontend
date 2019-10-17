@@ -1,4 +1,4 @@
-@import 'styles/variables.scss';
+@import "styles/variables.scss";
 
 .editor {
   display: flex;
@@ -42,9 +42,9 @@
 }
 
 .editor-expand-panel-arrow-hidden {
-  padding: 1rem;
-  flex: 0 1 auto;
-  width: 46px;
+  // padding: 1rem;
+  // flex: 0 1 auto;
+  // width: 46px;
 }
 
 .editor-language-dropdown {
@@ -53,6 +53,10 @@
 
 .editor-language-dropdown-closed-content {
   display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 200px;
 }
 
 .editor-output {
@@ -86,6 +90,8 @@
 }
 
 .btn-language-dropdown {
+  display: flex;
+  align-items: center;
   font-size: 24px;
   color: white;
   border: 0px;
