@@ -9,8 +9,9 @@ exports[`LoadingPage should render correctly 1`] = `
   >
     Loading
   </div>
-  <onlyUpdateForKeys(Loader)
+  <Loader
     color="#171124"
+    css={Object {}}
     loading={true}
     size={250}
     sizeUnit="px"
