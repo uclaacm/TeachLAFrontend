@@ -33,7 +33,7 @@
     "reactstrap": "^8.0.1",
     "recompose": "^0.30.0",
     "redux": "^4.0.0",
-    "redux-firestore": "^0.5.7",
+    "redux-firestore": "^0.9.0",
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
