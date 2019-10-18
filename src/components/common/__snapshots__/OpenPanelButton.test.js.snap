@@ -31,6 +31,7 @@ exports[`OpenPanelButton panelOpen=false snapshot 1`] = `
     rotation={null}
     size={null}
     spin={false}
+    swapOpacity={false}
     symbol={false}
     title=""
     transform={null}

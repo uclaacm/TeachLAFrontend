@@ -60,8 +60,8 @@ describe("Radio", () => {
   it("left and rightmost options are styled properly", () => {
     //the 1st and last elements are styled with the correct id
     const component = shallow(<Radio options={validOptions} />);
-    expect(component.find("#left").text()).toEqual("Nice");
-    expect(component.find("#right").text()).toEqual("Fun");
+    expect(component.find("#radio-left").text()).toEqual("Nice");
+    expect(component.find("#radio-right").text()).toEqual("Fun");
   });
 
   it("option styling overrides work properly", () => {
