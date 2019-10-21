@@ -48,7 +48,7 @@
   "devDependencies": {
     "circular-json": "^0.5.5",
     "enzyme": "^3.3.0",
-    "enzyme-to-json": "^3.4.2",
+    "enzyme-to-json": "^3.4.3",
     "husky": "^3.0.9",
     "lint-staged": "^9.4.2",
     "prettier": "^1.17.1"
