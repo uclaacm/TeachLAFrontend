@@ -23,7 +23,7 @@
     "react-dom": "^16.11.0",
     "react-modal": "^3.8.1",
     "react-redux": "^7.1.1",
-    "react-redux-firebase": "^2.1.6",
+    "react-redux-firebase": "^3.0.3",
     "react-router": "^5.1.2",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^4.0.8",
