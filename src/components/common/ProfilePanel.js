@@ -211,7 +211,8 @@ class ProfilePanel extends React.Component {
     <Link
       to={{ pathname: "/editor" }}
       className="panel-button btn btn-secondary btn-lg btn-block"
-      key="sketches-button"
+      key="editor-button"
+      id="editor-button"
     >
       <FontAwesomeIcon icon={faPencilAlt} />
       <span className="panel-button-text">Editor</span>
@@ -223,6 +224,7 @@ class ProfilePanel extends React.Component {
       to={{ pathname: "/sketches" }}
       className="panel-button btn btn-secondary btn-lg btn-block"
       key="sketches-button"
+      id="sketches-button"
     >
       <FontAwesomeIcon icon={faBook} />
       <span className="panel-button-text">Sketches</span>
@@ -233,6 +235,7 @@ class ProfilePanel extends React.Component {
     <Button
       className="panel-button"
       key="sign-out-button"
+      id="sign-out-button"
       size="lg"
       block
       onClick={() => firebase.auth().signOut()}

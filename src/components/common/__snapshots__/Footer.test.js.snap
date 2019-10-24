@@ -1,15 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Footer should render correctly 1`] = `
-<div
-  className="login-footer"
+<footer
+  className="footer"
 >
-  <a href="https://github.com/uclaacm/TeachLAFrontend" target="_blank" rel="noopener noreferrer">
+  <a
+    href="https://github.com/uclaacm/TeachLAFrontend"
+    rel="noopener noreferrer"
+    target="_blank"
+  >
     <img
       alt="Teach LA logo and link to GitHub Repository"
-      className="login-footer-image"
+      className="footer-image"
       src="tla-logo.svg"
     />
   </a>
-</div>
+</footer>
 `;
