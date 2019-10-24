@@ -29,10 +29,12 @@ describe("ProfilePanel", () => {
 
   it("Buttons change based on content type", () => {
     const component = shallow(<ProfilePanel contentType={"sketches"} />);
-    expect(component.find(".panel-options-list").text()).toEqual("EditorLog Out");
+    expect(component.find("#editor-button"));
+    expect(component.find("#sign-out-button"));
 
     const component2 = shallow(<ProfilePanel contentType={"editor"} />);
-    expect(component2.find(".panel-options-list").text()).toEqual("SketchesLog Out");
+    expect(component2.find("#sketches-button"));
+    expect(component2.find("#sign-out-button"));
   });
 
   it("togglePanel called when button is clicked", () => {

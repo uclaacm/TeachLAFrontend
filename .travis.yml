@@ -8,6 +8,7 @@ cache:
 
 script:
   - npm run prod_build
+  - npm test
 
 deploy:
   provider: pages

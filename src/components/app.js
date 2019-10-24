@@ -9,7 +9,7 @@ import PageNotFound from "./PageNotFound";
 import firebase from "firebase";
 import "styles/app.scss";
 
-const provider = new firebase.auth.FacebookAuthProvider();
+const provider = new firebase.auth.EmailAuthProvider();
 
 class App extends React.Component {
   constructor(props) {
@@ -30,7 +30,7 @@ class App extends React.Component {
     window.addEventListener("resize", this.handleResize, true);
   };
 
-  componentWillUnmout = () => {
+  componentWillUnmount = () => {
     window.removeEventListener("resize", this.handleResize, true);
   };
 
