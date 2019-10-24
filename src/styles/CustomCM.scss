@@ -95,6 +95,13 @@
   background-image: url("./triangle.png");
 }
 
+/* required for safari because it places the ::after element differently than chrome/fiefox; taken from https://stackoverflow.com/questions/16348489/is-there-a-css-hack-for-safari-only-not-chrome */
+@media not all and (min-resolution:.001dpcm) { 
+  .cm-s-material .CodeMirror-cursor::after {
+    margin-top: 2px;
+  }
+
+}
 .CodeMirror-scroll {
   overflow: hidden !important;
 }
