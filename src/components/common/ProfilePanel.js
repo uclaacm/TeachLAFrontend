@@ -196,7 +196,6 @@ class ProfilePanel extends React.Component {
       return (
         <form className="panel-edit-container" onSubmit={this.onNameSubmit}>
           <input
-            autoFocus
             className="panel-edit"
             placeholder={this.props.displayName}
             onChange={this.onNameChange}
