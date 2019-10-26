@@ -136,7 +136,7 @@ class Editor extends React.Component {
         <Button className="mx-2" color="success" size="lg" onClick={this.handleSave}>
           <FontAwesomeIcon icon={faSave} />
           {this.props.screenWidth > EDITOR_WIDTH_BREAKPOINT && (
-            <span className="btn-text">&nbsp;&nbsp;{this.state.saveText}</span>
+            <span className="editor-button-text">&nbsp;&nbsp;{this.state.saveText}</span>
           )}
         </Button>
       </div>
