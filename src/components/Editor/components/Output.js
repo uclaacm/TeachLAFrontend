@@ -158,7 +158,7 @@ class Output extends React.Component {
       {this.renderConsoleButton()}
       <Button className="mx-2" color="primary" size="lg" onClick={this.runCode}>
         <FontAwesomeIcon icon={faPlay} />
-        &nbsp;&nbsp;Run
+        <span className="btn-text">&nbsp;&nbsp;Run</span>
       </Button>
     </div>
   );

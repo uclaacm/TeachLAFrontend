@@ -123,3 +123,9 @@
 .text-editor-container::-webkit-scrollbar-thumb:hover {
   background: #2f2d33;
 }
+
+@media (max-width:1200px) {
+  .btn-text {
+    display: none;
+  }
+}
