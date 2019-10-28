@@ -34,13 +34,13 @@ export const getUserData = async (uid = "", includePrograms = false) => {
 };
 
 /**
- * postServerRequest: a generic POST request handler to our backend
+ * makeServerRequest: a generic POST request handler to our backend
  * @param {Object} data JSON data passed to endpoint; stringified into body of request
  * @param {string} endpoint API endpoint to hit, rooted at ${constants.SERVER_URL}/
  * @param {string} method HTTP method to make the request, defaults to post
  */
 
-const postServerRequest = (data, endpoint, method = "post") => {
+const makeServerRequest = (data, endpoint, method = "post") => {
   let body = "";
 
   // if the passed-in data object has at least 1 key, set the body to the stringified data object
@@ -72,7 +72,7 @@ const postServerRequest = (data, endpoint, method = "post") => {
 
 export const updatePrograms = (uid = "", programs) => {
   const endpoint = `updatePrograms/${uid}`;
-  return postServerRequest(programs, endpoint, "put");
+  return makeServerRequest(programs, endpoint, "put");
 };
 
 /**
@@ -83,7 +83,7 @@ export const updatePrograms = (uid = "", programs) => {
 
 export const updateUserData = (uid = "", userData) => {
   const endpoint = `updateUserData/${uid}`;
-  return postServerRequest(userData, endpoint);
+  return makeServerRequest(userData, endpoint);
 };
 
 /**
@@ -92,7 +92,7 @@ export const updateUserData = (uid = "", userData) => {
  */
 
 export const createSketch = data => {
-  return postServerRequest(data, "createProgram");
+  return makeServerRequest(data, "createProgram");
 };
 
 /**
@@ -101,5 +101,5 @@ export const createSketch = data => {
  */
 
 export const deleteSketch = data => {
-  return postServerRequest(data, "deleteProgram");
+  return makeServerRequest(data, "deleteProgram");
 };
