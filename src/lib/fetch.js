@@ -33,64 +33,20 @@ export const getUserData = async (uid = "", includePrograms = false) => {
   }
 };
 
-/**---------updatePrograms--------
- * updates all programs provided in the parameter "programs"
- *
- * programs should be a json with at least 1 key in it
- * each key should be the name of the program you want to update
- * and the value should be the json you want merged with the document in Firestore
- *
- * e.g.
- * programs = {
- *  Python:{code: "test"}
- * }
- * would update the code for the Python program, but not the language
- * }
+/**
+ * postServerRequest: a generic POST request handler to our backend
+ * @param {Object} data JSON data passed to endpoint; stringified into body of request
+ * @param {string} endpoint API endpoint to hit, rooted at ${constants.SERVER_URL}/
+ * @param {string} method HTTP method to make the request, defaults to post
  */
-export const updatePrograms = (uid = "", programs) => {
-  const updateProgramsEndpoint = (uid = "") => `${constants.SERVER_URL}/updatePrograms/${uid}`;
 
+const postServerRequest = (data, endpoint, method = "post") => {
   let body = "";
 
+  // if the passed-in data object has at least 1 key, set the body to the stringified data object
   try {
-    //if programs is an object with at least 1 key, set the body to the stringified programs object
-    if (Object.keys(programs).length) {
-      body = JSON.stringify(programs);
-    }
-  } catch (err) {
-    console.log(err);
-  }
-  //TODO: update this so it doesn't send OPTIONS bc of cors
-  const options = {
-    method: "put",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body,
-  };
-
-  return fetch(updateProgramsEndpoint(uid), options);
-};
-
-/**---------updateUserData--------
- * merges the json parameter userData with the user document in Firestore
- *
- * e.g.
- * userData = {
- *  photoURL:"google.com/asdf.jpeg"
- * }
- * would update the photoURL of the user at uid, but not their mostRecentProgram
- * }
- */
-export const updateUserData = (uid = "", userData) => {
-  const updateUserDataEndpoint = (uid = "") => `${constants.SERVER_URL}/updateUserData/${uid}`;
-
-  let body = "";
-
-  try {
-    //if programs is an object with at least 1 key, set the body to the stringified programs object
-    if (Object.keys(userData).length) {
-      body = JSON.stringify(userData);
+    if (Object.keys(data).length) {
+      body = JSON.stringify(data);
     }
   } catch (err) {
     console.log(err);
@@ -98,59 +54,52 @@ export const updateUserData = (uid = "", userData) => {
   }
 
   const options = {
-    method: "post",
+    method: method,
     headers: {
       "Content-Type": "application/json; charset=utf-8",
     },
     body,
   };
 
-  return fetch(updateUserDataEndpoint(uid), options);
+  return fetch(`${constants.SERVER_URL}/${endpoint}`, options);
 };
+
+/**
+ * merges the JSON Parameter programs with the user document in Firestore; selectively updates based on passed-in keys
+ * @param {string} uid UID of user to selectively update programs
+ * @param {Object} programs object that contains only the keys of the project that need to be updated
+ */
+
+export const updatePrograms = (uid = "", programs) => {
+  const endpoint = `updatePrograms/${uid}`;
+  return postServerRequest(programs, endpoint, "put");
+};
+
+/**
+ * merges the JSON parameter userData with the user document in Firestore; selectively updates based on passed-in keys
+ * @param {string} uid UID for the user to update
+ * @param {Object} userData object that contains only the keys of the user data that need to be updated
+ */
+
+export const updateUserData = (uid = "", userData) => {
+  const endpoint = `updateUserData/${uid}`;
+  return postServerRequest(userData, endpoint);
+};
+
+/**
+ * creates a sketch in Firestore with passed-in data
+ * @param {Object} data required data to create program - might eventually become enumerated
+ */
 
 export const createSketch = data => {
-  let body = "";
-
-  try {
-    //if programs is an object with at least 1 key, set the body to the stringified programs object
-    if (Object.keys(data).length) {
-      body = JSON.stringify(data);
-    }
-  } catch (err) {
-    console.log(err);
-    return;
-  }
-
-  const options = {
-    method: "post",
-    headers: {
-      "Content-Type": "application/json; charset=utf-8",
-    },
-    body,
-  };
-
-  return fetch(`${constants.SERVER_URL}/createProgram`, options);
+  return postServerRequest(data, "createProgram");
 };
 
+/**
+ * deletes a sketch in Firestore with given docID
+ * @param {Object} data required data to delete program (uid, docID, name)
+ */
+
 export const deleteSketch = data => {
-  let body = "";
-
-  try {
-    //if programs is an object with at least 1 key, set the body to the stringified programs object
-    if (Object.keys(data).length) {
-      body = JSON.stringify(data);
-    }
-  } catch (err) {
-    console.log(err);
-    return;
-  }
-
-  const options = {
-    method: "post",
-    headers: {
-      "Content-Type": "application/json; charset=utf-8",
-    },
-    body,
-  };
-  return fetch(`${constants.SERVER_URL}/deleteProgram`, options);
+  return postServerRequest(data, "deleteProgram");
 };
