@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-d
 import LoginPage from "./containers/LoginContainer";
 import MainContainer from "./containers/MainContainer";
 import LoadingPage from "./common/LoadingPage";
-import CreateUserPage from "./containers/CreateUserContainer";
+import CreateUserPage from "./CreateUser";
 import Error from "./Error";
 import PageNotFound from "./PageNotFound";
 import firebase from "firebase";
