@@ -111,5 +111,5 @@ export const deleteSketch = data => {
 
 export const getSketch = docID => {
   const endpoint = `getProgram/${docID}`;
-  return makeServerRequest({}, endpoint);
+  return makeServerRequest({}, endpoint, "get");
 };
