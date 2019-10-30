@@ -103,3 +103,13 @@ export const createSketch = data => {
 export const deleteSketch = data => {
   return makeServerRequest(data, "deleteProgram");
 };
+
+/**
+ * gets a sketch's information by the docID
+ * @param {string} docID the key for the requested program in the top-level programs object
+ */
+
+export const getSketch = docID => {
+  const endpoint = `getProgram/${docID}`;
+  return makeServerRequest({}, endpoint);
+};
