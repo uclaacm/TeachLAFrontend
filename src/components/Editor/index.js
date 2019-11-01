@@ -108,7 +108,9 @@ class Editor extends React.Component {
         (this.props.panelOpen ? this.props.screenWidth - PANEL_SIZE : this.props.screenWidth) * 0.75
       } //max size of code is 75% of the remaining screen size
       size={
-        (this.props.panelOpen ? this.props.screenWidth - PANEL_SIZE : this.props.screenWidth) / 2
+        ((this.props.panelOpen ? this.props.screenWidth - PANEL_SIZE : this.props.screenWidth) /
+          5) *
+        3
       } //the initial size of the text editor section
       allowResize={true}
     >
