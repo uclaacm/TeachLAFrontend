@@ -4,9 +4,6 @@ import { Container, Row, Col, Button } from "reactstrap";
 import * as fetch from "../../../lib/fetch.js";
 
 class ConfirmDeleteModal extends React.Component {
-  componentWillMount() {}
-  componentDidUpdate() {}
-
   closeModal = () => {
     if (this.props.onClose && {}.toString.call(this.props.onClose) === "[object Function]") {
       this.props.onClose();

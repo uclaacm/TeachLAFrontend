@@ -21,9 +21,8 @@ class App extends React.Component {
   }
 
   //==============React Lifecycle Functions===================//
-  componentDidUpdate(a, b) {}
 
-  componentWillMount = () => {
+  componentDidMount = () => {
     firebase.auth().onAuthStateChanged(async user => {
       await this.onAuthHandler(user);
     });

@@ -38,7 +38,7 @@ class Editor extends React.Component {
   }
 
   //==============React Lifecycle Functions Start===================//
-  componentWillMount() {
+  componentDidMount() {
     if (this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT) {
       this.setState({ viewMode: CODE_ONLY });
     }
