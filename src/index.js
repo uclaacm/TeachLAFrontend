@@ -12,7 +12,10 @@ import firebase from "firebase";
 
 firebase.initializeApp(config);
 
-const store = createStore(appReducers);
+const store = createStore(
+  appReducers,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+);
 
 ReactDOM.render(
   <Provider store={store}>
