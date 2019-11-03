@@ -7,6 +7,7 @@ import CreateUserPage from "./CreateUser";
 import Error from "./Error";
 import PageNotFound from "./PageNotFound";
 import firebase from "firebase";
+import * as fetch from "../lib/fetch.js";
 import "styles/app.scss";
 
 const provider = new firebase.auth.EmailAuthProvider();
@@ -63,6 +64,11 @@ class App extends React.Component {
       this.props.clearUserData();
       this.setState({ checkedAuth: true });
     }
+  };
+
+  getProgram = async programid => {
+    const { ok, sketch } = await fetch.getSketch(programid);
+    return ok ? true : false;
   };
 
   showErrorPage = err => {
@@ -123,6 +129,17 @@ class App extends React.Component {
               path="/sketches"
               render={() =>
                 isValidUser ? <MainContainer contentType="sketches" /> : <Redirect to="/login" />
+              }
+            />
+            {/* Get program endpoint */}
+            <Route
+              path="/p/:programid"
+              render={props =>
+                this.getProgram(props.match.params.programid) ? (
+                  <MainContainer contentType="editor" />
+                ) : (
+                  <PageNotFound />
+                )
               }
             />
             {/* Default error page */}
