@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
+import { ROUTER_BASE_NAME } from "../constants";
 import LoginPage from "./containers/LoginContainer";
 import MainContainer from "./containers/MainContainer";
 import LoadingPage from "./common/LoadingPage";
@@ -21,7 +22,6 @@ class App extends React.Component {
   }
 
   //==============React Lifecycle Functions===================//
-  componentDidUpdate(a, b) {}
 
   componentWillMount = () => {
     firebase.auth().onAuthStateChanged(async user => {
@@ -80,15 +80,11 @@ class App extends React.Component {
       return <LoadingPage />;
     }
 
-    if (this.props.errorMsg !== "") {
-      return <Error errorMsg={this.props.errorMsg} />;
-    }
-
     //the user is not valid if there's no UID
     let isValidUser = this.props.uid;
 
     return (
-      <Router basename="/TeachLAFrontend">
+      <Router basename={ROUTER_BASE_NAME}>
         <div className="App">
           <Switch>
             {/*if the user is loggedIn, redirect them to the editor, otherwise, show the login page*?*/}
@@ -96,33 +92,65 @@ class App extends React.Component {
               exact
               path="/"
               render={() =>
-                isValidUser ? <Redirect to="/editor" /> : <LoginPage provider={provider} />
+                this.props.errorMsg !== "" ? (
+                  <Error errorMsg={this.props.errorMsg} isValidUser={isValidUser} />
+                ) : isValidUser ? (
+                  <Redirect to="/editor" />
+                ) : (
+                  <LoginPage provider={provider} />
+                )
               }
             />
             {/*if the user is loggedIn, redirect them to the editor, otherwise, show the login page*?*/}
             <Route
               path="/login"
               render={() =>
-                isValidUser ? <Redirect to="/editor" /> : <LoginPage provider={provider} />
+                this.props.errorMsg !== "" ? (
+                  <Error errorMsg={this.props.errorMsg} isValidUser={isValidUser} />
+                ) : isValidUser ? (
+                  <Redirect to="/editor" />
+                ) : (
+                  <LoginPage provider={provider} />
+                )
               }
             />
             {/*if the user is not loggedIn, redirect them to the login page, otherwise, show the editor page*?*/}
             <Route
               path="/editor"
               render={() =>
-                !isValidUser ? <Redirect to="/login" /> : <MainContainer contentType="editor" />
+                this.props.errorMsg !== "" ? (
+                  <Error errorMsg={this.props.errorMsg} isValidUser={isValidUser} />
+                ) : !isValidUser ? (
+                  <Redirect to="/login" />
+                ) : (
+                  <MainContainer contentType="editor" />
+                )
               }
             />
             {/*if the user is loggedIn, redirect them to the editor page, otherwise, show the createUser page*?*/}
             <Route
               path="/createUser"
-              render={() => (isValidUser ? <Redirect to="/editor" /> : <CreateUserPage />)}
+              render={() =>
+                this.props.errorMsg !== "" ? (
+                  <Error errorMsg={this.props.errorMsg} isValidUser={isValidUser} />
+                ) : isValidUser ? (
+                  <Redirect to="/editor" />
+                ) : (
+                  <CreateUserPage />
+                )
+              }
             />
             {/*if the user isn't loggedIn, redirect them to the login page, otherwise, show the view page*?*/}
             <Route
               path="/sketches"
               render={() =>
-                isValidUser ? <MainContainer contentType="sketches" /> : <Redirect to="/login" />
+                this.props.errorMsg !== "" ? (
+                  <Error errorMsg={this.props.errorMsg} isValidUser={isValidUser} />
+                ) : isValidUser ? (
+                  <MainContainer contentType="sketches" />
+                ) : (
+                  <Redirect to="/login" />
+                )
               }
             />
             {/* Default error page */}
@@ -130,7 +158,7 @@ class App extends React.Component {
               path="/error"
               render={() =>
                 this.props.errorMsg ? (
-                  <Error errorMsg={this.props.errorMsg} />
+                  <Error errorMsg={this.props.errorMsg} isValidUser={isValidUser} />
                 ) : (
                   this.renderHome(isValidUser)
                 )
