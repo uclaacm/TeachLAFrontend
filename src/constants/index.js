@@ -44,11 +44,14 @@ const PHOTO_NAMES = {
   heart: "https://i.imgur.com/ySz1WAS.png",
 };
 
-//Local Server
 var SERVER_URL = "http://localhost:8081";
-if (process && process.env && process.env.REACT_APP_SERVER_TYPE === "prod") {
-  //Heroku Server
-  SERVER_URL = "https://teach-la-backend.herokuapp.com";
+if (process && process.env) {
+  if (process.env.REACT_APP_SERVER_TYPE === "staging") {
+    SERVER_URL = "https://teach-la-staging-backend.herokuapp.com";
+  }
+  if (process.env.REACT_APP_SERVER_TYPE === "prod") {
+    SERVER_URL = "https://teach-la-backend.herokuapp.com";
+  }
 }
 
 const PANEL_SIZE = 250;
