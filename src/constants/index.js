@@ -44,17 +44,23 @@ const PHOTO_NAMES = {
   heart: "https://i.imgur.com/ySz1WAS.png",
 };
 
+// GH Repo for FE
+
 const GH_REPO_NAME = "https://github.com/uclaacm/TeachLAFrontend";
 
 // Router's base (i.e. anything after the domain)
 
 const ROUTER_BASE_NAME = "/TeachLAFrontend";
 
-//Local Server
+// Various Server URLs
 var SERVER_URL = "http://localhost:8081";
-if (process && process.env && process.env.REACT_APP_SERVER_TYPE === "prod") {
-  //Heroku Server
-  SERVER_URL = "https://teach-la-backend.herokuapp.com";
+if (process && process.env) {
+  if (process.env.REACT_APP_SERVER_TYPE === "staging") {
+    SERVER_URL = "https://teach-la-staging-backend.herokuapp.com";
+  }
+  if (process.env.REACT_APP_SERVER_TYPE === "prod") {
+    SERVER_URL = "https://teach-la-backend.herokuapp.com";
+  }
 }
 
 const PANEL_SIZE = 250;
