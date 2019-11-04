@@ -22,10 +22,8 @@ class Editor extends React.Component {
   render() {
     return (
       <div className="main">
-        <React.Fragment>
-          <ProfilePanelContainer contentType={this.props.contentType} />
-          {this.renderContent()}
-        </React.Fragment>
+        <ProfilePanelContainer contentType={this.props.contentType} />
+        {this.renderContent()}
       </div>
     );
   }
