@@ -15,19 +15,12 @@ class Editor extends React.Component {
    */
   constructor(props) {
     super(props);
-    this.state = {
-      textEditorSize: this.props.screenWidth * 0.5,
-    };
   }
 
   //==============React Lifecycle Functions===================//
   componentDidMount() {}
 
-  componentDidUpdate(prevProps) {
-    if (this.props.screenWidth !== prevProps.screenWidth) {
-      this.setState({ textEditorSize: this.props.screenWidth * 0.5 });
-    }
-  }
+  componentDidUpdate(prevProps) {}
 
   componentWillUnmount() {}
 
