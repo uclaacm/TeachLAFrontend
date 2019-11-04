@@ -5,25 +5,6 @@ import "styles/Main.scss";
 import ProfilePanelContainer from "./common/containers/ProfilePanelContainer";
 
 class Editor extends React.Component {
-  /**
-   * constructor
-   *
-   * @param {object} props
-   *    @key {object} user - information of user; (should never be null bc if someone's not logged in, sends them to the login page)
-   *      @key {}
-   *    @key {function} clearUserData - redux action to log the user out, brings you to homepage after (bc if you're not logged in, you're rerouted to the home page)
-   */
-  constructor(props) {
-    super(props);
-  }
-
-  //==============React Lifecycle Functions===================//
-  componentDidMount() {}
-
-  componentDidUpdate(prevProps) {}
-
-  componentWillUnmount() {}
-
   renderSketchesPage = () => <SketchesPageContainer />;
 
   renderEditor = () => <EditorContainer />;
