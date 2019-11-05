@@ -1,7 +1,7 @@
 import ProcessingConstructor from "./../../components/Editor/components/Output/Processing";
 
 export default class CodeDownloader {
-  download = (name, language, code) => {
+  static download = (name, language, code) => {
     let extension = ".";
     switch (language) {
       case "python":

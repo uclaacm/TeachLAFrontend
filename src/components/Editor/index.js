@@ -88,7 +88,7 @@ class Editor extends React.Component {
   };
 
   handleDownload = () => {
-    new CodeDownloader().download(this.props.name, this.props.language, this.props.code);
+    CodeDownloader.download(this.props.name, this.props.language, this.props.code);
   };
 
   renderDropdown = () => <DropdownButtonContainer />;
