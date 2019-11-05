@@ -1,3 +1,5 @@
+import ProcessingConstructor from "./../../components/Editor/components/Output/Processing";
+
 export default class CodeDownloader {
   download = (name, language, code) => {
     let extension = ".";
