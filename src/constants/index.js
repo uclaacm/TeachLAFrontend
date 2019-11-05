@@ -44,6 +44,15 @@ const PHOTO_NAMES = {
   heart: "https://i.imgur.com/ySz1WAS.png",
 };
 
+// GH Repo for FE
+
+const GH_REPO_NAME = "https://github.com/uclaacm/TeachLAFrontend";
+
+// Router's base (i.e. anything after the domain)
+
+const ROUTER_BASE_NAME = "/TeachLAFrontend";
+
+// Various Server URLs
 var SERVER_URL = "http://localhost:8081";
 if (process && process.env) {
   if (process.env.REACT_APP_SERVER_TYPE === "staging") {
@@ -68,6 +77,11 @@ module.exports = {
   // photo names
   PHOTO_NAMES,
   DEFAULT_PHOTO_NAME: "icecream",
+
+  GH_REPO_NAME,
+
+  // Router Base Name
+  ROUTER_BASE_NAME,
 
   //Server Host Name
   SERVER_URL,
