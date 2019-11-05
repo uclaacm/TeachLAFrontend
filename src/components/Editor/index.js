@@ -134,7 +134,7 @@ class Editor extends React.Component {
       <div className="code-section-banner">
         <OpenPanelButtonContainer />
         {this.renderDropdown()}
-        <div style={{ marginLeft: "auto" }}>
+        <div style={{ marginLeft: "auto", marginRight: ".5rem" }}>
           <EditorRadio
             viewMode={this.state.viewMode}
             updateViewMode={this.updateViewMode}
