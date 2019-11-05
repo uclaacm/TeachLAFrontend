@@ -12,6 +12,7 @@ import { EDITOR_WIDTH_BREAKPOINT, CODE_AND_OUTPUT, CODE_ONLY, OUTPUT_ONLY } from
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSave } from "@fortawesome/free-solid-svg-icons";
+import { faDownload } from "@fortawesome/free-solid-svg-icons";
 
 import { PANEL_SIZE } from "../../constants";
 import "codemirror/lib/codemirror.css";
@@ -140,6 +141,10 @@ class Editor extends React.Component {
           {this.props.screenWidth > EDITOR_WIDTH_BREAKPOINT && (
             <span className="editor-button-text">&nbsp;&nbsp;{this.state.saveText}</span>
           )}
+        </Button>
+
+        <Button className="mx-2" color="success" size="lg" onClick={this.handleSave}>
+          <FontAwesomeIcon icon={faDownload} />
         </Button>
       </div>
       <div
