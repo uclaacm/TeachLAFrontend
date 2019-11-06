@@ -9,9 +9,11 @@ import * as fetch from "../../lib/fetch.js";
 import EditorRadio from "./components/EditorRadio.js";
 import { Redirect } from "react-router-dom";
 import { EDITOR_WIDTH_BREAKPOINT, CODE_AND_OUTPUT, CODE_ONLY, OUTPUT_ONLY } from "./constants";
+import CodeDownloader from "./../../util/languages/CodeDownloader";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSave } from "@fortawesome/free-solid-svg-icons";
+import { faDownload } from "@fortawesome/free-solid-svg-icons";
 
 import { PANEL_SIZE } from "../../constants";
 import "codemirror/lib/codemirror.css";
@@ -76,6 +78,10 @@ class Editor extends React.Component {
     this.props.cleanCode(this.props.mostRecentProgram); // Set code's "dirty" state to false
   };
 
+  handleDownload = () => {
+    CodeDownloader.download(this.props.name, this.props.language, this.props.code);
+  };
+
   renderDropdown = () => <DropdownButtonContainer />;
 
   renderCodeAndOutput = () => (
@@ -119,7 +125,7 @@ class Editor extends React.Component {
       <div className="code-section-banner">
         <OpenPanelButtonContainer />
         {this.renderDropdown()}
-        <div style={{ marginLeft: "auto" }}>
+        <div style={{ marginLeft: "auto", marginRight: ".5rem" }}>
           <EditorRadio
             viewMode={this.state.viewMode}
             updateViewMode={this.updateViewMode}
@@ -131,6 +137,10 @@ class Editor extends React.Component {
           {this.props.screenWidth > EDITOR_WIDTH_BREAKPOINT && (
             <span className="editor-button-text">&nbsp;&nbsp;{this.state.saveText}</span>
           )}
+        </Button>
+
+        <Button className="mx-2" color="success" size="lg" onClick={this.handleDownload}>
+          <FontAwesomeIcon icon={faDownload} />
         </Button>
       </div>
       <div

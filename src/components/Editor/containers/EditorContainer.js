@@ -13,6 +13,8 @@ const mapStateToProps = state => {
   //should have 2 keys, code (which is the code) and langauge (which is the language the code is written it)
   const code = state.programs.getIn([mostRecentProgram, "code"], undefined);
   const dirty = state.programs.getIn([mostRecentProgram, "dirty"], false);
+  const name = state.programs.getIn([mostRecentProgram, "name"], "untitled");
+  const language = state.programs.getIn([mostRecentProgram, "language"], "txt");
 
   let listOfPrograms = [];
 
@@ -28,6 +30,8 @@ const mapStateToProps = state => {
     dirty,
     panelOpen: state.ui.panelOpen,
     left: (state.ui.panelOpen ? OPEN_PANEL_LEFT : CLOSED_PANEL_LEFT) + PANEL_SIZE,
+    name,
+    language,
   };
 };
 
