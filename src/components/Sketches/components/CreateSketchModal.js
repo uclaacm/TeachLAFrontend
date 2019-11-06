@@ -29,9 +29,6 @@ class CreateSketchModal extends React.Component {
   }
 
   //==============React Lifecycle Functions Start===================//
-  componentWillMount() {}
-
-  componentDidUpdate() {}
 
   closeModal = () => {
     if (this.props.onClose && {}.toString.call(this.props.onClose) === "[object Function]") {

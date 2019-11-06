@@ -31,22 +31,13 @@ class Editor extends React.Component {
     super(props);
     this.state = {
       saveText: "Save",
-      viewMode: CODE_AND_OUTPUT,
-      redirect: "",
+      viewMode: (this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT) ? CODE_ONLY : CODE_AND_OUTPUT,
+      redirect: (this.props.listOfPrograms.length === 0) ? "/sketches" : "",
       pane1Style: { transition: "width .5s ease" },
     };
   }
 
   //==============React Lifecycle Functions Start===================//
-  componentWillMount() {
-    if (this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT) {
-      this.setState({ viewMode: CODE_ONLY });
-    }
-    if (this.props.listOfPrograms.length === 0) {
-      this.setState({ redirect: "/sketches" });
-    }
-  }
-
   componentDidUpdate(prevProps) {
     if (this.props.screenWidth !== prevProps.screenWidth) {
       if (this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT) {
