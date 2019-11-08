@@ -32,17 +32,17 @@ SUPPORTED_LANGUAGES.forEach(lang => {
   }
 });
 
-const public_url = process.env.PUBLIC_URL;
+const PUBLIC_URL = process.env.PUBLIC_URL;
 const PHOTO_NAMES = {
-  lightbulb: `${public_url}/img/icons/lightbulb.pnng`,
-  orange: `${public_url}/img/icons/orange.png`,
-  pear: `${public_url}/img/icons/pear.png`,
-  apple: `${public_url}/img/icons/apple.png`,
-  hotdog: `${public_url}/img/icons/hotdog.png`,
-  icecream: `${public_url}/img/icons/icecream.png`,
-  cloud: `${public_url}/img/icons/cloud.png`,
-  earth: `${public_url}/img/icons/earth.png`,
-  heart: `${public_url}/img/icons/heart.png`,
+  lightbulb: `${PUBLIC_URL}/img/icons/lightbulb.pnng`,
+  orange: `${PUBLIC_URL}/img/icons/orange.png`,
+  pear: `${PUBLIC_URL}/img/icons/pear.png`,
+  apple: `${PUBLIC_URL}/img/icons/apple.png`,
+  hotdog: `${PUBLIC_URL}/img/icons/hotdog.png`,
+  icecream: `${PUBLIC_URL}/img/icons/icecream.png`,
+  cloud: `${PUBLIC_URL}/img/icons/cloud.png`,
+  earth: `${PUBLIC_URL}/img/icons/earth.png`,
+  heart: `${PUBLIC_URL}/img/icons/heart.png`,
 };
 
 // GH Repo for FE
