@@ -32,16 +32,17 @@ SUPPORTED_LANGUAGES.forEach(lang => {
   }
 });
 
+const public_url = process.env.PUBLIC_URL;
 const PHOTO_NAMES = {
-  lightbulb: "https://i.imgur.com/WKDHPon.pngg",
-  orange: "https://i.imgur.com/DMc0L0P.png",
-  pear: "https://i.imgur.com/T03MlZH.png",
-  apple: "https://i.imgur.com/5S83eug.png",
-  hotdog: "https://i.imgur.com/CWwlIOF.png",
-  icecream: "https://i.imgur.com/OBHz5An.png",
-  cloud: "https://i.imgur.com/Cw6IRTu.png",
-  earth: "https://i.imgur.com/SBlnUnG.png",
-  heart: "https://i.imgur.com/ySz1WAS.png",
+  lightbulb: `${public_url}/img/icons/lightbulb.pnng`,
+  orange: `${public_url}/img/icons/orange.png`,
+  pear: `${public_url}/img/icons/pear.png`,
+  apple: `${public_url}/img/icons/apple.png`,
+  hotdog: `${public_url}/img/icons/hotdog.png`,
+  icecream: `${public_url}/img/icons/icecream.png`,
+  cloud: `${public_url}/img/icons/cloud.png`,
+  earth: `${public_url}/img/icons/earth.png`,
+  heart: `${public_url}/img/icons/heart.png`,
 };
 
 // GH Repo for FE
