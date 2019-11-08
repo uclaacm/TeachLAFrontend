@@ -68,7 +68,7 @@ class App extends React.Component {
 
   getProgram = async programid => {
     const { ok, sketch } = await fetch.getSketch(programid);
-    return ok ? true : false;
+    return ok && sketch ? true : false;
   };
 
   showErrorPage = err => {
