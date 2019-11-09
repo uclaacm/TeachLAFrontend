@@ -1,6 +1,7 @@
 import React from "react";
 import SplitPane from "react-split-pane";
 import { Button } from "reactstrap";
+import ViewportAwareButton from "./components/ViewportAwareButton.js";
 import OutputContainer from "./containers/OutputContainer.js";
 import TextEditorContainer from "./containers/TextEditorContainer";
 import DropdownButtonContainer from "./containers/DropdownButtonContainer";
@@ -33,8 +34,8 @@ class Editor extends React.Component {
     super(props);
     this.state = {
       saveText: "Save",
-      viewMode: (this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT) ? CODE_ONLY : CODE_AND_OUTPUT,
-      redirect: (this.props.listOfPrograms.length === 0) ? "/sketches" : "",
+      viewMode: this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT ? CODE_ONLY : CODE_AND_OUTPUT,
+      redirect: this.props.listOfPrograms.length === 0 ? "/sketches" : "",
       pane1Style: { transition: "width .5s ease" },
     };
   }
@@ -132,12 +133,18 @@ class Editor extends React.Component {
             isSmall={this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
           />
         </div>
-        <Button className="mx-2" color="success" size="lg" onClick={this.handleSave}>
+        <ViewportAwareButton
+          className="mx-2"
+          color="success"
+          size="lg"
+          onClick={this.handleSave}
+          isSmall={this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
+        >
           <FontAwesomeIcon icon={faSave} />
-          {this.props.screenWidth > EDITOR_WIDTH_BREAKPOINT && (
-            <span className="editor-button-text">&nbsp;&nbsp;{this.state.saveText}</span>
-          )}
-        </Button>
+          <span className="editor-button-text viewport-aware">
+            &nbsp;&nbsp;{this.state.saveText}
+          </span>
+        </ViewportAwareButton>
 
         <Button className="mx-2" color="success" size="lg" onClick={this.handleDownload}>
           <FontAwesomeIcon icon={faDownload} />

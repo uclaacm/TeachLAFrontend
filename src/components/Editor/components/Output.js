@@ -8,6 +8,7 @@ import CreateProcessingDoc from "./Output/Processing";
 import CreatePythonDoc from "./Output/Python";
 
 import { Button } from "reactstrap";
+import ViewportAwareButton from "./ViewportAwareButton";
 
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import { faTerminal } from "@fortawesome/free-solid-svg-icons";
@@ -156,10 +157,16 @@ class Output extends React.Component {
       <div style={{ flex: "1 1 auto" }}> </div> {/*whitespace*/}
       {this.renderRadio()}
       {this.renderConsoleButton()}
-      <Button className="mx-2" color="primary" size="lg" onClick={this.runCode}>
+      <ViewportAwareButton
+        className="mx-2"
+        color="primary"
+        size="lg"
+        onClick={this.runCode}
+        isSmall={this.props.isSmall}
+      >
         <FontAwesomeIcon icon={faPlay} />
-        {!this.props.isSmall && <span className="editor-button-text">&nbsp;&nbsp;Run</span>}
-      </Button>
+        <span className="editor-button-text viewport-aware">&nbsp;&nbsp;Run</span>
+      </ViewportAwareButton>
     </div>
   );
 
