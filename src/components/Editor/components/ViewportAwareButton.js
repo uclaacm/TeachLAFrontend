@@ -10,7 +10,7 @@ const ViewportAwareButton = props => {
   let { children, ...remainder } = props;
   if (props.isSmall)
     children = Array.from(props.children).filter(
-      child => child.props.className !== "viewport-aware",
+      child => !child.props.className.split(" ").includes("viewport-aware"),
     );
 
   return <Button children={children} {...remainder} />;
