@@ -34,7 +34,6 @@ class Editor extends React.Component {
     super(props);
     this.state = {
       saveText: "Save",
-      isSmall: this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT,
       viewMode: this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT ? CODE_ONLY : CODE_AND_OUTPUT,
       redirect: this.props.listOfPrograms.length === 0 ? "/sketches" : "",
       pane1Style: { transition: "width .5s ease" },
@@ -45,11 +44,10 @@ class Editor extends React.Component {
   componentDidUpdate(prevProps) {
     if (this.props.screenWidth !== prevProps.screenWidth) {
       if (this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT) {
-        this.setState({ isSmall: true });
         if (this.state.viewMode === CODE_AND_OUTPUT) {
           this.setState({ viewMode: CODE_ONLY });
         }
-      } else this.setState({ isSmall: false });
+      }
     }
   }
 
@@ -132,7 +130,7 @@ class Editor extends React.Component {
           <EditorRadio
             viewMode={this.state.viewMode}
             updateViewMode={this.updateViewMode}
-            isSmall={this.state.isSmall}
+            isSmall={this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
           />
         </div>
         <ViewportAwareButton
@@ -140,7 +138,7 @@ class Editor extends React.Component {
           color="success"
           size="lg"
           onClick={this.handleSave}
-          isSmall={this.state.isSmall}
+          isSmall={this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
         >
           <FontAwesomeIcon icon={faSave} />
           <span className="editor-button-text viewport-aware">
@@ -169,7 +167,7 @@ class Editor extends React.Component {
     <OutputContainer
       viewMode={this.state.viewMode}
       updateViewMode={this.updateViewMode}
-      isSmall={this.props.isSmall}
+      isSmall={this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
     />
   );
 
