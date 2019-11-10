@@ -139,12 +139,9 @@ class Editor extends React.Component {
           size="lg"
           onClick={this.handleSave}
           isSmall={this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
-        >
-          <FontAwesomeIcon icon={faSave} />
-          <span className="editor-button-text viewport-aware">
-            &nbsp;&nbsp;{this.state.saveText}
-          </span>
-        </ViewportAwareButton>
+          icon={<FontAwesomeIcon icon={faSave} />}
+          text={this.state.saveText}
+        />
 
         <Button className="mx-2" color="success" size="lg" onClick={this.handleDownload}>
           <FontAwesomeIcon icon={faDownload} />

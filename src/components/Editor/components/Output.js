@@ -163,10 +163,9 @@ class Output extends React.Component {
         size="lg"
         onClick={this.runCode}
         isSmall={this.props.isSmall}
-      >
-        <FontAwesomeIcon icon={faPlay} />
-        <span className="editor-button-text viewport-aware">&nbsp;&nbsp;Run</span>
-      </ViewportAwareButton>
+        icon={<FontAwesomeIcon icon={faPlay} />}
+        text="Run"
+      />
     </div>
   );
 
