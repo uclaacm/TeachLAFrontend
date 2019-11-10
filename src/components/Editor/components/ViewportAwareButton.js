@@ -11,14 +11,14 @@ import { Button } from "reactstrap";
  */
 const ViewportAwareButton = props => {
   // extract icon and text from props.
-  let { icon, text, ...remainder } = props;
+  let { icon, text, isSmall, ...remainder } = props;
 
   // render icon always, text only if not small.
   return (
     <Button {...remainder}>
       {icon}
 
-      {!props.isSmall && <span className="viewport-aware-button-text">&nbsp;&nbsp;{text}</span>}
+      {!isSmall && <span className="viewport-aware-button-text">&nbsp;&nbsp;{text}</span>}
     </Button>
   );
 };
