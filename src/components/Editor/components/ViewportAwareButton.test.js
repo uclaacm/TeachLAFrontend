@@ -5,26 +5,12 @@ import ViewportAwareButton from "./ViewportAwareButton";
 
 describe("<ViewportAwareButton />", () => {
   it("renders all children when normal sized.", () => {
-    let component = shallow(
-      <ViewportAwareButton isSmall={false}>
-        <span className="classA viewport-aware" />
-        <span className="classB" />
-      </ViewportAwareButton>,
-    );
-
-    expect(component.find(".classB").length).toBe(1);
-    expect(component.find(".viewport-aware").length).toBe(1);
+    let component = shallow(<ViewportAwareButton isSmall={false} icon={<div />} text="hi" />);
+    expect(component.find("span") && component.find("div"));
   });
 
   it("doesn't render viewport-aware children when small.", () => {
-    let component = shallow(
-      <ViewportAwareButton isSmall={true}>
-        <span className="classA viewport-aware" />
-        <span className="classB" />
-      </ViewportAwareButton>,
-    );
-
-    expect(component.find(".classB").length).toBe(1);
-    expect(component.find(".viewport-aware").length).toBe(0);
+    let component = shallow(<ViewportAwareButton isSmall={true} icon={<div />} text="hi" />);
+    expect(!component.find("span") && component.find("div"));
   });
 });
