@@ -22,9 +22,12 @@ import {
 export default class CreateUserForm extends React.Component {
   constructor(props) {
     super(props);
+
+    let init = this.props.initialState;
+
     this.state = {
-      username: this.props.initialState.username || "",
-      password: this.props.initialState.password || "",
+      username: init ? init.username : "",
+      password: init ? init.password : "",
       confirmPassword: "",
       errorMessage: "",
       waiting: false,
