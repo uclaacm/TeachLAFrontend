@@ -14,6 +14,8 @@ import { faBook } from "@fortawesome/free-solid-svg-icons";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import { faMoon } from "@fortawesome/free-solid-svg-icons";
+import { faSun } from "@fortawesome/free-solid-svg-icons";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "styles/Panel.scss";
@@ -110,6 +112,19 @@ class ProfilePanel extends React.Component {
       );
 
     return addBreak ? <br /> : null;
+  };
+
+  renderThemeSwitch = () => {
+    return (
+      <label className="panel-switch">
+        <input className="panel-switch-input" type="checkbox" />
+        <span className="panel-switch-label" data-light="On" data-dark="Off">
+          <FontAwesomeIcon icon={faMoon} className="icon-dark" />
+          <FontAwesomeIcon icon={faSun} className="icon-light" />
+        </span>
+        <span className="panel-switch-handle"></span>
+      </label>
+    );
   };
 
   renderPanelImage = () => {
@@ -247,7 +262,6 @@ class ProfilePanel extends React.Component {
 
   renderButtons = () => {
     let panelButtons = [];
-
     switch (this.props.contentType) {
       case "sketches":
         panelButtons.push(this.renderEditorButton());
@@ -271,6 +285,7 @@ class ProfilePanel extends React.Component {
       {this.renderName()}
       {this.renderErrorMessage(this.state.displayNameMessage)}
       {this.renderButtons()}
+      {this.renderThemeSwitch()}
     </div>
   );
 

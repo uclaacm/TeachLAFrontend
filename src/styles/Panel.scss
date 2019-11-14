@@ -1,4 +1,4 @@
-@import 'styles/variables.scss';
+@import "styles/variables.scss";
 
 .panel {
   display: flex;
@@ -195,7 +195,8 @@
   align-items: center;
 }
 
-.panel-button:hover, .panel-button:active {
+.panel-button:hover,
+.panel-button:active {
   color: $theme-dark !important;
   border-color: $off-white !important;
   background-color: $off-white !important;
@@ -224,4 +225,70 @@
 /* Handle on hover */
 .panel-content::-webkit-scrollbar-thumb:hover {
   background: #fff;
+}
+
+// Theme Switch
+.panel-switch {
+  padding: 0.5rem 1rem;
+  margin-top: 0.5rem;
+  position: relative;
+  display: block;
+  width: 100px;
+  height: 30px;
+  margin: 0 10px 10px 0;
+  border-radius: 6px;
+  cursor: pointer;
+  box-sizing: content-box;
+  font-family: inherit;
+}
+.panel-switch-input {
+  padding: 0px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  box-sizing: content-box;
+}
+.panel-switch-label {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  height: inherit;
+  font-size: 1rem;
+  background: #eceeef;
+  border-radius: inherit;
+}
+.icon-dark {
+  color: #ffffff;
+}
+
+.panel-switch-input:checked ~ .panel-switch-label {
+  background: $theme-dark;
+}
+
+.panel-switch-input:checked + .icon-dark {
+  opacity: 0;
+}
+.panel-switch-handle {
+  position: absolute;
+  top: 9px;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+}
+.panel-switch-input:checked ~ .panel-switch-handle {
+  left: 88px;
+}
+
+/* Transition
+========================== */
+.panel-switch-label,
+.panel-switch-handle {
+  transition: All 0.3s ease;
+  -webkit-transition: All 0.3s ease;
+  -moz-transition: All 0.3s ease;
+  -o-transition: All 0.3s ease;
 }
