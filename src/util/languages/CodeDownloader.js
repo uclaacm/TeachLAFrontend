@@ -1,4 +1,4 @@
-import ProcessingConstructor from "./../../components/Editor/components/Output/Processing";
+import ProcessingConstructor from "../../components/Output/Processing";
 
 export default class CodeDownloader {
   static download = (name, language, code) => {

@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import Output from "../components/Output.js";
+import Output from "./Output.js";
 
 const mapStateToProps = state => {
   const { mostRecentProgram } = state.userData;
@@ -8,6 +8,7 @@ const mapStateToProps = state => {
     runResult: state.programs.getIn([mostRecentProgram, "code"]),
     language: state.programs.getIn([mostRecentProgram, "language"]),
     screenHeight: state.ui.screenHeight,
+    screenWidth: state.ui.screenWidth, // probably will need this
   };
 };
 

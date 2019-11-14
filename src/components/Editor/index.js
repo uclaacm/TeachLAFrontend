@@ -1,10 +1,10 @@
 import React from "react";
 import SplitPane from "react-split-pane";
 import { Button } from "reactstrap";
-import ViewportAwareButton from "./components/ViewportAwareButton.js";
-import OutputContainer from "./containers/OutputContainer.js";
+import ViewportAwareButton from "../common/ViewportAwareButton.js";
+import OutputContainer from "../Output/OutputContainer.js";
 import TextEditorContainer from "./containers/TextEditorContainer";
-import DropdownButtonContainer from "./containers/DropdownButtonContainer";
+import DropdownButtonContainer from "../common/containers/DropdownButtonContainer";
 import OpenPanelButtonContainer from "../common/containers/OpenPanelButtonContainer";
 import * as fetch from "../../lib/fetch.js";
 import EditorRadio from "./components/EditorRadio.js";
