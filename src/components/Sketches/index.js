@@ -3,6 +3,7 @@ import SketchBox from "./components/SketchBox";
 import ConfirmDeleteModalContainer from "./containers/ConfirmDeleteModalContainer";
 import CreateSketchModalContainer from "./containers/CreateSketchModalContainer";
 import EditSketchModalContainer from "./containers/EditSketchModalContainer";
+import OpenPanelButtonContainer from "../common/containers/OpenPanelButtonContainer";
 import { SketchThumbnailArray } from "./constants";
 import ProcessingConstructor from "../Output/Processing";
 // import { PANEL_SIZE } from "../../constants";
@@ -88,6 +89,7 @@ class Sketches extends React.Component {
 
   renderHeader = () => (
     <div className="sketches-header">
+      <OpenPanelButtonContainer />
       <div className="sketches-header-text">Sketches</div>
       <Button
         className="ml-auto mr-2"
