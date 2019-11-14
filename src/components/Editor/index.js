@@ -9,7 +9,7 @@ import OpenPanelButtonContainer from "../common/containers/OpenPanelButtonContai
 import * as fetch from "../../lib/fetch.js";
 import EditorRadio from "./components/EditorRadio.js";
 import { Redirect } from "react-router-dom";
-import { EDITOR_WIDTH_BREAKPOINT, CODE_AND_OUTPUT, CODE_ONLY, OUTPUT_ONLY } from "./constants";
+import { EDITOR_WIDTH_BREAKPOINT, CODE_AND_OUTPUT, CODE_ONLY, OUTPUT_ONLY } from "../../constants";
 import CodeDownloader from "./../../util/languages/CodeDownloader";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
