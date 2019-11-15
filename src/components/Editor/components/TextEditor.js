@@ -1,6 +1,17 @@
 import React from "react";
 import { CODEMIRROR_CONVERSIONS } from "../../../constants";
 import * as fetch from "../../../lib/fetch.js";
+import EditorRadio from "./EditorRadio.js";
+
+import { Button } from "reactstrap";
+import OpenPanelButtonContainer from "../../common/containers/OpenPanelButtonContainer";
+import { EDITOR_WIDTH_BREAKPOINT } from "../../../constants";
+import ViewportAwareButton from "../../common/ViewportAwareButton.js";
+import DropdownButtonContainer from "../../common/containers/DropdownButtonContainer";
+import { faSave } from "@fortawesome/free-solid-svg-icons";
+import { faDownload } from "@fortawesome/free-solid-svg-icons";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 let CodeMirror = null;
 if (typeof window !== "undefined" && typeof window.navigator !== "undefined") {
@@ -85,6 +96,37 @@ class TextEditor extends React.Component {
     this.setState({ currentLine: line });
   };
 
+  renderDropdown = () => <DropdownButtonContainer />;
+
+  renderBanner = () => {
+    return (
+      <div className="code-section-banner">
+        <OpenPanelButtonContainer />
+        {this.renderDropdown()}
+        <div style={{ marginLeft: "auto", marginRight: ".5rem" }}>
+          <EditorRadio
+            viewMode={this.props.viewMode}
+            updateViewMode={this.props.updateViewMode}
+            isSmall={this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
+          />
+        </div>
+        <ViewportAwareButton
+          className="mx-2"
+          color="success"
+          size="lg"
+          onClick={this.props.handleSave}
+          isSmall={this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
+          icon={<FontAwesomeIcon icon={faSave} />}
+          text={this.props.saveText}
+        />
+
+        <Button className="mx-2" color="success" size="lg" onClick={this.handleDownload}>
+          <FontAwesomeIcon icon={faDownload} />
+        </Button>
+      </div>
+    );
+  };
+
   render() {
     //json required by CodeMirror
     const options = {
@@ -96,21 +138,33 @@ class TextEditor extends React.Component {
     };
 
     return (
-      <CodeMirror
-        editorDidMount={codeMirrorInstance => {
-          codeMirrorInstance.refresh();
-          this.setCodeMirrorInstance(codeMirrorInstance);
-        }}
-        value={this.props.code}
-        lineWrapping
-        indentWithTabs={true}
-        options={options}
-        onCursor={cm => {
-          this.setCurrentLine(cm);
-        }}
-        onBeforeChange={this.updateCode}
-        onChange={this.updateCode}
-      />
+      <div className="code-section">
+        {this.renderBanner()}
+        <div
+          className="text-editor-container"
+          style={{
+            height: this.props.screenHeight - 61 - 20,
+            minHeight: this.props.screenHeight - 61 - 20,
+            maxHeight: this.props.screenHeight - 61 - 20,
+          }}
+        >
+          <CodeMirror
+            editorDidMount={codeMirrorInstance => {
+              codeMirrorInstance.refresh();
+              this.setCodeMirrorInstance(codeMirrorInstance);
+            }}
+            value={this.props.code}
+            lineWrapping
+            indentWithTabs={true}
+            options={options}
+            onCursor={cm => {
+              this.setCurrentLine(cm);
+            }}
+            onBeforeChange={this.updateCode}
+            onChange={this.updateCode}
+          />
+        </div>
+      </div>
     );
   }
 }

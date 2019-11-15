@@ -1,20 +1,13 @@
 import React from "react";
 import SplitPane from "react-split-pane";
-import { Button } from "reactstrap";
-import ViewportAwareButton from "../common/ViewportAwareButton.js";
 import OutputContainer from "../Output/OutputContainer.js";
 import TextEditorContainer from "./containers/TextEditorContainer";
 import DropdownButtonContainer from "../common/containers/DropdownButtonContainer";
-import OpenPanelButtonContainer from "../common/containers/OpenPanelButtonContainer";
 import * as fetch from "../../lib/fetch.js";
-import EditorRadio from "./components/EditorRadio.js";
+
 import { Redirect } from "react-router-dom";
 import { EDITOR_WIDTH_BREAKPOINT, CODE_AND_OUTPUT, CODE_ONLY, OUTPUT_ONLY } from "../../constants";
 import CodeDownloader from "./../../util/languages/CodeDownloader";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSave } from "@fortawesome/free-solid-svg-icons";
-import { faDownload } from "@fortawesome/free-solid-svg-icons";
 
 import { PANEL_SIZE } from "../../constants";
 import "codemirror/lib/codemirror.css";
@@ -122,42 +115,13 @@ class Editor extends React.Component {
   };
 
   renderCode = () => (
-    <div className="code-section">
-      <div className="code-section-banner">
-        <OpenPanelButtonContainer />
-        {this.renderDropdown()}
-        <div style={{ marginLeft: "auto", marginRight: ".5rem" }}>
-          <EditorRadio
-            viewMode={this.state.viewMode}
-            updateViewMode={this.updateViewMode}
-            isSmall={this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
-          />
-        </div>
-        <ViewportAwareButton
-          className="mx-2"
-          color="success"
-          size="lg"
-          onClick={this.handleSave}
-          isSmall={this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
-          icon={<FontAwesomeIcon icon={faSave} />}
-          text={this.state.saveText}
-        />
-
-        <Button className="mx-2" color="success" size="lg" onClick={this.handleDownload}>
-          <FontAwesomeIcon icon={faDownload} />
-        </Button>
-      </div>
-      <div
-        className="text-editor-container"
-        style={{
-          height: this.props.screenHeight - 61 - 20,
-          minHeight: this.props.screenHeight - 61 - 20,
-          maxHeight: this.props.screenHeight - 61 - 20,
-        }}
-      >
-        <TextEditorContainer key={this.props.mostRecentProgram} />
-      </div>
-    </div>
+    <TextEditorContainer
+      key={this.props.mostRecentProgram}
+      viewMode={this.state.viewMode}
+      updateViewMode={this.updateViewMode}
+      handleSave={this.handleSave}
+      saveText={this.state.saveText}
+    />
   );
 
   renderOutput = () => (
