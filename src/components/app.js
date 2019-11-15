@@ -131,13 +131,13 @@ class App extends React.Component {
             {/*if the user is loggedIn, redirect them to the editor page, otherwise, show the createUser page*?*/}
             <Route
               path="/createUser"
-              render={() =>
+              render={({ location }) =>
                 this.props.errorMsg !== "" ? (
                   <Error errorMsg={this.props.errorMsg} isValidUser={isValidUser} />
                 ) : isValidUser ? (
                   <Redirect to="/editor" />
                 ) : (
-                  <CreateUserPage />
+                  <CreateUserPage initialState={location.state} />
                 )
               }
             />

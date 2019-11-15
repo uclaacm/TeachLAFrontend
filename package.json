@@ -12,7 +12,7 @@
     "codemirror": "^5.49.2",
     "cross-env": "^6.0.3",
     "crypto-js": "^3.1.9-1",
-    "firebase": "^7.2.3",
+    "firebase": "^7.3.0",
     "immutable": "^3.8.2",
     "node-sass": "^4.13.0",
     "react": "^16.11.0",
@@ -24,7 +24,7 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
     "react-spinners": "^0.6.1",
-    "react-split-pane": "^0.1.87",
+    "react-split-pane": "^0.1.89",
     "reactstrap": "^8.1.1",
     "redux": "^4.0.0"
   },
@@ -44,8 +44,8 @@
     "enzyme-adapter-react-16": "^1.15.1",
     "enzyme-to-json": "^3.4.3",
     "husky": "^3.0.9",
-    "lint-staged": "^9.4.2",
-    "prettier": "^1.17.1"
+    "lint-staged": "^9.4.3",
+    "prettier": "^1.19.1"
   },
   "husky": {
     "hooks": {
