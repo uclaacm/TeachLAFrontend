@@ -2,7 +2,8 @@ import React from "react";
 import { Button } from "reactstrap";
 import Footer from "./common/Footer";
 import { Link } from "react-router-dom";
-import firebase from "firebase";
+import * as firebase from "firebase/app";
+import "firebase/auth";
 import "styles/Page.scss";
 import { GH_REPO_NAME } from "../constants";
 
