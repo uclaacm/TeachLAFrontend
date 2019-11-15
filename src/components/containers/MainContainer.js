@@ -30,7 +30,6 @@ const mapStateToProps = state => {
     dirty,
     panelOpen: state.ui.panelOpen,
     left: (state.ui.panelOpen ? OPEN_PANEL_LEFT : CLOSED_PANEL_LEFT) + PANEL_SIZE,
-    panelLeft: state.ui.panelOpen ? OPEN_PANEL_LEFT : CLOSED_PANEL_LEFT,
     name,
     language,
   };

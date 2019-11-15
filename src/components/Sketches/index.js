@@ -232,7 +232,6 @@ class Sketches extends React.Component {
 
   render() {
     const containerStyle = {
-      left: this.props.left || 0,
       width: this.props.calculatedWidth,
       height: this.props.screenHeight,
     };
