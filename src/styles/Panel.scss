@@ -252,39 +252,40 @@
 .panel-switch-label {
   position: relative;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: flex-end;
   padding: 10px;
   height: inherit;
   font-size: 1rem;
   background: #eceeef;
   border-radius: inherit;
+  &.checked {
+    justify-content: flex-start !important;
+    background: $theme-dark;
+  }
 }
+
 .icon-dark {
   color: #ffffff;
 }
-
-.panel-switch-input:checked ~ .panel-switch-label {
-  background: $theme-dark;
+.icon-light {
+  color: $theme-dark;
 }
 
-.panel-switch-input:checked + .icon-dark {
-  opacity: 0;
-}
 .panel-switch-handle {
   position: absolute;
-  top: 9px;
-  width: 28px;
-  height: 28px;
+  top: 8px;
+  width: 30px;
+  height: 30px;
   border-radius: 6px;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
-}
-.panel-switch-input:checked ~ .panel-switch-handle {
-  left: 88px;
+  background: $theme-dark;
+  &.checked {
+    left: 88px;
+    background: white;
+  }
 }
 
-/* Transition
-========================== */
 .panel-switch-label,
 .panel-switch-handle {
   transition: All 0.3s ease;

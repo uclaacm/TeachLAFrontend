@@ -36,6 +36,7 @@ class ProfilePanel extends React.Component {
       name: this.props.displayName,
       selectedImage: "",
       displayNameMessage: "",
+      lightMode: false,
     };
   }
 
@@ -112,19 +113,6 @@ class ProfilePanel extends React.Component {
       );
 
     return addBreak ? <br /> : null;
-  };
-
-  renderThemeSwitch = () => {
-    return (
-      <label className="panel-switch">
-        <input className="panel-switch-input" type="checkbox" />
-        <span className="panel-switch-label" data-light="On" data-dark="Off">
-          <FontAwesomeIcon icon={faMoon} className="icon-dark" />
-          <FontAwesomeIcon icon={faSun} className="icon-light" />
-        </span>
-        <span className="panel-switch-handle"></span>
-      </label>
-    );
   };
 
   renderPanelImage = () => {
@@ -276,6 +264,33 @@ class ProfilePanel extends React.Component {
     panelButtons.push(this.renderSignOutButton());
 
     return <div className="panel-buttons">{panelButtons}</div>;
+  };
+
+  onThemeChange = () => {
+    this.setState({ lightMode: !this.state.lightMode });
+    // console.log(this.state.lightMode);
+  };
+
+  renderThemeSwitch = () => {
+    const checked = this.state.lightMode ? " checked" : "";
+
+    return (
+      <label className="panel-switch">
+        <input
+          className={"panel-switch-input" + checked}
+          type="checkbox"
+          onChange={this.onThemeChange}
+        />
+        <span className={"panel-switch-label" + checked}>
+          {this.state.lightMode ? (
+            <FontAwesomeIcon icon={faMoon} className="icon-dark" />
+          ) : (
+            <FontAwesomeIcon icon={faSun} className="icon-light" />
+          )}
+        </span>
+        <span className={"panel-switch-handle" + checked}></span>
+      </label>
+    );
   };
 
   renderContent = () => (
