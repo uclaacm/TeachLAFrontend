@@ -4,8 +4,6 @@ import { OUTPUT_ONLY } from "../../constants";
 import EditorRadio from "../Editor/components/EditorRadio";
 import CreateProcessingDoc from "../Output/Processing";
 import CreatePythonDoc from "../Output/Python";
-// import DropdownButtonContainer from "../common/containers/DropdownButtonContainer.js";
-// import OpenPanelButtonContainer from "../common/containers/OpenPanelButtonContainer.js";
 import { Button } from "reactstrap";
 import ViewportAwareButton from "../common/ViewportAwareButton.js";
 
@@ -116,10 +114,6 @@ class Output extends React.Component {
     return this.renderIframe(srcDocFunc);
   };
 
-  // renderOpenPanelButton = () => this.props.viewMode === OUTPUT_ONLY && <OpenPanelButtonContainer />;
-
-  // renderLanguageDropdown = () => this.props.viewMode === OUTPUT_ONLY && <DropdownButtonContainer />;
-
   renderRadio = () =>
     this.props.viewMode === OUTPUT_ONLY && (
       <div style={{ marginLeft: "auto" }}>
@@ -151,8 +145,6 @@ class Output extends React.Component {
 
   renderBanner = () => (
     <div className="editor-output-banner">
-      {/* {this.renderOpenPanelButton()}
-      {this.renderLanguageDropdown()} */}
       <div style={{ flex: "1 1 auto" }}> </div> {/*whitespace*/}
       {this.renderRadio()}
       {this.renderConsoleButton()}
