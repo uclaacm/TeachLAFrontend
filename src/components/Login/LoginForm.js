@@ -5,7 +5,8 @@ import { RingLoader } from "react-spinners";
 import { EMAIL_DOMAIN_NAME } from "../../constants";
 import { Link } from "react-router-dom";
 import LoginInput from "./LoginInput";
-import firebase from "firebase";
+import * as firebase from "firebase/app";
+import "firebase/auth";
 import "styles/Login.scss";
 
 /**-------Props--------

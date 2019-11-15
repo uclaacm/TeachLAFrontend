@@ -7,7 +7,8 @@ import LoadingPage from "./common/LoadingPage";
 import CreateUserPage from "./CreateUser";
 import Error from "./Error";
 import PageNotFound from "./PageNotFound";
-import firebase from "firebase";
+import * as firebase from "firebase/app";
+import "firebase/auth";
 import "styles/app.scss";
 
 const provider = new firebase.auth.EmailAuthProvider();
