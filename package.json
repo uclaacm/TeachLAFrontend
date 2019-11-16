@@ -15,7 +15,7 @@
     "firebase": "^7.4.0",
     "immutable": "^3.8.2",
     "node-sass": "^4.13.0",
-    "react": "^16.11.0",
+    "react": "^16.12.0",
     "react-codemirror2": "^6.0.0",
     "react-dom": "^16.11.0",
     "react-modal": "^3.11.1",
