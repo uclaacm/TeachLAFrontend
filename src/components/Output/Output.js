@@ -1,7 +1,7 @@
 import React from "react";
 import { PYTHON, JAVASCRIPT, CPP, JAVA, HTML, PROCESSING } from "../../constants";
 import { OUTPUT_ONLY } from "../../constants";
-import EditorRadio from "../Editor/components/EditorRadio";
+import EditorRadio from "../TextEditor/components/EditorRadio.js";
 import CreateProcessingDoc from "../Output/Processing";
 import CreatePythonDoc from "../Output/Python";
 import { Button } from "reactstrap";

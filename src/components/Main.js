@@ -1,7 +1,7 @@
 import React from "react";
 import SplitPane from "react-split-pane";
 import OutputContainer from "./Output/OutputContainer.js";
-import EditorContainer from "./Editor/containers/EditorContainer";
+import EditorContainer from "./TextEditor/containers/TextEditorContainer.js";
 import DropdownButtonContainer from "./common/containers/DropdownButtonContainer";
 import * as fetch from "../lib/fetch.js";
 import SketchesPageContainer from "./Sketches/containers/SketchesContainer";

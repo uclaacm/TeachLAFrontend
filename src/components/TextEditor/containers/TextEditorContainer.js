@@ -1,5 +1,5 @@
 import Immutable from "immutable";
-import TextEditor from "../components/Editor";
+import TextEditor from "../components/TextEditor";
 import { connect } from "react-redux";
 import { setProgramCode, setProgramDirty } from "../../../actions/programsActions.js";
 
