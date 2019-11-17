@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/TeachLAFrontend/static/css/main.629fe7c6.chunk.css",
+    "main.js": "/TeachLAFrontend/static/js/main.498d852e.chunk.js",
+    "main.js.map": "/TeachLAFrontend/static/js/main.498d852e.chunk.js.map",
+    "runtime-main.js": "/TeachLAFrontend/static/js/runtime-main.91b3a2fc.js",
+    "runtime-main.js.map": "/TeachLAFrontend/static/js/runtime-main.91b3a2fc.js.map",
+    "static/css/2.bec2df5d.chunk.css": "/TeachLAFrontend/static/css/2.bec2df5d.chunk.css",
+    "static/js/2.a6af0b23.chunk.js": "/TeachLAFrontend/static/js/2.a6af0b23.chunk.js",
+    "static/js/2.a6af0b23.chunk.js.map": "/TeachLAFrontend/static/js/2.a6af0b23.chunk.js.map",
+    "index.html": "/TeachLAFrontend/index.html",
+    "precache-manifest.8c294ab2a3889330fe93f3ac1a6ae2a1.js": "/TeachLAFrontend/precache-manifest.8c294ab2a3889330fe93f3ac1a6ae2a1.js",
+    "service-worker.js": "/TeachLAFrontend/service-worker.js",
+    "static/css/2.bec2df5d.chunk.css.map": "/TeachLAFrontend/static/css/2.bec2df5d.chunk.css.map",
+    "static/css/main.629fe7c6.chunk.css.map": "/TeachLAFrontend/static/css/main.629fe7c6.chunk.css.map",
+    "static/media/blueguy.png": "/TeachLAFrontend/static/media/blueguy.ade51e63.png",
+    "static/media/tla-logo.svg": "/TeachLAFrontend/static/media/tla-logo.96efe073.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.91b3a2fc.js",
+    "static/css/2.bec2df5d.chunk.css",
+    "static/js/2.a6af0b23.chunk.js",
+    "static/css/main.629fe7c6.chunk.css",
+    "static/js/main.498d852e.chunk.js"
+  ]
+}
