@@ -51,7 +51,7 @@ const GH_REPO_NAME = "https://github.com/uclaacm/TeachLAFrontend";
 
 // Router's base (i.e. anything after the domain)
 
-const ROUTER_BASE_NAME = "/TeachLAFrontend";
+const ROUTER_BASE_NAME = "/";
 
 // Various Server URLs
 var SERVER_URL = "http://localhost:8081";
