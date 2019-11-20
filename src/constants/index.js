@@ -34,7 +34,7 @@ SUPPORTED_LANGUAGES.forEach(lang => {
 
 const PUBLIC_URL = process.env.PUBLIC_URL;
 const PHOTO_NAMES = {
-  lightbulb: `${PUBLIC_URL}/img/icons/lightbulb.pnng`,
+  lightbulb: `${PUBLIC_URL}/img/icons/lightbulb.png`,
   orange: `${PUBLIC_URL}/img/icons/orange.png`,
   pear: `${PUBLIC_URL}/img/icons/pear.png`,
   apple: `${PUBLIC_URL}/img/icons/apple.png`,
