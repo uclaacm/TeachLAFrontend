@@ -6,7 +6,7 @@ import { setProgramDirty } from "../../../actions/programsActions.js";
 import { togglePanel } from "../../../actions/uiActions.js";
 import { CLOSED_PANEL_LEFT, OPEN_PANEL_LEFT, PANEL_SIZE } from "../../../constants";
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   const { mostRecentProgram } = state.userData;
 
   //program data should be an object representing the most recent program
@@ -32,6 +32,7 @@ const mapStateToProps = state => {
     left: (state.ui.panelOpen ? OPEN_PANEL_LEFT : CLOSED_PANEL_LEFT) + PANEL_SIZE,
     name,
     language,
+    theme: ownProps.theme,
   };
 };
 
@@ -44,9 +45,6 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-const EditorContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Editor);
+const EditorContainer = connect(mapStateToProps, mapDispatchToProps)(Editor);
 
 export default EditorContainer;

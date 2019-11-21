@@ -5,9 +5,20 @@ import "styles/Main.scss";
 import ProfilePanelContainer from "./common/containers/ProfilePanelContainer";
 
 class Editor extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      theme: false,
+    };
+  }
+  onThemeChange = () => {
+    this.setState({ theme: !this.state.theme });
+    console.log(this.state.theme);
+  };
+
   renderSketchesPage = () => <SketchesPageContainer />;
 
-  renderEditor = () => <EditorContainer />;
+  renderEditor = () => <EditorContainer theme={this.state.theme} />;
 
   renderContent = () => {
     switch (this.props.contentType) {
@@ -22,7 +33,11 @@ class Editor extends React.Component {
   render() {
     return (
       <div className="main">
-        <ProfilePanelContainer contentType={this.props.contentType} />
+        <ProfilePanelContainer
+          contentType={this.props.contentType}
+          theme={this.state.theme}
+          onThemeChange={this.onThemeChange}
+        />
         {this.renderContent()}
       </div>
     );

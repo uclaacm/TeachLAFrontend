@@ -36,7 +36,6 @@ class ProfilePanel extends React.Component {
       name: this.props.displayName,
       selectedImage: "",
       displayNameMessage: "",
-      lightMode: false,
     };
   }
 
@@ -266,23 +265,23 @@ class ProfilePanel extends React.Component {
     return <div className="panel-buttons">{panelButtons}</div>;
   };
 
-  onThemeChange = () => {
-    this.setState({ lightMode: !this.state.lightMode });
-    // console.log(this.state.lightMode);
-  };
+  // onThemeChange = () => {
+  //   // this.setState({ theme: !this.state.theme });
+  //   // console.log(this.state.theme);
+  // };
 
   renderThemeSwitch = () => {
-    const checked = this.state.lightMode ? " checked" : "";
+    const checked = this.props.theme ? " checked" : "";
 
     return (
       <label className="panel-switch">
         <input
           className={"panel-switch-input" + checked}
           type="checkbox"
-          onChange={this.onThemeChange}
+          onChange={this.props.onThemeChange}
         />
         <span className={"panel-switch-label" + checked}>
-          {this.state.lightMode ? (
+          {this.props.theme ? (
             <FontAwesomeIcon icon={faMoon} className="icon-dark" />
           ) : (
             <FontAwesomeIcon icon={faSun} className="icon-light" />
