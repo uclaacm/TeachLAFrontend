@@ -41,6 +41,10 @@ class Output extends React.Component {
       return true;
     }
 
+    if (this.props.isSmall !== nextProps.isSmall) {
+      return true;
+    }
+
     if (
       this.state.run !== nextState.run ||
       this.state.counter !== nextState.counter ||
