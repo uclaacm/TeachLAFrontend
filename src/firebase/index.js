@@ -1,5 +1,8 @@
-import firebase from "firebase";
+// import {auth.FacebookAuthProvider} from "firebase";
+import * as firebase from "firebase/app";
+import "firebase/auth";
 
+// export const provider = new auth.FacebookAuthProvider();
 export const provider = new firebase.auth.FacebookAuthProvider();
 
 let config = {

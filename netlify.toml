@@ -1,0 +1,8 @@
+[context.production]
+    command = "npm run prod_build"
+
+[context.deploy-preview]
+    command = "npm run staging_build"
+
+[context.branch-deploy]
+    command = "npm run staging_build"
