@@ -120,7 +120,7 @@ class TextEditor extends React.Component {
           text={this.props.saveText}
         />
 
-        <Button className="mx-2" color="success" size="lg" onClick={this.handleDownload}>
+        <Button className="mx-2" color="success" size="lg" onClick={this.props.handleDownload}>
           <FontAwesomeIcon icon={faDownload} />
         </Button>
       </div>

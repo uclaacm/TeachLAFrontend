@@ -1,7 +1,7 @@
 import React from "react";
 import SplitPane from "react-split-pane";
 import OutputContainer from "./Output/OutputContainer.js";
-import EditorContainer from "./TextEditor/containers/TextEditorContainer.js";
+import TextEditorContainer from "./TextEditor/containers/TextEditorContainer.js";
 import DropdownButtonContainer from "./common/containers/DropdownButtonContainer";
 import * as fetch from "../lib/fetch.js";
 import SketchesPageContainer from "./Sketches/containers/SketchesContainer";
@@ -130,12 +130,15 @@ class Main extends React.Component {
   };
 
   renderCode = () => (
-    <EditorContainer
+    <TextEditorContainer
       key={this.props.mostRecentProgram}
       viewMode={this.state.viewMode}
       updateViewMode={this.updateViewMode}
       handleSave={this.handleSave}
       saveText={this.state.saveText}
+      screenHeight={this.props.screenHeight}
+      screenWidth={this.props.screenWidth}
+      handleDownload={this.handleDownload}
     />
   );
 
