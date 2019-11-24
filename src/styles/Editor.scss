@@ -84,9 +84,12 @@
 
 .text-editor-container {
   width: 100%;
-  margin-top: 10px;
+  padding-top: 10px;
   top: 61px;
   overflow: auto;
+  @include themify($themes) {
+    background-color: themed("backgroundColor");
+  }
 }
 
 .btn-language-dropdown {

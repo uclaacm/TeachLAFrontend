@@ -13,9 +13,52 @@ $select-cyan: #83dadd;
 $error-red: #f34d4d;
 
 // "Theme" Colours - specifically designed to allow for hot-swapping later
-
 $theme-light: $light-purple;
 $theme-dark: $dark-purple;
 $theme-tertiary: $gray-purple;
 $theme-highlight: $select-cyan;
 $theme-error: $error-red;
+
+//Theme variables
+/* To change colors according to theme:
+ex)
+    .class{ 
+        @include themify($themes) {
+            background-color: themed("backgroundColor");
+        }
+    }
+*/
+$theme-background: $theme-dark;
+
+$themes: (
+  light: (
+    backgroundColor: white,
+  ),
+  dark: (
+    backgroundColor: $theme-dark,
+  ),
+);
+
+@mixin themify($themes: $themes) {
+  @each $theme, $map in $themes {
+    .theme-#{$theme} & {
+      $theme-map: () !global;
+      @each $key, $submap in $map {
+        $value: map-get(map-get($themes, $theme), "#{$key}");
+        $theme-map: map-merge(
+          $theme-map,
+          (
+            $key: $value,
+          )
+        ) !global;
+      }
+
+      @content;
+      $theme-map: null !global;
+    }
+  }
+}
+
+@function themed($key) {
+  @return map-get($theme-map, $key);
+}

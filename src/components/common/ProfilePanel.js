@@ -265,14 +265,9 @@ class ProfilePanel extends React.Component {
     return <div className="panel-buttons">{panelButtons}</div>;
   };
 
-  // onThemeChange = () => {
-  //   // this.setState({ theme: !this.state.theme });
-  //   // console.log(this.state.theme);
-  // };
-
   renderThemeSwitch = () => {
-    const checked = this.props.theme ? " checked" : "";
-
+    const checked = this.props.theme === "dark" ? " checked" : "";
+    console.log(this.props.theme);
     return (
       <label className="panel-switch">
         <input
@@ -281,7 +276,7 @@ class ProfilePanel extends React.Component {
           onChange={this.props.onThemeChange}
         />
         <span className={"panel-switch-label" + checked}>
-          {this.props.theme ? (
+          {checked ? (
             <FontAwesomeIcon icon={faMoon} className="icon-dark" />
           ) : (
             <FontAwesomeIcon icon={faSun} className="icon-light" />

@@ -1,7 +1,117 @@
-@import 'styles/variables.scss';
+@import "styles/variables.scss";
 
 .CodeMirror-lines {
   cursor: default;
+}
+
+.theme-dark {
+  .cm-s-material .CodeMirror-guttermarker,
+  .cm-s-material .CodeMirror-guttermarker-subtle,
+  .cm-s-material .CodeMirror-linenumber {
+    color: white;
+  }
+  /* comments, e.g. // # /* */
+  .cm-s-material .cm-comment {
+    color: white;
+  }
+
+  /* import for while in etc */
+  .cm-s-material span.cm-keyword {
+    color: #deb0ff;
+  }
+
+  /*e.g. var *blah*, blah will be colored */
+  .cm-s-material span.cm-def {
+    color: #47e2d5;
+  }
+
+  /*e.g. var *blah*, blah will be colored */
+  .cm-s-material span.cm-variable {
+    color: #f5e83c;
+  }
+
+  /*for python: print, range, all built-in functions */
+  .cm-s-material .cm-builtin {
+    color: #ffb36f;
+  }
+
+  /* 1 2 -11 etc */
+  .cm-s-material .cm-number {
+    color: #f69797;
+  }
+
+  /* + - > < etc */
+  .cm-s-material .cm-operator {
+    color: rgba(233, 237, 237, 1);
+  }
+
+  /* e.g. turtle.*Blah*(), Blah will be colored */
+  .cm-s-material .cm-property {
+    color: #80cbae;
+  }
+  .cm-s-material .CodeMirror-cursor {
+    border-left: 1px solid #f4ee94;
+  }
+}
+
+.theme-light {
+  .cm-s-material.CodeMirror {
+    color: black;
+  }
+
+  .cm-s-material .CodeMirror-guttermarker,
+  .cm-s-material .CodeMirror-guttermarker-subtle,
+  .cm-s-material .CodeMirror-linenumber {
+    color: black;
+  }
+
+  // strings, "turtle"
+  .cm-s-material .cm-string {
+    color: #65ab00;
+  }
+
+  /* comments, e.g. // # /* */
+  .cm-s-material .cm-comment {
+    color: black;
+  }
+
+  /* import for while in etc */
+  .cm-s-material span.cm-keyword {
+    color: #9715f3;
+  }
+
+  /*e.g. var *blah*, blah will be colored */
+  .cm-s-material span.cm-def {
+    color: #0052ff;
+  }
+
+  /*e.g. var *blah*, blah will be colored */
+  .cm-s-material span.cm-variable {
+    color: #f07178;
+  }
+
+  /*for python: print, range, all built-in functions */
+  .cm-s-material .cm-builtin {
+    color: #ff7800;
+  }
+
+  /* 1 2 -11 etc */
+  .cm-s-material .cm-number {
+    color: #fd1f44;
+  }
+
+  /* + - > < etc */
+  .cm-s-material .cm-operator {
+    color: black;
+  }
+
+  /* e.g. turtle.*Blah*(), Blah will be colored */
+  .cm-s-material .cm-property {
+    color: #056d45;
+  }
+  .cm-s-material .CodeMirror-cursor {
+    border-left: 1px solid #f4ee94;
+  }
 }
 
 .cm-s-material.CodeMirror {
@@ -22,62 +132,9 @@
 }
 
 .cm-s-material .CodeMirror-gutters {
-  background-color: $theme-dark;
-}
-.cm-s-material .CodeMirror-guttermarker,
-.cm-s-material .CodeMirror-guttermarker-subtle,
-.cm-s-material .CodeMirror-linenumber {
-  color: white;
-}
-
-.cm-s-material .CodeMirror-guttermarker,
-.cm-s-material .CodeMirror-guttermarker-subtle,
-.cm-s-material .CodeMirror-linenumber {
-  text-align: left;
-  padding-left: 15px;
-}
-
-/* comments, e.g. // # /* */
-.cm-s-material .cm-comment {
-  color: white;
-}
-
-/* import for while in etc */
-.cm-s-material span.cm-keyword {
-  color: #deb0ff;
-}
-
-/*e.g. var *blah*, blah will be colored */
-.cm-s-material span.cm-def {
-  color: #47e2d5;
-}
-
-/*e.g. var *blah*, blah will be colored */
-.cm-s-material span.cm-variable {
-  color: #f5e83c;
-}
-
-/*for python: print, range, all built-in functions */
-.cm-s-material .cm-builtin {
-  color: #ffb36f;
-}
-
-/* 1 2 -11 etc */
-.cm-s-material .cm-number {
-  color: #f69797;
-}
-
-/* + - > < etc */
-.cm-s-material .cm-operator {
-  color: rgba(233, 237, 237, 1);
-}
-
-/* e.g. turtle.*Blah*(), Blah will be colored */
-.cm-s-material .cm-property {
-  color: #80cbae;
-}
-.cm-s-material .CodeMirror-cursor {
-  border-left: 1px solid #f4ee94;
+  @include themify($themes) {
+    background-color: themed("backgroundColor");
+  }
 }
 
 .cm-s-material .CodeMirror-cursor::after {
@@ -96,11 +153,10 @@
 }
 
 /* required for safari because it places the ::after element differently than chrome/fiefox; taken from https://stackoverflow.com/questions/16348489/is-there-a-css-hack-for-safari-only-not-chrome */
-@media not all and (min-resolution:.001dpcm) { 
+@media not all and (min-resolution: 0.001dpcm) {
   .cm-s-material .CodeMirror-cursor::after {
     margin-top: 2px;
   }
-
 }
 .CodeMirror-scroll {
   overflow: hidden !important;

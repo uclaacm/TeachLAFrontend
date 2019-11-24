@@ -122,7 +122,7 @@ class Editor extends React.Component {
   };
 
   renderCode = () => (
-    <div className="code-section">
+    <div className={`code-section theme-` + this.props.theme}>
       <div className="code-section-banner">
         <OpenPanelButtonContainer />
         {this.renderDropdown()}

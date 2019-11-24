@@ -8,12 +8,13 @@ class Editor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      theme: false,
+      theme: "dark",
     };
   }
   onThemeChange = () => {
-    this.setState({ theme: !this.state.theme });
-    console.log(this.state.theme);
+    this.state.theme === "dark"
+      ? this.setState({ theme: "light" })
+      : this.setState({ theme: "dark" });
   };
 
   renderSketchesPage = () => <SketchesPageContainer />;
