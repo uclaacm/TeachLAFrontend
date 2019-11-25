@@ -1,22 +1,21 @@
 language: node_js
-node_js:
-  - "10"
-  
 cache:
   directories:
   - node_modules
 
+jobs:
+  include: 
+  - name: "Production Build"
+    node_js: "10"
+  allow_failures:
+  - name: "Node Latest"
+    node_js: node
+  - name: "Node LTS"
+    node_js: lts/*
+
 script:
   - npm run prod_build
   - npm test
-
-# deploy:
-#   provider: pages
-#   skip_cleanup: true
-#   github_token: $github_token
-#   local_dir: build
-#   on:
-#     branch: master
 
 notifications:
   email:
