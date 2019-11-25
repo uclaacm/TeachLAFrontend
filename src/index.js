@@ -8,11 +8,14 @@ import { createStore } from "redux";
 import appReducers from "./reducers";
 import config from "./firebase";
 import { Provider } from "react-redux";
-import firebase from "firebase";
+import * as firebase from "firebase/app";
 
 firebase.initializeApp(config);
 
-const store = createStore(appReducers);
+const store = createStore(
+  appReducers,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+);
 
 ReactDOM.render(
   <Provider store={store}>

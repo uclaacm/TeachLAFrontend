@@ -1,6 +1,7 @@
 import React from "react";
 import SplitPane from "react-split-pane";
 import { Button } from "reactstrap";
+import ViewportAwareButton from "./components/ViewportAwareButton.js";
 import OutputContainer from "./containers/OutputContainer.js";
 import TextEditorContainer from "./containers/TextEditorContainer";
 import DropdownButtonContainer from "./containers/DropdownButtonContainer";
@@ -9,9 +10,11 @@ import * as fetch from "../../lib/fetch.js";
 import EditorRadio from "./components/EditorRadio.js";
 import { Redirect } from "react-router-dom";
 import { EDITOR_WIDTH_BREAKPOINT, CODE_AND_OUTPUT, CODE_ONLY, OUTPUT_ONLY } from "./constants";
+import CodeDownloader from "./../../util/languages/CodeDownloader";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSave } from "@fortawesome/free-solid-svg-icons";
+import { faDownload } from "@fortawesome/free-solid-svg-icons";
 
 import { PANEL_SIZE } from "../../constants";
 import "codemirror/lib/codemirror.css";
@@ -31,22 +34,13 @@ class Editor extends React.Component {
     super(props);
     this.state = {
       saveText: "Save",
-      viewMode: CODE_AND_OUTPUT,
-      redirect: "",
+      viewMode: this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT ? CODE_ONLY : CODE_AND_OUTPUT,
+      redirect: this.props.listOfPrograms.length === 0 ? "/sketches" : "",
       pane1Style: { transition: "width .5s ease" },
     };
   }
 
   //==============React Lifecycle Functions Start===================//
-  componentWillMount() {
-    if (this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT) {
-      this.setState({ viewMode: CODE_ONLY });
-    }
-    if (this.props.listOfPrograms.length === 0) {
-      this.setState({ redirect: "/sketches" });
-    }
-  }
-
   componentDidUpdate(prevProps) {
     if (this.props.screenWidth !== prevProps.screenWidth) {
       if (this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT) {
@@ -85,6 +79,10 @@ class Editor extends React.Component {
     this.props.cleanCode(this.props.mostRecentProgram); // Set code's "dirty" state to false
   };
 
+  handleDownload = () => {
+    CodeDownloader.download(this.props.name, this.props.language, this.props.code);
+  };
+
   renderDropdown = () => <DropdownButtonContainer />;
 
   renderCodeAndOutput = () => (
@@ -108,7 +106,9 @@ class Editor extends React.Component {
         (this.props.panelOpen ? this.props.screenWidth - PANEL_SIZE : this.props.screenWidth) * 0.75
       } //max size of code is 75% of the remaining screen size
       size={
-        (this.props.panelOpen ? this.props.screenWidth - PANEL_SIZE : this.props.screenWidth) / 2
+        ((this.props.panelOpen ? this.props.screenWidth - PANEL_SIZE : this.props.screenWidth) /
+          5) *
+        3
       } //the initial size of the text editor section
       allowResize={true}
     >
@@ -126,18 +126,25 @@ class Editor extends React.Component {
       <div className="code-section-banner">
         <OpenPanelButtonContainer />
         {this.renderDropdown()}
-        <div style={{ marginLeft: "auto" }}>
+        <div style={{ marginLeft: "auto", marginRight: ".5rem" }}>
           <EditorRadio
             viewMode={this.state.viewMode}
             updateViewMode={this.updateViewMode}
             isSmall={this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
           />
         </div>
-        <Button className="mx-2" color="success" size="lg" onClick={this.handleSave}>
-          <FontAwesomeIcon icon={faSave} />
-          {this.props.screenWidth > EDITOR_WIDTH_BREAKPOINT && (
-            <span className="editor-button-text">&nbsp;&nbsp;{this.state.saveText}</span>
-          )}
+        <ViewportAwareButton
+          className="mx-2"
+          color="success"
+          size="lg"
+          onClick={this.handleSave}
+          isSmall={this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
+          icon={<FontAwesomeIcon icon={faSave} />}
+          text={this.state.saveText}
+        />
+
+        <Button className="mx-2" color="success" size="lg" onClick={this.handleDownload}>
+          <FontAwesomeIcon icon={faDownload} />
         </Button>
       </div>
       <div

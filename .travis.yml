@@ -1,22 +1,21 @@
 language: node_js
 node_js:
   - "10"
-  
+  - node
+  - lts/*
 cache:
   directories:
   - node_modules
 
+matrix:
+  fast_finish: true
+  allow_failures:
+    - node_js: node
+    - node_js: lts/*
+
 script:
   - npm run prod_build
   - npm test
-
-deploy:
-  provider: pages
-  skip_cleanup: true
-  github_token: $github_token
-  local_dir: build
-  on:
-    branch: master
 
 notifications:
   email:

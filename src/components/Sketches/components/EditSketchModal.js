@@ -20,8 +20,6 @@ class EditSketchModal extends React.Component {
       onThumbnails: false,
     };
   }
-  componentWillMount() {}
-  componentDidUpdate() {}
 
   closeModal = () => {
     if (this.props.onClose && {}.toString.call(this.props.onClose) === "[object Function]") {

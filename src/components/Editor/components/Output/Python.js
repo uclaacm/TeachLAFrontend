@@ -1,8 +1,8 @@
 const getPythonSrcDocHead = () => `
 <head>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script>
-  <script src="https://cdn.rawgit.com/skulpt/skulpt-dist/0.11.0/skulpt.min.js" type="text/javascript"></script>
-  <script src="https://cdn.rawgit.com/skulpt/skulpt-dist/0.11.0/skulpt-stdlib.js" type="text/javascript"></script>
+  <script src="https://cdn.rawgit.com/skulpt/skulpt-dist/1.1.0/skulpt.min.js" type="text/javascript"></script>
+  <script src="https://cdn.rawgit.com/skulpt/skulpt-dist/1.1.0/skulpt-stdlib.js" type="text/javascript"></script>
   <style> html, body { margin:0; background-color: #585166;}
           #inner {
             height:100px;
@@ -69,7 +69,7 @@ const getPythonSrcDocSkulptScript = code => `
         // mypre.innerHTML = '<div id="inner"><div id="closeConsoleButton" onclick="closeConsole()" title="Hide Console">X</div></div>';
         mypre.innerHTML = '<textarea id="inner" readonly></textarea>';
         Sk.pre = "output";
-        Sk.configure({output:outf, read:builtinRead});
+        Sk.configure({output:outf, read:builtinRead, __future__: Sk.python3});
         (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = 'mycanvas';
         var myPromise = Sk.misceval.asyncToPromise(function() {
 

@@ -32,23 +32,36 @@ SUPPORTED_LANGUAGES.forEach(lang => {
   }
 });
 
+const PUBLIC_URL = process.env.PUBLIC_URL;
 const PHOTO_NAMES = {
-  lightbulb: "https://i.imgur.com/WKDHPon.pngg",
-  orange: "https://i.imgur.com/DMc0L0P.png",
-  pear: "https://i.imgur.com/T03MlZH.png",
-  apple: "https://i.imgur.com/5S83eug.png",
-  hotdog: "https://i.imgur.com/CWwlIOF.png",
-  icecream: "https://i.imgur.com/OBHz5An.png",
-  cloud: "https://i.imgur.com/Cw6IRTu.png",
-  earth: "https://i.imgur.com/SBlnUnG.png",
-  heart: "https://i.imgur.com/ySz1WAS.png",
+  lightbulb: `${PUBLIC_URL}/img/icons/lightbulb.png`,
+  orange: `${PUBLIC_URL}/img/icons/orange.png`,
+  pear: `${PUBLIC_URL}/img/icons/pear.png`,
+  apple: `${PUBLIC_URL}/img/icons/apple.png`,
+  hotdog: `${PUBLIC_URL}/img/icons/hotdog.png`,
+  icecream: `${PUBLIC_URL}/img/icons/icecream.png`,
+  cloud: `${PUBLIC_URL}/img/icons/cloud.png`,
+  earth: `${PUBLIC_URL}/img/icons/earth.png`,
+  heart: `${PUBLIC_URL}/img/icons/heart.png`,
 };
 
-//Local Server
+// GH Repo for FE
+
+const GH_REPO_NAME = "https://github.com/uclaacm/TeachLAFrontend";
+
+// Router's base (i.e. anything after the domain)
+
+const ROUTER_BASE_NAME = "/";
+
+// Various Server URLs
 var SERVER_URL = "http://localhost:8081";
-if (process && process.env && process.env.REACT_APP_SERVER_TYPE === "prod") {
-  //Heroku Server
-  SERVER_URL = "https://teach-la-backend.herokuapp.com";
+if (process && process.env) {
+  if (process.env.REACT_APP_SERVER_TYPE === "staging") {
+    SERVER_URL = "https://teach-la-staging-backend.herokuapp.com";
+  }
+  if (process.env.REACT_APP_SERVER_TYPE === "prod") {
+    SERVER_URL = "https://teach-la-backend.herokuapp.com";
+  }
 }
 
 const PANEL_SIZE = 250;
@@ -65,6 +78,11 @@ module.exports = {
   // photo names
   PHOTO_NAMES,
   DEFAULT_PHOTO_NAME: "icecream",
+
+  GH_REPO_NAME,
+
+  // Router Base Name
+  ROUTER_BASE_NAME,
 
   //Server Host Name
   SERVER_URL,
