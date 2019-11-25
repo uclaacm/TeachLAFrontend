@@ -1,4 +1,8 @@
 language: node_js
+node_js:
+  - "10"
+  - node
+  - lts/*
 cache:
   directories:
   - node_modules
