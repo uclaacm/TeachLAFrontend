@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import DropdownButton from "../components/DropdownButton.js";
+import DropdownButton from "../DropdownButton.js";
 import { setMostRecentProgram } from "../../../actions/userDataActions.js";
 
 const mapStateToProps = state => {

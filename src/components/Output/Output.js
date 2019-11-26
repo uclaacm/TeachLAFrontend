@@ -1,14 +1,12 @@
 import React from "react";
-import { PYTHON, JAVASCRIPT, CPP, JAVA, HTML, PROCESSING } from "../../../constants";
-import { OUTPUT_ONLY } from "../constants";
-import EditorRadio from "./EditorRadio";
-import OpenPanelButtonContainer from "../../common/containers/OpenPanelButtonContainer";
-import DropdownButtonContainer from "../containers/DropdownButtonContainer";
-import CreateProcessingDoc from "./Output/Processing";
-import CreatePythonDoc from "./Output/Python";
-
+import { PYTHON, JAVASCRIPT, CPP, JAVA, HTML, PROCESSING } from "../../constants";
+import { OUTPUT_ONLY } from "../../constants";
+import EditorRadio from "../TextEditor/components/EditorRadio.js";
+import CreateProcessingDoc from "../Output/Processing";
+import CreatePythonDoc from "../Output/Python";
 import { Button } from "reactstrap";
-import ViewportAwareButton from "./ViewportAwareButton";
+import ViewportAwareButton from "../common/ViewportAwareButton.js";
+import OpenPanelButtonContainer from "../common/containers/OpenPanelButtonContainer.js";
 
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import { faTerminal } from "@fortawesome/free-solid-svg-icons";
@@ -63,6 +61,8 @@ class Output extends React.Component {
       counter: prevState.counter + 1,
     }));
   };
+
+  renderOpenPanelButton = () => this.props.viewMode === OUTPUT_ONLY && <OpenPanelButtonContainer />;
 
   renderIframe = getSrcDoc => {
     //check if getsrcdoc is a function
@@ -121,10 +121,6 @@ class Output extends React.Component {
     return this.renderIframe(srcDocFunc);
   };
 
-  renderOpenPanelButton = () => this.props.viewMode === OUTPUT_ONLY && <OpenPanelButtonContainer />;
-
-  renderLanguageDropdown = () => this.props.viewMode === OUTPUT_ONLY && <DropdownButtonContainer />;
-
   renderRadio = () =>
     this.props.viewMode === OUTPUT_ONLY && (
       <div style={{ marginLeft: "auto" }}>
@@ -157,7 +153,6 @@ class Output extends React.Component {
   renderBanner = () => (
     <div className="editor-output-banner">
       {this.renderOpenPanelButton()}
-      {this.renderLanguageDropdown()}
       <div style={{ flex: "1 1 auto" }}> </div> {/*whitespace*/}
       {this.renderRadio()}
       {this.renderConsoleButton()}
