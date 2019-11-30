@@ -28,14 +28,33 @@ ex)
         }
     }
 */
-$theme-background: $theme-dark;
 
 $themes: (
   light: (
-    backgroundColor: white,
+    backgroundColor: white !important,
+    color: $theme-dark,
+    comment: $theme-dark,
+    keyword: #9715f3,
+    def: #0052ff,
+    variable: #f07178,
+    builtin: #ff7800,
+    number: #fd1f44,
+    operator: $theme-dark,
+    property: #056d45,
+    cursor: #f4ee94,
   ),
   dark: (
-    backgroundColor: $theme-dark,
+    backgroundColor: $theme-dark !important,
+    color: white,
+    comment: white,
+    keyword: #deb0ff,
+    def: #47e2d5,
+    variable: #f5e83c,
+    builtin: #ffb36f,
+    number: #f69797,
+    operator: rgba(233, 237, 237, 1),
+    property: #80cbae,
+    cursor: #f4ee94,
   ),
 );
 

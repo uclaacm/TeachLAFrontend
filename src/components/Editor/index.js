@@ -19,6 +19,7 @@ import { faDownload } from "@fortawesome/free-solid-svg-icons";
 import { PANEL_SIZE } from "../../constants";
 import "codemirror/lib/codemirror.css";
 import "codemirror/theme/material.css";
+import "codemirror/theme/duotone-light.css";
 import "styles/CustomCM.scss";
 import "styles/Resizer.scss";
 import "styles/Editor.scss";
@@ -155,7 +156,7 @@ class Editor extends React.Component {
           maxHeight: this.props.screenHeight - 61 - 20,
         }}
       >
-        <TextEditorContainer key={this.props.mostRecentProgram} />
+        <TextEditorContainer key={this.props.mostRecentProgram} theme={this.props.theme} />
       </div>
     </div>
   );
