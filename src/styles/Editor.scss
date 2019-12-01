@@ -38,7 +38,9 @@
 }
 
 .editor-expand-panel-arrow {
-  color: #dddcdf;
+  @include themify($themes) {
+    color: themed("color");
+  }
   padding: 1rem;
   cursor: pointer;
   flex: 0 1 auto;
