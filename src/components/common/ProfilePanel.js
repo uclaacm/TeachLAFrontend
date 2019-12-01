@@ -268,7 +268,6 @@ class ProfilePanel extends React.Component {
 
   renderThemeSwitch = () => {
     const checked = this.props.theme === "dark" ? " checked" : "";
-    console.log(this.props.theme);
     return (
       <label className="panel-switch">
         <input

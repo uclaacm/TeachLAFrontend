@@ -145,31 +145,33 @@ class TextEditor extends React.Component {
     };
 
     return (
-      <div className={`code-section theme-` + this.props.theme}>
-        {this.renderBanner()}
-        <div
-          className="text-editor-container"
-          style={{
-            height: this.props.screenHeight - 61 - 20,
-            minHeight: this.props.screenHeight - 61 - 20,
-            maxHeight: this.props.screenHeight - 61 - 20,
-          }}
-        >
-          <CodeMirror
-            editorDidMount={codeMirrorInstance => {
-              codeMirrorInstance.refresh();
-              this.setCodeMirrorInstance(codeMirrorInstance);
+      <div className={`theme-` + this.props.theme} style={{ height: "100%" }}>
+        <div className="code-section">
+          {this.renderBanner()}
+          <div
+            className="text-editor-container"
+            style={{
+              height: this.props.screenHeight - 61 - 20,
+              minHeight: this.props.screenHeight - 61 - 20,
+              maxHeight: this.props.screenHeight - 61 - 20,
             }}
-            value={this.props.code}
-            lineWrapping
-            indentWithTabs={true}
-            options={options}
-            onCursor={cm => {
-              this.setCurrentLine(cm);
-            }}
-            onBeforeChange={this.updateCode}
-            onChange={this.updateCode}
-          />
+          >
+            <CodeMirror
+              editorDidMount={codeMirrorInstance => {
+                codeMirrorInstance.refresh();
+                this.setCodeMirrorInstance(codeMirrorInstance);
+              }}
+              value={this.props.code}
+              lineWrapping
+              indentWithTabs={true}
+              options={options}
+              onCursor={cm => {
+                this.setCurrentLine(cm);
+              }}
+              onBeforeChange={this.updateCode}
+              onChange={this.updateCode}
+            />
+          </div>
         </div>
       </div>
     );
