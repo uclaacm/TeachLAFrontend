@@ -3,7 +3,7 @@ import TextEditor from "../components/TextEditor";
 import { connect } from "react-redux";
 import { setProgramCode, setProgramDirty } from "../../../actions/programsActions.js";
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   const { uid, mostRecentProgram } = state.userData;
 
   //program data should be an object representing the most recent program
@@ -14,6 +14,7 @@ const mapStateToProps = state => {
   return {
     ...programData,
     mostRecentProgram,
+    theme: ownProps.theme,
     uid,
   };
 };
