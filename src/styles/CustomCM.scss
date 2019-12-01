@@ -4,11 +4,6 @@
   cursor: default;
 }
 
-.CodeMirror-guttermarker,
-.CodeMirror-guttermarker-subtle,
-.CodeMirror-linenumber {
-  color: white;
-}
 /* comments, e.g. // # /* */
 .cm-comment {
   @include themify($themes) {
