@@ -102,6 +102,16 @@ span.cm-variable {
     color: themed("color");
   }
 }
+
+// a strange CSS way to create our floating cursor. not great, not awful.
+
+.CodeMirror-cursor {
+  border-top: none !important;
+  border-bottom: none !important;
+  border-left: 1px solid #A38B41 !important;
+  border-right: 0.5px solid #A38B41 !important;
+}
+
 .CodeMirror-cursor::after {
   position: absolute;
   margin-top: 26px;
