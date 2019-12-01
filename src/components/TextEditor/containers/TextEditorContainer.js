@@ -29,9 +29,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   };
 };
 
-const TextEditorContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(TextEditor);
+const TextEditorContainer = connect(mapStateToProps, mapDispatchToProps)(TextEditor);
 
 export default TextEditorContainer;

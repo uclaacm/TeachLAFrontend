@@ -5,7 +5,7 @@ import CreateSketchModalContainer from "./containers/CreateSketchModalContainer"
 import EditSketchModalContainer from "./containers/EditSketchModalContainer";
 import OpenPanelButtonContainer from "../common/containers/OpenPanelButtonContainer";
 import { SketchThumbnailArray } from "./constants";
-import ProcessingConstructor from "../Editor/components/Output/Processing";
+import ProcessingConstructor from "../Output/Processing";
 // import { PANEL_SIZE } from "../../constants";
 import "styles/Sketches.scss";
 
@@ -232,7 +232,6 @@ class Sketches extends React.Component {
 
   render() {
     const containerStyle = {
-      left: this.props.left || 0,
       width: this.props.calculatedWidth,
       height: this.props.screenHeight,
     };

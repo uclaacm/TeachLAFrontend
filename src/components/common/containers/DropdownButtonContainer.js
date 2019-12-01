@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import DropdownButton from "../components/DropdownButton.js";
+import DropdownButton from "../DropdownButton.js";
 import { setMostRecentProgram } from "../../../actions/userDataActions.js";
 
 const mapStateToProps = state => {
@@ -33,9 +33,6 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-const DropdownButtonContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(DropdownButton);
+const DropdownButtonContainer = connect(mapStateToProps, mapDispatchToProps)(DropdownButton);
 
 export default DropdownButtonContainer;

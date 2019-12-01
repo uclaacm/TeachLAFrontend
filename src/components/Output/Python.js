@@ -69,7 +69,7 @@ const getPythonSrcDocSkulptScript = code => `
         // mypre.innerHTML = '<div id="inner"><div id="closeConsoleButton" onclick="closeConsole()" title="Hide Console">X</div></div>';
         mypre.innerHTML = '<textarea id="inner" readonly></textarea>';
         Sk.pre = "output";
-        Sk.configure({output:outf, read:builtinRead});
+        Sk.configure({output:outf, read:builtinRead, __future__: Sk.python3});
         (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = 'mycanvas';
         var myPromise = Sk.misceval.asyncToPromise(function() {
 
