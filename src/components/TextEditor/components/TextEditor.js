@@ -97,10 +97,12 @@ class TextEditor extends React.Component {
   };
 
   getTheme = () => {
-    if (this.props.theme === "dark") {
-      return "material";
-    } else if (this.props.theme === "light") {
-      return "duotone-light";
+    switch (this.props.theme) {
+      case "light":
+        return "duotone-light";
+      case "dark":
+      default:
+        return "material";
     }
   };
   renderDropdown = () => <DropdownButtonContainer />;
