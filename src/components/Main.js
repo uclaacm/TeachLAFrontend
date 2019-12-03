@@ -4,6 +4,7 @@ import OutputContainer from "./Output/OutputContainer.js";
 import TextEditorContainer from "./TextEditor/containers/TextEditorContainer.js";
 import DropdownButtonContainer from "./common/containers/DropdownButtonContainer";
 import * as fetch from "../lib/fetch.js";
+import * as cookies from "../lib/cookies.js";
 import SketchesPageContainer from "./Sketches/containers/SketchesContainer";
 import "styles/Main.scss";
 import ProfilePanelContainer from "./common/containers/ProfilePanelContainer";
@@ -34,7 +35,7 @@ class Main extends React.Component {
       viewMode: this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT ? CODE_ONLY : CODE_AND_OUTPUT,
       redirect: this.props.listOfPrograms.length === 0 ? "/sketches" : "",
       pane1Style: { transition: "width .5s ease" },
-      theme: "dark",
+      theme: cookies.getThemeFromCookie(),
     };
   }
 
@@ -50,9 +51,9 @@ class Main extends React.Component {
   }
 
   onThemeChange = () => {
-    this.state.theme === "dark"
-      ? this.setState({ theme: "light" })
-      : this.setState({ theme: "dark" });
+    let newTheme = this.state.theme === "dark" ? "light" : "dark";
+    cookies.setThemeCookie(newTheme);
+    this.setState({ theme: newTheme });
   };
 
   resetSaveText = () => {
