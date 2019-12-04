@@ -32,6 +32,7 @@ ex)
 $themes: (
   light: (
     backgroundColor: white !important,
+    outputBackground: $off-white,
     color: $theme-dark,
     comment: $theme-dark,
     keyword: #9715f3,
@@ -42,9 +43,11 @@ $themes: (
     operator: $theme-dark,
     property: #056d45,
     cursor: #f4ee94,
+    selectedLine: $off-white,
   ),
   dark: (
     backgroundColor: $theme-dark !important,
+    outputBackground: $theme-tertiary,
     color: white,
     comment: white,
     keyword: #deb0ff,
@@ -55,6 +58,7 @@ $themes: (
     operator: rgba(233, 237, 237, 1),
     property: #80cbae,
     cursor: #f4ee94,
+    selectedLine: rgba(255, 255, 255, 0.1),
   ),
 );
 

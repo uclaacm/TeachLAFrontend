@@ -4,7 +4,6 @@
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  background-color: $theme-dark;
   justify-content: flex-start;
   position: absolute;
   transition: all 0.5s ease;
@@ -47,12 +46,6 @@
   width: 46px;
 }
 
-.editor-expand-panel-arrow-hidden {
-  // padding: 1rem;
-  // flex: 0 1 auto;
-  // width: 46px;
-}
-
 .editor-language-dropdown {
   flex: 0 1 auto;
 }
@@ -66,7 +59,9 @@
 }
 
 .editor-output {
-  background-color: $theme-tertiary;
+  @include themify($themes) {
+    background-color: themed("outputBackground");
+  }
   height: 100%;
 }
 
@@ -78,13 +73,18 @@
   align-items: center;
   justify-content: flex-start;
   width: 100%;
-  border-bottom: 1px white solid;
+  @include themify($themes) {
+    border-bottom: 1px solid themed("color");
+  }
 }
 
 .editor-output-iframe {
   width: 100%;
   height: 100%;
-  background-color: white;
+  @include themify($themes) {
+    background-color: themed("outputBackground");
+  }
+  border: none;
   display: flex;
 }
 
@@ -117,7 +117,9 @@
 }
 
 .selected-line {
-  background-color: rgba(255, 255, 255, 0.1);
+  @include themify($themes) {
+    background-color: themed("selectedLine");
+  }
 }
 
 .text-editor-container::-webkit-scrollbar {
