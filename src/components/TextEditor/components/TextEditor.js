@@ -98,7 +98,8 @@ class TextEditor extends React.Component {
 
   /**
    * returns a theme string for the CodeMirror editor, based off of the app's current theme
-   * @param theme the app's current theme
+   * @param {string} theme - the app's current theme
+   * @returns {string} the codemirror theme - see https://codemirror.net/demo/theme.html for more info
    */
 
   getCMTheme = theme => {
