@@ -96,8 +96,13 @@ class TextEditor extends React.Component {
     this.setState({ currentLine: line });
   };
 
-  getTheme = () => {
-    switch (this.props.theme) {
+  /**
+   * returns a theme string for the CodeMirror editor, based off of the app's current theme
+   * @param theme the app's current theme
+   */
+
+  getCMTheme = theme => {
+    switch (theme) {
       case "light":
         return "duotone-light";
       case "dark":
@@ -140,40 +145,38 @@ class TextEditor extends React.Component {
     //json required by CodeMirror
     const options = {
       mode: CODEMIRROR_CONVERSIONS[this.props.language],
-      theme: this.getTheme(), //requires lots of CSS tuning to get a theme to work, be wary of changing
+      theme: this.getCMTheme(this.props.theme),
       lineNumbers: true, //text editor has line numbers
       lineWrapping: true, //text editor does not overflow in the x direction, uses word wrap (NOTE: it's like MO Word wrapping, so words are not cut in the middle, if a word overlaps, the whole word is brought to the next line)
       indentWithTabs: true,
     };
 
     return (
-      <div className={`theme-` + this.props.theme} style={{ height: "100%" }}>
-        <div className="code-section">
-          {this.renderBanner()}
-          <div
-            className="text-editor-container"
-            style={{
-              height: this.props.screenHeight - 61 - 20,
-              minHeight: this.props.screenHeight - 61 - 20,
-              maxHeight: this.props.screenHeight - 61 - 20,
+      <div className="code-section">
+        {this.renderBanner()}
+        <div
+          className="text-editor-container"
+          style={{
+            height: this.props.screenHeight - 61 - 20,
+            minHeight: this.props.screenHeight - 61 - 20,
+            maxHeight: this.props.screenHeight - 61 - 20,
+          }}
+        >
+          <CodeMirror
+            editorDidMount={codeMirrorInstance => {
+              codeMirrorInstance.refresh();
+              this.setCodeMirrorInstance(codeMirrorInstance);
             }}
-          >
-            <CodeMirror
-              editorDidMount={codeMirrorInstance => {
-                codeMirrorInstance.refresh();
-                this.setCodeMirrorInstance(codeMirrorInstance);
-              }}
-              value={this.props.code}
-              lineWrapping
-              indentWithTabs={true}
-              options={options}
-              onCursor={cm => {
-                this.setCurrentLine(cm);
-              }}
-              onBeforeChange={this.updateCode}
-              onChange={this.updateCode}
-            />
-          </div>
+            value={this.props.code}
+            lineWrapping
+            indentWithTabs={true}
+            options={options}
+            onCursor={cm => {
+              this.setCurrentLine(cm);
+            }}
+            onBeforeChange={this.updateCode}
+            onChange={this.updateCode}
+          />
         </div>
       </div>
     );

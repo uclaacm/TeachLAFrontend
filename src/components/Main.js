@@ -188,7 +188,7 @@ class Main extends React.Component {
     };
 
     return (
-      <div className="main">
+      <div className={`main theme-` + this.state.theme}>
         <ProfilePanelContainer
           contentType={this.props.contentType}
           theme={this.state.theme}
