@@ -35,8 +35,10 @@ class Main extends React.Component {
       viewMode: this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT ? CODE_ONLY : CODE_AND_OUTPUT,
       redirect: this.props.listOfPrograms.length === 0 ? "/sketches" : "",
       pane1Style: { transition: "width .5s ease" },
-      theme: cookies.getThemeFromCookie(),
     };
+
+    // Set theme from cookies (yum)
+    this.props.setTheme(cookies.getThemeFromCookie());
   }
 
   //==============React Lifecycle Functions Start===================//
@@ -51,9 +53,9 @@ class Main extends React.Component {
   }
 
   onThemeChange = () => {
-    let newTheme = this.state.theme === "dark" ? "light" : "dark";
+    let newTheme = this.props.theme === "dark" ? "light" : "dark";
     cookies.setThemeCookie(newTheme);
-    this.setState({ theme: newTheme });
+    this.props.setTheme(newTheme);
   };
 
   resetSaveText = () => {
@@ -148,7 +150,7 @@ class Main extends React.Component {
       screenHeight={this.props.screenHeight}
       screenWidth={this.props.screenWidth}
       handleDownload={this.handleDownload}
-      theme={this.state.theme}
+      theme={this.props.theme}
     />
   );
 
@@ -188,10 +190,10 @@ class Main extends React.Component {
     };
 
     return (
-      <div className={`main theme-` + this.state.theme}>
+      <div className={`main theme-` + this.props.theme}>
         <ProfilePanelContainer
           contentType={this.props.contentType}
-          theme={this.state.theme}
+          theme={this.props.theme}
           onThemeChange={this.onThemeChange}
         />
         <div className="editor" style={codeStyle}>

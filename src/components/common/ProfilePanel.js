@@ -20,6 +20,7 @@ import { faSun } from "@fortawesome/free-solid-svg-icons";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "styles/Panel.scss";
+import Switch from "./Switch";
 import Footer from "./Footer";
 
 /**--------Props--------
@@ -267,23 +268,17 @@ class ProfilePanel extends React.Component {
   };
 
   renderThemeSwitch = () => {
-    const checked = this.props.theme === "dark" ? " checked" : "";
+    let onToggle = on => {
+      this.props.onThemeChange(on ? "light" : "dark");
+    };
+
     return (
-      <label className="panel-switch">
-        <input
-          className={"panel-switch-input" + checked}
-          type="checkbox"
-          onChange={this.props.onThemeChange}
-        />
-        <span className={"panel-switch-label" + checked}>
-          {checked ? (
-            <FontAwesomeIcon icon={faMoon} className="icon-dark" />
-          ) : (
-            <FontAwesomeIcon icon={faSun} className="icon-light" />
-          )}
-        </span>
-        <span className={"panel-switch-handle" + checked}></span>
-      </label>
+      <Switch
+        on={this.props.theme === "dark" ? false : true}
+        onToggle={onToggle}
+        onImg={<FontAwesomeIcon icon={faMoon} className="icon-dark" />}
+        offImg={<FontAwesomeIcon icon={faSun} className="icon-light" />}
+      />
     );
   };
 
