@@ -7,6 +7,7 @@ import LoadingPage from "./common/LoadingPage";
 import CreateUserPage from "./CreateUser";
 import Error from "./Error";
 import PageNotFound from "./PageNotFound";
+import * as fetch from "../lib/fetch.js";
 import * as firebase from "firebase/app";
 import "firebase/auth";
 import "styles/app.scss";
@@ -64,6 +65,11 @@ class App extends React.Component {
       this.props.clearUserData();
       this.setState({ checkedAuth: true });
     }
+  };
+
+  getProgram = async programid => {
+    const { ok, sketch } = await fetch.getSketch(programid);
+    return ok && sketch ? true : false;
   };
 
   showErrorPage = err => {
@@ -151,6 +157,17 @@ class App extends React.Component {
                   <MainContainer contentType="sketches" />
                 ) : (
                   <Redirect to="/login" />
+                )
+              }
+            />
+            {/* Get program endpoint */}
+            <Route
+              path="/p/:programid"
+              render={props =>
+                this.getProgram(props.match.params.programid) ? (
+                  <MainContainer contentType="editor" />
+                ) : (
+                  <PageNotFound />
                 )
               }
             />
