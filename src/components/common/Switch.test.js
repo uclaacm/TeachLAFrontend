@@ -2,18 +2,35 @@ import React from "react";
 import { shallow } from "enzyme";
 import Switch from "components/common/Switch.js";
 
+const switchOnClass = ".switch-body.switch-on"; // there has to be a better way of doing this
+const switchCheckboxClass = ".switch-input";
+
 describe("Switch", () => {
   it("smoke test", () => {
     const component = shallow(<Switch />);
     expect(component.exists()).toBe(true);
   });
   it("handles on prop properly", () => {
-    let switchClass = ".switch-on"; // there has to be a better way of doing this
     const componentDefault = shallow(<Switch />);
-    expect(componentDefault.find(switchClass)).toHaveLength(0);
+    expect(componentDefault.find(switchOnClass)).toHaveLength(0);
+
     const componentFalse = shallow(<Switch on={false} />);
-    expect(componentFalse.find(switchClass)).toHaveLength(0);
+    expect(componentFalse.find(switchOnClass)).toHaveLength(0);
+
     const componentTrue = shallow(<Switch on={true} />);
-    expect(componentTrue.find(switchClass)).toHaveLength(2); // there are two buttons w/ switch on?
+    expect(componentTrue.find(switchOnClass)).toHaveLength(1);
+  });
+  it("triggers the onToggle function when clicked", () => {
+    const clickFn = jest.fn(val => val);
+    const component = shallow(<Switch on={false} onToggle={clickFn} />);
+    expect(component.find(switchOnClass)).toHaveLength(0);
+
+    component.find(switchCheckboxClass).simulate("change", { target: { checked: true } });
+    expect(clickFn.mock.calls.length).toBe(1);
+    expect(clickFn.mock.calls[0][0]).toBe(true);
+
+    component.find(switchCheckboxClass).simulate("change", { target: { checked: false } });
+    expect(clickFn.mock.calls.length).toBe(2);
+    expect(clickFn.mock.calls[1][0]).toBe(false);
   });
 });
