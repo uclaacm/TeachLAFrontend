@@ -3,7 +3,6 @@
 .panel {
   display: flex;
   position: absolute;
-  background-color: $theme-light;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
@@ -11,10 +10,16 @@
   margin: 0;
   padding: 0;
   transition: left 0.5s ease;
+  @include themify($themes) {
+    color: themed("accentColor");
+    background-color: themed("accentBackground");
+  }
 }
 
 .panel-collapse-button {
-  color: $off-white;
+  @include themify($themes) {
+    color: themed("accentColor");
+  }
   padding-right: 15px;
   flex: 0 0 auto;
   font-size: 1.25rem;
@@ -74,10 +79,12 @@
   font-size: 1.25rem;
   border: none;
   background-color: transparent;
-  color: $off-white;
   position: absolute;
   right: -15px;
   bottom: -15px;
+  @include themify($themes) {
+    color: themed("accentColor");
+  }
 }
 
 .gallery {
@@ -124,7 +131,9 @@
 
 .edit-icon-image {
   font-size: 1.25rem;
-  color: $off-white;
+  @include themify($themes) {
+    color: themed("accentColor");
+  }
   position: absolute;
   border: none;
   right: -30px;
@@ -169,7 +178,9 @@
   padding: 20px 0 20px;
   font-size: 2rem;
   word-wrap: break-word;
-  color: white;
+  @include themify($themes) {
+    color: themed("accentColor");
+  }
   position: relative;
   font-family: $font-family-heading;
 }
@@ -184,8 +195,6 @@
 }
 
 .panel-button {
-  background-color: $theme-dark;
-  border-color: $theme-dark;
   text-align: left;
   font-size: 2em !important; /* reactstrap also has a !important somewhere, so we need to do this */
   /* this next block of CSS properly aligns button content */
@@ -193,13 +202,20 @@
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
+  @include themify($themes) {
+    color: themed("color");
+    border-color: themed("backgroundColor");
+    background-color: themed("backgroundColor");
+  }
 }
 
 .panel-button:hover,
 .panel-button:active {
-  color: $theme-dark !important;
-  border-color: $off-white !important;
-  background-color: $off-white !important;
+  @include themify($themes) {
+    color: themed("backgroundColor");
+    border-color: themed("color");
+    background-color: themed("color");
+  }
 }
 
 .panel-button-text {

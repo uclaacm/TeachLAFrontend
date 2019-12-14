@@ -11,6 +11,7 @@ $gray-purple: #585166;
 $off-white: #dddcdf;
 $select-cyan: #83dadd;
 $error-red: #f34d4d;
+$teachla-green: #AED643;
 
 // "Theme" Colours - specifically designed to allow for hot-swapping later
 $theme-light: $light-purple;
@@ -31,14 +32,16 @@ ex)
 
 $themes: (
   light: (
+    color: $theme-dark !important,
     backgroundColor: white !important,
     outputBackground: #E6E6FA,
-    color: $theme-dark,
     accentColor: white,
+    accentBackground: $teachla-green,
     /* Card variables */
     cardColor: $theme-dark,
     cardBackground: white,
-    cardBorder: 1px solid $theme-dark,
+    cardBorder: 1px solid $teachla-green,
+    cardDivider: $teachla-green,
     /* these next colors are all for the editor - check out CustomCM.scss for more info! */
     comment: $theme-dark,
     keyword: #9715f3,
@@ -52,14 +55,16 @@ $themes: (
     selectedLine: $off-white,
   ),
   dark: (
+    color: white !important,
     backgroundColor: $theme-dark !important,
     outputBackground: $theme-tertiary,
-    color: white,
-    accentColor: $theme-dark,
+    accentColor: white,
+    accentBackground: $theme-light,
     /* Card variables */
     cardColor: $theme-dark,
     cardBackground: $off-white,
     cardBorder: none,
+    cardDivider: $theme-dark,
     /* these next colors are all for the editor - check out CustomCM.scss for more info! */
     comment: white,
     keyword: #deb0ff,

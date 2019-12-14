@@ -44,14 +44,14 @@
     margin: 0;
     padding: 0;
     @include themify($themes){
-        border-top: 1px solid themed("cardColor");
+        border-top: 1px solid themed("cardDivider");
     }
 }
 
 .sketch-button-divider {
     width: 1px;
     @include themify($themes){
-        border: 0.5px solid themed("cardColor");
+        border: 0.5px solid themed("cardDivider");
     }
 }
 
