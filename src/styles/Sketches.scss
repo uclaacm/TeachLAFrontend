@@ -3,7 +3,10 @@
 .sketches-container {
   flex-direction: column;
   align-items: flex-start;
-  background-color: $theme-dark;
+  @include themify($themes) {
+    background-color: themed("backgroundColor");
+    color: themed("color");
+  }
   justify-content: flex-start;
   position: absolute;
   transition: all 0.5s ease;
@@ -11,7 +14,6 @@
 }
 
 .sketches-header-text {
-  color: $off-white;
   font-weight: bold;
   padding: 1rem;
   cursor: pointer;
@@ -26,7 +28,9 @@
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  border-bottom: 2px solid $off-white;
+  @include themify($themes) {
+    border-bottom: 1px solid themed("color");
+  }
 }
 
 .sketches-grid {
@@ -51,8 +55,10 @@
 .no-sketches-container {
   margin-top: 3em;
   text-align: center;
-  color: $off-white;
   width: 100%;
   height: 100%;
   padding: 1em;
+  @include themify($themes) {
+    color: themed("color");
+  }
 }

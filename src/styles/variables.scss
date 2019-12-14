@@ -34,6 +34,12 @@ $themes: (
     backgroundColor: white !important,
     outputBackground: #E6E6FA,
     color: $theme-dark,
+    accentColor: white,
+    /* Card variables */
+    cardColor: $theme-dark,
+    cardBackground: white,
+    cardBorder: 1px solid $theme-dark,
+    /* these next colors are all for the editor - check out CustomCM.scss for more info! */
     comment: $theme-dark,
     keyword: #9715f3,
     def: #0052ff,
@@ -49,6 +55,12 @@ $themes: (
     backgroundColor: $theme-dark !important,
     outputBackground: $theme-tertiary,
     color: white,
+    accentColor: $theme-dark,
+    /* Card variables */
+    cardColor: $theme-dark,
+    cardBackground: $off-white,
+    cardBorder: none,
+    /* these next colors are all for the editor - check out CustomCM.scss for more info! */
     comment: white,
     keyword: #deb0ff,
     def: #47e2d5,

@@ -15,12 +15,16 @@
     justify-content: flex-start;
     align-items: center;
     width: 200px;
-    background-color: $off-white;
     border-radius: 5px;
     color: $theme-dark;
     margin: 0px 10px;
     cursor: pointer;
     flex: 0 0 auto;
+    @include themify($themes) {
+        color: themed("cardColor");
+        background-color: themed("cardBackground");
+        border: themed("cardBorder")
+    }
 }
 
 .sketch-box-body {
@@ -36,15 +40,19 @@
 }
 
 .sketch-divider {
-    border-top: 1px solid $theme-dark;
     width: 100%;
     margin: 0;
     padding: 0;
+    @include themify($themes){
+        border-top: 1px solid themed("cardColor");
+    }
 }
 
 .sketch-button-divider {
     width: 1px;
-    border: 0.5px solid $theme-dark;
+    @include themify($themes){
+        border: 0.5px solid themed("cardColor");
+    }
 }
 
 .sketch-name {
