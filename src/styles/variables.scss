@@ -12,6 +12,7 @@ $off-white: #dddcdf;
 $select-cyan: #83dadd;
 $error-red: #f34d4d;
 $teachla-green: #AED643;
+$light-lavender: #9c9cce;
 
 // "Theme" Colours - specifically designed to allow for hot-swapping later
 $theme-light: $light-purple;
@@ -36,12 +37,12 @@ $themes: (
     backgroundColor: white !important,
     outputBackground: #E6E6FA,
     accentColor: white,
-    accentBackground: #c0c0ce,
+    accentBackground: $light-lavender,
     /* Card variables */
     cardColor: $theme-dark,
     cardBackground: white,
-    cardBorder: 1px solid #c0c0ce,
-    cardDivider: #c0c0ce,
+    cardBorder: 1px solid $light-lavender,
+    cardDivider: $light-lavender,
     /* these next colors are all for the editor - check out CustomCM.scss for more info! */
     comment: $theme-dark,
     keyword: #9715f3,
