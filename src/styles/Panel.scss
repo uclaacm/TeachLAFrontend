@@ -155,12 +155,14 @@
   padding: 20px 0 5px;
   text-align: center;
   font-size: 2rem;
-  font-weight: bold;
-  color: $off-white;
   word-wrap: break-word;
-  background-color: $theme-dark;
+  background: none;
   align-items: baseline;
   border: none;
+  @include themify($themes) {
+    color: themed("accentColor");
+    border-bottom: 1px solid themed("accentColor");
+  }
 }
 
 .profile-input-error {
