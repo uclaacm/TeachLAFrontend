@@ -11,8 +11,9 @@ $gray-purple: #585166;
 $off-white: #dddcdf;
 $select-cyan: #83dadd;
 $error-red: #f34d4d;
-$teachla-green: #AED643;
-$light-lavender: #9c9cce;
+$teachla-green: #aed643;
+$light-lavender: #8485cc;
+$white: #fcfcfc;
 
 // "Theme" Colours - specifically designed to allow for hot-swapping later
 $theme-light: $light-purple;
@@ -34,17 +35,16 @@ ex)
 $themes: (
   light: (
     color: $theme-dark !important,
-    backgroundColor: white !important,
-    outputBackground: #E6E6FA,
-    accentColor: white,
+    backgroundColor: $white !important,
+    outputBackground: #e6e6fa,
+    accentColor: $white,
     accentBackground: $light-lavender,
-    /* Card variables */
-    cardColor: $theme-dark,
-    cardBackground: white,
+    /* Card variables */ cardColor: $theme-dark,
+    cardBackground: $white,
     cardBorder: 1px solid $light-lavender,
     cardDivider: $light-lavender,
-    /* these next colors are all for the editor - check out CustomCM.scss for more info! */
-    comment: $theme-dark,
+    /* these next colors are all for the editor - check out CustomCM.scss for more info! */ comment:
+      $theme-dark,
     keyword: #9715f3,
     def: #0052ff,
     variable: #f07178,
@@ -61,13 +61,12 @@ $themes: (
     outputBackground: $theme-tertiary,
     accentColor: white,
     accentBackground: $theme-light,
-    /* Card variables */
-    cardColor: $theme-dark,
+    /* Card variables */ cardColor: $theme-dark,
     cardBackground: $off-white,
     cardBorder: none,
     cardDivider: $theme-dark,
-    /* these next colors are all for the editor - check out CustomCM.scss for more info! */
-    comment: white,
+    /* these next colors are all for the editor - check out CustomCM.scss for more info! */ comment:
+      white,
     keyword: #deb0ff,
     def: #47e2d5,
     variable: #f5e83c,

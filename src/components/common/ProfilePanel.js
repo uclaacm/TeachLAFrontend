@@ -274,7 +274,7 @@ class ProfilePanel extends React.Component {
 
     return (
       <Switch
-        on={this.props.theme === "dark" ? false : true}
+        on={this.props.theme === "dark" ? true : false}
         onToggle={onToggle}
         onImg={<FontAwesomeIcon icon={faMoon} className="icon-dark" />}
         offImg={<FontAwesomeIcon icon={faSun} className="icon-light" />}
