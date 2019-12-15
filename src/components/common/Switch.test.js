@@ -33,4 +33,19 @@ describe("Switch", () => {
     expect(clickFn.mock.calls.length).toBe(2);
     expect(clickFn.mock.calls[1][0]).toBe(false);
   });
+  it("handles the onImg and offImg props properly", () => {
+    const clickFn = jest.fn(val => val);
+    const onText = <span id="on-test"></span>;
+    const offText = <span id="off-test"></span>;
+    const component = shallow(
+      <Switch on={false} onToggle={clickFn} onImg={onText} offImg={offText} />,
+    );
+
+    expect(component.find("#off-test")).toHaveLength(1);
+    expect(component.find("#on-test")).toHaveLength(0);
+
+    component.find(switchCheckboxClass).simulate("change", { target: { checked: true } });
+    expect(component.find("#off-test")).toHaveLength(0);
+    expect(component.find("#on-test")).toHaveLength(1);
+  });
 });
