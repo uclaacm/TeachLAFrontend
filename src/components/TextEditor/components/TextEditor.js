@@ -96,6 +96,21 @@ class TextEditor extends React.Component {
     this.setState({ currentLine: line });
   };
 
+  /**
+   * returns a theme string for the CodeMirror editor, based off of the app's current theme
+   * @param {string} theme - the app's current theme
+   * @returns {string} the codemirror theme - see https://codemirror.net/demo/theme.html for more info
+   */
+
+  getCMTheme = theme => {
+    switch (theme) {
+      case "light":
+        return "duotone-light";
+      case "dark":
+      default:
+        return "material";
+    }
+  };
   renderDropdown = () => <DropdownButtonContainer />;
 
   renderBanner = () => {
@@ -131,7 +146,7 @@ class TextEditor extends React.Component {
     //json required by CodeMirror
     const options = {
       mode: CODEMIRROR_CONVERSIONS[this.props.language],
-      theme: "material", //requires lots of CSS tuning to get a theme to work, be wary of changing
+      theme: this.getCMTheme(this.props.theme),
       lineNumbers: true, //text editor has line numbers
       lineWrapping: true, //text editor does not overflow in the x direction, uses word wrap (NOTE: it's like MO Word wrapping, so words are not cut in the middle, if a word overlaps, the whole word is brought to the next line)
       indentWithTabs: true,

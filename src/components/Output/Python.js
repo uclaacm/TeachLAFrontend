@@ -3,27 +3,25 @@ const getPythonSrcDocHead = () => `
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script>
   <script src="https://cdn.rawgit.com/skulpt/skulpt-dist/1.1.0/skulpt.min.js" type="text/javascript"></script>
   <script src="https://cdn.rawgit.com/skulpt/skulpt-dist/1.1.0/skulpt-stdlib.js" type="text/javascript"></script>
-  <style> html, body { margin:0; background-color: #585166;}
-          #inner {
-            height:100px;
-            background-color:#222;
-            color: #DDD;
-            font-family: monospace;
-            word-wrap:break-word;
-            overflow:auto;
-            margin: 10px auto;
-            position:relative;
-            padding: 10px 35px 10px 10px;
-            width: 100%;
-            box-sizing: border-box;         /* For IE and modern versions of Chrome */
-            -moz-box-sizing: border-box;    /* For Firefox                          */
-            -webkit-box-sizing: border-box; /* For Safari                           */
-            resize: vertical;
-          }
-          #output { margin: 0px 10px; position: relative;}
-          #mycanvas { margin: 10px; }
-          #closeConsoleButton { position: fixed; top: 20px; right: 30px; color: #ddd;}
-          canvas { border: 1px solid black; }
+  <style> 
+    * { box-sizing: border-box }
+    html, body { margin:0}
+    #inner {
+      height:100px;
+      background-color:#222;
+      color: #DDD;
+      font-family: monospace;
+      word-wrap:break-word;
+      overflow:auto;
+      margin: 10px auto;
+      position:relative;
+      padding: 10px 35px 10px 10px;
+      width: 100%;
+      resize: vertical;
+    }
+    #output { margin: 0px 10px; position: relative;}
+    #mycanvas { margin: 10px; }
+    canvas { border: 1px solid black; }
   </style>
 </head>
 `;

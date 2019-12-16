@@ -1,0 +1,57 @@
+@import "styles/variables.scss";
+
+$switch-transition-time: 0.3s;
+
+.switch {
+  padding: 0.5rem 1rem;
+  position: relative;
+  display: block;
+  width: 100px;
+  height: 30px;
+  border-radius: 6px;
+  cursor: pointer;
+  box-sizing: content-box;
+  font-family: inherit;
+}
+
+.switch-input {
+  padding: 0px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  box-sizing: content-box;
+}
+
+.switch-body {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 10px;
+  height: inherit;
+  font-size: 1rem;
+  background: $white;
+  border-radius: inherit;
+  transition: all $switch-transition-time;
+  &.switch-on {
+    justify-content: flex-start !important;
+    background: $theme-dark;
+  }
+}
+
+.switch-handle {
+  position: absolute;
+  top: 8px;
+
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+  background: $theme-dark;
+  transition: all $switch-transition-time;
+  &.switch-on {
+    margin-left: 70px;
+    background: white;
+  }
+}
