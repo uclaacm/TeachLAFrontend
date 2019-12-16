@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button } from "reactstrap";
+import { Row, Button } from "reactstrap";
 import * as firebase from "firebase/app";
 import "firebase/auth";
 import {
@@ -10,7 +10,6 @@ import {
   DEFAULT_PHOTO_NAME,
   PANEL_SIZE,
 } from "../../constants";
-import ReactModal from "react-modal";
 import { faBook } from "@fortawesome/free-solid-svg-icons";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
@@ -20,6 +19,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "styles/Panel.scss";
 import Footer from "./Footer";
 
+import ImageSelector from "../Sketches/components/ImageSelector"
 /**--------Props--------
  * togglePanel: function to be called when the panel is collapsed or opened
  */
@@ -154,15 +154,13 @@ class ProfilePanel extends React.Component {
       );
     });
     return (
-      <ReactModal
+      <ImageSelector
         isOpen={this.state.showModal}
-        onRequestClose={this.handleCloseModal}
-        className="profile-image-modal"
-        overlayClassName="profile-image-overlay"
-        ariaHideApp={false}
+        closeModal={this.handleCloseModal}
+        icons={icons}
+        error={this.state.error}
       >
-        <div className="gallery">{icons}</div>
-        <div className="text-center">
+        <Row>
           <Button
             color="success"
             size="lg"
@@ -171,8 +169,8 @@ class ProfilePanel extends React.Component {
           >
             Submit
           </Button>
-        </div>
-      </ReactModal>
+        </Row>
+      </ImageSelector>
     );
   };
 
