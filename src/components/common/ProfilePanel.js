@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Row, Button } from "reactstrap";
+import { Row, Col, Button } from "reactstrap";
 import * as firebase from "firebase/app";
 import "firebase/auth";
 import {
@@ -161,14 +161,17 @@ class ProfilePanel extends React.Component {
         error={this.state.error}
       >
         <Row>
-          <Button
-            color="success"
-            size="lg"
-            onClick={this.onImageSubmit}
-            id="modal-change-image-button"
-          >
-            Submit
-          </Button>
+          <Col>
+            <Button
+              color="success"
+              size="lg"
+              onClick={this.onImageSubmit}
+              id="modal-change-image-button"
+              block
+            >
+              Submit
+            </Button>
+          </Col>
         </Row>
       </ImageSelector>
     );
