@@ -1,5 +1,6 @@
 import React from "react";
 import DropdownButton from "./DropdownButton";
+import ImageSelector from "../components/ImageSelector"
 import {
   SketchThumbnailArray,
   LanguageDropdownValues,
@@ -191,49 +192,38 @@ class CreateSketchModal extends React.Component {
         />
       ) : null;
     return (
-      <ReactModal
+      <ImageSelector
         isOpen={this.props.isOpen}
-        onRequestClose={this.closeModal}
-        className="sketches-image-modal"
-        overlayClassName="profile-image-overlay"
-        ariaHideApp={false}
+        closeModal={this.closeModal}
+        thumbnailPreview={thumbnailPreview}
+        icons={icons}
+        error={this.state.error}
       >
-        <Container>
-          <div className="sketches-modal-header d-flex align-items-center">
-            <h1>Choose a thumbnail</h1>
-            <div className="sketches-modal-header-thumbnail-container">{thumbnailPreview}</div>
-          </div>
-          <hr />
-          <div className="sketches-gallery">{icons}</div>
-          <br />
-          <div className="text-center text-danger">{this.state.error || <br />}</div>
-          <hr />
-          <Row>
-            <Col>
-              <Button
-                color="secondary"
-                onClick={this.onBack}
-                disabled={this.state.disableSubmit}
-                size="lg"
-                block
-              >
-                Back
-              </Button>
-            </Col>
-            <Col>
-              <Button
-                color="success"
-                onClick={this.onSecondSubmit}
-                size="lg"
-                disabled={this.badThumbnailInput() || this.state.disableSubmit}
-                block
-              >
-                Create
-              </Button>
-            </Col>
-          </Row>
-        </Container>
-      </ReactModal>
+        <Row>
+          <Col>
+            <Button
+              color="secondary"
+              onClick={this.onBack}
+              disabled={this.state.disableSubmit}
+              size="lg"
+              block
+            >
+              Back
+            </Button>
+          </Col>
+          <Col>
+            <Button
+              color="success"
+              onClick={this.onSecondSubmit}
+              size="lg"
+              disabled={this.badThumbnailInput() || this.state.disableSubmit}
+              block
+            >
+              Create
+            </Button>
+          </Col>
+        </Row>
+      </ImageSelector>
     );
   };
 

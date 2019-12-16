@@ -2,6 +2,7 @@ import React from "react";
 import ReactModal from "react-modal";
 import { Button } from "reactstrap";
 import DropdownButton from "./DropdownButton";
+import ImageSelector from "../components/ImageSelector";
 import { SketchThumbnailArray, LanguageDropdownValues } from "../constants";
 import { Container, Row, Col, FormGroup, Label, Input } from "reactstrap";
 import * as fetch from "../../../lib/fetch.js";
@@ -288,34 +289,28 @@ class EditSketchModal extends React.Component {
         />
       );
     return (
-      <ReactModal
+      <ImageSelector 
         isOpen={this.props.isOpen}
-        onRequestClose={this.closeModal}
-        className="sketches-modal"
-        overlayClassName="profile-image-overlay"
-        ariaHideApp={false}
+        closeModal={this.closeModal}
+        thumbnailPreview={thumbnailPreview}
+        icons={icons}
+        error={this.state.error}
       >
-        <form>
-          <div className="sketches-modal-header d-flex align-items-center">
-            <h1>Choose a thumbnail</h1>
-            <div className="ml-4 sketches-modal-header-thumbnail-container">{thumbnailPreview}</div>
-          </div>
-          <hr />
-          <div className="sketches-gallery">{icons}</div>
-          <div style={{ color: "red", textAlign: "center" }}>{this.state.error || <br />}</div>
-        </form>
-        <hr />
-        <Button
-          color="secondary"
-          onClick={() => {
-            this.setState({ onThumbnails: false });
-          }}
-          size="lg"
-          block
-        >
-          Back
-        </Button>{" "}
-      </ReactModal>
+        <Row>
+          <Col>
+            <Button
+              color="secondary"
+              onClick={() => {
+                this.setState({ onThumbnails: false });
+              }}
+              size="lg"
+              block
+            >
+              Back
+            </Button>{" "}
+          </Col>
+        </Row>
+      </ImageSelector>
     );
   }
 
