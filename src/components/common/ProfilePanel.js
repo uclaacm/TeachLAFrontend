@@ -159,7 +159,7 @@ class ProfilePanel extends React.Component {
         closeModal={this.handleCloseModal}
         icons={icons}
         error={this.state.error}
-        maxWidth={450}
+        maxWidth={325}
       >
         <Row>
           <Col>
