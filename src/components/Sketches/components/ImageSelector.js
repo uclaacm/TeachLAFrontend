@@ -21,7 +21,7 @@ class ImageSelector extends React.Component {
           <br />
           <div className="text-center text-danger">{this.props.error || <br />}</div>
           <hr />
-          {this.props.children} {/* Used for close buttons or not at all if not needed */}
+          {this.props.children} {/* Footer buttons as passed in as children */}
         </Container>
       </ReactModal>
     )
