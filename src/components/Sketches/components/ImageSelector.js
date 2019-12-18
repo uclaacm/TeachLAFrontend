@@ -11,7 +11,7 @@ class ImageSelector extends React.Component {
         overlayClassName="profile-image-overlay"
         ariaHideApp={false}
       >
-        <Container>
+        <Container style={{"max-width": `${this.props.maxGalleryWidth}px`,}}>
           <div className="sketches-modal-header d-flex align-items-center">
             <h1>Choose a thumbnail</h1>
             <div className="sketches-modal-header-thumbnail-container">{this.props.thumbnailPreview || null}</div>
