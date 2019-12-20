@@ -40,7 +40,7 @@
     "prod_build": "cross-env REACT_APP_FS_PROJ=prod REACT_APP_SERVER_TYPE=prod react-scripts build"
   },
   "devDependencies": {
-    "enzyme": "^3.3.0",
+    "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "enzyme-to-json": "^3.4.3",
     "husky": "^3.1.0",
