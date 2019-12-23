@@ -11,10 +11,9 @@ exports[`LoadingPage should render correctly 1`] = `
   </div>
   <Loader
     color="#171124"
-    css={Object {}}
+    css=""
     loading={true}
     size={250}
-    sizeUnit="px"
   />
 </div>
 `;
