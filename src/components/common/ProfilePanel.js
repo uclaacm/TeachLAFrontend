@@ -255,9 +255,8 @@ class ProfilePanel extends React.Component {
         panelButtons.push(this.renderEditorButton());
         break;
       case "editor":
-        panelButtons.push(this.renderSketchesButton());
-        break;
       default:
+        panelButtons.push(this.renderSketchesButton());
         break;
     }
 
