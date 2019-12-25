@@ -40,7 +40,7 @@ class ViewOnly extends React.Component {
   //==============React Lifecycle Functions Start===================//
   componentDidMount() {
     console.log(this.props.programid);
-    if (this.programid != null) {
+    if (this.props.programid != null) {
       this.getProgram(this.props.programid);
       console.log("ya");
     }
