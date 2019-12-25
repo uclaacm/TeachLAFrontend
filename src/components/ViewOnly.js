@@ -2,7 +2,6 @@ import React from "react";
 import SplitPane from "react-split-pane";
 import OutputContainer from "./Output/OutputContainer.js";
 import TextEditorContainer from "./TextEditor/containers/TextEditorContainer.js";
-import DropdownButtonContainer from "./common/containers/DropdownButtonContainer";
 import * as fetch from "../lib/fetch.js";
 import * as cookies from "../lib/cookies.js";
 import SketchesPageContainer from "./Sketches/containers/SketchesContainer";
@@ -12,7 +11,6 @@ import ProfilePanelContainer from "./common/containers/ProfilePanelContainer";
 import { Redirect } from "react-router-dom";
 import { EDITOR_WIDTH_BREAKPOINT, CODE_AND_OUTPUT, CODE_ONLY, OUTPUT_ONLY } from "../constants";
 import CodeDownloader from "../util/languages/CodeDownloader";
-import ViewOnly from "./ViewOnly";
 
 import { PANEL_SIZE } from "../constants";
 import "codemirror/lib/codemirror.css";
@@ -28,26 +26,25 @@ import "styles/Editor.scss";
  * left: the left css property that should be applied on the top level element
  */
 
-class Main extends React.Component {
+class ViewOnly extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      saveText: "Save",
       viewMode: this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT ? CODE_ONLY : CODE_AND_OUTPUT,
-      redirect: this.props.listOfPrograms.length === 0 ? "/sketches" : "",
       pane1Style: { transition: "width .5s ease" },
       theme: cookies.getThemeFromCookie(),
+      programID: "",
     };
   }
 
   //==============React Lifecycle Functions Start===================//
-  // componentDidMount() {
-  //   console.log(this.props.programid);
-  //   if (this.props.contentType === "view" && this.props.programid != null) {
-  //     this.getProgram(this.props.programid);
-  //     console.log("ya");
-  //   }
-  // }
+  componentDidMount() {
+    console.log(this.props.programid);
+    if (this.programid != null) {
+      this.getProgram(this.props.programid);
+      console.log("ya");
+    }
+  }
   componentDidUpdate(prevProps) {
     if (this.props.screenWidth !== prevProps.screenWidth) {
       if (this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT) {
@@ -58,12 +55,12 @@ class Main extends React.Component {
     }
   }
 
-  // getProgram = async programid => {
-  //   const { ok, sketch } = await fetch.getSketch(programid);
-  //   this.props.setProgramCode(this.props.mostRecentProgram, sketch.code);
-  //   this.props.runCode(sketch.code, sketch.language);
-  //   return { ok, sketch };
-  // };
+  getProgram = async programid => {
+    const { ok, sketch } = await fetch.getSketch(programid);
+    this.props.setProgramCode(this.props.mostRecentProgram, sketch.code);
+    this.props.runCode(sketch.code, sketch.language);
+    return { ok, sketch };
+  };
 
   onThemeChange = () => {
     let newTheme = this.state.theme === "dark" ? "light" : "dark";
@@ -71,39 +68,9 @@ class Main extends React.Component {
     this.setState({ theme: newTheme });
   };
 
-  resetSaveText = () => {
-    this.setState({
-      saveText: "Save",
-    });
-  };
-
-  handleSave = event => {
-    if (!this.props.dirty) return; // Don't save if not dirty (unedited)
-    this.setState({
-      saveText: "Saving...",
-    });
-
-    let programToUpdate = {};
-
-    programToUpdate[this.props.mostRecentProgram] = {
-      code: this.props.code,
-    };
-
-    fetch.updatePrograms(this.props.uid, programToUpdate).then(() => {
-      this.setState({
-        saveText: "Saved!",
-      });
-
-      setTimeout(this.resetSaveText, 3000);
-    });
-    this.props.cleanCode(this.props.mostRecentProgram); // Set code's "dirty" state to false
-  };
-
   handleDownload = () => {
     CodeDownloader.download(this.props.name, this.props.language, this.props.code);
   };
-
-  renderDropdown = () => <DropdownButtonContainer />;
 
   renderSketchesPage = () => <SketchesPageContainer />;
 
@@ -158,12 +125,11 @@ class Main extends React.Component {
       key={this.props.mostRecentProgram}
       viewMode={this.state.viewMode}
       updateViewMode={this.updateViewMode}
-      handleSave={this.handleSave}
-      saveText={this.state.saveText}
       screenHeight={this.props.screenHeight}
       screenWidth={this.props.screenWidth}
-      handleDownload={this.handleDownload}
       theme={this.state.theme}
+      viewOnly={true}
+      program={this.props.programid}
     />
   );
 
@@ -217,4 +183,4 @@ class Main extends React.Component {
   }
 }
 
-export default Main;
+export default ViewOnly;

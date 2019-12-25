@@ -113,6 +113,6 @@ export const deleteSketch = data => {
 export const getSketch = async docID => {
   const endpoint = `getProgram/${docID}`;
   let result = await makeServerRequest({}, endpoint, "get");
-  let { ok, data, error } = await result.json();
-  return { ok, data, error };
+  let { ok, sketch } = await result.json();
+  return { ok, sketch };
 };

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-d
 import { ROUTER_BASE_NAME } from "../constants";
 import LoginPage from "./containers/LoginContainer";
 import MainContainer from "./containers/MainContainer";
+import ViewOnlyContainer from "./containers/ViewOnlyContainer";
 import LoadingPage from "./common/LoadingPage";
 import CreateUserPage from "./CreateUser";
 import Error from "./Error";
@@ -69,7 +70,8 @@ class App extends React.Component {
 
   getProgram = async programid => {
     const { ok, sketch } = await fetch.getSketch(programid);
-    return ok && sketch ? true : false;
+
+    return { ok, sketch };
   };
 
   showErrorPage = err => {
@@ -165,7 +167,7 @@ class App extends React.Component {
               path="/p/:programid"
               render={props =>
                 this.getProgram(props.match.params.programid) ? (
-                  <MainContainer contentType="editor" />
+                  <ViewOnlyContainer contentType="view" programid={props.match.params.programid} />
                 ) : (
                   <PageNotFound />
                 )

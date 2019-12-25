@@ -33,10 +33,12 @@ class TextEditor extends React.Component {
     this.state = {
       codeMirrorInstance: null,
       currentLine: 0,
+      sketch: null,
     };
   }
 
   //==============React Lifecycle Functions===================//
+
   componentDidMount() {
     window.addEventListener("beforeunload", this.onLeave);
     window.addEventListener("close", this.onLeave);
@@ -119,15 +121,17 @@ class TextEditor extends React.Component {
             isSmall={this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
           />
         </div>
-        <ViewportAwareButton
-          className="mx-2"
-          color="success"
-          size="lg"
-          onClick={this.props.handleSave}
-          isSmall={this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
-          icon={<FontAwesomeIcon icon={faSave} />}
-          text={this.props.saveText}
-        />
+        {this.props.viewOnly ? null : (
+          <ViewportAwareButton
+            className="mx-2"
+            color="success"
+            size="lg"
+            onClick={this.props.handleSave}
+            isSmall={this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
+            icon={<FontAwesomeIcon icon={faSave} />}
+            text={this.props.saveText}
+          />
+        )}
 
         <Button className="mx-2" color="success" size="lg" onClick={this.props.handleDownload}>
           <FontAwesomeIcon icon={faDownload} />
