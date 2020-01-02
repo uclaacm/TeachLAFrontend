@@ -1,8 +1,8 @@
 import Classes from "../index.js";
 import { connect } from "react-redux";
 import { togglePanel } from "../../../actions/uiActions.js";
+import { OPEN_PANEL_LEFT, CLOSED_PANEL_LEFT, PANEL_SIZE } from "../../../constants";
 // import Immutable from "immutable";
-import { PANEL_SIZE, CLOSED_PANEL_LEFT, OPEN_PANEL_LEFT } from "../../../constants";
 
 const mapStateToProps = state => {
   let classes = [];
@@ -38,9 +38,6 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-const ClassesContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Classes);
+const ClassesContainer = connect(mapStateToProps, mapDispatchToProps)(Classes);
 
 export default ClassesContainer;

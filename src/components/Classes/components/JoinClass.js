@@ -1,5 +1,5 @@
 import React from "react";
-import "../../../styles/Classes.css";
+import "../../../styles/Classes.scss";
 
 /**-------Props-------
  * waiting: boolean that greys out the button if there is no input
