@@ -1,3 +1,5 @@
+@import 'styles/variables.scss';
+
 .classes-content-container {
   display: flex;
   flex-direction: column;
@@ -10,7 +12,6 @@
 }
 
 .join-class-text {
-  color: #dddcdf;
   padding-right: 1rem;
   flex: 0 0 auto;
   font-size: 35px;
@@ -21,24 +22,29 @@
   line-height: normal;
   padding: 0.25rem 0.1rem 0px 0.1rem;
   border: 0px;
-  background-color: #252132;
+  @include themify($themes) {
+    background-color: themed("backgroundColor");
+    color: themed("color");
+  }
   border-bottom: 2px solid #dddcdf;
   outline: 0;
   width: 50%;
   min-width: 300px;
   max-width: 500px;
-  -webkit-transition: box-shadow 70ms ease-out, border-color 70ms ease-out;
-  -moz-transition: box-shadow 70ms ease-out, border-color 70ms ease-out;
-  transition: box-shadow 70ms ease-out, border-color 70ms ease-out;
-  color: #dddcdf;
+  transition: all 0.5s ease;
+  // color: #dddcdf;
   display: inline-block;
 }
 
 .join-class-button {
   display: inline-block;
   font-family: "Josefin Slab", sans-serif;
-  color: #dddcdf;
-  background-color: #857e8f;
+  // color: #dddcdf;
+  color: white;
+  // background-color: #857e8f;
+  @include themify($themes) {
+    background-color: themed("accentBackground");
+  }
   cursor: pointer;
   overflow: visible;
   text-align: center;
@@ -48,6 +54,7 @@
   margin-left: 1rem;
   font-size: 1.7em;
   line-height: 1.4em;
+  transition: all 0.5s ease;
 }
 
 .join-class-button:hover {

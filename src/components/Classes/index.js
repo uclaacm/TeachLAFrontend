@@ -1,19 +1,18 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
 import JoinClass from "./components/JoinClass";
 import ClassBox from "./components/ClassBox";
 import ConfirmLeaveModalContainer from "./containers/ConfirmLeaveModalContainer";
 import CreateClassModalContainer from "./containers/CreateClassModalContainer";
 import OpenPanelButtonContainer from "../common/containers/OpenPanelButtonContainer";
 import { SketchThumbnailArray } from "./constants";
-import "../../styles/Classes.css";
-import "../../styles/Sketches.css";
-import "../../styles/Login.css";
+import "../../styles/Classes.scss";
+import "../../styles/Sketches.scss";
+import "../../styles/Login.scss";
 
 import { Button } from "reactstrap";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFile } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const ROW_PADDING = 100;
 const SKETCH_WIDTH = 220;
@@ -44,10 +43,6 @@ class Classes extends React.Component {
     this.setState({ confirmLeaveModalOpen: val, selectedSketch: sketch, selectedKey: key });
   };
 
-  redirectToEditor = () => {
-    this.setState({ redirectTo: "/editor" });
-  };
-
   renderHeader = () => (
     <div className="sketches-header">
       <OpenPanelButtonContainer />
@@ -58,7 +53,7 @@ class Classes extends React.Component {
         size="lg"
         onClick={() => this.setCreateClassModalOpen(true)}
       >
-        <FontAwesomeIcon icon={faFile} /> Create Class
+        <FontAwesomeIcon icon={faPlus} /> Create Class
       </Button>
     </div>
   );
@@ -172,18 +167,13 @@ class Classes extends React.Component {
   };
 
   render() {
-    if (this.state.redirectTo) {
-      return <Redirect to={this.state.redirectTo} />;
-    }
-
     const containerStyle = {
-      left: this.props.left || 0,
       width: this.props.calculatedWidth,
       height: this.props.screenHeight,
     };
 
     return (
-      <div className="sketches" style={containerStyle}>
+      <div className="sketches-container" style={containerStyle}>
         {this.renderContent()}
       </div>
     );

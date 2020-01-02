@@ -4,9 +4,6 @@ import { Container, Row, Col, Button } from "reactstrap";
 import * as fetch from "../../../lib/fetch.js";
 
 class ConfirmLeaveModal extends React.Component {
-  componentWillMount() {}
-  componentDidUpdate() {}
-
   closeModal = () => {
     if (this.props.onClose && {}.toString.call(this.props.onClose) === "[object Function]") {
       this.props.onClose();
@@ -70,7 +67,7 @@ class ConfirmLeaveModal extends React.Component {
             </Col>
             <Col>
               <Button color="danger" onClick={this.onLeaveSubmit} size="lg" block>
-                Yes please!
+                Yes, leave.
               </Button>
             </Col>
           </Row>

@@ -225,18 +225,15 @@ class ProfilePanel extends React.Component {
   );
 
   renderClassesButton = () => (
-    <Button
-      className="panel-button"
-      key="classes-button"
-      size="lg"
-      block
-      onClick={() => {
-        this.setState({ redirectTo: "/classes" });
-      }}
+    <Link
+      to={{ pathname: "/classes" }}
+      className="panel-button btn btn-secondary btn-lg btn-block"
+      // key="sketches-button"
+      // id="sketches-button"
     >
       <FontAwesomeIcon icon={faBook} />
       <span className="panel-button-text">Classes</span>
-    </Button>
+    </Link>
   );
 
   renderSketchesButton = () => (
