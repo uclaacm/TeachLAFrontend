@@ -73,7 +73,8 @@ class Classes extends React.Component {
     let waiting = uppercase < 3;
 
     return (
-      <JoinClass data={this.state.classCode} onChange={this.updateClassCode} waiting={waiting} />
+      // <JoinClass data={this.state.classCode} onChange={this.updateClassCode} waiting={waiting} />
+      ""
     );
   };
 
@@ -117,23 +118,13 @@ class Classes extends React.Component {
             this.setConfirmLeaveModalOpen(true, name, key);
           }}
           redirFunc={() => {
-            this.redirectToEditor(key);
+            this.redirectToClassPage(key);
           }}
         />,
       );
     });
-    let numClassesPerRow = Math.floor((this.props.calculatedWidth - ROW_PADDING) / SKETCH_WIDTH);
-    let rows = [];
-    let originalLength = classes.length;
-    for (let i = 0; i < originalLength / numClassesPerRow; i++) {
-      rows.push(
-        <div className="sketches-grid-row" key={i}>
-          {classes.splice(0, numClassesPerRow)}
-        </div>,
-      );
-    }
 
-    return <div className="sketches-grid">{rows}</div>;
+    return <div className="classes-grid">{classes}</div>;
   };
 
   renderConfirmLeaveModal = () => (
