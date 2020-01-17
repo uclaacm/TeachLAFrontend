@@ -11,6 +11,7 @@ import {
   PANEL_SIZE,
 } from "../../constants";
 import ReactModal from "react-modal";
+import { faCheckSquare } from "@fortawesome/free-solid-svg-icons";
 import { faBook } from "@fortawesome/free-solid-svg-icons";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
@@ -35,6 +36,7 @@ class ProfilePanel extends React.Component {
       imageIsHovering: false,
       editingName: false,
       showModal: false,
+      nameSubmitted: false,
       name: this.props.displayName,
       selectedImage: "",
       displayNameMessage: "",
@@ -77,7 +79,7 @@ class ProfilePanel extends React.Component {
     } else if (name.match(/[^a-zA-Z0-9!@#$% ]/)) {
       this.setState({
         displayNameMessage:
-          "Only use upper case, lower case, numbers, spaces, and/or the following special characters !@#$%",
+          "Only use letters, numbers, spaces, and/or the following special characters: !@#$%",
       });
       return true;
     }
@@ -89,11 +91,16 @@ class ProfilePanel extends React.Component {
     let badInputs = this.checkInputs();
 
     if (badInputs) {
-      this.setState({ name: this.props.displayName, editingName: false });
+      this.setState({ name: this.props.displayName, editingName: true });
       return;
     } else {
       this.props.setDisplayName(this.state.name);
-      this.setState({ editingName: false, displayNameMessage: "" });
+      this.setState({ editingName: false, nameSubmitted: true, displayNameMessage: "" });
+      setTimeout(() => {
+        this.setState({
+          nameSubmitted: false
+        });
+      }, 500);
       return;
     }
   };
@@ -194,12 +201,16 @@ class ProfilePanel extends React.Component {
               <FontAwesomeIcon icon={faEdit} />
             </button>
           )}
+          <div className="submitted-icon-image" style={{opacity:  + (this.state.nameSubmitted ? "1" : "0")}}>
+            <FontAwesomeIcon icon={faCheckSquare} />
+          </div>
         </div>
       );
     } else {
       return (
         <form className="panel-edit-container" onSubmit={this.onNameSubmit}>
           <input
+            autoFocus
             className="panel-edit"
             placeholder={this.props.displayName}
             onChange={this.onNameChange}
