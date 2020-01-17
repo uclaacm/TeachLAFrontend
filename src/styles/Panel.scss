@@ -172,6 +172,7 @@
   background: none;
   align-items: baseline;
   border: none;
+  outline: none;
   @include themify($themes) {
     color: themed("accentColor");
     border-bottom: 1px solid themed("accentColor");
