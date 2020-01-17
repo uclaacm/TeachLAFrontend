@@ -1,0 +1,78 @@
+@import 'styles/variables.scss';
+
+
+.class-thumbnail {
+    display: block;
+    width: 80px;
+    height: 80px;
+    margin-left: 0px;
+    // margin-right: auto;
+}
+
+.class-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 95%;
+    border-radius: 5px;
+    margin: 10px;
+    color: $theme-dark;
+    cursor: pointer;
+    flex: 0 0 auto;
+    @include themify($themes) {
+        color: themed("cardColor");
+        background-color: themed("cardBackground");
+        border: themed("cardBorder")
+    }
+}
+
+.class-box-body {
+    color: inherit;
+    width: 90%;
+    margin-left: 10px;
+    // margin-right: auto;
+}
+
+.class-box-body:hover {
+    color: inherit;
+    text-decoration: none;
+}
+
+.sketch-divider {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    @include themify($themes){
+        border-top: 1px solid themed("cardDivider");
+    }
+}
+
+.sketch-button-divider {
+    width: 1px;
+    @include themify($themes){
+        border: 0.5px solid themed("cardDivider");
+    }
+}
+
+.sketch-name {
+    width: 85%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.sketch-icon {
+    width: 85%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.sketch-metadata{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}

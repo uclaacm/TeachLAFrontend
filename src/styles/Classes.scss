@@ -4,6 +4,16 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 90%;
+  overflow: auto;
+}
+
+.classes-grid {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 90%;
 }
 
 .join-class {

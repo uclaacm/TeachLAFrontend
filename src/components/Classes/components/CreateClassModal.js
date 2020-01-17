@@ -68,8 +68,8 @@ class CreateClassModal extends React.Component {
       this.setState({ error: "Name is required" });
       return true;
     }
-    if (this.state.name.length > 15) {
-      this.setState({ error: "Name must be 15 characters or less" });
+    if (this.state.name.length > 100) {
+      this.setState({ error: "Name must be 100 characters or less" });
       return true;
     }
 
@@ -106,7 +106,7 @@ class CreateClassModal extends React.Component {
           if (!json.ok) {
             this.setState({
               disableSubmit: false,
-              error: json.error || "Failed to create sketch, please try again later",
+              error: json.error || "Failed to create class, please try again later",
             });
             return;
           }
@@ -118,7 +118,7 @@ class CreateClassModal extends React.Component {
         .catch(err => {
           this.setState({
             disableSubmit: false,
-            error: "Failed to create sketch, please try again later",
+            error: "Failed to create class, please try again later",
           });
           console.log(err);
         });
