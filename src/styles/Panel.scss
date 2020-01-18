@@ -81,7 +81,7 @@
   background-color: transparent;
   position: absolute;
   right: -15px;
-  bottom: -15px;
+  bottom: -5px;
   @include themify($themes) {
     color: themed("accentColor");
   }
@@ -142,6 +142,19 @@
   background-color: transparent;
 }
 
+.submitted-icon-image {
+  font-size: 1.4rem;
+  color: rgb(124, 211, 124);
+  position: absolute;
+  float: left;
+  border: none;
+  left: -20px;
+  top: 50%;
+  margin-top: -13px;
+  background-color: transparent;
+  transition: 0.5s;
+}
+
 .panel-edit-container {
   display: flex;
   flex-direction: column;
@@ -159,10 +172,12 @@
   background: none;
   align-items: baseline;
   border: none;
+  outline: none;
   @include themify($themes) {
     color: themed("accentColor");
     border-bottom: 1px solid themed("accentColor");
   }
+  font-family: $font-family-heading;
 }
 
 .profile-input-error {
@@ -175,9 +190,9 @@
 .panel-name {
   float: middle;
   text-align: center;
-  margin: 0px 50px;
-  width: 150px;
-  padding: 20px 0 20px;
+  margin: 10px 50px 0px;
+  width: 70%;
+  padding: 10px 0 6px;
   font-size: 2rem;
   word-wrap: break-word;
   @include themify($themes) {
@@ -185,6 +200,10 @@
   }
   position: relative;
   font-family: $font-family-heading;
+}
+
+.panel-name:hover {
+  cursor: pointer;
 }
 
 .panel-buttons {
