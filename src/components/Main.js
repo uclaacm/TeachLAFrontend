@@ -4,6 +4,7 @@ import OutputContainer from "./Output/OutputContainer.js";
 import TextEditorContainer from "./TextEditor/containers/TextEditorContainer.js";
 import DropdownButtonContainer from "./common/containers/DropdownButtonContainer";
 import * as fetch from "../lib/fetch.js";
+import * as cookies from "../lib/cookies.js";
 import SketchesPageContainer from "./Sketches/containers/SketchesContainer";
 import "styles/Main.scss";
 import ProfilePanelContainer from "./common/containers/ProfilePanelContainer";
@@ -15,6 +16,7 @@ import CodeDownloader from "../util/languages/CodeDownloader";
 import { PANEL_SIZE } from "../constants";
 import "codemirror/lib/codemirror.css";
 import "codemirror/theme/material.css";
+import "codemirror/theme/duotone-light.css";
 import "styles/CustomCM.scss";
 import "styles/Resizer.scss";
 import "styles/Editor.scss";
@@ -34,6 +36,9 @@ class Main extends React.Component {
       redirect: this.props.listOfPrograms.length === 0 ? "/sketches" : "",
       pane1Style: { transition: "width .5s ease" },
     };
+
+    // Set theme from cookies (yum)
+    this.props.setTheme(cookies.getThemeFromCookie());
   }
 
   //==============React Lifecycle Functions Start===================//
@@ -46,6 +51,12 @@ class Main extends React.Component {
       }
     }
   }
+
+  onThemeChange = () => {
+    let newTheme = this.props.theme === "dark" ? "light" : "dark";
+    cookies.setThemeCookie(newTheme);
+    this.props.setTheme(newTheme);
+  };
 
   resetSaveText = () => {
     this.setState({
@@ -139,6 +150,7 @@ class Main extends React.Component {
       screenHeight={this.props.screenHeight}
       screenWidth={this.props.screenWidth}
       handleDownload={this.handleDownload}
+      theme={this.props.theme}
     />
   );
 
@@ -178,8 +190,12 @@ class Main extends React.Component {
     };
 
     return (
-      <div className="main">
-        <ProfilePanelContainer contentType={this.props.contentType} />
+      <div className={`main theme-` + this.props.theme}>
+        <ProfilePanelContainer
+          contentType={this.props.contentType}
+          theme={this.props.theme}
+          onThemeChange={this.onThemeChange}
+        />
         <div className="editor" style={codeStyle}>
           {this.renderContent()}
         </div>

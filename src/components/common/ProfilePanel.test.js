@@ -12,10 +12,10 @@ describe("ProfilePanel", () => {
 
   it("handles displayName prop properly", () => {
     const component = shallow(<ProfilePanel displayName={"Mark"} />);
-    expect(component.find(".panel-name").text()).toEqual("Mark");
+    expect(component.find(".panel-name-text").text()).toEqual("Mark");
 
     const component2 = shallow(<ProfilePanel />);
-    expect(component2.find(".panel-name").text()).toEqual("Joe Bruin");
+    expect(component2.find(".panel-name-text").text()).toEqual("Joe Bruin");
   });
 
   it("handles photoName prop properly", () => {
@@ -106,7 +106,7 @@ describe("ProfilePanel", () => {
     const clickFn = jest.fn(name => name);
     const component = shallow(<ProfilePanel displayName={"Mark"} setDisplayName={clickFn} />);
 
-    expect(component.find(".panel-name").text()).toBe("Mark");
+    expect(component.find(".panel-name-text").text()).toBe("Mark");
 
     //hover over the panel name
     expect(component.state().nameIsHovering).toBe(false);

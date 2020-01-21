@@ -12,3 +12,8 @@ export const SET_PANEL = "SET_PANEL";
 export function setPanel(value) {
   return { type: SET_PANEL, value };
 }
+
+export const SET_THEME = "SET_THEME";
+export function setTheme(theme) {
+  return { type: SET_THEME, theme };
+}
