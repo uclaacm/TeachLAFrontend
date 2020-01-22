@@ -29,10 +29,7 @@
   width: 50px;
   padding: 4px;
   border-radius: 25px;
-
-  color: $theme-dark;
   @include themify($themes) {
-    color: themed("cardColor");
     background-color: themed("cardBackground")
 }
 }
