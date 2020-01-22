@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "reactstrap";
-import firebase from "firebase";
+import * as firebase from "firebase/app";
+import "firebase/auth";
 import {
   MINIMUM_DISPLAY_NAME_LENGTH,
   MAXIMUM_DISPLAY_NAME_LENGTH,
@@ -10,13 +11,17 @@ import {
   PANEL_SIZE,
 } from "../../constants";
 import ReactModal from "react-modal";
+import { faCheckSquare } from "@fortawesome/free-solid-svg-icons";
 import { faBook } from "@fortawesome/free-solid-svg-icons";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import { faMoon } from "@fortawesome/free-solid-svg-icons";
+import { faSun } from "@fortawesome/free-solid-svg-icons";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "styles/Panel.scss";
+import Switch from "./Switch";
 import Footer from "./Footer";
 
 /**--------Props--------
@@ -31,6 +36,7 @@ class ProfilePanel extends React.Component {
       imageIsHovering: false,
       editingName: false,
       showModal: false,
+      nameSubmitted: false,
       name: this.props.displayName,
       selectedImage: "",
       displayNameMessage: "",
@@ -73,7 +79,7 @@ class ProfilePanel extends React.Component {
     } else if (name.match(/[^a-zA-Z0-9!@#$% ]/)) {
       this.setState({
         displayNameMessage:
-          "Only use upper case, lower case, numbers, spaces, and/or the following special characters !@#$%",
+          "Only use letters, numbers, spaces, and/or the following special characters: !@#$%",
       });
       return true;
     }
@@ -85,11 +91,16 @@ class ProfilePanel extends React.Component {
     let badInputs = this.checkInputs();
 
     if (badInputs) {
-      this.setState({ name: this.props.displayName, editingName: false });
+      this.setState({ name: this.props.displayName, editingName: true });
       return;
     } else {
       this.props.setDisplayName(this.state.name);
-      this.setState({ editingName: false, displayNameMessage: "" });
+      this.setState({ editingName: false, nameSubmitted: true, displayNameMessage: "" });
+      setTimeout(() => {
+        this.setState({
+          nameSubmitted: false
+        });
+      }, 500);
       return;
     }
   };
@@ -184,18 +195,24 @@ class ProfilePanel extends React.Component {
           onMouseLeave={() => this.setState({ nameIsHovering: false })}
           onClick={this.handleEditNameClick}
         >
-          {this.props.displayName || "Joe Bruin"}
+          <div className="panel-name-text">
+            {this.props.displayName || "Joe Bruin"}
+          </div>
           {this.state.nameIsHovering && (
             <button className="edit-icon-image" onClick={this.handleEditNameClick}>
               <FontAwesomeIcon icon={faEdit} />
             </button>
           )}
+          <div className="submitted-icon-image" style={{opacity:  + (this.state.nameSubmitted ? "1" : "0")}}>
+            <FontAwesomeIcon icon={faCheckSquare} />
+          </div>
         </div>
       );
     } else {
       return (
         <form className="panel-edit-container" onSubmit={this.onNameSubmit}>
           <input
+            autoFocus
             className="panel-edit"
             placeholder={this.props.displayName}
             onChange={this.onNameChange}
@@ -247,7 +264,6 @@ class ProfilePanel extends React.Component {
 
   renderButtons = () => {
     let panelButtons = [];
-
     switch (this.props.contentType) {
       case "sketches":
         panelButtons.push(this.renderEditorButton());
@@ -264,6 +280,21 @@ class ProfilePanel extends React.Component {
     return <div className="panel-buttons">{panelButtons}</div>;
   };
 
+  renderThemeSwitch = () => {
+    let onToggle = on => {
+      this.props.onThemeChange(on ? "light" : "dark");
+    };
+
+    return (
+      <Switch
+        on={this.props.theme === "dark" ? true : false}
+        onToggle={onToggle}
+        onImg={<FontAwesomeIcon icon={faMoon} className="icon-dark" />}
+        offImg={<FontAwesomeIcon icon={faSun} className="icon-light" />}
+      />
+    );
+  };
+
   renderContent = () => (
     <div className="panel-content">
       {this.renderPanelImage()}
@@ -271,6 +302,7 @@ class ProfilePanel extends React.Component {
       {this.renderName()}
       {this.renderErrorMessage(this.state.displayNameMessage)}
       {this.renderButtons()}
+      {this.renderThemeSwitch()}
     </div>
   );
 

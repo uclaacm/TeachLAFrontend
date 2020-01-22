@@ -1,6 +1,17 @@
 import React from "react";
 import { CODEMIRROR_CONVERSIONS } from "../../../constants";
 import * as fetch from "../../../lib/fetch.js";
+import EditorRadio from "./EditorRadio.js";
+
+import { Button } from "reactstrap";
+import OpenPanelButtonContainer from "../../common/containers/OpenPanelButtonContainer";
+import { EDITOR_WIDTH_BREAKPOINT } from "../../../constants";
+import ViewportAwareButton from "../../common/ViewportAwareButton.js";
+import DropdownButtonContainer from "../../common/containers/DropdownButtonContainer";
+import { faSave } from "@fortawesome/free-solid-svg-icons";
+import { faDownload } from "@fortawesome/free-solid-svg-icons";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 let CodeMirror = null;
 if (typeof window !== "undefined" && typeof window.navigator !== "undefined") {
@@ -85,32 +96,90 @@ class TextEditor extends React.Component {
     this.setState({ currentLine: line });
   };
 
+  /**
+   * returns a theme string for the CodeMirror editor, based off of the app's current theme
+   * @param {string} theme - the app's current theme
+   * @returns {string} the codemirror theme - see https://codemirror.net/demo/theme.html for more info
+   */
+
+  getCMTheme = theme => {
+    switch (theme) {
+      case "light":
+        return "duotone-light";
+      case "dark":
+      default:
+        return "material";
+    }
+  };
+  renderDropdown = () => <DropdownButtonContainer />;
+
+  renderBanner = () => {
+    return (
+      <div className="code-section-banner">
+        <OpenPanelButtonContainer />
+        {this.renderDropdown()}
+        <div style={{ marginLeft: "auto", marginRight: ".5rem" }}>
+          <EditorRadio
+            viewMode={this.props.viewMode}
+            updateViewMode={this.props.updateViewMode}
+            isSmall={this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
+          />
+        </div>
+        <ViewportAwareButton
+          className="mx-2"
+          color="success"
+          size="lg"
+          onClick={this.props.handleSave}
+          isSmall={this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
+          icon={<FontAwesomeIcon icon={faSave} />}
+          text={this.props.saveText}
+        />
+
+        <Button className="mx-2" color="success" size="lg" onClick={this.props.handleDownload}>
+          <FontAwesomeIcon icon={faDownload} />
+        </Button>
+      </div>
+    );
+  };
+
   render() {
     //json required by CodeMirror
     const options = {
       mode: CODEMIRROR_CONVERSIONS[this.props.language],
-      theme: "material", //requires lots of CSS tuning to get a theme to work, be wary of changing
+      theme: this.getCMTheme(this.props.theme),
       lineNumbers: true, //text editor has line numbers
       lineWrapping: true, //text editor does not overflow in the x direction, uses word wrap (NOTE: it's like MO Word wrapping, so words are not cut in the middle, if a word overlaps, the whole word is brought to the next line)
       indentWithTabs: true,
     };
 
     return (
-      <CodeMirror
-        editorDidMount={codeMirrorInstance => {
-          codeMirrorInstance.refresh();
-          this.setCodeMirrorInstance(codeMirrorInstance);
-        }}
-        value={this.props.code}
-        lineWrapping
-        indentWithTabs={true}
-        options={options}
-        onCursor={cm => {
-          this.setCurrentLine(cm);
-        }}
-        onBeforeChange={this.updateCode}
-        onChange={this.updateCode}
-      />
+      <div className="code-section">
+        {this.renderBanner()}
+        <div
+          className="text-editor-container"
+          style={{
+            height: this.props.screenHeight - 61 - 20,
+            minHeight: this.props.screenHeight - 61 - 20,
+            maxHeight: this.props.screenHeight - 61 - 20,
+          }}
+        >
+          <CodeMirror
+            editorDidMount={codeMirrorInstance => {
+              codeMirrorInstance.refresh();
+              this.setCodeMirrorInstance(codeMirrorInstance);
+            }}
+            value={this.props.code}
+            lineWrapping
+            indentWithTabs={true}
+            options={options}
+            onCursor={cm => {
+              this.setCurrentLine(cm);
+            }}
+            onBeforeChange={this.updateCode}
+            onChange={this.updateCode}
+          />
+        </div>
+      </div>
     );
   }
 }

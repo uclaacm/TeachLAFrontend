@@ -34,7 +34,7 @@ SUPPORTED_LANGUAGES.forEach(lang => {
 
 const PUBLIC_URL = process.env.PUBLIC_URL;
 const PHOTO_NAMES = {
-  lightbulb: `${PUBLIC_URL}/img/icons/lightbulb.pnng`,
+  lightbulb: `${PUBLIC_URL}/img/icons/lightbulb.png`,
   orange: `${PUBLIC_URL}/img/icons/orange.png`,
   pear: `${PUBLIC_URL}/img/icons/pear.png`,
   apple: `${PUBLIC_URL}/img/icons/apple.png`,
@@ -51,7 +51,7 @@ const GH_REPO_NAME = "https://github.com/uclaacm/TeachLAFrontend";
 
 // Router's base (i.e. anything after the domain)
 
-const ROUTER_BASE_NAME = "/TeachLAFrontend";
+const ROUTER_BASE_NAME = "/";
 
 // Various Server URLs
 var SERVER_URL = "http://localhost:8081";
@@ -65,6 +65,15 @@ if (process && process.env) {
 }
 
 const PANEL_SIZE = 250;
+
+// Editor and Output constants
+//View Mode
+const CODE_AND_OUTPUT = 0;
+const CODE_ONLY = 1;
+const OUTPUT_ONLY = 2;
+
+//UI
+const EDITOR_WIDTH_BREAKPOINT = 1000;
 
 module.exports = {
   //Language definitions
@@ -107,6 +116,14 @@ module.exports = {
 
   //codemirror conversions
   CODEMIRROR_CONVERSIONS,
+
+  // editor constants:
+  CODE_AND_OUTPUT,
+  CODE_ONLY,
+  OUTPUT_ONLY,
+
+  // UI
+  EDITOR_WIDTH_BREAKPOINT,
 
   //Firebase constants
   EMAIL_DOMAIN_NAME: "@fake.com",

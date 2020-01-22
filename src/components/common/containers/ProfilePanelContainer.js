@@ -11,11 +11,13 @@ const mapStateToProps = (state, ownProps) => {
     photoName: state.userData.photoName || DEFAULT_PHOTO_NAME,
     screenHeight: state.ui.screenHeight,
     left: state.ui.panelOpen ? OPEN_PANEL_LEFT : CLOSED_PANEL_LEFT,
+    theme: ownProps.theme,
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
+    onThemeChange: ownProps.onThemeChange,
     collectUserPhoto: () => {},
     setDisplayName: name => dispatch(setDisplayName(name)),
     setPhotoName: name => dispatch(setPhotoName(name)),
@@ -25,9 +27,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   };
 };
 
-const ProfilePanelContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(ProfilePanel);
+const ProfilePanelContainer = connect(mapStateToProps, mapDispatchToProps)(ProfilePanel);
 
 export default ProfilePanelContainer;
