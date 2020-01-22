@@ -24,7 +24,23 @@
   }
 }
 
+.program-sketch-thumbnail {
+  height: 50px;
+  width: 50px;
+  padding: 4px;
+  border-radius: 25px;
+
+  color: $theme-dark;
+  @include themify($themes) {
+    color: themed("cardColor");
+    background-color: themed("cardBackground")
+}
+}
+
+
 .code-section-banner {
+  position: relative;
+  left: 5px;
   display: flex;
   flex-direction: row;
   padding: 5px 0px;
