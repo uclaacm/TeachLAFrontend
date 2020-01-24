@@ -1,21 +1,19 @@
 import React from "react";
-import JoinClass from "./components/JoinClass";
+// import JoinClass from "./components/JoinClass";
 import ClassBox from "./components/ClassBox";
 import ConfirmLeaveModalContainer from "./containers/ConfirmLeaveModalContainer";
-import CreateClassModalContainer from "./containers/CreateClassModalContainer";
+import JoinClassModalContainer from "./containers/JoinClassModalContainer";
 import OpenPanelButtonContainer from "../common/containers/OpenPanelButtonContainer";
 import { SketchThumbnailArray } from "./constants";
+import "../../styles/ClassBox.scss";
 import "../../styles/Classes.scss";
-import "../../styles/Sketches.scss";
 import "../../styles/Login.scss";
 
 import { Button } from "reactstrap";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-
-const ROW_PADDING = 100;
-const SKETCH_WIDTH = 220;
+import { faKey } from "@fortawesome/free-solid-svg-icons";
 
 class Classes extends React.Component {
   constructor(props) {
@@ -23,7 +21,7 @@ class Classes extends React.Component {
     this.state = {
       redirectTo: "",
       confirmLeaveModalOpen: false,
-      createClassModalOpen: false,
+      joinClassModalOpen: false,
       selectedClass: "",
       selectedImg: "",
       selectedKey: "",
@@ -35,8 +33,8 @@ class Classes extends React.Component {
     return SketchThumbnailArray[Math.floor(Math.random() * SketchThumbnailArray.length)];
   };
 
-  setCreateClassModalOpen = val => {
-    this.setState({ createClassModalOpen: val });
+  setJoinClassModalOpen = val => {
+    this.setState({ joinClassModalOpen: val });
   };
 
   setConfirmLeaveModalOpen = (val, sketch, key) => {
@@ -44,16 +42,16 @@ class Classes extends React.Component {
   };
 
   renderHeader = () => (
-    <div className="sketches-header">
+    <div className="classes-header">
       <OpenPanelButtonContainer />
-      <div className="sketches-header-text">Classes</div>
+      <div className="classes-header-text">Classes</div>
       <Button
         className="ml-auto mr-2"
         color="success"
         size="lg"
-        onClick={() => this.setCreateClassModalOpen(true)}
+        onClick={() => this.setJoinClassModalOpen(true)}
       >
-        <FontAwesomeIcon icon={faPlus} /> Create Class
+        <FontAwesomeIcon icon={faKey} /> Instructor View
       </Button>
     </div>
   );
@@ -64,17 +62,11 @@ class Classes extends React.Component {
   };
 
   renderJoinAClass = () => {
-    let code = this.state.classCode;
-    var uppercase = 0;
-    for (var i = 0; i < code.length; i++)
-      if (code.charAt(i) === code.charAt(i).toUpperCase()) {
-        uppercase += 1;
-      }
-    let waiting = uppercase < 3;
-
     return (
-      // <JoinClass data={this.state.classCode} onChange={this.updateClassCode} waiting={waiting} />
-      ""
+      <Button className="class-box join-class" onClick={() => this.setJoinClassModalOpen(true)}>
+        <FontAwesomeIcon className="fa-lg" icon={faPlus} />
+        <span class="fa-lg">Join a class</span>
+      </Button>
     );
   };
 
@@ -85,19 +77,13 @@ class Classes extends React.Component {
     return SketchThumbnailArray[val];
   };
 
-  renderClasses = () => {
+  renderClassList = () => {
     let newList = this.props.classes.concat([]);
     if (newList.size === 0) {
       return (
         <div>
-          <div className="no-sketches-container">
+          <div className="no-classes-container">
             <h2>You're not enrolled in any classes!</h2>
-            <br />
-            <p>
-              <Button color="success" size="lg" onClick={() => this.setCreateClassModalOpen(true)}>
-                Create A Class
-              </Button>
-            </p>
           </div>
         </div>
       );
@@ -124,7 +110,12 @@ class Classes extends React.Component {
       );
     });
 
-    return <div className="classes-grid">{classes}</div>;
+    return (
+      <div className="classes-grid">
+        {this.renderJoinAClass()}
+        {classes}
+      </div>
+    );
   };
 
   renderConfirmLeaveModal = () => (
@@ -136,10 +127,10 @@ class Classes extends React.Component {
     />
   );
 
-  renderCreateClassModal = () => (
-    <CreateClassModalContainer
-      isOpen={this.state.createClassModalOpen}
-      onClose={() => this.setCreateClassModalOpen(false)}
+  renderJoinClassModal = () => (
+    <JoinClassModalContainer
+      isOpen={this.state.joinClassModalOpen}
+      onClose={() => this.setJoinClassModalOpen(false)}
     />
   );
 
@@ -147,11 +138,8 @@ class Classes extends React.Component {
     return (
       <React.Fragment>
         {this.renderHeader()}
-        <div className="classes-content-container">
-          {this.renderJoinAClass()}
-          {this.renderClasses()}
-        </div>
-        {this.renderCreateClassModal()}
+        {this.renderClassList()}
+        {this.renderJoinClassModal()}
         {this.renderConfirmLeaveModal()}
       </React.Fragment>
     );
@@ -164,7 +152,7 @@ class Classes extends React.Component {
     };
 
     return (
-      <div className="sketches-container" style={containerStyle}>
+      <div className="classes-container" style={containerStyle}>
         {this.renderContent()}
       </div>
     );
