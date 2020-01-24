@@ -10,7 +10,7 @@ import ViewportAwareButton from "../../common/ViewportAwareButton.js";
 import DropdownButtonContainer from "../../common/containers/DropdownButtonContainer";
 import { faSave } from "@fortawesome/free-solid-svg-icons";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
-
+import { SketchThumbnailArray } from "../../Sketches/constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 let CodeMirror = null;
@@ -114,9 +114,15 @@ class TextEditor extends React.Component {
   renderDropdown = () => <DropdownButtonContainer />;
 
   renderBanner = () => {
+    let thumbnail = SketchThumbnailArray[this.props.thumbnail];
     return (
       <div className="code-section-banner">
         <OpenPanelButtonContainer />
+        <img
+          className="program-sketch-thumbnail"
+          src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${thumbnail}.svg`}
+          alt="sketch thumbnail"
+        />
         {this.renderDropdown()}
         <div style={{ marginLeft: "auto", marginRight: ".5rem" }}>
           <EditorRadio
