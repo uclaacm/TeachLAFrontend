@@ -1,4 +1,4 @@
-import CreateClassModal from "../components/CreateClassModal.js";
+import JoinClassModal from "../components/JoinClassModal.js";
 import { connect } from "react-redux";
 import { addProgram } from "../../../actions/programsActions";
 import { setMostRecentProgram } from "../../../actions/userDataActions.js";
@@ -16,9 +16,6 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-const CreateClassModalContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(CreateClassModal);
+const JoinClassModalContainer = connect(mapStateToProps, mapDispatchToProps)(JoinClassModal);
 
-export default CreateClassModalContainer;
+export default JoinClassModalContainer;

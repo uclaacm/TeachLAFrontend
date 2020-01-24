@@ -7,7 +7,7 @@ import { Button, Container, Row, Col, FormGroup, Label, Input } from "reactstrap
 
 import ReactModal from "react-modal";
 
-class CreateClassModal extends React.Component {
+class JoinClassModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -193,7 +193,7 @@ class CreateClassModal extends React.Component {
                 disabled={this.badThumbnailInput() || this.state.disableSubmit}
                 block
               >
-                Create
+                Join
               </Button>
             </Col>
           </Row>
@@ -212,11 +212,11 @@ class CreateClassModal extends React.Component {
         ariaHideApp={false}
       >
         <Container>
-          <h1 className="text-center">Create a Class</h1>
+          <h1 className="text-center">Join a Class</h1>
           <hr />
           <FormGroup row>
             <Label className="text-right" for="sketch-name" xs={4}>
-              Name
+              Enter class code:
             </Label>
             <Col xs={8}>
               <Input
@@ -260,4 +260,4 @@ class CreateClassModal extends React.Component {
   }
 }
 
-export default CreateClassModal;
+export default JoinClassModal;

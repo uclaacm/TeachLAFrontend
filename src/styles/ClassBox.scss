@@ -14,6 +14,7 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
+    height: 9em;
     width: 95%;
     border-radius: 5px;
     margin: 10px;
@@ -27,10 +28,15 @@
     }
 }
 
+.class-box.join-class {
+    height: 5em;
+}
+
 .class-box-body {
     color: inherit;
+    display: inherit;
     width: 90%;
-    margin-left: 10px;
+    margin-left: 20px;
     // margin-right: auto;
 }
 
