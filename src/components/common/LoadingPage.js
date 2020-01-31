@@ -10,6 +10,30 @@ import "styles/Loading.scss";
 		textPadding: string representing padding to the left of the text, i.e. distance from the img (give px units)
 */
 
+class LoadText extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { showText: false };
+  }
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({ showText: true });
+    }, 2000);
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>
+          Looks like loading is taking a bit long! If it takes too long, submit an issue on{" "}
+          <a href="https://github.com/uclaacm/TeachLAFrontend/issues">github</a>.
+        </h1>
+      </div>
+    );
+  }
+}
+
 const Loading = props => (
   <div className="Loading">
     <div className="Loading-title">Loading</div>
