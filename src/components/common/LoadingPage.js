@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { RingLoader } from "react-spinners";
 import "styles/Loading.scss";
 
@@ -10,29 +10,38 @@ import "styles/Loading.scss";
 		textPadding: string representing padding to the left of the text, i.e. distance from the img (give px units)
 */
 
-const Loading = props => {
-  const [showText, setShowText] = useState(false);
-
-  const componentDidMount = () => {
-    setTimeout(() => {
-      setShowText(true);
+class Loading extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showText: false,
+      timer: 0,
+    };
+  }
+  componentDidMount = () => {
+    this.setState.timer = setTimeout(() => {
+      this.setState({ showText: true });
     }, 2000);
   };
 
-  componentDidMount();
+  componentWillUnmount = () => {
+    clearTimeout(this.setState.timer);
+  };
 
-  return (
-    <div className="Loading">
-      <div className="Loading-title">Loading</div>
-      <RingLoader color={"#171124"} size={250} loading={true} />
-      {showText && (
-        <h1>
-          Looks like loading is taking a bit long! If it takes too long, submit an issue on
-          <a href="https://github.com/uclaacm/TeachLAFrontend/issues"> github</a>.
-        </h1>
-      )}
-    </div>
-  );
-};
+  render = () => {
+    return (
+      <div className="Loading">
+        <div className="Loading-title">Loading</div>
+        <RingLoader color={"#171124"} size={250} loading={true} />
+        {this.state.showText && (
+          <p className="Loading-page-text" style={{ color: "white" }}>
+            Looks like loading is taking a bit long! If it takes too long, submit an issue on
+            <a href="https://github.com/uclaacm/TeachLAFrontend/issues"> Github</a>.
+          </p>
+        )}
+      </div>
+    );
+  };
+}
 
 export default Loading;
