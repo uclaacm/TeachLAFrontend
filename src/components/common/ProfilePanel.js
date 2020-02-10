@@ -11,7 +11,6 @@ import {
   PANEL_SIZE,
   PANEL_IMAGE_SELECTOR_SIZE,
 } from "../../constants";
-import ReactModal from "react-modal";
 import { faBook } from "@fortawesome/free-solid-svg-icons";
 import { faCheckSquare } from "@fortawesome/free-solid-svg-icons";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
