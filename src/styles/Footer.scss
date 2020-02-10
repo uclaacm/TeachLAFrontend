@@ -6,9 +6,11 @@
     width: 100%;
     bottom: 0px;
     height: 8vh; /*calc used to do arithmetic*/
-    background-color: $theme-light;
     text-align: center;
     align-items: center;
+    @include themify($themes) {
+        background-color: themed("accentBackground");
+    }
 }
 
 .footer-image {

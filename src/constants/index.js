@@ -67,6 +67,15 @@ if (process && process.env) {
 const PANEL_SIZE = 250;
 const PANEL_IMAGE_SELECTOR_SIZE = 325;
 
+// Editor and Output constants
+//View Mode
+const CODE_AND_OUTPUT = 0;
+const CODE_ONLY = 1;
+const OUTPUT_ONLY = 2;
+
+//UI
+const EDITOR_WIDTH_BREAKPOINT = 1000;
+
 module.exports = {
   //Language definitions
   PYTHON,
@@ -108,6 +117,14 @@ module.exports = {
 
   //codemirror conversions
   CODEMIRROR_CONVERSIONS,
+
+  // editor constants:
+  CODE_AND_OUTPUT,
+  CODE_ONLY,
+  OUTPUT_ONLY,
+
+  // UI
+  EDITOR_WIDTH_BREAKPOINT,
 
   //Firebase constants
   EMAIL_DOMAIN_NAME: "@fake.com",

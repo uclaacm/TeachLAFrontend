@@ -1,5 +1,5 @@
 import React from "react";
-import { CODE_AND_OUTPUT, CODE_ONLY, OUTPUT_ONLY } from "../constants";
+import { CODE_AND_OUTPUT, CODE_ONLY, OUTPUT_ONLY } from "../../../constants";
 import Radio from "../../common/Radio.js";
 
 /**-------Props--------
