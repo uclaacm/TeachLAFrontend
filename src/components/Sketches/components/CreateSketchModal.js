@@ -1,6 +1,6 @@
 import React from "react";
 import DropdownButton from "./DropdownButton";
-import ImageSelector from "../components/ImageSelector"
+import ImageSelector from "../../common/ImageSelector"
 import {
   SketchThumbnailArray,
   LanguageDropdownValues,

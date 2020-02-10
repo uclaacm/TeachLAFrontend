@@ -9,6 +9,7 @@ import {
   PHOTO_NAMES,
   DEFAULT_PHOTO_NAME,
   PANEL_SIZE,
+  PANEL_IMAGE_SELECTOR_SIZE,
 } from "../../constants";
 import { faBook } from "@fortawesome/free-solid-svg-icons";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
@@ -19,7 +20,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "styles/Panel.scss";
 import Footer from "./Footer";
 
-import ImageSelector from "../Sketches/components/ImageSelector"
+import ImageSelector from "./ImageSelector"
 /**--------Props--------
  * togglePanel: function to be called when the panel is collapsed or opened
  */
@@ -159,7 +160,8 @@ class ProfilePanel extends React.Component {
         closeModal={this.handleCloseModal}
         icons={icons}
         error={this.state.error}
-        maxWidth={325}
+        maxWidth={PANEL_IMAGE_SELECTOR_SIZE}
+        className={"image-selector"}
       >
         <Row>
           <Col>

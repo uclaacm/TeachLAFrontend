@@ -65,6 +65,7 @@ if (process && process.env) {
 }
 
 const PANEL_SIZE = 250;
+const PANEL_IMAGE_SELECTOR_SIZE = 325;
 
 module.exports = {
   //Language definitions
@@ -110,4 +111,5 @@ module.exports = {
 
   //Firebase constants
   EMAIL_DOMAIN_NAME: "@fake.com",
+  PANEL_IMAGE_SELECTOR_SIZE,
 };

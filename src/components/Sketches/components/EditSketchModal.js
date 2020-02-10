@@ -2,7 +2,7 @@ import React from "react";
 import ReactModal from "react-modal";
 import { Button } from "reactstrap";
 import DropdownButton from "./DropdownButton";
-import ImageSelector from "../components/ImageSelector";
+import ImageSelector from "../../common/ImageSelector";
 import { SketchThumbnailArray, LanguageDropdownValues } from "../constants";
 import { Container, Row, Col, FormGroup, Label, Input } from "reactstrap";
 import * as fetch from "../../../lib/fetch.js";
