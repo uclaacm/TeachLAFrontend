@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import "styles/Page.scss";
 import { GH_REPO_NAME } from "../constants";
 
-class Error extends React.Component {
+class PageNotFound extends React.Component {
   render() {
     return (
       <div className="page-container">
@@ -30,4 +30,4 @@ class Error extends React.Component {
     );
   }
 }
-export default Error;
+export default PageNotFound;
