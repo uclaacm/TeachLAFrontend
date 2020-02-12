@@ -3,6 +3,7 @@ import { Button } from "reactstrap";
 import Footer from "./common/Footer";
 import { Link } from "react-router-dom";
 import "styles/Page.scss";
+import { GH_REPO_NAME } from "../constants";
 
 class Error extends React.Component {
   render() {
@@ -19,7 +20,7 @@ class Error extends React.Component {
         <br />
         <p>
           Getting this problem a lot? Let us know{" "}
-          <a rel="noopener noreferrer" href="https://github.com/uclaacm/TeachLAFrontend/issues">
+          <a target="_blank" rel="noopener noreferrer" href={`${GH_REPO_NAME}/issues`}>
             on GitHub
           </a>
           .
