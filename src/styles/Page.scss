@@ -1,8 +1,10 @@
 @import 'styles/variables.scss';
 
 .page-container{
-    background-color: $theme-light;
-    color: $off-white;
+    @include themify($themes) {
+        background-color: themed("backgroundColor");
+        color: themed("color");
+    }
     height: 100%;
     display: flex;
     flex-direction: column;

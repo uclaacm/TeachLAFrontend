@@ -5,11 +5,6 @@ import { Link } from "react-router-dom";
 import "styles/Page.scss";
 
 class Error extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
   render() {
     return (
       <div className="page-container">
@@ -21,6 +16,14 @@ class Error extends React.Component {
             Back to safety
           </Button>
         </Link>
+        <br />
+        <p>
+          Getting this problem a lot? Let us know{" "}
+          <a rel="noopener noreferrer" href="https://github.com/uclaacm/TeachLAFrontend/issues">
+            on GitHub
+          </a>
+          .
+        </p>
         <Footer />
       </div>
     );
