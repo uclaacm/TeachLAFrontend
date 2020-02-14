@@ -10,7 +10,9 @@ const mapStateToProps = state => {
   // Dummy data
   for (var i = 0; i < 5; i++) {
     classes.push({
-      name: i.toString(),
+      key: i,
+      name: "The class name would go here, if we had one",
+      instructorString: "Instructor: Will",
       thumbnail: i,
     });
   }
