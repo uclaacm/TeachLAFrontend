@@ -122,7 +122,7 @@
   font-size: 24px;
   @include themify($themes) {
     color: themed("color");
-    background-color: themed("backgroundColor");
+    background-color: none;
   }
   border: 0px;
 }

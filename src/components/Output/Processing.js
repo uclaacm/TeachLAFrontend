@@ -1,4 +1,4 @@
-const getProcessingSrcDocLoggingScript = code => `
+const getProcessingSrcDocLoggingScript = () => `
     <script type="text/javascript">
       if (typeof console  != "undefined")
         if (typeof console.log != 'undefined')
@@ -48,7 +48,7 @@ const getProcessingSrcDocBody = (code, showConsole) => `
           ? `<div id="outer"><textarea id="inner"></textarea></div>`
           : `<div id="outer" style="display:none;"><textarea id="inner"></textarea></div>`
       }
-      ${getProcessingSrcDocLoggingScript(code)}
+      ${getProcessingSrcDocLoggingScript()}
       ${getUserScript(code)}
     </body>
   `;

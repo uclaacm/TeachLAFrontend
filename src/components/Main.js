@@ -2,7 +2,6 @@ import React from "react";
 import SplitPane from "react-split-pane";
 import OutputContainer from "./Output/OutputContainer.js";
 import TextEditorContainer from "./TextEditor/containers/TextEditorContainer.js";
-import DropdownButtonContainer from "./common/containers/DropdownButtonContainer";
 import * as fetch from "../lib/fetch.js";
 import * as cookies from "../lib/cookies.js";
 import SketchesPageContainer from "./Sketches/containers/SketchesContainer";
@@ -64,7 +63,7 @@ class Main extends React.Component {
     });
   };
 
-  handleSave = event => {
+  handleSave = () => {
     if (!this.props.dirty) return; // Don't save if not dirty (unedited)
     this.setState({
       saveText: "Saving...",
@@ -90,14 +89,10 @@ class Main extends React.Component {
     CodeDownloader.download(this.props.name, this.props.language, this.props.code);
   };
 
-  renderDropdown = () => <DropdownButtonContainer />;
-
-  renderSketchesPage = () => <SketchesPageContainer />;
-
   renderContent = () => {
     switch (this.props.contentType) {
       case "sketches":
-        return this.renderSketchesPage();
+        return <SketchesPageContainer />;
       case "editor":
       default:
         return this.renderEditor();
