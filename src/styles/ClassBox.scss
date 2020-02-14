@@ -6,7 +6,6 @@
     width: 80px;
     height: 80px;
     margin-left: 0px;
-    // margin-right: auto;
 }
 
 .class-box {
@@ -30,6 +29,8 @@
 
 .class-box.join-class {
     height: 5em;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .class-box-body {
@@ -37,12 +38,21 @@
     display: inherit;
     width: 90%;
     margin-left: 20px;
-    // margin-right: auto;
+    margin-right: 20px;
 }
 
 .class-box-body:hover {
     color: inherit;
     text-decoration: none;
+}
+
+.class-info {
+    margin-left: 20px;
+    padding-top: 10px;
+}
+
+.instructor-name {
+    margin-top: 15px;
 }
 
 .sketch-divider {

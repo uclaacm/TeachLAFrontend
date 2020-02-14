@@ -54,9 +54,7 @@
 }
 
 .join-class-text {
-  padding-right: 1rem;
-  flex: 0 0 auto;
-  font-size: 35px;
+  margin-left: 20px;
 }
 
 .join-class-input {
@@ -110,6 +108,12 @@
   opacity: 0.3;
   box-shadow: none;
   cursor: default;
+}
+
+.join-class-plus {
+  display: block;
+  width: 80px;
+  margin-left: 0px;
 }
 
 .no-classes-container {

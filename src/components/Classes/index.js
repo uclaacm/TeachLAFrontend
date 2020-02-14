@@ -64,8 +64,12 @@ class Classes extends React.Component {
   renderJoinAClass = () => {
     return (
       <Button className="class-box join-class" onClick={() => this.setJoinClassModalOpen(true)}>
-        <FontAwesomeIcon className="fa-lg" icon={faPlus} />
-        <span class="fa-lg">Join a class</span>
+        <div class="join-class-plus">
+          <FontAwesomeIcon className="fa-lg" icon={faPlus} />
+        </div>
+        <span class="fa-lg join-class-text">
+          <b>Join a class</b>
+        </span>
       </Button>
     );
   };
@@ -94,12 +98,13 @@ class Classes extends React.Component {
       if (a.name === b.name) return 0;
       else return 1;
     });
-    newList.forEach(({ key, name, thumbnail }) => {
+    newList.forEach(({ key, name, thumbnail, instructorString }) => {
       classes.push(
         <ClassBox
           img={this.getThumbnailSrc(thumbnail)}
           name={name}
           key={key}
+          instructorString={instructorString}
           deleteFunc={() => {
             this.setConfirmLeaveModalOpen(true, name, key);
           }}
