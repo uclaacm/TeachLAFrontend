@@ -6,6 +6,8 @@ Pretty routine almost-biweekly release. This is just dependency updates.
 
 #### dependencies
 
+- [**dependencies**] Bump firebase from 7.8.1 to 7.8.2 [#204](https://github.com/uclaacm/TeachLAFrontend/pull/204)
+
 - [**dependencies**] Bump husky from 4.0.10 to 4.2.1 [#184](https://github.com/uclaacm/TeachLAFrontend/pull/184)
 - [**dependencies**] Bump firebase from 7.8.0 to 7.8.1 [#196](https://github.com/uclaacm/TeachLAFrontend/pull/196)
 - [**dependencies**] Bump lint-staged from 10.0.4 to 10.0.7 [#189](https://github.com/uclaacm/TeachLAFrontend/pull/189)
