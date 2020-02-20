@@ -15,8 +15,11 @@ import { faBook } from "@fortawesome/free-solid-svg-icons";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import { faMoon } from "@fortawesome/free-solid-svg-icons";
+import { faSun } from "@fortawesome/free-solid-svg-icons";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import "styles/Panel.scss";
 import Footer from "./Footer";
 
@@ -37,6 +40,10 @@ class ProfilePanel extends React.Component {
       displayNameMessage: "",
     };
   }
+
+  // componentDidMount = () => {
+  //   console.log("uid: " + this.props.uid);
+  // }
 
   componentDidUpdate() {}
 
@@ -248,15 +255,13 @@ class ProfilePanel extends React.Component {
 
   renderButtons = () => {
     let panelButtons = [];
-
     switch (this.props.contentType) {
       case "sketches":
         panelButtons.push(this.renderEditorButton());
         break;
       case "editor":
-        panelButtons.push(this.renderSketchesButton());
-        break;
       default:
+        panelButtons.push(this.renderSketchesButton());
         break;
     }
 
@@ -265,6 +270,58 @@ class ProfilePanel extends React.Component {
     return <div className="panel-buttons">{panelButtons}</div>;
   };
 
+  renderThemeSwitch = () => {
+    const checked = this.props.theme === "dark" ? " checked" : "";
+    return (
+      <label className="panel-switch">
+        <input
+          className={"panel-switch-input" + checked}
+          type="checkbox"
+          onChange={this.props.onThemeChange}
+        />
+        <span className={"panel-switch-label" + checked}>
+          {checked ? (
+            <FontAwesomeIcon icon={faMoon} className="icon-dark" />
+          ) : (
+            <FontAwesomeIcon icon={faSun} className="icon-light" />
+          )}
+        </span>
+        <span className={"panel-switch-handle" + checked}></span>
+      </label>
+    );
+  };
+
+  renderLoginButton = () => (
+    <Link
+      to={{ pathname: "/login" }}
+      className="panel-button btn btn-secondary btn-lg btn-block"
+      key="login-button"
+      id="login-button"
+    >
+      <FontAwesomeIcon icon={faUserCircle} />
+      <span className="panel-button-text">Login</span>
+    </Link>
+  );
+
+  renderCreateUserButton = () => (
+    <Link
+      to={{ pathname: "/createUser" }}
+      className="panel-button btn btn-secondary btn-lg btn-block"
+      key="create-user-button"
+      id="create-user-button"
+    >
+      {/* <FontAwesomeIcon icon={faPencilAlt} /> */}
+      <span className="panel-button-text">Create User</span>
+    </Link>
+  );
+
+  renderLoggedOutContent = () => (
+    <div className="panel-content">
+      {this.renderLoginButton()}
+      {this.renderCreateUserButton()}
+    </div>
+  );
+
   renderContent = () => (
     <div className="panel-content">
       {this.renderPanelImage()}
@@ -272,6 +329,7 @@ class ProfilePanel extends React.Component {
       {this.renderName()}
       {this.renderErrorMessage(this.state.displayNameMessage)}
       {this.renderButtons()}
+      {this.renderThemeSwitch()}
     </div>
   );
 
@@ -290,7 +348,7 @@ class ProfilePanel extends React.Component {
     return (
       <div className="panel" style={panelStyle}>
         {this.renderCollapseButton()}
-        {this.renderContent()}
+        {this.props.uid ? this.renderContent() : this.renderLoggedOutContent()}
         <Footer />
       </div>
     );

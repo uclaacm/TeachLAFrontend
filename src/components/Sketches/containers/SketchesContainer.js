@@ -33,9 +33,6 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-const SketchesContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Sketches);
+const SketchesContainer = connect(mapStateToProps, mapDispatchToProps)(Sketches);
 
 export default SketchesContainer;

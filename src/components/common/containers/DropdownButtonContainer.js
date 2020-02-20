@@ -33,9 +33,6 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-const DropdownButtonContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(DropdownButton);
+const DropdownButtonContainer = connect(mapStateToProps, mapDispatchToProps)(DropdownButton);
 
 export default DropdownButtonContainer;

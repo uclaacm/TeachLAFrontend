@@ -1,86 +1,113 @@
-@import 'styles/variables.scss';
+@import "styles/variables.scss";
 
 .CodeMirror-lines {
   cursor: default;
 }
 
-.cm-s-material.CodeMirror {
+/* comments, e.g. // # /* */
+.cm-comment {
+  @include themify($themes) {
+    color: themed("comment");
+  }
+}
+
+/* import for while in etc */
+span.cm-keyword {
+  @include themify($themes) {
+    color: themed("keyword");
+  }
+}
+
+/*e.g. var *blah*, blah will be colored */
+span.cm-def {
+  @include themify($themes) {
+    color: themed("def");
+  }
+}
+
+/*e.g. var *blah*, blah will be colored */
+span.cm-variable {
+  @include themify($themes) {
+    color: themed("variable");
+  }
+}
+
+/*for python: print, range, all built-in functions */
+.cm-builtin {
+  @include themify($themes) {
+    color: themed("builtin");
+  }
+}
+
+/* 1 2 -11 etc */
+.cm-number {
+  @include themify($themes) {
+    color: themed("number");
+  }
+}
+
+/* + - > < etc */
+.cm-operator {
+  @include themify($themes) {
+    color: themed("operator");
+  }
+}
+.cm-property {
+  @include themify($themes) {
+    color: themed("property");
+  }
+}
+.CodeMirror {
   box-sizing: border-box;
   max-width: inherit;
   max-height: inherit;
   min-height: inherit;
-  background-color: rgba(38, 50, 56, 0);
   font-family: "Ubuntu Mono", monospace;
-  color: white;
   font-size: 18px;
   height: 100%;
+  @include themify($themes) {
+    background-color: themed("backgroundColor");
+    color: themed("color");
+  }
 }
-
-.CodeMirror pre {
+.CodeMirror .CodeMirror pre {
   padding-left: 5px;
   padding-right: 4px;
 }
 
-.cm-s-material .CodeMirror-gutters {
-  background-color: $theme-dark;
-}
-.cm-s-material .CodeMirror-guttermarker,
-.cm-s-material .CodeMirror-guttermarker-subtle,
-.cm-s-material .CodeMirror-linenumber {
-  color: white;
+.CodeMirror-gutter {
+  @include themify($themes) {
+    background-color: themed("backgroundColor");
+    color: themed("color");
+  }
+  white-space: normal;
+  height: 100%;
+  display: inline-block;
+  vertical-align: top;
+  margin-bottom: -30px;
+  width: 41px;
 }
 
-.cm-s-material .CodeMirror-guttermarker,
-.cm-s-material .CodeMirror-guttermarker-subtle,
-.cm-s-material .CodeMirror-linenumber {
+.CodeMirror-linenumber {
+  width: 23px;
+  color: #fff;
   text-align: left;
   padding-left: 15px;
+  @include themify($themes) {
+    color: themed("color");
+  }
 }
 
-/* comments, e.g. // # /* */
-.cm-s-material .cm-comment {
-  color: white;
+// a strange CSS way to create our floating cursor. not great, not awful.
+
+.CodeMirror-cursor {
+  border-top: none !important;
+  border-bottom: none !important;
+  border-left: 1px solid #A38B41 !important;
+  border-right: 0.5px solid #A38B41 !important;
 }
 
-/* import for while in etc */
-.cm-s-material span.cm-keyword {
-  color: #deb0ff;
-}
-
-/*e.g. var *blah*, blah will be colored */
-.cm-s-material span.cm-def {
-  color: #47e2d5;
-}
-
-/*e.g. var *blah*, blah will be colored */
-.cm-s-material span.cm-variable {
-  color: #f5e83c;
-}
-
-/*for python: print, range, all built-in functions */
-.cm-s-material .cm-builtin {
-  color: #ffb36f;
-}
-
-/* 1 2 -11 etc */
-.cm-s-material .cm-number {
-  color: #f69797;
-}
-
-/* + - > < etc */
-.cm-s-material .cm-operator {
-  color: rgba(233, 237, 237, 1);
-}
-
-/* e.g. turtle.*Blah*(), Blah will be colored */
-.cm-s-material .cm-property {
-  color: #80cbae;
-}
-.cm-s-material .CodeMirror-cursor {
-  border-left: 1px solid #f4ee94;
-}
-
-.cm-s-material .CodeMirror-cursor::after {
+.CodeMirror-cursor::after {
   position: absolute;
   margin-top: 26px;
   left: -10px;
@@ -96,11 +123,10 @@
 }
 
 /* required for safari because it places the ::after element differently than chrome/fiefox; taken from https://stackoverflow.com/questions/16348489/is-there-a-css-hack-for-safari-only-not-chrome */
-@media not all and (min-resolution:.001dpcm) { 
-  .cm-s-material .CodeMirror-cursor::after {
+@media not all and (min-resolution: 0.001dpcm) {
+  .CodeMirror-cursor::after {
     margin-top: 2px;
   }
-
 }
 .CodeMirror-scroll {
   overflow: hidden !important;

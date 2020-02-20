@@ -1,8 +1,8 @@
-import Main from "../Main.js";
+import ViewOnly from "../ViewOnly.js";
 import { connect } from "react-redux";
 import { setOutput } from "../../actions/outputActions.js";
 import { setMostRecentProgram } from "../../actions/userDataActions.js";
-import { setProgramDirty } from "../../actions/programsActions.js";
+import { setProgramCode, setProgramDirty } from "../../actions/programsActions.js";
 import { togglePanel } from "../../actions/uiActions.js";
 import { CLOSED_PANEL_LEFT, OPEN_PANEL_LEFT, PANEL_SIZE } from "../../constants";
 
@@ -41,9 +41,12 @@ const mapDispatchToProps = dispatch => {
     runCode: (code, language) => dispatch(setOutput(code, language)),
     cleanCode: program => dispatch(setProgramDirty(program, false)),
     togglePanel: () => dispatch(togglePanel()),
+    setProgramCode: (program, code) => {
+      dispatch(setProgramCode(program, code));
+    },
   };
 };
 
-const MainContainer = connect(mapStateToProps, mapDispatchToProps)(Main);
+const ViewOnlyContainer = connect(mapStateToProps, mapDispatchToProps)(ViewOnly);
 
-export default MainContainer;
+export default ViewOnlyContainer;

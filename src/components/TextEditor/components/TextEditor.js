@@ -33,10 +33,12 @@ class TextEditor extends React.Component {
     this.state = {
       codeMirrorInstance: null,
       currentLine: 0,
+      sketch: null,
     };
   }
 
   //==============React Lifecycle Functions===================//
+
   componentDidMount() {
     window.addEventListener("beforeunload", this.onLeave);
     window.addEventListener("close", this.onLeave);
@@ -96,6 +98,15 @@ class TextEditor extends React.Component {
     this.setState({ currentLine: line });
   };
 
+  getTheme = () => {
+    switch (this.props.theme) {
+      case "light":
+        return "duotone-light";
+      case "dark":
+      default:
+        return "material";
+    }
+  };
   renderDropdown = () => <DropdownButtonContainer />;
 
   renderBanner = () => {
@@ -110,15 +121,17 @@ class TextEditor extends React.Component {
             isSmall={this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
           />
         </div>
-        <ViewportAwareButton
-          className="mx-2"
-          color="success"
-          size="lg"
-          onClick={this.props.handleSave}
-          isSmall={this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
-          icon={<FontAwesomeIcon icon={faSave} />}
-          text={this.props.saveText}
-        />
+        {this.props.viewOnly ? null : (
+          <ViewportAwareButton
+            className="mx-2"
+            color="success"
+            size="lg"
+            onClick={this.props.handleSave}
+            isSmall={this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
+            icon={<FontAwesomeIcon icon={faSave} />}
+            text={this.props.saveText}
+          />
+        )}
 
         <Button className="mx-2" color="success" size="lg" onClick={this.props.handleDownload}>
           <FontAwesomeIcon icon={faDownload} />
@@ -131,38 +144,40 @@ class TextEditor extends React.Component {
     //json required by CodeMirror
     const options = {
       mode: CODEMIRROR_CONVERSIONS[this.props.language],
-      theme: "material", //requires lots of CSS tuning to get a theme to work, be wary of changing
+      theme: this.getTheme(), //requires lots of CSS tuning to get a theme to work, be wary of changing
       lineNumbers: true, //text editor has line numbers
       lineWrapping: true, //text editor does not overflow in the x direction, uses word wrap (NOTE: it's like MO Word wrapping, so words are not cut in the middle, if a word overlaps, the whole word is brought to the next line)
       indentWithTabs: true,
     };
 
     return (
-      <div className="code-section">
-        {this.renderBanner()}
-        <div
-          className="text-editor-container"
-          style={{
-            height: this.props.screenHeight - 61 - 20,
-            minHeight: this.props.screenHeight - 61 - 20,
-            maxHeight: this.props.screenHeight - 61 - 20,
-          }}
-        >
-          <CodeMirror
-            editorDidMount={codeMirrorInstance => {
-              codeMirrorInstance.refresh();
-              this.setCodeMirrorInstance(codeMirrorInstance);
+      <div className={`theme-` + this.props.theme} style={{ height: "100%" }}>
+        <div className="code-section">
+          {this.renderBanner()}
+          <div
+            className="text-editor-container"
+            style={{
+              height: this.props.screenHeight - 61 - 20,
+              minHeight: this.props.screenHeight - 61 - 20,
+              maxHeight: this.props.screenHeight - 61 - 20,
             }}
-            value={this.props.code}
-            lineWrapping
-            indentWithTabs={true}
-            options={options}
-            onCursor={cm => {
-              this.setCurrentLine(cm);
-            }}
-            onBeforeChange={this.updateCode}
-            onChange={this.updateCode}
-          />
+          >
+            <CodeMirror
+              editorDidMount={codeMirrorInstance => {
+                codeMirrorInstance.refresh();
+                this.setCodeMirrorInstance(codeMirrorInstance);
+              }}
+              value={this.props.code}
+              lineWrapping
+              indentWithTabs={true}
+              options={options}
+              onCursor={cm => {
+                this.setCurrentLine(cm);
+              }}
+              onBeforeChange={this.updateCode}
+              onChange={this.updateCode}
+            />
+          </div>
         </div>
       </div>
     );
