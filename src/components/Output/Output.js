@@ -88,7 +88,8 @@ class Output extends React.Component {
   };
 
   renderOutput = () => {
-    let { language, runResult } = this.props;
+    let language = this.props.viewOnly ? this.props.vLanguage : this.props;
+    let runResult = this.props.viewOnly ? this.props.code : this.props;
     const { showConsole } = this.state;
 
     if (this.firstLoad) {

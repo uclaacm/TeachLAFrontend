@@ -79,7 +79,6 @@ class ViewOnly extends React.Component {
   };
 
   handleDownload = () => {
-    console.log("downloading?");
     CodeDownloader.download(this.state.sketchName, this.state.language, this.state.code);
   };
 
@@ -142,6 +141,7 @@ class ViewOnly extends React.Component {
       viewOnly={true}
       program={this.props.programid}
       sketchName={this.state.sketchName}
+      language={this.state.language}
       handleDownload={this.handleDownload}
     />
   );
@@ -151,6 +151,9 @@ class ViewOnly extends React.Component {
       viewMode={this.state.viewMode}
       updateViewMode={this.updateViewMode}
       isSmall={this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
+      viewOnly={true}
+      vLanguage={this.state.language}
+      code={this.state.code}
     />
   );
 
