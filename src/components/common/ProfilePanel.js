@@ -319,6 +319,7 @@ class ProfilePanel extends React.Component {
     <div className="panel-content">
       {this.renderLoginButton()}
       {this.renderCreateUserButton()}
+      {this.renderThemeSwitch()}
     </div>
   );
 

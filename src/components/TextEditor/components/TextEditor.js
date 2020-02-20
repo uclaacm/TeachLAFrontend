@@ -109,11 +109,13 @@ class TextEditor extends React.Component {
   };
   renderDropdown = () => <DropdownButtonContainer />;
 
+  renderSketchName = () => <div className="sketch-name">{this.props.sketchName}</div>;
+
   renderBanner = () => {
     return (
       <div className="code-section-banner">
         <OpenPanelButtonContainer />
-        {this.renderDropdown()}
+        {this.props.viewOnly ? this.renderSketchName() : this.renderDropdown()}
         <div style={{ marginLeft: "auto", marginRight: ".5rem" }}>
           <EditorRadio
             viewMode={this.props.viewMode}
@@ -133,9 +135,11 @@ class TextEditor extends React.Component {
           />
         )}
 
-        <Button className="mx-2" color="success" size="lg" onClick={this.props.handleDownload}>
-          <FontAwesomeIcon icon={faDownload} />
-        </Button>
+        {
+          <Button className="mx-2" color="success" size="lg" onClick={this.props.handleDownload}>
+            <FontAwesomeIcon icon={faDownload} />
+          </Button>
+        }
       </div>
     );
   };

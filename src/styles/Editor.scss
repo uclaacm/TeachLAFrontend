@@ -23,6 +23,16 @@
   }
 }
 
+.sketch-name {
+  flex: 0 1 auto;
+  @include themify($themes) {
+    color: themed("color");
+  }
+  max-width: 200px;
+  font-size: 24px;
+}
+
+
 .code-section-banner {
   display: flex;
   flex-direction: row;

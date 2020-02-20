@@ -34,6 +34,9 @@ class ViewOnly extends React.Component {
       pane1Style: { transition: "width .5s ease" },
       theme: cookies.getThemeFromCookie(),
       programID: "",
+      sketchName: "",
+      language: "",
+      code: "",
     };
   }
 
@@ -57,8 +60,13 @@ class ViewOnly extends React.Component {
 
   getProgram = async programid => {
     const { ok, sketch } = await fetch.getSketch(programid);
-    console.log(ok);
+    this.setState({
+      sketchName: sketch.name,
+      language: sketch.language,
+      code: sketch.code,
+    });
     console.log(sketch);
+    console.log(sketch.name);
     this.props.setProgramCode(this.props.mostRecentProgram, sketch.code);
     this.props.runCode(sketch.code, sketch.language);
     return { ok, sketch };
@@ -71,7 +79,8 @@ class ViewOnly extends React.Component {
   };
 
   handleDownload = () => {
-    CodeDownloader.download(this.props.name, this.props.language, this.props.code);
+    console.log("downloading?");
+    CodeDownloader.download(this.state.sketchName, this.state.language, this.state.code);
   };
 
   renderSketchesPage = () => <SketchesPageContainer />;
@@ -132,6 +141,8 @@ class ViewOnly extends React.Component {
       theme={this.state.theme}
       viewOnly={true}
       program={this.props.programid}
+      sketchName={this.state.sketchName}
+      handleDownload={this.handleDownload}
     />
   );
 
