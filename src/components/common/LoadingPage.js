@@ -1,6 +1,7 @@
 import React from "react";
 import { RingLoader } from "react-spinners";
 import "styles/Loading.scss";
+import { GH_REPO_NAME } from "../constants";
 
 /*
 	Props:
@@ -37,10 +38,7 @@ class Loading extends React.Component {
           <p className="Loading-page-text" style={{ color: "white" }}>
             Looks like loading is taking a bit long! If it takes too long, submit an issue on{" "}
             <span> </span>
-            <a
-              href="https://github.com/uclaacm/TeachLAFrontend/issues"
-              className="Loading-link-text"
-            >
+            <a href={`${GH_REPO_NAME}/issues`} className="Loading-link-text">
               Github
             </a>
             .
