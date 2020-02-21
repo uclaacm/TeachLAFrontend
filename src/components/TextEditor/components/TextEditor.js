@@ -115,7 +115,7 @@ class TextEditor extends React.Component {
   };
   renderDropdown = () => <DropdownButtonContainer />;
 
-  renderSketchName = () => <div className="sketch-name">{this.props.sketchName}</div>;
+  renderSketchName = () => <div className="program-sketch-name">{this.props.sketchName}</div>;
 
   renderBanner = () => {
     let thumbnail = SketchThumbnailArray[this.props.thumbnail];
