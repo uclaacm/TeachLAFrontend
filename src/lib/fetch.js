@@ -16,7 +16,7 @@ import constants from "../constants";
  */
 export const getUserData = async (uid = "", includePrograms = false) => {
   const getUserDataEndpoint = (uid = "", includePrograms = false) =>
-    `${constants.SERVER_URL}/getUserData/${uid}${includePrograms ? "?programs=true" : ""}`;
+    `${constants.SERVER_URL}/user/get?id=${uid}${includePrograms ? "&programs=true" : ""}`;
 
   const options = {
     method: "get",
@@ -25,7 +25,9 @@ export const getUserData = async (uid = "", includePrograms = false) => {
 
   try {
     let result = await fetch(getUserDataEndpoint(uid, includePrograms), options);
-    let { ok, data, error } = await result.json();
+    let ok = await result.ok;
+    let data = await result.json();
+    let error = (await result.ok) ? "" : await result.text();
 
     return { ok, data, error };
   } catch (err) {
@@ -81,9 +83,28 @@ export const updatePrograms = (uid = "", programs) => {
  * @param {Object} userData object that contains only the keys of the user data that need to be updated
  */
 
-export const updateUserData = (uid = "", userData) => {
-  const endpoint = `updateUserData/${uid}`;
-  return makeServerRequest(userData, endpoint);
+export const updateUserData = async (uid = "", userData) => {
+  let body = "";
+
+  try {
+    if (Object.keys(userData).length) {
+      body = JSON.stringify(userData);
+    }
+  } catch (err) {
+    console.log(err);
+    return;
+  }
+
+  const options = {
+    method: "PUT",
+    body,
+  };
+
+  let result = await fetch(`${constants.SERVER_URL}/user/update?id=${uid}`, options);
+  let ok = await result.ok;
+  let error = (await result.ok) ? "" : await result.text();
+
+  return { ok, error };
 };
 
 /**
@@ -92,7 +113,23 @@ export const updateUserData = (uid = "", userData) => {
  */
 
 export const createSketch = data => {
-  return makeServerRequest(data, "createProgram");
+  let body = "";
+
+  try {
+    if (Object.keys(data).length) {
+      body = JSON.stringify(data);
+    }
+  } catch (err) {
+    console.log(err);
+    return;
+  }
+
+  const options = {
+    method: "POST",
+    body,
+  };
+
+  return fetch(`${constants.SERVER_URL}/program/create`, options);
 };
 
 /**

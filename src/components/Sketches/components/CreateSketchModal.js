@@ -135,18 +135,19 @@ class CreateSketchModal extends React.Component {
       fetch
         .createSketch(data)
         .then(res => {
-          return res.json();
-        })
-        .then(json => {
-          if (!json.ok) {
+          if (!res.ok) {
             this.setState({
               disableSubmit: false,
-              error: json.error || "Failed to create sketch, please try again later",
+              error: res.text() || "Failed to create sketch, please try again later",
             });
             return;
           }
-          this.props.addProgram(json.data.key, json.data.programData || {});
-          this.props.setMostRecentProgram(json.data.key);
+
+          return res.json();
+        })
+        .then(json => {
+          this.props.addProgram(json.uid, json || {});
+          this.props.setMostRecentProgram(json.uid);
           this.setState({ redirect: true });
           this.closeModal();
         })
