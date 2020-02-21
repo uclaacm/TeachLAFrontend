@@ -62,7 +62,7 @@ class Main extends React.Component {
     });
   };
 
-  handleSave = event => {
+  handleSave = () => {
     if (!this.props.dirty) return; // Don't save if not dirty (unedited)
     this.setState({
       saveText: "Saving...",

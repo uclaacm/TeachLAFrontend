@@ -54,14 +54,6 @@ class Output extends React.Component {
     return false;
   };
 
-  // a bit hacky, but we're re-rendering the output
-  // by updating the state in a novel way
-  reRenderOutput = () => {
-    this.setState(prevState => ({
-      counter: prevState.counter + 1,
-    }));
-  };
-
   renderOpenPanelButton = () => this.props.viewMode === OUTPUT_ONLY && <OpenPanelButtonContainer />;
 
   renderIframe = getSrcDoc => {
