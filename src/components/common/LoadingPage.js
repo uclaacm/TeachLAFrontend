@@ -35,8 +35,15 @@ class Loading extends React.Component {
         <RingLoader color={"#171124"} size={250} loading={true} />
         {this.state.showText && (
           <p className="Loading-page-text" style={{ color: "white" }}>
-            Looks like loading is taking a bit long! If it takes too long, submit an issue on
-            <a href="https://github.com/uclaacm/TeachLAFrontend/issues"> Github</a>.
+            Looks like loading is taking a bit long! If it takes too long, submit an issue on{" "}
+            <span> </span>
+            <a
+              href="https://github.com/uclaacm/TeachLAFrontend/issues"
+              className="Loading-link-text"
+            >
+              Github
+            </a>
+            .
           </p>
         )}
       </div>
