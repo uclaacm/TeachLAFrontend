@@ -261,3 +261,18 @@ class JoinClassModal extends React.Component {
 }
 
 export default JoinClassModal;
+
+// Stuff you might want
+{
+  /* <div className="join-class">
+      <div className="join-class-text">Join a class:</div>
+      <input
+        className="join-class-input"
+        placeholder="EnterClassCode"
+        value={data}
+        onChange={e => onChange(e.target.value)}
+        spellcheck="false"
+      />
+      {button}
+    </div> */
+}
