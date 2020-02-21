@@ -10,11 +10,45 @@ import "styles/Loading.scss";
 		textPadding: string representing padding to the left of the text, i.e. distance from the img (give px units)
 */
 
-const Loading = props => (
-  <div className="Loading">
-    <div className="Loading-title">Loading</div>
-    <RingLoader color={"#171124"} size={250} loading={true} />
-  </div>
-);
+class Loading extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showText: false,
+      timer: 0,
+    };
+  }
+  componentDidMount = () => {
+    this.setState.timer = setTimeout(() => {
+      this.setState({ showText: true });
+    }, 2000);
+  };
+
+  componentWillUnmount = () => {
+    clearTimeout(this.setState.timer);
+  };
+
+  render = () => {
+    return (
+      <div className="Loading">
+        <div className="Loading-title">Loading</div>
+        <RingLoader color={"#171124"} size={250} loading={true} />
+        {this.state.showText && (
+          <p className="Loading-page-text" style={{ color: "white" }}>
+            Looks like loading is taking a bit long! If it takes too long, submit an issue on{" "}
+            <span> </span>
+            <a
+              href="https://github.com/uclaacm/TeachLAFrontend/issues"
+              className="Loading-link-text"
+            >
+              Github
+            </a>
+            .
+          </p>
+        )}
+      </div>
+    );
+  };
+}
 
 export default Loading;

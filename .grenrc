@@ -1,0 +1,7 @@
+{
+    "dataSource": "prs",
+    "prefix": "Version ",
+    "onlyMilestones": false,
+    "groupBy": "label",
+    "changelogFilename": "CHANGELOG.md"
+}

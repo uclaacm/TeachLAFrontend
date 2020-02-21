@@ -3,7 +3,6 @@
 .panel {
   display: flex;
   position: absolute;
-  background-color: $theme-light;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
@@ -11,10 +10,16 @@
   margin: 0;
   padding: 0;
   transition: left 0.5s ease;
+  @include themify($themes) {
+    color: themed("accentColor");
+    background-color: themed("accentBackground");
+  }
 }
 
 .panel-collapse-button {
-  color: $off-white;
+  @include themify($themes) {
+    color: themed("accentColor");
+  }
   padding-right: 15px;
   flex: 0 0 auto;
   font-size: 1.25rem;
@@ -74,10 +79,12 @@
   font-size: 1.25rem;
   border: none;
   background-color: transparent;
-  color: $off-white;
   position: absolute;
   right: -15px;
-  bottom: -15px;
+  bottom: -5px;
+  @include themify($themes) {
+    color: themed("accentColor");
+  }
 }
 
 .gallery {
@@ -124,13 +131,28 @@
 
 .edit-icon-image {
   font-size: 1.25rem;
-  color: $off-white;
+  @include themify($themes) {
+    color: themed("accentColor");
+  }
   position: absolute;
   border: none;
   right: -30px;
   top: 50%;
   margin-top: -15px;
   background-color: transparent;
+}
+
+.submitted-icon-image {
+  font-size: 1.4rem;
+  color: rgb(124, 211, 124);
+  position: absolute;
+  float: left;
+  border: none;
+  left: -20px;
+  top: 50%;
+  margin-top: -13px;
+  background-color: transparent;
+  transition: 0.5s;
 }
 
 .panel-edit-container {
@@ -146,12 +168,16 @@
   padding: 20px 0 5px;
   text-align: center;
   font-size: 2rem;
-  font-weight: bold;
-  color: $off-white;
   word-wrap: break-word;
-  background-color: $theme-dark;
+  background: none;
   align-items: baseline;
   border: none;
+  outline: none;
+  @include themify($themes) {
+    color: themed("accentColor");
+    border-bottom: 1px solid themed("accentColor");
+  }
+  font-family: $font-family-heading;
 }
 
 .profile-input-error {
@@ -164,14 +190,20 @@
 .panel-name {
   float: middle;
   text-align: center;
-  margin: 0px 50px;
-  width: 150px;
-  padding: 20px 0 20px;
+  margin: 10px 50px 0px;
+  width: 70%;
+  padding: 10px 0 6px;
   font-size: 2rem;
   word-wrap: break-word;
-  color: white;
+  @include themify($themes) {
+    color: themed("accentColor");
+  }
   position: relative;
   font-family: $font-family-heading;
+}
+
+.panel-name:hover {
+  cursor: pointer;
 }
 
 .panel-buttons {
@@ -184,8 +216,6 @@
 }
 
 .panel-button {
-  background-color: $theme-dark;
-  border-color: $theme-dark;
   text-align: left;
   font-size: 2em !important; /* reactstrap also has a !important somewhere, so we need to do this */
   /* this next block of CSS properly aligns button content */
@@ -193,13 +223,20 @@
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
+  @include themify($themes) {
+    color: themed("color");
+    border-color: themed("backgroundColor");
+    background-color: themed("backgroundColor");
+  }
 }
 
 .panel-button:hover,
 .panel-button:active {
-  color: $theme-dark !important;
-  border-color: $off-white !important;
-  background-color: $off-white !important;
+  @include themify($themes) {
+    color: themed("backgroundColor");
+    border-color: themed("color");
+    background-color: themed("color");
+  }
 }
 
 .panel-button-text {
@@ -227,61 +264,11 @@
   background: #fff;
 }
 
-// Theme Switch
-.panel-switch {
-  padding: 0.5rem 1rem;
-  margin-top: 0.5rem;
-  position: relative;
-  display: block;
-  width: 100px;
-  height: 30px;
-  margin: 0 10px 10px 0;
-  border-radius: 6px;
-  cursor: pointer;
-  box-sizing: content-box;
-  font-family: inherit;
-}
-.panel-switch-input {
-  padding: 0px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  opacity: 0;
-  box-sizing: content-box;
-}
-.panel-switch-label {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding: 10px;
-  height: inherit;
-  font-size: 1rem;
-  background: #eceeef;
-  border-radius: inherit;
-  &.checked {
-    justify-content: flex-start !important;
-    background: $theme-dark;
-  }
-}
-
+// Theme Switch Images
 .icon-dark {
   color: #ffffff;
 }
+
 .icon-light {
   color: $theme-dark;
-}
-
-.panel-switch-handle {
-  position: absolute;
-  top: 8px;
-  width: 30px;
-  height: 30px;
-  border-radius: 6px;
-  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
-  background: $theme-dark;
-  &.checked {
-    left: 88px;
-    background: white;
-  }
 }

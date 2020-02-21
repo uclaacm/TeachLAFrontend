@@ -10,7 +10,7 @@ import ViewportAwareButton from "../../common/ViewportAwareButton.js";
 import DropdownButtonContainer from "../../common/containers/DropdownButtonContainer";
 import { faSave } from "@fortawesome/free-solid-svg-icons";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
-
+import { SketchThumbnailArray } from "../../Sketches/constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 let CodeMirror = null;
@@ -98,8 +98,14 @@ class TextEditor extends React.Component {
     this.setState({ currentLine: line });
   };
 
-  getTheme = () => {
-    switch (this.props.theme) {
+  /**
+   * returns a theme string for the CodeMirror editor, based off of the app's current theme
+   * @param {string} theme - the app's current theme
+   * @returns {string} the codemirror theme - see https://codemirror.net/demo/theme.html for more info
+   */
+
+  getCMTheme = theme => {
+    switch (theme) {
       case "light":
         return "duotone-light";
       case "dark":
@@ -112,9 +118,15 @@ class TextEditor extends React.Component {
   renderSketchName = () => <div className="sketch-name">{this.props.sketchName}</div>;
 
   renderBanner = () => {
+    let thumbnail = SketchThumbnailArray[this.props.thumbnail];
     return (
       <div className="code-section-banner">
         <OpenPanelButtonContainer />
+        <img
+          className="program-sketch-thumbnail"
+          src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${thumbnail}.svg`}
+          alt="sketch thumbnail"
+        />
         {this.props.viewOnly ? this.renderSketchName() : this.renderDropdown()}
         <div style={{ marginLeft: "auto", marginRight: ".5rem" }}>
           <EditorRadio
@@ -148,7 +160,7 @@ class TextEditor extends React.Component {
     //json required by CodeMirror
     const options = {
       mode: CODEMIRROR_CONVERSIONS[this.props.language],
-      theme: this.getTheme(), //requires lots of CSS tuning to get a theme to work, be wary of changing
+      theme: this.getCMTheme(this.props.theme),
       lineNumbers: true, //text editor has line numbers
       lineWrapping: true, //text editor does not overflow in the x direction, uses word wrap (NOTE: it's like MO Word wrapping, so words are not cut in the middle, if a word overlaps, the whole word is brought to the next line)
       indentWithTabs: true,

@@ -11,6 +11,7 @@ import {
   PANEL_SIZE,
 } from "../../constants";
 import ReactModal from "react-modal";
+import { faCheckSquare } from "@fortawesome/free-solid-svg-icons";
 import { faBook } from "@fortawesome/free-solid-svg-icons";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
@@ -21,6 +22,7 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import "styles/Panel.scss";
+import Switch from "./Switch";
 import Footer from "./Footer";
 
 /**--------Props--------
@@ -35,6 +37,7 @@ class ProfilePanel extends React.Component {
       imageIsHovering: false,
       editingName: false,
       showModal: false,
+      nameSubmitted: false,
       name: this.props.displayName,
       selectedImage: "",
       displayNameMessage: "",
@@ -81,7 +84,7 @@ class ProfilePanel extends React.Component {
     } else if (name.match(/[^a-zA-Z0-9!@#$% ]/)) {
       this.setState({
         displayNameMessage:
-          "Only use upper case, lower case, numbers, spaces, and/or the following special characters !@#$%",
+          "Only use letters, numbers, spaces, and/or the following special characters: !@#$%",
       });
       return true;
     }
@@ -93,11 +96,16 @@ class ProfilePanel extends React.Component {
     let badInputs = this.checkInputs();
 
     if (badInputs) {
-      this.setState({ name: this.props.displayName, editingName: false });
+      this.setState({ name: this.props.displayName, editingName: true });
       return;
     } else {
       this.props.setDisplayName(this.state.name);
-      this.setState({ editingName: false, displayNameMessage: "" });
+      this.setState({ editingName: false, nameSubmitted: true, displayNameMessage: "" });
+      setTimeout(() => {
+        this.setState({
+          nameSubmitted: false,
+        });
+      }, 500);
       return;
     }
   };
@@ -192,18 +200,25 @@ class ProfilePanel extends React.Component {
           onMouseLeave={() => this.setState({ nameIsHovering: false })}
           onClick={this.handleEditNameClick}
         >
-          {this.props.displayName || "Joe Bruin"}
+          <div className="panel-name-text">{this.props.displayName || "Joe Bruin"}</div>
           {this.state.nameIsHovering && (
             <button className="edit-icon-image" onClick={this.handleEditNameClick}>
               <FontAwesomeIcon icon={faEdit} />
             </button>
           )}
+          <div
+            className="submitted-icon-image"
+            style={{ opacity: +(this.state.nameSubmitted ? "1" : "0") }}
+          >
+            <FontAwesomeIcon icon={faCheckSquare} />
+          </div>
         </div>
       );
     } else {
       return (
         <form className="panel-edit-container" onSubmit={this.onNameSubmit}>
           <input
+            autoFocus
             className="panel-edit"
             placeholder={this.props.displayName}
             onChange={this.onNameChange}
@@ -271,57 +286,19 @@ class ProfilePanel extends React.Component {
   };
 
   renderThemeSwitch = () => {
-    const checked = this.props.theme === "dark" ? " checked" : "";
+    let onToggle = on => {
+      this.props.onThemeChange(on ? "light" : "dark");
+    };
+
     return (
-      <label className="panel-switch">
-        <input
-          className={"panel-switch-input" + checked}
-          type="checkbox"
-          onChange={this.props.onThemeChange}
-        />
-        <span className={"panel-switch-label" + checked}>
-          {checked ? (
-            <FontAwesomeIcon icon={faMoon} className="icon-dark" />
-          ) : (
-            <FontAwesomeIcon icon={faSun} className="icon-light" />
-          )}
-        </span>
-        <span className={"panel-switch-handle" + checked}></span>
-      </label>
+      <Switch
+        on={this.props.theme === "dark" ? true : false}
+        onToggle={onToggle}
+        onImg={<FontAwesomeIcon icon={faMoon} className="icon-dark" />}
+        offImg={<FontAwesomeIcon icon={faSun} className="icon-light" />}
+      />
     );
   };
-
-  renderLoginButton = () => (
-    <Link
-      to={{ pathname: "/login" }}
-      className="panel-button btn btn-secondary btn-lg btn-block"
-      key="login-button"
-      id="login-button"
-    >
-      <FontAwesomeIcon icon={faUserCircle} />
-      <span className="panel-button-text">Login</span>
-    </Link>
-  );
-
-  renderCreateUserButton = () => (
-    <Link
-      to={{ pathname: "/createUser" }}
-      className="panel-button btn btn-secondary btn-lg btn-block"
-      key="create-user-button"
-      id="create-user-button"
-    >
-      {/* <FontAwesomeIcon icon={faPencilAlt} /> */}
-      <span className="panel-button-text">Create User</span>
-    </Link>
-  );
-
-  renderLoggedOutContent = () => (
-    <div className="panel-content">
-      {this.renderLoginButton()}
-      {this.renderCreateUserButton()}
-      {this.renderThemeSwitch()}
-    </div>
-  );
 
   renderContent = () => (
     <div className="panel-content">
