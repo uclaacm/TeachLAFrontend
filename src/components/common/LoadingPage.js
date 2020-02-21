@@ -1,7 +1,7 @@
 import React from "react";
 import { RingLoader } from "react-spinners";
 import "styles/Loading.scss";
-import { GH_REPO_NAME } from "../constants";
+import { GH_REPO_NAME } from "../../constants";
 
 /*
 	Props:
@@ -15,13 +15,13 @@ class Loading extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showText: false,
+      showHelpText: !!this.props.showHelpText,
       timer: 0,
     };
   }
   componentDidMount = () => {
     this.setState.timer = setTimeout(() => {
-      this.setState({ showText: true });
+      this.setState({ showHelpText: true });
     }, 2000);
   };
 
@@ -34,7 +34,7 @@ class Loading extends React.Component {
       <div className="Loading">
         <div className="Loading-title">Loading</div>
         <RingLoader color={"#171124"} size={250} loading={true} />
-        {this.state.showText && (
+        {this.state.showHelpText && (
           <p className="Loading-page-text" style={{ color: "white" }}>
             Looks like loading is taking a bit long! If it takes too long, submit an issue on{" "}
             <span> </span>
