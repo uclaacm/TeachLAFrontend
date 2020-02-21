@@ -1,4 +1,5 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 import SplitPane from "react-split-pane";
 import OutputContainer from "./Output/OutputContainer.js";
 import TextEditorContainer from "./TextEditor/containers/TextEditorContainer.js";
@@ -172,6 +173,10 @@ class Main extends React.Component {
   };
 
   render() {
+    // this stops us from rendering editor with no sketches available
+    if (this.props.contentType === "editor" && this.props.listOfPrograms.length === 0) {
+      return <Redirect to={"/sketches"} />;
+    }
     const codeStyle = {
       left: this.props.left || 0,
       width: this.props.screenWidth - (this.props.left || 0),
