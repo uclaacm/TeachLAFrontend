@@ -4,6 +4,7 @@ import * as fetch from "../lib/fetch.js";
 import * as cookies from "../lib/cookies.js";
 
 import ProfilePanelContainer from "./common/containers/ProfilePanelContainer";
+import SketchesPageContainer from "./Sketches/containers/SketchesContainer";
 import EditorAndOutput from "./EditorAndOutput/EditorAndOutput";
 
 import { EDITOR_WIDTH_BREAKPOINT, CODE_AND_OUTPUT, CODE_ONLY } from "../constants";
@@ -90,7 +91,7 @@ class Main extends React.Component {
   renderContent = () => {
     switch (this.props.contentType) {
       case "sketches":
-        return this.renderSketchesPage();
+        return <SketchesPageContainer />;
       case "editor":
       default:
         return this.renderEditor();
