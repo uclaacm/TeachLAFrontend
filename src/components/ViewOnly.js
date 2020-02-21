@@ -25,6 +25,7 @@ class ViewOnly extends React.Component {
       programID: "",
       sketchName: "",
       language: "",
+      thumbnail: "",
       code: "",
     };
   }
@@ -53,6 +54,7 @@ class ViewOnly extends React.Component {
       sketchName: sketch.name,
       language: sketch.language,
       code: sketch.code,
+      thumbnail: sketch.thumbnail,
     });
     console.log(sketch);
     console.log(sketch.name);
@@ -104,6 +106,7 @@ class ViewOnly extends React.Component {
             code={this.state.code}
             programid={this.props.programid}
             sketchName={this.state.sketchName}
+            thumbnail={this.state.thumbnail}
           />
         </div>
       </div>

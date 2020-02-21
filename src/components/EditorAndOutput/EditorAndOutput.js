@@ -67,6 +67,7 @@ class EditorAndOutput extends React.Component {
       handleDownload={this.handleDownload}
       handleSave={this.props.handleSave}
       saveText={this.props.saveText}
+      thumbnail={this.props.thumbnail}
     />
   );
 
