@@ -14,6 +14,7 @@ import { Button } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { faKey } from "@fortawesome/free-solid-svg-icons";
+import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 
 class Classes extends React.Component {
   constructor(props) {
@@ -26,6 +27,7 @@ class Classes extends React.Component {
       selectedImg: "",
       selectedKey: "",
       classCode: "",
+      instructorView: false,
     };
   }
 
@@ -41,20 +43,35 @@ class Classes extends React.Component {
     this.setState({ confirmLeaveModalOpen: val, selectedSketch: sketch, selectedKey: key });
   };
 
-  renderHeader = () => (
-    <div className="classes-header">
-      <OpenPanelButtonContainer />
-      <div className="classes-header-text">Classes</div>
-      <Button
-        className="ml-auto mr-2"
-        color="success"
-        size="lg"
-        onClick={() => this.setJoinClassModalOpen(true)}
-      >
-        <FontAwesomeIcon icon={faKey} /> Instructor View
-      </Button>
-    </div>
-  );
+  switchInstrStudView = () => {
+    this.setState({ instructorView: !this.state.instructorView });
+  };
+
+  renderHeader = () => {
+    let buttonText, icon;
+    if (this.state.instructorView) {
+      buttonText = "Student View";
+      icon = faPencilAlt;
+    } else {
+      buttonText = "Instructor View";
+      icon = faKey;
+    }
+
+    return (
+      <div className="classes-header">
+        <OpenPanelButtonContainer />
+        <div className="classes-header-text">Classes</div>
+        <Button
+          className="ml-auto mr-2"
+          color="success"
+          size="lg"
+          onClick={() => this.switchInstrStudView()}
+        >
+          <FontAwesomeIcon icon={icon} /> {buttonText}
+        </Button>
+      </div>
+    );
+  };
 
   updateClassCode = classCode => {
     this.setState({ classCode });
@@ -62,13 +79,14 @@ class Classes extends React.Component {
   };
 
   renderJoinAClass = () => {
+    let text = this.state.instructorView ? "Create a new class" : "Join a class";
     return (
       <Button className="class-box join-class" onClick={() => this.setJoinClassModalOpen(true)}>
         <div class="join-class-plus">
           <FontAwesomeIcon className="fa-lg" icon={faPlus} />
         </div>
         <span class="fa-lg join-class-text">
-          <b>Join a class</b>
+          <b>{text}</b>
         </span>
       </Button>
     );
@@ -82,29 +100,21 @@ class Classes extends React.Component {
   };
 
   renderClassList = () => {
-    let newList = this.props.classes.concat([]);
-    if (newList.size === 0) {
-      return (
-        <div>
-          <div className="no-classes-container">
-            <h2>You're not enrolled in any classes!</h2>
-          </div>
-        </div>
-      );
-    }
+    let classesIn = this.state.instructorView ? this.props.instrClasses : this.props.studClasses;
+    classesIn = classesIn.concat([]);
     let classes = [];
-    newList.sort((a, b) => {
+    classesIn.sort((a, b) => {
       if (a.name < b.name) return -1;
       if (a.name === b.name) return 0;
       else return 1;
     });
-    newList.forEach(({ key, name, thumbnail, instructorString }) => {
+    classesIn.forEach(({ key, name, thumbnail, instructor }) => {
       classes.push(
         <ClassBox
           img={this.getThumbnailSrc(thumbnail)}
           name={name}
           key={key}
-          instructorString={instructorString}
+          instructorString={"Instructor: ".concat(instructor)}
           deleteFunc={() => {
             this.setConfirmLeaveModalOpen(true, name, key);
           }}
