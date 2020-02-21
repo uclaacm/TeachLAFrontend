@@ -2,14 +2,12 @@ import React from "react";
 import SplitPane from "react-split-pane";
 import OutputContainer from "./Output/OutputContainer.js";
 import TextEditorContainer from "./TextEditor/containers/TextEditorContainer.js";
-import DropdownButtonContainer from "./common/containers/DropdownButtonContainer";
 import * as fetch from "../lib/fetch.js";
 import * as cookies from "../lib/cookies.js";
 import SketchesPageContainer from "./Sketches/containers/SketchesContainer";
 import "styles/Main.scss";
 import ProfilePanelContainer from "./common/containers/ProfilePanelContainer";
 
-import { Redirect } from "react-router-dom";
 import { EDITOR_WIDTH_BREAKPOINT, CODE_AND_OUTPUT, CODE_ONLY, OUTPUT_ONLY } from "../constants";
 import CodeDownloader from "../util/languages/CodeDownloader";
 
@@ -33,7 +31,6 @@ class Main extends React.Component {
     this.state = {
       saveText: "Save",
       viewMode: this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT ? CODE_ONLY : CODE_AND_OUTPUT,
-      redirect: this.props.listOfPrograms.length === 0 ? "/sketches" : "",
       pane1Style: { transition: "width .5s ease" },
     };
 
@@ -90,17 +87,13 @@ class Main extends React.Component {
     CodeDownloader.download(this.props.name, this.props.language, this.props.code);
   };
 
-  renderDropdown = () => <DropdownButtonContainer />;
-
-  renderSketchesPage = () => <SketchesPageContainer />;
-
   renderContent = () => {
     switch (this.props.contentType) {
-      case "sketches":
-        return this.renderSketchesPage();
       case "editor":
-      default:
         return this.renderEditor();
+      case "sketches":
+      default:
+        return <SketchesPageContainer />;
     }
   };
 
@@ -179,10 +172,6 @@ class Main extends React.Component {
   };
 
   render() {
-    if (this.state.redirect) {
-      return <Redirect to={this.state.redirect} />;
-    }
-
     const codeStyle = {
       left: this.props.left || 0,
       width: this.props.screenWidth - (this.props.left || 0),
