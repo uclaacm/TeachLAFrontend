@@ -22,7 +22,6 @@ class ViewOnly extends React.Component {
     this.state = {
       viewMode: this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT ? CODE_ONLY : CODE_AND_OUTPUT,
       pane1Style: { transition: "width .5s ease" },
-      theme: cookies.getThemeFromCookie(),
       programID: "",
       sketchName: "",
       language: "",
@@ -63,9 +62,9 @@ class ViewOnly extends React.Component {
   };
 
   onThemeChange = () => {
-    let newTheme = this.state.theme === "dark" ? "light" : "dark";
+    let newTheme = this.props.theme === "dark" ? "light" : "dark";
     cookies.setThemeCookie(newTheme);
-    this.setState({ theme: newTheme });
+    this.props.setTheme(newTheme);
   };
 
   render() {
@@ -76,10 +75,10 @@ class ViewOnly extends React.Component {
     };
 
     return (
-      <div className="main">
+      <div className={`main theme-` + this.props.theme}>
         <ProfilePanelContainer
           contentType={this.props.contentType}
-          theme={this.state.theme}
+          theme={this.props.theme}
           onThemeChange={this.onThemeChange}
         />
         <div className="editor" style={codeStyle}>
@@ -88,7 +87,7 @@ class ViewOnly extends React.Component {
             viewMode={this.state.viewMode}
             updateViewMode={viewMode => this.setState({ viewMode })}
             // theme
-            theme={this.state.theme}
+            theme={this.props.theme}
             // sizing
             left={this.props.left}
             screenWidth={this.props.screenWidth}

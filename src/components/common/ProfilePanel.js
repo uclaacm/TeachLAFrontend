@@ -300,6 +300,38 @@ class ProfilePanel extends React.Component {
     );
   };
 
+  renderLoginButton = () => (
+    <Link
+      to={{ pathname: "/login" }}
+      className="panel-button btn btn-secondary btn-lg btn-block"
+      key="login-button"
+      id="login-button"
+    >
+      <FontAwesomeIcon icon={faUserCircle} />
+      <span className="panel-button-text">Login</span>
+    </Link>
+  );
+
+  renderCreateUserButton = () => (
+    <Link
+      to={{ pathname: "/createUser" }}
+      className="panel-button btn btn-secondary btn-lg btn-block"
+      key="create-user-button"
+      id="create-user-button"
+    >
+      {/* <FontAwesomeIcon icon={faPencilAlt} /> */}
+      <span className="panel-button-text">Create User</span>
+    </Link>
+  );
+
+  renderLoggedOutContent = () => (
+    <div className="panel-content">
+      {this.renderLoginButton()}
+      {this.renderCreateUserButton()}
+      {this.renderThemeSwitch()}
+    </div>
+  );
+
   renderContent = () => (
     <div className="panel-content">
       {this.renderPanelImage()}

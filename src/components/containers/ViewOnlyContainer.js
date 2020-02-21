@@ -4,6 +4,7 @@ import { setOutput } from "../../actions/outputActions.js";
 import { setMostRecentProgram } from "../../actions/userDataActions.js";
 import { setProgramCode, setProgramDirty } from "../../actions/programsActions.js";
 import { togglePanel } from "../../actions/uiActions.js";
+import { setTheme } from "../../actions/uiActions.js";
 import { CLOSED_PANEL_LEFT, OPEN_PANEL_LEFT, PANEL_SIZE } from "../../constants";
 
 const mapStateToProps = state => {
@@ -32,6 +33,7 @@ const mapStateToProps = state => {
     left: (state.ui.panelOpen ? OPEN_PANEL_LEFT : CLOSED_PANEL_LEFT) + PANEL_SIZE,
     name,
     language,
+    theme: state.ui.theme,
   };
 };
 
@@ -44,6 +46,7 @@ const mapDispatchToProps = dispatch => {
     setProgramCode: (program, code) => {
       dispatch(setProgramCode(program, code));
     },
+    setTheme: theme => dispatch(setTheme(theme)),
   };
 };
 
