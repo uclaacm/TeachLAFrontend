@@ -1,5 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`LoadingPage should handle showHelpText prop properly 1`] = `
+<div
+  className="Loading"
+>
+  <div
+    className="Loading-title"
+  >
+    Loading
+  </div>
+  <Loader
+    color="#171124"
+    css=""
+    loading={true}
+    size={250}
+  />
+</div>
+`;
+
 exports[`LoadingPage should render correctly 1`] = `
 <div
   className="Loading"
