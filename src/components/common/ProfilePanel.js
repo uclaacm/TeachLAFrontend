@@ -326,8 +326,10 @@ class ProfilePanel extends React.Component {
 
   renderLoggedOutContent = () => (
     <div className="panel-content">
-      {this.renderLoginButton()}
-      {this.renderCreateUserButton()}
+      <div className="panel-buttons">
+        {this.renderLoginButton()}
+        {this.renderCreateUserButton()}
+      </div>
       {this.renderThemeSwitch()}
     </div>
   );
