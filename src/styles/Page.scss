@@ -1,5 +1,11 @@
 @import 'styles/variables.scss';
 
+
+.full-container{
+    height: 100%;
+    width: 100%;
+}
+
 .page-container{
     @include themify($themes) {
         background-color: themed("backgroundColor");
