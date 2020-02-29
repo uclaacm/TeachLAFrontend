@@ -1,6 +1,29 @@
 # Changelog
 
-## Version 1.0.2 | More Cleanup & Consistency (31/12/1969)
+## Version v1.0.3 | Simple Dep Updates (17/02/2020)
+
+Pretty routine almost-biweekly release. This is just dependency updates.
+
+#### dependencies
+
+- [**dependencies**] Bump firebase from 7.8.1 to 7.8.2 [#204](https://github.com/uclaacm/TeachLAFrontend/pull/204)
+
+- [**dependencies**] Bump husky from 4.0.10 to 4.2.1 [#184](https://github.com/uclaacm/TeachLAFrontend/pull/184)
+- [**dependencies**] Bump firebase from 7.8.0 to 7.8.1 [#196](https://github.com/uclaacm/TeachLAFrontend/pull/196)
+- [**dependencies**] Bump lint-staged from 10.0.4 to 10.0.7 [#189](https://github.com/uclaacm/TeachLAFrontend/pull/189)
+- [**dependencies**] Bump @fortawesome/free-brands-svg-icons from 5.12.0 to 5.12.1 [#193](https://github.com/uclaacm/TeachLAFrontend/pull/193)
+- [**dependencies**] Bump @fortawesome/free-solid-svg-icons from 5.12.0 to 5.12.1 [#194](https://github.com/uclaacm/TeachLAFrontend/pull/194)
+- [**dependencies**] Bump @fortawesome/fontawesome-svg-core from 1.2.26 to 1.2.27 [#195](https://github.com/uclaacm/TeachLAFrontend/pull/195)
+- [**dependencies**] Bump enzyme-to-json from 3.4.3 to 3.4.4 [#192](https://github.com/uclaacm/TeachLAFrontend/pull/192)
+- [**dependencies**] Bump react-scripts from 3.3.0 to 3.3.1 [#191](https://github.com/uclaacm/TeachLAFrontend/pull/191)
+- [**dependencies**] Bump firebase from 7.7.0 to 7.8.0 [#190](https://github.com/uclaacm/TeachLAFrontend/pull/190)
+- [**dependencies**] Bump lint-staged from 10.0.3 to 10.0.4 [#187](https://github.com/uclaacm/TeachLAFrontend/pull/187)
+- [**dependencies**] Bump reactstrap from 8.4.0 to 8.4.1 [#186](https://github.com/uclaacm/TeachLAFrontend/pull/186)
+- [**dependencies**] Bump lint-staged from 10.0.2 to 10.0.3 [#185](https://github.com/uclaacm/TeachLAFrontend/pull/185)
+
+---
+
+## Version 1.0.2 | More Cleanup & Consistency (27/01/2020)
 
 Another small release, mostly just cataloguing dependency updates. Two small features added by @kilometerskang and @vohndernet on intuitive name-editing and finally adding the sketch thumbnail to the editor page!
 
