@@ -44,12 +44,6 @@ class ProfilePanel extends React.Component {
     };
   }
 
-  // componentDidMount = () => {
-  //   console.log("uid: " + this.props.uid);
-  // }
-
-  componentDidUpdate() {}
-
   handleOpenModal = () => {
     this.setState({ showModal: true, selectedImage: this.props.photoName });
   };
@@ -59,15 +53,11 @@ class ProfilePanel extends React.Component {
   };
 
   handleEditNameClick = () => {
-    this.setState(prevState => {
-      return { editingName: true };
-    });
+    this.setState({ editingName: true });
   };
 
   handleEditImageClick = () => {
-    this.setState(prevState => {
-      return { showModal: true };
-    });
+    this.setState({ showModal: true });
   };
 
   onNameChange = e => {
@@ -110,6 +100,9 @@ class ProfilePanel extends React.Component {
     }
   };
 
+  /**
+   * dispatches Redux action that changes current photo to new photo, and updates backend; closes the modal; resets the state
+   */
   onImageSubmit = () => {
     // SEND IMAGE NAME TO BACKEND, CHANGE IMAGE
     this.props.setPhotoName(this.state.selectedImage);
@@ -150,9 +143,7 @@ class ProfilePanel extends React.Component {
   };
 
   onImageClick = name => {
-    this.setState(prevState => {
-      return { selectedImage: name };
-    });
+    this.setState({ selectedImage: name });
   };
 
   renderImageModal = () => {

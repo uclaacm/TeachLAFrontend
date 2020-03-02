@@ -6,7 +6,6 @@ import EditSketchModalContainer from "./containers/EditSketchModalContainer";
 import OpenPanelButtonContainer from "../common/containers/OpenPanelButtonContainer";
 import { SketchThumbnailArray } from "./constants";
 import ProcessingConstructor from "../Output/Processing";
-// import { PANEL_SIZE } from "../../constants";
 import "styles/Sketches.scss";
 
 import { Button } from "reactstrap";
