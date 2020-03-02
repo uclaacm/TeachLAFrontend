@@ -31,14 +31,6 @@ class Main extends React.Component {
     this.props.setTheme(cookies.getThemeFromCookie());
   }
 
-  //==============React Lifecycle Functions Start===================//
-  // componentDidMount() {
-  //   console.log(this.props.programid);
-  //   if (this.props.contentType === "view" && this.props.programid != null) {
-  //     this.getProgram(this.props.programid);
-  //     console.log("ya");
-  //   }
-  // }
   componentDidUpdate(prevProps) {
     if (this.props.screenWidth !== prevProps.screenWidth) {
       if (this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT) {
@@ -48,13 +40,6 @@ class Main extends React.Component {
       }
     }
   }
-
-  // getProgram = async programid => {
-  //   const { ok, sketch } = await fetch.getSketch(programid);
-  //   this.props.setProgramCode(this.props.mostRecentProgram, sketch.code);
-  //   this.props.runCode(sketch.code, sketch.language);
-  //   return { ok, sketch };
-  // };
 
   onThemeChange = () => {
     let newTheme = this.props.theme === "dark" ? "light" : "dark";
