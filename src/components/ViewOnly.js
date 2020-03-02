@@ -5,6 +5,8 @@ import * as cookies from "../lib/cookies.js";
 
 import ProfilePanelContainer from "./common/containers/ProfilePanelContainer";
 import EditorAndOutput from "./EditorAndOutput/EditorAndOutput";
+import PageNotFound from "./PageNotFound";
+import LoadingPage from "./common/LoadingPage";
 
 import { EDITOR_WIDTH_BREAKPOINT, CODE_AND_OUTPUT, CODE_ONLY } from "../constants";
 
@@ -19,25 +21,37 @@ import "styles/Main.scss";
 class ViewOnly extends React.Component {
   constructor(props) {
     super(props);
+    console.log(props);
     this.state = {
       viewMode: this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT ? CODE_ONLY : CODE_AND_OUTPUT,
       pane1Style: { transition: "width .5s ease" },
-      programID: "",
       sketchName: "",
       language: "",
       thumbnail: "",
       code: "",
+      loaded: false,
+      notfound: false,
     };
   }
 
-  //==============React Lifecycle Functions Start===================//
-  componentDidMount() {
-    console.log(this.props.programid);
-    if (this.props.programid != null) {
-      this.getProgram(this.props.programid);
-      console.log("ya");
+  componentDidMount = async () => {
+    const { ok, sketch } = await fetch.getSketch(this.props.programid);
+    if (!ok) {
+      this.setState({ notfound: true });
+      return;
     }
-  }
+    this.setState({
+      sketchName: sketch.name,
+      language: sketch.language,
+      code: sketch.code,
+      thumbnail: sketch.thumbnail,
+      loaded: true,
+    });
+    console.log(sketch);
+    this.props.setProgramCode(this.props.mostRecentProgram, sketch.code);
+    this.props.runCode(sketch.code, sketch.language);
+  };
+
   componentDidUpdate(prevProps) {
     if (this.props.screenWidth !== prevProps.screenWidth) {
       if (this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT) {
@@ -48,21 +62,6 @@ class ViewOnly extends React.Component {
     }
   }
 
-  getProgram = async programid => {
-    const { ok, sketch } = await fetch.getSketch(programid);
-    this.setState({
-      sketchName: sketch.name,
-      language: sketch.language,
-      code: sketch.code,
-      thumbnail: sketch.thumbnail,
-    });
-    console.log(sketch);
-    console.log(sketch.name);
-    this.props.setProgramCode(this.props.mostRecentProgram, sketch.code);
-    this.props.runCode(sketch.code, sketch.language);
-    return { ok, sketch };
-  };
-
   onThemeChange = () => {
     let newTheme = this.props.theme === "dark" ? "light" : "dark";
     cookies.setThemeCookie(newTheme);
@@ -70,6 +69,12 @@ class ViewOnly extends React.Component {
   };
 
   render() {
+    if (this.state.notfound) {
+      return <PageNotFound />;
+    }
+    if (!this.state.loaded) {
+      return <LoadingPage />;
+    }
     const codeStyle = {
       left: this.props.left || 0,
       width: this.props.screenWidth - (this.props.left || 0),

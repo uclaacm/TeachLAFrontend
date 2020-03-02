@@ -8,7 +8,6 @@ import LoadingPage from "./common/LoadingPage";
 import CreateUserPage from "./CreateUser";
 import Error from "./Error";
 import PageNotFound from "./PageNotFound";
-import * as fetch from "../lib/fetch.js";
 import * as firebase from "firebase/app";
 import "firebase/auth";
 import "styles/app.scss";
@@ -68,12 +67,6 @@ class App extends React.Component {
     }
   };
 
-  getProgram = async programid => {
-    const { ok, sketch } = await fetch.getSketch(programid);
-
-    return { ok, sketch };
-  };
-
   showErrorPage = err => {
     console.log(err);
     this.props.loadFailure(err);
@@ -83,7 +76,7 @@ class App extends React.Component {
     return isValidUser ? <Redirect to="/editor" /> : <Redirect to="/login" />;
   };
 
-  render() {
+  render = () => {
     //if we haven't checked if the user is logged in yet, show a loading screen
     if (!this.state.checkedAuth) {
       return <LoadingPage />;
@@ -165,13 +158,9 @@ class App extends React.Component {
             {/* Get program endpoint */}
             <Route
               path="/p/:programid"
-              render={props =>
-                this.getProgram(props.match.params.programid) ? (
-                  <ViewOnlyContainer contentType="view" programid={props.match.params.programid} />
-                ) : (
-                  <PageNotFound />
-                )
-              }
+              render={props => (
+                <ViewOnlyContainer contentType="view" programid={props.match.params.programid} />
+              )}
             />
             {/* Default error page */}
             <Route
@@ -191,7 +180,7 @@ class App extends React.Component {
         </div>
       </Router>
     );
-  }
+  };
 }
 
 export default App;
