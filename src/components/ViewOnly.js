@@ -31,11 +31,25 @@ class ViewOnly extends React.Component {
       code: "",
       loaded: false,
       notfound: false,
+      originalCode: "",
     };
   }
 
   componentDidMount = async () => {
+    const { ok: okOriginal, sketch: original } = await fetch.getSketch(
+      this.props.mostRecentProgram,
+    );
     const { ok, sketch } = await fetch.getSketch(this.props.programid);
+
+    if (!okOriginal) {
+      this.setState({ notfound: true });
+      return;
+    }
+
+    this.setState({
+      originalCode: original.code,
+    });
+
     if (!ok) {
       this.setState({ notfound: true });
       return;
@@ -61,6 +75,10 @@ class ViewOnly extends React.Component {
       }
     }
   }
+
+  componentWillUnmount = () => {
+    this.props.setProgramCode(this.props.mostRecentProgram, this.state.originalCode);
+  };
 
   onThemeChange = () => {
     let newTheme = this.props.theme === "dark" ? "light" : "dark";
