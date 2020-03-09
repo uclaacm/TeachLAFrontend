@@ -5,10 +5,6 @@ import LoginForm from "./Login/LoginForm";
 import LoginImg1 from "img/login1.svg";
 import LoginBackground1 from "img/background1.svg";
 
-/**--------Props--------
- * provider: Facebook Provider used to login with Facebook
- */
-
 class Login extends React.Component {
   /**
    * constructor - sets initial state
@@ -34,7 +30,9 @@ class Login extends React.Component {
   render() {
     return (
       <div className="login-page">
-        {this.renderMainContent()}
+        <div className="login-page-content" style={{ backgroundImage: `url(${LoginGuy})` }}>
+          <LoginForm provider={this.props.provider} />
+        </div>
         <Footer />
       </div>
     );
