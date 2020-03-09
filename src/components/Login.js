@@ -2,7 +2,8 @@ import React from "react";
 import Footer from "./common/Footer";
 import "styles/Login.scss";
 import LoginForm from "./Login/LoginForm";
-import LoginGuy from "img/blueguy.png";
+import LoginImg1 from "img/login1.svg";
+import LoginBackground1 from "img/background1.svg";
 
 /**--------Props--------
  * provider: Facebook Provider used to login with Facebook
@@ -19,8 +20,13 @@ class Login extends React.Component {
 
   renderMainContent = () => {
     return (
-      <div className="login-page-content" style={{ backgroundImage: `url(${LoginGuy})` }}>
-        <LoginForm provider={this.props.provider} />
+      <div className="login-page-container">
+        <div
+          className="login-page-content"
+          style={{ backgroundImage: `url(${LoginImg1}), url(${LoginBackground1}) ` }}
+        >
+          <LoginForm provider={this.props.provider} />
+        </div>
       </div>
     );
   };

@@ -1,4 +1,4 @@
-@import 'styles/variables.scss';
+@import "styles/variables.scss";
 
 .login-page {
   margin: 0px;
@@ -8,6 +8,7 @@
 }
 
 .login-page-content {
+  display: flex;
   width: 100%;
   height: 100vh;
   background-repeat: no-repeat;
@@ -15,8 +16,10 @@
   background-size: auto 93%;
   overflow-y: auto;
   box-sizing: border-box;
-  background-color: $theme-dark;
+  background-color: white;
+  background-size: auto 100%;
   padding-bottom: 8vh;
+  background-position: right;
 }
 
 @media only screen and (max-width: 1024px) {
@@ -27,7 +30,7 @@
 
 .login-form {
   padding: 0 1.5em;
-  color: $off-white;
+  color: $theme-dark;
 }
 
 @media only screen and (max-width: 1024px) {
@@ -41,7 +44,7 @@
 }
 
 .login-form-input-header {
-  color: $off-white;
+  color: $theme-dark;
   font-size: 36px;
   margin-bottom: 1rem;
 }
@@ -65,23 +68,27 @@
   }
 }
 
+.login-page-container {
+  display: flex;
+}
+
 .login-form-input {
   font-size: 1.5em;
   line-height: normal;
   padding: 0.25rem 0.1rem 0px 0.1rem;
   border: 0px;
+  border-radius: 8px;
   background-color: $theme-dark;
   border-top: 0px;
   border-left: 0px;
   border-right: 0px;
-  border-bottom: 2px solid $off-white;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   outline: 0;
   width: 50%;
   min-width: 300px;
-  max-width: 500px;
+  max-width: 400px;
   margin: 0 2px 1rem; /*last value controls how far the next input starts*/
   font-variant-ligatures: none;
   -webkit-transition: box-shadow 70ms ease-out, border-color 70ms ease-out;
@@ -108,7 +115,8 @@
   text-align: left;
 }
 
-.login-form-button:hover, .login-form-button:active {
+.login-form-button:hover,
+.login-form-button:active {
   color: $theme-light !important;
   border-color: $off-white !important;
   background-color: $off-white !important;
