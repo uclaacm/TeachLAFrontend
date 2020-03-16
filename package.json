@@ -16,7 +16,7 @@
     "immutable": "^3.8.2",
     "node-sass": "^4.13.1",
     "react": "^16.13.0",
-    "react-codemirror2": "^6.0.0",
+    "react-codemirror2": "^7.0.0",
     "react-dom": "^16.13.0",
     "react-modal": "^3.11.2",
     "react-redux": "^7.2.0",
