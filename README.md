@@ -1,6 +1,6 @@
 ## ACM Teach LA's Editor Frontend
 
-![Node.js CI](https://github.com/uclaacm/TeachLAFrontend/workflows/Node.js%20CI/badge.svg)
+[![Node.js CI](https://github.com/uclaacm/TeachLAFrontend/workflows/Node.js%20CI/badge.svg)](https://github.com/uclaacm/TeachLAFrontend/actions?query=workflow%3A%22Node.js+CI%22)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/15895bed-2a7e-4a27-aa63-633a0cd645f1/deploy-status)](https://app.netlify.com/sites/sleepy-franklin-7a3e4c/deploys)
 
 This repository holds the frontend code for the ACM Teach LA online editor! Teach LA uses the editor to help teach LA students about Python, Web Development, and expose them to computer science!
