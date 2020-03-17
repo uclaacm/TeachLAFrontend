@@ -3,9 +3,7 @@
 const PYTHON = "python";
 const JAVASCRIPT = "javascript";
 const HTML = "html";
-const JAVA = "java";
 const PROCESSING = "processing";
-const CPP = "c++";
 
 const SUPPORTED_LANGUAGES = [PYTHON, JAVASCRIPT, HTML, PROCESSING];
 
@@ -21,12 +19,8 @@ SUPPORTED_LANGUAGES.forEach(lang => {
       return (CODEMIRROR_CONVERSIONS[lang] = "javascript");
     case HTML:
       return (CODEMIRROR_CONVERSIONS[lang] = "htmlmixed");
-    case JAVA:
-      return (CODEMIRROR_CONVERSIONS[lang] = "text/x-java");
     case PROCESSING:
       return (CODEMIRROR_CONVERSIONS[lang] = "javascript");
-    case CPP:
-      return (CODEMIRROR_CONVERSIONS[lang] = "text/x-csrc");
     default:
       console.error("SUPPORTED LANGUAGE WITH NO MODE");
   }
@@ -80,9 +74,7 @@ module.exports = {
   PYTHON,
   JAVASCRIPT,
   HTML,
-  JAVA,
   PROCESSING,
-  CPP,
 
   // photo names
   PHOTO_NAMES,

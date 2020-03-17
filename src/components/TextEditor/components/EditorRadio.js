@@ -2,9 +2,6 @@ import React from "react";
 import { CODE_AND_OUTPUT, CODE_ONLY, OUTPUT_ONLY } from "../../../constants";
 import Radio from "../../common/Radio.js";
 
-/**-------Props--------
- * runCode: function to be called when button is pressed
- */
 const EditorRadio = props => {
   let options = [];
   if (!props.isSmall) options.push({ display: "Both", value: CODE_AND_OUTPUT });

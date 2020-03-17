@@ -16,3 +16,19 @@
   font-family: $font-family-heading;
   color: $off-white;
 }
+
+.Loading-page-text {
+  color: $off-white;
+  margin-top: 3rem;
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+
+.Loading-link-text {
+  color: $off-white;
+  text-decoration: underline; 
+}
+
+.Loading-link-text:hover {
+  color: $teachla-green;
+}

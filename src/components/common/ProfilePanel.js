@@ -11,6 +11,7 @@ import {
   PANEL_SIZE,
 } from "../../constants";
 import ReactModal from "react-modal";
+import { faCheckSquare } from "@fortawesome/free-solid-svg-icons";
 import { faBook } from "@fortawesome/free-solid-svg-icons";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
@@ -35,13 +36,12 @@ class ProfilePanel extends React.Component {
       imageIsHovering: false,
       editingName: false,
       showModal: false,
+      nameSubmitted: false,
       name: this.props.displayName,
       selectedImage: "",
       displayNameMessage: "",
     };
   }
-
-  componentDidUpdate() {}
 
   handleOpenModal = () => {
     this.setState({ showModal: true, selectedImage: this.props.photoName });
@@ -52,15 +52,11 @@ class ProfilePanel extends React.Component {
   };
 
   handleEditNameClick = () => {
-    this.setState(prevState => {
-      return { editingName: true };
-    });
+    this.setState({ editingName: true });
   };
 
   handleEditImageClick = () => {
-    this.setState(prevState => {
-      return { showModal: true };
-    });
+    this.setState({ showModal: true });
   };
 
   onNameChange = e => {
@@ -77,7 +73,7 @@ class ProfilePanel extends React.Component {
     } else if (name.match(/[^a-zA-Z0-9!@#$% ]/)) {
       this.setState({
         displayNameMessage:
-          "Only use upper case, lower case, numbers, spaces, and/or the following special characters !@#$%",
+          "Only use letters, numbers, spaces, and/or the following special characters: !@#$%",
       });
       return true;
     }
@@ -89,15 +85,23 @@ class ProfilePanel extends React.Component {
     let badInputs = this.checkInputs();
 
     if (badInputs) {
-      this.setState({ name: this.props.displayName, editingName: false });
+      this.setState({ name: this.props.displayName, editingName: true });
       return;
     } else {
       this.props.setDisplayName(this.state.name);
-      this.setState({ editingName: false, displayNameMessage: "" });
+      this.setState({ editingName: false, nameSubmitted: true, displayNameMessage: "" });
+      setTimeout(() => {
+        this.setState({
+          nameSubmitted: false,
+        });
+      }, 500);
       return;
     }
   };
 
+  /**
+   * dispatches Redux action that changes current photo to new photo, and updates backend; closes the modal; resets the state
+   */
   onImageSubmit = () => {
     // SEND IMAGE NAME TO BACKEND, CHANGE IMAGE
     this.props.setPhotoName(this.state.selectedImage);
@@ -138,9 +142,7 @@ class ProfilePanel extends React.Component {
   };
 
   onImageClick = name => {
-    this.setState(prevState => {
-      return { selectedImage: name };
-    });
+    this.setState({ selectedImage: name });
   };
 
   renderImageModal = () => {
@@ -188,18 +190,25 @@ class ProfilePanel extends React.Component {
           onMouseLeave={() => this.setState({ nameIsHovering: false })}
           onClick={this.handleEditNameClick}
         >
-          {this.props.displayName || "Joe Bruin"}
+          <div className="panel-name-text">{this.props.displayName || "Joe Bruin"}</div>
           {this.state.nameIsHovering && (
             <button className="edit-icon-image" onClick={this.handleEditNameClick}>
               <FontAwesomeIcon icon={faEdit} />
             </button>
           )}
+          <div
+            className="submitted-icon-image"
+            style={{ opacity: +(this.state.nameSubmitted ? "1" : "0") }}
+          >
+            <FontAwesomeIcon icon={faCheckSquare} />
+          </div>
         </div>
       );
     } else {
       return (
         <form className="panel-edit-container" onSubmit={this.onNameSubmit}>
           <input
+            autoFocus
             className="panel-edit"
             placeholder={this.props.displayName}
             onChange={this.onNameChange}

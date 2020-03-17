@@ -1,6 +1,6 @@
 ## ACM Teach LA's Editor Frontend
 
-[![Build Status](https://travis-ci.org/uclaacm/TeachLAFrontend.svg?branch=master)](https://travis-ci.org/uclaacm/TeachLAFrontend)
+[![Node.js CI](https://github.com/uclaacm/TeachLAFrontend/workflows/Node.js%20CI/badge.svg)](https://github.com/uclaacm/TeachLAFrontend/actions?query=workflow%3A%22Node.js+CI%22)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/15895bed-2a7e-4a27-aa63-633a0cd645f1/deploy-status)](https://app.netlify.com/sites/sleepy-franklin-7a3e4c/deploys)
 
 This repository holds the frontend code for the ACM Teach LA online editor! Teach LA uses the editor to help teach LA students about Python, Web Development, and expose them to computer science!
@@ -60,5 +60,5 @@ The client should now be automatically opened in your browser; however, you can 
 
 - every time you pull from master, make sure to run `npm install` - it's likely that some dependency has changed!
 - `lint-staged` and `husky` auto-prettify some JS code on save - don't be spooked!
-- Travis CI auto-builds branches and PRs - make sure that `npm run test` `npm run prod_build` pass, or your changes for-sure won't work!
+- GitHub Actions auto-builds branches and PRs - make sure that `npm run test` `npm run prod_build` pass, or your changes for-sure won't work!
 - Netlify auto-deploys PRs, branches, and production deploys using the contents of `npm run prod_build`!

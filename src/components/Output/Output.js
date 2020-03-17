@@ -1,5 +1,5 @@
 import React from "react";
-import { PYTHON, JAVASCRIPT, CPP, JAVA, HTML, PROCESSING } from "../../constants";
+import { PYTHON, HTML, PROCESSING } from "../../constants";
 import { OUTPUT_ONLY } from "../../constants";
 import EditorRadio from "../TextEditor/components/EditorRadio.js";
 import CreateProcessingDoc from "../Output/Processing";
@@ -54,14 +54,6 @@ class Output extends React.Component {
     return false;
   };
 
-  // a bit hacky, but we're re-rendering the output
-  // by updating the state in a novel way
-  reRenderOutput = () => {
-    this.setState(prevState => ({
-      counter: prevState.counter + 1,
-    }));
-  };
-
   renderOpenPanelButton = () => this.props.viewMode === OUTPUT_ONLY && <OpenPanelButtonContainer />;
 
   renderIframe = getSrcDoc => {
@@ -110,9 +102,6 @@ class Output extends React.Component {
         runResult = btoa(runResult);
         srcDocFunc = () => CreatePythonDoc(runResult, showConsole);
         break;
-      case JAVA:
-      case JAVASCRIPT:
-      case CPP:
       case HTML:
       default:
         break;
