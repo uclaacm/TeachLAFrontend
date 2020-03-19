@@ -138,5 +138,10 @@ export const createSketch = data => {
  */
 
 export const deleteSketch = data => {
-  return makeServerRequest(data, "deleteProgram");
+  const options = {
+    method: "DELETE",
+    mode: "cors",
+  };
+
+  return fetch(`${constants.SERVER_URL}/program/delete?uid=${data.uid}&pid=${data.pid}`, options);
 };

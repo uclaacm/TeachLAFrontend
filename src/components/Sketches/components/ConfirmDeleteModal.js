@@ -13,20 +13,16 @@ class ConfirmDeleteModal extends React.Component {
   onDeleteSubmit = () => {
     let data = {
       uid: this.props.uid,
-      docID: this.props.sketchKey,
-      name: this.props.sketchKey,
+      pid: this.props.pid,
     };
     try {
       fetch
         .deleteSketch(data)
         .then(res => {
-          return res.json();
-        })
-        .then(json => {
-          if (!json.ok) {
+          if (!res.ok) {
             this.setState({
               spinner: false,
-              error: json.error || "Failed to create sketch, please try again later",
+              error: res.text || "Failed to create sketch, please try again later",
             });
             return;
           }

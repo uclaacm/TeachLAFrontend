@@ -196,7 +196,11 @@ class Sketches extends React.Component {
       isOpen={this.state.confirmDeleteModalOpen}
       onClose={() => this.setConfirmDeleteModalOpen(false)}
       sketchName={this.state.selectedSketch}
-      sketchKey={this.state.selectedKey}
+      pid={
+        Array.from(this.props.programs)[this.state.selectedKey]
+          ? Array.from(this.props.programs)[this.state.selectedKey].uid
+          : ""
+      }
     />
   );
 
