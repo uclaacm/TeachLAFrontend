@@ -16,7 +16,7 @@ import constants from "../constants";
  */
 export const getUserData = async (uid = "", includePrograms = false) => {
   const getUserDataEndpoint = (uid = "", includePrograms = false) =>
-    `${constants.SERVER_URL}/user/get?id=${uid}${includePrograms ? "&programs=true" : ""}`;
+    `${constants.SERVER_URL}/user/get?uid=${uid}${includePrograms ? "&programs=true" : ""}`;
 
   const options = {
     method: "get",
@@ -73,22 +73,21 @@ const makeServerRequest = (data, endpoint, method = "post") => {
  */
 
 export const updatePrograms = (uid = "", programs) => {
-  const endpoint = `updatePrograms/${uid}`;
+  const endpoint = `program/update?uid=${uid}`;
   return makeServerRequest(programs, endpoint, "put");
 };
 
 /**
  * merges the JSON parameter userData with the user document in Firestore; selectively updates based on passed-in keys
- * @param {string} uid UID for the user to update
- * @param {Object} userData object that contains only the keys of the user data that need to be updated
+ * @param {Object} user object containing updated user with UID.
  */
 
-export const updateUserData = async (uid = "", userData) => {
+export const updateUserData = async user => {
   let body = "";
 
   try {
-    if (Object.keys(userData).length) {
-      body = JSON.stringify(userData);
+    if (Object.keys(user).length) {
+      body = JSON.stringify(user);
     }
   } catch (err) {
     console.log(err);
@@ -100,7 +99,7 @@ export const updateUserData = async (uid = "", userData) => {
     body,
   };
 
-  let result = await fetch(`${constants.SERVER_URL}/user/update?id=${uid}`, options);
+  let result = await fetch(`${constants.SERVER_URL}/user/update`, options);
   let ok = await result.ok;
   let error = (await result.ok) ? "" : await result.text();
 

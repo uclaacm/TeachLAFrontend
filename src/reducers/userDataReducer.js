@@ -29,7 +29,7 @@ function userDataReducer(state = initialState, action) {
     case SET_DISPLAY_NAME:
       let newName = action.value;
       fetch
-        .updateUserData(state.uid, { displayName: newName })
+        .updateUserData({ uid: state.uid, displayName: newName })
         .then(response => {})
         .catch(err => {
           state.error = err;
@@ -39,7 +39,7 @@ function userDataReducer(state = initialState, action) {
     case SET_PHOTO_NAME:
       let newPhotoName = action.photoName;
       fetch
-        .updateUserData(state.uid, { photoName: newPhotoName })
+        .updateUserData({ uid: state.uid, photoName: newPhotoName })
         .then(response => {
           //if nothing went bad, keep the display name, otherwise, change it back (or dont, depends how we wanna do it)
         })
@@ -50,7 +50,7 @@ function userDataReducer(state = initialState, action) {
       return Object.assign({}, state, { photoName: newPhotoName });
     case SET_MOST_RECENT_PROGRAM:
       fetch
-        .updateUserData(state.uid, { mostRecentProgram: action.value })
+        .updateUserData({ uid: state.uid, mostRecentProgram: action.value })
         .then(response => {})
         .catch(err => {
           state.error = err;
