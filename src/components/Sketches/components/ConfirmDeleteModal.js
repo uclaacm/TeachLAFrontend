@@ -22,7 +22,7 @@ class ConfirmDeleteModal extends React.Component {
           if (!res.ok) {
             this.setState({
               spinner: false,
-              error: res.text || "Failed to create sketch, please try again later",
+              error: res.text() || "Failed to create sketch, please try again later",
             });
             return;
           }
