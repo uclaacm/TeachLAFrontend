@@ -2,7 +2,7 @@ import React from "react";
 import TLALogo from "../../img/tla-logo.svg";
 import "styles/Footer.scss";
 
-export default props => (
+export default () => (
   <footer className="footer">
     <a href="https://github.com/uclaacm/TeachLAFrontend" target="_blank" rel="noopener noreferrer">
       <img

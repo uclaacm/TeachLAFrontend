@@ -1,5 +1,41 @@
 # Changelog
 
+## Version v1.1.0 | Redirect Loop Fix, Helpful Loading/Error Pages, GitHub Actions! (29/02/2020)
+
+It's our first minor release, exciting! We fixed a redirect loop when the user had empty sketches (introduced in our `Main.js` refactor), add a helpful message when loading takes longer than expected, makes 404/Error pages more helpful and respect themeing, tests out GitHub Actions, and updates lots of dependencies.
+
+#### bug
+
+- [**bug**] Fixing Redirect Loop in Main.js (and other small fixes) [#208](https://github.com/uclaacm/TeachLAFrontend/pull/208)
+
+#### dependencies
+
+- [**dependencies**] Bump lint-staged from 10.0.7 to 10.0.8 [#214](https://github.com/uclaacm/TeachLAFrontend/pull/214)
+- [**dependencies**] Bump react-modal from 3.11.1 to 3.11.2 [#213](https://github.com/uclaacm/TeachLAFrontend/pull/213)
+- [**dependencies**] Bump react-dom from 16.12.0 to 16.13.0 [#216](https://github.com/uclaacm/TeachLAFrontend/pull/216)
+- [**dependencies**] Bump react from 16.12.0 to 16.13.0 [#215](https://github.com/uclaacm/TeachLAFrontend/pull/215)
+- [**dependencies**] Bump firebase from 7.9.0 to 7.9.1 [#212](https://github.com/uclaacm/TeachLAFrontend/pull/212)
+- [**dependencies**] Bump firebase from 7.8.2 to 7.9.0 [#209](https://github.com/uclaacm/TeachLAFrontend/pull/209)
+- [**dependencies**] Bump codemirror from 5.51.0 to 5.52.0 [#207](https://github.com/uclaacm/TeachLAFrontend/pull/207)
+- [**dependencies**] Bump react-redux from 7.1.3 to 7.2.0 [#206](https://github.com/uclaacm/TeachLAFrontend/pull/206)
+- [**dependencies**] Bump react-scripts from 3.3.1 to 3.4.0 [#205](https://github.com/uclaacm/TeachLAFrontend/pull/205)
+
+#### devops
+
+- [**devops**] Tries Out GitHub Actions for CI [#211](https://github.com/uclaacm/TeachLAFrontend/pull/211)
+
+#### feature
+
+- [**feature**] Adds link to GitHub Repo on 404 page, makes styling respect current theme [#199](https://github.com/uclaacm/TeachLAFrontend/pull/199)
+- [**feature**] Added help text to loading page [#197](https://github.com/uclaacm/TeachLAFrontend/pull/197)
+
+#### refactor
+
+- [**refactor**] Adds Tests for <Loading>'s Timer + Minor Improvements [#210](https://github.com/uclaacm/TeachLAFrontend/pull/210)
+- [**refactor**](very) minor code cleanup! [#203](https://github.com/uclaacm/TeachLAFrontend/pull/203)
+
+---
+
 ## Version v1.0.3 | Simple Dep Updates (17/02/2020)
 
 Pretty routine almost-biweekly release. This is just dependency updates.
@@ -7,7 +43,6 @@ Pretty routine almost-biweekly release. This is just dependency updates.
 #### dependencies
 
 - [**dependencies**] Bump firebase from 7.8.1 to 7.8.2 [#204](https://github.com/uclaacm/TeachLAFrontend/pull/204)
-
 - [**dependencies**] Bump husky from 4.0.10 to 4.2.1 [#184](https://github.com/uclaacm/TeachLAFrontend/pull/184)
 - [**dependencies**] Bump firebase from 7.8.0 to 7.8.1 [#196](https://github.com/uclaacm/TeachLAFrontend/pull/196)
 - [**dependencies**] Bump lint-staged from 10.0.4 to 10.0.7 [#189](https://github.com/uclaacm/TeachLAFrontend/pull/189)
