@@ -146,8 +146,10 @@ class CreateSketchModal extends React.Component {
           return res.json();
         })
         .then(json => {
-          this.props.addProgram(json.uid, json || {});
-          this.props.setMostRecentProgram(json.uid);
+          // must be held constant as sketchCount changes following program addition.
+          let futureKey = this.props.sketchCount;
+          this.props.addProgram(futureKey, json || {});
+          this.props.setMostRecentProgram(futureKey);
           this.setState({ redirect: true });
           this.closeModal();
         })

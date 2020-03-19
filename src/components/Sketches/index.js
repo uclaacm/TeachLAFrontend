@@ -168,6 +168,7 @@ class Sketches extends React.Component {
       isOpen={this.state.confirmDeleteModalOpen}
       onClose={() => this.setConfirmDeleteModalOpen(false)}
       sketchName={this.state.selectedSketch}
+      sketchKey={this.state.selectedKey}
       pid={
         Array.from(this.props.programs)[this.state.selectedKey]
           ? Array.from(this.props.programs)[this.state.selectedKey].uid
@@ -180,6 +181,7 @@ class Sketches extends React.Component {
     <CreateSketchModalContainer
       isOpen={this.state.createSketchModalOpen}
       onClose={() => this.setCreateSketchModalOpen(false)}
+      sketchCount={Array.from(this.props.programs).length}
     />
   );
 
