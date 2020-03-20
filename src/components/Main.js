@@ -68,19 +68,19 @@ class Main extends React.Component {
       saveText: "Saving...",
     });
 
-    let programToUpdate = {};
-
-    programToUpdate[this.props.mostRecentProgram] = {
+    let programDataToUpdate = {
       code: this.props.code,
     };
 
-    fetch.updatePrograms(this.props.uid, programToUpdate).then(() => {
-      this.setState({
-        saveText: "Saved!",
-      });
+    fetch
+      .updateProgram(this.props.uid, this.props.mostRecentProgramID, programDataToUpdate)
+      .then(() => {
+        this.setState({
+          saveText: "Saved!",
+        });
 
-      setTimeout(this.resetSaveText, 3000);
-    });
+        setTimeout(this.resetSaveText, 3000);
+      });
     this.props.cleanCode(this.props.mostRecentProgram); // Set code's "dirty" state to false
   };
 

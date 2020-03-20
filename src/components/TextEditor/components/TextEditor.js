@@ -53,12 +53,15 @@ class TextEditor extends React.Component {
     }
 
     try {
-      let programToUpdate = {};
-      programToUpdate[this.props.mostRecentProgram] = {
+      let programDataToUpdate = {
         code: this.props.code,
       };
 
-      await fetch.updatePrograms(this.props.uid, programToUpdate);
+      await fetch.updateProgram(
+        this.props.uid,
+        this.props.mostRecentProgramID,
+        programDataToUpdate,
+      );
       //TODO: add functionality to be able to tell whether the fetch failed
     } catch (err) {
       console.log(err);

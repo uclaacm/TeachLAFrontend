@@ -16,6 +16,7 @@ const mapStateToProps = state => {
   const dirty = state.programs.getIn([mostRecentProgram, "dirty"], false);
   const name = state.programs.getIn([mostRecentProgram, "name"], "untitled");
   const language = state.programs.getIn([mostRecentProgram, "language"], "txt");
+  const mostRecentProgramID = state.programs.getIn([mostRecentProgram, "uid"], "txt");
 
   let listOfPrograms = [];
 
@@ -24,6 +25,7 @@ const mapStateToProps = state => {
   return {
     uid: state.userData.uid,
     mostRecentProgram,
+    mostRecentProgramID,
     code,
     listOfPrograms,
     screenWidth: state.ui.screenWidth,
@@ -47,9 +49,6 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-const MainContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Main);
+const MainContainer = connect(mapStateToProps, mapDispatchToProps)(Main);
 
 export default MainContainer;

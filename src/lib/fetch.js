@@ -42,7 +42,7 @@ export const getUserData = async (uid = "", includePrograms = false) => {
  * @param {string} method HTTP method to make the request, defaults to post
  */
 
-const makeServerRequest = (data, endpoint, method = "post") => {
+const makeServerRequest = (data, endpoint, method = "POST") => {
   let body = "";
 
   // if the passed-in data object has at least 1 key, set the body to the stringified data object
@@ -57,9 +57,6 @@ const makeServerRequest = (data, endpoint, method = "post") => {
 
   const options = {
     method: method,
-    headers: {
-      "Content-Type": "application/json; charset=utf-8",
-    },
     body,
   };
 
@@ -69,12 +66,12 @@ const makeServerRequest = (data, endpoint, method = "post") => {
 /**
  * merges the JSON Parameter programs with the user document in Firestore; selectively updates based on passed-in keys
  * @param {string} uid UID of user to selectively update programs
- * @param {Object} programs object that contains only the keys of the project that need to be updated
+ * @param {Object} program object that contains only the keys of the project that need to be updated
  */
 
-export const updatePrograms = (uid = "", programs) => {
-  const endpoint = `program/update?uid=${uid}`;
-  return makeServerRequest(programs, endpoint, "put");
+export const updateProgram = (uid = "", pid = "", program) => {
+  const endpoint = `program/update?uid=${uid}&pid=${pid}`;
+  return makeServerRequest(program, endpoint, "PUT");
 };
 
 /**

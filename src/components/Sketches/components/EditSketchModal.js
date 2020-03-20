@@ -103,11 +103,9 @@ class EditSketchModal extends React.Component {
       doUpdate = true;
     }
     if (doUpdate) {
-      let updateData = {};
-      updateData[this.props.sketchKey] = data;
       try {
         fetch
-          .updatePrograms(this.props.uid, updateData)
+          .updateProgram(this.props.uid, data)
           .then(res => {
             return res.json();
           })
