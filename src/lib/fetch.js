@@ -57,6 +57,9 @@ const makeServerRequest = (data, endpoint, method = "POST") => {
 
   const options = {
     method: method,
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+    },
     body,
   };
 
@@ -80,27 +83,7 @@ export const updateProgram = (uid = "", pid = "", program) => {
  */
 
 export const updateUserData = async user => {
-  let body = "";
-
-  try {
-    if (Object.keys(user).length) {
-      body = JSON.stringify(user);
-    }
-  } catch (err) {
-    console.log(err);
-    return;
-  }
-
-  const options = {
-    method: "PUT",
-    body,
-  };
-
-  let result = await fetch(`${constants.SERVER_URL}/user/update`, options);
-  let ok = await result.ok;
-  let error = (await result.ok) ? "" : await result.text();
-
-  return { ok, error };
+  return makeServerRequest(user, "user/update", "PUT");
 };
 
 /**
@@ -109,23 +92,7 @@ export const updateUserData = async user => {
  */
 
 export const createSketch = data => {
-  let body = "";
-
-  try {
-    if (Object.keys(data).length) {
-      body = JSON.stringify(data);
-    }
-  } catch (err) {
-    console.log(err);
-    return;
-  }
-
-  const options = {
-    method: "POST",
-    body,
-  };
-
-  return fetch(`${constants.SERVER_URL}/program/create`, options);
+  return makeServerRequest(data, "program/create", "POST");
 };
 
 /**
@@ -134,10 +101,6 @@ export const createSketch = data => {
  */
 
 export const deleteSketch = data => {
-  const options = {
-    method: "DELETE",
-    mode: "cors",
-  };
-
-  return fetch(`${constants.SERVER_URL}/program/delete?uid=${data.uid}&pid=${data.pid}`, options);
+  const endpoint = `program/delete?uid=${data.uid}&pid=${data.pid}`;
+  return fetch(data, endpoint, "DELETE");
 };
