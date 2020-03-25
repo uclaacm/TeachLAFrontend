@@ -33,22 +33,15 @@ class ViewOnly extends React.Component {
       notfound: false,
       originalCode: "",
     };
+    this.savePrevProgram = (this.props.uid !== "");
   }
 
   componentDidMount = async () => {
-    const { ok: okOriginal, sketch: original } = await fetch.getSketch(
-      this.props.mostRecentProgram,
-    );
-    const { ok, sketch } = await fetch.getSketch(this.props.programid);
-
-    if (!okOriginal) {
-      this.setState({ notfound: true });
-      return;
+    if (this.savePrevProgram){
+      await this.codeSaverHelper();
     }
 
-    this.setState({
-      originalCode: original.code,
-    });
+    const { ok, sketch } = await fetch.getSketch(this.props.programid);
 
     if (!ok) {
       this.setState({ notfound: true });
@@ -77,8 +70,25 @@ class ViewOnly extends React.Component {
   }
 
   componentWillUnmount = () => {
-    this.props.setProgramCode(this.props.mostRecentProgram, this.state.originalCode);
+    if (this.savePrevProgram){
+      this.props.setProgramCode(this.props.mostRecentProgram, this.state.originalCode);
+    }
   };
+
+  codeSaverHelper = async () => {
+    const { ok: okOriginal, sketch: original } = await fetch.getSketch(
+      this.props.mostRecentProgram,
+    );
+
+    if (!okOriginal) {
+      this.setState({ notfound: true });
+      return;
+    }
+
+    this.setState({
+      originalCode: original.code,
+    });
+  }
 
   onThemeChange = () => {
     let newTheme = this.props.theme === "dark" ? "light" : "dark";
