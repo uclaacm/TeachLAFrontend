@@ -1,4 +1,4 @@
-const SketchThumbnailArray = [
+const ThumbnailArray = [
   "Ant",
   "Badger",
   "Bear",
@@ -60,5 +60,5 @@ const SketchThumbnailArray = [
 ];
 
 module.exports = {
-  SketchThumbnailArray,
+  ThumbnailArray,
 };

@@ -1,5 +1,5 @@
 import React from "react";
-import { SketchThumbnailArray } from "../constants";
+import { ThumbnailArray } from "../constants";
 import * as fetch from "../../../lib/fetch.js";
 import { Redirect } from "react-router-dom";
 
@@ -53,10 +53,9 @@ class CreateClassModal extends React.Component {
     if (
       this.state.thumbnail === undefined ||
       this.state.thumbnail === "" ||
-      this.state.thumbnail >= SketchThumbnailArray.length ||
+      this.state.thumbnail >= ThumbnailArray.length ||
       this.state.thumbnail < 0
     ) {
-      this.setState({ error: "Please select a thumbnail" });
       return true;
     }
 
@@ -89,11 +88,11 @@ class CreateClassModal extends React.Component {
 
     if (this.badThumbnailInput()) return;
 
+    // fill this in with the data you need to create a class
     let data = {
-      uid: this.props.uid,
+      instructor_id: this.props.uid,
       thumbnail: this.state.thumbnail,
       name: this.state.name,
-      code: "",
     };
 
     try {
@@ -112,8 +111,8 @@ class CreateClassModal extends React.Component {
             });
             return;
           }
-          this.props.addProgram(json.data.key, json.data.programData || {});
-          this.props.setMostRecentProgram(json.data.key);
+          // fill in the arguments with data from returned json
+          this.props.addClass(json.data.key, json.data.classData || {});
           this.setState({ redirect: true });
           this.closeModal();
         })
@@ -131,7 +130,7 @@ class CreateClassModal extends React.Component {
   };
 
   renderSecondModal = () => {
-    let icons = SketchThumbnailArray.map((val, index) => {
+    let icons = ThumbnailArray.map((val, index) => {
       return (
         <figure
           className="sketches-gallery-item"
@@ -151,7 +150,7 @@ class CreateClassModal extends React.Component {
       this.state.thumbnail !== -1 ? (
         <img
           src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${
-            SketchThumbnailArray[this.state.thumbnail]
+            ThumbnailArray[this.state.thumbnail]
           }.svg`}
           className={"sketches-modal-header-thumbnail"}
           alt="icon"
@@ -217,7 +216,7 @@ class CreateClassModal extends React.Component {
           <h1 className="text-center">Create a Class</h1>
           <hr />
           <FormGroup row>
-            <Label className="text-right" for="sketch-name" xs={4}>
+            <Label className="text-right" for="class-name" xs={4}>
               Enter new class name:
             </Label>
             <Col xs={8}>
@@ -225,7 +224,7 @@ class CreateClassModal extends React.Component {
                 className="sketches-modal-input"
                 onChange={e => this.setState({ name: e.target.value })}
                 value={this.state.name}
-                id="sketch-name"
+                id="class-name"
               />
             </Col>
           </FormGroup>

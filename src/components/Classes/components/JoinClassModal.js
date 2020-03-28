@@ -10,7 +10,7 @@ class JoinClassModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
+      classKey: "",
       disableSubmit: false,
       error: "",
       redirect: false,
@@ -28,18 +28,34 @@ class JoinClassModal extends React.Component {
     }
 
     this.setState({
-      name: "",
+      classKey: "",
       error: "",
       disableSubmit: false,
     });
   };
 
+  badInput = () => {
+    if (!this.state.classKey) {
+      this.setState({
+        error: "Please enter the class code. You should get this from your instructor.",
+      });
+      return true;
+    }
+    // TODO: Check if class code input is formatted correctly
+
+    return false;
+  };
+
   onSubmit = async e => {
     e.preventDefault();
 
+    if (this.badInput()) {
+      return;
+    }
+
     let data = {
       uid: this.props.uid,
-      code: "",
+      key: this.state.classKey,
     };
 
     try {
@@ -54,10 +70,11 @@ class JoinClassModal extends React.Component {
           if (!json.ok) {
             this.setState({
               disableSubmit: false,
-              error: json.error || "Failed to join the class, please try again later",
+              error: json.error || "There was a problem joining the class, please try again",
             });
             return;
           }
+          // fill in these arguments with the data from the json
           this.props.addClass(json.data.key, json.data.programData || {});
           this.setState({ redirect: true });
           this.closeModal();
@@ -65,13 +82,19 @@ class JoinClassModal extends React.Component {
         .catch(err => {
           this.setState({
             disableSubmit: false,
-            error: "Failed to join the class, please try again later",
+            error: "There was a problem joining the class, please try again",
           });
           console.log(err);
         });
     } catch (err) {
       console.log(err);
     }
+
+    /* Testing stuff:
+    this.props.addClass("1", {name: "abcd"} || {});
+    this.closeModal();
+    */
+
     this.setState({ disableSubmit: true, error: "" });
   };
 
@@ -88,15 +111,15 @@ class JoinClassModal extends React.Component {
           <h1 className="text-center">Join a Class</h1>
           <hr />
           <FormGroup row>
-            <Label className="text-right" for="sketch-name" xs={4}>
+            <Label className="text-right" for="class-code" xs={4}>
               Enter class code:
             </Label>
             <Col xs={8}>
               <Input
                 className="sketches-modal-input"
-                onChange={e => this.setState({ name: e.target.value })}
-                value={this.state.name}
-                id="sketch-name"
+                onChange={e => this.setState({ classKey: e.target.value })}
+                value={this.state.classKey}
+                id="class-code"
               />
             </Col>
           </FormGroup>
@@ -133,8 +156,7 @@ class JoinClassModal extends React.Component {
 export default JoinClassModal;
 
 // Stuff you might want
-{
-  /* <div className="join-class">
+/*<div className="join-class">
       <div className="join-class-text">Join a class:</div>
       <input
         className="join-class-input"
@@ -145,4 +167,3 @@ export default JoinClassModal;
       />
       {button}
     </div> */
-}
