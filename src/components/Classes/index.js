@@ -4,7 +4,7 @@ import ConfirmLeaveModalContainer from "./containers/ConfirmLeaveModalContainer"
 import CreateClassModalContainer from "./containers/CreateClassModalContainer";
 import JoinClassModalContainer from "./containers/JoinClassModalContainer";
 import OpenPanelButtonContainer from "../common/containers/OpenPanelButtonContainer";
-import { SketchThumbnailArray } from "./constants";
+import { ThumbnailArray } from "./constants";
 import "../../styles/ClassBox.scss";
 import "../../styles/Classes.scss";
 import "../../styles/Login.scss";
@@ -106,10 +106,10 @@ class Classes extends React.Component {
   };
 
   getThumbnailSrc = val => {
-    if (val === undefined || val === "" || val >= SketchThumbnailArray.length || val < 0) {
-      return SketchThumbnailArray[0];
+    if (val === undefined || val === "" || val >= ThumbnailArray.length || val < 0) {
+      return ThumbnailArray[0];
     }
-    return SketchThumbnailArray[val];
+    return ThumbnailArray[val];
   };
 
   renderClassList = () => {

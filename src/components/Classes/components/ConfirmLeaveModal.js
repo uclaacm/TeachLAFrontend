@@ -13,12 +13,13 @@ class ConfirmLeaveModal extends React.Component {
   onLeaveSubmit = () => {
     let data = {
       uid: this.props.uid,
-      docID: this.props.classKey,
-      name: this.props.classKey,
+      classKey: this.props.classKey,
     };
     try {
       fetch
+        // .removeStudFromClass(data)
         .deleteSketch(data)
+        // swap out this function
         .then(res => {
           return res.json();
         })
