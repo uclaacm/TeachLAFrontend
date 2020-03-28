@@ -7,7 +7,7 @@ import { Button, Container, Row, Col, FormGroup, Label, Input } from "reactstrap
 
 import ReactModal from "react-modal";
 
-class JoinClassModal extends React.Component {
+class CreateClassModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -56,7 +56,7 @@ class JoinClassModal extends React.Component {
       this.state.thumbnail >= SketchThumbnailArray.length ||
       this.state.thumbnail < 0
     ) {
-      // this.setState({error: "Please select a thumbnail"})
+      this.setState({ error: "Please select a thumbnail" });
       return true;
     }
 
@@ -98,6 +98,8 @@ class JoinClassModal extends React.Component {
 
     try {
       fetch
+        //.createClass(data)
+        // swap this out
         .createSketch(data)
         .then(res => {
           return res.json();
@@ -193,7 +195,7 @@ class JoinClassModal extends React.Component {
                 disabled={this.badThumbnailInput() || this.state.disableSubmit}
                 block
               >
-                Join
+                Create
               </Button>
             </Col>
           </Row>
@@ -212,11 +214,11 @@ class JoinClassModal extends React.Component {
         ariaHideApp={false}
       >
         <Container>
-          <h1 className="text-center">Join a Class</h1>
+          <h1 className="text-center">Create a Class</h1>
           <hr />
           <FormGroup row>
             <Label className="text-right" for="sketch-name" xs={4}>
-              Enter class code:
+              Enter new class name:
             </Label>
             <Col xs={8}>
               <Input
@@ -249,7 +251,8 @@ class JoinClassModal extends React.Component {
 
   render() {
     if (this.state.redirect) {
-      return <Redirect to="/editor" />;
+      // put class url here
+      return <Redirect to="/class" />;
     }
 
     if (this.state.next) {
@@ -260,19 +263,4 @@ class JoinClassModal extends React.Component {
   }
 }
 
-export default JoinClassModal;
-
-// Stuff you might want
-{
-  /* <div className="join-class">
-      <div className="join-class-text">Join a class:</div>
-      <input
-        className="join-class-input"
-        placeholder="EnterClassCode"
-        value={data}
-        onChange={e => onChange(e.target.value)}
-        spellcheck="false"
-      />
-      {button}
-    </div> */
-}
+export default CreateClassModal;

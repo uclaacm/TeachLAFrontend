@@ -122,7 +122,8 @@ class JoinClassModal extends React.Component {
 
   render() {
     if (this.state.redirect) {
-      return <Redirect to="/editor" />;
+      // Need to send them to the right class page
+      return <Redirect to="/class" />;
     }
 
     return this.renderModal();
