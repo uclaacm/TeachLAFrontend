@@ -1,9 +1,9 @@
-export const CREATE_CLASS = "CREATE_CLASS";
-export function createClass(classKey, data) {
-  return { type: CREATE_CLASS, classKey, data };
+export const ADD_CLASS = "ADD_CLASS";
+export function addClass(classKey, data) {
+  return { type: ADD_CLASS, classKey, data };
 }
 
-export const DELETE_CLASS = "DELETE_CLASS";
-export function deleteClass(classKey) {
-  return { type: DELETE_CLASS, classKey };
+export const REMOVE_CLASS = "REMOVE_CLASS";
+export function removeClass(classKey) {
+  return { type: REMOVE_CLASS, classKey };
 }

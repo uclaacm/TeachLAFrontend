@@ -2,7 +2,7 @@ import Classes from "../index.js";
 import { connect } from "react-redux";
 import { togglePanel } from "../../../actions/uiActions.js";
 import { OPEN_PANEL_LEFT, CLOSED_PANEL_LEFT, PANEL_SIZE } from "../../../constants";
-// import Immutable from "immutable";
+import Immutable from "immutable";
 
 const mapStateToProps = state => {
   let studClasses = [];
@@ -19,6 +19,12 @@ const mapStateToProps = state => {
   }
 
   instrClasses.push({ key: 8, name: "This is my class.", instructor: "Myself", thumbnail: 2 });
+
+  const classes = state.classes.keySeq().map(id => {
+    let temp = state.programs.get(id, Immutable.Map()).toJS();
+    temp.key = id;
+    return temp;
+  });
   // const classes = state.programs.keySeq().map(id => {
   //   let temp = state.programs.get(id, Immutable.Map()).toJS();
   //   temp.key = id;

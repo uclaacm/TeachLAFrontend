@@ -13,8 +13,8 @@ class ConfirmLeaveModal extends React.Component {
   onLeaveSubmit = () => {
     let data = {
       uid: this.props.uid,
-      docID: this.props.sketchKey,
-      name: this.props.sketchKey,
+      docID: this.props.classKey,
+      name: this.props.classKey,
     };
     try {
       fetch
@@ -26,17 +26,17 @@ class ConfirmLeaveModal extends React.Component {
           if (!json.ok) {
             this.setState({
               spinner: false,
-              error: json.error || "Failed to create sketch, please try again later",
+              error: json.error || "Failed to remove the class, please try again later",
             });
             return;
           }
-          this.props.deleteProgram(this.props.sketchKey);
+          this.props.removeClass(this.props.classKey);
           this.closeModal();
         })
         .catch(err => {
           this.setState({
             spinner: false,
-            error: "Failed to create sketch, please try again later",
+            error: "Failed to remove the class, please try again later",
           });
           console.log(err);
         });
@@ -56,7 +56,7 @@ class ConfirmLeaveModal extends React.Component {
       >
         <Container>
           <h2 className="text-center">
-            Are you sure you want to leave the class "{this.props.sketchName}"?
+            Are you sure you want to leave the class "{this.props.className}"?
           </h2>
           <hr />
           <Row>
