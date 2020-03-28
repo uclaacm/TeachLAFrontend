@@ -1,7 +1,7 @@
 import React from "react";
-// import JoinClass from "./components/JoinClass";
 import ClassBox from "./components/ClassBox";
 import ConfirmLeaveModalContainer from "./containers/ConfirmLeaveModalContainer";
+import CreateClassModalContainer from "./containers/CreateClassModalContainer";
 import JoinClassModalContainer from "./containers/JoinClassModalContainer";
 import OpenPanelButtonContainer from "../common/containers/OpenPanelButtonContainer";
 import { SketchThumbnailArray } from "./constants";
@@ -22,6 +22,7 @@ class Classes extends React.Component {
     this.state = {
       redirectTo: "",
       confirmLeaveModalOpen: false,
+      createClassModalOpen: false,
       joinClassModalOpen: false,
       selectedClass: "",
       selectedImg: "",
@@ -31,16 +32,16 @@ class Classes extends React.Component {
     };
   }
 
-  getRandomSketchThumbnail = () => {
-    return SketchThumbnailArray[Math.floor(Math.random() * SketchThumbnailArray.length)];
+  setCreateClassModalOpen = val => {
+    this.setState({ createClassModalOpen: val });
   };
 
   setJoinClassModalOpen = val => {
     this.setState({ joinClassModalOpen: val });
   };
 
-  setConfirmLeaveModalOpen = (val, sketch, key) => {
-    this.setState({ confirmLeaveModalOpen: val, selectedSketch: sketch, selectedKey: key });
+  setConfirmLeaveModalOpen = (val, className, key) => {
+    this.setState({ confirmLeaveModalOpen: val, selectedClass: className, selectedKey: key });
   };
 
   switchInstrStudView = () => {
@@ -50,10 +51,10 @@ class Classes extends React.Component {
   renderHeader = () => {
     let buttonText, icon;
     if (this.state.instructorView) {
-      buttonText = "Student View";
+      buttonText = "To Student View";
       icon = faPencilAlt;
     } else {
-      buttonText = "Instructor View";
+      buttonText = "To Instructor View";
       icon = faKey;
     }
 
@@ -78,15 +79,27 @@ class Classes extends React.Component {
     console.log(this.state.classCode);
   };
 
-  renderJoinAClass = () => {
-    let text = this.state.instructorView ? "Create a new class" : "Join a class";
+  renderCreateAClass = () => {
     return (
-      <Button className="class-box join-class" onClick={() => this.setJoinClassModalOpen(true)}>
-        <div class="join-class-plus">
+      <Button className="class-box join-class" onClick={() => this.setCreateClassModalOpen(true)}>
+        <div className="join-class-plus">
           <FontAwesomeIcon className="fa-lg" icon={faPlus} />
         </div>
-        <span class="fa-lg join-class-text">
-          <b>{text}</b>
+        <span className="fa-lg join-class-text">
+          <b>Create a new class</b>
+        </span>
+      </Button>
+    );
+  };
+
+  renderJoinAClass = () => {
+    return (
+      <Button className="class-box join-class" onClick={() => this.setJoinClassModalOpen(true)}>
+        <div className="join-class-plus">
+          <FontAwesomeIcon className="fa-lg" icon={faPlus} />
+        </div>
+        <span className="fa-lg join-class-text">
+          <b>Join a class</b>
         </span>
       </Button>
     );
@@ -125,9 +138,12 @@ class Classes extends React.Component {
       );
     });
 
+    let renderJoinOrCreate = this.state.instructorView
+      ? this.renderCreateAClass()
+      : this.renderJoinAClass();
     return (
       <div className="classes-grid">
-        {this.renderJoinAClass()}
+        {renderJoinOrCreate}
         {classes}
       </div>
     );
@@ -137,8 +153,15 @@ class Classes extends React.Component {
     <ConfirmLeaveModalContainer
       isOpen={this.state.confirmLeaveModalOpen}
       onClose={() => this.setConfirmLeaveModalOpen(false)}
-      sketchName={this.state.selectedSketch}
+      sketchName={this.state.selectedClass}
       sketchKey={this.state.selectedKey}
+    />
+  );
+
+  renderCreateClassModal = () => (
+    <CreateClassModalContainer
+      isOpen={this.state.createClassModalOpen}
+      onClose={() => this.setCreateClassModalOpen(false)}
     />
   );
 
@@ -154,6 +177,7 @@ class Classes extends React.Component {
       <React.Fragment>
         {this.renderHeader()}
         {this.renderClassList()}
+        {this.renderCreateClassModal()}
         {this.renderJoinClassModal()}
         {this.renderConfirmLeaveModal()}
       </React.Fragment>
