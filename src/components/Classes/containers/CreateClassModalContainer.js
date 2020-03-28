@@ -1,7 +1,6 @@
 import CreateClassModal from "../components/CreateClassModal.js";
 import { connect } from "react-redux";
-import { addProgram } from "../../../actions/programsActions";
-import { setMostRecentProgram } from "../../../actions/userDataActions.js";
+import { addClass } from "../../../actions/classesActions";
 
 const mapStateToProps = state => {
   return {
@@ -11,8 +10,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addProgram: (program, data) => dispatch(addProgram(program, data)),
-    setMostRecentProgram: value => dispatch(setMostRecentProgram(value)),
+    addClass: (classKey, data) => dispatch(addClass(classKey, data)),
   };
 };
 

@@ -153,8 +153,8 @@ class Classes extends React.Component {
     <ConfirmLeaveModalContainer
       isOpen={this.state.confirmLeaveModalOpen}
       onClose={() => this.setConfirmLeaveModalOpen(false)}
-      sketchName={this.state.selectedClass}
-      sketchKey={this.state.selectedKey}
+      className={this.state.selectedClass}
+      classKey={this.state.selectedKey}
     />
   );
 

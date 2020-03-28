@@ -1,6 +1,6 @@
 import ConfirmLeaveModal from "../components/ConfirmLeaveModal.js";
 import { connect } from "react-redux";
-import { deleteProgram } from "../../../actions/programsActions";
+import { removeClass } from "../../../actions/classesActions";
 
 const mapStateToProps = state => {
   return {
@@ -10,13 +10,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    deleteProgram: (program, data) => dispatch(deleteProgram(program, data)),
+    removeClass: classKey => dispatch(removeClass(classKey)),
   };
 };
 
-const ConfirmLeaveModalContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(ConfirmLeaveModal);
+const ConfirmLeaveModalContainer = connect(mapStateToProps, mapDispatchToProps)(ConfirmLeaveModal);
 
 export default ConfirmLeaveModalContainer;
