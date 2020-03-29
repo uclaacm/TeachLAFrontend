@@ -5,6 +5,7 @@ import App from "../app.js";
 import { connect } from "react-redux";
 import { loadUserData, clearUserData, loadFailure } from "../../actions/userDataActions.js";
 import { loadPrograms, clearPrograms } from "../../actions/programsActions";
+import { loadClasses, clearClasses } from "../../actions/classesActions";
 import { screenResize } from "../../actions/uiActions";
 import * as fetch from "../../lib/fetch.js";
 
@@ -26,6 +27,9 @@ const mapDispatchToProps = dispatch => {
         if (data.programs) {
           dispatch(loadPrograms(data.programs));
         }
+        if (data.classes) {
+          dispatch(loadClasses(data.classes));
+        }
         dispatch(loadUserData(uid, data.userData));
       } else {
         onFailure("SERVER ERROR: Unable to get user data from server");
@@ -34,6 +38,7 @@ const mapDispatchToProps = dispatch => {
     clearUserData: () => {
       dispatch(clearUserData());
       dispatch(clearPrograms());
+      dispatch(clearClasses());
     },
     loadFailure: err => {
       dispatch(loadFailure(err));
@@ -42,9 +47,6 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-const Root = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(App);
+const Root = connect(mapStateToProps, mapDispatchToProps)(App);
 
 export default Root;
