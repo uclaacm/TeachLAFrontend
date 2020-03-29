@@ -126,6 +126,22 @@ class CreateClassModal extends React.Component {
     } catch (err) {
       console.log(err);
     }
+
+    // Testing stuff (do this instead of the try-catch block):
+    /*
+    let testKey = Math.floor(Math.random() * 10);
+    this.props.addClass(testKey,
+      {
+        key: testKey,
+        name: this.state.name,
+        instructor: "Me",
+        thumbnail: this.state.thumbnail,
+        isInstr: true,
+      });
+    this.closeModal();
+    */
+    // end of testing stuff
+
     this.setState({ disableSubmit: true, error: "" });
   };
 

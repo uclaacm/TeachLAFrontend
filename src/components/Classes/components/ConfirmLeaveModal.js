@@ -44,6 +44,14 @@ class ConfirmLeaveModal extends React.Component {
     } catch (err) {
       console.log(err);
     }
+
+    // Testing stuff (do this instead of the try-catch block):
+    /*
+    this.props.removeClass(this.props.classKey);
+    this.closeModal();
+    */
+    // end of test stuff
+
     this.setState({ spinner: true, error: "" });
   };
 

@@ -62,7 +62,7 @@ class JoinClassModal extends React.Component {
       fetch
         //.joinClass(data)
         .createSketch(data)
-        // kept createSketch here so it would compile
+        // kept createSketch here so it would compile -- swap it out
         .then(res => {
           return res.json();
         })
@@ -90,10 +90,20 @@ class JoinClassModal extends React.Component {
       console.log(err);
     }
 
-    /* Testing stuff:
-    this.props.addClass("1", {name: "abcd"} || {});
+    // Testing stuff (do this instead of the try-catch block):
+    /*
+    let classLetter = String.fromCharCode(Math.floor(Math.random() * 26) + 65);
+    this.props.addClass(this.state.classKey,
+      {
+        key: this.state.classKey,
+        name: "Class ".concat(classLetter),
+        instructor: "Prof. ".concat(classLetter),
+        thumbnail: Math.floor(Math.random() * 20),
+        isInstr: false,
+      });
     this.closeModal();
     */
+    // end of testing stuff
 
     this.setState({ disableSubmit: true, error: "" });
   };
