@@ -31,11 +31,18 @@ class ViewOnly extends React.Component {
       code: "",
       loaded: false,
       notfound: false,
+      originalCode: "",
     };
+    this.savePrevProgram = (this.props.uid !== "");
   }
 
   componentDidMount = async () => {
+    if (this.savePrevProgram){
+      await this.codeSaverHelper();
+    }
+
     const { ok, sketch } = await fetch.getSketch(this.props.programid);
+
     if (!ok) {
       this.setState({ notfound: true });
       return;
@@ -60,6 +67,27 @@ class ViewOnly extends React.Component {
         }
       }
     }
+  }
+
+  componentWillUnmount = () => {
+    if (this.savePrevProgram){
+      this.props.setProgramCode(this.props.mostRecentProgram, this.state.originalCode);
+    }
+  };
+
+  codeSaverHelper = async () => {
+    const { ok: okOriginal, sketch: original } = await fetch.getSketch(
+      this.props.mostRecentProgram,
+    );
+
+    if (!okOriginal) {
+      this.setState({ notfound: true });
+      return;
+    }
+
+    this.setState({
+      originalCode: original.code,
+    });
   }
 
   onThemeChange = () => {
