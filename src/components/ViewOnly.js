@@ -21,7 +21,6 @@ import "styles/Main.scss";
 class ViewOnly extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props);
     this.state = {
       viewMode: this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT ? CODE_ONLY : CODE_AND_OUTPUT,
       pane1Style: { transition: "width .5s ease" },
@@ -55,7 +54,6 @@ class ViewOnly extends React.Component {
       thumbnail: sketch.thumbnail,
       loaded: true,
     });
-    console.log(sketch);
     this.props.setProgramCode(this.props.mostRecentProgram, sketch.code);
     this.props.runCode(sketch.code, sketch.language);
   };
