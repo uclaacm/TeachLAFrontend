@@ -47,9 +47,6 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-const MainContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Main);
+const MainContainer = connect(mapStateToProps, mapDispatchToProps)(Main);
 
 export default MainContainer;

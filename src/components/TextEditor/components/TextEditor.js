@@ -33,10 +33,12 @@ class TextEditor extends React.Component {
     this.state = {
       codeMirrorInstance: null,
       currentLine: 0,
+      sketch: null,
     };
   }
 
   //==============React Lifecycle Functions===================//
+
   componentDidMount() {
     window.addEventListener("beforeunload", this.onLeave);
     window.addEventListener("close", this.onLeave);
@@ -113,6 +115,8 @@ class TextEditor extends React.Component {
   };
   renderDropdown = () => <DropdownButtonContainer />;
 
+  renderSketchName = () => <div className="program-sketch-name">{this.props.sketchName}</div>;
+
   renderBanner = () => {
     let thumbnail = SketchThumbnailArray[this.props.thumbnail];
     return (
@@ -123,7 +127,7 @@ class TextEditor extends React.Component {
           src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${thumbnail}.svg`}
           alt="sketch thumbnail"
         />
-        {this.renderDropdown()}
+        {this.props.viewOnly ? this.renderSketchName() : this.renderDropdown()}
         <div style={{ marginLeft: "auto", marginRight: ".5rem" }}>
           <EditorRadio
             viewMode={this.props.viewMode}
@@ -131,19 +135,23 @@ class TextEditor extends React.Component {
             isSmall={this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
           />
         </div>
-        <ViewportAwareButton
-          className="mx-2"
-          color="success"
-          size="lg"
-          onClick={this.props.handleSave}
-          isSmall={this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
-          icon={<FontAwesomeIcon icon={faSave} />}
-          text={this.props.saveText}
-        />
+        {this.props.viewOnly ? null : (
+          <ViewportAwareButton
+            className="mx-2"
+            color="success"
+            size="lg"
+            onClick={this.props.handleSave}
+            isSmall={this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
+            icon={<FontAwesomeIcon icon={faSave} />}
+            text={this.props.saveText}
+          />
+        )}
 
-        <Button className="mx-2" color="success" size="lg" onClick={this.props.handleDownload}>
-          <FontAwesomeIcon icon={faDownload} />
-        </Button>
+        {
+          <Button className="mx-2" color="success" size="lg" onClick={this.props.handleDownload}>
+            <FontAwesomeIcon icon={faDownload} />
+          </Button>
+        }
       </div>
     );
   };
@@ -159,31 +167,33 @@ class TextEditor extends React.Component {
     };
 
     return (
-      <div className="code-section">
-        {this.renderBanner()}
-        <div
-          className="text-editor-container"
-          style={{
-            height: this.props.screenHeight - 61 - 20,
-            minHeight: this.props.screenHeight - 61 - 20,
-            maxHeight: this.props.screenHeight - 61 - 20,
-          }}
-        >
-          <CodeMirror
-            editorDidMount={codeMirrorInstance => {
-              codeMirrorInstance.refresh();
-              this.setCodeMirrorInstance(codeMirrorInstance);
+      <div className={`theme-` + this.props.theme} style={{ height: "100%" }}>
+        <div className="code-section">
+          {this.renderBanner()}
+          <div
+            className="text-editor-container"
+            style={{
+              height: this.props.screenHeight - 61 - 20,
+              minHeight: this.props.screenHeight - 61 - 20,
+              maxHeight: this.props.screenHeight - 61 - 20,
             }}
-            value={this.props.code}
-            lineWrapping
-            indentWithTabs={true}
-            options={options}
-            onCursor={cm => {
-              this.setCurrentLine(cm);
-            }}
-            onBeforeChange={this.updateCode}
-            onChange={this.updateCode}
-          />
+          >
+            <CodeMirror
+              editorDidMount={codeMirrorInstance => {
+                codeMirrorInstance.refresh();
+                this.setCodeMirrorInstance(codeMirrorInstance);
+              }}
+              value={this.props.code}
+              lineWrapping
+              indentWithTabs={true}
+              options={options}
+              onCursor={cm => {
+                this.setCurrentLine(cm);
+              }}
+              onBeforeChange={this.updateCode}
+              onChange={this.updateCode}
+            />
+          </div>
         </div>
       </div>
     );
