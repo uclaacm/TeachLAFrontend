@@ -33,11 +33,12 @@ class ViewOnly extends React.Component {
       notfound: false,
       originalCode: "",
     };
-    this.savePrevProgram = (this.props.uid !== "");
+    this.savePrevProgram = this.props.uid !== "";
+    this.props.setTheme(cookies.getThemeFromCookie());
   }
 
   componentDidMount = async () => {
-    if (this.savePrevProgram){
+    if (this.savePrevProgram) {
       await this.codeSaverHelper();
     }
 
@@ -70,7 +71,7 @@ class ViewOnly extends React.Component {
   }
 
   componentWillUnmount = () => {
-    if (this.savePrevProgram){
+    if (this.savePrevProgram) {
       this.props.setProgramCode(this.props.mostRecentProgram, this.state.originalCode);
     }
   };
@@ -88,7 +89,7 @@ class ViewOnly extends React.Component {
     this.setState({
       originalCode: original.code,
     });
-  }
+  };
 
   onThemeChange = () => {
     let newTheme = this.props.theme === "dark" ? "light" : "dark";
