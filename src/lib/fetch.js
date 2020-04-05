@@ -131,3 +131,37 @@ export const getSketch = async (docID) => {
   let sketch = await result.json();
   return { ok, sketch };
 };
+
+/**
+ * creates a new class
+ * @param {Object} data required data to create class {uid, name, thumbnail}
+ */
+export const createClass = (data) => {
+  return makeServerRequest(data, "class/create");
+};
+
+/**
+ * add a student to an existing class
+ * @param {Object} data student's uid and class's cid {uid, cid}
+ */
+export const joinClass = (data) => {
+  return makeServerRequest(data, "class/join");
+};
+
+/**
+ * remove a member from a class
+ * @param {Object} data member's uid and class's cid {uid, cid}
+ */
+export const leaveClass = (data) => {
+  return makeServerRequest(data, "class/leave");
+};
+
+/**
+ * Get class data for a user
+ * @param {Object} data member's uid and class's cid {uid, cid}
+ */
+export const getClass = async (data) => {
+  let result = await makeServerRequest(data, "class/get", "get");
+  let { ok, classData } = await result.json();
+  return { ok, classData };
+};

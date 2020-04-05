@@ -46,7 +46,7 @@ class JoinClassModal extends React.Component {
     return false;
   };
 
-  onSubmit = async e => {
+  onSubmit = async (e) => {
     e.preventDefault();
 
     if (this.badInput()) {
@@ -55,18 +55,16 @@ class JoinClassModal extends React.Component {
 
     let data = {
       uid: this.props.uid,
-      key: this.state.classKey,
+      cid: this.state.classKey,
     };
 
     try {
       fetch
-        //.joinClass(data)
-        .createSketch(data)
-        // kept createSketch here so it would compile -- swap it out
-        .then(res => {
+        .joinClass(data)
+        .then((res) => {
           return res.json();
         })
-        .then(json => {
+        .then((json) => {
           if (!json.ok) {
             this.setState({
               disableSubmit: false,
@@ -74,12 +72,12 @@ class JoinClassModal extends React.Component {
             });
             return;
           }
-          // fill in these arguments with the data from the json
-          this.props.addClass(json.data.key, json.data.programData || {});
+          // TODO: figure out the response and fill this in correctly
+          this.props.addClass(json.data.cid, json.data || {});
           this.setState({ redirect: true });
           this.closeModal();
         })
-        .catch(err => {
+        .catch((err) => {
           this.setState({
             disableSubmit: false,
             error: "There was a problem joining the class, please try again",
@@ -127,7 +125,7 @@ class JoinClassModal extends React.Component {
             <Col xs={8}>
               <Input
                 className="sketches-modal-input"
-                onChange={e => this.setState({ classKey: e.target.value })}
+                onChange={(e) => this.setState({ classKey: e.target.value })}
                 value={this.state.classKey}
                 id="class-code"
               />
@@ -164,16 +162,3 @@ class JoinClassModal extends React.Component {
 }
 
 export default JoinClassModal;
-
-// Stuff you might want
-/*<div className="join-class">
-      <div className="join-class-text">Join a class:</div>
-      <input
-        className="join-class-input"
-        placeholder="EnterClassCode"
-        value={data}
-        onChange={e => onChange(e.target.value)}
-        spellcheck="false"
-      />
-      {button}
-    </div> */
