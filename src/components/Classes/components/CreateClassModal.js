@@ -39,7 +39,7 @@ class CreateClassModal extends React.Component {
     });
   };
 
-  setNext = val => {
+  setNext = (val) => {
     this.setState({
       next: val,
       error: "",
@@ -75,7 +75,7 @@ class CreateClassModal extends React.Component {
     return false;
   };
 
-  onFirstSubmit = e => {
+  onFirstSubmit = (e) => {
     e.preventDefault();
     if (this.badNameInput()) {
       return;
@@ -83,27 +83,24 @@ class CreateClassModal extends React.Component {
     this.setNext(true);
   };
 
-  onSecondSubmit = async e => {
+  onSecondSubmit = async (e) => {
     e.preventDefault();
 
     if (this.badThumbnailInput()) return;
 
-    // fill this in with the data you need to create a class
     let data = {
-      instructor_id: this.props.uid,
-      thumbnail: this.state.thumbnail,
+      uid: this.props.uid,
       name: this.state.name,
+      thumbnail: this.state.thumbnail,
     };
 
     try {
       fetch
-        //.createClass(data)
-        // swap this out
-        .createSketch(data)
-        .then(res => {
+        .createClass(data)
+        .then((res) => {
           return res.json();
         })
-        .then(json => {
+        .then((json) => {
           if (!json.ok) {
             this.setState({
               disableSubmit: false,
@@ -111,12 +108,12 @@ class CreateClassModal extends React.Component {
             });
             return;
           }
-          // fill in the arguments with data from returned json
-          this.props.addClass(json.data.key, json.data.classData || {});
+          // TODO: figure out the response json values
+          this.props.addClass(json.data.cid, json.data || {});
           this.setState({ redirect: true });
           this.closeModal();
         })
-        .catch(err => {
+        .catch((err) => {
           this.setState({
             disableSubmit: false,
             error: "Failed to create class, please try again later",
@@ -238,7 +235,7 @@ class CreateClassModal extends React.Component {
             <Col xs={8}>
               <Input
                 className="sketches-modal-input"
-                onChange={e => this.setState({ name: e.target.value })}
+                onChange={(e) => this.setState({ name: e.target.value })}
                 value={this.state.name}
                 id="class-name"
               />

@@ -13,31 +13,29 @@ class ConfirmLeaveModal extends React.Component {
   onLeaveSubmit = () => {
     let data = {
       uid: this.props.uid,
-      classKey: this.props.classKey,
+      cid: this.props.classKey,
     };
     try {
       fetch
-        // .removeStudFromClass(data)
-        .deleteSketch(data)
-        // swap out this function
-        .then(res => {
+        .leaveClass(data)
+        .then((res) => {
           return res.json();
         })
-        .then(json => {
+        .then((json) => {
           if (!json.ok) {
             this.setState({
               spinner: false,
-              error: json.error || "Failed to remove the class, please try again later",
+              error: json.error || "Failed to leave the class, please try again later",
             });
             return;
           }
           this.props.removeClass(this.props.classKey);
           this.closeModal();
         })
-        .catch(err => {
+        .catch((err) => {
           this.setState({
             spinner: false,
-            error: "Failed to remove the class, please try again later",
+            error: "Failed to leave the class, please try again later",
           });
           console.log(err);
         });
