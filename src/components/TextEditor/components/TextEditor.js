@@ -8,8 +8,7 @@ import OpenPanelButtonContainer from "../../common/containers/OpenPanelButtonCon
 import { EDITOR_WIDTH_BREAKPOINT } from "../../../constants";
 import ViewportAwareButton from "../../common/ViewportAwareButton.js";
 import DropdownButtonContainer from "../../common/containers/DropdownButtonContainer";
-import { faSave } from "@fortawesome/free-solid-svg-icons";
-import { faDownload } from "@fortawesome/free-solid-svg-icons";
+import { faDownload, faSave, faShare } from "@fortawesome/free-solid-svg-icons";
 import { SketchThumbnailArray } from "../../Sketches/constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -146,7 +145,17 @@ class TextEditor extends React.Component {
             text={this.props.saveText}
           />
         )}
-
+        {
+          <ViewportAwareButton
+            className="mx-2"
+            color="primary"
+            size="lg"
+            onClick={() => console.log("shared!")}
+            isSmall={this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
+            icon={<FontAwesomeIcon icon={faShare} />}
+            text={"Share"}
+          />
+        }
         {
           <Button className="mx-2" color="success" size="lg" onClick={this.props.handleDownload}>
             <FontAwesomeIcon icon={faDownload} />
