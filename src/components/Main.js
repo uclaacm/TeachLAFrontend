@@ -2,13 +2,13 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 
 import { EDITOR_WIDTH_BREAKPOINT, CODE_AND_OUTPUT, CODE_ONLY } from '../constants';
-import * as cookies from '../lib/cookies.js';
-import * as fetch from '../lib/fetch.js';
-
+import * as fetch from "../lib/fetch.js";
+import * as cookies from "../lib/cookies.js";
+import ClassPageContainer from "./Class/containers/ClassPageContainer";
 import ClassesPageContainer from "./Classes/containers/ClassesContainer";
-import ProfilePanelContainer from './common/containers/ProfilePanelContainer';
-import EditorAndOutput from './EditorAndOutput/EditorAndOutput';
-import SketchesPageContainer from './Sketches/containers/SketchesContainer';
+import ProfilePanelContainer from "./common/containers/ProfilePanelContainer";
+import SketchesPageContainer from "./Sketches/containers/SketchesContainer";
+import EditorAndOutput from "./EditorAndOutput/EditorAndOutput";
 
 import '../styles/Main.scss';
 
@@ -81,6 +81,8 @@ class Main extends React.Component {
         return this.renderEditor();
       case "classes":
         return <ClassesPageContainer />;
+      case "classPage":
+        return <ClassPageContainer />;
       case "sketches":
       default:
         return <SketchesPageContainer />;
