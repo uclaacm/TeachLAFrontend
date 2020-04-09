@@ -161,6 +161,13 @@ class App extends React.Component {
                 <ViewOnlyContainer contentType="view" programid={props.match.params.programid} />
               )}
             />
+            {/* Class page */}
+            <Route
+              path="/class"
+              render={() =>
+                isValidUser ? <MainContainer contentType="classPage" /> : <Redirect to="/login" />
+              }
+            />
             {/* Classes page */}
             <Route
               path="/classes"

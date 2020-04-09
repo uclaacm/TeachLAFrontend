@@ -3,6 +3,7 @@ import { Redirect } from "react-router-dom";
 
 import * as fetch from "../lib/fetch.js";
 import * as cookies from "../lib/cookies.js";
+import ClassPageContainer from "./Class/containers/ClassPageContainer";
 import ClassesPageContainer from "./Classes/containers/ClassesContainer";
 import ProfilePanelContainer from "./common/containers/ProfilePanelContainer";
 import SketchesPageContainer from "./Sketches/containers/SketchesContainer";
@@ -81,6 +82,8 @@ class Main extends React.Component {
         return this.renderEditor();
       case "classes":
         return <ClassesPageContainer />;
+      case "classPage":
+        return <ClassPageContainer />;
       case "sketches":
       default:
         return <SketchesPageContainer />;
