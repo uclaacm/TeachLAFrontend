@@ -30,9 +30,7 @@ class Login extends React.Component {
   render() {
     return (
       <div className="login-page">
-        <div className="login-page-content" style={{ backgroundImage: `url(${LoginGuy})` }}>
-          <LoginForm provider={this.props.provider} />
-        </div>
+        {this.renderMainContent()}
         <Footer />
       </div>
     );
