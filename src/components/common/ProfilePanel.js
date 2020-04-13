@@ -20,6 +20,7 @@ import { faMoon } from "@fortawesome/free-solid-svg-icons";
 import { faSun } from "@fortawesome/free-solid-svg-icons";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import "styles/Panel.scss";
 import Switch from "./Switch";
 import Footer from "./Footer";
@@ -265,9 +266,8 @@ class ProfilePanel extends React.Component {
         panelButtons.push(this.renderEditorButton());
         break;
       case "editor":
-        panelButtons.push(this.renderSketchesButton());
-        break;
       default:
+        panelButtons.push(this.renderSketchesButton());
         break;
     }
 
@@ -290,6 +290,40 @@ class ProfilePanel extends React.Component {
       />
     );
   };
+
+  renderLoginButton = () => (
+    <Link
+      to={{ pathname: "/login" }}
+      className="panel-button btn btn-secondary btn-lg btn-block"
+      key="login-button"
+      id="login-button"
+    >
+      <FontAwesomeIcon icon={faUserCircle} />
+      <span className="panel-button-text">Login</span>
+    </Link>
+  );
+
+  renderCreateUserButton = () => (
+    <Link
+      to={{ pathname: "/createUser" }}
+      className="panel-button btn btn-secondary btn-lg btn-block"
+      key="create-user-button"
+      id="create-user-button"
+    >
+      {/* <FontAwesomeIcon icon={faPencilAlt} /> */}
+      <span className="panel-button-text">Create User</span>
+    </Link>
+  );
+
+  renderLoggedOutContent = () => (
+    <div className="panel-content">
+      <div className="panel-buttons">
+        {this.renderLoginButton()}
+        {this.renderCreateUserButton()}
+      </div>
+      {this.renderThemeSwitch()}
+    </div>
+  );
 
   renderContent = () => (
     <div className="panel-content">
@@ -317,7 +351,7 @@ class ProfilePanel extends React.Component {
     return (
       <div className="panel" style={panelStyle}>
         {this.renderCollapseButton()}
-        {this.renderContent()}
+        {this.props.uid ? this.renderContent() : this.renderLoggedOutContent()}
         <Footer />
       </div>
     );

@@ -1,5 +1,41 @@
 # Changelog
 
+## Version v1.2.0 | Updating Node, Removing Travis, & Dependencies (23/03/2020)
+
+Hey all! This is a quick Release that mostly updates our dependencies: moving node to major version 12 (the new LTS), updating many of our node modules, and removing our Travis config (which also triggers our Travis builds) in favour of GitHub Actions.
+
+Exciting new features coming soon!
+
+#### dependencies
+
+- [**dependencies**] Bump @fortawesome/free-solid-svg-icons from 5.12.1 to 5.13.0 [#240](https://github.com/uclaacm/TeachLAFrontend/pull/240)
+- [**dependencies**] Bump @fortawesome/fontawesome-svg-core from 1.2.27 to 1.2.28 [#242](https://github.com/uclaacm/TeachLAFrontend/pull/242)
+- [**dependencies**] Bump react-scripts from 3.4.0 to 3.4.1 [#241](https://github.com/uclaacm/TeachLAFrontend/pull/241)
+- [**dependencies**] Bump react-dom from 16.13.0 to 16.13.1 [#239](https://github.com/uclaacm/TeachLAFrontend/pull/239)
+- [**dependencies**] Bump react-split-pane from 0.1.89 to 0.1.91 [#237](https://github.com/uclaacm/TeachLAFrontend/pull/237)
+- [**dependencies**] Bump prettier from 1.19.1 to 2.0.1 [#236](https://github.com/uclaacm/TeachLAFrontend/pull/236)
+- [**dependencies**] Bump react from 16.13.0 to 16.13.1 [#232](https://github.com/uclaacm/TeachLAFrontend/pull/232)
+- [**dependencies**] Bump codemirror from 5.52.0 to 5.52.2 [#233](https://github.com/uclaacm/TeachLAFrontend/pull/233)
+- [**dependencies**] Bump firebase from 7.11.0 to 7.12.0 [#231](https://github.com/uclaacm/TeachLAFrontend/pull/231)
+- [**dependencies**] Bump react-codemirror2 from 7.0.0 to 7.1.0 [#234](https://github.com/uclaacm/TeachLAFrontend/pull/234)
+- [**dependencies**] Updating to Node 12.14.1 LTS! [#182](https://github.com/uclaacm/TeachLAFrontend/pull/182)
+- [**dependencies**] Bump react-codemirror2 from 6.0.0 to 7.0.0 [#230](https://github.com/uclaacm/TeachLAFrontend/pull/230)
+- [**dependencies**] Bump firebase from 7.9.1 to 7.11.0 [#228](https://github.com/uclaacm/TeachLAFrontend/pull/228)
+- [**dependencies**][**security**] [Security] Bump acorn from 5.7.3 to 5.7.4 [#229](https://github.com/uclaacm/TeachLAFrontend/pull/229)
+- [**dependencies**] Bump @fortawesome/react-fontawesome from 0.1.8 to 0.1.9 [#222](https://github.com/uclaacm/TeachLAFrontend/pull/222)
+- [**dependencies**] Bump husky from 4.2.1 to 4.2.3 [#202](https://github.com/uclaacm/TeachLAFrontend/pull/202)
+
+#### devops
+
+- [**devops**] Removes Travis [#226](https://github.com/uclaacm/TeachLAFrontend/pull/226)
+
+#### refactor
+
+- [**refactor**] Removing Defunct Code [#225](https://github.com/uclaacm/TeachLAFrontend/pull/225)
+- [**refactor**] Uses CodeDownloader Everywhere [#224](https://github.com/uclaacm/TeachLAFrontend/pull/224)
+
+---
+
 ## Version v1.1.0 | Redirect Loop Fix, Helpful Loading/Error Pages, GitHub Actions! (29/02/2020)
 
 It's our first minor release, exciting! We fixed a redirect loop when the user had empty sketches (introduced in our `Main.js` refactor), add a helpful message when loading takes longer than expected, makes 404/Error pages more helpful and respect themeing, tests out GitHub Actions, and updates lots of dependencies.
