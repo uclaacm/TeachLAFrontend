@@ -23,7 +23,8 @@ describe("ProfilePanel", () => {
     console.log(component.find("div.image-selector-gallery"));
     expect(component.find("div.image-selector-gallery").contains([<img />, <img />, <img />]))
   });
+
+  // TODO: isOpen and closeModal props are passed into ReactModal, needs deep rendering
   // isOpen={this.state.showModal}
   // closeModal={this.handleCloseModal}
-  // icons={icons}
 })
