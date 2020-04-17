@@ -6,9 +6,9 @@ let initialState = Immutable.Map();
 function classesReducer(state = initialState, action) {
   switch (action.type) {
     case ADD_CLASS:
-      return state.set(action.classKey, Immutable.fromJS(action.data));
+      return state.set(action.cid, Immutable.fromJS(action.data));
     case REMOVE_CLASS:
-      return state.delete(action.classKey);
+      return state.delete(action.cid);
     case LOAD_CLASSES:
       return Immutable.fromJS(action.programs);
     case CLEAR_CLASSES:

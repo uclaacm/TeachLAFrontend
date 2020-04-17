@@ -141,7 +141,7 @@ export const createClass = (data) => {
 
 /**
  * add a student to an existing class
- * @param {Object} data student's uid and class's cid {uid, cid}
+ * @param {Object} data student's uid and class's word id {uid, wid}
  */
 export const joinClass = (data) => {
   return makeServerRequest(data, "class/join");

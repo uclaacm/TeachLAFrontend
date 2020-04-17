@@ -13,8 +13,9 @@ class ConfirmLeaveModal extends React.Component {
   onLeaveSubmit = () => {
     let data = {
       uid: this.props.uid,
-      cid: this.props.classKey,
+      cid: this.props.cid,
     };
+
     try {
       fetch
         .leaveClass(data)
@@ -29,7 +30,7 @@ class ConfirmLeaveModal extends React.Component {
             });
             return;
           }
-          this.props.removeClass(this.props.classKey);
+          this.props.removeClass(this.props.cid);
           this.closeModal();
         })
         .catch((err) => {
@@ -45,9 +46,9 @@ class ConfirmLeaveModal extends React.Component {
 
     // Testing stuff (do this instead of the try-catch block):
     /*
-    this.props.removeClass(this.props.classKey);
+    this.props.removeClass(this.props.cid);
     this.closeModal();
-    */
+*/
     // end of test stuff
 
     this.setState({ spinner: true, error: "" });

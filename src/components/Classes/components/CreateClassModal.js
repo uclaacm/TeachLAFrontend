@@ -108,8 +108,7 @@ class CreateClassModal extends React.Component {
             });
             return;
           }
-          // TODO: figure out the response json values
-          this.props.addClass(json.data.cid, json.data || {});
+          this.props.addClass(json.data.cid, json || {});
           this.setState({ redirect: true });
           this.closeModal();
         })
@@ -126,17 +125,20 @@ class CreateClassModal extends React.Component {
 
     // Testing stuff (do this instead of the try-catch block):
     /*
-    let testKey = Math.floor(Math.random() * 10);
-    this.props.addClass(testKey,
+    let testCid = Math.floor(Math.random() * 10);
+    this.props.addClass(testCid,
       {
-        key: testKey,
-        name: this.state.name,
-        instructor: "Me",
         thumbnail: this.state.thumbnail,
-        isInstr: true,
+        name: this.state.name,
+        creator: this.props.uid,
+        instructors: [ "Me", this.props.uid ],
+        members: [ "HASH3", "HASH4", "HASH5" ],
+        programs: [ "HASH6", "HASH7" ],
+        cid: testCid,
+        wid: "Metallic Funky Monkey",
       });
     this.closeModal();
-    */
+*/
     // end of testing stuff
 
     this.setState({ disableSubmit: true, error: "" });

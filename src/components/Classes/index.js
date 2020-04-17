@@ -26,22 +26,22 @@ class Classes extends React.Component {
       joinClassModalOpen: false,
       selectedClass: "",
       selectedImg: "",
-      selectedKey: "",
+      selectedCid: "",
       classCode: "",
       instructorView: false,
     };
   }
 
-  setCreateClassModalOpen = val => {
+  setCreateClassModalOpen = (val) => {
     this.setState({ createClassModalOpen: val });
   };
 
-  setJoinClassModalOpen = val => {
+  setJoinClassModalOpen = (val) => {
     this.setState({ joinClassModalOpen: val });
   };
 
-  setConfirmLeaveModalOpen = (val, className, key) => {
-    this.setState({ confirmLeaveModalOpen: val, selectedClass: className, selectedKey: key });
+  setConfirmLeaveModalOpen = (val, className, cid) => {
+    this.setState({ confirmLeaveModalOpen: val, selectedClass: className, selectedCid: cid });
   };
 
   switchInstrStudView = () => {
@@ -74,7 +74,7 @@ class Classes extends React.Component {
     );
   };
 
-  updateClassCode = classCode => {
+  updateClassCode = (classCode) => {
     this.setState({ classCode });
     console.log(this.state.classCode);
   };
@@ -105,7 +105,7 @@ class Classes extends React.Component {
     );
   };
 
-  getThumbnailSrc = val => {
+  getThumbnailSrc = (val) => {
     if (val === undefined || val === "" || val >= ThumbnailArray.length || val < 0) {
       return ThumbnailArray[0];
     }
@@ -121,18 +121,17 @@ class Classes extends React.Component {
       if (a.name === b.name) return 0;
       else return 1;
     });
-    classesIn.forEach(({ key, name, thumbnail, instructor }) => {
+    classesIn.forEach((element) => {
       classes.push(
         <ClassBox
-          img={this.getThumbnailSrc(thumbnail)}
-          name={name}
-          key={key}
-          instructorString={"Instructor: ".concat(instructor)}
+          img={this.getThumbnailSrc(element.thumbnail)}
+          name={element.name}
+          instructors={element.instructors}
           deleteFunc={() => {
-            this.setConfirmLeaveModalOpen(true, name, key);
+            this.setConfirmLeaveModalOpen(true, element.name, element.cid);
           }}
           redirFunc={() => {
-            this.redirectToClassPage(key);
+            this.redirectToClassPage(element.cid);
           }}
         />,
       );
@@ -154,7 +153,7 @@ class Classes extends React.Component {
       isOpen={this.state.confirmLeaveModalOpen}
       onClose={() => this.setConfirmLeaveModalOpen(false)}
       className={this.state.selectedClass}
-      classKey={this.state.selectedKey}
+      cid={this.state.selectedCid}
     />
   );
 
