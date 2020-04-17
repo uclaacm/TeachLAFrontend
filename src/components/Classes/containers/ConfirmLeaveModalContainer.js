@@ -2,15 +2,15 @@ import ConfirmLeaveModal from "../components/ConfirmLeaveModal.js";
 import { connect } from "react-redux";
 import { removeClass } from "../../../actions/classesActions";
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     uid: state.userData.uid,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    removeClass: classKey => dispatch(removeClass(classKey)),
+    removeClass: (cid) => dispatch(removeClass(cid)),
   };
 };
 
