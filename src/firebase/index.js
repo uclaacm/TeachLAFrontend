@@ -1,9 +1,4 @@
-// import {auth.FacebookAuthProvider} from "firebase";
-import * as firebase from "firebase/app";
 import "firebase/auth";
-
-// export const provider = new auth.FacebookAuthProvider();
-export const provider = new firebase.auth.FacebookAuthProvider();
 
 let config = {
   apiKey: "AIzaSyD6a3Br7b52N2c6MjZTu1UU0ssf3ZwbfoA",

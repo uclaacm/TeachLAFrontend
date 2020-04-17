@@ -41,25 +41,26 @@ export const getUserData = async (uid = "", includePrograms = false) => {
  */
 
 const makeServerRequest = (data, endpoint, method = "post") => {
-  let body = "";
-
-  // if the passed-in data object has at least 1 key, set the body to the stringified data object
-  try {
-    if (Object.keys(data).length) {
-      body = JSON.stringify(data);
-    }
-  } catch (err) {
-    console.log(err);
-    return;
-  }
-
-  const options = {
+  let options = {
     method: method,
     headers: {
       "Content-Type": "application/json; charset=utf-8",
     },
-    body,
   };
+
+  if (method === "post" || method === "put") {
+    let body = "";
+    // if the passed-in data object has at least 1 key, set the body to the stringified data object
+    try {
+      if (Object.keys(data).length) {
+        body = JSON.stringify(data);
+      }
+    } catch (err) {
+      console.log(err);
+      return;
+    }
+    options.body = body;
+  }
 
   return fetch(`${constants.SERVER_URL}/${endpoint}`, options);
 };
@@ -102,4 +103,16 @@ export const createSketch = data => {
 
 export const deleteSketch = data => {
   return makeServerRequest(data, "deleteProgram");
+};
+
+/**
+ * gets a sketch's information by the docID
+ * @param {string} docID the key for the requested program in the top-level programs object
+ */
+
+export const getSketch = async docID => {
+  const endpoint = `getProgram/${docID}`;
+  let result = await makeServerRequest({}, endpoint, "get");
+  let { ok, sketch } = await result.json();
+  return { ok, sketch };
 };

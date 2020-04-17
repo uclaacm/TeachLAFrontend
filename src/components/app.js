@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-d
 import { ROUTER_BASE_NAME } from "../constants";
 import LoginPage from "./containers/LoginContainer";
 import MainContainer from "./containers/MainContainer";
+import ViewOnlyContainer from "./containers/ViewOnlyContainer";
 import LoadingPage from "./common/LoadingPage";
 import CreateUserPage from "./CreateUser";
 import Error from "./Error";
@@ -75,7 +76,7 @@ class App extends React.Component {
     return isValidUser ? <Redirect to="/editor" /> : <Redirect to="/login" />;
   };
 
-  render() {
+  render = () => {
     //if we haven't checked if the user is logged in yet, show a loading screen
     if (!this.state.checkedAuth) {
       return <LoadingPage />;
@@ -154,6 +155,13 @@ class App extends React.Component {
                 )
               }
             />
+            {/* Get program endpoint */}
+            <Route
+              path="/p/:programid"
+              render={props => (
+                <ViewOnlyContainer contentType="view" programid={props.match.params.programid} />
+              )}
+            />
             {/* Default error page */}
             <Route
               path="/error"
@@ -172,7 +180,7 @@ class App extends React.Component {
         </div>
       </Router>
     );
-  }
+  };
 }
 
 export default App;

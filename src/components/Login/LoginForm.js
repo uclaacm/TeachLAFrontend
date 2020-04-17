@@ -25,9 +25,6 @@ export default class LoginModal extends React.Component {
     };
   }
 
-  //===========React Lifecycle Functions============//
-  componentDidMount() {}
-
   handleEmailLogin = e => {
     this.setState({ waiting: true, errorMsg: "" });
 
@@ -136,15 +133,6 @@ export default class LoginModal extends React.Component {
         </div>
       );
     } else {
-      /* We've disabled the social button for now, but here it is.
-        <SocialButton
-          imgSrc="/img/fbLogo1.png"
-          bgColor="#4267b2"
-          textColor="white"
-          value="Login with Facebook"
-          handleLogin={this.handleSocialLogin}
-        />
-      */
       return (
         <Button className="login-form-button" size="lg" type="submit">
           Login

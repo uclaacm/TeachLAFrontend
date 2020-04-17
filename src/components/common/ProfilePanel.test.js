@@ -11,28 +11,28 @@ describe("ProfilePanel", () => {
   });
 
   it("handles displayName prop properly", () => {
-    const component = shallow(<ProfilePanel displayName={"Mark"} />);
+    const component = shallow(<ProfilePanel uid={"foo"} displayName={"Mark"} />);
     expect(component.find(".panel-name-text").text()).toEqual("Mark");
 
-    const component2 = shallow(<ProfilePanel />);
+    const component2 = shallow(<ProfilePanel uid={"foo"} />);
     expect(component2.find(".panel-name-text").text()).toEqual("Joe Bruin");
   });
 
   it("handles photoName prop properly", () => {
-    const component = shallow(<ProfilePanel />);
+    const component = shallow(<ProfilePanel uid={"foo"} />);
     expect(component.find(".panel-image").get(0).props.src).toBe(PHOTO_NAMES[DEFAULT_PHOTO_NAME]);
 
     const name = Object.keys(PHOTO_NAMES)[1];
-    const component2 = shallow(<ProfilePanel photoName={name} />);
+    const component2 = shallow(<ProfilePanel uid={"foo"} photoName={name} />);
     expect(component2.find(".panel-image").get(0).props.src).toBe(PHOTO_NAMES[name]);
   });
 
   it("Buttons change based on content type", () => {
-    const component = shallow(<ProfilePanel contentType={"sketches"} />);
+    const component = shallow(<ProfilePanel uid={"foo"} contentType={"sketches"} />);
     expect(component.find("#editor-button"));
     expect(component.find("#sign-out-button"));
 
-    const component2 = shallow(<ProfilePanel contentType={"editor"} />);
+    const component2 = shallow(<ProfilePanel uid={"foo"} contentType={"editor"} />);
     expect(component2.find("#sketches-button"));
     expect(component2.find("#sign-out-button"));
   });
@@ -55,19 +55,19 @@ describe("ProfilePanel", () => {
   });
 
   it("handles displayName prop properly", () => {
-    const component = shallow(<ProfilePanel />);
+    const component = shallow(<ProfilePanel uid={"foo"} />);
 
     expect(component.find(".panel-image").get(0).props.src).toBe(PHOTO_NAMES[DEFAULT_PHOTO_NAME]);
 
     const name = Object.keys(PHOTO_NAMES)[1];
-    const component2 = shallow(<ProfilePanel photoName={name} />);
+    const component2 = shallow(<ProfilePanel uid={"foo"} photoName={name} />);
 
     expect(component2.find(".panel-image").get(0).props.src).toBe(PHOTO_NAMES[name]);
   });
 
   it("changing the panel image works", () => {
     const clickFn = jest.fn(photo => photo);
-    const component = shallow(<ProfilePanel setPhotoName={clickFn} />);
+    const component = shallow(<ProfilePanel uid={"foo"} setPhotoName={clickFn} />);
 
     expect(component.find(".panel-image").get(0).props.src).toBe(PHOTO_NAMES[DEFAULT_PHOTO_NAME]);
 
@@ -104,7 +104,9 @@ describe("ProfilePanel", () => {
 
   it("changing the display name works", () => {
     const clickFn = jest.fn(name => name);
-    const component = shallow(<ProfilePanel displayName={"Mark"} setDisplayName={clickFn} />);
+    const component = shallow(
+      <ProfilePanel uid={"foo"} displayName={"Mark"} setDisplayName={clickFn} />,
+    );
 
     expect(component.find(".panel-name-text").text()).toBe("Mark");
 
@@ -145,6 +147,8 @@ describe("ProfilePanel", () => {
   });
 
   // TODO:
+
+  // test the non-logged in profile panel!
 
   //test that onBlur causes a submit for the display name input
 

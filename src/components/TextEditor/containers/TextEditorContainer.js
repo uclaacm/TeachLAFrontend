@@ -10,7 +10,6 @@ const mapStateToProps = (state, ownProps) => {
   //should have 2 keys, code (which is the code) and langauge (which is the language the code is written it)
   // add key dirty
   const programData = state.programs.get(mostRecentProgram, Immutable.Map()).toJS();
-
   return {
     ...programData,
     mostRecentProgram,

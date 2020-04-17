@@ -20,6 +20,7 @@ import { faMoon } from "@fortawesome/free-solid-svg-icons";
 import { faSun } from "@fortawesome/free-solid-svg-icons";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import "styles/Panel.scss";
 import Switch from "./Switch";
 import Footer from "./Footer";
@@ -44,8 +45,6 @@ class ProfilePanel extends React.Component {
     };
   }
 
-  componentDidUpdate() {}
-
   handleOpenModal = () => {
     this.setState({ showModal: true, selectedImage: this.props.photoName });
   };
@@ -55,15 +54,11 @@ class ProfilePanel extends React.Component {
   };
 
   handleEditNameClick = () => {
-    this.setState(prevState => {
-      return { editingName: true };
-    });
+    this.setState({ editingName: true });
   };
 
   handleEditImageClick = () => {
-    this.setState(prevState => {
-      return { showModal: true };
-    });
+    this.setState({ showModal: true });
   };
 
   onNameChange = e => {
@@ -99,13 +94,16 @@ class ProfilePanel extends React.Component {
       this.setState({ editingName: false, nameSubmitted: true, displayNameMessage: "" });
       setTimeout(() => {
         this.setState({
-          nameSubmitted: false
+          nameSubmitted: false,
         });
       }, 500);
       return;
     }
   };
 
+  /**
+   * dispatches Redux action that changes current photo to new photo, and updates backend; closes the modal; resets the state
+   */
   onImageSubmit = () => {
     // SEND IMAGE NAME TO BACKEND, CHANGE IMAGE
     this.props.setPhotoName(this.state.selectedImage);
@@ -146,9 +144,7 @@ class ProfilePanel extends React.Component {
   };
 
   onImageClick = name => {
-    this.setState(prevState => {
-      return { selectedImage: name };
-    });
+    this.setState({ selectedImage: name });
   };
 
   renderImageModal = () => {
@@ -199,15 +195,16 @@ class ProfilePanel extends React.Component {
           onMouseLeave={() => this.setState({ nameIsHovering: false })}
           onClick={this.handleEditNameClick}
         >
-          <div className="panel-name-text">
-            {this.props.displayName || "Joe Bruin"}
-          </div>
+          <div className="panel-name-text">{this.props.displayName || "Joe Bruin"}</div>
           {this.state.nameIsHovering && (
             <button className="edit-icon-image" onClick={this.handleEditNameClick}>
               <FontAwesomeIcon icon={faEdit} />
             </button>
           )}
-          <div className="submitted-icon-image" style={{opacity:  + (this.state.nameSubmitted ? "1" : "0")}}>
+          <div
+            className="submitted-icon-image"
+            style={{ opacity: +(this.state.nameSubmitted ? "1" : "0") }}
+          >
             <FontAwesomeIcon icon={faCheckSquare} />
           </div>
         </div>
@@ -273,9 +270,8 @@ class ProfilePanel extends React.Component {
         panelButtons.push(this.renderEditorButton());
         break;
       case "editor":
-        panelButtons.push(this.renderSketchesButton());
-        break;
       default:
+        panelButtons.push(this.renderSketchesButton());
         break;
     }
 
@@ -298,6 +294,40 @@ class ProfilePanel extends React.Component {
       />
     );
   };
+
+  renderLoginButton = () => (
+    <Link
+      to={{ pathname: "/login" }}
+      className="panel-button btn btn-secondary btn-lg btn-block"
+      key="login-button"
+      id="login-button"
+    >
+      <FontAwesomeIcon icon={faUserCircle} />
+      <span className="panel-button-text">Login</span>
+    </Link>
+  );
+
+  renderCreateUserButton = () => (
+    <Link
+      to={{ pathname: "/createUser" }}
+      className="panel-button btn btn-secondary btn-lg btn-block"
+      key="create-user-button"
+      id="create-user-button"
+    >
+      {/* <FontAwesomeIcon icon={faPencilAlt} /> */}
+      <span className="panel-button-text">Create User</span>
+    </Link>
+  );
+
+  renderLoggedOutContent = () => (
+    <div className="panel-content">
+      <div className="panel-buttons">
+        {this.renderLoginButton()}
+        {this.renderCreateUserButton()}
+      </div>
+      {this.renderThemeSwitch()}
+    </div>
+  );
 
   renderContent = () => (
     <div className="panel-content">
@@ -325,7 +355,7 @@ class ProfilePanel extends React.Component {
     return (
       <div className="panel" style={panelStyle}>
         {this.renderCollapseButton()}
-        {this.renderContent()}
+        {this.props.uid ? this.renderContent() : this.renderLoggedOutContent()}
         <Footer />
       </div>
     );

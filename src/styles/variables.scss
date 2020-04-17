@@ -22,6 +22,13 @@ $theme-tertiary: $gray-purple;
 $theme-highlight: $select-cyan;
 $theme-error: $error-red;
 
+// purple used for the radio switch
+
+$radio-purple: #7a45f0;
+
+// transition time for the light/dark mode switch
+$switch-transition-time: 0.3s;
+
 //Theme variables
 /* To change colors according to theme:
 ex)
@@ -39,7 +46,8 @@ $themes: (
     outputBackground: #e6e6fa,
     accentColor: $white,
     accentBackground: $light-lavender,
-    /* Card variables */ cardColor: $theme-dark,
+    /* Card variables */ 
+    cardColor: $theme-dark,
     cardBackground: $white,
     cardBorder: 1px solid $light-lavender,
     cardDivider: $light-lavender,
@@ -61,7 +69,8 @@ $themes: (
     outputBackground: $theme-tertiary,
     accentColor: white,
     accentBackground: $theme-light,
-    /* Card variables */ cardColor: $theme-dark,
+    /* Card variables */ 
+    cardColor: $theme-dark,
     cardBackground: $off-white,
     cardBorder: none,
     cardDivider: $theme-dark,
