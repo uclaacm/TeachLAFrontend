@@ -10,25 +10,20 @@ describe("ProfilePanel", () => {
 
   it("displays error message when error prop is passed", () => {
     const component = shallow(<ImageSelector error={"Error!"}/>);
-
     expect(component.find("div.text-danger").text()).toBe("Error!");
   });
 
   it("displays thumbnail when thumbnailPreview prop is passed", () => {
     const component = shallow(<ImageSelector thumbnailPreview={<img/>}/>);
-    // expect(component.find(".image-selector-modal-header-thumbnail-container").children()).toBeTruthy(); //EVAN TODO: This feels like a hack, would prefer to use .toBe(<img />)
-    console.log(component.find("div.image-selector-modal-header-thumbnail-container").childAt(0).debug());
-    expect(component.find("div.image-selector-modal-header-thumbnail-container").childAt(0)).toBe(<img/>);
+    expect(component.find("div.image-selector-modal-header-thumbnail-container").containsMatchingElement(<img/>));
   });
 
-  // it("displays gallary when icons prop is passed", () => {
-  //   const component = shallow(<ImageSelector icons={[<img />, <img />, <img />]}/>);
-  //   expect(component.find("div.image-selector-gallery").children()).toBe('asdf');
-  // });
+  it("displays gallary when icons prop is passed", () => {
+    const component = shallow(<ImageSelector icons={[<img />, <img />, <img />]}/>);
+    console.log(component.find("div.image-selector-gallery"));
+    expect(component.find("div.image-selector-gallery").contains([<img />, <img />, <img />]))
+  });
   // isOpen={this.state.showModal}
   // closeModal={this.handleCloseModal}
   // icons={icons}
-  // maxWidth={PANEL_IMAGE_SELECTOR_SIZE}
-  // className={"image-selector"}
-  // children
 })
