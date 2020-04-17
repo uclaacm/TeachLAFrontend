@@ -4,22 +4,22 @@ import { togglePanel } from "../../../actions/uiActions.js";
 import { OPEN_PANEL_LEFT, CLOSED_PANEL_LEFT, PANEL_SIZE } from "../../../constants";
 import Immutable from "immutable";
 
-const mapStateToProps = state => {
-  let studClasses = [];
-  let instrClasses = [];
-
-  const classes = state.classes.keySeq().map(id => {
+const mapStateToProps = (state) => {
+  const classes = state.classes.keySeq().map((id) => {
     let temp = state.classes.get(id, Immutable.Map()).toJS();
-    temp.key = id;
+    temp.cid = id;
     return temp;
   });
 
+  let studClasses = [];
+  let instrClasses = [];
+  let uid = state.userData.uid;
   // Sort classes by whether user is instructor or student
-  classes.forEach(element => {
-    if (element.isInstr) {
-      instrClasses.push(element);
+  classes.forEach((thisClass) => {
+    if (thisClass.instructors.includes(uid)) {
+      instrClasses.push(thisClass);
     } else {
-      studClasses.push(element);
+      studClasses.push(thisClass);
     }
   });
 
@@ -36,7 +36,7 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     togglePanel: () => dispatch(togglePanel()),
   };

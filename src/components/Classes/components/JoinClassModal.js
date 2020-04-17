@@ -10,7 +10,7 @@ class JoinClassModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      classKey: "",
+      wid: "",
       disableSubmit: false,
       error: "",
       redirect: false,
@@ -28,14 +28,14 @@ class JoinClassModal extends React.Component {
     }
 
     this.setState({
-      classKey: "",
+      wid: "",
       error: "",
       disableSubmit: false,
     });
   };
 
   badInput = () => {
-    if (!this.state.classKey) {
+    if (!this.state.wid) {
       this.setState({
         error: "Please enter the class code. You should get this from your instructor.",
       });
@@ -55,7 +55,7 @@ class JoinClassModal extends React.Component {
 
     let data = {
       uid: this.props.uid,
-      cid: this.state.classKey,
+      wid: this.state.wid,
     };
 
     try {
@@ -72,8 +72,7 @@ class JoinClassModal extends React.Component {
             });
             return;
           }
-          // TODO: figure out the response and fill this in correctly
-          this.props.addClass(json.data.cid, json.data || {});
+          this.props.addClass(json.data.cid, json || {});
           this.setState({ redirect: true });
           this.closeModal();
         })
@@ -91,16 +90,20 @@ class JoinClassModal extends React.Component {
     // Testing stuff (do this instead of the try-catch block):
     /*
     let classLetter = String.fromCharCode(Math.floor(Math.random() * 26) + 65);
-    this.props.addClass(this.state.classKey,
+    let testCid = Math.floor(Math.random() * 10);
+    this.props.addClass(testCid,
       {
-        key: this.state.classKey,
-        name: "Class ".concat(classLetter),
-        instructor: "Prof. ".concat(classLetter),
         thumbnail: Math.floor(Math.random() * 20),
-        isInstr: false,
+        name: "Class ".concat(classLetter),
+        creator: "HASH0",
+        instructors: [ "Prof. ".concat(classLetter) ],
+        members: [ "HASH3", "HASH4", "HASH5" ],
+        programs: [ "HASH6", "HASH7" ],
+        cid: testCid,
+        wid: this.state.wid,
       });
     this.closeModal();
-    */
+*/
     // end of testing stuff
 
     this.setState({ disableSubmit: true, error: "" });
@@ -125,8 +128,8 @@ class JoinClassModal extends React.Component {
             <Col xs={8}>
               <Input
                 className="sketches-modal-input"
-                onChange={(e) => this.setState({ classKey: e.target.value })}
-                value={this.state.classKey}
+                onChange={(e) => this.setState({ wid: e.target.value })}
+                value={this.state.wid}
                 id="class-code"
               />
             </Col>

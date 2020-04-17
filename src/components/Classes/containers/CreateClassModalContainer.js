@@ -2,15 +2,15 @@ import CreateClassModal from "../components/CreateClassModal.js";
 import { connect } from "react-redux";
 import { addClass } from "../../../actions/classesActions";
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     uid: state.userData.uid,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    addClass: (classKey, data) => dispatch(addClass(classKey, data)),
+    addClass: (cid, data) => dispatch(addClass(cid, data)),
   };
 };
 
