@@ -118,7 +118,8 @@ class TextEditor extends React.Component {
   renderSketchName = () => <div className="program-sketch-name">{this.props.sketchName}</div>;
 
   renderBanner = () => {
-    let thumbnail = SketchThumbnailArray[this.props.thumbnail];
+    let thumbnail =
+      SketchThumbnailArray[this.props.viewOnly ? this.props.vthumbnail : this.props.thumbnail];
     return (
       <div className="code-section-banner">
         <OpenPanelButtonContainer />
@@ -159,7 +160,8 @@ class TextEditor extends React.Component {
   render() {
     //json required by CodeMirror
     const options = {
-      mode: CODEMIRROR_CONVERSIONS[this.props.language],
+      mode:
+        CODEMIRROR_CONVERSIONS[this.props.viewOnly ? this.props.vlanguage : this.props.language],
       theme: this.getCMTheme(this.props.theme),
       lineNumbers: true, //text editor has line numbers
       lineWrapping: true, //text editor does not overflow in the x direction, uses word wrap (NOTE: it's like MO Word wrapping, so words are not cut in the middle, if a word overlaps, the whole word is brought to the next line)
