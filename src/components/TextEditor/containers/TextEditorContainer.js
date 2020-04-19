@@ -2,6 +2,8 @@ import Immutable from "immutable";
 import TextEditor from "../components/TextEditor";
 import { connect } from "react-redux";
 import { setProgramCode, setProgramDirty } from "../../../actions/programsActions.js";
+import { addProgram } from "../../../actions/programsActions";
+import { setMostRecentProgram } from "../../../actions/userDataActions.js";
 
 const mapStateToProps = (state, ownProps) => {
   const { uid, mostRecentProgram } = state.userData;
@@ -26,6 +28,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     dirtyCode: program => {
       dispatch(setProgramDirty(program, true));
     },
+    addProgram: (program, data) => dispatch(addProgram(program, data)),
+    setMostRecentProgram: value => dispatch(setMostRecentProgram(value)),
   };
 };
 

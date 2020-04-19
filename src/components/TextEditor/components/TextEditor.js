@@ -1,4 +1,5 @@
 import React from "react";
+import ReactModal from "react-modal";
 import { CODEMIRROR_CONVERSIONS } from "../../../constants";
 import * as fetch from "../../../lib/fetch.js";
 import EditorRadio from "./EditorRadio.js";
@@ -8,7 +9,7 @@ import OpenPanelButtonContainer from "../../common/containers/OpenPanelButtonCon
 import { EDITOR_WIDTH_BREAKPOINT } from "../../../constants";
 import ViewportAwareButton from "../../common/ViewportAwareButton.js";
 import DropdownButtonContainer from "../../common/containers/DropdownButtonContainer";
-import { faSave } from "@fortawesome/free-solid-svg-icons";
+import { faSave, faCodeBranch } from "@fortawesome/free-solid-svg-icons";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
 import { SketchThumbnailArray } from "../../Sketches/constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -34,6 +35,9 @@ class TextEditor extends React.Component {
       codeMirrorInstance: null,
       currentLine: 0,
       sketch: null,
+      showModal: false,
+      forking: false,
+      forked: false,
     };
   }
 
@@ -47,6 +51,14 @@ class TextEditor extends React.Component {
   componentWillUnmount = () => {
     window.removeEventListener("beforeunload", this.onLeave);
     window.removeEventListener("close", this.onLeave);
+  };
+
+  openForkModal = () => {
+    this.setState({ showModal: true });
+  };
+
+  closeForkModal = () => {
+    this.setState({ showModal: false, forked: false });
   };
 
   checkDirty = async () => {
@@ -98,6 +110,78 @@ class TextEditor extends React.Component {
     this.setState({ currentLine: line });
   };
 
+  renderImageModal = () => {
+    return (
+      <ReactModal
+        isOpen={this.state.showModal}
+        onRequestClose={this.closeForkModal}
+        className="fork-modal"
+        overlayClassName="profile-image-overlay"
+        ariaHideApp={false}
+      >
+        <h1 className="text-center">Fork This Sketch</h1>
+        <p className="text-center">Would you like to create your own copy of this sketch?</p>
+        {this.state.forking ? (
+          <p className="text-center">Forking...</p>
+        ) : this.state.forked ? (
+          <div>
+            <p className="text-center">
+              Sketch forked! Access your copy of the sketch by navigating to your sketches
+            </p>
+            <Button color="danger" size="lg" onClick={this.closeForkModal} block>
+              Close
+            </Button>
+          </div>
+        ) : (
+          <div className="text-center">
+            <Button color="danger" size="lg" onClick={this.closeForkModal} block>
+              Cancel
+            </Button>
+            <Button color="success" size="lg" onClick={this.handleFork} block>
+              Fork
+            </Button>
+          </div>
+        )}
+      </ReactModal>
+    );
+  };
+
+  handleFork = async () => {
+    this.setState({ forking: true });
+    let data = {
+      uid: this.props.uid,
+      thumbnail: this.props.vthumbnail,
+      language: this.props.vlanguage,
+      name: this.props.sketchName,
+      code: this.props.code,
+    };
+
+    try {
+      fetch
+        .createSketch(data)
+        .then(res => {
+          return res.json();
+        })
+        .then(json => {
+          if (!json.ok) {
+            this.setState({
+              error: json.error || "Failed to create sketch, please try again later",
+            });
+            return;
+          }
+          this.setState({ forking: false, forked: true });
+        })
+        .catch(err => {
+          this.setState({
+            error: "Failed to create sketch, please try again later",
+          });
+          console.log(err);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   /**
    * returns a theme string for the CodeMirror editor, based off of the app's current theme
    * @param {string} theme - the app's current theme
@@ -136,7 +220,16 @@ class TextEditor extends React.Component {
             isSmall={this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
           />
         </div>
-        {this.props.viewOnly ? null : (
+        {this.props.viewOnly ? (
+          this.props.uid ? (
+            <ViewportAwareButton
+              size="lg"
+              onClick={this.openForkModal}
+              isSmall={this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
+              icon={<FontAwesomeIcon icon={faCodeBranch} />}
+            />
+          ) : null
+        ) : (
           <ViewportAwareButton
             className="mx-2"
             color="success"
@@ -172,6 +265,7 @@ class TextEditor extends React.Component {
       <div className={`theme-` + this.props.theme} style={{ height: "100%" }}>
         <div className="code-section">
           {this.renderBanner()}
+          {this.renderImageModal()}
           <div
             className="text-editor-container"
             style={{
