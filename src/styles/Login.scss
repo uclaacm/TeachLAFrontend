@@ -18,13 +18,13 @@
   box-sizing: border-box;
   background-color: white;
   background-size: auto 100%;
-  padding-bottom: 8vh;
   background-position: right;
 }
 
 @media only screen and (max-width: 1024px) {
   .login-page-content {
     background-image: none;
+    flex-direction: column;
   }
 }
 
@@ -45,8 +45,8 @@
 
 .login-form-input-header {
   color: $theme-dark;
-  font-size: 36px;
-  margin-bottom: 1rem;
+  font-size: 24px;
+  margin-bottom: 0.2rem;
 }
 
 .login-form-input-error {
@@ -55,10 +55,14 @@
 }
 
 .login-form-container {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   margin-top: 30px; /*modal distance from top of the screen*/
   box-sizing: border-box;
-  width: 50%;
+  width: 80%;
+  z-index: 5;
 }
 
 @media only screen and (max-width: 1024px) {
@@ -69,13 +73,44 @@
 }
 
 .login-page-container {
+}
+
+.login-page-images {
+  width: 100%;
+  height: 100%;
   display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-page-art {
+  position: absolute;
+  top: 120px;
+  right: 30px;
+  width: 1000px;
+  max-height: 500px;
+  z-index: 1;
+  @media only screen and (max-width: 1024px) {
+    position: relative;
+    top: -30px;
+    right: 0px;
+    max-width: 300px;
+    max-height: 200px;
+  }
+}
+.background-svg {
+  max-width: 1084px;
+  position: absolute;
+  right: 0;
+  @media only screen and (max-width: 1024px) {
+    display: none;
+  }
 }
 
 .login-form-input {
   font-size: 1.5em;
   line-height: normal;
-  padding: 0.25rem 0.1rem 0px 0.1rem;
+  padding: 0.2rem 0.5rem;
   border: 0px;
   border-radius: 8px;
   background-color: $theme-dark;
