@@ -21,7 +21,7 @@ export default class LoginModal extends React.Component {
     };
   }
 
-  handleEmailLogin = e => {
+  handleEmailLogin = (e) => {
     this.setState({ waiting: true, errorMsg: "" });
 
     e.preventDefault(); //prevents page from reloading after submitting form
@@ -33,7 +33,7 @@ export default class LoginModal extends React.Component {
         .auth()
         .signInWithEmailAndPassword(email, passwordHash)
         .then(() => {})
-        .catch(err => {
+        .catch((err) => {
           console.error(err);
           let newMsg = err.message;
           switch (err.code) {
@@ -76,8 +76,8 @@ export default class LoginModal extends React.Component {
     }
   };
 
-  updateUsername = username => this.setState({ username });
-  updatePassword = password => this.setState({ password });
+  updateUsername = (username) => this.setState({ username });
+  updatePassword = (password) => this.setState({ password });
 
   renderErrorMessage = (msg, addBreak) => {
     if (msg)
@@ -131,9 +131,8 @@ export default class LoginModal extends React.Component {
     return (
       <div className="login-form-container">
         <form className="login-form" onSubmit={this.handleEmailLogin}>
-          <h1>
-            Welcome to <span className="force-no-wrap">&lt;Teach LA&gt;</span>
-          </h1>
+          <h1>ACM Teach LA's Online Editor</h1>
+          <p>an online web editor that lets you write and run Python code, anywhere.</p>
           <br />
           {this.renderInputs()}
           {this.renderAction()}
