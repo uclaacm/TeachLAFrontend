@@ -9,10 +9,6 @@ import * as firebase from "firebase/app";
 import "firebase/auth";
 import "styles/Login.scss";
 
-/**-------Props--------
- * provider: Firebase Provider that allows the app to do Facebook Logins
- */
-
 export default class LoginModal extends React.Component {
   constructor(props) {
     super(props);
@@ -78,16 +74,6 @@ export default class LoginModal extends React.Component {
     } else {
       this.setState({ waiting: false, errorMsg: "Failed to reach Firebase login services" });
     }
-  };
-
-  handleSocialLogin = e => {
-    this.setState({ waiting: true });
-    firebase
-      .auth()
-      .signInWithPopup(this.props.provider)
-      .catch(function(err) {
-        this.setState({ errorMsg: "Failed to use Facebook login provider", waiting: false });
-      });
   };
 
   updateUsername = username => this.setState({ username });

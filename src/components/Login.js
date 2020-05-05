@@ -7,7 +7,7 @@ import LoginImg2 from "img/login2.svg";
 import LoginImg3 from "img/login3.svg";
 import LoginImg4 from "img/login4.svg";
 import LoginImg5 from "img/login5.svg";
-import LoginBackground1 from "img/background1.svg";
+// import LoginBackground1 from "img/background1.svg";
 
 class Login extends React.Component {
   /**
@@ -64,7 +64,7 @@ class Login extends React.Component {
         <div className="login-page-content">
           <LoginForm provider={this.props.provider} />
           <div className="login-page-images">
-            <img className="login-page-art" src={loginArt[index]} />
+            <img className="login-page-art" src={loginArt[index]} alt="decorative login page art"/>
             {this.getSVG(index)}
           </div>
         </div>
