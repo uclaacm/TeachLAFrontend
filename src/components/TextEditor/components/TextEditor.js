@@ -13,6 +13,7 @@ import { faSave, faCodeBranch } from "@fortawesome/free-solid-svg-icons";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
 import { SketchThumbnailArray } from "../../Sketches/constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Redirect } from "react-router";
 
 let CodeMirror = null;
 if (typeof window !== "undefined" && typeof window.navigator !== "undefined") {
@@ -38,6 +39,7 @@ class TextEditor extends React.Component {
       showModal: false,
       forking: false,
       forked: false,
+      redirectToSketch: false,
     };
   }
 
@@ -120,7 +122,9 @@ class TextEditor extends React.Component {
         ariaHideApp={false}
       >
         <h1 className="text-center">Fork This Sketch</h1>
-        <p className="text-center">Would you like to create your own copy of this sketch?</p>
+        {!(this.state.forking || this.state.forked) && (
+          <p className="text-center">Would you like to create your own copy of this sketch?</p>
+        )}
         {this.state.forking ? (
           <p className="text-center">Forking...</p>
         ) : this.state.forked ? (
@@ -130,6 +134,9 @@ class TextEditor extends React.Component {
             </p>
             <Button color="danger" size="lg" onClick={this.closeForkModal} block>
               Close
+            </Button>
+            <Button color="success" size="lg" onClick={this.redirectSketch} block>
+              Go to Sketches
             </Button>
           </div>
         ) : (
@@ -180,6 +187,11 @@ class TextEditor extends React.Component {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  redirectSketch = () => {
+    this.closeForkModal();
+    this.setState({ redirectToSketch: true });
   };
 
   /**
@@ -251,6 +263,9 @@ class TextEditor extends React.Component {
   };
 
   render() {
+    if (this.state.redirectToSketch == true) {
+      return <Redirect to={"/sketches"} />;
+    }
     //json required by CodeMirror
     const options = {
       mode:
