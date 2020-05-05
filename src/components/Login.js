@@ -1,5 +1,4 @@
 import React from "react";
-import Footer from "./common/Footer";
 import "styles/Login.scss";
 import LoginForm from "./Login/LoginForm";
 import LoginImg1 from "img/login1.svg";
@@ -7,7 +6,7 @@ import LoginImg2 from "img/login2.svg";
 import LoginImg3 from "img/login3.svg";
 import LoginImg4 from "img/login4.svg";
 import LoginImg5 from "img/login5.svg";
-// import LoginBackground1 from "img/background1.svg";
+const loginArt = [LoginImg1, LoginImg2, LoginImg3, LoginImg4, LoginImg5];
 
 class Login extends React.Component {
   /**
@@ -19,7 +18,7 @@ class Login extends React.Component {
     this.state = {};
   }
 
-  getSVG(index) {
+  getSVG = (index) => {
     const colors = {
       0: ["#FFB5B5", "#FFF7F3"],
       1: ["#54C9FE", "#D8F6FF"],
@@ -55,16 +54,16 @@ class Login extends React.Component {
         </defs>
       </svg>
     );
-  }
+  };
   renderMainContent = () => {
-    const loginArt = [LoginImg1, LoginImg2, LoginImg3, LoginImg4, LoginImg5];
-    const index = Math.floor(Math.random() * 4);
+    //const loginArt = [LoginImg1, LoginImg2, LoginImg3, LoginImg4, LoginImg5];
+    const index = Math.floor(Math.random() * 5);
     return (
       <div className="login-page-container">
         <div className="login-page-content">
           <LoginForm provider={this.props.provider} />
           <div className="login-page-images">
-            <img className="login-page-art" src={loginArt[index]} alt="decorative login page art"/>
+            <img className="login-page-art" src={loginArt[index]} alt="decorative login page art" />
             {this.getSVG(index)}
           </div>
         </div>
@@ -73,12 +72,7 @@ class Login extends React.Component {
   };
 
   render() {
-    return (
-      <div className="login-page">
-        {this.renderMainContent()}
-        <Footer />
-      </div>
-    );
+    return <div className="login-page">{this.renderMainContent()}</div>;
   }
 }
 
