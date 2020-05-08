@@ -48,8 +48,8 @@ class Login extends React.Component {
             y2="1042"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stop-color={colors[index][0]} />
-            <stop offset="1" stop-color={colors[index][1]} stop-opacity="0.47" />
+            <stop stopColor={colors[index][0]} />
+            <stop offset="1" stopColor={colors[index][1]} stopOpacity="0.47" />
           </linearGradient>
         </defs>
       </svg>
