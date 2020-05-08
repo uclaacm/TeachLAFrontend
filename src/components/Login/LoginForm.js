@@ -144,8 +144,13 @@ export default class LoginModal extends React.Component {
         <form className="login-form" onSubmit={this.handleEmailLogin}>
           {this.renderInputs()}
           {this.renderAction()}
-          <br />
-          <br />
+          <details className="mt-2">
+            <summary>Forgot your password?</summary>
+            <p>
+              Send us an email at <a href="mailto:acmteachla@gmail.com">acmteachla@gmail.com</a>{" "}
+              with "Forgot Password" in the subject, and we'll do our best to help you out!
+            </p>
+          </details>
         </form>
       </div>
     );

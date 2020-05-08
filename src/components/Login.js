@@ -1,6 +1,7 @@
 import React from "react";
 import "styles/Login.scss";
 import LoginForm from "./Login/LoginForm";
+import CreateUserForm from "./Login/CreateUserForm.js";
 
 import { faCode } from "@fortawesome/free-solid-svg-icons";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
@@ -71,14 +72,11 @@ class Login extends React.Component {
                 ACM <span className="teachla-green">Teach LA</span> Online Editor
               </h1>
               <p>an web editor that lets you write and run Python code, anywhere.</p>
-              <LoginForm />
-              <details>
-                <summary>Forgot your password?</summary>
-                <p>
-                  Send us an email at <a href="mailto:acmteachla@gmail.com">acmteachla@gmail.com</a>{" "}
-                  with "Forgot Password" in the subject, and we'll do our best to help you out!
-                </p>
-              </details>
+              {this.props.create ? (
+                <CreateUserForm initialState={this.props.initialState} />
+              ) : (
+                <LoginForm />
+              )}
             </div>
           </div>
           <div className="login-page-content-footer">
