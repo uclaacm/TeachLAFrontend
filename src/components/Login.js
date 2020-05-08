@@ -9,6 +9,13 @@ import LoginImg4 from "img/login4.svg";
 import LoginImg5 from "img/login5.svg";
 
 const loginArt = [LoginImg1, LoginImg2, LoginImg3, LoginImg4, LoginImg5];
+const loginArtAlts = [
+  "girl on tablet",
+  "boy using VR headset",
+  "girl controlling drone",
+  "boy developing an app",
+  "girl coding for robot",
+];
 
 class Login extends React.Component {
   getSVG = (index) => {
@@ -60,7 +67,7 @@ class Login extends React.Component {
               <img
                 className="login-page-art"
                 src={loginArt[index]}
-                alt="decorative login page art"
+                alt={`decorative login page art: ${loginArtAlts[index]}`}
               />
               {this.getSVG(index)}
             </div>
