@@ -120,42 +120,32 @@ export default class LoginModal extends React.Component {
       );
     } else {
       return (
-        <Button className="login-form-button" size="lg" type="submit">
-          Login
-        </Button>
+        <div>
+          <Button className="login-form-button" size="lg" type="submit">
+            Login
+          </Button>
+          <Link
+            to={{
+              pathname: "/createUser",
+              state: { username: this.state.username, password: this.state.password },
+            }}
+            className="login-form-link ml-4"
+          >
+            or, create an account
+          </Link>
+        </div>
       );
     }
   };
 
   render() {
     return (
-      <div className="login-form-container">
+      <div>
         <form className="login-form" onSubmit={this.handleEmailLogin}>
-          <h1>ACM Teach LA's Online Editor</h1>
-          <p>an online web editor that lets you write and run Python code, anywhere.</p>
-          <br />
           {this.renderInputs()}
           {this.renderAction()}
           <br />
           <br />
-          <Link
-            to={{
-              pathname: "/createUser",
-              state: { username: this.state.username, password: this.state.password },
-            }}
-            className="login-form-link"
-          >
-            Don't have an account? Create one now!
-          </Link>
-          <br />
-          <br />
-          <details>
-            <summary>Forgot your password?</summary>
-            <p>
-              Send us an email at <a href="mailto:acmteachla@gmail.com">acmteachla@gmail.com</a>{" "}
-              with "Forgot Password" in the subject, and we'll do our best to help you out!
-            </p>
-          </details>
         </form>
       </div>
     );

@@ -2,6 +2,10 @@ import React from "react";
 import "styles/Login.scss";
 import LoginForm from "./Login/LoginForm";
 
+import { faCode } from "@fortawesome/free-solid-svg-icons";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import LoginImg1 from "img/login1.svg";
 import LoginImg2 from "img/login2.svg";
 import LoginImg3 from "img/login3.svg";
@@ -59,19 +63,39 @@ class Login extends React.Component {
   render = () => {
     const index = Math.floor(Math.random() * 5);
     return (
-      <div className="login-page">
-        <div className="login-page-container">
-          <div className="login-page-content">
-            <LoginForm />
-            <div className="login-page-images">
-              <img
-                className="login-page-art"
-                src={loginArt[index]}
-                alt={`decorative login page art: ${loginArtAlts[index]}`}
-              />
-              {this.getSVG(index)}
+      <div className="login-page-content">
+        <div className="login-page-content-container">
+          <div className="login-page-content-main">
+            <div>
+              <h1 className="font-weight-bold">
+                ACM <span className="teachla-green">Teach LA</span> Online Editor
+              </h1>
+              <p>an web editor that lets you write and run Python code, anywhere.</p>
+              <LoginForm />
+              <details>
+                <summary>Forgot your password?</summary>
+                <p>
+                  Send us an email at <a href="mailto:acmteachla@gmail.com">acmteachla@gmail.com</a>{" "}
+                  with "Forgot Password" in the subject, and we'll do our best to help you out!
+                </p>
+              </details>
             </div>
           </div>
+          <div className="login-page-content-footer">
+            <FontAwesomeIcon icon={faCode} /> by{" "}
+            <a href="https://teachla.uclaacm.com" target="_blank" rel="noopener noreferrer">
+              <span className="teachla-green">ACM Teach LA</span>
+            </a>{" "}
+            with <FontAwesomeIcon className="beating-heart" icon={faHeart} />
+          </div>
+        </div>
+        <div className="login-page-images">
+          <img
+            className="login-page-art"
+            src={loginArt[index]}
+            alt={`decorative login page art: ${loginArtAlts[index]}`}
+          />
+          {this.getSVG(index)}
         </div>
       </div>
     );
