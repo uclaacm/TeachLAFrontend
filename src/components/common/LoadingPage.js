@@ -16,18 +16,18 @@ class Loading extends React.Component {
     super(props);
     this.state = {
       showHelpText: !!this.props.showHelpText,
-      timer: 0,
     };
+    this.timer = false;
   }
   componentDidMount = () => {
-    this.setState.timer = setTimeout(() => {
-      this.setState({ showHelpText: true });
+    this.timer = setTimeout(() => {
+		this.setState({ showHelpText: true });
     }, 2000);
-  };
+  }
 
   componentWillUnmount = () => {
-    clearTimeout(this.setState.timer);
-  };
+    clearTimeout(this.timer);
+  }
 
   render = () => {
     return (
