@@ -1,5 +1,56 @@
 # Changelog
 
+## Version v2.0.0 | View-only mode, major editor refactoring, and bug fixes (31/12/1969)
+
+This release brings a brand new view-only mode to the editor along with some great refactoring thanks to the absolute titan of a PR that is #219 thanks to the combined efforts of @jamieliu386, @malsf21, and @emmyc. Due to the significant changes to many of the editor's major components in this release, I am marking it as a major release.
+
+Of course, with new features comes new bugs, one of which was found and solved in #245. #274 also fixed a long standing mixup deep in one of our files.
+
+Next up:
+
+- A share button for sketches
+- Forking of sketches
+- Classes (see [`make-class-page`](https://github.com/uclaacm/TeachLAFrontend/tree/make-class-page))
+- Swapping to the Go backend (see [`go-requests`](https://github.com/uclaacm/TeachLAFrontend/tree/go-requests) and #235)
+
+#### feature
+
+- [**feature**] View-Only Sketches and Major Main/Editor Refactoring [#219](https://github.com/uclaacm/TeachLAFrontend/pull/219)
+
+#### bug
+
+- [**bug**] View-Only: Fixes Redux State Corruption [#245](https://github.com/uclaacm/TeachLAFrontend/pull/245)
+- [**bug**] Fixes Loading Page Timer Reference [#274](https://github.com/uclaacm/TeachLAFrontend/pull/274)
+
+#### dependencies
+
+- [**dependencies**] Bump @fortawesome/free-brands-svg-icons from 5.12.1 to 5.13.0 [#238](https://github.com/uclaacm/TeachLAFrontend/pull/238)
+- [**dependencies**] Bump codemirror from 5.52.2 to 5.53.2 [#261](https://github.com/uclaacm/TeachLAFrontend/pull/261)
+- [**dependencies**] Bump firebase from 7.12.0 to 7.14.3 [#271](https://github.com/uclaacm/TeachLAFrontend/pull/271)
+  - 7.14.1 to 7.14.2 [#264](https://github.com/uclaacm/TeachLAFrontend/pull/264)
+  - 7.14.0 to 7.14.1 [#258](https://github.com/uclaacm/TeachLAFrontend/pull/258)
+  - 7.13.2 to 7.14.0 [#256](https://github.com/uclaacm/TeachLAFrontend/pull/256)
+  - 7.12.0 to 7.13.2 [#250](https://github.com/uclaacm/TeachLAFrontend/pull/250)
+- [**dependencies**] Bump husky from 4.2.3 to 4.2.5 [#255](https://github.com/uclaacm/TeachLAFrontend/pull/255)
+- [**dependencies**] Bump lint-staged from 10.0.8 to 10.2.2 [#267](https://github.com/uclaacm/TeachLAFrontend/pull/267)
+  - 10.2.0 to 10.2.1 [#266](https://github.com/uclaacm/TeachLAFrontend/pull/266)
+  - 10.1.7 to 10.2.0 [#265](https://github.com/uclaacm/TeachLAFrontend/pull/265)
+  - 10.1.6 to 10.1.7 [#260](https://github.com/uclaacm/TeachLAFrontend/pull/260)
+  - 10.1.4 to 10.1.6 [#259](https://github.com/uclaacm/TeachLAFrontend/pull/259)
+  - 10.1.3 to 10.1.4 [#257](https://github.com/uclaacm/TeachLAFrontend/pull/257)
+  - 10.1.1 to 10.1.3 [#254](https://github.com/uclaacm/TeachLAFrontend/pull/254)
+  - 10.0.9 to 10.1.1 [#249](https://github.com/uclaacm/TeachLAFrontend/pull/249)
+  - 10.0.8 to 10.0.9 [#243](https://github.com/uclaacm/TeachLAFrontend/pull/243)
+- [**dependencies**] Bump node-sass from 4.13.1 to 4.14.1 [#270](https://github.com/uclaacm/TeachLAFrontend/pull/270)
+- [**dependencies**] Bump prettier from 2.0.4 to 2.0.5 [#262](https://github.com/uclaacm/TeachLAFrontend/pull/262)
+  - 2.0.2 to 2.0.4 [#251](https://github.com/uclaacm/TeachLAFrontend/pull/251)
+  - 2.0.1 to 2.0.2 [#244](https://github.com/uclaacm/TeachLAFrontend/pull/244)
+- [**dependencies**] Bump react-router from 5.1.2 to 5.2.0 [#273](https://github.com/uclaacm/TeachLAFrontend/pull/273)
+- [**dependencies**] Bump react-router-dom from 5.1.2 to 5.2.0 [#272](https://github.com/uclaacm/TeachLAFrontend/pull/272)
+- [**dependencies**] Bump react-spinners from 0.8.0 to 0.8.3 [#268](https://github.com/uclaacm/TeachLAFrontend/pull/268)
+
+---
+
 ## Version v1.2.0 | Updating Node, Removing Travis, & Dependencies (23/03/2020)
 
 Hey all! This is a quick Release that mostly updates our dependencies: moving node to major version 12 (the new LTS), updating many of our node modules, and removing our Travis config (which also triggers our Travis builds) in favour of GitHub Actions.
