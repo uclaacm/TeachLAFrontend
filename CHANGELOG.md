@@ -1,6 +1,6 @@
 # Changelog
 
-## Version v2.0.0 | View-only mode, major editor refactoring, and bug fixes (31/12/1969)
+## Version v2.0.0 | View-only mode, major editor refactoring, and bug fixes (14/05/2020)
 
 This release brings a brand new view-only mode to the editor along with some great refactoring thanks to the absolute titan of a PR that is #219 thanks to the combined efforts of @jamieliu386, @malsf21, and @emmyc. Due to the significant changes to many of the editor's major components in this release, I am marking it as a major release.
 
