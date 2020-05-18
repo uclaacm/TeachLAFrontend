@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button } from "reactstrap";
+import { Row, Col, Button } from "reactstrap";
 import * as firebase from "firebase/app";
 import "firebase/auth";
 import {
@@ -9,10 +9,10 @@ import {
   PHOTO_NAMES,
   DEFAULT_PHOTO_NAME,
   PANEL_SIZE,
+  PANEL_IMAGE_SELECTOR_SIZE,
 } from "../../constants";
-import ReactModal from "react-modal";
-import { faCheckSquare } from "@fortawesome/free-solid-svg-icons";
 import { faBook } from "@fortawesome/free-solid-svg-icons";
+import { faCheckSquare } from "@fortawesome/free-solid-svg-icons";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
@@ -25,6 +25,7 @@ import "styles/Panel.scss";
 import Switch from "./Switch";
 import Footer from "./Footer";
 
+import ImageSelector from "./ImageSelector"
 /**--------Props--------
  * togglePanel: function to be called when the panel is collapsed or opened
  */
@@ -160,25 +161,28 @@ class ProfilePanel extends React.Component {
       );
     });
     return (
-      <ReactModal
+      <ImageSelector
         isOpen={this.state.showModal}
-        onRequestClose={this.handleCloseModal}
-        className="profile-image-modal"
-        overlayClassName="profile-image-overlay"
-        ariaHideApp={false}
+        closeModal={this.handleCloseModal}
+        icons={icons}
+        error={this.state.error}
+        maxWidth={PANEL_IMAGE_SELECTOR_SIZE}
+        className={"image-selector"}
       >
-        <div className="gallery">{icons}</div>
-        <div className="text-center">
-          <Button
-            color="success"
-            size="lg"
-            onClick={this.onImageSubmit}
-            id="modal-change-image-button"
-          >
-            Submit
-          </Button>
-        </div>
-      </ReactModal>
+        <Row>
+          <Col>
+            <Button
+              color="success"
+              size="lg"
+              onClick={this.onImageSubmit}
+              id="modal-change-image-button"
+              block
+            >
+              Submit
+            </Button>
+          </Col>
+        </Row>
+      </ImageSelector>
     );
   };
 
