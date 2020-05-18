@@ -60,7 +60,7 @@ class TextEditor extends React.Component {
   };
 
   closeForkModal = () => {
-    this.setState({ showModal: false, forked: false });
+    this.setState({ showModal: false });
   };
 
   checkDirty = async () => {
@@ -129,9 +129,7 @@ class TextEditor extends React.Component {
           <p className="text-center">Forking...</p>
         ) : this.state.forked ? (
           <div>
-            <p className="text-center">
-              Sketch forked! Access your copy of the sketch by navigating to your sketches
-            </p>
+            <p className="text-center">Sketch forked! Go to your sketches to see your new copy!</p>
             <Button color="danger" size="lg" onClick={this.closeForkModal} block>
               Close
             </Button>
@@ -177,6 +175,7 @@ class TextEditor extends React.Component {
             return;
           }
           this.setState({ forking: false, forked: true });
+          this.props.addProgram(json.data.key, json.data.programData || {});
         })
         .catch(err => {
           this.setState({
@@ -237,7 +236,7 @@ class TextEditor extends React.Component {
             <ViewportAwareButton
               size="lg"
               onClick={this.openForkModal}
-              isSmall={this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
+              isSmall={true}
               icon={<FontAwesomeIcon icon={faCodeBranch} />}
             />
           ) : null
