@@ -236,8 +236,9 @@ class TextEditor extends React.Component {
             <ViewportAwareButton
               size="lg"
               onClick={this.openForkModal}
-              isSmall={true}
+              isSmall={this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
               icon={<FontAwesomeIcon icon={faCodeBranch} />}
+              text={"Fork"}
             />
           ) : null
         ) : (
