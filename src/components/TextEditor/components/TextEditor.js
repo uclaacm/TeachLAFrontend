@@ -262,7 +262,7 @@ class TextEditor extends React.Component {
   };
 
   render() {
-    if (this.state.redirectToSketch == true) {
+    if (this.state.redirectToSketch === true) {
       return <Redirect to={"/sketches"} />;
     }
     //json required by CodeMirror
