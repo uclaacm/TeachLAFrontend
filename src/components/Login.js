@@ -3,7 +3,7 @@ import "styles/Login.scss";
 import LoginForm from "./Login/LoginForm";
 import CreateUserForm from "./Login/CreateUserForm.js";
 
-import { faCode, faHeart, faPaintBrush, faRocket } from "@fortawesome/free-solid-svg-icons";
+import { faCode, faHeart, faPaintBrush, faRedo, faRocket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import LoginImg1 from "img/login1.svg";
@@ -38,6 +38,9 @@ const themeColors = {
 };
 
 class Login extends React.Component {
+  state = {
+    dummy: false,
+  };
   getSVG = (index) => {
     return (
       <svg
@@ -77,6 +80,12 @@ class Login extends React.Component {
     return (
       <div className="login-page-content">
         <div className="login-page-content-container">
+          <div
+            className="bottom-right-toggle"
+            onClick={() => this.setState({ dummy: !this.state.dummy })}
+          >
+            <FontAwesomeIcon icon={faRedo} />
+          </div>
           <div className="login-page-content-main">
             <div>
               <h1 className="font-weight-bold">

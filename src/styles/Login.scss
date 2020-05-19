@@ -29,6 +29,7 @@
 
 @media only screen and (max-width: 1024px) {
   .login-page-content {
+    padding-top: 3em;
     background-image: none;
     flex-direction: column;
     padding-left: 0em;
@@ -146,6 +147,15 @@
 .login-form-link:hover {
   color: inherit;
   text-decoration: underline;
+}
+
+.bottom-right-toggle{
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  @media only screen and (max-width: 1024px) {
+    display: none;
+  }
 }
 
 .beating-heart{
