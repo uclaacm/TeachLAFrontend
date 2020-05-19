@@ -18,6 +18,7 @@ export default class LoginModal extends React.Component {
       password: "",
       errorMsg: "",
       waiting: false,
+      hoverButton: false,
     };
   }
 
@@ -112,16 +113,38 @@ export default class LoginModal extends React.Component {
   );
 
   renderAction = () => {
+    const unclickedStyle = {
+      backgroundColor: "white",
+      borderColor: this.props.themeColor,
+      borderWidth: "medium",
+      borderRadius: "4px",
+      color: "black",
+    };
+
+    const clickedStyle = {
+      backgroundColor: this.props.themeColor,
+      borderColor: this.props.themeColor,
+      borderWidth: "medium",
+      borderRadius: "4px",
+      color: this.props.textColor,
+    };
+
     if (this.state.waiting) {
       return (
         <div className="login-form-loader">
-          <RingLoader color={"#857e8f"} size={50} loading={true} />
+          <RingLoader color={this.props.themeColor} size={80} loading={true} />
         </div>
       );
     } else {
       return (
         <div>
-          <Button className="login-form-button" size="lg" type="submit">
+          <Button
+            size="lg"
+            type="submit"
+            style={this.state.hoverButton ? clickedStyle : unclickedStyle}
+            onMouseEnter={() => this.setState({ hoverButton: !this.state.hoverButton })}
+            onMouseLeave={() => this.setState({ hoverButton: !this.state.hoverButton })}
+          >
             Login
           </Button>
           <Link

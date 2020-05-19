@@ -3,8 +3,7 @@ import "styles/Login.scss";
 import LoginForm from "./Login/LoginForm";
 import CreateUserForm from "./Login/CreateUserForm.js";
 
-import { faCode } from "@fortawesome/free-solid-svg-icons";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faCode, faHeart, faPaintBrush, faRocket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import LoginImg1 from "img/login1.svg";
@@ -22,15 +21,24 @@ const loginArtAlts = [
   "girl coding for robot",
 ];
 
+const gradientColors = {
+  0: ["#FFB5B5", "#FFF7F3"],
+  1: ["#54C9FE", "#D8F6FF"],
+  2: ["#ACF53F", "#DAFFA4"],
+  3: ["#FFF065", "#FFF7F3"],
+  4: ["#FF94DB", "#FFE4EE"],
+};
+
+const themeColors = {
+  0: ["#FF5F54", "white"],
+  1: ["#36C5FC", "white"],
+  2: ["#ACF53F", "white"],
+  3: ["#FFF065", "black"],
+  4: ["#FF94DB", "white"],
+};
+
 class Login extends React.Component {
   getSVG = (index) => {
-    const colors = {
-      0: ["#FFB5B5", "#FFF7F3"],
-      1: ["#54C9FE", "#D8F6FF"],
-      2: ["#ACF53F", "#DAFFA4"],
-      3: ["#FFF065", "#FFF7F3"],
-      4: ["#FF94DB", "#FFE4EE"],
-    };
     return (
       <svg
         className="background-svg"
@@ -53,8 +61,8 @@ class Login extends React.Component {
             y2="1042"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stopColor={colors[index][0]} />
-            <stop offset="1" stopColor={colors[index][1]} stopOpacity="0.47" />
+            <stop stopColor={gradientColors[index][0]} />
+            <stop offset="1" stopColor={gradientColors[index][1]} stopOpacity="0.47" />
           </linearGradient>
         </defs>
       </svg>
@@ -63,24 +71,33 @@ class Login extends React.Component {
 
   render = () => {
     const index = Math.floor(Math.random() * 5);
+    const textHighlightStyle = {
+      background: `linear-gradient(180deg, rgba(255,255,255,0) 80%, ${gradientColors[index][0]} 50%)`,
+    };
     return (
       <div className="login-page-content">
         <div className="login-page-content-container">
           <div className="login-page-content-main">
             <div>
               <h1 className="font-weight-bold">
-                ACM <span className="teachla-green">Teach LA</span> Online Editor
+                The ACM <span className="teachla-green">Teach LA</span>{" "}
+                <span style={textHighlightStyle}>Online Editor</span>
               </h1>
-              <p>an web editor that lets you write and run Python code, anywhere.</p>
+              <p>a web IDE that lets you write and run Python &amp; Processing code, anywhere.</p>
               {this.props.create ? (
-                <CreateUserForm initialState={this.props.initialState} />
+                <CreateUserForm
+                  initialState={this.props.initialState}
+                  themeColor={themeColors[index][0]}
+                  textColor={themeColors[index][2]}
+                />
               ) : (
-                <LoginForm />
+                <LoginForm themeColor={themeColors[index][0]} textColor={themeColors[index][1]} />
               )}
             </div>
           </div>
           <div className="login-page-content-footer">
-            <FontAwesomeIcon icon={faCode} /> by{" "}
+            <FontAwesomeIcon icon={faPaintBrush} /> <FontAwesomeIcon icon={faCode} />{" "}
+            <FontAwesomeIcon icon={faRocket} /> by{" "}
             <a href="https://teachla.uclaacm.com" target="_blank" rel="noopener noreferrer">
               <span className="teachla-green">ACM Teach LA</span>
             </a>{" "}
