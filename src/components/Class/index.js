@@ -46,7 +46,7 @@ class ClassPage extends React.Component {
 
   renderClassInfo = () => {
     let instrString = "";
-    if (this.props.instructors.length == 1)
+    if (this.props.instructors.length === 1)
       instrString = "Taught by ".concat(this.props.instructors[0]);
 
     return (
