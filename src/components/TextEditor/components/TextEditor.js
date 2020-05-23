@@ -1,21 +1,20 @@
 import React from "react";
-import ReactModal from "react-modal";
 
 import { CODEMIRROR_CONVERSIONS } from "../../../constants";
 import * as fetch from "../../../lib/fetch.js";
 import sketch from "../../../lib/";
-import EditorRadio from "./EditorRadio.js";
 
-import { Button, Input, InputGroup, InputGroupAddon } from "reactstrap";
+import EditorRadio from "./EditorRadio.js";
+import ShareSketchModal from "./ShareSketchModal";
+
+import { Button } from "reactstrap";
 import OpenPanelButtonContainer from "../../common/containers/OpenPanelButtonContainer";
 import { EDITOR_WIDTH_BREAKPOINT } from "../../../constants";
 import ViewportAwareButton from "../../common/ViewportAwareButton.js";
 import DropdownButtonContainer from "../../common/containers/DropdownButtonContainer";
-import { faCopy, faDownload, faSave, faShare } from "@fortawesome/free-solid-svg-icons";
+import { faDownload, faSave, faShare } from "@fortawesome/free-solid-svg-icons";
 import { SketchThumbnailArray } from "../../Sketches/constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-import "styles/Modals.scss";
 
 let CodeMirror = null;
 if (typeof window !== "undefined" && typeof window.navigator !== "undefined") {
@@ -123,29 +122,6 @@ class TextEditor extends React.Component {
     }
   };
 
-  renderShareModal = () => {
-    const shareUrl = sketch.constructShareableSketchURL(this.props.mostRecentProgram);
-    return (
-      <ReactModal
-        className="modal-md"
-        overlayClassName="modal-overlay"
-        isOpen={this.state.showShareModal}
-        onRequestClose={this.toggleShareModal}
-        ariaHideApp={false}
-      >
-        <h2 className="text-center">Share This Sketch</h2>
-        <InputGroup>
-          <Input value={shareUrl} disabled />
-          <InputGroupAddon addonType="append">
-            <Button color="primary" onClick={() => navigator.clipboard.writeText(shareUrl)}>
-              <FontAwesomeIcon icon={faCopy} /> Copy to Clipboard
-            </Button>
-          </InputGroupAddon>
-        </InputGroup>
-      </ReactModal>
-    );
-  };
-
   renderDropdown = () => <DropdownButtonContainer />;
 
   renderSketchName = () => <div className="program-sketch-name">{this.props.sketchName}</div>;
@@ -213,7 +189,11 @@ class TextEditor extends React.Component {
       <div className={`theme-` + this.props.theme} style={{ height: "100%" }}>
         <div className="code-section">
           {this.renderBanner()}
-          {this.renderShareModal()}
+          <ShareSketchModal
+            shareUrl={sketch.constructShareableSketchURL(this.props.mostRecentProgram)}
+            showModal={this.state.showShareModal}
+            toggleModal={this.toggleShareModal}
+          />
           <div
             className="text-editor-container"
             style={{
