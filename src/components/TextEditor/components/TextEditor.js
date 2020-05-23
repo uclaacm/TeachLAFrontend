@@ -36,7 +36,7 @@ class TextEditor extends React.Component {
       codeMirrorInstance: null,
       currentLine: 0,
       sketch: null,
-      showModal: false,
+      showForkModal: false,
       forking: false,
       forked: false,
       redirectToSketch: false,
@@ -56,11 +56,11 @@ class TextEditor extends React.Component {
   };
 
   openForkModal = () => {
-    this.setState({ showModal: true });
+    this.setState({ showForkModal: true });
   };
 
   closeForkModal = () => {
-    this.setState({ showModal: false });
+    this.setState({ showForkModal: false });
   };
 
   checkDirty = async () => {
@@ -112,10 +112,10 @@ class TextEditor extends React.Component {
     this.setState({ currentLine: line });
   };
 
-  renderImageModal = () => {
+  renderForkModal = () => {
     return (
       <ReactModal
-        isOpen={this.state.showModal}
+        isOpen={this.state.showForkModal}
         onRequestClose={this.closeForkModal}
         className="fork-modal"
         overlayClassName="profile-image-overlay"
@@ -280,7 +280,7 @@ class TextEditor extends React.Component {
       <div className={`theme-` + this.props.theme} style={{ height: "100%" }}>
         <div className="code-section">
           {this.renderBanner()}
-          {this.renderImageModal()}
+          {this.renderForkModal()}
           <div
             className="text-editor-container"
             style={{
