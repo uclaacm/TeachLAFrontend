@@ -9,10 +9,6 @@ import * as firebase from "firebase/app";
 import "firebase/auth";
 import "styles/Login.scss";
 
-/**-------Props--------
- * provider: Firebase Provider that allows the app to do Facebook Logins
- */
-
 export default class LoginModal extends React.Component {
   constructor(props) {
     super(props);
@@ -22,10 +18,11 @@ export default class LoginModal extends React.Component {
       password: "",
       errorMsg: "",
       waiting: false,
+      hoverButton: false,
     };
   }
 
-  handleEmailLogin = e => {
+  handleEmailLogin = (e) => {
     this.setState({ waiting: true, errorMsg: "" });
 
     e.preventDefault(); //prevents page from reloading after submitting form
@@ -37,7 +34,7 @@ export default class LoginModal extends React.Component {
         .auth()
         .signInWithEmailAndPassword(email, passwordHash)
         .then(() => {})
-        .catch(err => {
+        .catch((err) => {
           console.error(err);
           let newMsg = err.message;
           switch (err.code) {
@@ -80,18 +77,8 @@ export default class LoginModal extends React.Component {
     }
   };
 
-  handleSocialLogin = e => {
-    this.setState({ waiting: true });
-    firebase
-      .auth()
-      .signInWithPopup(this.props.provider)
-      .catch(function(err) {
-        this.setState({ errorMsg: "Failed to use Facebook login provider", waiting: false });
-      });
-  };
-
-  updateUsername = username => this.setState({ username });
-  updatePassword = password => this.setState({ password });
+  updateUsername = (username) => this.setState({ username });
+  updatePassword = (password) => this.setState({ password });
 
   renderErrorMessage = (msg, addBreak) => {
     if (msg)
@@ -126,45 +113,61 @@ export default class LoginModal extends React.Component {
   );
 
   renderAction = () => {
+    const unclickedStyle = {
+      backgroundColor: "white",
+      borderColor: this.props.themeColor,
+      borderWidth: "medium",
+      borderRadius: "4px",
+      color: "black",
+    };
+
+    const clickedStyle = {
+      backgroundColor: this.props.themeColor,
+      borderColor: this.props.themeColor,
+      borderWidth: "medium",
+      borderRadius: "4px",
+      color: this.props.textColor,
+    };
+
     if (this.state.waiting) {
       return (
         <div className="login-form-loader">
-          <RingLoader color={"#857e8f"} size={50} loading={true} />
+          <RingLoader color={this.props.themeColor} size={80} loading={true} />
         </div>
       );
     } else {
       return (
-        <Button className="login-form-button" size="lg" type="submit">
-          Login
-        </Button>
+        <div>
+          <Button
+            size="lg"
+            type="submit"
+            style={this.state.hoverButton ? clickedStyle : unclickedStyle}
+            onMouseEnter={() => this.setState({ hoverButton: !this.state.hoverButton })}
+            onMouseLeave={() => this.setState({ hoverButton: !this.state.hoverButton })}
+          >
+            Login
+          </Button>
+          <Link
+            to={{
+              pathname: "/createUser",
+              state: { username: this.state.username, password: this.state.password },
+            }}
+            className="login-form-link ml-4"
+          >
+            or, create an account
+          </Link>
+        </div>
       );
     }
   };
 
   render() {
     return (
-      <div className="login-form-container">
+      <div>
         <form className="login-form" onSubmit={this.handleEmailLogin}>
-          <h1>
-            Welcome to <span className="force-no-wrap">&lt;Teach LA&gt;</span>
-          </h1>
-          <br />
           {this.renderInputs()}
           {this.renderAction()}
-          <br />
-          <br />
-          <Link
-            to={{
-              pathname: "/createUser",
-              state: { username: this.state.username, password: this.state.password },
-            }}
-            className="login-form-link"
-          >
-            Don't have an account? Create one now!
-          </Link>
-          <br />
-          <br />
-          <details>
+          <details className="mt-2">
             <summary>Forgot your password?</summary>
             <p>
               Send us an email at <a href="mailto:acmteachla@gmail.com">acmteachla@gmail.com</a>{" "}
