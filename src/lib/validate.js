@@ -1,8 +1,10 @@
 import {
   MINIMUM_USERNAME_LENGTH,
   MINIMUM_PASSWORD_LENGTH,
+  MINIMUM_DISPLAY_NAME_LENGTH,
   MAXIMUM_USERNAME_LENGTH,
   MAXIMUM_PASSWORD_LENGTH,
+  MAXIMUM_DISPLAY_NAME_LENGTH,
 } from "../constants";
 
 /**
@@ -60,6 +62,36 @@ export const isValidPassword = (password) => {
       ok: false,
       message:
         "Password must only use upper case and lower case letters, numbers, and/or the special characters !@#$%",
+    };
+  }
+  return { ok: true, message: "" };
+};
+
+/**
+ * isValidDisplayName takes in a display name and returns an object containing whether or not the the display name is valid;
+ * if the display name is invalid, it also contains an explanation as to why not
+ * @param {string} displayName - the display name
+ * @returns {ValidMessage} - a ValidMessage object: 'ok' is a boolean determining the validity, and 'message' is an
+ * error message set on failure, empty on true
+ */
+export const isValidDisplayName = (displayName) => {
+  // display name is too short or too long
+  if (
+    displayName.length < MINIMUM_DISPLAY_NAME_LENGTH ||
+    displayName.length > MAXIMUM_DISPLAY_NAME_LENGTH
+  ) {
+    return {
+      ok: false,
+      message: `Display name must be between ${MINIMUM_DISPLAY_NAME_LENGTH}-${MAXIMUM_DISPLAY_NAME_LENGTH} characters long`,
+    };
+  }
+
+  // display name contains non-ASCII characters, or some special characters
+  if (displayName.match(/[^a-zA-Z0-9!@#$% ]/)) {
+    return {
+      ok: false,
+      message:
+        "Display name must only use upper case and lower case letters, numbers, spaces, and/or the special characters !@#$%",
     };
   }
   return { ok: true, message: "" };
