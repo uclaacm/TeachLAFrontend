@@ -37,7 +37,7 @@ class Sketches extends React.Component {
     return SketchThumbnailArray[Math.floor(Math.random() * SketchThumbnailArray.length)];
   };
 
-  setCreateSketchModalOpen = val => {
+  setCreateSketchModalOpen = (val) => {
     this.setState({ createSketchModalOpen: val });
   };
 
@@ -55,7 +55,7 @@ class Sketches extends React.Component {
     });
   };
 
-  setProgram = name => {
+  setProgram = (name) => {
     this.props.setMostRecentProgram(name);
   };
 
@@ -74,7 +74,7 @@ class Sketches extends React.Component {
     </div>
   );
 
-  getThumbnailSrc = val => {
+  getThumbnailSrc = (val) => {
     if (val === undefined || val === "" || val >= SketchThumbnailArray.length || val < 0) {
       return SketchThumbnailArray[0];
     }
@@ -166,7 +166,7 @@ class Sketches extends React.Component {
   renderConfirmDeleteModal = () => (
     <ConfirmDeleteModalContainer
       isOpen={this.state.confirmDeleteModalOpen}
-      onClose={() => this.setConfirmDeleteModalOpen(false)}
+      onClose={() => this.setState({ confirmDeleteModalOpen: false })}
       sketchName={this.state.selectedSketch}
       sketchKey={this.state.selectedKey}
     />
@@ -175,14 +175,14 @@ class Sketches extends React.Component {
   renderCreateSketchModal = () => (
     <CreateSketchModalContainer
       isOpen={this.state.createSketchModalOpen}
-      onClose={() => this.setCreateSketchModalOpen(false)}
+      onClose={() => this.setState({ createSketchModalOpen: false })}
     />
   );
 
   renderEditSketchModal = () => (
     <EditSketchModalContainer
       isOpen={this.state.editSketchModalOpen}
-      onClose={() => this.setEditSketchModalOpen(false)}
+      onClose={() => this.setState({ editSketchModalOpen: false })}
       sketchName={this.state.selectedSketch}
       sketchImg={this.state.selectedImg}
       sketchLang={this.state.selectedLang}
