@@ -2,15 +2,17 @@ import React from "react";
 import ReactModal from "react-modal";
 import { CODEMIRROR_CONVERSIONS } from "../../../constants";
 import * as fetch from "../../../lib/fetch.js";
+import sketch from "../../../lib/";
+
 import EditorRadio from "./EditorRadio.js";
+import ShareSketchModal from "./ShareSketchModal";
 
 import { Button } from "reactstrap";
 import OpenPanelButtonContainer from "../../common/containers/OpenPanelButtonContainer";
 import { EDITOR_WIDTH_BREAKPOINT } from "../../../constants";
 import ViewportAwareButton from "../../common/ViewportAwareButton.js";
 import DropdownButtonContainer from "../../common/containers/DropdownButtonContainer";
-import { faSave, faCodeBranch } from "@fortawesome/free-solid-svg-icons";
-import { faDownload } from "@fortawesome/free-solid-svg-icons";
+import { faDownload, faSave, faShare, faCodeBranch } from "@fortawesome/free-solid-svg-icons";
 import { SketchThumbnailArray } from "../../Sketches/constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Redirect } from "react-router";
@@ -40,6 +42,7 @@ class TextEditor extends React.Component {
       forking: false,
       forked: false,
       redirectToSketch: false,
+      showShareModal: false,
     };
   }
 
@@ -81,14 +84,14 @@ class TextEditor extends React.Component {
     }
   };
 
-  onLeave = async ev => {
+  onLeave = async (ev) => {
     if (this.props.dirty) {
       ev.returnValue = "";
     }
     return ev;
   };
 
-  setCodeMirrorInstance = codeMirrorInstance => {
+  setCodeMirrorInstance = (codeMirrorInstance) => {
     this.setState({ codeMirrorInstance });
   };
 
@@ -100,7 +103,7 @@ class TextEditor extends React.Component {
     this.props.setProgramCode(this.props.mostRecentProgram, newCode);
   };
 
-  setCurrentLine = cm => {
+  setCurrentLine = (cm) => {
     const { codeMirrorInstance, currentLine } = this.state;
     let { line } = cm.getCursor();
     if (codeMirrorInstance) {
@@ -111,6 +114,7 @@ class TextEditor extends React.Component {
     }
     this.setState({ currentLine: line });
   };
+
 
   renderForkModal = () => {
     return (
@@ -193,13 +197,17 @@ class TextEditor extends React.Component {
     this.setState({ redirectToSketch: true });
   };
 
+  toggleShareModal = () => {
+    this.setState((prevState) => ({ showShareModal: !prevState.showShareModal }));
+  };
+
   /**
    * returns a theme string for the CodeMirror editor, based off of the app's current theme
    * @param {string} theme - the app's current theme
    * @returns {string} the codemirror theme - see https://codemirror.net/demo/theme.html for more info
    */
 
-  getCMTheme = theme => {
+  getCMTheme = (theme) => {
     switch (theme) {
       case "light":
         return "duotone-light";
@@ -208,6 +216,7 @@ class TextEditor extends React.Component {
         return "material";
     }
   };
+
   renderDropdown = () => <DropdownButtonContainer />;
 
   renderSketchName = () => <div className="program-sketch-name">{this.props.sketchName}</div>;
@@ -252,7 +261,17 @@ class TextEditor extends React.Component {
             text={this.props.saveText}
           />
         )}
-
+        {
+          <ViewportAwareButton
+            className="mx-2"
+            color="primary"
+            size="lg"
+            onClick={this.toggleShareModal}
+            isSmall={this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
+            icon={<FontAwesomeIcon icon={faShare} />}
+            text={"Share"}
+          />
+        }
         {
           <Button className="mx-2" color="success" size="lg" onClick={this.props.handleDownload}>
             <FontAwesomeIcon icon={faDownload} />
@@ -281,6 +300,11 @@ class TextEditor extends React.Component {
         <div className="code-section">
           {this.renderBanner()}
           {this.renderForkModal()}
+          <ShareSketchModal
+            shareUrl={sketch.constructShareableSketchURL(this.props.mostRecentProgram)}
+            showModal={this.state.showShareModal}
+            toggleModal={this.toggleShareModal}
+          />
           <div
             className="text-editor-container"
             style={{
@@ -290,7 +314,7 @@ class TextEditor extends React.Component {
             }}
           >
             <CodeMirror
-              editorDidMount={codeMirrorInstance => {
+              editorDidMount={(codeMirrorInstance) => {
                 codeMirrorInstance.refresh();
                 this.setCodeMirrorInstance(codeMirrorInstance);
               }}
@@ -298,7 +322,7 @@ class TextEditor extends React.Component {
               lineWrapping
               indentWithTabs={true}
               options={options}
-              onCursor={cm => {
+              onCursor={(cm) => {
                 this.setCurrentLine(cm);
               }}
               onBeforeChange={this.updateCode}
