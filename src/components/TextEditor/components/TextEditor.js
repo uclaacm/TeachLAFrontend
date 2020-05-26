@@ -84,14 +84,14 @@ class TextEditor extends React.Component {
     }
   };
 
-  onLeave = async (ev) => {
+  onLeave = async ev => {
     if (this.props.dirty) {
       ev.returnValue = "";
     }
     return ev;
   };
 
-  setCodeMirrorInstance = (codeMirrorInstance) => {
+  setCodeMirrorInstance = codeMirrorInstance => {
     this.setState({ codeMirrorInstance });
   };
 
@@ -103,7 +103,7 @@ class TextEditor extends React.Component {
     this.props.setProgramCode(this.props.mostRecentProgram, newCode);
   };
 
-  setCurrentLine = (cm) => {
+  setCurrentLine = cm => {
     const { codeMirrorInstance, currentLine } = this.state;
     let { line } = cm.getCursor();
     if (codeMirrorInstance) {
@@ -114,7 +114,6 @@ class TextEditor extends React.Component {
     }
     this.setState({ currentLine: line });
   };
-
 
   renderForkModal = () => {
     return (
@@ -198,7 +197,7 @@ class TextEditor extends React.Component {
   };
 
   toggleShareModal = () => {
-    this.setState((prevState) => ({ showShareModal: !prevState.showShareModal }));
+    this.setState(prevState => ({ showShareModal: !prevState.showShareModal }));
   };
 
   /**
@@ -207,7 +206,7 @@ class TextEditor extends React.Component {
    * @returns {string} the codemirror theme - see https://codemirror.net/demo/theme.html for more info
    */
 
-  getCMTheme = (theme) => {
+  getCMTheme = theme => {
     switch (theme) {
       case "light":
         return "duotone-light";
@@ -261,7 +260,7 @@ class TextEditor extends React.Component {
             text={this.props.saveText}
           />
         )}
-        {
+        {!this.props.viewOnly && (
           <ViewportAwareButton
             className="mx-2"
             color="primary"
@@ -271,7 +270,7 @@ class TextEditor extends React.Component {
             icon={<FontAwesomeIcon icon={faShare} />}
             text={"Share"}
           />
-        }
+        )}
         {
           <Button className="mx-2" color="success" size="lg" onClick={this.props.handleDownload}>
             <FontAwesomeIcon icon={faDownload} />
@@ -314,7 +313,7 @@ class TextEditor extends React.Component {
             }}
           >
             <CodeMirror
-              editorDidMount={(codeMirrorInstance) => {
+              editorDidMount={codeMirrorInstance => {
                 codeMirrorInstance.refresh();
                 this.setCodeMirrorInstance(codeMirrorInstance);
               }}
@@ -322,7 +321,7 @@ class TextEditor extends React.Component {
               lineWrapping
               indentWithTabs={true}
               options={options}
-              onCursor={(cm) => {
+              onCursor={cm => {
                 this.setCurrentLine(cm);
               }}
               onBeforeChange={this.updateCode}
