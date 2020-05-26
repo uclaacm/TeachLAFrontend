@@ -1,5 +1,5 @@
 import React from "react";
-
+import ReactModal from "react-modal";
 import { CODEMIRROR_CONVERSIONS } from "../../../constants";
 import * as fetch from "../../../lib/fetch.js";
 import sketch from "../../../lib/";
@@ -12,9 +12,10 @@ import OpenPanelButtonContainer from "../../common/containers/OpenPanelButtonCon
 import { EDITOR_WIDTH_BREAKPOINT } from "../../../constants";
 import ViewportAwareButton from "../../common/ViewportAwareButton.js";
 import DropdownButtonContainer from "../../common/containers/DropdownButtonContainer";
-import { faDownload, faSave, faShare } from "@fortawesome/free-solid-svg-icons";
+import { faDownload, faSave, faShare, faCodeBranch } from "@fortawesome/free-solid-svg-icons";
 import { SketchThumbnailArray } from "../../Sketches/constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Redirect } from "react-router-dom";
 
 let CodeMirror = null;
 if (typeof window !== "undefined" && typeof window.navigator !== "undefined") {
@@ -37,6 +38,10 @@ class TextEditor extends React.Component {
       codeMirrorInstance: null,
       currentLine: 0,
       sketch: null,
+      showForkModal: false,
+      forking: false,
+      forked: false,
+      redirectToSketch: false,
       showShareModal: false,
     };
   }
@@ -51,6 +56,14 @@ class TextEditor extends React.Component {
   componentWillUnmount = () => {
     window.removeEventListener("beforeunload", this.onLeave);
     window.removeEventListener("close", this.onLeave);
+  };
+
+  openForkModal = () => {
+    this.setState({ showForkModal: true });
+  };
+
+  closeForkModal = () => {
+    this.setState({ showForkModal: false });
   };
 
   checkDirty = async () => {
@@ -102,6 +115,87 @@ class TextEditor extends React.Component {
     this.setState({ currentLine: line });
   };
 
+  renderForkModal = () => {
+    return (
+      <ReactModal
+        isOpen={this.state.showForkModal}
+        onRequestClose={this.closeForkModal}
+        className="fork-modal"
+        overlayClassName="profile-image-overlay"
+        ariaHideApp={false}
+      >
+        <h1 className="text-center">Fork This Sketch</h1>
+        {!(this.state.forking || this.state.forked) && (
+          <p className="text-center">Would you like to create your own copy of this sketch?</p>
+        )}
+        {this.state.forking ? (
+          <p className="text-center">Forking...</p>
+        ) : this.state.forked ? (
+          <div>
+            <p className="text-center">Sketch forked! Go to your sketches to see your new copy!</p>
+            <Button color="danger" size="lg" onClick={this.closeForkModal} block>
+              Close
+            </Button>
+            <Button color="success" size="lg" onClick={this.redirectSketch} block>
+              Go to Sketches
+            </Button>
+          </div>
+        ) : (
+          <div className="text-center">
+            <Button color="danger" size="lg" onClick={this.closeForkModal} block>
+              Cancel
+            </Button>
+            <Button color="success" size="lg" onClick={this.handleFork} block>
+              Fork
+            </Button>
+          </div>
+        )}
+      </ReactModal>
+    );
+  };
+
+  handleFork = async () => {
+    this.setState({ forking: true });
+    let data = {
+      uid: this.props.uid,
+      thumbnail: this.props.vthumbnail,
+      language: this.props.vlanguage,
+      name: this.props.sketchName,
+      code: this.props.code,
+    };
+
+    try {
+      fetch
+        .createSketch(data)
+        .then((res) => {
+          return res.json();
+        })
+        .then((json) => {
+          if (!json.ok) {
+            this.setState({
+              error: json.error || "Failed to create sketch, please try again later",
+            });
+            return;
+          }
+          this.setState({ forking: false, forked: true });
+          this.props.addProgram(json.data.key, json.data.programData || {});
+        })
+        .catch((err) => {
+          this.setState({
+            error: "Failed to create sketch, please try again later",
+          });
+          console.log(err);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  redirectSketch = () => {
+    this.closeForkModal();
+    this.setState({ redirectToSketch: true });
+  };
+
   toggleShareModal = () => {
     this.setState((prevState) => ({ showShareModal: !prevState.showShareModal }));
   };
@@ -127,7 +221,8 @@ class TextEditor extends React.Component {
   renderSketchName = () => <div className="program-sketch-name">{this.props.sketchName}</div>;
 
   renderBanner = () => {
-    let thumbnail = SketchThumbnailArray[this.props.thumbnail];
+    let thumbnail =
+      SketchThumbnailArray[this.props.viewOnly ? this.props.vthumbnail : this.props.thumbnail];
     return (
       <div className="code-section-banner">
         <OpenPanelButtonContainer />
@@ -144,7 +239,17 @@ class TextEditor extends React.Component {
             isSmall={this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
           />
         </div>
-        {this.props.viewOnly ? null : (
+        {this.props.viewOnly ? (
+          this.props.uid ? (
+            <ViewportAwareButton
+              size="lg"
+              onClick={this.openForkModal}
+              isSmall={this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
+              icon={<FontAwesomeIcon icon={faCodeBranch} />}
+              text={"Fork"}
+            />
+          ) : null
+        ) : (
           <ViewportAwareButton
             className="mx-2"
             color="success"
@@ -155,7 +260,7 @@ class TextEditor extends React.Component {
             text={this.props.saveText}
           />
         )}
-        {
+        {!this.props.viewOnly && (
           <ViewportAwareButton
             className="mx-2"
             color="primary"
@@ -165,7 +270,7 @@ class TextEditor extends React.Component {
             icon={<FontAwesomeIcon icon={faShare} />}
             text={"Share"}
           />
-        }
+        )}
         {
           <Button className="mx-2" color="success" size="lg" onClick={this.props.handleDownload}>
             <FontAwesomeIcon icon={faDownload} />
@@ -176,9 +281,13 @@ class TextEditor extends React.Component {
   };
 
   render() {
+    if (this.state.redirectToSketch === true) {
+      return <Redirect to="/sketches" />;
+    }
     //json required by CodeMirror
     const options = {
-      mode: CODEMIRROR_CONVERSIONS[this.props.language],
+      mode:
+        CODEMIRROR_CONVERSIONS[this.props.viewOnly ? this.props.vlanguage : this.props.language],
       theme: this.getCMTheme(this.props.theme),
       lineNumbers: true, //text editor has line numbers
       lineWrapping: true, //text editor does not overflow in the x direction, uses word wrap (NOTE: it's like MO Word wrapping, so words are not cut in the middle, if a word overlaps, the whole word is brought to the next line)
@@ -189,6 +298,7 @@ class TextEditor extends React.Component {
       <div className={`theme-` + this.props.theme} style={{ height: "100%" }}>
         <div className="code-section">
           {this.renderBanner()}
+          {this.renderForkModal()}
           <ShareSketchModal
             shareUrl={sketch.constructShareableSketchURL(this.props.mostRecentProgram)}
             showModal={this.state.showShareModal}
