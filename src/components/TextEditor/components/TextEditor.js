@@ -15,7 +15,7 @@ import DropdownButtonContainer from "../../common/containers/DropdownButtonConta
 import { faDownload, faSave, faShare, faCodeBranch } from "@fortawesome/free-solid-svg-icons";
 import { SketchThumbnailArray } from "../../Sketches/constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Redirect } from "react-router";
+import { Redirect } from "react-router-dom";
 
 let CodeMirror = null;
 if (typeof window !== "undefined" && typeof window.navigator !== "undefined") {
@@ -84,14 +84,14 @@ class TextEditor extends React.Component {
     }
   };
 
-  onLeave = async ev => {
+  onLeave = async (ev) => {
     if (this.props.dirty) {
       ev.returnValue = "";
     }
     return ev;
   };
 
-  setCodeMirrorInstance = codeMirrorInstance => {
+  setCodeMirrorInstance = (codeMirrorInstance) => {
     this.setState({ codeMirrorInstance });
   };
 
@@ -103,7 +103,7 @@ class TextEditor extends React.Component {
     this.props.setProgramCode(this.props.mostRecentProgram, newCode);
   };
 
-  setCurrentLine = cm => {
+  setCurrentLine = (cm) => {
     const { codeMirrorInstance, currentLine } = this.state;
     let { line } = cm.getCursor();
     if (codeMirrorInstance) {
@@ -167,10 +167,10 @@ class TextEditor extends React.Component {
     try {
       fetch
         .createSketch(data)
-        .then(res => {
+        .then((res) => {
           return res.json();
         })
-        .then(json => {
+        .then((json) => {
           if (!json.ok) {
             this.setState({
               error: json.error || "Failed to create sketch, please try again later",
@@ -180,7 +180,7 @@ class TextEditor extends React.Component {
           this.setState({ forking: false, forked: true });
           this.props.addProgram(json.data.key, json.data.programData || {});
         })
-        .catch(err => {
+        .catch((err) => {
           this.setState({
             error: "Failed to create sketch, please try again later",
           });
@@ -197,7 +197,7 @@ class TextEditor extends React.Component {
   };
 
   toggleShareModal = () => {
-    this.setState(prevState => ({ showShareModal: !prevState.showShareModal }));
+    this.setState((prevState) => ({ showShareModal: !prevState.showShareModal }));
   };
 
   /**
@@ -206,7 +206,7 @@ class TextEditor extends React.Component {
    * @returns {string} the codemirror theme - see https://codemirror.net/demo/theme.html for more info
    */
 
-  getCMTheme = theme => {
+  getCMTheme = (theme) => {
     switch (theme) {
       case "light":
         return "duotone-light";
@@ -282,7 +282,7 @@ class TextEditor extends React.Component {
 
   render() {
     if (this.state.redirectToSketch === true) {
-      return <Redirect to={"/sketches"} />;
+      return <Redirect to="/sketches" />;
     }
     //json required by CodeMirror
     const options = {
@@ -313,7 +313,7 @@ class TextEditor extends React.Component {
             }}
           >
             <CodeMirror
-              editorDidMount={codeMirrorInstance => {
+              editorDidMount={(codeMirrorInstance) => {
                 codeMirrorInstance.refresh();
                 this.setCodeMirrorInstance(codeMirrorInstance);
               }}
@@ -321,7 +321,7 @@ class TextEditor extends React.Component {
               lineWrapping
               indentWithTabs={true}
               options={options}
-              onCursor={cm => {
+              onCursor={(cm) => {
                 this.setCurrentLine(cm);
               }}
               onBeforeChange={this.updateCode}
