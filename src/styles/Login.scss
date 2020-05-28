@@ -94,8 +94,11 @@
 }
 .background-svg {
   max-width: 1084px;
+  height: 100%;
   position: absolute;
+  top: 0;
   right: 0;
+  
   @media only screen and (max-width: 1024px) {
     display: none;
   }
