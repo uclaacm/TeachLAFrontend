@@ -30,20 +30,18 @@ class ConfirmDeleteModal extends React.Component {
             });
             return;
           }
+
           this.props.deleteProgram(this.props.sketchKey);
 
           // this next piece of code is a guard against deleting mostRecentProgram - if we do,
           // then we need to re-populate it with something different.
           if (
             this.props.sketchKey === this.props.mostRecentProgram &&
-            this.props.programKeys.size > 1
+            this.props.programKeys.size > 0
           ) {
-            if (this.props.sketchKey === this.props.programKeys[0]) {
-              this.props.setMostRecentProgram(this.props.programKeys.get(1));
-            } else {
-              this.props.setMostRecentProgram(this.props.programKeys.get(0));
-            }
+            this.props.setMostRecentProgram(this.props.programKeys.get(0));
           }
+
           this.closeModal();
         })
         .catch((err) => {
