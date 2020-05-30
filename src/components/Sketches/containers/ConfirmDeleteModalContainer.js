@@ -1,16 +1,22 @@
 import ConfirmDeleteModal from "../components/ConfirmDeleteModal.js";
 import { connect } from "react-redux";
 import { deleteProgram } from "../../../actions/programsActions";
+import { setMostRecentProgram } from "../../../actions/userDataActions.js";
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
+  const { mostRecentProgram, uid } = state.userData;
+  const programKeys = state.programs.keySeq(); // this is an immutable sequence
   return {
-    uid: state.userData.uid,
+    mostRecentProgram,
+    programKeys,
+    uid,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     deleteProgram: (program, data) => dispatch(deleteProgram(program, data)),
+    setMostRecentProgram: (value) => dispatch(setMostRecentProgram(value)),
   };
 };
 

@@ -19,10 +19,10 @@ class ConfirmDeleteModal extends React.Component {
     try {
       fetch
         .deleteSketch(data)
-        .then(res => {
+        .then((res) => {
           return res.json();
         })
-        .then(json => {
+        .then((json) => {
           if (!json.ok) {
             this.setState({
               spinner: false,
@@ -31,17 +31,30 @@ class ConfirmDeleteModal extends React.Component {
             return;
           }
           this.props.deleteProgram(this.props.sketchKey);
+
+          // this next piece of code is a guard against deleting mostRecentProgram - if we do,
+          // then we need to re-populate it with something different.
+          if (
+            this.props.sketchKey === this.props.mostRecentProgram &&
+            this.props.programKeys.size > 1
+          ) {
+            if (this.props.sketchKey === this.props.programKeys[0]) {
+              this.props.setMostRecentProgram(this.props.programKeys.get(1));
+            } else {
+              this.props.setMostRecentProgram(this.props.programKeys.get(0));
+            }
+          }
           this.closeModal();
         })
-        .catch(err => {
+        .catch((err) => {
           this.setState({
             spinner: false,
             error: "Failed to create sketch, please try again later",
           });
-          console.log(err);
+          console.error(err);
         });
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
     this.setState({ spinner: true, error: "" });
   };
