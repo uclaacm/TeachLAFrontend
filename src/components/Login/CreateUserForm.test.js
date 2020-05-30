@@ -31,12 +31,7 @@ describe("CreateUserForm", () => {
     expect(component.state().usernameMessage).toBe(
       `Username must only use upper case and lower case letters, numbers, and/or the special characters !@#$%`,
     );
-    expect(
-      component
-        .find(".login-form-input-error")
-        .at(0)
-        .text(),
-    ).toBe(
+    expect(component.find(".login-form-input-error").at(0).text()).toBe(
       `Username must only use upper case and lower case letters, numbers, and/or the special characters !@#$%`,
     );
 
@@ -60,12 +55,7 @@ describe("CreateUserForm", () => {
     expect(component.state().passwordMessage).toBe(
       `Password must only use upper case and lower case letters, numbers, and/or the special characters !@#$%`,
     );
-    expect(
-      component
-        .find(".login-form-input-error")
-        .at(0)
-        .text(),
-    ).toBe(
+    expect(component.find(".login-form-input-error").at(0).text()).toBe(
       `Password must only use upper case and lower case letters, numbers, and/or the special characters !@#$%`,
     );
 

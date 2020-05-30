@@ -24,3 +24,15 @@ h1, h2, h3, h4, h5, h6 {
 .force-no-wrap {
   white-space: nowrap;
 }
+
+.teachla-green{
+  color: #92D32B;
+}
+
+.black-divider{
+  border:0;
+  border-top: 1px solid $theme-dark;
+  margin:0;
+  height:1px;
+  margin-top: 1em;
+}

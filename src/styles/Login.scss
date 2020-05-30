@@ -1,13 +1,7 @@
-@import 'styles/variables.scss';
-
-.login-page {
-  margin: 0px;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-}
+@import "styles/variables.scss";
 
 .login-page-content {
+  display: flex;
   width: 100%;
   height: 100vh;
   background-repeat: no-repeat;
@@ -15,22 +9,31 @@
   background-size: auto 93%;
   overflow-y: auto;
   box-sizing: border-box;
-  background-color: $theme-dark;
-  padding-bottom: 8vh;
+  background-color: white;
+  background-size: auto 100%;
+  background-position: right;
+  padding-left: 4em;
+}
+
+.login-page-content-main {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.login-page-content-footer{
+  flex-shrink: 0;
+  padding-bottom: 1em;
 }
 
 @media only screen and (max-width: 1024px) {
   .login-page-content {
+    padding-top: 3em;
     background-image: none;
+    flex-direction: column;
+    padding-left: 0em;
   }
-}
-
-.login-form {
-  padding: 0 1.5em;
-  color: $off-white;
-}
-
-@media only screen and (max-width: 1024px) {
   .login-form-loader {
     width: 100%;
     align-items: center;
@@ -41,9 +44,9 @@
 }
 
 .login-form-input-header {
-  color: $off-white;
-  font-size: 36px;
-  margin-bottom: 1rem;
+  color: $theme-dark;
+  font-size: 24px;
+  margin-bottom: 0.2rem;
 }
 
 .login-form-input-error {
@@ -51,37 +54,73 @@
   font-size: 1rem;
 }
 
-.login-form-container {
-  display: block;
-  margin-top: 30px; /*modal distance from top of the screen*/
-  box-sizing: border-box;
-  width: 50%;
+.login-page-content-container {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  z-index: 5;
 }
 
 @media only screen and (max-width: 1024px) {
-  .login-form-container {
+  .login-page-content-container {
     text-align: center;
+    align-items: center;
     width: 100%;
+  }
+}
+
+.login-page-images {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-page-art {
+  position: absolute;
+  top: 120px;
+  right: 30px;
+  width: 1000px;
+  max-height: 500px;
+  z-index: 1;
+  @media only screen and (max-width: 1024px) {
+    position: relative;
+    top: -30px;
+    right: 0px;
+    max-width: 300px;
+    max-height: 200px;
+  }
+}
+.background-svg {
+  max-width: 1084px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  
+  @media only screen and (max-width: 1024px) {
+    display: none;
   }
 }
 
 .login-form-input {
   font-size: 1.5em;
   line-height: normal;
-  padding: 0.25rem 0.1rem 0px 0.1rem;
+  padding: 0.2rem 0.5rem;
   border: 0px;
+  border-radius: 8px;
   background-color: $theme-dark;
   border-top: 0px;
   border-left: 0px;
   border-right: 0px;
-  border-bottom: 2px solid $off-white;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   outline: 0;
   width: 50%;
   min-width: 300px;
-  max-width: 500px;
+  max-width: 400px;
   margin: 0 2px 1rem; /*last value controls how far the next input starts*/
   font-variant-ligatures: none;
   -webkit-transition: box-shadow 70ms ease-out, border-color 70ms ease-out;
@@ -102,18 +141,6 @@
   color: #c0e2fd;
 }
 
-.login-form-button {
-  background-color: $theme-light;
-  border-color: $theme-light;
-  text-align: left;
-}
-
-.login-form-button:hover, .login-form-button:active {
-  color: $theme-light !important;
-  border-color: $off-white !important;
-  background-color: $off-white !important;
-}
-
 .login-form-link {
   color: inherit;
   text-decoration: none;
@@ -123,4 +150,41 @@
 .login-form-link:hover {
   color: inherit;
   text-decoration: underline;
+}
+
+.bottom-right-toggle{
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  @media only screen and (max-width: 1024px) {
+    display: none;
+  }
+}
+
+.beating-heart{
+  color: red;
+  animation: heartbeat 2s infinite;
+}
+
+/* The keyframes + class for the heartbeat animation I use across the site. */
+@keyframes heartbeat {
+  0% {
+    transform: scale(0.75);
+  }
+
+  25% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(0.75);
+  }
+
+  75% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(0.75);
+  }
 }

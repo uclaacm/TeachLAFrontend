@@ -5,7 +5,6 @@ import LoginPage from "./containers/LoginContainer";
 import MainContainer from "./containers/MainContainer";
 import ViewOnlyContainer from "./containers/ViewOnlyContainer";
 import LoadingPage from "./common/LoadingPage";
-import CreateUserPage from "./CreateUser";
 import Error from "./Error";
 import PageNotFound from "./PageNotFound";
 import * as firebase from "firebase/app";
@@ -26,7 +25,7 @@ class App extends React.Component {
   //==============React Lifecycle Functions===================//
 
   componentDidMount = () => {
-    firebase.auth().onAuthStateChanged(async user => {
+    firebase.auth().onAuthStateChanged(async (user) => {
       await this.onAuthHandler(user);
     });
     window.addEventListener("resize", this.handleResize, true);
@@ -48,7 +47,7 @@ class App extends React.Component {
    * application.
    * @param  {firebase.auth().currentUser}  user - a user object as passed by firebase.auth()
    */
-  onAuthHandler = async user => {
+  onAuthHandler = async (user) => {
     console.log("checking auth");
     if (user) {
       console.log("found user");
@@ -67,12 +66,12 @@ class App extends React.Component {
     }
   };
 
-  showErrorPage = err => {
+  showErrorPage = (err) => {
     console.log(err);
     this.props.loadFailure(err);
   };
 
-  renderHome = isValidUser => {
+  renderHome = (isValidUser) => {
     return isValidUser ? <Redirect to="/editor" /> : <Redirect to="/login" />;
   };
 
@@ -138,7 +137,7 @@ class App extends React.Component {
                 ) : isValidUser ? (
                   <Redirect to="/editor" />
                 ) : (
-                  <CreateUserPage initialState={location.state} />
+                  <LoginPage create={true} initialState={location.state} />
                 )
               }
             />
@@ -158,7 +157,7 @@ class App extends React.Component {
             {/* Get program endpoint */}
             <Route
               path="/p/:programid"
-              render={props => (
+              render={(props) => (
                 <ViewOnlyContainer contentType="view" programid={props.match.params.programid} />
               )}
             />

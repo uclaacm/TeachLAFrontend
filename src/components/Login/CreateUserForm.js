@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import * as firebase from "firebase/app";
 import "firebase/auth";
 import SHA256 from "crypto-js/sha256";
-import LoginInput from "../Login/LoginInput.js";
+import LoginInput from "./LoginInput.js";
 import {
   MINIMUM_USERNAME_LENGTH,
   MINIMUM_PASSWORD_LENGTH,
@@ -100,7 +100,7 @@ export default class CreateUserForm extends React.Component {
    * @return {void}   submit returns early if the inputs passed by a prospective user
    * are bad.
    */
-  submit = e => {
+  submit = (e) => {
     e.preventDefault();
 
     this.setState({
@@ -129,7 +129,7 @@ export default class CreateUserForm extends React.Component {
       .auth()
       .createUserWithEmailAndPassword(email, passHash)
       .then(({ user }) => {})
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
         let newMsg = err.message;
         switch (err.code) {
@@ -185,9 +185,9 @@ export default class CreateUserForm extends React.Component {
     return addBreak ? <br /> : null;
   };
 
-  updateUsername = username => this.setState({ username });
-  updatePassword = password => this.setState({ password });
-  updateConfirmPassword = confirmPassword => this.setState({ confirmPassword });
+  updateUsername = (username) => this.setState({ username });
+  updatePassword = (password) => this.setState({ password });
+  updateConfirmPassword = (confirmPassword) => this.setState({ confirmPassword });
 
   renderInputs = () => (
     <div className="login-form-input-list">
@@ -221,37 +221,50 @@ export default class CreateUserForm extends React.Component {
     if (this.state.waiting) {
       return (
         <div className="login-form-loader">
-          <RingLoader color={"#857e8f"} size={50} loading={true} />
+          <RingLoader color={this.props.themeColor} size={80} loading={true} />
         </div>
       );
     } else {
+      const unclickedStyle = {
+        backgroundColor: "white",
+        borderColor: this.props.themeColor,
+        borderWidth: "medium",
+        borderRadius: "4px",
+        color: "black",
+      };
+
+      const clickedStyle = {
+        backgroundColor: this.props.themeColor,
+        borderColor: this.props.themeColor,
+        borderWidth: "medium",
+        borderRadius: "4px",
+        color: this.props.textColor,
+      };
       return (
-        <Button className="login-form-button" size="lg" type="submit">
-          Create Account
-        </Button>
+        <div>
+          <Button
+            size="lg"
+            type="submit"
+            style={this.state.hoverButton ? clickedStyle : unclickedStyle}
+            onMouseEnter={() => this.setState({ hoverButton: !this.state.hoverButton })}
+            onMouseLeave={() => this.setState({ hoverButton: !this.state.hoverButton })}
+          >
+            Create Account
+          </Button>
+          <Link to="/login" className="login-form-link ml-4">
+            or, login with an existing account
+          </Link>
+        </div>
       );
     }
   };
 
-  renderLink = () => (
-    <Link to="/login" className="login-form-link">
-      Already have an account? Click here to login.
-    </Link>
-  );
-
   render() {
     return (
-      <div className="login-form-container">
-        <form className="login-form" onSubmit={this.submit}>
-          <h1>Create a new account</h1>
-          <br />
-          {this.renderInputs()}
-          {this.renderAction()}
-          <br />
-          <br />
-          {this.renderLink()}
-        </form>
-      </div>
+      <form className="login-form" onSubmit={this.submit}>
+        {this.renderInputs()}
+        {this.renderAction()}
+      </form>
     );
   }
 }
