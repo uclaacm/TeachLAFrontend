@@ -40,32 +40,45 @@ const themeColors = {
 class Login extends React.Component {
   state = {
     dummy: false,
+    index: Math.floor(Math.random() * 5),
   };
-  getSVG = (index) => {
+  // basically, when the window resizes, we should recalculate get SVG - the window parameters change!
+  componentDidMount = () => {
+    window.addEventListener("resize", () => this.setState({ dummy: !this.state.dummy }));
+  };
+  componentWillUnmount = () => {
+    window.removeEventListener("resize", () => this.setState({ dummy: !this.state.dummy }));
+  };
+  getSVG = () => {
     return (
       <svg
         className="background-svg"
-        width="1084"
-        height="1024"
-        viewBox="0 0 1084 1024"
+        viewBox={`0 0 1084 ${window.innerHeight}`}
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          d="M204.407 691.847C51.4294 796.853 0.666362 951.817 0 1042H1094V-14L53.4756 -6.443C178.418 14.2132 602.225 418.778 204.407 691.847Z"
+          d={`
+            M204.407 691.847
+            C51.4294 796.853 0.666362 951.817 0 ${window.innerHeight}
+            H1094
+            V-14
+            L53.4756 -6.443
+            C178.418 14.2132 602.225 418.778 204.407 691.847Z
+            `}
           fill="url(#paint0_linear)"
         />
         <defs>
           <linearGradient
             id="paint0_linear"
             x1="547"
-            y1="-14"
+            y1="0"
             x2="547"
-            y2="1042"
+            y2={`${window.innerHeight}`}
             gradientUnits="userSpaceOnUse"
           >
-            <stop stopColor={gradientColors[index][0]} />
-            <stop offset="1" stopColor={gradientColors[index][1]} stopOpacity="0.47" />
+            <stop stopColor={gradientColors[this.state.index][0]} />
+            <stop offset="1" stopColor={gradientColors[this.state.index][1]} stopOpacity="0.47" />
           </linearGradient>
         </defs>
       </svg>
@@ -73,16 +86,17 @@ class Login extends React.Component {
   };
 
   render = () => {
-    const index = Math.floor(Math.random() * 5);
     const textHighlightStyle = {
-      background: `linear-gradient(180deg, rgba(255,255,255,0) 80%, ${gradientColors[index][0]} 50%)`,
+      background: `linear-gradient(180deg, rgba(255,255,255,0) 80%, ${
+        gradientColors[this.state.index][0]
+      } 50%)`,
     };
     return (
       <div className="login-page-content">
         <div className="login-page-content-container">
           <div
             className="bottom-right-toggle"
-            onClick={() => this.setState({ dummy: !this.state.dummy })}
+            onClick={() => this.setState({ index: Math.floor(Math.random() * 5) })}
           >
             <FontAwesomeIcon icon={faRedo} />
           </div>
@@ -96,11 +110,14 @@ class Login extends React.Component {
               {this.props.create ? (
                 <CreateUserForm
                   initialState={this.props.initialState}
-                  themeColor={themeColors[index][0]}
-                  textColor={themeColors[index][2]}
+                  themeColor={themeColors[this.state.index][0]}
+                  textColor={themeColors[this.state.index][2]}
                 />
               ) : (
-                <LoginForm themeColor={themeColors[index][0]} textColor={themeColors[index][1]} />
+                <LoginForm
+                  themeColor={themeColors[this.state.index][0]}
+                  textColor={themeColors[this.state.index][1]}
+                />
               )}
             </div>
           </div>
@@ -116,10 +133,10 @@ class Login extends React.Component {
         <div className="login-page-images">
           <img
             className="login-page-art"
-            src={loginArt[index]}
-            alt={`decorative login page art: ${loginArtAlts[index]}`}
+            src={loginArt[this.state.index]}
+            alt={`decorative login page art: ${loginArtAlts[this.state.index]}`}
           />
-          {this.getSVG(index)}
+          {this.getSVG()}
         </div>
       </div>
     );

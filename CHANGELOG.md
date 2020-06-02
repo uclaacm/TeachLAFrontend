@@ -1,5 +1,39 @@
 # Changelog
 
+## Version v2.1.0 | Forking, sharing, minor refactoring (28/05/2020)
+
+This is a minor release with two great features (thanks @malsf21 and @jamieliu386!), a bug fix, and some refactoring (thanks to @evazhog and @malsf21):
+
+- Adds fork button to the editor (#278)
+- Adds share button to the editor (#279)
+- Fixes the incorrect state update in our editor and a typo in the image selector (#281)
+- Removes unused code (#282) and merges a long-standing PR that refactors our image selector components (#149)
+
+#### bug
+
+- [**bug**] Fix Incorrect State Update in Sketch/index.js, Typo in Image Selector [#281](https://github.com/uclaacm/TeachLAFrontend/pull/281)
+
+#### dependencies
+
+- [**dependencies**] Bump react-codemirror2 from 7.1.0 to 7.2.0 [#286](https://github.com/uclaacm/TeachLAFrontend/pull/286)
+- [**dependencies**] Bump firebase from 7.14.4 to 7.14.5 [#285](https://github.com/uclaacm/TeachLAFrontend/pull/285)
+- [**dependencies**] Bump lint-staged from 10.2.4 to 10.2.6 [#284](https://github.com/uclaacm/TeachLAFrontend/pull/284)
+- [**dependencies**] Bump codemirror from 5.53.2 to 5.54.0 [#280](https://github.com/uclaacm/TeachLAFrontend/pull/280)
+- [**dependencies**] Bump lint-staged from 10.2.2 to 10.2.4 [#277](https://github.com/uclaacm/TeachLAFrontend/pull/277)
+- [**dependencies**] Bump firebase from 7.14.3 to 7.14.4 [#276](https://github.com/uclaacm/TeachLAFrontend/pull/276)
+
+#### feature
+
+- [**feature**] Add fork button [#278](https://github.com/uclaacm/TeachLAFrontend/pull/278)
+- [**feature**] Add Share Sketch Button [#279](https://github.com/uclaacm/TeachLAFrontend/pull/279)
+
+#### refactor
+
+- [**refactor**] Removing Unused helper.js + test [#282](https://github.com/uclaacm/TeachLAFrontend/pull/282)
+- [**refactor**] Refactoring image selector components [#149](https://github.com/uclaacm/TeachLAFrontend/pull/149)
+
+---
+
 ## Version v2.0.0 | View-only mode, major editor refactoring, and bug fixes (14/05/2020)
 
 This release brings a brand new view-only mode to the editor along with some great refactoring thanks to the absolute titan of a PR that is #219 thanks to the combined efforts of @jamieliu386, @malsf21, and @emmyc. Due to the significant changes to many of the editor's major components in this release, I am marking it as a major release.

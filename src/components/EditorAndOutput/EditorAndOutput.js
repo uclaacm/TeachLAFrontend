@@ -63,11 +63,11 @@ class EditorAndOutput extends React.Component {
       viewOnly={this.props.viewOnly}
       program={this.props.programid}
       sketchName={this.props.sketchName}
-      language={this.props.language}
+      vlanguage={this.props.language}
       handleDownload={this.handleDownload}
       handleSave={this.props.handleSave}
       saveText={this.props.saveText}
-      thumbnail={this.props.thumbnail}
+      vthumbnail={this.props.thumbnail}
     />
   );
 
