@@ -12,19 +12,21 @@ describe("ProfilePanel", () => {
 
   it("handles displayName prop properly", () => {
     const component = shallow(<ProfilePanel uid={"foo"} displayName={"Mark"} />);
-    expect(component.find(".panel-name-text").text()).toEqual("Mark");
+    expect(component.find(".panel-user-name-text").text()).toEqual("Mark");
 
     const component2 = shallow(<ProfilePanel uid={"foo"} />);
-    expect(component2.find(".panel-name-text").text()).toEqual("Joe Bruin");
+    expect(component2.find(".panel-user-name-text").text()).toEqual("Joe Bruin");
   });
 
   it("handles photoName prop properly", () => {
     const component = shallow(<ProfilePanel uid={"foo"} />);
-    expect(component.find(".panel-image").get(0).props.src).toBe(PHOTO_NAMES[DEFAULT_PHOTO_NAME]);
+    expect(component.find(".panel-user-image").get(0).props.src).toBe(
+      PHOTO_NAMES[DEFAULT_PHOTO_NAME],
+    );
 
     const name = Object.keys(PHOTO_NAMES)[1];
     const component2 = shallow(<ProfilePanel uid={"foo"} photoName={name} />);
-    expect(component2.find(".panel-image").get(0).props.src).toBe(PHOTO_NAMES[name]);
+    expect(component2.find(".panel-user-image").get(0).props.src).toBe(PHOTO_NAMES[name]);
   });
 
   it("Buttons change based on content type", () => {
@@ -57,29 +59,33 @@ describe("ProfilePanel", () => {
   it("handles displayName prop properly", () => {
     const component = shallow(<ProfilePanel uid={"foo"} />);
 
-    expect(component.find(".panel-image").get(0).props.src).toBe(PHOTO_NAMES[DEFAULT_PHOTO_NAME]);
+    expect(component.find(".panel-user-image").get(0).props.src).toBe(
+      PHOTO_NAMES[DEFAULT_PHOTO_NAME],
+    );
 
     const name = Object.keys(PHOTO_NAMES)[1];
     const component2 = shallow(<ProfilePanel uid={"foo"} photoName={name} />);
 
-    expect(component2.find(".panel-image").get(0).props.src).toBe(PHOTO_NAMES[name]);
+    expect(component2.find(".panel-user-image").get(0).props.src).toBe(PHOTO_NAMES[name]);
   });
 
   it("changing the panel image works", () => {
-    const clickFn = jest.fn(photo => photo);
+    const clickFn = jest.fn((photo) => photo);
     const component = shallow(<ProfilePanel uid={"foo"} setPhotoName={clickFn} />);
 
-    expect(component.find(".panel-image").get(0).props.src).toBe(PHOTO_NAMES[DEFAULT_PHOTO_NAME]);
+    expect(component.find(".panel-user-image").get(0).props.src).toBe(
+      PHOTO_NAMES[DEFAULT_PHOTO_NAME],
+    );
 
     //hover over the panel image
     expect(component.state().imageIsHovering).toBe(false);
-    component.find(".panel-image-container").simulate("mouseenter");
+    component.find(".panel-user-image-container").simulate("mouseenter");
     expect(component.state().imageIsHovering).toBe(true);
 
     //click the pencil icon (opens modal)
     expect(component.state().showModal).toBe(false);
     expect(component.find(".image-selector").prop("isOpen")).toEqual(false);
-    component.find(".image-edit-button").simulate("click");
+    component.find(".panel-user-image-edit-button").simulate("click");
     expect(component.state().showModal).toBe(true);
     expect(component.find(".image-selector").prop("isOpen")).toEqual(true);
 
@@ -98,42 +104,44 @@ describe("ProfilePanel", () => {
 
     //unhover the panel image
     expect(component.state().imageIsHovering).toBe(true);
-    component.find(".panel-image-container").simulate("mouseleave");
+    component.find(".panel-user-image-container").simulate("mouseleave");
     expect(component.state().imageIsHovering).toBe(false);
   });
 
   it("changing the display name works", () => {
-    const clickFn = jest.fn(name => name);
+    const clickFn = jest.fn((name) => name);
     const component = shallow(
       <ProfilePanel uid={"foo"} displayName={"Mark"} setDisplayName={clickFn} />,
     );
 
-    expect(component.find(".panel-name-text").text()).toBe("Mark");
+    expect(component.find(".panel-user-name-text").text()).toBe("Mark");
 
     //hover over the panel name
     expect(component.state().nameIsHovering).toBe(false);
-    component.find(".panel-name").simulate("mouseenter");
+    component.find(".panel-user-name").simulate("mouseenter");
     expect(component.state().nameIsHovering).toBe(true);
 
     //click the pencil icon (changes to input)
     expect(component.state().editingName).toBe(false);
     component.find(".edit-icon-image").simulate("click");
     expect(component.state().editingName).toBe(true);
-    expect(component.find(".panel-edit-container").length).toBe(1);
+    expect(component.find(".panel-user-name-edit-container").length).toBe(1);
 
     //check the input value starts as 'Mark', type in the input 'Not Mark', check that the input value and state changes to 'Not Mark'
     expect(component.state().name).toBe("Mark");
-    expect(component.find(".panel-edit").props().value).toBe("Mark");
-    component.find(".panel-edit").simulate("change", {
+    expect(component.find(".panel-user-name-edit").props().value).toBe("Mark");
+    component.find(".panel-user-name-edit").simulate("change", {
       target: {
         value: "Not Mark",
       },
     });
-    expect(component.find(".panel-edit").props().value).toBe("Not Mark");
+    expect(component.find(".panel-user-name-edit").props().value).toBe("Not Mark");
     expect(component.state().name).toBe("Not Mark");
 
     //submit change
-    component.find(".panel-edit-container").simulate("submit", { preventDefault: () => {} });
+    component
+      .find(".panel-user-name-edit-container")
+      .simulate("submit", { preventDefault: () => {} });
     expect(component.state().showModal).toBe(false);
     expect(clickFn.mock.calls[0][0] == "Not Mark");
     expect(component.state().name).toBe("Not Mark");
@@ -142,7 +150,7 @@ describe("ProfilePanel", () => {
 
     //unhover the panel name
     expect(component.state().nameIsHovering).toBe(true);
-    component.find(".panel-name").simulate("mouseleave");
+    component.find(".panel-user-name").simulate("mouseleave");
     expect(component.state().nameIsHovering).toBe(false);
   });
 

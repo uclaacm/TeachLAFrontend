@@ -4,9 +4,7 @@
   display: flex;
   position: absolute;
   flex-direction: column;
-  align-items: center;
   justify-content: flex-start;
-  box-sizing: content-box;
   margin: 0;
   padding: 0;
   transition: left 0.5s ease;
@@ -33,18 +31,11 @@
 .panel-content {
   display: flex;
   width: 100%;
+  padding: 1em;
   flex-direction: column;
-  align-items: center;
   justify-content: flex-start;
   overflow-y: auto;
   overflow-x: hidden;
-  box-sizing: content-box;
-}
-
-.panel-image {
-  width: 205px;
-  height: 200px;
-  /*background:#000;*/ /*if you leave this out, transparent profile pictures will show the background behind it*/
 }
 
 .profile-image-modal {
@@ -69,19 +60,50 @@
   z-index: 80;
 }
 
-.panel-image-container {
-  position: relative;
-  width: 205px;
-  height: 200px;
+.panel-user-card{
+  display: flex;
+  justify-content: flex-start;
 }
 
-.image-edit-button {
+.panel-user-image{
+  width: 60px;
+  height: 60px;
+}
+
+.panel-user-image-container {
+  width: 60px;
+  height: 60px;
+  :hover {
+    cursor: pointer;
+  }
+  position: relative;
+}
+
+.panel-user-name{
+  display: flex;
+  align-items: center;
+  padding-left: 1rem;
+  font-weight: bold;
+  font-size: 1.5rem;
+  position: relative;
+  :hover {
+    cursor: pointer;
+  }
+}
+
+.panel-switch-container{
+  display: flex;
+  justify-content: center;
+}
+
+.panel-user-image-edit-button {
   font-size: 1.25rem;
   border: none;
   background-color: transparent;
   position: absolute;
   right: -15px;
   bottom: -5px;
+  z-index: 100;
   @include themify($themes) {
     color: themed("accentColor");
   }
@@ -136,38 +158,34 @@
   }
   position: absolute;
   border: none;
-  right: -30px;
+  right: -40px;
   top: 50%;
   margin-top: -15px;
   background-color: transparent;
 }
 
-.submitted-icon-image {
-  font-size: 1.4rem;
+.panel-user-name-submittted-icon {
+  font-size: 1.25rem;
   color: $teachla-green;
   position: absolute;
-  float: left;
   border: none;
-  left: -20px;
+  right: -50px;
   top: 50%;
-  margin-top: -13px;
+  margin-top: -15px;
   background-color: transparent;
   transition: 0.5s;
 }
 
-.panel-edit-container {
+.panel-user-name-edit-container {
   display: flex;
-  flex-direction: column;
-  width: 100%;
   align-items: center;
+  padding-left: 1rem;
 }
 
-.panel-edit {
+.panel-user-name-edit {
   width: 90%;
-  float: middle;
   padding: 20px 0 5px;
-  text-align: center;
-  font-size: 2rem;
+  font-size: 1.5rem;
   word-wrap: break-word;
   background: none;
   align-items: baseline;
@@ -187,27 +205,8 @@
   padding: 0px 25px;
 }
 
-.panel-name {
-  float: middle;
-  text-align: center;
-  margin: 10px 50px 0px;
-  width: 70%;
-  padding: 10px 0 6px;
-  font-size: 2rem;
-  word-wrap: break-word;
-  @include themify($themes) {
-    color: themed("accentColor");
-  }
-  position: relative;
-  font-family: $font-family-heading;
-}
-
-.panel-name:hover {
-  cursor: pointer;
-}
-
 .panel-buttons {
-  width: 90%;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
   justify-content: flex-start;
