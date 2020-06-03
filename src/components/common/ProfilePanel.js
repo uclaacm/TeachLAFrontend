@@ -25,7 +25,7 @@ import "styles/Panel.scss";
 import Switch from "./Switch";
 import Footer from "./Footer";
 
-import ImageSelector from "./ImageSelector"
+import ImageSelector from "./ImageSelector";
 /**--------Props--------
  * togglePanel: function to be called when the panel is collapsed or opened
  */
@@ -61,7 +61,7 @@ class ProfilePanel extends React.Component {
     this.setState({ showModal: true });
   };
 
-  onNameChange = e => {
+  onNameChange = (e) => {
     this.setState({ name: e.target.value });
   };
 
@@ -82,7 +82,7 @@ class ProfilePanel extends React.Component {
     return false;
   };
 
-  onNameSubmit = e => {
+  onNameSubmit = (e) => {
     e.preventDefault();
     let badInputs = this.checkInputs();
 
@@ -125,17 +125,17 @@ class ProfilePanel extends React.Component {
   renderPanelImage = () => {
     return (
       <div
-        className="panel-image-container"
+        className="panel-user-image-container"
         onMouseEnter={() => this.setState({ imageIsHovering: true })}
         onMouseLeave={() => this.setState({ imageIsHovering: false })}
       >
         <img
-          className="panel-image"
+          className="panel-user-image"
           src={PHOTO_NAMES[this.props.photoName] || PHOTO_NAMES[DEFAULT_PHOTO_NAME]} // needs to be edited to use profile image name
           alt="Your profile"
         />
         {this.state.imageIsHovering && (
-          <button className="image-edit-button" onClick={this.handleOpenModal}>
+          <button className="panel-user-image-edit-button" onClick={this.handleOpenModal}>
             <FontAwesomeIcon icon={faEdit} />
           </button>
         )}
@@ -143,15 +143,18 @@ class ProfilePanel extends React.Component {
     );
   };
 
-  onImageClick = name => {
-    this.setState({ selectedImage: name });
-  };
-
   renderImageModal = () => {
+    if (!this.props.uid) {
+      return null;
+    }
     let names = Object.keys(PHOTO_NAMES);
-    let icons = names.map(val => {
+    let icons = names.map((val) => {
       return (
-        <figure className="gallery-item" key={val} onClick={() => this.onImageClick(val)}>
+        <figure
+          className="gallery-item"
+          key={val}
+          onClick={() => this.setState({ selectedImage: val })}
+        >
           <img
             src={PHOTO_NAMES[val]}
             className={"gallery-img" + (this.state.selectedImage === val ? "-selected" : "")}
@@ -190,19 +193,19 @@ class ProfilePanel extends React.Component {
     if (!this.state.editingName) {
       return (
         <div
-          className="panel-name"
+          className="panel-user-name"
           onMouseEnter={() => this.setState({ nameIsHovering: true })}
           onMouseLeave={() => this.setState({ nameIsHovering: false })}
           onClick={this.handleEditNameClick}
         >
-          <div className="panel-name-text">{this.props.displayName || "Joe Bruin"}</div>
+          <span className="panel-user-name-text">{this.props.displayName || "Joe Bruin"}</span>
           {this.state.nameIsHovering && (
             <button className="edit-icon-image" onClick={this.handleEditNameClick}>
               <FontAwesomeIcon icon={faEdit} />
             </button>
           )}
           <div
-            className="submitted-icon-image"
+            className="panel-user-name-submittted-icon"
             style={{ opacity: +(this.state.nameSubmitted ? "1" : "0") }}
           >
             <FontAwesomeIcon icon={faCheckSquare} />
@@ -211,16 +214,40 @@ class ProfilePanel extends React.Component {
       );
     } else {
       return (
-        <form className="panel-edit-container" onSubmit={this.onNameSubmit}>
+        <form className="panel-user-name-edit-container" onSubmit={this.onNameSubmit}>
           <input
             autoFocus
-            className="panel-edit"
+            className="panel-user-name-edit"
             placeholder={this.props.displayName}
             onChange={this.onNameChange}
             value={this.state.name}
             onBlur={this.onNameSubmit}
           />
         </form>
+      );
+    }
+  };
+
+  renderUserInformation = () => {
+    if (this.props.uid) {
+      // there exists a user
+      return (
+        <div className="panel-user-card">
+          {this.renderPanelImage()}
+          {this.renderName()}
+        </div>
+      );
+    } else {
+      // no user, render default image and name
+      return (
+        <div className="panel-user-card">
+          <img
+            className="panel-user-image"
+            src={PHOTO_NAMES[DEFAULT_PHOTO_NAME]}
+            alt="Guest User Profile"
+          />
+          <div className="panel-user-name">Guest User</div>
+        </div>
       );
     }
   };
@@ -281,17 +308,19 @@ class ProfilePanel extends React.Component {
   };
 
   renderThemeSwitch = () => {
-    let onToggle = on => {
+    let onToggle = (on) => {
       this.props.onThemeChange(on ? "light" : "dark");
     };
 
     return (
-      <Switch
-        on={this.props.theme === "dark" ? true : false}
-        onToggle={onToggle}
-        onImg={<FontAwesomeIcon icon={faMoon} className="icon-dark" />}
-        offImg={<FontAwesomeIcon icon={faSun} className="icon-light" />}
-      />
+      <div className="panel-switch-container">
+        <Switch
+          on={this.props.theme === "dark" ? true : false}
+          onToggle={onToggle}
+          onImg={<FontAwesomeIcon icon={faMoon} className="icon-dark" />}
+          offImg={<FontAwesomeIcon icon={faSun} className="icon-light" />}
+        />
+      </div>
     );
   };
 
@@ -321,6 +350,7 @@ class ProfilePanel extends React.Component {
 
   renderLoggedOutContent = () => (
     <div className="panel-content">
+      {this.renderUserInformation()}
       <div className="panel-buttons">
         {this.renderLoginButton()}
         {this.renderCreateUserButton()}
@@ -331,9 +361,7 @@ class ProfilePanel extends React.Component {
 
   renderContent = () => (
     <div className="panel-content">
-      {this.renderPanelImage()}
-      {this.renderImageModal()}
-      {this.renderName()}
+      {this.renderUserInformation()}
       {this.renderErrorMessage(this.state.displayNameMessage)}
       {this.renderButtons()}
       {this.renderThemeSwitch()}
@@ -357,6 +385,7 @@ class ProfilePanel extends React.Component {
         {this.renderCollapseButton()}
         {this.props.uid ? this.renderContent() : this.renderLoggedOutContent()}
         <Footer />
+        {this.renderImageModal()}
       </div>
     );
   }
