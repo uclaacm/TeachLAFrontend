@@ -6,13 +6,9 @@ import * as firebase from "firebase/app";
 import "firebase/auth";
 import SHA256 from "crypto-js/sha256";
 import LoginInput from "./LoginInput.js";
-import {
-  MINIMUM_USERNAME_LENGTH,
-  MINIMUM_PASSWORD_LENGTH,
-  MAXIMUM_USERNAME_LENGTH,
-  MAXIMUM_PASSWORD_LENGTH,
-  EMAIL_DOMAIN_NAME,
-} from "../../constants";
+import { EMAIL_DOMAIN_NAME } from "../../constants";
+
+import { isValidUsername, isValidPassword } from "../../lib/validate";
 
 /**
  * Props
@@ -38,7 +34,7 @@ export default class CreateUserForm extends React.Component {
   }
 
   /**
-   * checkInputs - validates username and password.
+   * validateInputs - validates username and password.
    * The criteria checked:
    *    -Username length: as defined in constants file
    *    -Username characters: only alphanumeric characters, plus !@#$%
@@ -46,50 +42,37 @@ export default class CreateUserForm extends React.Component {
    *    -Password characters: only alphanumeric characters, plus !@#$%
    * @return {boolean} - false when bad inputs given
    */
-  checkInputs = () => {
+  validateInputs = () => {
     const { username, password, confirmPassword } = this.state;
-    let badInputs = true;
+    let validInputs = true;
 
-    //if username is too long, too short, has non ascii and some special characters, reject it
-    if (username.length < MINIMUM_USERNAME_LENGTH || username.length > MAXIMUM_USERNAME_LENGTH) {
-      this.setState({
-        usernameMessage: `Username must be between ${MINIMUM_USERNAME_LENGTH}-${MAXIMUM_USERNAME_LENGTH} characters long`,
-      });
-      badInputs = false;
-    } else if (username.match(/[^a-zA-Z0-9!@#$%]/)) {
-      this.setState({
-        usernameMessage:
-          "Username must only use upper case and lower case letters, numbers, and/or the special characters !@#$%",
-      });
-      badInputs = false;
-    } else {
-      this.setState({ usernameMessage: "" });
+    let validUsername = isValidUsername(username);
+
+    if (!validUsername.ok) {
+      validInputs = false;
     }
 
-    //if password is too long, too short, has non ascii and some special characters, reject it
-    if (password.length < MINIMUM_PASSWORD_LENGTH || password.length > MAXIMUM_PASSWORD_LENGTH) {
-      this.setState({
-        passwordMessage: `Password must be between ${MINIMUM_PASSWORD_LENGTH}-${MAXIMUM_PASSWORD_LENGTH} characters long`,
-      });
-      badInputs = false;
-    } else if (password.match(/[^a-zA-Z0-9!@#$%]/)) {
-      this.setState({
-        passwordMessage:
-          "Password must only use upper case and lower case letters, numbers, and/or the special characters !@#$%",
-      });
-      badInputs = false;
-    } else if (password !== confirmPassword) {
+    let validPassword = isValidPassword(password);
+
+    if (!validPassword.ok) {
+      validInputs = false;
+    }
+
+    this.setState({
+      usernameMessage: validUsername.message,
+      passwordMessage: validPassword.message,
+    });
+
+    if (password !== confirmPassword) {
       this.setState({
         passwordMessage: `Password and Confirm Password don't match`,
         password: "",
         confirmPassword: "",
       });
-      badInputs = false;
-    } else {
-      this.setState({ passwordMessage: "" });
+      validInputs = false;
     }
 
-    return badInputs;
+    return validInputs;
   };
 
   /**
@@ -110,7 +93,7 @@ export default class CreateUserForm extends React.Component {
       passwordMessage: "",
     });
 
-    let validInputs = this.checkInputs();
+    let validInputs = this.validateInputs();
 
     //if we found any bad inputs, don't try to create the user on the server
     if (!validInputs) {

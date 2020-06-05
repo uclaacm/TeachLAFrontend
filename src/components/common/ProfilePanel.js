@@ -4,8 +4,6 @@ import { Row, Col, Button } from "reactstrap";
 import * as firebase from "firebase/app";
 import "firebase/auth";
 import {
-  MINIMUM_DISPLAY_NAME_LENGTH,
-  MAXIMUM_DISPLAY_NAME_LENGTH,
   PHOTO_NAMES,
   DEFAULT_PHOTO_NAME,
   PANEL_SIZE,
@@ -25,7 +23,10 @@ import "styles/Panel.scss";
 import Switch from "./Switch";
 import Footer from "./Footer";
 
-import ImageSelector from "./ImageSelector"
+import ImageSelector from "./ImageSelector";
+
+import { isValidDisplayName } from "../../lib/validate";
+
 /**--------Props--------
  * togglePanel: function to be called when the panel is collapsed or opened
  */
@@ -61,34 +62,20 @@ class ProfilePanel extends React.Component {
     this.setState({ showModal: true });
   };
 
-  onNameChange = e => {
+  onNameChange = (e) => {
     this.setState({ name: e.target.value });
   };
 
-  checkInputs = () => {
-    const name = this.state.name;
-    if (name.length < MINIMUM_DISPLAY_NAME_LENGTH || name.length > MAXIMUM_DISPLAY_NAME_LENGTH) {
-      this.setState({
-        displayNameMessage: `Display name must be between ${MINIMUM_DISPLAY_NAME_LENGTH}-${MAXIMUM_DISPLAY_NAME_LENGTH} characters long`,
-      });
-      return true;
-    } else if (name.match(/[^a-zA-Z0-9!@#$% ]/)) {
-      this.setState({
-        displayNameMessage:
-          "Only use letters, numbers, spaces, and/or the following special characters: !@#$%",
-      });
-      return true;
-    }
-    return false;
-  };
-
-  onNameSubmit = e => {
+  onNameSubmit = (e) => {
     e.preventDefault();
-    let badInputs = this.checkInputs();
 
-    if (badInputs) {
-      this.setState({ name: this.props.displayName, editingName: true });
-      return;
+    const { ok, message } = isValidDisplayName(this.state.name);
+    if (!ok) {
+      this.setState({
+        name: this.props.displayName,
+        editingName: true,
+        displayNameMessage: message,
+      });
     } else {
       this.props.setDisplayName(this.state.name);
       this.setState({ editingName: false, nameSubmitted: true, displayNameMessage: "" });
@@ -143,13 +130,13 @@ class ProfilePanel extends React.Component {
     );
   };
 
-  onImageClick = name => {
+  onImageClick = (name) => {
     this.setState({ selectedImage: name });
   };
 
   renderImageModal = () => {
     let names = Object.keys(PHOTO_NAMES);
-    let icons = names.map(val => {
+    let icons = names.map((val) => {
       return (
         <figure className="gallery-item" key={val} onClick={() => this.onImageClick(val)}>
           <img
@@ -281,7 +268,7 @@ class ProfilePanel extends React.Component {
   };
 
   renderThemeSwitch = () => {
-    let onToggle = on => {
+    let onToggle = (on) => {
       this.props.onThemeChange(on ? "light" : "dark");
     };
 
