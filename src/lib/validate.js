@@ -54,15 +54,6 @@ export const isValidPassword = (password) => {
       message: `Password must be between ${MINIMUM_PASSWORD_LENGTH}-${MAXIMUM_PASSWORD_LENGTH} characters long`,
     };
   }
-
-  // password contains non-ASCII characters, or some special characters
-  if (password.match(/[^a-zA-Z0-9!@#$%]/)) {
-    return {
-      ok: false,
-      message:
-        "Password must only use upper case and lower case letters, numbers, and/or the special characters !@#$%",
-    };
-  }
   return { ok: true, message: "" };
 };
 
