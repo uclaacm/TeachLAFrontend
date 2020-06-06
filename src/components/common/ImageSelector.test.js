@@ -20,7 +20,6 @@ describe("ProfilePanel", () => {
 
   it("displays gallary when icons prop is passed", () => {
     const component = shallow(<ImageSelector icons={[<img key="1"/>, <img key="2"/>, <img key="3"/>]}/>);
-    console.log(component.find("div.image-selector-gallery"));
     expect(component.find("div.image-selector-gallery").contains([<img key="1"/>, <img key="2"/>, <img key="3"/>]))
   });
 
