@@ -29,12 +29,11 @@ export const isValidUsername = (username) => {
     };
   }
 
-  // username contains non-ASCII characters, or some special characters
-  if (username.match(/[^a-zA-Z0-9!@#$%]/)) {
+  // username contains non-alphanumeric characters
+  if (username.match(/[^a-zA-Z0-9]/)) {
     return {
       ok: false,
-      message:
-        "Username must only use upper case and lower case letters, numbers, and/or the special characters !@#$%",
+      message: "Username must only use upper case letters, lower case letters, and numbers.",
     };
   }
   return { ok: true, message: "" };
