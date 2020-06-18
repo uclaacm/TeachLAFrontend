@@ -30,7 +30,7 @@ export const isValidUsername = (username) => {
   }
 
   // username contains non-alphanumeric characters that are not -_.
-  if (username.match(/[^a-zA-Z0-9-_\.]/)) {
+  if (username.match(/[^a-zA-Z0-9-_.]/)) {
     return {
       ok: false,
       message:
@@ -78,7 +78,7 @@ export const isValidDisplayName = (displayName) => {
   }
 
   // display name contains non-ASCII characters, or some special characters
-  if (displayName.match(/[^a-zA-Z0-9!@#$%-_\. ]/)) {
+  if (displayName.match(/[^a-zA-Z0-9!@#$%-_. ]/)) {
     return {
       ok: false,
       message:
