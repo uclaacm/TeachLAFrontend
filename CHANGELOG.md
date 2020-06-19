@@ -1,5 +1,44 @@
 # Changelog
 
+## Version v2.2.0 | Login page redesign, bug fixes (19/06/2020)
+
+This minor release brings an updating of our input validation (#283, #297) and a brand new login page (#269) along with a critical bug fix (#289).
+
+#### bug
+
+- [**bug**] Fixes deleting mostRecentProgram in ConfirmDeleteModal [#289](https://github.com/uclaacm/TeachLAFrontend/pull/289)
+
+#### dependencies
+
+- [**dependencies**] Bump @fortawesome/free-brands-svg-icons from 5.13.0 to 5.13.1 [#303](https://github.com/uclaacm/TeachLAFrontend/pull/303)
+- [**dependencies**] Bump @fortawesome/free-solid-svg-icons from 5.13.0 to 5.13.1 [#306](https://github.com/uclaacm/TeachLAFrontend/pull/306)
+- [**dependencies**] Bump @fortawesome/react-fontawesome from 0.1.9 to 0.1.11
+  - 0.1.10 to 0.1.11 [#301](https://github.com/uclaacm/TeachLAFrontend/pull/301)
+  - 0.1.9 to 0.1.10 [#291](https://github.com/uclaacm/TeachLAFrontend/pull/291)
+- [**dependencies**] Bump firebase from 7.14.5 to 7.15.2
+  - 7.15.1 to 7.15.2 [#304](https://github.com/uclaacm/TeachLAFrontend/pull/304)
+  - 7.15.0 to 7.15.1 [#299](https://github.com/uclaacm/TeachLAFrontend/pull/299)
+  - 7.14.6 to 7.15.0 [#296](https://github.com/uclaacm/TeachLAFrontend/pull/296)
+  - 7.14.5 to 7.14.6 [#290](https://github.com/uclaacm/TeachLAFrontend/pull/290)
+- [**dependencies**] Bump lint-staged from 10.2.6 to 10.2.11
+  - 10.2.10 to 10.2.11 [#302](https://github.com/uclaacm/TeachLAFrontend/pull/302)
+  - 10.2.9 to 10.2.10 [#300](https://github.com/uclaacm/TeachLAFrontend/pull/300)
+  - 10.2.7 to 10.2.9 [#294](https://github.com/uclaacm/TeachLAFrontend/pull/294)
+  - 10.2.6 to 10.2.7 [#288](https://github.com/uclaacm/TeachLAFrontend/pull/288)
+- [**dependencies**] Bump react-codemirror2 from 7.2.0 to 7.2.1 [#298](https://github.com/uclaacm/TeachLAFrontend/pull/298)
+- [**dependencies**][**security**] [Security] Bump websocket-extensions from 0.1.3 to 0.1.4 [#295](https://github.com/uclaacm/TeachLAFrontend/pull/295)
+
+#### feature
+
+- [**feature**] Adjust Input Validation Policies [#297](https://github.com/uclaacm/TeachLAFrontend/pull/297)
+- [**feature**][**refactor**] New Login Page Design & Unifying Login/CreateUser [#269](https://github.com/uclaacm/TeachLAFrontend/pull/269)
+
+#### refactor
+
+- [**refactor**] Refactoring Input Validation [#283](https://github.com/uclaacm/TeachLAFrontend/pull/283)
+
+---
+
 ## Version v2.1.0 | Forking, sharing, minor refactoring (28/05/2020)
 
 This is a minor release with two great features (thanks @malsf21 and @jamieliu386!), a bug fix, and some refactoring (thanks to @evazhog and @malsf21):
