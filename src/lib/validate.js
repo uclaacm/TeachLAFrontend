@@ -29,12 +29,12 @@ export const isValidUsername = (username) => {
     };
   }
 
-  // username contains non-ASCII characters, or some special characters
-  if (username.match(/[^a-zA-Z0-9!@#$%]/)) {
+  // username contains non-alphanumeric characters that are not -_.
+  if (username.match(/[^a-zA-Z0-9-_.]/)) {
     return {
       ok: false,
       message:
-        "Username must only use upper case and lower case letters, numbers, and/or the special characters !@#$%",
+        "Username must only use upper case letters, lower case letters, numbers, or the characters .-_",
     };
   }
   return { ok: true, message: "" };
@@ -53,15 +53,6 @@ export const isValidPassword = (password) => {
     return {
       ok: false,
       message: `Password must be between ${MINIMUM_PASSWORD_LENGTH}-${MAXIMUM_PASSWORD_LENGTH} characters long`,
-    };
-  }
-
-  // password contains non-ASCII characters, or some special characters
-  if (password.match(/[^a-zA-Z0-9!@#$%]/)) {
-    return {
-      ok: false,
-      message:
-        "Password must only use upper case and lower case letters, numbers, and/or the special characters !@#$%",
     };
   }
   return { ok: true, message: "" };
@@ -87,11 +78,11 @@ export const isValidDisplayName = (displayName) => {
   }
 
   // display name contains non-ASCII characters, or some special characters
-  if (displayName.match(/[^a-zA-Z0-9!@#$% ]/)) {
+  if (displayName.match(/[^a-zA-Z0-9!@#$%-_. ]/)) {
     return {
       ok: false,
       message:
-        "Display name must only use upper case and lower case letters, numbers, spaces, and/or the special characters !@#$%",
+        "Display name must only use upper case and lower case letters, numbers, spaces, and/or the special characters !@#$%.-_",
     };
   }
   return { ok: true, message: "" };
