@@ -1,4 +1,5 @@
 import React from "react";
+import ImageSelector from "../../common/ImageSelector";
 import { ThumbnailArray } from "../constants";
 import * as fetch from "../../../lib/fetch.js";
 import { Redirect } from "react-router-dom";
@@ -6,6 +7,8 @@ import { Redirect } from "react-router-dom";
 import { Button, Container, Row, Col, FormGroup, Label, Input } from "reactstrap";
 
 import ReactModal from "react-modal";
+
+import "styles/SketchesModal.scss";
 
 class CreateClassModal extends React.Component {
   constructor(props) {
@@ -21,9 +24,6 @@ class CreateClassModal extends React.Component {
   }
 
   //==============React Lifecycle Functions Start===================//
-  componentWillMount() {}
-
-  componentDidUpdate() {}
 
   closeModal = () => {
     if (this.props.onClose && {}.toString.call(this.props.onClose) === "[object Function]") {
@@ -90,8 +90,8 @@ class CreateClassModal extends React.Component {
 
     let data = {
       uid: this.props.uid,
-      name: this.state.name,
       thumbnail: this.state.thumbnail,
+      name: this.state.name,
     };
 
     try {
@@ -172,49 +172,38 @@ class CreateClassModal extends React.Component {
         />
       ) : null;
     return (
-      <ReactModal
+      <ImageSelector
         isOpen={this.props.isOpen}
-        onRequestClose={this.closeModal}
-        className="sketches-image-modal"
-        overlayClassName="profile-image-overlay"
-        ariaHideApp={false}
+        closeModal={this.closeModal}
+        thumbnailPreview={thumbnailPreview}
+        icons={icons}
+        error={this.state.error}
       >
-        <Container>
-          <div className="sketches-modal-header d-flex align-items-center">
-            <h1>Choose a thumbnail</h1>
-            <div className="sketches-modal-header-thumbnail-container">{thumbnailPreview}</div>
-          </div>
-          <hr />
-          <div className="sketches-gallery">{icons}</div>
-          <br />
-          <div className="text-center text-danger">{this.state.error || <br />}</div>
-          <hr />
-          <Row>
-            <Col>
-              <Button
-                color="secondary"
-                onClick={this.onBack}
-                disabled={this.state.disableSubmit}
-                size="lg"
-                block
-              >
-                Back
-              </Button>
-            </Col>
-            <Col>
-              <Button
-                color="success"
-                onClick={this.onSecondSubmit}
-                size="lg"
-                disabled={this.badThumbnailInput() || this.state.disableSubmit}
-                block
-              >
-                Create
-              </Button>
-            </Col>
-          </Row>
-        </Container>
-      </ReactModal>
+        <Row>
+          <Col>
+            <Button
+              color="secondary"
+              onClick={this.onBack}
+              disabled={this.state.disableSubmit}
+              size="lg"
+              block
+            >
+              Back
+            </Button>
+          </Col>
+          <Col>
+            <Button
+              color="success"
+              onClick={this.onSecondSubmit}
+              size="lg"
+              disabled={this.badThumbnailInput() || this.state.disableSubmit}
+              block
+            >
+              Create
+            </Button>
+          </Col>
+        </Row>
+      </ImageSelector>
     );
   };
 
@@ -236,7 +225,6 @@ class CreateClassModal extends React.Component {
             </Label>
             <Col xs={8}>
               <Input
-                className="sketches-modal-input"
                 onChange={(e) => this.setState({ name: e.target.value })}
                 value={this.state.name}
                 id="class-name"
