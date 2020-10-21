@@ -1,6 +1,6 @@
 import React from "react";
 import DropdownButton from "./DropdownButton";
-import ImageSelector from "../../common/ImageSelector"
+import ImageSelector from "../../common/ImageSelector";
 import {
   SketchThumbnailArray,
   LanguageDropdownValues,
@@ -46,7 +46,7 @@ class CreateSketchModal extends React.Component {
     });
   };
 
-  setNext = val => {
+  setNext = (val) => {
     this.setState({
       next: val,
       error: "",
@@ -111,7 +111,7 @@ class CreateSketchModal extends React.Component {
     return false;
   };
 
-  onFirstSubmit = e => {
+  onFirstSubmit = (e) => {
     e.preventDefault();
     if (this.badNameInput() || this.badLanguageInput()) {
       return;
@@ -119,7 +119,7 @@ class CreateSketchModal extends React.Component {
     this.setNext(true);
   };
 
-  onSecondSubmit = async e => {
+  onSecondSubmit = async (e) => {
     e.preventDefault();
 
     if (this.badThumbnailInput()) return;
@@ -135,23 +135,15 @@ class CreateSketchModal extends React.Component {
     try {
       fetch
         .createSketch(data)
-        .then(res => {
-          return res.json();
-        })
-        .then(json => {
-          if (!json.ok) {
-            this.setState({
-              disableSubmit: false,
-              error: json.error || "Failed to create sketch, please try again later",
-            });
-            return;
-          }
-          this.props.addProgram(json.data.key, json.data.programData || {});
-          this.props.setMostRecentProgram(json.data.key);
+        .then((res) => res.json())
+        .then((json) => {
+          const { uid, ...programData } = json;
+          this.props.addProgram(uid, programData || {});
+          this.props.setMostRecentProgram(uid);
           this.setState({ redirect: true });
           this.closeModal();
         })
-        .catch(err => {
+        .catch((err) => {
           this.setState({
             disableSubmit: false,
             error: "Failed to create sketch, please try again later",
@@ -245,7 +237,7 @@ class CreateSketchModal extends React.Component {
             </Label>
             <Col xs={8}>
               <Input
-                onChange={e => this.setState({ name: e.target.value })}
+                onChange={(e) => this.setState({ name: e.target.value })}
                 value={this.state.name}
                 id="sketch-name"
               />
@@ -259,7 +251,7 @@ class CreateSketchModal extends React.Component {
             <Col xs="8" className="d-flex align-items-center">
               <DropdownButton
                 dropdownItems={LanguageDropdownValues}
-                onSelect={lang => this.setState({ language: lang })}
+                onSelect={(lang) => this.setState({ language: lang })}
                 displayValue={this.state.language.display || LanguageDropdownDefault.display}
               />
             </Col>

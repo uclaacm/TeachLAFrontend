@@ -16,7 +16,7 @@ import constants from "../constants";
  */
 export const getUserData = async (uid = "", includePrograms = false) => {
   const getUserDataEndpoint = (uid = "", includePrograms = false) =>
-    `${constants.SERVER_URL}/getUserData/${uid}${includePrograms ? "?programs=true" : ""}`;
+    `${constants.SERVER_URL}/user/get?uid=${uid}${includePrograms ? "&programs=true" : ""}`;
 
   const options = {
     method: "get",
@@ -24,12 +24,18 @@ export const getUserData = async (uid = "", includePrograms = false) => {
   };
 
   try {
-    let result = await fetch(getUserDataEndpoint(uid, includePrograms), options);
-    let { ok, data, error } = await result.json();
-
+    const result = await fetch(getUserDataEndpoint(uid, includePrograms), options);
+    let ok = await result.ok;
+    if (!ok) {
+      await createUser(uid);
+      return getUserData(uid, includePrograms);
+    }
+    let data = ok ? await result.json() : {};
+    let error = !ok ? await result.text() : "";
     return { ok, data, error };
   } catch (err) {
-    return { ok: "false", error: "SERVER ERROR: Unable to get user data from server", err: err };
+    await createUser(uid);
+    return getUserData(uid, includePrograms);
   }
 };
 
@@ -48,7 +54,7 @@ const makeServerRequest = (data, endpoint, method = "post") => {
     },
   };
 
-  if (method === "post" || method === "put") {
+  if (method !== "get") {
     let body = "";
     // if the passed-in data object has at least 1 key, set the body to the stringified data object
     try {
@@ -72,8 +78,13 @@ const makeServerRequest = (data, endpoint, method = "post") => {
  */
 
 export const updatePrograms = (uid = "", programs) => {
-  const endpoint = `updatePrograms/${uid}`;
-  return makeServerRequest(programs, endpoint, "put");
+  const endpoint = `program/update`;
+  return makeServerRequest({ uid, programs }, endpoint, "put");
+};
+
+export const createUser = (uid) => {
+  console.log("creating user");
+  return makeServerRequest({ uid }, "user/create", "post");
 };
 
 /**
@@ -83,8 +94,8 @@ export const updatePrograms = (uid = "", programs) => {
  */
 
 export const updateUserData = (uid = "", userData) => {
-  const endpoint = `updateUserData/${uid}`;
-  return makeServerRequest(userData, endpoint);
+  const endpoint = `user/update`;
+  return makeServerRequest({ uid, ...userData }, endpoint, "put");
 };
 
 /**
@@ -92,8 +103,9 @@ export const updateUserData = (uid = "", userData) => {
  * @param {Object} data required data to create program - might eventually become enumerated
  */
 
-export const createSketch = data => {
-  return makeServerRequest(data, "createProgram");
+export const createSketch = (data) => {
+  const { uid, ...rest } = data;
+  return makeServerRequest({ uid, program: rest }, "program/create");
 };
 
 /**
@@ -101,8 +113,9 @@ export const createSketch = data => {
  * @param {Object} data required data to delete program (uid, docID, name)
  */
 
-export const deleteSketch = data => {
-  return makeServerRequest(data, "deleteProgram");
+export const deleteSketch = (data) => {
+  const { uid, name } = data;
+  return makeServerRequest({ uid, pid: name }, "program/delete", "delete");
 };
 
 /**
@@ -110,9 +123,10 @@ export const deleteSketch = data => {
  * @param {string} docID the key for the requested program in the top-level programs object
  */
 
-export const getSketch = async docID => {
-  const endpoint = `getProgram/${docID}`;
+export const getSketch = async (docID) => {
+  const endpoint = `program/get?pid=${docID}`;
   let result = await makeServerRequest({}, endpoint, "get");
-  let { ok, sketch } = await result.json();
+  let ok = await result.ok;
+  let sketch = await result.json();
   return { ok, sketch };
 };
