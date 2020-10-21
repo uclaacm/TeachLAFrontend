@@ -51,10 +51,10 @@ const ROUTER_BASE_NAME = "/";
 var SERVER_URL = "http://localhost:8081";
 if (process && process.env) {
   if (process.env.REACT_APP_SERVER_TYPE === "staging") {
-    SERVER_URL = "https://teach-la-staging-backend.herokuapp.com";
+    SERVER_URL = "https://tla-backend-staging.herokuapp.com";
   }
   if (process.env.REACT_APP_SERVER_TYPE === "prod") {
-    SERVER_URL = "https://teach-la-backend.herokuapp.com";
+    SERVER_URL = "https://tla-backend-prod.herokuapp.com";
   }
 }
 

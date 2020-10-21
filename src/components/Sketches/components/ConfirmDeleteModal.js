@@ -20,17 +20,10 @@ class ConfirmDeleteModal extends React.Component {
       fetch
         .deleteSketch(data)
         .then((res) => {
-          return {
-            ok: res.ok,
-            data: res.ok ? res.json() : "",
-            error: !res.ok ? res.text() : "",
-          };
-        })
-        .then((json) => {
-          if (!json.ok) {
+          if (!res.ok) {
             this.setState({
               spinner: false,
-              error: json.error || "Failed to delete sketch, please try again later",
+              error: res.text() || "Failed to delete sketch, please try again later",
             });
             return;
           }
