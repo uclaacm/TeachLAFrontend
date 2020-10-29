@@ -1,3 +1,5 @@
+const { PYTHON, HTML, PROCESSING, REACT } = require("../../../constants");
+
 const SketchThumbnailArray = [
   "Ant",
   "Badger",
@@ -60,12 +62,13 @@ const SketchThumbnailArray = [
 ];
 
 const LanguageDropdownValues = [
-  { display: "Python", value: "python" },
-  { display: "Processing", value: "processing" },
-  { display: "HTML", value: "html" },
+  { display: "Python", value: PYTHON },
+  { display: "Processing", value: PROCESSING },
+  { display: "React", value: REACT },
+  { display: "HTML", value: HTML },
 ];
 
-const LanguageDropdownDefault = { display: "Python", value: "python" };
+const LanguageDropdownDefault = { display: "Python", value: PYTHON };
 
 module.exports = {
   SketchThumbnailArray,

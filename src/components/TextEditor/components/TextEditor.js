@@ -24,6 +24,7 @@ if (typeof window !== "undefined" && typeof window.navigator !== "undefined") {
   require("codemirror/mode/javascript/javascript.js");
   require("codemirror/mode/htmlmixed/htmlmixed.js");
   require("codemirror/mode/python/python.js");
+  require("codemirror/mode/jsx/jsx.js");
   require("codemirror/mode/clike/clike.js");
 }
 /**----------Props--------
