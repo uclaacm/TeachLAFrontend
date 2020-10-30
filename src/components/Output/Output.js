@@ -57,7 +57,7 @@ class Output extends React.Component {
 
   renderOpenPanelButton = () => this.props.viewMode === OUTPUT_ONLY && <OpenPanelButtonContainer />;
 
-  renderIframe = (getSrcDoc) => {
+  renderIframe = getSrcDoc => {
     //check if getsrcdoc is a function
     if (!getSrcDoc && {}.toString.call(getSrcDoc) === "[object Function]") {
       console.log("Null src doc function found");
@@ -73,7 +73,7 @@ class Output extends React.Component {
         srcDoc={getSrcDoc()}
         src=""
         title="output-iframe"
-        onLoad={(e) => {
+        onLoad={e => {
           // console.log(e);
         }}
       />
@@ -127,7 +127,7 @@ class Output extends React.Component {
     );
 
   toggleConsole = () => {
-    this.setState((prevState) => {
+    this.setState(prevState => {
       return { showConsole: !prevState.showConsole };
     });
   };
@@ -163,7 +163,7 @@ class Output extends React.Component {
   );
 
   runCode = () => {
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       run: prevState.run + 1,
     }));
   };

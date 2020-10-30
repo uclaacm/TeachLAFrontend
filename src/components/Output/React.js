@@ -29,7 +29,7 @@ const getReactSrcDocHead = () => `
     </head>
   `;
 
-const getUserScript = (code) => `
+const getUserScript = code => `
   <script type="text/babel">
     ${code}
     ReactDOM.render(
