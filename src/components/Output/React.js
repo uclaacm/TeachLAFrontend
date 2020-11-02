@@ -23,13 +23,13 @@ const getReactSrcDocHead = () => `
             -moz-box-sizing: border-box;    /* For Firefox                          */
             -webkit-box-sizing: border-box; /* For Safari                           */
           }
-          #output { margin: 0px 10px; display: block; position: relative;}
+          #output { margin: 0px 10px; display: block; position: relative; background: white; min-height: 70vh; }
           #closeConsoleButton { position: fixed; top: 20px; right: 30px; color: #ddd;}
         </style>
     </head>
   `;
 
-const getUserScript = code => `
+const getUserScript = (code) => `
   <script type="text/babel">
     ${code}
     ReactDOM.render(
@@ -40,7 +40,7 @@ const getUserScript = code => `
 `;
 
 const getReactSrcDocBody = (code, showConsole) => `
-    <body style="background:white;">
+    <body>
       ${
         showConsole
           ? `<div id="outer"><textarea id="inner"></textarea></div>`
