@@ -167,7 +167,10 @@ class TextEditor extends React.Component {
     try {
       fetch
         .createSketch(data)
-        .then((res) => res.json())
+        .then((res) => {
+          if (!res.ok) throw new Error(`Failed to create sketch! Got status ${res.status}.`);
+          return res.json();
+        })
         .then((json) => {
           const { uid, ...programData } = json;
           this.setState({ forking: false, forked: true });

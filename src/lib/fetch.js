@@ -25,8 +25,9 @@ export const getUserData = async (uid = "", includePrograms = false) => {
 
   try {
     const result = await fetch(getUserDataEndpoint(uid, includePrograms), options);
-    let ok = await result.ok;
-    if (!ok) {
+    const status = await result.status;
+    const ok = status === 200;
+    if (status === 404) {
       await createUser(uid);
       return getUserData(uid, includePrograms);
     }
