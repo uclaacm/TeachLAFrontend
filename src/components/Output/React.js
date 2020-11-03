@@ -23,7 +23,13 @@ const getReactSrcDocHead = () => `
             -moz-box-sizing: border-box;    /* For Firefox                          */
             -webkit-box-sizing: border-box; /* For Safari                           */
           }
-          #output { margin: 0px 10px; display: block; position: relative; background: white; min-height: 70vh; }
+          #output {
+            display: block;
+            position: relative;
+            background: white;
+            min-height: 70vh;
+            padding: 10px 35px 10px 10px;
+          }
           #closeConsoleButton { position: fixed; top: 20px; right: 30px; color: #ddd;}
         </style>
     </head>
