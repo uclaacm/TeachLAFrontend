@@ -1,12 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "styles/SketchBox.scss";
+import "styles/ClassPage.scss";
 
 import { Row, Col } from "reactstrap";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
-import { faEdit } from "@fortawesome/free-solid-svg-icons";
-import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+/* This is a slightly different sketch box to use on the class page.
+It would be great to parameterize and reuse the original sketch box. */
 
 class SketchBox extends React.Component {
   render() {
