@@ -162,6 +162,7 @@ export const leaveClass = (data) => {
  */
 export const getClass = async (data) => {
   let result = await makeServerRequest(data, "class/get", "get");
-  let { ok, classData } = await result.json();
+  let ok = await result.ok;
+  let classData = await result.json();
   return { ok, classData };
 };

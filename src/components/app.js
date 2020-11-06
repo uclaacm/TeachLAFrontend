@@ -165,14 +165,26 @@ class App extends React.Component {
             <Route
               path="/class"
               render={() =>
-                isValidUser ? <MainContainer contentType="classPage" /> : <Redirect to="/login" />
+                this.props.errorMsg !== "" ? (
+                  <Error errorMsg={this.props.errorMsg} isValidUser={isValidUser} />
+                ) : isValidUser ? (
+                  <MainContainer contentType="classPage" />
+                ) : (
+                  <Redirect to="/login" />
+                )
               }
             />
             {/* Classes page */}
             <Route
               path="/classes"
               render={() =>
-                isValidUser ? <MainContainer contentType="classes" /> : <Redirect to="/login" />
+                this.props.errorMsg !== "" ? (
+                  <Error errorMsg={this.props.errorMsg} isValidUser={isValidUser} />
+                ) : isValidUser ? (
+                  <MainContainer contentType="classes" />
+                ) : (
+                  <Redirect to="/login" />
+                )
               }
             />
             {/* Default error page */}
