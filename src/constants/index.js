@@ -5,12 +5,15 @@ const JAVASCRIPT = "javascript";
 const HTML = "html";
 const PROCESSING = "processing";
 
-const SUPPORTED_LANGUAGES = [PYTHON, JAVASCRIPT, HTML, PROCESSING];
+
 
 //used for syntax highlighting in editor
 let CODEMIRROR_CONVERSIONS = {};
 
 //for each s
+//%%I think this gets called into other files besides TextEditor and I havent changed the others yet
+/*
+const SUPPORTED_LANGUAGES = [PYTHON, JAVASCRIPT, HTML, PROCESSING];
 SUPPORTED_LANGUAGES.forEach((lang) => {
   switch (lang) {
     case PYTHON:
@@ -25,7 +28,7 @@ SUPPORTED_LANGUAGES.forEach((lang) => {
       console.error("SUPPORTED LANGUAGE WITH NO MODE");
   }
 });
-
+*/
 const PUBLIC_URL = process.env.PUBLIC_URL;
 const PHOTO_NAMES = {
   lightbulb: `${PUBLIC_URL}/img/icons/lightbulb.png`,
