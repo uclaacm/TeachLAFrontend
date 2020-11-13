@@ -5,6 +5,7 @@ import OpenPanelButtonContainer from "../common/containers/OpenPanelButtonContai
 import "../../styles/Classes.scss";
 import "../../styles/ClassPage.scss";
 import LoadingPage from "../common/LoadingPage";
+import { Redirect } from "react-router-dom";
 // For sketches list
 import { faCogs } from "@fortawesome/free-solid-svg-icons";
 import { faPython } from "@fortawesome/free-brands-svg-icons";
@@ -19,14 +20,16 @@ const SKETCH_WIDTH = 220;
 // Test values
 let sketches = [];
 sketches.push({
-  key: "1",
+  // key for my python sketch
+  key: "QYZNoWd7HncnR1sR31MS",
   name: "Will's Python Sketch",
   language: "python",
   thumbnail: 14,
   code: "blah blah blah",
 });
 sketches.push({
-  key: "2",
+  // this is the key for my html sketch
+  key: "lx2jvbSqrTH2UhMhvdSh",
   name: "Some HTML",
   language: "html",
   thumbnail: 2,
@@ -54,7 +57,7 @@ class ClassPage extends React.Component {
     this.state = {
       loaded: false,
       error: "",
-      // REPLACE TEST VALUES
+      // TEST VALUES
       thumbnail: 1,
       name: "Will's Class",
       instructors: ["Will O."],
@@ -62,12 +65,25 @@ class ClassPage extends React.Component {
       isInstr: true,
       students: students,
       wid: "Big Chunky Monkey",
+      // Real values
+      // thumbnail: 0,
+      // name: "Class",
+      // instructors: [],
+      // sketches: [],
+      // isInstr: false,
+      // students: [],
+      // wid: "",
       // Uncomment when description is implemented
       // description: "",
     };
   }
 
   componentDidMount = async () => {
+    // Don't try to load class if there's no cid.
+    if (this.props.cid === "") {
+      return;
+    }
+
     let data = {
       uid: this.props.uid,
       cid: this.props.cid,
@@ -101,6 +117,11 @@ class ClassPage extends React.Component {
     } catch (err) {
       console.log(err);
     }
+
+    // Test code
+    // this.setState({loaded: true});
+    // console.log("Would have just made server request for the class with cid " + this.props.cid);
+    // end test code
   };
 
   renderHeader = () => {
@@ -146,11 +167,13 @@ class ClassPage extends React.Component {
   };
 
   renderStudentList = () => {
-    return (
+    return this.state.isInstr ? (
       <ClassInfoBox
         title={"Students"}
         content={this.state.students.map((student) => student.name).join(", ")}
       />
+    ) : (
+      ""
     );
   };
 
@@ -160,6 +183,10 @@ class ClassPage extends React.Component {
       return ThumbnailArray[0];
     }
     return ThumbnailArray[val];
+  };
+
+  setProgram = (name) => {
+    this.props.setMostRecentProgram(name);
   };
 
   renderSketchList = () => {
@@ -188,9 +215,11 @@ class ClassPage extends React.Component {
           img={this.getThumbnailSrc(thumbnail)}
           icon={faLanguage}
           name={name}
-          key={key}
           downloadFunc={() => {
             CodeDownloader.download(name, language, code);
+          }}
+          redirFunc={() => {
+            this.setProgram(key);
           }}
         />,
       );
@@ -222,6 +251,11 @@ class ClassPage extends React.Component {
   };
 
   render() {
+    // If no class selected, go back to classes page.
+    if (this.props.cid === "") {
+      return <Redirect to="/classes" />;
+    }
+
     if (!this.state.loaded) {
       return <LoadingPage />;
     }
