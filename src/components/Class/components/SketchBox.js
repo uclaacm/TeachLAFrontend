@@ -16,7 +16,7 @@ class SketchBox extends React.Component {
       <div className="sketch-box">
         <Link
           className="sketch-box-body"
-          // onClick={this.props.redirFunc}
+          onClick={this.props.redirFunc}
           to={{ pathname: "/editor" }}
         >
           <img

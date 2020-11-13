@@ -5,6 +5,7 @@ import {
   SET_DISPLAY_NAME,
   SET_MOST_RECENT_PROGRAM,
   SET_PHOTO_NAME,
+  SET_CURRENT_CLASS,
 } from "../actions/userDataActions";
 
 import * as fetch from "../lib/fetch.js";
@@ -15,6 +16,7 @@ const initialState = {
   uid: "",
   mostRecentProgram: "",
   photoName: "",
+  currentClass: "",
 };
 
 function userDataReducer(state = initialState, action) {
@@ -30,8 +32,8 @@ function userDataReducer(state = initialState, action) {
       let newName = action.value;
       fetch
         .updateUserData(state.uid, { displayName: newName })
-        .then(response => {})
-        .catch(err => {
+        .then((response) => {})
+        .catch((err) => {
           state.error = err;
           console.log(err);
         });
@@ -40,10 +42,10 @@ function userDataReducer(state = initialState, action) {
       let newPhotoName = action.photoName;
       fetch
         .updateUserData(state.uid, { photoName: newPhotoName })
-        .then(response => {
+        .then((response) => {
           //if nothing went bad, keep the display name, otherwise, change it back (or dont, depends how we wanna do it)
         })
-        .catch(err => {
+        .catch((err) => {
           state.error = err;
           console.log(err);
         });
@@ -51,12 +53,21 @@ function userDataReducer(state = initialState, action) {
     case SET_MOST_RECENT_PROGRAM:
       fetch
         .updateUserData(state.uid, { mostRecentProgram: action.value })
-        .then(response => {})
-        .catch(err => {
+        .then((response) => {})
+        .catch((err) => {
           state.error = err;
           console.log(err);
         });
       return Object.assign({}, state, { mostRecentProgram: action.value });
+    case SET_CURRENT_CLASS:
+      // fetch
+      //   .updateUserData(state.uid, { currentClass: action.value })
+      //   .then(response => {})
+      //   .catch(err => {
+      //     state.error = err;
+      //     console.log(err);
+      //   });
+      return Object.assign({}, state, { currentClass: action.value });
     default:
       return state;
   }

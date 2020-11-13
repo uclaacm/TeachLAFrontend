@@ -105,6 +105,10 @@ class Classes extends React.Component {
     );
   };
 
+  setClass = (key) => {
+    this.props.setCurrentClass(key);
+  };
+
   getThumbnailSrc = (val) => {
     if (val === undefined || val === "" || val >= ThumbnailArray.length || val < 0) {
       return ThumbnailArray[0];
@@ -131,7 +135,7 @@ class Classes extends React.Component {
             this.setConfirmLeaveModalOpen(true, element.name, element.cid);
           }}
           redirFunc={() => {
-            this.redirectToClassPage(element.cid);
+            this.setClass(element.cid);
           }}
         />,
       );
