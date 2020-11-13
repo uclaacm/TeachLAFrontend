@@ -1,5 +1,6 @@
 import ClassPage from "../index.js";
 import { connect } from "react-redux";
+import { setMostRecentProgram } from "../../../actions/userDataActions.js";
 import { togglePanel } from "../../../actions/uiActions.js";
 import { OPEN_PANEL_LEFT, CLOSED_PANEL_LEFT, PANEL_SIZE } from "../../../constants";
 
@@ -13,13 +14,13 @@ const mapStateToProps = (state) => {
     screenHeight: state.ui.screenHeight,
     panelOpen: state.ui.panelOpen,
     uid: state.userData.uid,
-    // cid: state. ... .cid,
-    cid: "CID",
+    cid: state.userData.currentClass,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    setMostRecentProgram: (value) => dispatch(setMostRecentProgram(value)),
     togglePanel: () => dispatch(togglePanel()),
   };
 };
