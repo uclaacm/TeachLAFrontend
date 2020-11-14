@@ -62,12 +62,7 @@ class Classes extends React.Component {
       <div className="classes-header">
         <OpenPanelButtonContainer />
         <div className="classes-header-text">Classes</div>
-        <Button
-          className="ml-auto mr-2"
-          color="success"
-          size="lg"
-          onClick={() => this.switchInstrStudView()}
-        >
+        <Button className="ml-auto mr-2" size="lg" onClick={() => this.switchInstrStudView()}>
           <FontAwesomeIcon icon={icon} /> {buttonText}
         </Button>
       </div>
@@ -131,6 +126,7 @@ class Classes extends React.Component {
           img={this.getThumbnailSrc(element.thumbnail)}
           name={element.name}
           instructors={element.instructors}
+          showLeaveButton={!this.state.instructorView}
           deleteFunc={() => {
             this.setConfirmLeaveModalOpen(true, element.name, element.cid);
           }}
@@ -158,6 +154,7 @@ class Classes extends React.Component {
       onClose={() => this.setConfirmLeaveModalOpen(false)}
       className={this.state.selectedClass}
       cid={this.state.selectedCid}
+      inClass={false}
     />
   );
 

@@ -31,7 +31,7 @@ class ConfirmLeaveModal extends React.Component {
             return;
           }
           this.props.removeClass(this.props.cid);
-          this.closeModal();
+          this.props.inClass ? this.props.unsetClass() : this.closeModal();
         })
         .catch((err) => {
           this.setState({
@@ -45,10 +45,8 @@ class ConfirmLeaveModal extends React.Component {
     }
 
     // Testing stuff (do this instead of the try-catch block):
-    /*
-    this.props.removeClass(this.props.cid);
-    this.closeModal();
-*/
+    // this.props.removeClass(this.props.cid);
+    // this.props.inClass ? this.props.unsetClass() : this.closeModal();
     // end of test stuff
 
     this.setState({ spinner: true, error: "" });
@@ -63,9 +61,9 @@ class ConfirmLeaveModal extends React.Component {
         ariaHideApp={false}
       >
         <Container>
-          <h2 className="text-center">
-            Are you sure you want to leave the class "{this.props.className}"?
-          </h2>
+          <h3 className="text-center">
+            Are you sure you want to permanently leave the class "{this.props.className}"?
+          </h3>
           <hr />
           <Row>
             <Col>
