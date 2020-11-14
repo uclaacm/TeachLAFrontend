@@ -14,6 +14,16 @@ class ClassBox extends React.Component {
   };
 
   render() {
+    let leaveButton = this.props.showLeaveButton ? (
+      <Col className="class-box-body">
+        <Row className="p-2 text-center" onClick={this.props.deleteFunc}>
+          <FontAwesomeIcon className="fa-lg" icon={faTrashAlt} />
+        </Row>
+      </Col>
+    ) : (
+      ""
+    );
+
     return (
       <div className="class-box">
         <Link className="class-box-body" onClick={this.props.redirFunc} to={{ pathname: "/class" }}>
@@ -29,11 +39,7 @@ class ClassBox extends React.Component {
             </div>
           </div>
         </Link>
-        <Col className="class-box-body">
-          <Row className="p-2 text-center" onClick={this.props.deleteFunc}>
-            <FontAwesomeIcon className="fa-lg" icon={faTrashAlt} />
-          </Row>
-        </Col>
+        {leaveButton}
       </div>
     );
   }

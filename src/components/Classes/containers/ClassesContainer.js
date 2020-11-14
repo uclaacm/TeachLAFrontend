@@ -24,12 +24,19 @@ const mapStateToProps = (state) => {
     }
   });
 
-  // Test class
+  // Test classes
   // studClasses.push(
   //   {
-  //     name: "Class One",
-  //     instructors: ["Will"],
-  //     cid: "",
+  //     name: "Python Class",
+  //     instructors: ["Python Master"],
+  //     cid: 2,
+  //   }
+  // );
+  // instrClasses.push(
+  //   {
+  //     name: "Will's Class",
+  //     instructors: ["Will O."],
+  //     cid: 1,
   //   }
   // );
 
