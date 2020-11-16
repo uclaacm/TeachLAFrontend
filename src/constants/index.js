@@ -4,8 +4,9 @@ const PYTHON = "python";
 const JAVASCRIPT = "javascript";
 const HTML = "html";
 const PROCESSING = "processing";
+const REACT = "react";
 
-const SUPPORTED_LANGUAGES = [PYTHON, JAVASCRIPT, HTML, PROCESSING];
+const SUPPORTED_LANGUAGES = [PYTHON, JAVASCRIPT, HTML, PROCESSING, REACT];
 
 //used for syntax highlighting in editor
 let CODEMIRROR_CONVERSIONS = {};
@@ -21,6 +22,8 @@ SUPPORTED_LANGUAGES.forEach((lang) => {
       return (CODEMIRROR_CONVERSIONS[lang] = "htmlmixed");
     case PROCESSING:
       return (CODEMIRROR_CONVERSIONS[lang] = "javascript");
+    case REACT:
+      return (CODEMIRROR_CONVERSIONS[lang] = "jsx");
     default:
       console.error("SUPPORTED LANGUAGE WITH NO MODE");
   }
@@ -51,10 +54,10 @@ const ROUTER_BASE_NAME = "/";
 var SERVER_URL = "http://localhost:8081";
 if (process && process.env) {
   if (process.env.REACT_APP_SERVER_TYPE === "staging") {
-    SERVER_URL = "https://teach-la-staging-backend.herokuapp.com";
+    SERVER_URL = "https://tla-backend-staging.herokuapp.com";
   }
   if (process.env.REACT_APP_SERVER_TYPE === "prod") {
-    SERVER_URL = "https://teach-la-backend.herokuapp.com";
+    SERVER_URL = "https://tla-backend-prod.herokuapp.com";
   }
 }
 
@@ -76,6 +79,7 @@ module.exports = {
   JAVASCRIPT,
   HTML,
   PROCESSING,
+  REACT,
 
   // photo names
   PHOTO_NAMES,

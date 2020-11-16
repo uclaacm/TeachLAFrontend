@@ -24,6 +24,7 @@ if (typeof window !== "undefined" && typeof window.navigator !== "undefined") {
   require("codemirror/mode/javascript/javascript.js");
   require("codemirror/mode/htmlmixed/htmlmixed.js");
   require("codemirror/mode/python/python.js");
+  require("codemirror/mode/jsx/jsx.js");
   require("codemirror/mode/clike/clike.js");
 }
 /**----------Props--------
@@ -168,17 +169,13 @@ class TextEditor extends React.Component {
       fetch
         .createSketch(data)
         .then((res) => {
+          if (!res.ok) throw new Error(`Failed to create sketch! Got status ${res.status}.`);
           return res.json();
         })
         .then((json) => {
-          if (!json.ok) {
-            this.setState({
-              error: json.error || "Failed to create sketch, please try again later",
-            });
-            return;
-          }
+          const { uid, ...programData } = json;
           this.setState({ forking: false, forked: true });
-          this.props.addProgram(json.data.key, json.data.programData || {});
+          this.props.addProgram(uid, programData || {});
         })
         .catch((err) => {
           this.setState({

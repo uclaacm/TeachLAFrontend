@@ -1,8 +1,8 @@
 import React from "react";
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";
 import { faCogs } from "@fortawesome/free-solid-svg-icons";
-import { faPython } from "@fortawesome/free-brands-svg-icons";
-import { faHtml5 } from "@fortawesome/free-brands-svg-icons";
+import { faPython, faHtml5, faReact } from "@fortawesome/free-brands-svg-icons";
+import { PYTHON, PROCESSING, REACT, HTML } from "../../constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 /**--------Props---------------
@@ -25,11 +25,11 @@ export default class DropdownButton extends React.Component {
   //==============React Lifecycle Functions===================//
   componentDidMount() {}
 
-  toggleHandler = prevVal => {
+  toggleHandler = (prevVal) => {
     this.setState({ dropdownOpen: !prevVal });
   };
 
-  selectLanguage = program => {
+  selectLanguage = (program) => {
     let result = true;
     if (this.props.dirty) {
       result = window.confirm("Are you sure you want to change programs? You have unsaved changes");
@@ -42,16 +42,19 @@ export default class DropdownButton extends React.Component {
 
   renderDropdownItems = () => {
     //map each program string in the array to a dropdown item
-    return this.props.dropdownItems.map(program => {
+    return this.props.dropdownItems.map((program) => {
       let faLanguage;
       switch (program.language) {
-        case "python":
+        case PYTHON:
           faLanguage = faPython;
           break;
-        case "processing":
+        case PROCESSING:
           faLanguage = faCogs;
           break;
-        case "html":
+        case REACT:
+          faLanguage = faReact;
+          break;
+        case HTML:
         default:
           faLanguage = faHtml5;
       }
@@ -72,13 +75,16 @@ export default class DropdownButton extends React.Component {
 
     let faLanguage;
     switch (this.props.currentLanguage) {
-      case "python":
+      case PYTHON:
         faLanguage = faPython;
         break;
-      case "processing":
+      case PROCESSING:
         faLanguage = faCogs;
         break;
-      case "html":
+      case REACT:
+        faLanguage = faReact;
+        break;
+      case HTML:
       default:
         faLanguage = faHtml5;
     }

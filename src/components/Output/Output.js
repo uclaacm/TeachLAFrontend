@@ -1,9 +1,10 @@
 import React from "react";
-import { PYTHON, HTML, PROCESSING } from "../../constants";
+import { PYTHON, HTML, PROCESSING, REACT } from "../../constants";
 import { OUTPUT_ONLY } from "../../constants";
 import EditorRadio from "../TextEditor/components/EditorRadio.js";
 import CreateProcessingDoc from "../Output/Processing";
 import CreatePythonDoc from "../Output/Python";
+import CreateReactDoc from "../Output/React";
 import { Button } from "reactstrap";
 import ViewportAwareButton from "../common/ViewportAwareButton.js";
 import OpenPanelButtonContainer from "../common/containers/OpenPanelButtonContainer.js";
@@ -98,6 +99,9 @@ class Output extends React.Component {
     switch (language) {
       case PROCESSING:
         srcDocFunc = () => CreateProcessingDoc(runResult, showConsole);
+        break;
+      case REACT:
+        srcDocFunc = () => CreateReactDoc(runResult, showConsole);
         break;
       case PYTHON:
         runResult = btoa(runResult);

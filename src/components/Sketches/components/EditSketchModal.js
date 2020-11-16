@@ -80,7 +80,7 @@ class EditSketchModal extends React.Component {
     return false;
   };
 
-  handleSubmitEdit = async e => {
+  handleSubmitEdit = async (e) => {
     e.preventDefault();
 
     if (this.badNameInput() || this.badLanguageInput()) {
@@ -109,29 +109,27 @@ class EditSketchModal extends React.Component {
       try {
         fetch
           .updatePrograms(this.props.uid, updateData)
-          .then(res => {
-            return res.json();
-          })
-          .then(json => {
-            if (!json.ok) {
+          .then((res) => {
+            if (res.ok) {
+              if (this.state.newLanguage !== -1) {
+                this.props.setProgramLanguage(this.props.sketchKey, this.state.newLanguage.value);
+              }
+              if (this.state.newName !== -1) {
+                this.props.setProgramName(this.props.sketchKey, this.state.newName);
+              }
+              if (this.state.newThumbnail !== -1) {
+                this.props.setProgramThumbnail(this.props.sketchKey, this.state.newThumbnail);
+              }
+              this.closeModal();
+            } else {
               this.setState({
                 disableSubmit: false,
-                error: json.error || "Failed to edit sketch, please try again later",
+                error: res.text() || "Failed to edit sketch, please try again later",
               });
               return;
             }
-            if (this.state.newLanguage !== -1) {
-              this.props.setProgramLanguage(this.props.sketchKey, this.state.newLanguage.value);
-            }
-            if (this.state.newName !== -1) {
-              this.props.setProgramName(this.props.sketchKey, this.state.newName);
-            }
-            if (this.state.newThumbnail !== -1) {
-              this.props.setProgramThumbnail(this.props.sketchKey, this.state.newThumbnail);
-            }
-            this.closeModal();
           })
-          .catch(err => {
+          .catch((err) => {
             this.setState({
               disableSubmit: false,
               error: "Failed to edit sketch, please try again later",
@@ -176,7 +174,7 @@ class EditSketchModal extends React.Component {
             </Label>
             <Col xs={8}>
               <Input
-                onChange={e => this.setState({ newName: e.target.value })}
+                onChange={(e) => this.setState({ newName: e.target.value })}
                 value={this.state.newName !== -1 ? this.state.newName : this.props.sketchName}
                 id="sketch-name"
               />
@@ -190,7 +188,7 @@ class EditSketchModal extends React.Component {
             <Col xs="8" className="d-flex align-items-center">
               <DropdownButton
                 dropdownItems={LanguageDropdownValues}
-                onSelect={lang => this.setState({ newLanguage: lang })}
+                onSelect={(lang) => this.setState({ newLanguage: lang })}
                 displayValue={
                   this.state.newLanguage !== -1
                     ? this.state.newLanguage.display
@@ -289,7 +287,7 @@ class EditSketchModal extends React.Component {
         />
       );
     return (
-      <ImageSelector 
+      <ImageSelector
         isOpen={this.props.isOpen}
         closeModal={this.closeModal}
         thumbnailPreview={thumbnailPreview}
