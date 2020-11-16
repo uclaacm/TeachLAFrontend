@@ -171,6 +171,7 @@ class TextEditor extends React.Component {
       case "light":
         return "duotone-light";
       case "dark":
+        return "vs-dark";
       default:
         return "vs-dark"; //%% these themes can be changed if you dont like the color
     }
