@@ -1,12 +1,10 @@
 import React from "react";
 import ReactModal from "react-modal";
-import { CODEMIRROR_CONVERSIONS } from "../../../constants";
 import * as fetch from "../../../lib/fetch.js";
 import sketch from "../../../lib/";
-
+import { ControlledEditor } from "@monaco-editor/react";
 import EditorRadio from "./EditorRadio.js";
 import ShareSketchModal from "./ShareSketchModal";
-
 import { Button } from "reactstrap";
 import OpenPanelButtonContainer from "../../common/containers/OpenPanelButtonContainer";
 import { EDITOR_WIDTH_BREAKPOINT } from "../../../constants";
@@ -17,25 +15,12 @@ import { SketchThumbnailArray } from "../../Sketches/constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Redirect } from "react-router-dom";
 
-let CodeMirror = null;
-if (typeof window !== "undefined" && typeof window.navigator !== "undefined") {
-  // import {Controlled as CodeMirror} from 'react-codemirror2'
-  CodeMirror = require("react-codemirror2").Controlled;
-  require("codemirror/mode/javascript/javascript.js");
-  require("codemirror/mode/htmlmixed/htmlmixed.js");
-  require("codemirror/mode/python/python.js");
-  require("codemirror/mode/clike/clike.js");
-}
-/**----------Props--------
- * None
- */
-
 class TextEditor extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      codeMirrorInstance: null,
+      editorInstance: null,
       currentLine: 0,
       sketch: null,
       showForkModal: false,
@@ -91,28 +76,8 @@ class TextEditor extends React.Component {
     return ev;
   };
 
-  setCodeMirrorInstance = (codeMirrorInstance) => {
-    this.setState({ codeMirrorInstance });
-  };
-
-  updateCode = (editor, data, newCode) => {
-    //if the code's not yet dirty, and the old code is different from the new code, make it dirty
-    if (!this.props.dirty && this.props.code !== newCode) {
-      this.props.dirtyCode(this.props.mostRecentProgram);
-    }
-    this.props.setProgramCode(this.props.mostRecentProgram, newCode);
-  };
-
-  setCurrentLine = (cm) => {
-    const { codeMirrorInstance, currentLine } = this.state;
-    let { line } = cm.getCursor();
-    if (codeMirrorInstance) {
-      //removeLineClass removes the back highlight style from the last selected line
-      codeMirrorInstance.removeLineClass(currentLine, "wrap", "selected-line");
-      //addLineClass adds the style to the newly selected line
-      codeMirrorInstance.addLineClass(line, "wrap", "selected-line");
-    }
-    this.setState({ currentLine: line });
+  setEditorInstance = (editorInstance) => {
+    this.setState({ editorInstance });
   };
 
   renderForkModal = () => {
@@ -200,19 +165,15 @@ class TextEditor extends React.Component {
     this.setState((prevState) => ({ showShareModal: !prevState.showShareModal }));
   };
 
-  /**
-   * returns a theme string for the CodeMirror editor, based off of the app's current theme
-   * @param {string} theme - the app's current theme
-   * @returns {string} the codemirror theme - see https://codemirror.net/demo/theme.html for more info
-   */
-
+  //returns a theme based on light or dark mode for vs code name
   getCMTheme = (theme) => {
     switch (theme) {
       case "light":
         return "duotone-light";
       case "dark":
+        return "vs-dark";
       default:
-        return "material";
+        return "vs-dark"; //%% these themes can be changed if you dont like the color
     }
   };
 
@@ -279,21 +240,22 @@ class TextEditor extends React.Component {
       </div>
     );
   };
+  updateCode = (e, newCode) => {
+    //if the code's not yet dirty, and the old code is different from the new code, make it dirty
+    if (!this.props.dirty && this.props.code !== newCode) {
+      this.props.dirtyCode(this.props.mostRecentProgram);
+    }
+    this.props.setProgramCode(this.props.mostRecentProgram, newCode);
+  };
 
   render() {
     if (this.state.redirectToSketch === true) {
       return <Redirect to="/sketches" />;
     }
-    //json required by CodeMirror
-    const options = {
-      mode:
-        CODEMIRROR_CONVERSIONS[this.props.viewOnly ? this.props.vlanguage : this.props.language],
-      theme: this.getCMTheme(this.props.theme),
-      lineNumbers: true, //text editor has line numbers
-      lineWrapping: true, //text editor does not overflow in the x direction, uses word wrap (NOTE: it's like MO Word wrapping, so words are not cut in the middle, if a word overlaps, the whole word is brought to the next line)
-      indentWithTabs: true,
-    };
 
+    const options = {
+      selectOnLineNumbers: true,
+    };
     return (
       <div className={`theme-` + this.props.theme} style={{ height: "100%" }}>
         <div className="code-section">
@@ -312,7 +274,42 @@ class TextEditor extends React.Component {
               maxHeight: this.props.screenHeight - 61 - 20,
             }}
           >
-            <CodeMirror
+            <ControlledEditor
+              language={this.props.viewOnly ? this.props.vlanguage : this.props.language}
+              options={options}
+              theme={this.getCMTheme(this.props.theme)}
+              wrappingIndent="indent"
+              value={this.props.code}
+              editorDidMount={(editorInstance) => {
+                this.setEditorInstance(editorInstance);
+              }}
+              onChange={this.updateCode}
+              onBeforeChange={this.updateCode}
+            />
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+export default TextEditor;
+/*
+  setCurrentLine = (cm) => { //%%set what line the code is currently on
+    const { codeMirrorInstance, currentLine } = this.state;
+    let { line } = cm.getCursor();
+    if (codeMirrorInstance) {
+      //removeLineClass removes the back highlight style from the last selected line
+      codeMirrorInstance.removeLineClass(currentLine, "wrap", "selected-line");
+      //addLineClass adds the style to the newly selected line
+      codeMirrorInstance.addLineClass(line, "wrap", "selected-line");
+    }
+    this.setState({ currentLine: line });
+  };
+*/
+/*
+
+ <CodeMirror
               editorDidMount={(codeMirrorInstance) => {
                 codeMirrorInstance.refresh();
                 this.setCodeMirrorInstance(codeMirrorInstance);
@@ -327,11 +324,40 @@ class TextEditor extends React.Component {
               onBeforeChange={this.updateCode}
               onChange={this.updateCode}
             />
-          </div>
-        </div>
-      </div>
-    );
-  }
-}
-
-export default TextEditor;
+*/
+//json required by CodeMirror
+//%%change this up to affect the other
+/*
+    const options = {
+      mode:
+        CODEMIRROR_CONVERSIONS[{this.props.viewOnly ? this.props.vlanguage : this.props.language}],
+      theme: this.getCMTheme(this.props.theme),
+      lineNumbers: true, //text editor has line numbers
+      lineWrapping: true, //text editor does not overflow in the x direction, uses word wrap (NOTE: it's like MO Word wrapping, so words are not cut in the middle, if a word overlaps, the whole word is brought to the next line)
+      indentWithTabs: true,
+    };
+    */
+/**
+ * returns a theme string for the CodeMirror editor, based off of the app's current theme
+ * @param {string} theme - the app's current theme
+ * @returns {string} the codemirror theme - see https://codemirror.net/demo/theme.html for more info
+ */
+//%% will have to change theme on editor
+/*  %%sets up codemirror and takes the requirements
+let CodeMirror = null;
+if (typeof window !== "undefined" && typeof window.navigator !== "undefined") {
+  // import {Controlled as CodeMirror} from 'react-codemirror2'
+  CodeMirror = require("react-codemirror2").Controlled;
+  require("codemirror/mode/javascript/javascript.js");
+  require("codemirror/mode/htmlmixed/htmlmixed.js");
+  require("codemirror/mode/python/python.js");
+  require("codemirror/mode/clike/clike.js");
+}*/
+/**----------Props--------
+ * None
+ */
+/*
+  setCodeMirrorInstance = (codeMirrorInstance) => {  //%%say that code mirror has been made
+    this.setState({ codeMirrorInstance });
+  };
+*/
