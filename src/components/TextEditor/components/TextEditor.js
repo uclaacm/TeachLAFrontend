@@ -1,9 +1,7 @@
 import React from "react";
 import ReactModal from "react-modal";
-//import { CODEMIRROR_CONVERSIONS } from "../../../constants";
 import * as fetch from "../../../lib/fetch.js";
 import sketch from "../../../lib/";
-// import MonacoEditor from "react-monaco-editor";
 import { ControlledEditor } from "@monaco-editor/react";
 import EditorRadio from "./EditorRadio.js";
 import ShareSketchModal from "./ShareSketchModal";
@@ -16,26 +14,12 @@ import { faDownload, faSave, faShare, faCodeBranch } from "@fortawesome/free-sol
 import { SketchThumbnailArray } from "../../Sketches/constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Redirect } from "react-router-dom";
-/*  %%sets up codemirror and takes the requirements
-let CodeMirror = null;
-if (typeof window !== "undefined" && typeof window.navigator !== "undefined") {
-  // import {Controlled as CodeMirror} from 'react-codemirror2'
-  CodeMirror = require("react-codemirror2").Controlled;
-  require("codemirror/mode/javascript/javascript.js");
-  require("codemirror/mode/htmlmixed/htmlmixed.js");
-  require("codemirror/mode/python/python.js");
-  require("codemirror/mode/clike/clike.js");
-}*/
-/**----------Props--------
- * None
- */
 
 class TextEditor extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      //codeMirrorInstance: null, %%check if codemirror has been rendered
       editorInstance: null,
       currentLine: 0,
       sketch: null,
@@ -75,7 +59,7 @@ class TextEditor extends React.Component {
     try {
       let programToUpdate = {};
       programToUpdate[this.props.mostRecentProgram] = {
-        code: this.props.code, ///%%might have to check if the code doesnt get transferred properly
+        code: this.props.code,
       };
 
       await fetch.updatePrograms(this.props.uid, programToUpdate);
@@ -91,27 +75,11 @@ class TextEditor extends React.Component {
     }
     return ev;
   };
-  /*
-  setCodeMirrorInstance = (codeMirrorInstance) => {  //%%say that code mirror has been made
-    this.setState({ codeMirrorInstance });
-  };
-*/
+
   setEditorInstance = (editorInstance) => {
     this.setState({ editorInstance });
   };
-  /*
-  setCurrentLine = (cm) => { //%%set what line the code is currently on
-    const { codeMirrorInstance, currentLine } = this.state;
-    let { line } = cm.getCursor();
-    if (codeMirrorInstance) {
-      //removeLineClass removes the back highlight style from the last selected line
-      codeMirrorInstance.removeLineClass(currentLine, "wrap", "selected-line");
-      //addLineClass adds the style to the newly selected line
-      codeMirrorInstance.addLineClass(line, "wrap", "selected-line");
-    }
-    this.setState({ currentLine: line });
-  };
-*/
+
   renderForkModal = () => {
     return (
       <ReactModal
@@ -306,7 +274,7 @@ class TextEditor extends React.Component {
             }}
           >
             <ControlledEditor
-              language="python"
+              language={this.props.viewOnly ? this.props.vlanguage : this.props.language}
               options={options}
               theme={this.getCMTheme(this.props.theme)}
               wrappingIndent="indent"
@@ -315,6 +283,7 @@ class TextEditor extends React.Component {
                 this.setEditorInstance(editorInstance);
               }}
               onChange={this.updateCode}
+              onBeforeChange={this.updateCode}
             />
           </div>
         </div>
@@ -325,7 +294,20 @@ class TextEditor extends React.Component {
 
 export default TextEditor;
 /*
-onBeforeChange={this.updateCode}
+  setCurrentLine = (cm) => { //%%set what line the code is currently on
+    const { codeMirrorInstance, currentLine } = this.state;
+    let { line } = cm.getCursor();
+    if (codeMirrorInstance) {
+      //removeLineClass removes the back highlight style from the last selected line
+      codeMirrorInstance.removeLineClass(currentLine, "wrap", "selected-line");
+      //addLineClass adds the style to the newly selected line
+      codeMirrorInstance.addLineClass(line, "wrap", "selected-line");
+    }
+    this.setState({ currentLine: line });
+  };
+*/
+/*
+
  <CodeMirror
               editorDidMount={(codeMirrorInstance) => {
                 codeMirrorInstance.refresh();
@@ -360,3 +342,21 @@ onBeforeChange={this.updateCode}
  * @returns {string} the codemirror theme - see https://codemirror.net/demo/theme.html for more info
  */
 //%% will have to change theme on editor
+/*  %%sets up codemirror and takes the requirements
+let CodeMirror = null;
+if (typeof window !== "undefined" && typeof window.navigator !== "undefined") {
+  // import {Controlled as CodeMirror} from 'react-codemirror2'
+  CodeMirror = require("react-codemirror2").Controlled;
+  require("codemirror/mode/javascript/javascript.js");
+  require("codemirror/mode/htmlmixed/htmlmixed.js");
+  require("codemirror/mode/python/python.js");
+  require("codemirror/mode/clike/clike.js");
+}*/
+/**----------Props--------
+ * None
+ */
+/*
+  setCodeMirrorInstance = (codeMirrorInstance) => {  //%%say that code mirror has been made
+    this.setState({ codeMirrorInstance });
+  };
+*/
