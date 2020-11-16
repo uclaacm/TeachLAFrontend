@@ -3,7 +3,7 @@ import ReactModal from "react-modal";
 //import { CODEMIRROR_CONVERSIONS } from "../../../constants";
 import * as fetch from "../../../lib/fetch.js";
 import sketch from "../../../lib/";
-import MonacoEditor from "react-monaco-editor";
+// import MonacoEditor from "react-monaco-editor";
 import { ControlledEditor } from "@monaco-editor/react";
 import EditorRadio from "./EditorRadio.js";
 import ShareSketchModal from "./ShareSketchModal";
@@ -271,9 +271,8 @@ class TextEditor extends React.Component {
       </div>
     );
   };
-  updateCode = (newCode, e) => {
+  updateCode = (e, newCode) => {
     //if the code's not yet dirty, and the old code is different from the new code, make it dirty
-    console.log(newCode, e);
     if (!this.props.dirty && this.props.code !== newCode) {
       this.props.dirtyCode(this.props.mostRecentProgram);
     }
