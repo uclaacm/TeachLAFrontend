@@ -1,5 +1,115 @@
 # Changelog
 
+## Version v2.2.1 | Summer Maitenance (16/11/2020)
+
+#### closed
+
+- [**closed**] Add support for React/JSX in the editor [#377](https://github.com/uclaacm/TeachLAFrontend/pull/377)
+
+#### dependencies
+
+- [**dependencies**] Bump react from 16.13.1 to 16.14.0 [#361](https://github.com/uclaacm/TeachLAFrontend/pull/361)
+- [**dependencies**] Bump react-dom from 16.13.1 to 16.14.0 [#364](https://github.com/uclaacm/TeachLAFrontend/pull/364)
+- Bump reactstrap from 8.4.1 to 8.7.1
+  - [**dependencies**] Bump reactstrap from 8.7.0 to 8.7.1 [#381](https://github.com/uclaacm/TeachLAFrontend/pull/381)
+  - [**dependencies**] Bump reactstrap from 8.6.0 to 8.7.0 [#380](https://github.com/uclaacm/TeachLAFrontend/pull/380)
+  - [**dependencies**] Bump reactstrap from 8.5.1 to 8.6.0 [#343](https://github.com/uclaacm/TeachLAFrontend/pull/343)
+  - [**dependencies**] Bump reactstrap from 8.5.0 to 8.5.1 [#311](https://github.com/uclaacm/TeachLAFrontend/pull/311)
+  - [**dependencies**] Bump reactstrap from 8.4.1 to 8.5.0 [#310](https://github.com/uclaacm/TeachLAFrontend/pull/310)
+- Bump lint-staged from 10.2.4 to 10.5.1
+  - [**dependencies**] Bump lint-staged from 10.5.0 to 10.5.1 [#378](https://github.com/uclaacm/TeachLAFrontend/pull/378)
+  - [**dependencies**] Bump lint-staged from 10.4.2 to 10.5.0 [#376](https://github.com/uclaacm/TeachLAFrontend/pull/376)
+  - [**dependencies**] Bump lint-staged from 10.4.1 to 10.4.2 [#367](https://github.com/uclaacm/TeachLAFrontend/pull/367)
+  - [**dependencies**] Bump lint-staged from 10.4.0 to 10.4.1 [#366](https://github.com/uclaacm/TeachLAFrontend/pull/366)
+  - [**dependencies**] Bump lint-staged from 10.3.0 to 10.4.0 [#342](https://github.com/uclaacm/TeachLAFrontend/pull/342)
+  - [**dependencies**] Bump lint-staged from 10.2.13 to 10.3.0 [#338](https://github.com/uclaacm/TeachLAFrontend/pull/338)
+  - [**dependencies**] Bump lint-staged from 10.2.11 to 10.2.13 [#334](https://github.com/uclaacm/TeachLAFrontend/pull/334)
+  - [**dependencies**] Bump lint-staged from 10.2.10 to 10.2.11 [#302](https://github.com/uclaacm/TeachLAFrontend/pull/302)
+  - [**dependencies**] Bump lint-staged from 10.2.9 to 10.2.10 [#300](https://github.com/uclaacm/TeachLAFrontend/pull/300)
+  - [**dependencies**] Bump lint-staged from 10.2.7 to 10.2.9 [#294](https://github.com/uclaacm/TeachLAFrontend/pull/294)
+  - [**dependencies**] Bump lint-staged from 10.2.6 to 10.2.7 [#288](https://github.com/uclaacm/TeachLAFrontend/pull/288)
+  - [**dependencies**] Bump lint-staged from 10.2.4 to 10.2.6 [#284](https://github.com/uclaacm/TeachLAFrontend/pull/284)
+- Bump react-scripts from 3.4.1 to 4.0.0
+  - [**dependencies**] Bump react-scripts from 3.4.4 to 4.0.0 [#370](https://github.com/uclaacm/TeachLAFrontend/pull/370)
+  - [**dependencies**] Bump react-scripts from 3.4.3 to 3.4.4 [#368](https://github.com/uclaacm/TeachLAFrontend/pull/368)
+  - [**dependencies**] Bump react-scripts from 3.4.2 to 3.4.3 [#329](https://github.com/uclaacm/TeachLAFrontend/pull/329)
+  - [**dependencies**] Bump react-scripts from 3.4.1 to 3.4.2 [#328](https://github.com/uclaacm/TeachLAFrontend/pull/328)
+- Bump react-redux from 7.2.0 to 7.2.2
+  - [**dependencies**] Bump react-redux from 7.2.1 to 7.2.2 [#373](https://github.com/uclaacm/TeachLAFrontend/pull/373)
+  - [**dependencies**] Bump react-redux from 7.2.0 to 7.2.1 [#321](https://github.com/uclaacm/TeachLAFrontend/pull/321)
+- Misc. @fortawesome bumps
+  - [**dependencies**] Bump @fortawesome/react-fontawesome from 0.1.11 to 0.1.12 [#374](https://github.com/uclaacm/TeachLAFrontend/pull/374)
+  - [**dependencies**] Bump @fortawesome/fontawesome-svg-core from 1.2.31 to 1.2.32 [#356](https://github.com/uclaacm/TeachLAFrontend/pull/356)
+  - [**dependencies**] Bump @fortawesome/free-brands-svg-icons from 5.15.0 to 5.15.1 [#357](https://github.com/uclaacm/TeachLAFrontend/pull/357)
+  - [**dependencies**] Bump @fortawesome/free-solid-svg-icons from 5.15.0 to 5.15.1 [#358](https://github.com/uclaacm/TeachLAFrontend/pull/358)
+  - [**dependencies**] Bump @fortawesome/free-brands-svg-icons from 5.14.0 to 5.15.0 [#353](https://github.com/uclaacm/TeachLAFrontend/pull/353)
+  - [**dependencies**] Bump @fortawesome/free-solid-svg-icons from 5.14.0 to 5.15.0 [#352](https://github.com/uclaacm/TeachLAFrontend/pull/352)
+  - [**dependencies**] Bump @fortawesome/fontawesome-svg-core from 1.2.30 to 1.2.31 [#351](https://github.com/uclaacm/TeachLAFrontend/pull/351)
+  - [**dependencies**] Bump @fortawesome/fontawesome-svg-core from 1.2.29 to 1.2.30 [#315](https://github.com/uclaacm/TeachLAFrontend/pull/315)
+  - [**dependencies**] Bump @fortawesome/free-brands-svg-icons from 5.13.1 to 5.14.0 [#316](https://github.com/uclaacm/TeachLAFrontend/pull/316)
+  - [**dependencies**] Bump @fortawesome/free-solid-svg-icons from 5.13.1 to 5.14.0 [#317](https://github.com/uclaacm/TeachLAFrontend/pull/317)
+  - [**dependencies**] Bump @fortawesome/fontawesome-svg-core from 1.2.28 to 1.2.29 [#305](https://github.com/uclaacm/TeachLAFrontend/pull/305)
+  - [**dependencies**] Bump @fortawesome/free-brands-svg-icons from 5.13.0 to 5.13.1 [#303](https://github.com/uclaacm/TeachLAFrontend/pull/303)
+  - [**dependencies**] Bump @fortawesome/free-solid-svg-icons from 5.13.0 to 5.13.1 [#306](https://github.com/uclaacm/TeachLAFrontend/pull/306)
+  - [**dependencies**] Bump @fortawesome/react-fontawesome from 0.1.10 to 0.1.11 [#301](https://github.com/uclaacm/TeachLAFrontend/pull/301)
+  - [**dependencies**] Bump @fortawesome/react-fontawesome from 0.1.9 to 0.1.10 [#291](https://github.com/uclaacm/TeachLAFrontend/pull/291)
+- Bump codemirror from 5.53.2 to 5.58.2
+  - [**dependencies**] Bump codemirror from 5.58.1 to 5.58.2 [#371](https://github.com/uclaacm/TeachLAFrontend/pull/371)
+  - [**dependencies**] Bump codemirror from 5.58.0 to 5.58.1 [#346](https://github.com/uclaacm/TeachLAFrontend/pull/346)
+  - [**dependencies**] Bump codemirror from 5.57.0 to 5.58.0 [#345](https://github.com/uclaacm/TeachLAFrontend/pull/345)
+  - [**dependencies**] Bump codemirror from 5.56.0 to 5.57.0 [#331](https://github.com/uclaacm/TeachLAFrontend/pull/331)
+  - [**dependencies**] Bump codemirror from 5.55.0 to 5.56.0 [#319](https://github.com/uclaacm/TeachLAFrontend/pull/319)
+  - [**dependencies**] Bump codemirror from 5.54.0 to 5.55.0 [#307](https://github.com/uclaacm/TeachLAFrontend/pull/307)
+  - [**dependencies**] Bump codemirror from 5.53.2 to 5.54.0 [#280](https://github.com/uclaacm/TeachLAFrontend/pull/280)
+- Bump firebase from 7.14.4 to 7.24.0
+  - [**dependencies**] Bump firebase from 7.23.0 to 7.24.0 [#365](https://github.com/uclaacm/TeachLAFrontend/pull/365)
+  - [**dependencies**] Bump firebase from 7.22.1 to 7.23.0 [#359](https://github.com/uclaacm/TeachLAFrontend/pull/359)
+  - [**dependencies**] Bump firebase from 7.22.0 to 7.22.1 [#355](https://github.com/uclaacm/TeachLAFrontend/pull/355)
+  - [**dependencies**] Bump firebase from 7.21.1 to 7.22.0 [#354](https://github.com/uclaacm/TeachLAFrontend/pull/354)
+  - [**dependencies**] Bump firebase from 7.21.0 to 7.21.1 [#348](https://github.com/uclaacm/TeachLAFrontend/pull/348)
+  - [**dependencies**] Bump firebase from 7.20.0 to 7.21.0 [#344](https://github.com/uclaacm/TeachLAFrontend/pull/344)
+  - [**dependencies**] Bump firebase from 7.19.1 to 7.20.0 [#340](https://github.com/uclaacm/TeachLAFrontend/pull/340)
+  - [**dependencies**] Bump firebase from 7.19.0 to 7.19.1 [#336](https://github.com/uclaacm/TeachLAFrontend/pull/336)
+  - [**dependencies**] Bump firebase from 7.18.0 to 7.19.0 [#332](https://github.com/uclaacm/TeachLAFrontend/pull/332)
+  - [**dependencies**] Bump firebase from 7.17.2 to 7.18.0 [#330](https://github.com/uclaacm/TeachLAFrontend/pull/330)
+  - [**dependencies**] Bump firebase from 7.17.1 to 7.17.2 [#325](https://github.com/uclaacm/TeachLAFrontend/pull/325)
+  - [**dependencies**] Bump firebase from 7.16.1 to 7.17.1 [#320](https://github.com/uclaacm/TeachLAFrontend/pull/320)
+  - [**dependencies**] Bump firebase from 7.16.0 to 7.16.1 [#318](https://github.com/uclaacm/TeachLAFrontend/pull/318)
+  - [**dependencies**] Bump firebase from 7.15.5 to 7.16.0 [#313](https://github.com/uclaacm/TeachLAFrontend/pull/313)
+  - [**dependencies**] Bump firebase from 7.15.4 to 7.15.5 [#312](https://github.com/uclaacm/TeachLAFrontend/pull/312)
+  - [**dependencies**] Bump firebase from 7.15.2 to 7.15.4 [#308](https://github.com/uclaacm/TeachLAFrontend/pull/308)
+  - [**dependencies**] Bump firebase from 7.15.1 to 7.15.2 [#304](https://github.com/uclaacm/TeachLAFrontend/pull/304)
+  - [**dependencies**] Bump firebase from 7.15.0 to 7.15.1 [#299](https://github.com/uclaacm/TeachLAFrontend/pull/299)
+  - [**dependencies**] Bump firebase from 7.14.6 to 7.15.0 [#296](https://github.com/uclaacm/TeachLAFrontend/pull/296)
+  - [**dependencies**] Bump firebase from 7.14.5 to 7.14.6 [#290](https://github.com/uclaacm/TeachLAFrontend/pull/290)
+  - [**dependencies**] Bump firebase from 7.14.4 to 7.14.5 [#285](https://github.com/uclaacm/TeachLAFrontend/pull/285)
+- Bump bootstrap from 4.5.0 to 4.5.3
+  - [**dependencies**] Bump bootstrap from 4.5.2 to 4.5.3 [#360](https://github.com/uclaacm/TeachLAFrontend/pull/360)
+  - [**dependencies**] Bump bootstrap from 4.5.1 to 4.5.2 [#324](https://github.com/uclaacm/TeachLAFrontend/pull/324)
+  - [**dependencies**] Bump bootstrap from 4.5.0 to 4.5.1 [#323](https://github.com/uclaacm/TeachLAFrontend/pull/323)
+- Bump enzyme-to-json from 3.4.4 to 3.6.1
+  - [**dependencies**] Bump enzyme-to-json from 3.5.0 to 3.6.1 [#349](https://github.com/uclaacm/TeachLAFrontend/pull/349)
+  - [**dependencies**] Bump enzyme-to-json from 3.4.4 to 3.5.0 [#287](https://github.com/uclaacm/TeachLAFrontend/pull/287)
+- Bump enzyme-adapter-react-16 from 1.15.2 to 1.15.5
+  - [**dependencies**] Bump enzyme-adapter-react-16 from 1.15.4 to 1.15.5 [#347](https://github.com/uclaacm/TeachLAFrontend/pull/347)
+  - [**dependencies**] Bump enzyme-adapter-react-16 from 1.15.3 to 1.15.4 [#337](https://github.com/uclaacm/TeachLAFrontend/pull/337)
+  - [**dependencies**] Bump enzyme-adapter-react-16 from 1.15.2 to 1.15.3 [#326](https://github.com/uclaacm/TeachLAFrontend/pull/326)
+- Bump prettier from 2.0.5 to 2.1.2
+  - [**dependencies**] Bump prettier from 2.1.1 to 2.1.2 [#341](https://github.com/uclaacm/TeachLAFrontend/pull/341)
+  - [**dependencies**] Bump prettier from 2.1.0 to 2.1.1 [#335](https://github.com/uclaacm/TeachLAFrontend/pull/335)
+  - [**dependencies**] Bump prettier from 2.0.5 to 2.1.0 [#333](https://github.com/uclaacm/TeachLAFrontend/pull/333)
+- Bump react-codemirror2 from 7.1.0 to 7.2.1
+  - [**dependencies**] Bump react-codemirror2 from 7.2.0 to 7.2.1 [#298](https://github.com/uclaacm/TeachLAFrontend/pull/298)
+  - [**dependencies**] Bump react-codemirror2 from 7.1.0 to 7.2.0 [#286](https://github.com/uclaacm/TeachLAFrontend/pull/286)
+- [**dependencies**] Bump husky from 4.2.5 to 4.3.0 [#339](https://github.com/uclaacm/TeachLAFrontend/pull/339)
+- [**dependencies**] Bump react-split-pane from 0.1.91 to 0.1.92 [#327](https://github.com/uclaacm/TeachLAFrontend/pull/327)
+- [**dependencies**][**security**] [Security] Bump elliptic from 6.5.2 to 6.5.3 [#322](https://github.com/uclaacm/TeachLAFrontend/pull/322)
+- [**dependencies**][**security**] [Security] Bump lodash from 4.17.15 to 4.17.19 [#314](https://github.com/uclaacm/TeachLAFrontend/pull/314)
+- [**dependencies**] Bump react-spinners from 0.8.3 to 0.9.0 [#309](https://github.com/uclaacm/TeachLAFrontend/pull/309)
+- [**dependencies**][**security**] [Security] Bump websocket-extensions from 0.1.3 to 0.1.4 [#295](https://github.com/uclaacm/TeachLAFrontend/pull/295)
+
+---
+
 ## Version v2.2.0 | Login page redesign, bug fixes (19/06/2020)
 
 This minor release brings an updating of our input validation (#283, #297) and a brand new login page (#269) along with a critical bug fix (#289).
