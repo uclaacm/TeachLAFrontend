@@ -1,12 +1,12 @@
 import ViewOnly from "../ViewOnly.js";
 import { connect } from "react-redux";
 import { setOutput } from "../../actions/outputActions.js";
-import { setProgramCode } from "../../actions/programsActions.js";
+import { setProgramCode, setProgramLanguage } from "../../actions/programsActions.js";
 import { togglePanel } from "../../actions/uiActions.js";
 import { setTheme } from "../../actions/uiActions.js";
 import { CLOSED_PANEL_LEFT, OPEN_PANEL_LEFT, PANEL_SIZE } from "../../constants";
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const { mostRecentProgram } = state.userData;
   return {
     uid: state.userData.uid,
@@ -19,14 +19,17 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     runCode: (code, language) => dispatch(setOutput(code, language)),
     togglePanel: () => dispatch(togglePanel()),
     setProgramCode: (program, code) => {
       dispatch(setProgramCode(program, code));
     },
-    setTheme: theme => dispatch(setTheme(theme)),
+    setProgramLanguage: (program, lang) => {
+      dispatch(setProgramLanguage(program, lang));
+    },
+    setTheme: (theme) => dispatch(setTheme(theme)),
   };
 };
 

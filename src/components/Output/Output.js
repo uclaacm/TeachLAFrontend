@@ -1,10 +1,6 @@
 import React from "react";
-import { PYTHON, HTML, PROCESSING, REACT } from "../../constants";
 import { OUTPUT_ONLY } from "../../constants";
 import EditorRadio from "../TextEditor/components/EditorRadio.js";
-import CreateProcessingDoc from "../Output/Processing";
-import CreatePythonDoc from "../Output/Python";
-import CreateReactDoc from "../Output/React";
 import { Button } from "reactstrap";
 import ViewportAwareButton from "../common/ViewportAwareButton.js";
 import OpenPanelButtonContainer from "../common/containers/OpenPanelButtonContainer.js";
@@ -57,7 +53,7 @@ class Output extends React.Component {
 
   renderOpenPanelButton = () => this.props.viewMode === OUTPUT_ONLY && <OpenPanelButtonContainer />;
 
-  renderIframe = getSrcDoc => {
+  renderIframe = (getSrcDoc) => {
     //check if getsrcdoc is a function
     if (!getSrcDoc && {}.toString.call(getSrcDoc) === "[object Function]") {
       console.log("Null src doc function found");
@@ -73,7 +69,7 @@ class Output extends React.Component {
         srcDoc={getSrcDoc()}
         src=""
         title="output-iframe"
-        onLoad={e => {
+        onLoad={(e) => {
           // console.log(e);
         }}
       />
@@ -94,24 +90,7 @@ class Output extends React.Component {
       return null;
     }
 
-    let srcDocFunc = () => runResult;
-
-    switch (language) {
-      case PROCESSING:
-        srcDocFunc = () => CreateProcessingDoc(runResult, showConsole);
-        break;
-      case REACT:
-        srcDocFunc = () => CreateReactDoc(runResult, showConsole);
-        break;
-      case PYTHON:
-        runResult = btoa(runResult);
-        srcDocFunc = () => CreatePythonDoc(runResult, showConsole);
-        break;
-      case HTML:
-      default:
-        break;
-    }
-
+    const srcDocFunc = () => language.render(runResult, showConsole);
     return this.renderIframe(srcDocFunc);
   };
 
@@ -127,7 +106,7 @@ class Output extends React.Component {
     );
 
   toggleConsole = () => {
-    this.setState(prevState => {
+    this.setState((prevState) => {
       return { showConsole: !prevState.showConsole };
     });
   };
@@ -163,7 +142,7 @@ class Output extends React.Component {
   );
 
   runCode = () => {
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       run: prevState.run + 1,
     }));
   };

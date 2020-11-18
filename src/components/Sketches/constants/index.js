@@ -1,6 +1,6 @@
-const { PYTHON, HTML, PROCESSING, REACT } = require("../../../constants");
+import { SUPPORTED_LANGUAGES } from "../../../util/languages/languages.js";
 
-const SketchThumbnailArray = [
+export const SketchThumbnailArray = [
   "Ant",
   "Badger",
   "Bear",
@@ -61,17 +61,8 @@ const SketchThumbnailArray = [
   "Wolf",
 ];
 
-const LanguageDropdownValues = [
-  { display: "Python", value: PYTHON },
-  { display: "Processing", value: PROCESSING },
-  { display: "React", value: REACT },
-  { display: "HTML", value: HTML },
-];
-
-const LanguageDropdownDefault = { display: "Python", value: PYTHON };
-
-module.exports = {
-  SketchThumbnailArray,
-  LanguageDropdownValues,
-  LanguageDropdownDefault,
-};
+export const LanguageDropdownValues = SUPPORTED_LANGUAGES.map(({ value, display }) => ({
+  value,
+  display,
+}));
+export const LanguageDropdownDefault = LanguageDropdownValues[0];

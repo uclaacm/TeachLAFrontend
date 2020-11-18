@@ -5,16 +5,13 @@ import CreateSketchModalContainer from "./containers/CreateSketchModalContainer"
 import EditSketchModalContainer from "./containers/EditSketchModalContainer";
 import OpenPanelButtonContainer from "../common/containers/OpenPanelButtonContainer";
 import { SketchThumbnailArray } from "./constants";
-import { PYTHON, PROCESSING, REACT, HTML } from "../../constants";
 import CodeDownloader from "../../util/languages/CodeDownloader";
 import "styles/Sketches.scss";
 
 import { Button } from "reactstrap";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCogs } from "@fortawesome/free-solid-svg-icons";
 import { faFile } from "@fortawesome/free-solid-svg-icons";
-import { faPython, faHtml5, faReact } from "@fortawesome/free-brands-svg-icons";
 
 const ROW_PADDING = 100;
 const SKETCH_WIDTH = 220;
@@ -106,30 +103,10 @@ class Sketches extends React.Component {
       else return 1;
     });
     newList.forEach(({ key, name, language, thumbnail, code }) => {
-      let faLanguage;
-      let languageDisplay; // not a great way to do this!
-      switch (language) {
-        case PYTHON:
-          faLanguage = faPython;
-          languageDisplay = "Python";
-          break;
-        case PROCESSING:
-          faLanguage = faCogs;
-          languageDisplay = "Processing";
-          break;
-        case REACT:
-          faLanguage = faReact;
-          languageDisplay = "React";
-          break;
-        case HTML:
-        default:
-          faLanguage = faHtml5;
-          languageDisplay = "HTML";
-      }
       sketches.push(
         <SketchBox
           img={this.getThumbnailSrc(thumbnail)}
-          icon={faLanguage}
+          icon={language.icon}
           name={name}
           key={key}
           deleteFunc={() => {
@@ -143,7 +120,7 @@ class Sketches extends React.Component {
               true,
               name,
               this.getThumbnailSrc(thumbnail),
-              languageDisplay,
+              language.display,
               key,
             );
           }}

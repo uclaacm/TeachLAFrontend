@@ -1,4 +1,4 @@
-import { getJsSrcDocLoggingScript } from "./constants";
+import { getJsSrcDocLoggingScript } from "./languages.js";
 
 const getReactSrcDocHead = () => `
     <head>

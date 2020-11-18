@@ -89,7 +89,7 @@ class Main extends React.Component {
     <EditorAndOutput
       // view mode
       viewMode={this.state.viewMode}
-      updateViewMode={viewMode => this.setState({ viewMode })}
+      updateViewMode={(viewMode) => this.setState({ viewMode })}
       // theme
       theme={this.props.theme}
       // sizing
@@ -101,13 +101,13 @@ class Main extends React.Component {
       // pane
       panelOpen={this.props.panelOpen}
       pane1Style={this.state.pane1Style}
-      changePane1Style={newStyle => this.setState(newStyle)}
+      changePane1Style={(newStyle) => this.setState(newStyle)}
       // program information
       mostRecentProgram={this.props.mostRecentProgram}
-      language={this.state.language}
-      code={this.state.code}
+      language={this.props.language}
+      code={this.props.code}
       programid={this.props.programid}
-      sketchName={this.state.sketchName}
+      sketchName={this.props.sketchName}
       // save handler
       saveText={this.state.saveText}
       handleSave={this.handleSave}

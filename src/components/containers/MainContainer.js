@@ -6,8 +6,9 @@ import { setProgramDirty } from "../../actions/programsActions.js";
 import { togglePanel } from "../../actions/uiActions.js";
 import { setTheme } from "../../actions/uiActions.js";
 import { CLOSED_PANEL_LEFT, OPEN_PANEL_LEFT, PANEL_SIZE } from "../../constants";
+import { getLanguageData } from "../../util/languages/languages.js";
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const { mostRecentProgram } = state.userData;
 
   //program data should be an object representing the most recent program
@@ -19,7 +20,7 @@ const mapStateToProps = state => {
 
   let listOfPrograms = [];
 
-  state.programs.keySeq().forEach(key => listOfPrograms.push(key));
+  state.programs.keySeq().forEach((key) => listOfPrograms.push(key));
 
   return {
     uid: state.userData.uid,
@@ -31,19 +32,19 @@ const mapStateToProps = state => {
     dirty,
     panelOpen: state.ui.panelOpen,
     left: (state.ui.panelOpen ? OPEN_PANEL_LEFT : CLOSED_PANEL_LEFT) + PANEL_SIZE,
-    name,
-    language,
+    sketchName: name,
+    language: getLanguageData(language),
     theme: state.ui.theme,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    setMostRecentProgram: value => dispatch(setMostRecentProgram(value)),
+    setMostRecentProgram: (value) => dispatch(setMostRecentProgram(value)),
     runCode: (code, language) => dispatch(setOutput(code, language)),
-    cleanCode: program => dispatch(setProgramDirty(program, false)),
+    cleanCode: (program) => dispatch(setProgramDirty(program, false)),
     togglePanel: () => dispatch(togglePanel()),
-    setTheme: theme => dispatch(setTheme(theme)),
+    setTheme: (theme) => dispatch(setTheme(theme)),
   };
 };
 

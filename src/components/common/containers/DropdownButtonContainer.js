@@ -1,16 +1,19 @@
 import { connect } from "react-redux";
 import DropdownButton from "../DropdownButton.js";
 import { setMostRecentProgram } from "../../../actions/userDataActions.js";
+import { getLanguageData } from "../../../util/languages/languages.js";
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const { mostRecentProgram } = state.userData;
-  let mostRecentLanguage = state.programs.getIn([mostRecentProgram, "language"], "python");
+  let mostRecentLanguage = getLanguageData(
+    state.programs.getIn([mostRecentProgram, "language"], "python"),
+  );
   let displayValue = state.programs.getIn([mostRecentProgram, "name"], mostRecentProgram);
 
-  let listOfPrograms = state.programs.keySeq().map(id => {
+  let listOfPrograms = state.programs.keySeq().map((id) => {
     return {
       name: state.programs.getIn([id, "name"], id),
-      language: state.programs.getIn([id, "language"], "python"),
+      language: getLanguageData(state.programs.getIn([id, "language"], "python")),
       key: id,
     };
   });
@@ -25,9 +28,9 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    onSelect: value => {
+    onSelect: (value) => {
       dispatch(setMostRecentProgram(value));
     },
   };

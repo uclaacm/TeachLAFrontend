@@ -1,34 +1,5 @@
 //TODO: Break up large constants file into smaller constants file
 
-const PYTHON = "python";
-const JAVASCRIPT = "javascript";
-const HTML = "html";
-const PROCESSING = "processing";
-const REACT = "react";
-
-const SUPPORTED_LANGUAGES = [PYTHON, JAVASCRIPT, HTML, PROCESSING, REACT];
-
-//used for syntax highlighting in editor
-let CODEMIRROR_CONVERSIONS = {};
-
-//for each s
-SUPPORTED_LANGUAGES.forEach((lang) => {
-  switch (lang) {
-    case PYTHON:
-      return (CODEMIRROR_CONVERSIONS[lang] = "python");
-    case JAVASCRIPT:
-      return (CODEMIRROR_CONVERSIONS[lang] = "javascript");
-    case HTML:
-      return (CODEMIRROR_CONVERSIONS[lang] = "htmlmixed");
-    case PROCESSING:
-      return (CODEMIRROR_CONVERSIONS[lang] = "javascript");
-    case REACT:
-      return (CODEMIRROR_CONVERSIONS[lang] = "jsx");
-    default:
-      console.error("SUPPORTED LANGUAGE WITH NO MODE");
-  }
-});
-
 const PUBLIC_URL = process.env.PUBLIC_URL;
 const PHOTO_NAMES = {
   lightbulb: `${PUBLIC_URL}/img/icons/lightbulb.png`,
@@ -74,13 +45,6 @@ const OUTPUT_ONLY = 2;
 const EDITOR_WIDTH_BREAKPOINT = 1000;
 
 module.exports = {
-  //Language definitions
-  PYTHON,
-  JAVASCRIPT,
-  HTML,
-  PROCESSING,
-  REACT,
-
   // photo names
   PHOTO_NAMES,
   DEFAULT_PHOTO_NAME: "icecream",
@@ -101,18 +65,11 @@ module.exports = {
   MAXIMUM_PASSWORD_LENGTH: 128,
   MAXIMUM_DISPLAY_NAME_LENGTH: 25,
 
-  //Defaults
-  DEFAULT_MODE: PYTHON,
-  DEFAULT_LANG: PYTHON,
-
   // UI constants
   RING_LOADER_SIZE: 50,
   PANEL_SIZE,
   CLOSED_PANEL_LEFT: -1 * PANEL_SIZE,
   OPEN_PANEL_LEFT: 0,
-
-  //codemirror conversions
-  CODEMIRROR_CONVERSIONS,
 
   // editor constants:
   CODE_AND_OUTPUT,

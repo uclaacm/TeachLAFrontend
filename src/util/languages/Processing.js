@@ -1,6 +1,6 @@
-import { getJsSrcDocLoggingScript } from "./constants";
+import { getJsSrcDocLoggingScript } from "./languages.js";
 
-const getUserScript = code => `
+const getUserScript = (code) => `
   <script type="text/javascript">
     ${code}
   </script>
