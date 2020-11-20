@@ -165,3 +165,14 @@ export const getClass = async (data) => {
   let classData = await result.json();
   return { ok, classData };
 };
+
+/**
+ * Get all classes a user is enrolled in or an instructor for
+ * @param {string} uid user's uid
+ */
+export const getClasses = async (uid) => {
+  let result = await makeServerRequest({}, `user/classes?uid=${uid}`, "get");
+  let ok = await result.ok;
+  let classes = await result.json();
+  return { ok, classes };
+};
