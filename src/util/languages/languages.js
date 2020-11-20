@@ -13,13 +13,13 @@ export const SUPPORTED_LANGUAGES = [
     extension: "py",
     render: (code, showConsole) => CreatePythonDoc(btoa(code), showConsole),
   },
-  {
-    value: "javascript",
-    display: "JavaScript",
-    icon: faJs,
-    codemirror: "javascript",
-    extension: "js",
-  },
+//   {
+//     value: "javascript",
+//     display: "JavaScript",
+//     icon: faJs,
+//     codemirror: "javascript",
+//     extension: "js",
+//   },
   {
     value: "html",
     display: "HTML",
