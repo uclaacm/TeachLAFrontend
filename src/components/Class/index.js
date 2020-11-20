@@ -93,7 +93,7 @@ class ClassPage extends React.Component {
       uid: this.props.uid,
       cid: this.props.cid,
     };
-
+    console.log("about to get class with this data: " + JSON.stringify(data));
     try {
       fetch
         .getClass(data)

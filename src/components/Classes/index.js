@@ -1,4 +1,5 @@
 import React from "react";
+import * as fetch from "../../lib/fetch.js";
 import ClassBox from "./components/ClassBox";
 import ConfirmLeaveModalContainer from "./containers/ConfirmLeaveModalContainer";
 import CreateClassModalContainer from "./containers/CreateClassModalContainer";
@@ -8,6 +9,7 @@ import { ThumbnailArray } from "./constants";
 import "../../styles/ClassBox.scss";
 import "../../styles/Classes.scss";
 import "../../styles/Login.scss";
+import LoadingPage from "../common/LoadingPage";
 
 import { Button } from "reactstrap";
 
@@ -20,6 +22,7 @@ class Classes extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      loaded: false,
       redirectTo: "",
       confirmLeaveModalOpen: false,
       createClassModalOpen: false,
@@ -112,7 +115,7 @@ class Classes extends React.Component {
   };
 
   renderClassList = () => {
-    let classesIn = this.state.instructorView ? this.props.instrClasses : this.props.studClasses;
+    let classesIn = this.state.instructorView ? this.state.instrClasses : this.state.studClasses;
     classesIn = classesIn.concat([]);
     let classes = [];
     classesIn.sort((a, b) => {
@@ -185,6 +188,10 @@ class Classes extends React.Component {
   };
 
   render() {
+    if (!this.state.loaded) {
+      return <LoadingPage />;
+    }
+
     const containerStyle = {
       width: this.props.calculatedWidth,
       height: this.props.screenHeight,

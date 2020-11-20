@@ -17,11 +17,6 @@ class JoinClassModal extends React.Component {
     };
   }
 
-  //==============React Lifecycle Functions Start===================//
-  componentWillMount() {}
-
-  componentDidUpdate() {}
-
   closeModal = () => {
     if (this.props.onClose && {}.toString.call(this.props.onClose) === "[object Function]") {
       this.props.onClose();
@@ -68,7 +63,7 @@ class JoinClassModal extends React.Component {
           if (!json.ok) {
             this.setState({
               disableSubmit: false,
-              error: json.error || "There was a problem joining the class, please try again",
+              error: json.error || "There was a problem joining the class, please try again!",
             });
             return;
           }

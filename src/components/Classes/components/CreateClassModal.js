@@ -23,8 +23,6 @@ class CreateClassModal extends React.Component {
     };
   }
 
-  //==============React Lifecycle Functions Start===================//
-
   closeModal = () => {
     if (this.props.onClose && {}.toString.call(this.props.onClose) === "[object Function]") {
       this.props.onClose();
@@ -93,26 +91,22 @@ class CreateClassModal extends React.Component {
       thumbnail: this.state.thumbnail,
       name: this.state.name,
     };
-
+    console.log("about to try creating class, data is " + JSON.stringify(data));
     try {
       fetch
         .createClass(data)
         .then((res) => {
+          if (!res.ok) throw new Error(`Failed to create class! Got status ${res.status}`);
           return res.json();
         })
         .then((json) => {
-          if (!json.ok) {
-            this.setState({
-              disableSubmit: false,
-              error: json.error || "Failed to create class, please try again later",
-            });
-            return;
-          }
-          this.props.addClass(json.data.cid, json || {});
+          console.log(JSON.stringify(json));
+          this.props.addClass(json.cid, json || {});
           this.setState({ redirect: true });
           this.closeModal();
         })
         .catch((err) => {
+          console.log("caught an error");
           this.setState({
             disableSubmit: false,
             error: "Failed to create class, please try again later",
