@@ -1,6 +1,5 @@
 import React from "react";
 import ReactModal from "react-modal";
-import { CODEMIRROR_CONVERSIONS } from "../../../constants";
 import * as fetch from "../../../lib/fetch.js";
 import sketch from "../../../lib/";
 
@@ -283,8 +282,7 @@ class TextEditor extends React.Component {
     }
     //json required by CodeMirror
     const options = {
-      mode:
-        CODEMIRROR_CONVERSIONS[this.props.viewOnly ? this.props.vlanguage : this.props.language],
+      mode: this.props.viewOnly ? this.props.vlanguage.codemirror : this.props.language.codemirror,
       theme: this.getCMTheme(this.props.theme),
       lineNumbers: true, //text editor has line numbers
       lineWrapping: true, //text editor does not overflow in the x direction, uses word wrap (NOTE: it's like MO Word wrapping, so words are not cut in the middle, if a word overlaps, the whole word is brought to the next line)

@@ -1,8 +1,5 @@
 import React from "react";
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";
-import { faCogs } from "@fortawesome/free-solid-svg-icons";
-import { faPython, faHtml5, faReact } from "@fortawesome/free-brands-svg-icons";
-import { PYTHON, PROCESSING, REACT, HTML } from "../../constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 /**--------Props---------------
@@ -43,24 +40,9 @@ export default class DropdownButton extends React.Component {
   renderDropdownItems = () => {
     //map each program string in the array to a dropdown item
     return this.props.dropdownItems.map((program) => {
-      let faLanguage;
-      switch (program.language) {
-        case PYTHON:
-          faLanguage = faPython;
-          break;
-        case PROCESSING:
-          faLanguage = faCogs;
-          break;
-        case REACT:
-          faLanguage = faReact;
-          break;
-        case HTML:
-        default:
-          faLanguage = faHtml5;
-      }
       return (
         <DropdownItem key={program.key} onClick={() => this.selectLanguage(program.key)}>
-          <FontAwesomeIcon icon={faLanguage} fixedWidth />
+          <FontAwesomeIcon icon={program.language.icon} fixedWidth />
           <span style={{ marginLeft: "10px" }}>{program.name}</span>
         </DropdownItem>
       );
@@ -73,22 +55,6 @@ export default class DropdownButton extends React.Component {
     //   value = (<span>&#8226;{this.props.displayValue}</span>)
     // }
 
-    let faLanguage;
-    switch (this.props.currentLanguage) {
-      case PYTHON:
-        faLanguage = faPython;
-        break;
-      case PROCESSING:
-        faLanguage = faCogs;
-        break;
-      case REACT:
-        faLanguage = faReact;
-        break;
-      case HTML:
-      default:
-        faLanguage = faHtml5;
-    }
-
     return (
       <div className="editor-language-dropdown">
         <Dropdown
@@ -98,7 +64,8 @@ export default class DropdownButton extends React.Component {
           {/* HACK: disables the colors entirely, makes the dropdown transparent */}
           <DropdownToggle className="btn-language-dropdown" color={""} caret>
             <div className="editor-language-dropdown-closed-content">
-              <FontAwesomeIcon icon={faLanguage} fixedWidth /> {this.props.displayValue}
+              <FontAwesomeIcon icon={this.props.currentLanguage.icon} fixedWidth />{" "}
+              {this.props.displayValue}
             </div>
           </DropdownToggle>
           <DropdownMenu>{this.renderDropdownItems()}</DropdownMenu>

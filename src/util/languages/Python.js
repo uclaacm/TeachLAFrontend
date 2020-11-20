@@ -26,7 +26,7 @@ const getPythonSrcDocHead = () => `
 </head>
 `;
 
-const getPythonSrcDocSkulptScript = code => `
+const getPythonSrcDocSkulptScript = (code) => `
   <script type="text/javascript">
     var received = false;
     function outf(text) {
@@ -100,6 +100,6 @@ const getPythonSrcDocBody = (code, showConsole) => {
   `;
 };
 
-export default function(code, showConsole) {
+export default function (code, showConsole) {
   return `<html> ${getPythonSrcDocHead()} ${getPythonSrcDocBody(code, showConsole)} </html>`;
 }

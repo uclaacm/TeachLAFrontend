@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { setProgramCode, setProgramDirty } from "../../../actions/programsActions.js";
 import { addProgram } from "../../../actions/programsActions";
 import { setMostRecentProgram } from "../../../actions/userDataActions.js";
+import { getLanguageData } from "../../../util/languages/languages.js";
 
 const mapStateToProps = (state, ownProps) => {
   const { uid, mostRecentProgram } = state.userData;
@@ -14,6 +15,7 @@ const mapStateToProps = (state, ownProps) => {
   const programData = state.programs.get(mostRecentProgram, Immutable.Map()).toJS();
   return {
     ...programData,
+    language: getLanguageData(programData.language),
     mostRecentProgram,
     theme: ownProps.theme,
     uid,
@@ -25,11 +27,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     setProgramCode: (program, code) => {
       dispatch(setProgramCode(program, code));
     },
-    dirtyCode: program => {
+    dirtyCode: (program) => {
       dispatch(setProgramDirty(program, true));
     },
     addProgram: (program, data) => dispatch(addProgram(program, data)),
-    setMostRecentProgram: value => dispatch(setMostRecentProgram(value)),
+    setMostRecentProgram: (value) => dispatch(setMostRecentProgram(value)),
   };
 };
 

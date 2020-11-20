@@ -9,6 +9,7 @@ import PageNotFound from "./PageNotFound";
 import LoadingPage from "./common/LoadingPage";
 
 import { EDITOR_WIDTH_BREAKPOINT, CODE_AND_OUTPUT, CODE_ONLY } from "../constants";
+import { getLanguageData } from "../util/languages/languages.js";
 
 import "styles/Main.scss";
 
@@ -25,7 +26,7 @@ class ViewOnly extends React.Component {
       viewMode: this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT ? CODE_ONLY : CODE_AND_OUTPUT,
       pane1Style: { transition: "width .5s ease" },
       sketchName: "",
-      language: "",
+      language: null,
       thumbnail: "",
       code: "",
       loaded: false,
@@ -47,15 +48,17 @@ class ViewOnly extends React.Component {
       this.setState({ notfound: true });
       return;
     }
+    const lang = getLanguageData(sketch.language);
     this.setState({
       sketchName: sketch.name,
-      language: sketch.language,
+      language: lang,
       code: sketch.code,
       thumbnail: sketch.thumbnail,
       loaded: true,
     });
     this.props.setProgramCode(this.props.mostRecentProgram, sketch.code);
-    this.props.runCode(sketch.code, sketch.language);
+    this.props.setProgramLanguage(this.props.mostRecentProgram, sketch.language);
+    this.props.runCode(sketch.code, lang);
   };
 
   componentDidUpdate(prevProps) {
@@ -119,7 +122,7 @@ class ViewOnly extends React.Component {
           <EditorAndOutput
             // view mode
             viewMode={this.state.viewMode}
-            updateViewMode={viewMode => this.setState({ viewMode })}
+            updateViewMode={(viewMode) => this.setState({ viewMode })}
             // theme
             theme={this.props.theme}
             // sizing
@@ -131,7 +134,7 @@ class ViewOnly extends React.Component {
             // pane
             panelOpen={this.props.panelOpen}
             pane1Style={this.state.pane1Style}
-            changePane1Style={newStyle => this.setState(newStyle)}
+            changePane1Style={(newStyle) => this.setState(newStyle)}
             // program information
             mostRecentProgram={this.props.mostRecentProgram}
             language={this.state.language}

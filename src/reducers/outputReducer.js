@@ -4,11 +4,11 @@ import {
   SET_OUTPUT_LANGUAGE,
   SET_OUTPUT,
 } from "../actions/outputActions";
-import { PYTHON } from "../constants";
+import { getLanguageData } from "../util/languages/languages.js";
 
 const initialState = {
   runResult: "",
-  language: PYTHON,
+  language: getLanguageData("python"),
 };
 
 function outputReducer(state = initialState, action) {
