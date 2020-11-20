@@ -14,7 +14,7 @@ const mapStateToProps = (state) => {
 
   let studClasses = [];
   let instrClasses = [];
-  let uid = state.userData.uid;
+
   // Sort classes by whether user is instructor or student
   classes.forEach((thisClass) => {
     if (thisClass.instructors.includes(uid)) {
@@ -50,6 +50,7 @@ const mapStateToProps = (state) => {
     left,
     screenHeight: state.ui.screenHeight,
     panelOpen: state.ui.panelOpen,
+    uid: state.userData.uid,
   };
 };
 
