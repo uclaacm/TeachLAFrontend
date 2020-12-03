@@ -3,7 +3,7 @@
   but rather do that in each individual container
 */
 import { connect } from 'react-redux';
-import { loadClasses, clearClasses } from "../../actions/classesActions";
+import { clearInstrClasses, clearStudentClasses } from "../../actions/classesActions";
 import { loadPrograms, clearPrograms } from '../../actions/programsActions';
 import { screenResize } from '../../actions/uiActions';
 import { loadUserData, clearUserData, loadFailure } from '../../actions/userDataActions.js';
@@ -25,9 +25,6 @@ const mapDispatchToProps = (dispatch) => ({
       if (data.programs) {
         dispatch(loadPrograms(data.programs));
       }
-      if (data.classes) {
-        dispatch(loadClasses(data.classes));
-      }
       dispatch(loadUserData(uid, data.userData));
     } else {
       onFailure('SERVER ERROR: Unable to get user data from server');
@@ -36,7 +33,8 @@ const mapDispatchToProps = (dispatch) => ({
   clearUserData: () => {
     dispatch(clearUserData());
     dispatch(clearPrograms());
-    dispatch(clearClasses());
+      dispatch(clearInstrClasses());
+      dispatch(clearStudentClasses());
   },
   loadFailure: (err) => {
     dispatch(loadFailure(err));
