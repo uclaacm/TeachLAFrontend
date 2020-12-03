@@ -35,6 +35,64 @@ class Classes extends React.Component {
     };
   }
 
+  componentDidMount = async () => {
+    if (this.props.classesLoaded) {
+      this.setState({
+        loaded: true,
+      });
+    } else {
+      // // Test classes
+      // let studentClasses = [];
+      // let instrClasses = [];
+      // studentClasses.push(
+      //   {
+      //     name: "Python Class",
+      //     instructors: ["Python Master"],
+      //     cid: 2,
+      //   }
+      // );
+      // instrClasses.push(
+      //   {
+      //     name: "Will's Class",
+      //     instructors: ["Will O."],
+      //     cid: 1,
+      //   }
+      // );
+      // this.props.loadInstrClasses(instrClasses);
+      // this.props.loadStudentClasses(studentClasses);
+      // this.props.setClassesLoaded(true);
+      // end of test code
+
+      this.setState({
+        loaded: true,
+      });
+      try {
+        fetch
+          .getClasses(this.props.uid)
+          .then((res) => {
+            if (!res.ok) throw new Error(`Error loading classes! Got status ${res.status}`);
+            return res.json();
+          })
+          .then((json) => {
+            this.setState({
+              loaded: true,
+            });
+            // TODO: revisit this when api is finalized
+            this.props.loadInstrClasses(json.instrClasses);
+            this.props.loadStudentClasses(json.studentClasses);
+            this.props.setClassesLoaded(true);
+          })
+          .catch((err) => {
+            this.setState({
+              error: "Failed to load your classes. Please try again later.",
+            });
+          });
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+
   setCreateClassModalOpen = (val) => {
     this.setState({ createClassModalOpen: val });
   };
@@ -115,8 +173,9 @@ class Classes extends React.Component {
   };
 
   renderClassList = () => {
-    let classesIn = this.state.instructorView ? this.state.instrClasses : this.state.studClasses;
-    classesIn = classesIn.concat([]);
+    let classesIn = this.state.instructorView
+      ? this.props.instrClasses.concat([])
+      : this.props.studentClasses.concat([]);
     let classes = [];
     classesIn.sort((a, b) => {
       if (a.name < b.name) return -1;

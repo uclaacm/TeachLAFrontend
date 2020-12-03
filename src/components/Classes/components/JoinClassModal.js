@@ -67,7 +67,7 @@ class JoinClassModal extends React.Component {
             });
             return;
           }
-          this.props.addClass(json.data.cid, json || {});
+          this.props.addStudentClass(json.data.cid, json || {});
           this.setState({ redirect: true });
           this.closeModal();
         })
@@ -86,7 +86,7 @@ class JoinClassModal extends React.Component {
     /*
     let classLetter = String.fromCharCode(Math.floor(Math.random() * 26) + 65);
     let testCid = Math.floor(Math.random() * 10);
-    this.props.addClass(testCid,
+    this.props.addStudentClass(testCid,
       {
         thumbnail: Math.floor(Math.random() * 20),
         name: "Class ".concat(classLetter),

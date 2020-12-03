@@ -1,6 +1,6 @@
 import ConfirmLeaveModal from "../components/ConfirmLeaveModal.js";
 import { connect } from "react-redux";
-import { removeClass } from "../../../actions/classesActions";
+import { removeStudentClass } from "../../../actions/classesActions";
 import { setCurrentClass } from "../../../actions/userDataActions.js";
 
 const mapStateToProps = (state) => {
@@ -11,7 +11,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    removeClass: (cid) => dispatch(removeClass(cid)),
+    removeStudentClass: (cid) => dispatch(removeStudentClass(cid)),
     unsetClass: () => dispatch(setCurrentClass("")),
   };
 };

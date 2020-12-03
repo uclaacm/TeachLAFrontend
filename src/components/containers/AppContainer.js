@@ -5,11 +5,11 @@ import App from "../app.js";
 import { connect } from "react-redux";
 import { loadUserData, clearUserData, loadFailure } from "../../actions/userDataActions.js";
 import { loadPrograms, clearPrograms } from "../../actions/programsActions";
-import { loadClasses, clearClasses } from "../../actions/classesActions";
+import { clearInstrClasses, clearStudentClasses } from "../../actions/classesActions";
 import { screenResize } from "../../actions/uiActions";
 import * as fetch from "../../lib/fetch.js";
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     uid: state.userData.uid,
     errorMsg: state.userData.error,
@@ -18,7 +18,7 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     loadUserData: async (uid, onFailure) => {
       const { ok, data /*error*/ } = await fetch.getUserData(uid, true);
@@ -26,9 +26,6 @@ const mapDispatchToProps = dispatch => {
       if (ok && data && data.userData && Object.keys(data.userData).length) {
         if (data.programs) {
           dispatch(loadPrograms(data.programs));
-        }
-        if (data.classes) {
-          dispatch(loadClasses(data.classes));
         }
         dispatch(loadUserData(uid, data.userData));
       } else {
@@ -38,9 +35,10 @@ const mapDispatchToProps = dispatch => {
     clearUserData: () => {
       dispatch(clearUserData());
       dispatch(clearPrograms());
-      dispatch(clearClasses());
+      dispatch(clearInstrClasses());
+      dispatch(clearStudentClasses());
     },
-    loadFailure: err => {
+    loadFailure: (err) => {
       dispatch(loadFailure(err));
     },
     screenResize: (width, height) => dispatch(screenResize(width, height)),
