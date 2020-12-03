@@ -1,6 +1,6 @@
 import CreateClassModal from "../components/CreateClassModal.js";
 import { connect } from "react-redux";
-import { addClass } from "../../../actions/classesActions";
+import { addInstrClass } from "../../../actions/classesActions";
 
 const mapStateToProps = (state) => {
   return {
@@ -10,7 +10,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addClass: (cid, data) => dispatch(addClass(cid, data)),
+    addInstrClass: (cid, data) => dispatch(addInstrClass(cid, data)),
   };
 };
 

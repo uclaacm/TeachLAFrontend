@@ -30,7 +30,7 @@ class ConfirmLeaveModal extends React.Component {
             });
             return;
           }
-          this.props.removeClass(this.props.cid);
+          this.props.removeStudentClass(this.props.cid);
           this.props.inClass ? this.props.unsetClass() : this.closeModal();
         })
         .catch((err) => {
@@ -45,7 +45,7 @@ class ConfirmLeaveModal extends React.Component {
     }
 
     // Testing stuff (do this instead of the try-catch block):
-    // this.props.removeClass(this.props.cid);
+    // this.props.removeStudentClass(this.props.cid);
     // this.props.inClass ? this.props.unsetClass() : this.closeModal();
     // end of test stuff
 

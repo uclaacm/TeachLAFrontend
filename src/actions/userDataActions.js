@@ -64,6 +64,11 @@ export function setCurrentClass(cid) {
   return { type: SET_CURRENT_CLASS, value: cid };
 }
 
+export const SET_CLASSES_LOADED = "SET_CLASSES_LOADED";
+export function setClassesLoaded(loaded) {
+  return { type: SET_CLASSES_LOADED, value: loaded };
+}
+
 // /**
 //  * dataUpload - attempts to upload program of data into firestore to persist it.
 //  * @param  {[type]} program - the program to upload

@@ -101,7 +101,7 @@ class CreateClassModal extends React.Component {
         })
         .then((json) => {
           console.log(JSON.stringify(json));
-          this.props.addClass(json.cid, json || {});
+          this.props.addInstrClass(json.cid, json || {});
           this.setState({ redirect: true });
           this.closeModal();
         })
@@ -120,7 +120,7 @@ class CreateClassModal extends React.Component {
     // Testing stuff (do this instead of the try-catch block):
     /*
     let testCid = Math.floor(Math.random() * 10);
-    this.props.addClass(testCid,
+    this.props.addInstrClass(testCid,
       {
         thumbnail: this.state.thumbnail,
         name: this.state.name,

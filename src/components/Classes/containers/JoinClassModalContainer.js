@@ -1,6 +1,6 @@
 import JoinClassModal from "../components/JoinClassModal.js";
 import { connect } from "react-redux";
-import { addClass } from "../../../actions/classesActions";
+import { addStudentClass } from "../../../actions/classesActions";
 
 const mapStateToProps = (state) => {
   return {
@@ -10,7 +10,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addClass: (cid, data) => dispatch(addClass(cid, data)),
+    addStudentClass: (cid, data) => dispatch(addStudentClass(cid, data)),
   };
 };
 
