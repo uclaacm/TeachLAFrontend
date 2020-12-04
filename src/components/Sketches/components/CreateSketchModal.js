@@ -1,11 +1,8 @@
 import React from "react";
 import DropdownButton from "./DropdownButton";
 import ImageSelector from "../../common/ImageSelector";
-import {
-  SketchThumbnailArray,
-  LanguageDropdownValues,
-  LanguageDropdownDefault,
-} from "../constants";
+import { LanguageDropdownValues, LanguageDropdownDefault } from "../constants";
+import { ThumbnailArray } from "../../../constants";
 import * as fetch from "../../../lib/fetch.js";
 import { Redirect } from "react-router-dom";
 
@@ -60,7 +57,7 @@ class CreateSketchModal extends React.Component {
     if (
       this.state.thumbnail === undefined ||
       this.state.thumbnail === "" ||
-      this.state.thumbnail >= SketchThumbnailArray.length ||
+      this.state.thumbnail >= ThumbnailArray.length ||
       this.state.thumbnail < 0
     ) {
       // this.setState({error: "Please select a thumbnail"})
@@ -160,7 +157,7 @@ class CreateSketchModal extends React.Component {
   };
 
   renderSecondModal = () => {
-    let icons = SketchThumbnailArray.map((val, index) => {
+    let icons = ThumbnailArray.map((val, index) => {
       return (
         <figure
           className="sketches-gallery-item"
@@ -180,7 +177,7 @@ class CreateSketchModal extends React.Component {
       this.state.thumbnail !== -1 ? (
         <img
           src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${
-            SketchThumbnailArray[this.state.thumbnail]
+            ThumbnailArray[this.state.thumbnail]
           }.svg`}
           className={"sketches-modal-header-thumbnail"}
           alt="icon"

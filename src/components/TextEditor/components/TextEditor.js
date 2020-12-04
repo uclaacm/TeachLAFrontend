@@ -8,11 +8,10 @@ import ShareSketchModal from "./ShareSketchModal";
 
 import { Button } from "reactstrap";
 import OpenPanelButtonContainer from "../../common/containers/OpenPanelButtonContainer";
-import { EDITOR_WIDTH_BREAKPOINT } from "../../../constants";
+import { EDITOR_WIDTH_BREAKPOINT, ThumbnailArray } from "../../../constants";
 import ViewportAwareButton from "../../common/ViewportAwareButton.js";
 import DropdownButtonContainer from "../../common/containers/DropdownButtonContainer";
 import { faDownload, faSave, faShare, faCodeBranch } from "@fortawesome/free-solid-svg-icons";
-import { SketchThumbnailArray } from "../../Sketches/constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Redirect } from "react-router-dom";
 
@@ -218,7 +217,7 @@ class TextEditor extends React.Component {
 
   renderBanner = () => {
     let thumbnail =
-      SketchThumbnailArray[this.props.viewOnly ? this.props.vthumbnail : this.props.thumbnail];
+      ThumbnailArray[this.props.viewOnly ? this.props.vthumbnail : this.props.thumbnail];
     return (
       <div className="code-section-banner">
         <OpenPanelButtonContainer />

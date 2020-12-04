@@ -1,6 +1,6 @@
 import React from "react";
 import ImageSelector from "../../common/ImageSelector";
-import { ThumbnailArray } from "../constants";
+import { ThumbnailArray } from "../../../constants";
 import * as fetch from "../../../lib/fetch.js";
 import { Redirect } from "react-router-dom";
 

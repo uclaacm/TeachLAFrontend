@@ -3,7 +3,8 @@ import ReactModal from "react-modal";
 import { Button } from "reactstrap";
 import DropdownButton from "./DropdownButton";
 import ImageSelector from "../../common/ImageSelector";
-import { SketchThumbnailArray, LanguageDropdownValues } from "../constants";
+import { LanguageDropdownValues } from "../constants";
+import { ThumbnailArray } from "../../../constants";
 import { Container, Row, Col, FormGroup, Label, Input } from "reactstrap";
 import * as fetch from "../../../lib/fetch.js";
 
@@ -150,7 +151,7 @@ class EditSketchModal extends React.Component {
       <img
         src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${
           this.state.newThumbnail !== -1
-            ? SketchThumbnailArray[this.state.newThumbnail]
+            ? ThumbnailArray[this.state.newThumbnail]
             : this.props.sketchImg
         }.svg`}
         className={"sketches-modal-header-thumbnail"}
@@ -252,7 +253,7 @@ class EditSketchModal extends React.Component {
   }
 
   renderThumbnailModal() {
-    let icons = SketchThumbnailArray.map((val, index) => {
+    let icons = ThumbnailArray.map((val, index) => {
       return (
         <figure
           className="sketches-gallery-item"
@@ -274,7 +275,7 @@ class EditSketchModal extends React.Component {
       this.state.newThumbnail !== -1 ? (
         <img
           src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${
-            SketchThumbnailArray[this.state.newThumbnail]
+            ThumbnailArray[this.state.newThumbnail]
           }.svg`}
           className={"sketches-modal-header-thumbnail"}
           alt="icon"
