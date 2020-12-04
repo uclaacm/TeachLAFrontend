@@ -6,8 +6,8 @@ import {
 } from 'reactstrap';
 import * as fetch from '../../../lib/fetch.js';
 import ImageSelector from '../../common/ImageSelector';
+import { ThumbnailArray } from "../../../constants";
 import {
-  SketchThumbnailArray,
   LanguageDropdownValues,
   LanguageDropdownDefault,
 } from '../constants';
@@ -58,10 +58,10 @@ class CreateSketchModal extends React.Component {
 
   badThumbnailInput = () => {
     if (
-      this.state.thumbnail === undefined
-      || this.state.thumbnail === ''
-      || this.state.thumbnail >= SketchThumbnailArray.length
-      || this.state.thumbnail < 0
+      this.state.thumbnail === undefined ||
+      this.state.thumbnail === "" ||
+      this.state.thumbnail >= ThumbnailArray.length ||
+      this.state.thumbnail < 0
     ) {
       // this.setState({error: "Please select a thumbnail"})
       return true;
@@ -160,19 +160,21 @@ class CreateSketchModal extends React.Component {
   };
 
   renderSecondModal = () => {
-    const icons = SketchThumbnailArray.map((val, index) => (
-      <figure
-        className="sketches-gallery-item"
-        key={val}
-        onClick={() => this.setState({ thumbnail: index })}
-      >
-        <img
-          src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${val}.svg`}
-          className={`sketches-gallery-img${this.state.thumbnail === index ? '-selected' : ''}`}
-          alt="icon"
-        />
-      </figure>
-    ));
+    const icons = ThumbnailArray.map((val, index) => {
+      return (
+        <figure
+          className="sketches-gallery-item"
+          key={val}
+          onClick={() => this.setState({ thumbnail: index })}
+        >
+          <img
+            src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${val}.svg`}
+            className={"sketches-gallery-img" + (this.state.thumbnail === index ? "-selected" : "")}
+            alt="icon"
+          />
+        </figure>
+      );
+    });
 
     const thumbnailPreview = this.state.thumbnail !== -1 ? (
       <img

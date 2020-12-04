@@ -15,7 +15,7 @@ import { faCogs } from "@fortawesome/free-solid-svg-icons";
 import { faPython } from "@fortawesome/free-brands-svg-icons";
 import { faHtml5 } from "@fortawesome/free-brands-svg-icons";
 import SketchBox from "./components/SketchBox";
-import { ThumbnailArray } from "../Classes/constants";
+import { ThumbnailArray } from "../../constants";
 import CodeDownloader from "../../util/languages/CodeDownloader";
 
 const SKETCHES_ROW_PADDING = 100;
