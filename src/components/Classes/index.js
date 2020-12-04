@@ -31,7 +31,6 @@ class Classes extends React.Component {
       selectedImg: "",
       selectedCid: "",
       classCode: "",
-      instructorView: false,
     };
   }
 
@@ -106,12 +105,12 @@ class Classes extends React.Component {
   };
 
   switchInstrStudView = () => {
-    this.setState({ instructorView: !this.state.instructorView });
+    this.props.setOnInstrView(!this.props.onInstrView);
   };
 
   renderHeader = () => {
     let buttonText, icon;
-    if (this.state.instructorView) {
+    if (this.props.onInstrView) {
       buttonText = "To Student View";
       icon = faPencilAlt;
     } else {
@@ -173,7 +172,7 @@ class Classes extends React.Component {
   };
 
   renderClassList = () => {
-    let classesIn = this.state.instructorView
+    let classesIn = this.props.onInstrView
       ? this.props.instrClasses.concat([])
       : this.props.studentClasses.concat([]);
     let classes = [];
@@ -188,7 +187,7 @@ class Classes extends React.Component {
           img={this.getThumbnailSrc(element.thumbnail)}
           name={element.name}
           instructors={element.instructors}
-          showLeaveButton={!this.state.instructorView}
+          showLeaveButton={!this.props.onInstrView}
           deleteFunc={() => {
             this.setConfirmLeaveModalOpen(true, element.name, element.cid);
           }}
@@ -199,7 +198,7 @@ class Classes extends React.Component {
       );
     });
 
-    let renderJoinOrCreate = this.state.instructorView
+    let renderJoinOrCreate = this.props.onInstrView
       ? this.renderCreateAClass()
       : this.renderJoinAClass();
     return (

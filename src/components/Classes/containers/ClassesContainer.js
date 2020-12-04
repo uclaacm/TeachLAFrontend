@@ -1,8 +1,8 @@
 import Classes from "../index.js";
 import { connect } from "react-redux";
 import { loadInstrClasses, loadStudentClasses } from "../../../actions/classesActions.js";
-import { setCurrentClass, setClassesLoaded } from "../../../actions/userDataActions.js";
-import { togglePanel } from "../../../actions/uiActions.js";
+import { setCurrentClass } from "../../../actions/userDataActions.js";
+import { togglePanel, setClassesLoaded, setOnInstrView } from "../../../actions/uiActions.js";
 import { OPEN_PANEL_LEFT, CLOSED_PANEL_LEFT, PANEL_SIZE } from "../../../constants";
 import Immutable from "immutable";
 
@@ -24,11 +24,12 @@ const mapStateToProps = (state) => {
   return {
     studentClasses,
     instrClasses,
-    classesLoaded: state.userData.classesLoaded,
     calculatedWidth,
     left,
     screenHeight: state.ui.screenHeight,
     panelOpen: state.ui.panelOpen,
+    classesLoaded: state.ui.classesLoaded,
+    onInstrView: state.ui.onInstrView,
     uid: state.userData.uid,
   };
 };
@@ -40,6 +41,7 @@ const mapDispatchToProps = (dispatch) => {
     loadInstrClasses: (classes) => dispatch(loadInstrClasses(classes)),
     loadStudentClasses: (classes) => dispatch(loadStudentClasses(classes)),
     setClassesLoaded: (value) => dispatch(setClassesLoaded(value)),
+    setOnInstrView: (value) => dispatch(setOnInstrView(value)),
   };
 };
 

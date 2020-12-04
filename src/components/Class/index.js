@@ -10,6 +10,7 @@ import { Button } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import ConfirmLeaveModalContainer from "../Classes/containers/ConfirmLeaveModalContainer";
+import Error from "../Error";
 // For sketches list
 import { faCogs } from "@fortawesome/free-solid-svg-icons";
 import { faPython } from "@fortawesome/free-brands-svg-icons";
@@ -116,7 +117,7 @@ class ClassPage extends React.Component {
         })
         .catch((err) => {
           this.setState({
-            error: "Failed to load the class. Please try again later.",
+            error: "Couldn't load your class. Please try again later.",
           });
         });
     } catch (err) {
@@ -296,6 +297,10 @@ class ClassPage extends React.Component {
     // If no class selected, go back to classes page.
     if (this.props.cid === "") {
       return <Redirect to="/classes" />;
+    }
+
+    if (this.state.error) {
+      return <Error errorMsg={this.state.error} isValidUser={true} returnTo="/classes" />;
     }
 
     if (!this.state.loaded) {
