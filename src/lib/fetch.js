@@ -161,7 +161,7 @@ export const leaveClass = (data) => {
  * @param {Object} data member's uid and class's cid {uid, cid}
  */
 export const getClass = async (data) => {
-  let result = await makeServerRequest(data, "class/get", "get");
+  let result = await makeServerRequest(data, "class/get");
   let ok = await result.ok;
   let classData = await result.json();
   return { ok, classData };

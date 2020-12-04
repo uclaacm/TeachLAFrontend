@@ -102,6 +102,7 @@ class CreateClassModal extends React.Component {
         .then((json) => {
           console.log(JSON.stringify(json));
           this.props.addInstrClass(json.cid, json || {});
+          this.props.setCurrentClass(json.cid);
           this.setState({ redirect: true });
           this.closeModal();
         })
@@ -131,6 +132,7 @@ class CreateClassModal extends React.Component {
         cid: testCid,
         wid: "Metallic Funky Monkey",
       });
+    this.props.setCurrentClass(testCid);
     this.closeModal();
 */
     // end of testing stuff

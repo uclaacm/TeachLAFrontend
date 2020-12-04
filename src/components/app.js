@@ -94,7 +94,7 @@ class App extends React.Component {
               path="/"
               render={() =>
                 this.props.errorMsg !== "" ? (
-                  <Error errorMsg={this.props.errorMsg} isValidUser={isValidUser} />
+                  <Error errorMsg={this.props.errorMsg} isValidUser={isValidUser} returnTo="/" />
                 ) : isValidUser ? (
                   <Redirect to="/editor" />
                 ) : (
@@ -107,7 +107,7 @@ class App extends React.Component {
               path="/login"
               render={() =>
                 this.props.errorMsg !== "" ? (
-                  <Error errorMsg={this.props.errorMsg} isValidUser={isValidUser} />
+                  <Error errorMsg={this.props.errorMsg} isValidUser={isValidUser} returnTo="/" />
                 ) : isValidUser ? (
                   <Redirect to="/editor" />
                 ) : (
@@ -120,7 +120,7 @@ class App extends React.Component {
               path="/editor"
               render={() =>
                 this.props.errorMsg !== "" ? (
-                  <Error errorMsg={this.props.errorMsg} isValidUser={isValidUser} />
+                  <Error errorMsg={this.props.errorMsg} isValidUser={isValidUser} returnTo="/" />
                 ) : !isValidUser ? (
                   <Redirect to="/login" />
                 ) : (
@@ -133,7 +133,7 @@ class App extends React.Component {
               path="/createUser"
               render={({ location }) =>
                 this.props.errorMsg !== "" ? (
-                  <Error errorMsg={this.props.errorMsg} isValidUser={isValidUser} />
+                  <Error errorMsg={this.props.errorMsg} isValidUser={isValidUser} returnTo="/" />
                 ) : isValidUser ? (
                   <Redirect to="/editor" />
                 ) : (
@@ -146,7 +146,7 @@ class App extends React.Component {
               path="/sketches"
               render={() =>
                 this.props.errorMsg !== "" ? (
-                  <Error errorMsg={this.props.errorMsg} isValidUser={isValidUser} />
+                  <Error errorMsg={this.props.errorMsg} isValidUser={isValidUser} returnTo="/" />
                 ) : isValidUser ? (
                   <MainContainer contentType="sketches" />
                 ) : (
@@ -166,7 +166,7 @@ class App extends React.Component {
               path="/class"
               render={() =>
                 this.props.errorMsg !== "" ? (
-                  <Error errorMsg={this.props.errorMsg} isValidUser={isValidUser} />
+                  <Error errorMsg={this.props.errorMsg} isValidUser={isValidUser} returnTo="/" />
                 ) : isValidUser ? (
                   <MainContainer contentType="classPage" />
                 ) : (
@@ -179,7 +179,7 @@ class App extends React.Component {
               path="/classes"
               render={() =>
                 this.props.errorMsg !== "" ? (
-                  <Error errorMsg={this.props.errorMsg} isValidUser={isValidUser} />
+                  <Error errorMsg={this.props.errorMsg} isValidUser={isValidUser} returnTo="/" />
                 ) : isValidUser ? (
                   <MainContainer contentType="classes" />
                 ) : (
@@ -192,7 +192,7 @@ class App extends React.Component {
               path="/error"
               render={() =>
                 this.props.errorMsg ? (
-                  <Error errorMsg={this.props.errorMsg} isValidUser={isValidUser} />
+                  <Error errorMsg={this.props.errorMsg} isValidUser={isValidUser} returnTo="/" />
                 ) : (
                   this.renderHome(isValidUser)
                 )

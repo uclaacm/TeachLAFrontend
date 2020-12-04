@@ -6,7 +6,6 @@ import {
   SET_MOST_RECENT_PROGRAM,
   SET_PHOTO_NAME,
   SET_CURRENT_CLASS,
-  SET_CLASSES_LOADED,
 } from "../actions/userDataActions";
 
 import * as fetch from "../lib/fetch.js";
@@ -18,7 +17,6 @@ const initialState = {
   mostRecentProgram: "",
   photoName: "",
   currentClass: "",
-  classesLoaded: false,
 };
 
 function userDataReducer(state = initialState, action) {
@@ -70,8 +68,6 @@ function userDataReducer(state = initialState, action) {
       //     console.log(err);
       //   });
       return Object.assign({}, state, { currentClass: action.value });
-    case SET_CLASSES_LOADED:
-      return Object.assign({}, state, { classesLoaded: action.value });
     default:
       return state;
   }
