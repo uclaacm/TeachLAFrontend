@@ -4,8 +4,8 @@ import { Redirect } from 'react-router-dom';
 import { Button, Container, Row, Col, FormGroup, Label, Input } from 'reactstrap';
 import * as fetch from '../../../lib/fetch.js';
 import ImageSelector from '../../common/ImageSelector';
+import { ThumbnailArray } from "../../../constants";
 import {
-  SketchThumbnailArray,
   LanguageDropdownValues,
   LanguageDropdownDefault,
 } from '../constants';
@@ -50,7 +50,7 @@ const CreateSketchModal = (props) => {
     if (
       thumbnail === undefined ||
       thumbnail === '' ||
-      thumbnail >= SketchThumbnailArray.length ||
+      thumbnail >= ThumbnailArray.length ||
       thumbnail < 0
     ) {
       // setError('Please select a thumbnail')
@@ -144,7 +144,7 @@ const CreateSketchModal = (props) => {
   };
 
   const renderSecondModal = () => {
-    const icons = SketchThumbnailArray.map((val, index) => (
+    const icons = ThumbnailArray.map((val, index) => (
       <figure className="sketches-gallery-item" key={val} onClick={() => setThumbnail(index)}>
         <img
           src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${val}.svg`}

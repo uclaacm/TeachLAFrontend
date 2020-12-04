@@ -5,7 +5,7 @@ import ConfirmLeaveModalContainer from "./containers/ConfirmLeaveModalContainer"
 import CreateClassModalContainer from "./containers/CreateClassModalContainer";
 import JoinClassModalContainer from "./containers/JoinClassModalContainer";
 import OpenPanelButtonContainer from "../common/containers/OpenPanelButtonContainer";
-import { ThumbnailArray } from "./constants";
+import { ThumbnailArray } from "../../constants";
 import "../../styles/ClassBox.scss";
 import "../../styles/Classes.scss";
 import "../../styles/Login.scss";

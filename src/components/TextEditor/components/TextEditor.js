@@ -4,16 +4,14 @@ import React from 'react';
 import ReactModal from 'react-modal';
 import { Redirect } from 'react-router-dom';
 import { Button } from 'reactstrap';
-import { EDITOR_WIDTH_BREAKPOINT } from '../../../constants';
+import { EDITOR_WIDTH_BREAKPOINT, ThumbnailArray } from "../../../constants";
 import sketch from '../../../lib';
 import * as fetch from '../../../lib/fetch.js';
 
 import DropdownButtonContainer from '../containers/DropdownButtonContainer';
 import OpenPanelButtonContainer from '../../common/containers/OpenPanelButtonContainer';
 import ViewportAwareButton from '../../common/ViewportAwareButton.js';
-import { SketchThumbnailArray } from '../../Sketches/constants';
-import EditorRadio from './EditorRadio.js';
-import ShareSketchModal from './ShareSketchModal';
+
 
 let CodeMirror = null;
 if (typeof window !== 'undefined' && typeof window.navigator !== 'undefined') {
@@ -215,7 +213,7 @@ class TextEditor extends React.Component {
 
   renderBanner = () => {
     const thumbnail =
-      SketchThumbnailArray[this.props.viewOnly ? this.props.vthumbnail : this.props.thumbnail];
+      ThumbnailArray[this.props.viewOnly ? this.props.vthumbnail : this.props.thumbnail];
     return (
       <div className="code-section-banner">
         <OpenPanelButtonContainer />
