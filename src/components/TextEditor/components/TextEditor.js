@@ -3,6 +3,7 @@ import ReactModal from "react-modal";
 import * as fetch from "../../../lib/fetch.js";
 import sketch from "../../../lib/";
 import { ControlledEditor } from "@monaco-editor/react";
+import monacoConfig from "./monacoConfig";
 import EditorRadio from "./EditorRadio.js";
 import ShareSketchModal from "./ShareSketchModal";
 import { Button } from "reactstrap";
@@ -253,9 +254,6 @@ class TextEditor extends React.Component {
       return <Redirect to="/sketches" />;
     }
 
-    const options = {
-      selectOnLineNumbers: true,
-    };
     return (
       <div className={`theme-` + this.props.theme} style={{ height: "100%" }}>
         <div className="code-section">
@@ -276,14 +274,14 @@ class TextEditor extends React.Component {
           >
             <ControlledEditor
               language={this.props.viewOnly ? this.props.vlanguage : this.props.language}
-              options={options}
               theme={this.getCMTheme(this.props.theme)}
               wrappingIndent="indent"
+              options={monacoConfig}
               value={this.props.code}
               editorDidMount={(editorInstance) => {
                 this.setEditorInstance(editorInstance);
               }}
-              onChange={this.updateCode}
+              onChange={this.props.viewOnly ? "" : this.updateCode}
               onBeforeChange={this.updateCode}
             />
           </div>
