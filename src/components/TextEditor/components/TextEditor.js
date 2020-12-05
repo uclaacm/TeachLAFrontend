@@ -2,10 +2,9 @@ import React from "react";
 import ReactModal from "react-modal";
 import * as fetch from "../../../lib/fetch.js";
 import sketch from "../../../lib/";
-
+import { ControlledEditor } from "@monaco-editor/react";
 import EditorRadio from "./EditorRadio.js";
 import ShareSketchModal from "./ShareSketchModal";
-
 import { Button } from "reactstrap";
 import OpenPanelButtonContainer from "../../common/containers/OpenPanelButtonContainer";
 import { EDITOR_WIDTH_BREAKPOINT } from "../../../constants";
@@ -16,26 +15,11 @@ import { SketchThumbnailArray } from "../../Sketches/constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Redirect } from "react-router-dom";
 
-let CodeMirror = null;
-if (typeof window !== "undefined" && typeof window.navigator !== "undefined") {
-  // import {Controlled as CodeMirror} from 'react-codemirror2'
-  CodeMirror = require("react-codemirror2").Controlled;
-  require("codemirror/mode/javascript/javascript.js");
-  require("codemirror/mode/htmlmixed/htmlmixed.js");
-  require("codemirror/mode/python/python.js");
-  require("codemirror/mode/jsx/jsx.js");
-  require("codemirror/mode/clike/clike.js");
-}
-/**----------Props--------
- * None
- */
-
 class TextEditor extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      codeMirrorInstance: null,
       currentLine: 0,
       sketch: null,
       showForkModal: false,
@@ -74,7 +58,7 @@ class TextEditor extends React.Component {
     try {
       let programToUpdate = {};
       programToUpdate[this.props.mostRecentProgram] = {
-        code: this.props.code,
+        code: this.props.code, ///%%might have to check if the code doesnt get transferred properly
       };
 
       await fetch.updatePrograms(this.props.uid, programToUpdate);
@@ -89,30 +73,6 @@ class TextEditor extends React.Component {
       ev.returnValue = "";
     }
     return ev;
-  };
-
-  setCodeMirrorInstance = (codeMirrorInstance) => {
-    this.setState({ codeMirrorInstance });
-  };
-
-  updateCode = (editor, data, newCode) => {
-    //if the code's not yet dirty, and the old code is different from the new code, make it dirty
-    if (!this.props.dirty && this.props.code !== newCode) {
-      this.props.dirtyCode(this.props.mostRecentProgram);
-    }
-    this.props.setProgramCode(this.props.mostRecentProgram, newCode);
-  };
-
-  setCurrentLine = (cm) => {
-    const { codeMirrorInstance, currentLine } = this.state;
-    let { line } = cm.getCursor();
-    if (codeMirrorInstance) {
-      //removeLineClass removes the back highlight style from the last selected line
-      codeMirrorInstance.removeLineClass(currentLine, "wrap", "selected-line");
-      //addLineClass adds the style to the newly selected line
-      codeMirrorInstance.addLineClass(line, "wrap", "selected-line");
-    }
-    this.setState({ currentLine: line });
   };
 
   renderForkModal = () => {
@@ -168,13 +128,17 @@ class TextEditor extends React.Component {
       fetch
         .createSketch(data)
         .then((res) => {
-          if (!res.ok) throw new Error(`Failed to create sketch! Got status ${res.status}.`);
           return res.json();
         })
         .then((json) => {
-          const { uid, ...programData } = json;
+          if (!json.ok) {
+            this.setState({
+              error: json.error || "Failed to create sketch, please try again later",
+            });
+            return;
+          }
           this.setState({ forking: false, forked: true });
-          this.props.addProgram(uid, programData || {});
+          this.props.addProgram(json.data.key, json.data.programData || {});
         })
         .catch((err) => {
           this.setState({
@@ -196,19 +160,14 @@ class TextEditor extends React.Component {
     this.setState((prevState) => ({ showShareModal: !prevState.showShareModal }));
   };
 
-  /**
-   * returns a theme string for the CodeMirror editor, based off of the app's current theme
-   * @param {string} theme - the app's current theme
-   * @returns {string} the codemirror theme - see https://codemirror.net/demo/theme.html for more info
-   */
-
+  //returns a theme based on light or dark mode for vs code name
   getCMTheme = (theme) => {
     switch (theme) {
       case "light":
         return "duotone-light";
       case "dark":
       default:
-        return "material";
+        return "vs-dark"; //%% these themes can be changed if you dont like the color
     }
   };
 
@@ -275,20 +234,22 @@ class TextEditor extends React.Component {
       </div>
     );
   };
+  updateCode = (e, newCode) => {
+    //if the code's not yet dirty, and the old code is different from the new code, make it dirty
+    if (!this.props.dirty && this.props.code !== newCode) {
+      this.props.dirtyCode(this.props.mostRecentProgram);
+    }
+    this.props.setProgramCode(this.props.mostRecentProgram, newCode);
+  };
 
   render() {
     if (this.state.redirectToSketch === true) {
       return <Redirect to="/sketches" />;
     }
-    //json required by CodeMirror
-    const options = {
-      mode: this.props.viewOnly ? this.props.vlanguage.codemirror : this.props.language.codemirror,
-      theme: this.getCMTheme(this.props.theme),
-      lineNumbers: true, //text editor has line numbers
-      lineWrapping: true, //text editor does not overflow in the x direction, uses word wrap (NOTE: it's like MO Word wrapping, so words are not cut in the middle, if a word overlaps, the whole word is brought to the next line)
-      indentWithTabs: true,
-    };
 
+    const options = {
+      selectOnLineNumbers: true,
+    };
     return (
       <div className={`theme-` + this.props.theme} style={{ height: "100%" }}>
         <div className="code-section">
@@ -307,19 +268,15 @@ class TextEditor extends React.Component {
               maxHeight: this.props.screenHeight - 61 - 20,
             }}
           >
-            <CodeMirror
-              editorDidMount={(codeMirrorInstance) => {
-                codeMirrorInstance.refresh();
-                this.setCodeMirrorInstance(codeMirrorInstance);
-              }}
-              value={this.props.code}
-              lineWrapping
-              indentWithTabs={true}
+            <ControlledEditor
+              language="python"
               options={options}
-              onCursor={(cm) => {
-                this.setCurrentLine(cm);
+              theme={this.getCMTheme(this.props.theme)}
+              wrappingIndent="indent"
+              value={this.props.code}
+              editorDidMount={(editorInstance) => {
+                this.setEditorInstance(editorInstance);
               }}
-              onBeforeChange={this.updateCode}
               onChange={this.updateCode}
             />
           </div>
