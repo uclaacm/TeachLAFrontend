@@ -14,12 +14,14 @@ import { faDownload, faSave, faShare, faCodeBranch } from "@fortawesome/free-sol
 import { SketchThumbnailArray } from "../../Sketches/constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Redirect } from "react-router-dom";
+import { addMonacoComments } from "../../../actions/programsActions.js";
 
 class TextEditor extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      editorInstance: null,
       currentLine: 0,
       sketch: null,
       showForkModal: false,
@@ -73,6 +75,10 @@ class TextEditor extends React.Component {
       ev.returnValue = "";
     }
     return ev;
+  };
+
+  setEditorInstance = (editorInstance) => {
+    this.setState({ editorInstance });
   };
 
   renderForkModal = () => {
@@ -242,10 +248,47 @@ class TextEditor extends React.Component {
     this.props.setProgramCode(this.props.mostRecentProgram, newCode);
   };
 
+  addComment = (editorInstance) => {
+    console.log("Pog adding");
+  };
+
+  initComments = (editorInstance) => {
+    editorInstance.addAction({
+      id: "add_comment",
+      label: "Add Comment",
+      precondition: "editorHasSelection",
+      contextMenuGroupId: "2_comments",
+      run: this.addComment,
+    });
+    debugger;
+    const decorations = editorInstance.deltaDecorations(
+      [],
+      (this.props.comments || []).map(
+        ({ startLineNumber, startColumn, endLineNumber, endColumn, message }) => ({
+          range: new monaco.Range(startLineNumber, startColumn, endLineNumber, endColumn),
+          options: {
+            hoverMessage: { value: message },
+            inlineClassName: "monaco-comment",
+          },
+        }),
+      ),
+    );
+    addMonacoComments(this.props.mostRecentProgram, decorations);
+  };
+
   render() {
     if (this.state.redirectToSketch === true) {
       return <Redirect to="/sketches" />;
     }
+
+    const comments = [
+      {
+        startLine: 7,
+        startColumn: 1,
+        endLine: 7,
+        endColumn: 24,
+      },
+    ];
 
     const options = {
       selectOnLineNumbers: true,
@@ -274,8 +317,9 @@ class TextEditor extends React.Component {
               theme={this.getCMTheme(this.props.theme)}
               wrappingIndent="indent"
               value={this.props.code}
-              editorDidMount={(editorInstance) => {
+              editorDidMount={(_, editorInstance) => {
                 this.setEditorInstance(editorInstance);
+                this.initComments(editorInstance);
               }}
               onChange={this.updateCode}
             />

@@ -3,6 +3,8 @@ import {
   SET_PROGRAM_LANGUAGE,
   SET_PROGRAM_NAME,
   SET_PROGRAM_THUMBNAIL,
+  ADD_MONACO_COMMENTS,
+  REMOVE_MONACO_COMMENTS,
   DELETE_PROGRAM,
   LOAD_PROGRAMS,
   CLEAR_PROGRAMS,
@@ -27,6 +29,14 @@ function programsReducer(state = initialState, action) {
       return state.setIn([action.program, "name"], action.value);
     case SET_PROGRAM_THUMBNAIL:
       return state.setIn([action.program, "thumbnail"], action.value);
+    case ADD_MONACO_COMMENTS:
+      return state.updateIn([action.program, "monacoComments"], (comments) =>
+        comments ? comments.concat(action.value) : action.value,
+      );
+    case REMOVE_MONACO_COMMENTS:
+      return state.updateIn([action.program, "monacoComments"], (comments) =>
+        comments ? comments.filter((c) => !action.value.includes(c)) : [],
+      );
     case ADD_PROGRAM:
       return state.set(action.program, Immutable.fromJS(action.data));
     case DELETE_PROGRAM:

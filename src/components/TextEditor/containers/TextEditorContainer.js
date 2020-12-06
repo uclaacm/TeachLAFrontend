@@ -16,6 +16,15 @@ const mapStateToProps = (state, ownProps) => {
   return {
     ...programData,
     language: getLanguageData(programData.language),
+    comments: [
+      {
+        startLineNumber: 1,
+        startColumn: 1,
+        endLineNumber: 1,
+        endColumn: 5,
+        message: "Cool message Pog",
+      },
+    ],
     mostRecentProgram,
     theme: ownProps.theme,
     uid,

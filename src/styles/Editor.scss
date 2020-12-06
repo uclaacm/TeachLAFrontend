@@ -124,6 +124,9 @@
   @include themify($themes) {
     background-color: themed("backgroundColor");
   }
+  .monaco-comment {
+    background: red;
+  }
 }
 
 .btn-language-dropdown {

@@ -18,6 +18,17 @@ export function setProgramThumbnail(program, value) {
   return { type: SET_PROGRAM_THUMBNAIL, program, value };
 }
 
+// Provide array of IDs of Monaco decorations
+export const ADD_MONACO_COMMENTS = "ADD_MONACO_COMMENTS";
+export function addMonacoComments(program, value) {
+  return { type: ADD_MONACO_COMMENTS, program, value };
+}
+
+export const REMOVE_MONACO_COMMENTS = "ADD_MONACO_COMMENTS";
+export function removeMonacoComments(program, value) {
+  return { type: REMOVE_MONACO_COMMENTS, program, value };
+}
+
 export const DELETE_PROGRAM = "DELETE_PROGRAM";
 export function deleteProgram(program) {
   return { type: DELETE_PROGRAM, program };
