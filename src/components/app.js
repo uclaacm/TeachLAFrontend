@@ -7,7 +7,7 @@ import ViewOnlyContainer from "./containers/ViewOnlyContainer";
 import LoadingPage from "./common/LoadingPage";
 import Error from "./Error";
 import PageNotFound from "./PageNotFound";
-import * as firebase from "firebase/app";
+import firebase from "firebase/app";
 import "firebase/auth";
 import "styles/app.scss";
 

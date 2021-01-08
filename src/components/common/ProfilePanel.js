@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Row, Col, Button } from "reactstrap";
-import * as firebase from "firebase/app";
+import firebase from "firebase/app";
 import "firebase/auth";
 import {
   PHOTO_NAMES,

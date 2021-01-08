@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "reactstrap";
 import { RingLoader } from "react-spinners";
 import { Link } from "react-router-dom";
-import * as firebase from "firebase/app";
+import firebase from "firebase/app";
 import "firebase/auth";
 import SHA256 from "crypto-js/sha256";
 import LoginInput from "./LoginInput.js";

@@ -8,7 +8,7 @@ import { createStore } from "redux";
 import appReducers from "./reducers";
 import config from "./firebase";
 import { Provider } from "react-redux";
-import * as firebase from "firebase/app";
+import firebase from "firebase/app";
 
 firebase.initializeApp(config);
 
