@@ -1,5 +1,19 @@
 @import 'styles/variables.scss';
 
+.add-sketch-box {
+  height: 153px;
+}
+
+.add-sketch-box-body {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.add-sketch-plus {
+  margin: 40px 0 19px;
+}
+
 .class-content-container {
   display: flex;
   flex-direction: column;
@@ -21,4 +35,23 @@
 .class-info-box {
     width: 100%;
     margin: 5px 10px 25px;
+}
+
+.class-sketches-grid {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.class-sketches-grid-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  padding: 20px 0;
 }
