@@ -220,8 +220,8 @@ class ProfilePanel extends React.Component {
     <Link
       to={{ pathname: "/classes" }}
       className="panel-button btn btn-secondary btn-lg btn-block"
-      // key="sketches-button"
-      // id="sketches-button"
+      key="classes-button"
+      id="classes-button"
     >
       <FontAwesomeIcon icon={faBook} />
       <span className="panel-button-text">Classes</span>
@@ -267,6 +267,7 @@ class ProfilePanel extends React.Component {
       break;
 =======
       case "classes":
+      case "classPage":
         panelButtons.push(this.renderEditorButton());
         panelButtons.push(this.renderSketchesButton());
         break;

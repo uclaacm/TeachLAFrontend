@@ -1,6 +1,5 @@
 import AddSketchModal from "../components/AddSketchModal.js";
 import { connect } from "react-redux";
-import { addClass } from "../../../actions/classesActions";
 
 const mapStateToProps = (state) => {
   return {
@@ -9,9 +8,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    addClass: (classKey, data) => dispatch(addClass(classKey, data)),
-  };
+  return {};
 };
 
 const AddSketchModalContainer = connect(mapStateToProps, mapDispatchToProps)(AddSketchModal);
