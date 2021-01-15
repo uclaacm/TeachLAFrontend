@@ -34,8 +34,10 @@ class Classes extends React.Component {
     };
   }
 
+  // TODO: remove this call and the classesLoaded stuff. Classes come from the getUser call now.
   componentDidMount = async () => {
     if (this.props.classesLoaded) {
+      // If classes are already loaded, don't fetch them again.
       this.setState({
         loaded: true,
       });
@@ -62,9 +64,6 @@ class Classes extends React.Component {
       // this.props.setClassesLoaded(true);
       // end of test code
 
-      this.setState({
-        loaded: true,
-      });
       try {
         fetch
           .getClasses(this.props.uid)
@@ -80,13 +79,21 @@ class Classes extends React.Component {
             this.props.loadInstrClasses(json.instrClasses);
             this.props.loadStudentClasses(json.studentClasses);
             this.props.setClassesLoaded(true);
+            this.setState({
+              loaded: true,
+            });
           })
           .catch((err) => {
             this.setState({
               error: "Failed to load your classes. Please try again later.",
+              loaded: true,
             });
           });
       } catch (err) {
+        this.setState({
+          error: "Failed to load your classes. Please try again later.",
+          loaded: true,
+        });
         console.log(err);
       }
     }

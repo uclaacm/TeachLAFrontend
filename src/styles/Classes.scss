@@ -33,25 +33,6 @@
   overflow: auto;
 }
 
-.class-sketches-grid {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  width: 100%;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
-.class-sketches-grid-row {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  width: 100%;
-  padding: 20px 0;
-}
-
 // a copy of .sketches-header
 .classes-header {
   height: 67px;

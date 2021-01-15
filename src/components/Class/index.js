@@ -8,7 +8,7 @@ import LoadingPage from "../common/LoadingPage";
 import { Redirect } from "react-router-dom";
 import { Button } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import { faSignOutAlt, faPlus } from "@fortawesome/free-solid-svg-icons";
 import ConfirmLeaveModalContainer from "../Classes/containers/ConfirmLeaveModalContainer";
 import Error from "../Error";
 // For sketches list
@@ -16,8 +16,10 @@ import { faCogs } from "@fortawesome/free-solid-svg-icons";
 import { faPython } from "@fortawesome/free-brands-svg-icons";
 import { faHtml5 } from "@fortawesome/free-brands-svg-icons";
 import SketchBox from "./components/SketchBox";
+import "../../styles/SketchBox.scss";
 import { ThumbnailArray } from "../../constants";
 import CodeDownloader from "../../util/languages/CodeDownloader";
+import AddSketchModalContainer from "./containers/AddSketchModalContainer.js";
 
 const SKETCHES_ROW_PADDING = 100;
 const SKETCH_WIDTH = 220;
@@ -63,6 +65,7 @@ class ClassPage extends React.Component {
       loaded: false,
       error: "",
       confirmLeaveModalOpen: false,
+      addSketchModalOpen: false,
       // TEST VALUES
       // thumbnail: 1,
       // name: "Will's Class",
@@ -86,18 +89,20 @@ class ClassPage extends React.Component {
 
   componentDidMount = async () => {
     // Don't try to load class if there's no cid.
+    // Comment this out to test
     if (this.props.cid === "") {
       return;
     }
 
     let data = {
       uid: this.props.uid,
-      cid: this.props.cid,
+      // TODO: check this - not sure if back-end uses WID or CID
+      wid: this.props.cid,
     };
     console.log("about to get class with this data: " + JSON.stringify(data));
     try {
       fetch
-        .getClass(data)
+        .getClass(data, true)
         .then((res) => {
           if (!res.ok) throw new Error(`Error loading this class! Got status ${res.status}`);
           return res.json();
@@ -110,17 +115,22 @@ class ClassPage extends React.Component {
             name: json.name,
             instructors: json.instructors,
             isInstr: this.props.uid in json.instructors,
-            sketches: json.programs,
+            sketchIDs: json.programs, // List of IDs
+            sketches: json.programData || null, // List of sketch objects
             students: json.members,
-            wid: json.members,
+            wid: json.wid,
           });
         })
         .catch((err) => {
           this.setState({
             error: "Couldn't load your class. Please try again later.",
+            loaded: true,
           });
         });
     } catch (err) {
+      this.setState({
+        loaded: true,
+      });
       console.log(err);
     }
 
@@ -128,6 +138,10 @@ class ClassPage extends React.Component {
     // this.setState({loaded: true});
     // console.log("Would have just made server request for the class with cid " + this.props.cid);
     // end test code
+  };
+
+  setAddSketchModalOpen = (val) => {
+    this.setState({ addSketchModalOpen: val });
   };
 
   setConfirmLeaveModalOpen = (val) => {
@@ -150,6 +164,15 @@ class ClassPage extends React.Component {
       />
     ) : (
       ""
+    );
+  };
+
+  renderAddSketchModal = () => {
+    return (
+      <AddSketchModalContainer
+        isOpen={this.state.addSketchModalOpen}
+        onClose={() => this.setAddSketchModalOpen(false)}
+      />
     );
   };
 
@@ -266,6 +289,19 @@ class ClassPage extends React.Component {
         />,
       );
     });
+    // Button for instructors to add a sketch to the class.
+    if (this.state.isInstr) {
+      sketchList.push(
+        <div className="add-sketch-box sketch-box" onClick={() => this.setAddSketchModalOpen(true)}>
+          <div className="add-sketch-box-body sketch-box-body">
+            <FontAwesomeIcon className="fa-2x add-sketch-plus" icon={faPlus} />
+          </div>
+          <div className="fa-lg">
+            <b>Add a sketch</b>
+          </div>
+        </div>,
+      );
+    }
     let numSketchesPerRow = Math.floor(
       (this.props.calculatedWidth - SKETCHES_ROW_PADDING) / SKETCH_WIDTH,
     );
@@ -289,12 +325,14 @@ class ClassPage extends React.Component {
         {this.renderStudentList()}
         {this.renderSketchList()}
         {this.renderConfirmLeaveModal()}
+        {this.renderAddSketchModal()}
       </div>
     );
   };
 
   render() {
     // If no class selected, go back to classes page.
+    // Comment this out to test
     if (this.props.cid === "") {
       return <Redirect to="/classes" />;
     }

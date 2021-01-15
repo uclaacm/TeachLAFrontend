@@ -159,14 +159,16 @@ export const leaveClass = (data) => {
 /**
  * Get class data for a user
  * @param {Object} data member's uid and class's cid {uid, cid}
+ * @param {boolean} withPrograms whether to include this class's sketches or not
  */
-export const getClass = async (data) => {
-  let result = await makeServerRequest(data, "class/get");
+export const getClass = async (data, withPrograms) => {
+  let result = await makeServerRequest(data, `class/get?programs=${withPrograms}`);
   let ok = await result.ok;
   let classData = await result.json();
   return { ok, classData };
 };
 
+// TODO: get rid of this function. Getting classes will be part of getUser
 /**
  * Get all classes a user is enrolled in or an instructor for
  * @param {string} uid user's uid

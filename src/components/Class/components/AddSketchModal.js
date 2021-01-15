@@ -5,6 +5,8 @@ import { Button, Container, Row, Col, FormGroup, Label, Input } from "reactstrap
 
 import ReactModal from "react-modal";
 
+// TODO: finish this modal. it was from the join class modal and still has a lot I haven't changed.
+
 class AddSketchModal extends React.Component {
   constructor(props) {
     super(props);
@@ -14,11 +16,6 @@ class AddSketchModal extends React.Component {
       error: "",
     };
   }
-
-  //==============React Lifecycle Functions Start===================//
-  componentWillMount() {}
-
-  componentDidUpdate() {}
 
   closeModal = () => {
     if (this.props.onClose && {}.toString.call(this.props.onClose) === "[object Function]") {
