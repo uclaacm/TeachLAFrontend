@@ -30,6 +30,7 @@ const mapStateToProps = (state) => {
     panelOpen: state.ui.panelOpen,
     classesLoaded: state.ui.classesLoaded,
     onInstrView: state.ui.onInstrView,
+    classList: state.userData.classes,
     uid: state.userData.uid,
   };
 };
