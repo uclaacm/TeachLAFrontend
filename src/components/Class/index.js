@@ -19,7 +19,7 @@ import SketchBox from "./components/SketchBox";
 import "../../styles/SketchBox.scss";
 import { ThumbnailArray } from "../../constants";
 import CodeDownloader from "../../util/languages/CodeDownloader";
-import AddSketchModalContainer from "./containers/AddSketchModalContainer.js";
+import CreateSketchModalContainer from "./containers/CreateSketchModalContainer";
 
 const SKETCHES_ROW_PADDING = 100;
 const SKETCH_WIDTH = 220;
@@ -65,7 +65,7 @@ class ClassPage extends React.Component {
       loaded: false,
       error: "",
       confirmLeaveModalOpen: false,
-      addSketchModalOpen: false,
+      createSketchModalOpen: false,
       // TEST VALUES
       // thumbnail: 1,
       // name: "Will's Class",
@@ -140,8 +140,8 @@ class ClassPage extends React.Component {
     // end test code
   };
 
-  setAddSketchModalOpen = (val) => {
-    this.setState({ addSketchModalOpen: val });
+  setCreateSketchModalOpen = (val) => {
+    this.setState({ createSketchModalOpen: val });
   };
 
   setConfirmLeaveModalOpen = (val) => {
@@ -167,11 +167,11 @@ class ClassPage extends React.Component {
     );
   };
 
-  renderAddSketchModal = () => {
+  renderCreateSketchModal = () => {
     return (
-      <AddSketchModalContainer
-        isOpen={this.state.addSketchModalOpen}
-        onClose={() => this.setAddSketchModalOpen(false)}
+      <CreateSketchModalContainer
+        isOpen={this.state.createSketchModalOpen}
+        onClose={() => this.setCreateSketchModalOpen(false)}
       />
     );
   };
@@ -255,7 +255,7 @@ class ClassPage extends React.Component {
   };
 
   renderSketchList = () => {
-    let newList = this.state.sketches.concat([]);
+    let newList = this.props.sketches.concat([]);
     newList.sort((a, b) => {
       if (a.name < b.name) return -1;
       if (a.name === b.name) return 0;
@@ -277,6 +277,7 @@ class ClassPage extends React.Component {
       }
       sketchList.push(
         <SketchBox
+          key={key}
           img={this.getThumbnailSrc(thumbnail)}
           icon={faLanguage}
           name={name}
@@ -292,7 +293,10 @@ class ClassPage extends React.Component {
     // Button for instructors to add a sketch to the class.
     if (this.state.isInstr) {
       sketchList.push(
-        <div className="add-sketch-box sketch-box" onClick={() => this.setAddSketchModalOpen(true)}>
+        <div
+          className="add-sketch-box sketch-box"
+          onClick={() => this.setCreateSketchModalOpen(true)}
+        >
           <div className="add-sketch-box-body sketch-box-body">
             <FontAwesomeIcon className="fa-2x add-sketch-plus" icon={faPlus} />
           </div>
@@ -325,7 +329,7 @@ class ClassPage extends React.Component {
         {this.renderStudentList()}
         {this.renderSketchList()}
         {this.renderConfirmLeaveModal()}
-        {this.renderAddSketchModal()}
+        {this.renderCreateSketchModal()}
       </div>
     );
   };

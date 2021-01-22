@@ -60,13 +60,6 @@ function userDataReducer(state = initialState, action) {
         });
       return Object.assign({}, state, { mostRecentProgram: action.value });
     case SET_CURRENT_CLASS:
-      // fetch
-      //   .updateUserData(state.uid, { currentClass: action.value })
-      //   .then(response => {})
-      //   .catch(err => {
-      //     state.error = err;
-      //     console.log(err);
-      //   });
       return Object.assign({}, state, { currentClass: action.value });
     default:
       return state;

@@ -5,7 +5,7 @@ import { Button, Container, Row, Col, FormGroup, Label, Input } from "reactstrap
 
 import ReactModal from "react-modal";
 
-// TODO: finish this modal. it was from the join class modal and still has a lot I haven't changed.
+// This file is not used right now, will probably delete later
 
 class AddSketchModal extends React.Component {
   constructor(props) {
