@@ -21,7 +21,6 @@ const initialState = {
 
 function userDataReducer(state = initialState, action) {
   switch (action.type) {
-<<<<<<< HEAD
   case LOAD_USER_DATA:
     // pull all values we want to pay attention to out of the object
     return { ...state, ...action.userData };

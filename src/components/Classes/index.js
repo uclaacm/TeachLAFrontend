@@ -34,69 +34,83 @@ class Classes extends React.Component {
     };
   }
 
-  // TODO: remove this call and the classesLoaded stuff. Classes come from the getUser call now.
   componentDidMount = async () => {
     if (this.props.classesLoaded) {
       // If classes are already loaded, don't fetch them again.
       this.setState({
         loaded: true,
       });
-    } else {
-      // // Test classes
-      // let studentClasses = [];
-      // let instrClasses = [];
-      // studentClasses.push(
-      //   {
-      //     name: "Python Class",
-      //     instructors: ["Python Master"],
-      //     cid: 2,
-      //   }
-      // );
-      // instrClasses.push(
-      //   {
-      //     name: "Will's Class",
-      //     instructors: ["Will O."],
-      //     cid: 1,
-      //   }
-      // );
-      // this.props.loadInstrClasses(instrClasses);
-      // this.props.loadStudentClasses(studentClasses);
-      // this.props.setClassesLoaded(true);
-      // end of test code
-
-      try {
-        fetch
-          .getClasses(this.props.uid)
-          .then((res) => {
-            if (!res.ok) throw new Error(`Error loading classes! Got status ${res.status}`);
-            return res.json();
-          })
-          .then((json) => {
-            this.setState({
-              loaded: true,
-            });
-            // TODO: revisit this when api is finalized
-            this.props.loadInstrClasses(json.instrClasses);
-            this.props.loadStudentClasses(json.studentClasses);
-            this.props.setClassesLoaded(true);
-            this.setState({
-              loaded: true,
-            });
-          })
-          .catch((err) => {
-            this.setState({
-              error: "Failed to load your classes. Please try again later.",
-              loaded: true,
-            });
-          });
-      } catch (err) {
-        this.setState({
-          error: "Failed to load your classes. Please try again later.",
-          loaded: true,
-        });
-        console.log(err);
-      }
+      return;
     }
+    // Test classes
+    // let studentClasses = [];
+    // let instrClasses = [];
+    // studentClasses.push(
+    //   {
+    //     name: "Python Class",
+    //     instructors: ["Python Master"],
+    //     cid: 2,
+    //   }
+    // );
+    // instrClasses.push(
+    //   {
+    //     name: "Will's Class",
+    //     instructors: ["Will O."],
+    //     cid: 1,
+    //   }
+    // );
+    // this.props.loadInstrClasses(instrClasses);
+    // this.props.loadStudentClasses(studentClasses);
+    // this.props.setClassesLoaded(true);
+    // end of test code
+    const requestClass = (cid) => {
+      fetch
+        .getClass(cid, false)
+        .then((res) => {
+          if (!res.ok) throw new Error(`Error loading a class! Got status ${res.status}`);
+          return res.json();
+        })
+        .catch((err) => {
+          this.setState({
+            error: "Failed to load your classes. Please try again later.",
+            loaded: true,
+          });
+          console.log(err);
+        });
+    };
+
+    let classObjects = [];
+    try {
+      let classRequests = [];
+      this.props.classList.forEach((cid) => {
+        classRequests.push(requestClass(cid));
+      });
+      // Request all classes concurrently.
+      classObjects = await Promise.all(classRequests);
+      // TODO: error handling for Promise.all
+      console.log("classObjects: " + JSON.stringify(classObjects));
+    } catch (err) {
+      this.setState({
+        error: "Failed to load your classes. Please try again later.",
+        loaded: true,
+      });
+      console.log(err);
+    }
+
+    // Sort into student and instructor classes
+    let studentClasses = [],
+      instrClasses = [];
+    classObjects.forEach((thisclass) => {
+      this.props.uid in thisclass.instructors
+        ? instrClasses.push(thisclass)
+        : studentClasses.push(thisclass);
+    });
+    this.props.loadInstrClasses(instrClasses);
+    this.props.loadStudentClasses(studentClasses);
+    this.props.setClassesLoaded(true);
+    this.setState({
+      loaded: true,
+    });
   };
 
   setCreateClassModalOpen = (val) => {

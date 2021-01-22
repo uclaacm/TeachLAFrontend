@@ -3,6 +3,7 @@ import userDataReducer from "./userDataReducer";
 import programsReducer from "./programsReducer";
 import instrClassesReducer from "./instrClassesReducer";
 import studentClassesReducer from "./studentClassesReducer";
+import classPageReducer from "./classPageReducer";
 import outputReducer from "./outputReducer";
 import uiReducer from "./uiReducer";
 
@@ -12,6 +13,7 @@ const appReducers = combineReducers({
   programs: programsReducer,
   studentClasses: studentClassesReducer,
   instrClasses: instrClassesReducer,
+  classPage: classPageReducer,
   ui: uiReducer,
 });
 
