@@ -37,11 +37,13 @@ class TextEditor extends React.Component {
   componentDidMount() {
     window.addEventListener("beforeunload", this.onLeave);
     window.addEventListener("close", this.onLeave);
+    window.addEventListener("resize", this.onResize);
   }
 
   componentWillUnmount = () => {
     window.removeEventListener("beforeunload", this.onLeave);
     window.removeEventListener("close", this.onLeave);
+    window.removeEventListener("resize", this.onResize);
   };
 
   openForkModal = () => {
@@ -76,11 +78,13 @@ class TextEditor extends React.Component {
     }
     return ev;
   };
-
-  setEditorInstance = (editorInstance) => {
+  setEditorInstance = (editorInstance, monaco) => {
     this.setState({ editorInstance });
   };
-
+  onResize = () => {
+    if (this.state.editorInstance) {
+    }
+  };
   renderForkModal = () => {
     return (
       <ReactModal
@@ -278,9 +282,7 @@ class TextEditor extends React.Component {
               wrappingIndent="indent"
               options={monacoConfig}
               value={this.props.code}
-              editorDidMount={(editorInstance) => {
-                this.setEditorInstance(editorInstance);
-              }}
+              editorDidMount={this.setEditorInstance}
               onChange={this.props.viewOnly ? "" : this.updateCode}
               onBeforeChange={this.updateCode}
             />

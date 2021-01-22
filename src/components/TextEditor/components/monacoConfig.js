@@ -1,10 +1,10 @@
 const monacoOptions = {
   fontSize: 20,
-  fontWeight: "bold",
-  fontFamily: "Comic Sans MS",
+
+  fontFamily: "Chivo",
   cursorStyle: "line",
   cursorWidth: 5,
-
+  automaticLayout: true,
   minimap: {
     enabled: false,
   },

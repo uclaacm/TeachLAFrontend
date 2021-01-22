@@ -32,10 +32,9 @@
   padding: 4px;
   border-radius: 25px;
   @include themify($themes) {
-    background-color: themed("cardBackground")
+    background-color: themed("cardBackground");
+  }
 }
-}
-
 
 .program-sketch-name {
   flex: 0 1 auto;
@@ -46,7 +45,6 @@
   font-size: 24px;
   margin-left: 1em;
 }
-
 
 .code-section-banner {
   display: flex;
