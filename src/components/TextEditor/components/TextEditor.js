@@ -2,7 +2,7 @@ import React from "react";
 import ReactModal from "react-modal";
 import * as fetch from "../../../lib/fetch.js";
 import sketch from "../../../lib/";
-import { ControlledEditor } from "@monaco-editor/react";
+import MonacoEditor from "react-monaco-editor";
 import monacoConfig from "./monacoConfig";
 import EditorRadio from "./EditorRadio.js";
 import ShareSketchModal from "./ShareSketchModal";
@@ -83,6 +83,7 @@ class TextEditor extends React.Component {
   };
   onResize = () => {
     if (this.state.editorInstance) {
+      console.log(this.state.editorInstance.layout());
     }
   };
   renderForkModal = () => {
@@ -251,6 +252,7 @@ class TextEditor extends React.Component {
       this.props.dirtyCode(this.props.mostRecentProgram);
     }
     this.props.setProgramCode(this.props.mostRecentProgram, newCode);
+    console.log(this.props.code);
   };
 
   render() {
@@ -276,15 +278,15 @@ class TextEditor extends React.Component {
               maxHeight: this.props.screenHeight - 61 - 20,
             }}
           >
-            <ControlledEditor
-              language={this.props.viewOnly ? this.props.vlanguage : this.props.language}
+            <MonacoEditor
               theme={this.getCMTheme(this.props.theme)}
-              wrappingIndent="indent"
-              options={monacoConfig}
-              value={this.props.code}
+              language={this.props.viewOnly ? this.props.vlanguage : this.props.language}
               editorDidMount={this.setEditorInstance}
+              value={this.props.code}
               onChange={this.props.viewOnly ? "" : this.updateCode}
+              wrappingIndent="indent"
               onBeforeChange={this.updateCode}
+              options={monacoConfig}
             />
           </div>
         </div>
@@ -295,6 +297,8 @@ class TextEditor extends React.Component {
 
 export default TextEditor;
 /*
+
+
   setCurrentLine = (cm) => { //%%set what line the code is currently on
     const { codeMirrorInstance, currentLine } = this.state;
     let { line } = cm.getCursor();
