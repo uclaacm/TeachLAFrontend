@@ -1,4 +1,4 @@
-const monacoOptions = {
+const monacoDefaults = {
   fontSize: 20,
 
   fontFamily: "Chivo",
@@ -17,14 +17,4 @@ const monacoOptions = {
   mouseStyle: "default",
   parameterHints: {},
 };
-export default monacoOptions;
-//fontSize:
-//fontWeight:
-//cursorStyle: underline
-//or block or block-outline
-/*
-scrollbar: {
-    vertical: "hidden",
-    horizontal: "hidden",
-  },fontFamily: "monospace",
-*/
+export default monacoDefaults;

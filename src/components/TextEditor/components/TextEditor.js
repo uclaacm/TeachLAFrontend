@@ -3,7 +3,7 @@ import ReactModal from "react-modal";
 import * as fetch from "../../../lib/fetch.js";
 import sketch from "../../../lib/";
 import MonacoEditor from "react-monaco-editor";
-import monacoConfig from "./monacoConfig";
+import monacoDefaults from "./monacoConfig";
 import EditorRadio from "./EditorRadio.js";
 import ShareSketchModal from "./ShareSketchModal";
 import { Button } from "reactstrap";
@@ -246,13 +246,13 @@ class TextEditor extends React.Component {
       </div>
     );
   };
-  updateCode = (e, newCode) => {
-    //if the code's not yet dirty, and the old code is different from the new code, make it dirty
-    if (!this.props.dirty && this.props.code !== newCode) {
+  updateCode = (newVal) => {
+    // if the code's not yet dirty, and the old code is different from the
+    // new code, make it dirty
+    if (!this.props.dirty && this.props.code !== newVal) {
       this.props.dirtyCode(this.props.mostRecentProgram);
     }
-    this.props.setProgramCode(this.props.mostRecentProgram, newCode);
-    console.log(this.props.code);
+    this.props.setProgramCode(this.props.mostRecentProgram, newVal);
   };
 
   render() {
@@ -280,13 +280,15 @@ class TextEditor extends React.Component {
           >
             <MonacoEditor
               theme={this.getCMTheme(this.props.theme)}
-              language={this.props.viewOnly ? this.props.vlanguage : this.props.language}
+              language={this.props.language}
               editorDidMount={this.setEditorInstance}
               value={this.props.code}
-              onChange={this.props.viewOnly ? "" : this.updateCode}
               wrappingIndent="indent"
-              onBeforeChange={this.updateCode}
-              options={monacoConfig}
+              onChange={this.updateCode}
+              options={{
+                readOnly: this.props.viewOnly,
+                ...monacoDefaults,
+              }}
             />
           </div>
         </div>
@@ -296,72 +298,3 @@ class TextEditor extends React.Component {
 }
 
 export default TextEditor;
-/*
-
-
-  setCurrentLine = (cm) => { //%%set what line the code is currently on
-    const { codeMirrorInstance, currentLine } = this.state;
-    let { line } = cm.getCursor();
-    if (codeMirrorInstance) {
-      //removeLineClass removes the back highlight style from the last selected line
-      codeMirrorInstance.removeLineClass(currentLine, "wrap", "selected-line");
-      //addLineClass adds the style to the newly selected line
-      codeMirrorInstance.addLineClass(line, "wrap", "selected-line");
-    }
-    this.setState({ currentLine: line });
-  };
-*/
-/*
-
- <CodeMirror
-              editorDidMount={(codeMirrorInstance) => {
-                codeMirrorInstance.refresh();
-                this.setCodeMirrorInstance(codeMirrorInstance);
-              }}
-              value={this.props.code}
-              lineWrapping
-              indentWithTabs={true}
-              options={options}
-              onCursor={(cm) => {
-                this.setCurrentLine(cm);
-              }}
-              onBeforeChange={this.updateCode}
-              onChange={this.updateCode}
-            />
-*/
-//json required by CodeMirror
-//%%change this up to affect the other
-/*
-    const options = {
-      mode:
-        CODEMIRROR_CONVERSIONS[{this.props.viewOnly ? this.props.vlanguage : this.props.language}],
-      theme: this.getCMTheme(this.props.theme),
-      lineNumbers: true, //text editor has line numbers
-      lineWrapping: true, //text editor does not overflow in the x direction, uses word wrap (NOTE: it's like MO Word wrapping, so words are not cut in the middle, if a word overlaps, the whole word is brought to the next line)
-      indentWithTabs: true,
-    };
-    */
-/**
- * returns a theme string for the CodeMirror editor, based off of the app's current theme
- * @param {string} theme - the app's current theme
- * @returns {string} the codemirror theme - see https://codemirror.net/demo/theme.html for more info
- */
-//%% will have to change theme on editor
-/*  %%sets up codemirror and takes the requirements
-let CodeMirror = null;
-if (typeof window !== "undefined" && typeof window.navigator !== "undefined") {
-  // import {Controlled as CodeMirror} from 'react-codemirror2'
-  CodeMirror = require("react-codemirror2").Controlled;
-  require("codemirror/mode/javascript/javascript.js");
-  require("codemirror/mode/htmlmixed/htmlmixed.js");
-  require("codemirror/mode/python/python.js");
-  require("codemirror/mode/clike/clike.js");
-}*/
-/**----------Props--------
- * None
- */
-/*
-  setCodeMirrorInstance = (codeMirrorInstance) => {  //%%say that code mirror has been made
-    this.setState({ codeMirrorInstance });
-  };
-*/
