@@ -115,6 +115,7 @@ const CreateSketchModal = (props) => {
       language: language.value,
       name,
       code: '',
+      wid: this.props.wid ?? '',
     };
 
     try {
