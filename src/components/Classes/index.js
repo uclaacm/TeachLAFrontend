@@ -63,31 +63,38 @@ class Classes extends React.Component {
     // this.props.loadStudentClasses(studentClasses);
     // this.props.setClassesLoaded(true);
     // end of test code
-    const requestClass = (cid) => {
-      fetch
-        .getClass(cid, false)
-        .then((res) => {
-          if (!res.ok) throw new Error(`Error loading a class! Got status ${res.status}`);
-          return res.json();
-        })
-        .catch((err) => {
-          this.setState({
-            error: "Failed to load your classes. Please try again later.",
-            loaded: true,
-          });
-          console.log(err);
-        });
-    };
 
     let classObjects = [];
     try {
-      let classRequests = [];
-      this.props.classList.forEach((cid) => {
-        classRequests.push(requestClass(cid));
-      });
       // Request all classes concurrently.
-      classObjects = await Promise.all(classRequests);
-      // TODO: error handling for Promise.all
+      console.log("gonna send requests now!");
+      classObjects = await Promise.all(
+        this.props.classList.map((cid) => {
+          return new Promise((resolve, reject) => {
+            let data = {
+              uid: this.props.uid,
+              // TODO: replace this with a real CID once back-end is updated
+              wid: "hanka,greenwich",
+            };
+            fetch
+              .getClass(data, false)
+              .then((res) => {
+                if (!res.ok) throw new Error(`Error loading a class! Got status ${res.status}`);
+                console.log("res is:");
+                console.log(res);
+                resolve(res.classData);
+              })
+              .catch((err) => {
+                this.setState({
+                  error: "Failed to load your classes. Please try again later.",
+                  loaded: true,
+                });
+                console.log(err);
+                reject(err);
+              });
+          });
+        }),
+      );
       console.log("classObjects: " + JSON.stringify(classObjects));
     } catch (err) {
       this.setState({
@@ -101,9 +108,12 @@ class Classes extends React.Component {
     let studentClasses = [],
       instrClasses = [];
     classObjects.forEach((thisclass) => {
-      this.props.uid in thisclass.instructors
-        ? instrClasses.push(thisclass)
-        : studentClasses.push(thisclass);
+      // TODO: update this line when back-end API is updated
+      if (thisclass.instructors.some((instrId) => instrId === this.props.uid)) {
+        instrClasses.push(thisclass);
+      } else {
+        studentClasses.push(thisclass);
+      }
     });
     this.props.loadInstrClasses(instrClasses);
     this.props.loadStudentClasses(studentClasses);

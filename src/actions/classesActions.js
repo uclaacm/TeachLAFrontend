@@ -37,3 +37,8 @@ export const CLEAR_INSTR_CLASSES = "CLEAR_INSTR_CLASSES";
 export function clearInstrClasses() {
   return { type: CLEAR_INSTR_CLASSES };
 }
+
+export const CLEAR_CLASSES = "CLEAR_CLASSES";
+export function clearClasses() {
+  return { type: CLEAR_CLASSES };
+}

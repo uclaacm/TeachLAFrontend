@@ -8,6 +8,7 @@ import { OPEN_PANEL_LEFT, CLOSED_PANEL_LEFT, PANEL_SIZE } from "../../../constan
 const mapStateToProps = (state) => {
   const left = (state.ui.panelOpen ? OPEN_PANEL_LEFT : CLOSED_PANEL_LEFT) + PANEL_SIZE;
   const calculatedWidth = state.ui.screenWidth - (left || 0);
+  // TODO: fix this
   const sketches = state.classPage
     .get("programs")
     .keySeq()

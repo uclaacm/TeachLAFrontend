@@ -87,6 +87,7 @@ class ClassPage extends React.Component {
     };
   }
 
+  // TODO: Save the result of the fetch in Redux and don't fetch if the right class is already loaded.
   componentDidMount = async () => {
     // Don't try to load class if there's no cid.
     // Comment this out to test
@@ -96,8 +97,8 @@ class ClassPage extends React.Component {
 
     let data = {
       uid: this.props.uid,
-      // TODO: check this - not sure if back-end uses WID or CID
-      wid: this.props.cid,
+      // TODO: change this when API is updated
+      wid: "hanka,greenwich",
     };
     console.log("about to get class with this data: " + JSON.stringify(data));
     try {
@@ -105,20 +106,20 @@ class ClassPage extends React.Component {
         .getClass(data, true)
         .then((res) => {
           if (!res.ok) throw new Error(`Error loading this class! Got status ${res.status}`);
-          return res.json();
+          return res.classData;
         })
         .then((json) => {
           this.setState({
             // Review these when back-end API is updated
             loaded: true,
-            thumbnail: json.thumbnail,
             name: json.name,
             instructors: json.instructors,
             isInstr: this.props.uid in json.instructors,
             sketchIDs: json.programs, // List of IDs
-            sketches: json.programData || null, // List of sketch objects
+            sketches: json.programData, // List of sketch objects
             students: json.members,
             wid: json.wid,
+            thumbnail: json.thumbnail,
           });
         })
         .catch((err) => {
@@ -126,6 +127,7 @@ class ClassPage extends React.Component {
             error: "Couldn't load your class. Please try again later.",
             loaded: true,
           });
+          console.log(err);
         });
     } catch (err) {
       this.setState({
@@ -172,6 +174,7 @@ class ClassPage extends React.Component {
       <CreateSketchModalContainer
         isOpen={this.state.createSketchModalOpen}
         onClose={() => this.setCreateSketchModalOpen(false)}
+        wid={this.props.wid}
       />
     );
   };

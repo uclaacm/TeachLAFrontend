@@ -129,7 +129,12 @@ class CreateSketchModal extends React.Component {
       thumbnail: this.state.thumbnail,
       language: this.state.language.value,
       name: this.state.name,
+<<<<<<< HEAD
       code: '',
+=======
+      code: "",
+      wid: this.props.wid ?? "",
+>>>>>>> 3fc75f8... Get classes page requests to work, improve classes Redux, add API call to add sketch to class
     };
 
     try {
