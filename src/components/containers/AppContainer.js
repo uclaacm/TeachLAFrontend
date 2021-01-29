@@ -5,7 +5,7 @@ import App from "../app.js";
 import { connect } from "react-redux";
 import { loadUserData, clearUserData, loadFailure } from "../../actions/userDataActions.js";
 import { loadPrograms, clearPrograms } from "../../actions/programsActions";
-import { clearInstrClasses, clearStudentClasses } from "../../actions/classesActions";
+import { clearClasses } from "../../actions/classesActions";
 import { screenResize } from "../../actions/uiActions";
 import * as fetch from "../../lib/fetch.js";
 
@@ -35,8 +35,7 @@ const mapDispatchToProps = (dispatch) => {
     clearUserData: () => {
       dispatch(clearUserData());
       dispatch(clearPrograms());
-      dispatch(clearInstrClasses());
-      dispatch(clearStudentClasses());
+      dispatch(clearClasses());
     },
     loadFailure: (err) => {
       dispatch(loadFailure(err));

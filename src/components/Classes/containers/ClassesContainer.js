@@ -7,16 +7,25 @@ import { OPEN_PANEL_LEFT, CLOSED_PANEL_LEFT, PANEL_SIZE } from "../../../constan
 import Immutable from "immutable";
 
 const mapStateToProps = (state) => {
-  const instrClasses = state.instrClasses.keySeq().map((id) => {
-    let temp = state.instrClasses.get(id, Immutable.Map()).toJS();
-    temp.cid = id;
-    return temp;
-  });
-  const studentClasses = state.studentClasses.keySeq().map((id) => {
-    let temp = state.studentClasses.get(id, Immutable.Map()).toJS();
-    temp.cid = id;
-    return temp;
-  });
+  // TODO: Look over this part (instrClasses and studentClasses)
+  const instrClasses = state.classes
+    .get("instrClasses")
+    .keySeq()
+    .map((id) => {
+      let temp = state.classes.get("instrClasses").get(id, Immutable.Map()).toJS();
+      temp.cid = id;
+      return temp;
+    });
+  console.log("instrclasses: " + JSON.stringify(instrClasses));
+  const studentClasses = state.classes
+    .get("studClasses")
+    .keySeq()
+    .map((id) => {
+      let temp = state.classes.get("studClasses").get(id, Immutable.Map()).toJS();
+      temp.cid = id;
+      return temp;
+    });
+  console.log("studclasses: " + JSON.stringify(studentClasses));
 
   const left = (state.ui.panelOpen ? OPEN_PANEL_LEFT : CLOSED_PANEL_LEFT) + PANEL_SIZE;
   const calculatedWidth = state.ui.screenWidth - (left || 0);

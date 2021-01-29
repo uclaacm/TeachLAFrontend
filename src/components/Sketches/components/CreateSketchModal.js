@@ -127,6 +127,7 @@ class CreateSketchModal extends React.Component {
       language: this.state.language.value,
       name: this.state.name,
       code: "",
+      wid: this.props.wid ?? "",
     };
 
     try {
