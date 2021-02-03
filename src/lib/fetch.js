@@ -134,3 +134,14 @@ export const getSketch = async (docID) => {
   let sketch = await result.json();
   return { ok, sketch };
 };
+
+/**
+ * creates a CollabSession with passed-in data
+ * @param {string} data //required data to create program
+ */
+
+export const createCollab = async (data) => {
+  const { uid } = data;
+  const endpoint = `collab/create`;
+  return makeServerRequest({ uid }, endpoint);
+};
