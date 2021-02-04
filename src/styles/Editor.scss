@@ -32,10 +32,9 @@
   padding: 4px;
   border-radius: 25px;
   @include themify($themes) {
-    background-color: themed("cardBackground")
+    background-color: themed("cardBackground");
+  }
 }
-}
-
 
 .program-sketch-name {
   flex: 0 1 auto;
@@ -46,7 +45,6 @@
   font-size: 24px;
   margin-left: 1em;
 }
-
 
 .code-section-banner {
   display: flex;
@@ -179,4 +177,20 @@
   background-color: rgb(255, 255, 255);
   padding: 40px;
   border-radius: 20px;
+}
+
+.status-bar-container {
+  @include themify($themes) {
+    background-color: themed("backgroundColor");
+  }
+  margin-left: 60%;
+  padding: 10px 20px 0px;
+  position: absolute;
+  bottom: 0%;
+  width: fit-content;
+}
+
+.status-bar-info {
+  color: red;
+  font-size: 25px;
 }
