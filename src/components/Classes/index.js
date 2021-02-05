@@ -215,6 +215,7 @@ class Classes extends React.Component {
     classesIn.forEach((element) => {
       classes.push(
         <ClassBox
+          key={element.cid}
           img={this.getThumbnailSrc(element.thumbnail)}
           name={element.name}
           instructors={element.instructors}

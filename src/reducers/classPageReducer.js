@@ -14,9 +14,9 @@ function classPageReducer(state = initialState, action) {
       // TODO: Figure out what the incoming data format is and make this match
       return Immutable.fromJS(action.data);
     case ADD_PROGRAM:
-      return state.setIn([programs, action.program], Immutable.fromJS(action.data));
+      return state.setIn(["programs", action.program], Immutable.fromJS(action.data));
     case DELETE_PROGRAM:
-      return state.deleteIn([programs, action.program]);
+      return state.deleteIn(["programs", action.program]);
     case LOAD_PROGRAMS:
       return state.set("programs", Immutable.fromJS(action.programs));
     default:

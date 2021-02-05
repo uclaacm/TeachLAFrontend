@@ -16,7 +16,6 @@ const mapStateToProps = (state) => {
       temp.cid = id;
       return temp;
     });
-  console.log("instrclasses: " + JSON.stringify(instrClasses));
   const studentClasses = state.classes
     .get("studClasses")
     .keySeq()
@@ -25,7 +24,6 @@ const mapStateToProps = (state) => {
       temp.cid = id;
       return temp;
     });
-  console.log("studclasses: " + JSON.stringify(studentClasses));
 
   const left = (state.ui.panelOpen ? OPEN_PANEL_LEFT : CLOSED_PANEL_LEFT) + PANEL_SIZE;
   const calculatedWidth = state.ui.screenWidth - (left || 0);
