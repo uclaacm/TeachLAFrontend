@@ -26,7 +26,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .teachla-green{
-  color: #92D32B;
+  //color: #92D32B;
+  background-color: $teachla-primary;
+  background-image: $teachla-gradient;
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -mox-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
 }
 
 .black-divider{
