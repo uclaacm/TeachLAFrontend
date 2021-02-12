@@ -45,7 +45,6 @@ class TextEditor extends React.Component {
       forked: false,
       redirectToSketch: false,
       showShareModal: false,
-      showStatus: true, //In case we have situations where we dont want to show status bar
     };
   }
 
@@ -325,11 +324,12 @@ class TextEditor extends React.Component {
               onBeforeChange={this.updateCode}
               onChange={this.updateCode}
             />
-            {this.state.showStatus ? (
+            {this.props.statusBar ? (
               <StatusBar
                 editing={!this.props.viewOnly}
                 line={this.state.currentLine}
                 col={this.state.currentColumn}
+                theme={this.props.theme}
               />
             ) : (
               ""

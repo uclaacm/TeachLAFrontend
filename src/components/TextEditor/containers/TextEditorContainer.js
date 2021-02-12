@@ -19,6 +19,7 @@ const mapStateToProps = (state, ownProps) => {
     mostRecentProgram,
     theme: ownProps.theme,
     uid,
+    statusBar: state.ui.statusBar,
   };
 };
 
