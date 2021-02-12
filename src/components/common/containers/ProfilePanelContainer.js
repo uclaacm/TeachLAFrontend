@@ -1,7 +1,7 @@
 import ProfilePanel from "../ProfilePanel";
 import { connect } from "react-redux";
 import { setDisplayName, setPhotoName } from "../../../actions/userDataActions";
-import { togglePanel } from "../../../actions/uiActions";
+import { setStatusBar, togglePanel } from "../../../actions/uiActions";
 import { DEFAULT_PHOTO_NAME, CLOSED_PANEL_LEFT, OPEN_PANEL_LEFT } from "../../../constants";
 
 const mapStateToProps = (state, ownProps) => {
@@ -12,6 +12,7 @@ const mapStateToProps = (state, ownProps) => {
     screenHeight: state.ui.screenHeight,
     left: state.ui.panelOpen ? OPEN_PANEL_LEFT : CLOSED_PANEL_LEFT,
     theme: ownProps.theme,
+    statusBar: state.ui.statusBar,
   };
 };
 
@@ -19,11 +20,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onThemeChange: ownProps.onThemeChange,
     collectUserPhoto: () => {},
-    setDisplayName: name => dispatch(setDisplayName(name)),
-    setPhotoName: name => dispatch(setPhotoName(name)),
+    setDisplayName: (name) => dispatch(setDisplayName(name)),
+    setPhotoName: (name) => dispatch(setPhotoName(name)),
     togglePanel: () => {
       dispatch(togglePanel());
     },
+    setStatusBar: (value) => dispatch(setStatusBar(value)),
   };
 };
 

@@ -5,6 +5,7 @@ import sketch from "../../../lib/";
 
 import EditorRadio from "./EditorRadio.js";
 import ShareSketchModal from "./ShareSketchModal";
+import StatusBar from "./StatusBar";
 
 import { Button } from "reactstrap";
 import OpenPanelButtonContainer from "../../common/containers/OpenPanelButtonContainer";
@@ -37,6 +38,7 @@ class TextEditor extends React.Component {
     this.state = {
       codeMirrorInstance: null,
       currentLine: 0,
+      currentColumn: 0,
       sketch: null,
       showForkModal: false,
       forking: false,
@@ -102,17 +104,16 @@ class TextEditor extends React.Component {
     }
     this.props.setProgramCode(this.props.mostRecentProgram, newCode);
   };
-
   setCurrentLine = (cm) => {
     const { codeMirrorInstance, currentLine } = this.state;
-    let { line } = cm.getCursor();
+    let { line, ch } = cm.getCursor();
     if (codeMirrorInstance) {
       //removeLineClass removes the back highlight style from the last selected line
       codeMirrorInstance.removeLineClass(currentLine, "wrap", "selected-line");
       //addLineClass adds the style to the newly selected line
       codeMirrorInstance.addLineClass(line, "wrap", "selected-line");
     }
-    this.setState({ currentLine: line });
+    this.setState({ currentLine: line, currentColumn: ch });
   };
 
   renderForkModal = () => {
@@ -299,6 +300,7 @@ class TextEditor extends React.Component {
             showModal={this.state.showShareModal}
             toggleModal={this.toggleShareModal}
           />
+
           <div
             className="text-editor-container"
             style={{
@@ -322,6 +324,16 @@ class TextEditor extends React.Component {
               onBeforeChange={this.updateCode}
               onChange={this.updateCode}
             />
+            {this.props.statusBar ? (
+              <StatusBar
+                editing={!this.props.viewOnly}
+                line={this.state.currentLine}
+                col={this.state.currentColumn}
+                theme={this.props.theme}
+              />
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </div>

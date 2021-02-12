@@ -230,6 +230,13 @@
   }
 }
 
+.statusbar-button {
+  @include themify($themes) {
+    color: themed("color");
+    border-color: themed("backgroundColor");
+    background-color: themed("backgroundColor");
+  }
+}
 .panel-button:hover,
 .panel-button:active {
   @include themify($themes) {

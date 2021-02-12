@@ -17,3 +17,8 @@ export const SET_THEME = "SET_THEME";
 export function setTheme(theme) {
   return { type: SET_THEME, theme };
 }
+
+export const SHOW_STATUSBAR = "SHOW_STATUSBAR";
+export function setStatusBar(value) {
+  return { type: SHOW_STATUSBAR, value };
+}

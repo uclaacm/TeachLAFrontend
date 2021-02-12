@@ -316,6 +316,19 @@ class ProfilePanel extends React.Component {
     </div>
   );
 
+  renderShowStatusBar = () => {
+    let onToggle = () => {
+      console.log(this.props);
+      this.props.setStatusBar(!this.props.statusBar);
+    };
+    return (
+      <div className="panel-button">
+        <button className="statusbar-button" onClick={() => onToggle()}>
+          <span> Status Bar</span>
+        </button>
+      </div>
+    );
+  };
   renderContent = () => (
     <div className="panel-content">
       {this.renderPanelImage()}
@@ -324,6 +337,7 @@ class ProfilePanel extends React.Component {
       {this.renderErrorMessage(this.state.displayNameMessage)}
       {this.renderButtons()}
       {this.renderThemeSwitch()}
+      {this.renderShowStatusBar()}
     </div>
   );
 

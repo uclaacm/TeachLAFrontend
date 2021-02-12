@@ -1,10 +1,17 @@
-import { SCREEN_RESIZE, TOGGLE_PANEL, SET_PANEL, SET_THEME } from "../actions/uiActions";
+import {
+  SCREEN_RESIZE,
+  TOGGLE_PANEL,
+  SET_PANEL,
+  SET_THEME,
+  SHOW_STATUSBAR,
+} from "../actions/uiActions";
 
 const initialState = {
   screenWidth: typeof window === "object" ? window.innerWidth : null,
   screenHeight: typeof window === "object" ? window.innerHeight : null,
   panelOpen: false,
   theme: "dark",
+  statusBar: false,
 };
 
 function uiReducer(state = initialState, action) {
@@ -17,6 +24,8 @@ function uiReducer(state = initialState, action) {
       return Object.assign({}, state, { panelOpen: action.value });
     case SET_THEME:
       return Object.assign({}, state, { theme: action.theme });
+    case SHOW_STATUSBAR:
+      return Object.assign({}, state, { statusBar: action.value });
     default:
       return state;
   }
