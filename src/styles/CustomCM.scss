@@ -18,21 +18,21 @@ span.cm-keyword {
   }
 }
 
-/*e.g. var *blah*, blah will be colored */
+/* e.g. var *blah*, blah will be colored */
 span.cm-def {
   @include themify($themes) {
     color: themed("def");
   }
 }
 
-/*e.g. var *blah*, blah will be colored */
+/* e.g. var *blah*, blah will be colored */
 span.cm-variable {
   @include themify($themes) {
     color: themed("variable");
   }
 }
 
-/*for python: print, range, all built-in functions */
+/* for python: print, range, all built-in functions */
 .cm-builtin {
   @include themify($themes) {
     color: themed("builtin");
@@ -52,11 +52,13 @@ span.cm-variable {
     color: themed("operator");
   }
 }
+
 .cm-property {
   @include themify($themes) {
     color: themed("property");
   }
 }
+
 .CodeMirror {
   box-sizing: border-box;
   max-width: inherit;
@@ -65,11 +67,13 @@ span.cm-variable {
   font-family: "Ubuntu Mono", monospace;
   font-size: 18px;
   height: 100%;
+
   @include themify($themes) {
     background-color: themed("backgroundColor");
     color: themed("color");
   }
 }
+
 .CodeMirror .CodeMirror pre {
   padding-left: 5px;
   padding-right: 4px;
@@ -80,6 +84,7 @@ span.cm-variable {
     background-color: themed("backgroundColor");
     color: themed("color");
   }
+
   white-space: normal;
   height: 100%;
   display: inline-block;
@@ -93,6 +98,7 @@ span.cm-variable {
   color: #fff;
   text-align: left;
   padding-left: 15px;
+
   @include themify($themes) {
     color: themed("color");
   }
@@ -103,8 +109,8 @@ span.cm-variable {
 .CodeMirror-cursor {
   border-top: none !important;
   border-bottom: none !important;
-  border-left: 1px solid #A38B41 !important;
-  border-right: 0.5px solid #A38B41 !important;
+  border-left: 1px solid #a38b41 !important;
+  border-right: 0.5px solid #a38b41 !important;
 }
 
 .CodeMirror-cursor::after {
@@ -128,13 +134,14 @@ span.cm-variable {
     margin-top: 2px;
   }
 }
+
 .CodeMirror-scroll {
   overflow: hidden !important;
 }
 
 .CodeMirror-lines {
-  margin-bottom: 20px; /*adds space for triangle on the bottom of the editor*/
-  padding-left: 3px; /*adds space for triangle on the left of the editor*/
+  margin-bottom: 20px; /* adds space for triangle on the bottom of the editor */
+  padding-left: 3px; /* adds space for triangle on the left of the editor */
 }
 
 /* most of the codemirror styles we can override for text

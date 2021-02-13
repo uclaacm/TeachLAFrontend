@@ -10,6 +10,7 @@
   margin: 0;
   padding: 0;
   transition: left 0.5s ease;
+
   @include themify($themes) {
     color: themed("accentColor");
     background-color: themed("accentBackground");
@@ -20,6 +21,7 @@
   @include themify($themes) {
     color: themed("accentColor");
   }
+
   padding-right: 15px;
   flex: 0 0 auto;
   font-size: 1.25rem;
@@ -44,7 +46,10 @@
 .panel-image {
   width: 205px;
   height: 200px;
-  /*background:#000;*/ /*if you leave this out, transparent profile pictures will show the background behind it*/
+
+  /* background:#000; */
+
+  /* if you leave this out, transparent profile pictures will show the background behind it */
 }
 
 .profile-image-modal {
@@ -82,6 +87,7 @@
   position: absolute;
   right: -15px;
   bottom: -5px;
+
   @include themify($themes) {
     color: themed("accentColor");
   }
@@ -131,9 +137,11 @@
 
 .edit-icon-image {
   font-size: 1.25rem;
+
   @include themify($themes) {
     color: themed("accentColor");
   }
+
   position: absolute;
   border: none;
   right: -30px;
@@ -173,10 +181,12 @@
   align-items: baseline;
   border: none;
   outline: none;
+
   @include themify($themes) {
     color: themed("accentColor");
     border-bottom: 1px solid themed("accentColor");
   }
+
   font-family: $font-family-heading;
 }
 
@@ -184,20 +194,22 @@
   color: $error-red;
   font-size: 1rem;
   text-align: center;
-  padding: 0px 25px;
+  padding: 0 25px;
 }
 
 .panel-name {
   float: middle;
   text-align: center;
-  margin: 10px 50px 0px;
+  margin: 10px 50px 0;
   width: 70%;
   padding: 10px 0 6px;
   font-size: 2rem;
   word-wrap: break-word;
+
   @include themify($themes) {
     color: themed("accentColor");
   }
+
   position: relative;
   font-family: $font-family-heading;
 }
@@ -218,11 +230,13 @@
 .panel-button {
   text-align: left;
   font-size: 2em !important; /* reactstrap also has a !important somewhere, so we need to do this */
+
   /* this next block of CSS properly aligns button content */
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
+
   @include themify($themes) {
     color: themed("color");
     border-color: themed("backgroundColor");
@@ -244,14 +258,14 @@
   text-align: center;
 }
 
-/*scrollbar stuff*/
+/* scrollbar stuff */
 .panel-content::-webkit-scrollbar {
   width: 8px;
 }
 
 /* Track */
 .panel-content::-webkit-scrollbar-track {
-  background: #333333;
+  background: #333;
 }
 
 /* Handle */
@@ -266,7 +280,7 @@
 
 // Theme Switch Images
 .icon-dark {
-  color: #ffffff;
+  color: #fff;
 }
 
 .icon-light {

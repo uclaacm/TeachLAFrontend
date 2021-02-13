@@ -22,7 +22,7 @@
   justify-content: center;
 }
 
-.login-page-content-footer{
+.login-page-content-footer {
   flex-shrink: 0;
   padding-bottom: 1em;
 }
@@ -32,8 +32,9 @@
     padding-top: 3em;
     background-image: none;
     flex-direction: column;
-    padding-left: 0em;
+    padding-left: 0;
   }
+
   .login-form-loader {
     width: 100%;
     align-items: center;
@@ -84,21 +85,23 @@
   width: 1000px;
   max-height: 500px;
   z-index: 1;
+
   @media only screen and (max-width: 1024px) {
     position: relative;
     top: -30px;
-    right: 0px;
+    right: 0;
     max-width: 300px;
     max-height: 200px;
   }
 }
+
 .background-svg {
   max-width: 1084px;
   height: 100%;
   position: absolute;
   top: 0;
   right: 0;
-  
+
   @media only screen and (max-width: 1024px) {
     display: none;
   }
@@ -108,12 +111,12 @@
   font-size: 1.5em;
   line-height: normal;
   padding: 0.2rem 0.5rem;
-  border: 0px;
+  border: 0;
   border-radius: 8px;
   background-color: $theme-dark;
-  border-top: 0px;
-  border-left: 0px;
-  border-right: 0px;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -121,7 +124,7 @@
   width: 50%;
   min-width: 300px;
   max-width: 400px;
-  margin: 0 2px 1rem; /*last value controls how far the next input starts*/
+  margin: 0 2px 1rem; /* last value controls how far the next input starts */
   font-variant-ligatures: none;
   -webkit-transition: box-shadow 70ms ease-out, border-color 70ms ease-out;
   -moz-transition: box-shadow 70ms ease-out, border-color 70ms ease-out;
@@ -137,7 +140,9 @@
 }
 
 .login-modal ::-webkit-input-placeholder {
-  /* Chrome/Opera/Safari */ /*changes to the placeholder text*/
+  /* Chrome/Opera/Safari */
+
+  /* changes to the placeholder text */
   color: #c0e2fd;
 }
 
@@ -152,16 +157,17 @@
   text-decoration: underline;
 }
 
-.bottom-right-toggle{
+.bottom-right-toggle {
   position: absolute;
   top: 20px;
   right: 20px;
+
   @media only screen and (max-width: 1024px) {
     display: none;
   }
 }
 
-.beating-heart{
+.beating-heart {
   color: red;
   animation: heartbeat 2s infinite;
 }

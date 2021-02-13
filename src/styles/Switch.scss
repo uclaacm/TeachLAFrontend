@@ -13,7 +13,7 @@
 }
 
 .switch-input {
-  padding: 0px;
+  padding: 0;
   position: absolute;
   top: 0;
   left: 0;
@@ -32,6 +32,7 @@
   background: $white;
   border-radius: inherit;
   transition: all $switch-transition-time;
+
   &.switch-on {
     justify-content: flex-start !important;
     background: $theme-dark;
@@ -41,13 +42,13 @@
 .switch-handle {
   position: absolute;
   top: 8px;
-
   width: 30px;
   height: 30px;
   border-radius: 6px;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
   background: $theme-dark;
   transition: all $switch-transition-time;
+
   &.switch-on {
     margin-left: 70px;
     background: white;
