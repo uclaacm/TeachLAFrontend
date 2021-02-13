@@ -1,7 +1,9 @@
 @import 'styles/variables.scss';
 
-html, body, #root {
-  /*without this the background color doesn't affect the whole window*/
+html,
+body,
+#root {
+  /* without this the background color doesn't affect the whole window */
   margin: 0;
   padding: 0;
 }
@@ -12,12 +14,17 @@ body {
   box-sizing: border-box;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: $font-family-heading;
 }
 
 * {
-  /*needed for the modal's button to stay within the window*/
+  /* needed for the modal's button to stay within the window */
   box-sizing: border-box;
 }
 
@@ -25,7 +32,7 @@ h1, h2, h3, h4, h5, h6 {
   white-space: nowrap;
 }
 
-.teachla-green{
+.teachla-green {
   //color: #92D32B;
   background-color: $teachla-primary;
   background-image: $teachla-gradient;
@@ -36,10 +43,10 @@ h1, h2, h3, h4, h5, h6 {
   -moz-text-fill-color: transparent;
 }
 
-.black-divider{
-  border:0;
+.black-divider {
+  border: 0;
   border-top: 1px solid $theme-dark;
-  margin:0;
-  height:1px;
+  margin: 0;
+  height: 1px;
   margin-top: 1em;
 }

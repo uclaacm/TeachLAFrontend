@@ -16,12 +16,12 @@ $light-lavender: #8485cc;
 $white: #fcfcfc;
 
 // Newly added colours with rework
-$teachla-primary: #5EDA12;
-$teachla-secondary-1: #B0EE00;
-$teachla-secondary-2: #28AA26;
-$teachla-secondary-3: #016D3A;
-$teachla-accent: #09D9C9;
-$teachla-gradient: linear-gradient(135deg, #50C609, #BCF223);
+$teachla-primary: #5eda12;
+$teachla-secondary-1: #b0ee00;
+$teachla-secondary-2: #28aa26;
+$teachla-secondary-3: #016d3a;
+$teachla-accent: #09d9c9;
+$teachla-gradient: linear-gradient(135deg, #50c609, #bcf223);
 
 // "Theme" Colours - specifically designed to allow for hot-swapping later
 $theme-light: $light-purple;
@@ -38,9 +38,10 @@ $radio-purple: #7a45f0;
 $switch-transition-time: 0.3s;
 
 //Theme variables
+
 /* To change colors according to theme:
 ex)
-    .class{ 
+    .class{
         @include themify($themes) {
             background-color: themed("backgroundColor");
         }
@@ -49,41 +50,43 @@ ex)
 
 $themes: (
   light: (
+    // defaults
     color: $theme-dark !important,
     backgroundColor: $white !important,
     outputBackground: #e6e6fa,
     accentColor: $white,
     accentBackground: $light-lavender,
-    /* Card variables */ 
+    // cards
     cardColor: $theme-dark,
     cardBackground: $white,
     cardBorder: 1px solid $light-lavender,
     cardDivider: $light-lavender,
-    /* these next colors are all for the editor - check out CustomCM.scss for more info! */ comment:
-      $theme-dark,
+    // code mirror
+    comment:$theme-dark,
     keyword: #9715f3,
     def: #0052ff,
     variable: #f07178,
     builtin: #ff7800,
-    number: #fd1f44,
+    er: #fd1f44,
     operator: $theme-dark,
     property: #056d45,
     cursor: #f4ee94,
     selectedLine: $off-white,
   ),
   dark: (
+    // defaults
     color: white !important,
     backgroundColor: $theme-dark !important,
     outputBackground: $theme-tertiary,
     accentColor: white,
     accentBackground: $theme-light,
-    /* Card variables */ 
+    // cards
     cardColor: $theme-dark,
     cardBackground: $off-white,
     cardBorder: none,
     cardDivider: $theme-dark,
-    /* these next colors are all for the editor - check out CustomCM.scss for more info! */ comment:
-      white,
+    // code mirror
+    comment: white,
     keyword: #deb0ff,
     def: #47e2d5,
     variable: #f5e83c,
@@ -100,6 +103,7 @@ $themes: (
   @each $theme, $map in $themes {
     .theme-#{$theme} & {
       $theme-map: () !global;
+
       @each $key, $submap in $map {
         $value: map-get(map-get($themes, $theme), "#{$key}");
         $theme-map: map-merge(

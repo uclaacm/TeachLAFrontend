@@ -1,19 +1,19 @@
 @import 'styles/variables.scss';
 
-
-.full-container{
-    height: 100%;
-    width: 100%;
+.full-container {
+  height: 100%;
+  width: 100%;
 }
 
-.page-container{
-    @include themify($themes) {
-        background-color: themed("backgroundColor");
-        color: themed("color");
-    }
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+.page-container {
+  @include themify($themes) {
+    background-color: themed("backgroundColor");
+    color: themed("color");
+  }
+
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
