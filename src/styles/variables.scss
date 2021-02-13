@@ -50,41 +50,43 @@ ex)
 
 $themes: (
   light: (
+    // defaults
     color: $theme-dark !important,
     backgroundColor: $white !important,
     outputBackground: #e6e6fa,
     accentColor: $white,
     accentBackground: $light-lavender,
-     
+    // cards
     cardColor: $theme-dark,
     cardBackground: $white,
     cardBorder: 1px solid $light-lavender,
     cardDivider: $light-lavender,
-     comment:
-      $theme-dark,
+    // code mirror
+    comment:$theme-dark,
     keyword: #9715f3,
     def: #0052ff,
     variable: #f07178,
     builtin: #ff7800,
-      er: #fd1f44,
+    er: #fd1f44,
     operator: $theme-dark,
     property: #056d45,
     cursor: #f4ee94,
     selectedLine: $off-white,
   ),
   dark: (
+    // defaults
     color: white !important,
     backgroundColor: $theme-dark !important,
     outputBackground: $theme-tertiary,
     accentColor: white,
     accentBackground: $theme-light,
-     
+    // cards
     cardColor: $theme-dark,
     cardBackground: $off-white,
     cardBorder: none,
     cardDivider: $theme-dark,
-     comment:
-      white,
+    // code mirror
+    comment: white,
     keyword: #deb0ff,
     def: #47e2d5,
     variable: #f5e83c,
