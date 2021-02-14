@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import Login from '../Login.js';
 import { loadUserData, clearUserData, loadFailure } from '../../actions/userDataActions.js';
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state) => ({
   loggedIn: state.userData,
 });
 

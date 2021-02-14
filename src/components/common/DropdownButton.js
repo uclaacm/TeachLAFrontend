@@ -19,8 +19,6 @@ export default class DropdownButton extends React.Component {
     };
   }
 
-  //==============React Lifecycle Functions===================//
-  componentDidMount() {}
 
   toggleHandler = (prevVal) => {
     this.setState({ dropdownOpen: !prevVal });

@@ -26,37 +26,36 @@ function userDataReducer(state = initialState, action) {
       return initialState;
     case LOAD_FAILURE:
       return { ...state, error: action.message };
-    case SET_DISPLAY_NAME:
+    case SET_DISPLAY_NAME: {
       const newName = action.value;
       fetch
         .updateUserData(state.uid, { displayName: newName })
-        .then((response) => {})
         .catch((err) => {
           state.error = err;
           console.log(err);
         });
       return { ...state, displayName: newName };
-    case SET_PHOTO_NAME:
+    }
+    case SET_PHOTO_NAME: {
       const newPhotoName = action.photoName;
       fetch
+        // if nothing went bad, keep the display name, otherwise, change it back (or dont, depends how we wanna do it)
         .updateUserData(state.uid, { photoName: newPhotoName })
-        .then((response) => {
-          // if nothing went bad, keep the display name, otherwise, change it back (or dont, depends how we wanna do it)
-        })
         .catch((err) => {
           state.error = err;
           console.log(err);
         });
       return { ...state, photoName: newPhotoName };
-    case SET_MOST_RECENT_PROGRAM:
+    }
+    case SET_MOST_RECENT_PROGRAM: {
       fetch
         .updateUserData(state.uid, { mostRecentProgram: action.value })
-        .then((response) => {})
         .catch((err) => {
           state.error = err;
           console.log(err);
         });
       return { ...state, mostRecentProgram: action.value };
+    }
     default:
       return state;
   }

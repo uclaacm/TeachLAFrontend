@@ -135,7 +135,7 @@ describe('ProfilePanel', () => {
     // submit change
     component.find('.panel-edit-container').simulate('submit', { preventDefault: () => {} });
     expect(component.state().showModal).toBe(false);
-    expect(clickFn.mock.calls[0][0] == 'Not Mark');
+    expect(clickFn.mock.calls[0][0]).toBe('Not Mark');
     expect(component.state().name).toBe('Not Mark');
     expect(component.state().editingName).toBe(false);
     expect(component.state().displayNameMessage).toBe('');

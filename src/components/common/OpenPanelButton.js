@@ -20,4 +20,4 @@ export default function OpenPanelButton (props) {
       <FontAwesomeIcon icon={faBars} />
     </div>
   );
-};
+}
