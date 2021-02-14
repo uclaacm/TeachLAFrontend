@@ -23,7 +23,7 @@ describe('<DropdownButton />', () => {
   // const {dropdownButton, props} = setup()
   // let dropdownRefs = dropdownButton.find(DropdownItem)
 
-  xit('renders with the correct language being used.', () => {
+  it.skip('renders with the correct language being used.', () => {
     const children = dropdownButton.find(DropdownToggle).prop('children');
     const currentLanguage = shallow(<div>{children}</div>).text();
     expect(currentLanguage).toMatch(JAVASCRIPT);

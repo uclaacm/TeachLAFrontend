@@ -1,6 +1,6 @@
 import { faCogs } from '@fortawesome/free-solid-svg-icons';
 import {
-  faPython, faJs, faHtml5, faReact,
+  faPython, faHtml5, faReact,
 } from '@fortawesome/free-brands-svg-icons';
 import CreateProcessingDoc from './Processing';
 import CreatePythonDoc from './Python';
@@ -15,13 +15,6 @@ export const SUPPORTED_LANGUAGES = [
     extension: 'py',
     render: (code, showConsole) => CreatePythonDoc(btoa(code), showConsole),
   },
-  //   {
-  //     value: "javascript",
-  //     display: "JavaScript",
-  //     icon: faJs,
-  //     codemirror: "javascript",
-  //     extension: "js",
-  //   },
   {
     value: 'html',
     display: 'HTML',
@@ -54,8 +47,8 @@ const DEFAULT_LANGUAGE = {
   display: 'Text',
   codemirror: undefined,
   extension: 'txt',
-  render: (code, showConsole) => code,
-  renderDownload: (code, showConsole) => code,
+  render: (code) => code,
+  renderDownload: (code) => code,
 };
 
 export const getLanguageData = (lang) => ({
