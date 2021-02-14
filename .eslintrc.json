@@ -6,7 +6,8 @@
     "extends": [
         "plugin:react/recommended",
         "plugin:jest/recommended",
-        "airbnb"
+        "airbnb",
+        "prettier"
     ],
     "parserOptions": {
         "ecmaFeatures": {
