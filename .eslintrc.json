@@ -7,6 +7,16 @@
         "plugin:react/recommended",
         "airbnb"
     ],
+    "overrides": [
+        {
+          "files": [
+            "**/*.test.js"
+          ],
+          "env": {
+            "jest": true
+          }
+        }
+    ],
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
