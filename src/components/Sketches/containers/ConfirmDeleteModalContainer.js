@@ -1,7 +1,7 @@
-import ConfirmDeleteModal from "../components/ConfirmDeleteModal.js";
-import { connect } from "react-redux";
-import { deleteProgram } from "../../../actions/programsActions";
-import { setMostRecentProgram } from "../../../actions/userDataActions.js";
+import { connect } from 'react-redux';
+import ConfirmDeleteModal from '../components/ConfirmDeleteModal.js';
+import { deleteProgram } from '../../../actions/programsActions';
+import { setMostRecentProgram } from '../../../actions/userDataActions.js';
 
 const mapStateToProps = (state) => {
   const { mostRecentProgram, uid } = state.userData;
@@ -13,12 +13,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    deleteProgram: (program, data) => dispatch(deleteProgram(program, data)),
-    setMostRecentProgram: (value) => dispatch(setMostRecentProgram(value)),
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  deleteProgram: (program, data) => dispatch(deleteProgram(program, data)),
+  setMostRecentProgram: (value) => dispatch(setMostRecentProgram(value)),
+});
 
 const ConfirmDeleteModalContainer = connect(
   mapStateToProps,

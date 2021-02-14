@@ -1,14 +1,14 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import "bootstrap/dist/css/bootstrap.css";
-import "./styles/global.scss";
-import Root from "./components/containers/AppContainer.js";
-import registerServiceWorker from "./registerServiceWorker";
-import { createStore } from "redux";
-import appReducers from "./reducers";
-import config from "./firebase";
-import { Provider } from "react-redux";
-import firebase from "firebase/app";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import 'bootstrap/dist/css/bootstrap.css';
+import './styles/global.scss';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import firebase from 'firebase/app';
+import Root from './components/containers/AppContainer.js';
+import registerServiceWorker from './registerServiceWorker';
+import appReducers from './reducers';
+import config from './firebase';
 
 firebase.initializeApp(config);
 
@@ -21,7 +21,7 @@ ReactDOM.render(
   <Provider store={store}>
     <Root />
   </Provider>,
-  document.getElementById("root"),
+  document.getElementById('root'),
 );
 
 registerServiceWorker();

@@ -1,4 +1,4 @@
-import constants from "../constants";
+import constants from '../constants';
 
 /**
  * constructShareableSketchURL: given a program ID, generate
@@ -10,8 +10,8 @@ import constants from "../constants";
 
 export const constructShareableSketchURL = (programId, domainRoot = window.location.hostname) => {
   let root;
-  if (domainRoot.includes("localhost")) {
-    root = "http://localhost:8080";
+  if (domainRoot.includes('localhost')) {
+    root = 'http://localhost:8080';
   } else {
     root = `https://${domainRoot}`;
   }
