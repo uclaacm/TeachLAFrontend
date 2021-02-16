@@ -53,6 +53,16 @@ class ShareSketchModal extends React.Component {
           </InputGroupAddon>
         </InputGroup>
         <hr />
+        <h2 className="text-center">Share This Collab Session</h2>
+        <InputGroup>
+          <Input value={this.props.shareUrl} disabled />
+          <InputGroupAddon addonType="append">
+            <Button color="primary" onClick={this.initiateCopy}>
+              <FontAwesomeIcon icon={faCopy} /> Copy to Clipboard
+            </Button>
+          </InputGroupAddon>
+        </InputGroup>
+        <hr />
         <p className="text-center">{this.state.copyStatus}</p>
       </ReactModal>
     );
