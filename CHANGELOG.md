@@ -151,7 +151,7 @@ This minor release brings an updating of our input validation (#283, #297) and a
 
 ## Version v2.1.0 | Forking, sharing, minor refactoring (28/05/2020)
 
-This is a minor release with two great features (thanks @malsf21 and @jamieliu386!), a bug fix, and some refactoring (thanks to @evazhog and @malsf21):
+This is a minor release with two great features (thanks @mattxwang and @jamieliu386!), a bug fix, and some refactoring (thanks to @evazhog and @mattxwang):
 
 - Adds fork button to the editor (#278)
 - Adds share button to the editor (#279)
@@ -185,7 +185,7 @@ This is a minor release with two great features (thanks @malsf21 and @jamieliu38
 
 ## Version v2.0.0 | View-only mode, major editor refactoring, and bug fixes (14/05/2020)
 
-This release brings a brand new view-only mode to the editor along with some great refactoring thanks to the absolute titan of a PR that is #219 thanks to the combined efforts of @jamieliu386, @malsf21, and @emmyc. Due to the significant changes to many of the editor's major components in this release, I am marking it as a major release.
+This release brings a brand new view-only mode to the editor along with some great refactoring thanks to the absolute titan of a PR that is #219 thanks to the combined efforts of @jamieliu386, @mattxwang, and @emmyc. Due to the significant changes to many of the editor's major components in this release, I am marking it as a major release.
 
 Of course, with new features comes new bugs, one of which was found and solved in #245. #274 also fixed a long standing mixup deep in one of our files.
 
