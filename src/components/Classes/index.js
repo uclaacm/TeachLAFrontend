@@ -73,11 +73,10 @@ class Classes extends React.Component {
           return new Promise((resolve, reject) => {
             let data = {
               uid: this.props.uid,
-              // TODO: replace this with a real CID once back-end is updated
-              wid: "hanka,greenwich",
+              cid: cid,
             };
             fetch
-              .getClass(data, false)
+              .getClass(data, false, false)
               .then((res) => {
                 if (!res.ok) throw new Error(`Error loading a class! Got status ${res.status}`);
                 console.log("res is:");
