@@ -78,6 +78,7 @@ class ClassPage extends React.Component {
       thumbnail: 0,
       name: "Class",
       instructors: [],
+      sketchIDs: [],
       sketches: [],
       isInstr: false,
       students: [],
@@ -97,13 +98,12 @@ class ClassPage extends React.Component {
 
     let data = {
       uid: this.props.uid,
-      // TODO: change this when API is updated
-      wid: "hanka,greenwich",
+      cid: this.props.cid,
     };
     console.log("about to get class with this data: " + JSON.stringify(data));
     try {
       fetch
-        .getClass(data, true)
+        .getClass(data, true, true)
         .then((res) => {
           if (!res.ok) throw new Error(`Error loading this class! Got status ${res.status}`);
           return res.classData;
@@ -114,13 +114,14 @@ class ClassPage extends React.Component {
             loaded: true,
             name: json.name,
             instructors: json.instructors,
-            isInstr: this.props.uid in json.instructors,
+            isInstr: json.instructors.some(instrID => instrID === this.props.uid),
             sketchIDs: json.programs, // List of IDs
-            sketches: json.programData, // List of sketch objects
+            sketches: json.programData || [], // List of sketch objects
             students: json.members,
             wid: json.wid,
             thumbnail: json.thumbnail,
           });
+          // this.props.loadClass(classData);
         })
         .catch((err) => {
           this.setState({
@@ -174,7 +175,7 @@ class ClassPage extends React.Component {
       <CreateSketchModalContainer
         isOpen={this.state.createSketchModalOpen}
         onClose={() => this.setCreateSketchModalOpen(false)}
-        wid={this.props.wid}
+        wid={this.state.wid}
       />
     );
   };
@@ -238,7 +239,7 @@ class ClassPage extends React.Component {
     return this.state.isInstr ? (
       <ClassInfoBox
         title={"Students"}
-        content={this.state.students.map((student) => student.name).join(", ")}
+        content={this.state.students ? this.state.students.map((student) => student.name).join(", ") : "No students enrolled."}
       />
     ) : (
       ""
@@ -258,7 +259,7 @@ class ClassPage extends React.Component {
   };
 
   renderSketchList = () => {
-    let newList = this.props.sketches.concat([]);
+    let newList = this.state.sketches.concat([]);
     newList.sort((a, b) => {
       if (a.name < b.name) return -1;
       if (a.name === b.name) return 0;

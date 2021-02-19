@@ -4,6 +4,13 @@ import { Container, Row, Col, Button } from "reactstrap";
 import * as fetch from "../../../lib/fetch.js";
 
 class ConfirmLeaveModal extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      error: "",
+    };
+  }
+
   closeModal = () => {
     if (this.props.onClose && {}.toString.call(this.props.onClose) === "[object Function]") {
       this.props.onClose();
@@ -17,16 +24,13 @@ class ConfirmLeaveModal extends React.Component {
     };
 
     try {
+      // Note: leaveClass doesn't currently return anything.
       fetch
         .leaveClass(data)
         .then((res) => {
-          return res.json();
-        })
-        .then((json) => {
-          if (!json.ok) {
+          if (!res.ok) {
             this.setState({
-              spinner: false,
-              error: json.error || "Failed to leave the class, please try again later",
+              error: res.error || "Failed to leave the class, please try again later",
             });
             return;
           }
@@ -35,7 +39,6 @@ class ConfirmLeaveModal extends React.Component {
         })
         .catch((err) => {
           this.setState({
-            spinner: false,
             error: "Failed to leave the class, please try again later",
           });
           console.log(err);
@@ -49,7 +52,7 @@ class ConfirmLeaveModal extends React.Component {
     // this.props.inClass ? this.props.unsetClass() : this.closeModal();
     // end of test stuff
 
-    this.setState({ spinner: true, error: "" });
+    this.setState({ error: "" });
   };
 
   render() {
@@ -65,6 +68,7 @@ class ConfirmLeaveModal extends React.Component {
             Are you sure you want to permanently leave the class "{this.props.className}"?
           </h3>
           <hr />
+          <div className="text-center text-danger">{this.state.error || <br />}</div>
           <Row>
             <Col>
               <Button color="secondary" onClick={this.closeModal} size="lg" block>
