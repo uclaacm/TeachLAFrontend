@@ -50,31 +50,35 @@ class JoinClassModal extends React.Component {
 
     let data = {
       uid: this.props.uid,
-      wid: this.state.wid,
+      // Todo: swap this line back in when BE is fixed
+      // wid: this.state.wid,
+      cid: this.state.wid,
     };
 
     try {
       fetch
         .joinClass(data)
         .then((res) => {
-          return res.json();
+          if (!res.ok) {
+            if (res.status == 404) {
+              throw "404";
+            } else {
+              throw new Error(`Error: Response code is ${res.status}`);
+            }
+          }
+          return res.classData;
         })
         .then((json) => {
-          if (!json.ok) {
-            this.setState({
-              disableSubmit: false,
-              error: json.error || "There was a problem joining the class, please try again!",
-            });
-            return;
-          }
-          this.props.addStudentClass(json.data.cid, json || {});
+          this.props.addStudentClass(json.cid, json || {});
           this.setState({ redirect: true });
           this.closeModal();
         })
         .catch((err) => {
           this.setState({
             disableSubmit: false,
-            error: "There was a problem joining the class, please try again",
+            error: (err === "404") ?
+              "We couldn't find that class. Please try again!" :
+              "There was a problem joining the class, please try again!",
           });
           console.log(err);
         });
