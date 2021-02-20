@@ -23,12 +23,15 @@ const ROUTER_BASE_NAME = "/";
 
 // Various Server URLs
 var SERVER_URL = "http://localhost:8081";
+var WEBSOCKET_URL = "wss://localhost:8081";
 if (process && process.env) {
   if (process.env.REACT_APP_SERVER_TYPE === "staging") {
     SERVER_URL = "https://tla-backend-staging.herokuapp.com";
+    WEBSOCKET_URL = "wss://tla-backend-staging.herokuapp.com";
   }
   if (process.env.REACT_APP_SERVER_TYPE === "prod") {
     SERVER_URL = "https://tla-backend-prod.herokuapp.com";
+    WEBSOCKET_URL = "wss://tla-backend-prod.herokuapp.com";
   }
 }
 
