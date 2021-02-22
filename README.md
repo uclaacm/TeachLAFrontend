@@ -13,7 +13,7 @@ Want to find out more about ACM Teach LA, or join the developer team? Check out 
 
 You'll need:
 
-- [Node](https://nodejs.org/en/) (we develop this with Node v12.14.1 LTS)
+- [Node](https://nodejs.org/en/) (we develop this with Node v14.15.5 LTS)
 - [git](https://git-scm.com/)
 - either `npm` (which comes default with Node) or [yarn](https://yarnpkg.com/en/)
 
