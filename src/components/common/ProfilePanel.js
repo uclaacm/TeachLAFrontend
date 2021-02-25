@@ -263,7 +263,7 @@ class ProfilePanel extends React.Component {
     }
 
     panelButtons.push(this.renderSignOutButton());
-
+    //panelButtons.push(this.renderShowStatusBar()); //Status bar. temporarily removed before collab coding
     return <div className="panel-buttons">{panelButtons}</div>;
   };
 
@@ -317,16 +317,17 @@ class ProfilePanel extends React.Component {
   );
 
   renderShowStatusBar = () => {
-    let onToggle = () => {
-      console.log(this.props);
-      this.props.setStatusBar(!this.props.statusBar);
-    };
     return (
-      <div className="panel-button">
-        <button className="statusbar-button" onClick={() => onToggle()}>
-          <span> Status Bar</span>
-        </button>
-      </div>
+      <Button
+        className="panel-button"
+        key="sign-out-button"
+        id="sign-out-button"
+        size="lg"
+        block
+        onClick={() => this.props.setStatusBar(!this.props.statusBar)}
+      >
+        <span className="panel-button-text">Status Bar</span>
+      </Button>
     );
   };
   renderContent = () => (
@@ -337,10 +338,8 @@ class ProfilePanel extends React.Component {
       {this.renderErrorMessage(this.state.displayNameMessage)}
       {this.renderButtons()}
       {this.renderThemeSwitch()}
-      {this.renderShowStatusBar()}
     </div>
   );
-
   renderCollapseButton = () => (
     <div className="panel-collapse-button" onClick={this.props.togglePanel}>
       <FontAwesomeIcon icon={faTimes} />
