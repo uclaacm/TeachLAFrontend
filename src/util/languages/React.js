@@ -47,6 +47,7 @@ const getUserScript = (code) => `
 
 const getReactSrcDocBody = (code, showConsole) => `
     <body>
+      <div id="output"></div>  
       ${
         showConsole
           ? `<div id="outer"><textarea id="inner"></textarea></div>`
@@ -54,7 +55,6 @@ const getReactSrcDocBody = (code, showConsole) => `
       }
       ${getJsSrcDocLoggingScript()}
       ${getUserScript(code)}
-      <div id="output"></div>
     </body>
   `;
 
