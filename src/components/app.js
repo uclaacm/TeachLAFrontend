@@ -4,6 +4,7 @@ import { ROUTER_BASE_NAME } from "../constants";
 import LoginPage from "./containers/LoginContainer";
 import MainContainer from "./containers/MainContainer";
 import ViewOnlyContainer from "./containers/ViewOnlyContainer";
+import CollabContainer from "./containers/CollabContainer";
 import LoadingPage from "./common/LoadingPage";
 import Error from "./Error";
 import PageNotFound from "./PageNotFound";
@@ -162,6 +163,10 @@ class App extends React.Component {
               )}
             />
             {/* Default error page */}
+            <Route
+              path="/c/:programid"
+              render={(props) => <CollabContainer programid={props.match.params.programid} />}
+            />
             <Route
               path="/error"
               render={() =>
