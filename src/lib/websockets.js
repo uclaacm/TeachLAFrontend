@@ -11,16 +11,17 @@ class CollabSocket {
    * 
    * @param {String} uid UUID of collaborative session to connect to.
    * @param {() => any} onOpen Fired on WebSocket open.
-   * @param {(error: Error) => any} onError Fired on WebSocket error.
    * @param {() => any} onClose Fired on WebSocket close.
-   * @param {Number} timeout Default timeout to use.
+   * @param {(error: Error) => any} onError Fired on WebSocket error.
+   * @param {Number} timeout Default timeout to use (in ms).
    * @returns {CollabSocket} New connection to the session.
    */
-  constructor(uid, onOpen, onClose, timeout = 5000) {
-    let ws = WebSocket(`${constants.WEBSOCKET_URL}/collab/join/${uid}`);
+  constructor(uid, onOpen, onClose, onError = (() => null), timeout = 5000) {
+    const url = `${constants.WEBSOCKET_URL}/collab/join/${uid}`
+    let ws = WebSocket(url);
     ws.onopen = onOpen;
-    ws.onerror = onError;
     ws.onclose = onClose;
+    ws.onerror = onError;
     
     this.onMessage = () => {};
     ws.onmessage = this._onMessage(this.onMessage);
