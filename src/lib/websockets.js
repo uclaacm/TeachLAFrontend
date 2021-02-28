@@ -22,31 +22,22 @@ class CollabSocket {
     ws.onopen = onOpen;
     ws.onclose = onClose;
     ws.onerror = onError;
-    
-    this.onMessage = () => {};
-    ws.onmessage = this._onMessage(this.onMessage);
+
+    // Table of subscriptions for reads.
+    this.subscriptions = {};
+
+    // Handles subscriptions processing.
+    this.defaultHandler = m => {
+      const content = JSON.parse(m);
+      if (content.type === "SUBREAD")
+        this.subscriptions[content.uid]?.forEach(handler => handler(content));
+    };
+    ws.onmessage = this.defaultHandler;
+
+    this.requestWrite = this.requestWrite.bind(this);
     this.timeout = timeout;
+    this.uid = uid;
     this.ws = ws;
-  }
-
-  // Wraps onmessage calls with JSON.parse for usability.
-  _onMessage() {
-    return this.onMessage ? (m) => this.onMessage(JSON.parse(m)) : () => null;
-  }
-
-  /**
-   * Writes to their own editor. Returns the new content of
-   * editor if the write was accepted.
-   * 
-   * @param {String} value Value to update the current user's editor with.
-   * @returns {Promise<String>} Result of write request.
-   */
-  sendWrite(value) {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        // TODO
-      }, this.timeout);
-    });
   }
 
   /**
@@ -59,11 +50,45 @@ class CollabSocket {
    * @returns {Promise<String>} Result of write request.
    */
   requestWrite(target, value) {
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
+      const oldOnMessage = this._onMessage;
+
       setTimeout(() => {
-        // TODO
+        this.ws.onmessage = m => {
+          const content = JSON.parse(m);
+          if (content.uid !== this.uid)
+            oldOnMessage(m);
+          else {
+            this.ws.onmessage = oldOnMessage;
+            resolve(content.value);
+          }
+        };
+
+        this.ws.send(JSON.stringify({
+          author: this.uid,
+          type: "WRITE",
+          body: {
+            target,
+            value,
+          }
+        }));
       }, this.timeout);
+      
+      // Reset our onmessage and reject.
+      this.ws.onmessage = oldOnMessage;
+      reject("Timed out.");
     });
+  }
+
+  /**
+   * Writes to their own editor. Returns the new content of
+   * editor if the write was accepted.
+   * 
+   * @param {String} value Value to update the current user's editor with.
+   * @returns {Promise<String>} Result of write request.
+   */
+  sendWrite(value) {
+    return this.requestWrite(this.uid, value);
   }
   
   /**
@@ -84,15 +109,13 @@ class CollabSocket {
         
         // Loop until we reach our timeout or resolve the
         // Promise.
-        while (true) {
-          this.onMessage = (m) => {
-            if (m.type === "READ")
-              resolve(m.content);
-          }
-        }
+        this.onMessage = (m) => {
+          if (m.type === "READ")
+            resolve(m.content);
+        };
       }, this.timeout);
 
-      reject("Failed to request read.");
+      reject("Timed out.");
     });
   }
 
@@ -107,7 +130,30 @@ class CollabSocket {
    */
   subscribeRead(target, onChange) {
     return new Promise((resolve, reject) => {
-      // TODO
+      const oldHandler = this.defaultHandler;
+
+      setTimeout(() => {
+        this.ws.onmessage = m => {
+          const content = JSON.parse(m);
+          if (content.type === "SUBSCRIBE" && content.body?.ok) {
+            const subscriptions = this.subscriptions[target];
+            const idx = this.subscriptions[target] ? this.subscriptions[target].push(onChange) - 1 : (this.subscriptions[target] = [onChange]);
+            this.ws.onmessage = oldHandler;
+            resolve(() => this.subscriptions[target] = [
+              ...subscriptions.slice(0, idx),
+              ...subscriptions.slice(idx + 1, subscriptions.length)
+            ]);
+          } else {
+            reject("Failed to subscribe (bad permissions).");
+          }
+        };
+        this.ws.send(JSON.stringify({
+          type: "SUBSCRIBE",
+          target
+        }));
+      }, this.timeout);
+
+      reject("Timed out.");
     });
   }
 }
