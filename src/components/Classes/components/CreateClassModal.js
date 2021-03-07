@@ -1,7 +1,5 @@
 import React from "react";
-import DropdownButton from "./DropdownButton";
 import ImageSelector from "../../common/ImageSelector";
-import { LanguageDropdownValues, LanguageDropdownDefault } from "../constants";
 import { ThumbnailArray } from "../../../constants";
 import * as fetch from "../../../lib/fetch.js";
 import { Redirect } from "react-router-dom";
@@ -12,11 +10,10 @@ import ReactModal from "react-modal";
 
 import "styles/SketchesModal.scss";
 
-class CreateSketchModal extends React.Component {
+class CreateClassModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      language: LanguageDropdownDefault,
       name: "",
       next: false,
       thumbnail: -1,
@@ -26,8 +23,6 @@ class CreateSketchModal extends React.Component {
     };
   }
 
-  //==============React Lifecycle Functions Start===================//
-
   closeModal = () => {
     if (this.props.onClose && {}.toString.call(this.props.onClose) === "[object Function]") {
       this.props.onClose();
@@ -35,7 +30,6 @@ class CreateSketchModal extends React.Component {
 
     this.setState({
       next: false,
-      language: LanguageDropdownDefault,
       name: "",
       thumbnail: -1,
       error: "",
@@ -60,7 +54,6 @@ class CreateSketchModal extends React.Component {
       this.state.thumbnail >= ThumbnailArray.length ||
       this.state.thumbnail < 0
     ) {
-      // this.setState({error: "Please select a thumbnail"})
       return true;
     }
 
@@ -72,36 +65,8 @@ class CreateSketchModal extends React.Component {
       this.setState({ error: "Name is required" });
       return true;
     }
-    if (this.state.name.length > 15) {
-      this.setState({ error: "Name must be 15 characters or less" });
-      return true;
-    }
-    // if( this.state.name.match(/[^a-zA-Z0-9!@#$%'" .]/)){
-    //   this.setState({error: "Sketch name nust be less than 20 characters"})
-    //   return true
-    // }
-
-    return false;
-  };
-
-  badLanguageInput = () => {
-    if (!this.state.language) {
-      this.setState({ error: "Please select a language" });
-      return true;
-    }
-
-    let notFound = true;
-    for (var i = 0; i < LanguageDropdownValues.length; i++) {
-      if (
-        this.state.language.display === LanguageDropdownValues[i].display &&
-        this.state.language.value === LanguageDropdownValues[i].value
-      ) {
-        notFound = false;
-        break;
-      }
-    }
-    if (notFound) {
-      this.setState({ error: "Invalid language selected" });
+    if (this.state.name.length > 100) {
+      this.setState({ error: "Name must be 100 characters or less" });
       return true;
     }
 
@@ -110,7 +75,7 @@ class CreateSketchModal extends React.Component {
 
   onFirstSubmit = (e) => {
     e.preventDefault();
-    if (this.badNameInput() || this.badLanguageInput()) {
+    if (this.badNameInput()) {
       return;
     }
     this.setNext(true);
@@ -124,36 +89,54 @@ class CreateSketchModal extends React.Component {
     let data = {
       uid: this.props.uid,
       thumbnail: this.state.thumbnail,
-      language: this.state.language.value,
       name: this.state.name,
-      code: "",
-      wid: this.props.wid ?? "",
     };
-
+    console.log("about to try creating class, data is " + JSON.stringify(data));
     try {
       fetch
-        .createSketch(data)
+        .createClass(data)
         .then((res) => {
-          if (!res.ok) throw new Error(`Failed to create user! Got status ${res.status}`);
+          if (!res.ok) throw new Error(`Failed to create class! Got status ${res.status}`);
           return res.json();
         })
         .then((json) => {
-          const { uid, ...programData } = json;
-          this.props.addProgram(uid, programData || {});
-          this.props.setMostRecentProgram(uid);
+          console.log(JSON.stringify(json));
+          this.props.addInstrClass(json.cid, json || {});
+          this.props.setCurrentClass(json.cid);
           this.setState({ redirect: true });
           this.closeModal();
         })
         .catch((err) => {
+          console.log("caught an error");
           this.setState({
             disableSubmit: false,
-            error: "Failed to create sketch, please try again later",
+            error: "Failed to create class, please try again later",
           });
           console.log(err);
         });
     } catch (err) {
       console.log(err);
     }
+
+    // Testing stuff (do this instead of the try-catch block):
+    /*
+    let testCid = Math.floor(Math.random() * 10);
+    this.props.addInstrClass(testCid,
+      {
+        thumbnail: this.state.thumbnail,
+        name: this.state.name,
+        creator: this.props.uid,
+        instructors: [ "Me", this.props.uid ],
+        members: [ "HASH3", "HASH4", "HASH5" ],
+        programs: [ "HASH6", "HASH7" ],
+        cid: testCid,
+        wid: "Metallic Funky Monkey",
+      });
+    this.props.setCurrentClass(testCid);
+    this.closeModal();
+*/
+    // end of testing stuff
+
     this.setState({ disableSubmit: true, error: "" });
   };
 
@@ -230,33 +213,20 @@ class CreateSketchModal extends React.Component {
         ariaHideApp={false}
       >
         <Container>
-          <h1 className="text-center">Create a Sketch</h1>
+          <h1 className="text-center">Create a Class</h1>
           <hr />
           <FormGroup row>
-            <Label className="text-right" for="sketch-name" xs={4}>
-              Name
+            <Label className="text-right" for="class-name" xs={4}>
+              Enter new class name:
             </Label>
             <Col xs={8}>
               <Input
                 onChange={(e) => this.setState({ name: e.target.value })}
                 value={this.state.name}
-                id="sketch-name"
+                id="class-name"
               />
             </Col>
           </FormGroup>
-          <br />
-          <Row>
-            <Col xs="4" className="text-right">
-              Language
-            </Col>
-            <Col xs="8" className="d-flex align-items-center">
-              <DropdownButton
-                dropdownItems={LanguageDropdownValues}
-                onSelect={(lang) => this.setState({ language: lang })}
-                displayValue={this.state.language.display || LanguageDropdownDefault.display}
-              />
-            </Col>
-          </Row>
           <br />
           <div className="text-center text-danger">{this.state.error || <br />}</div>
           <hr />
@@ -279,7 +249,8 @@ class CreateSketchModal extends React.Component {
 
   render() {
     if (this.state.redirect) {
-      return <Redirect to="/editor" />;
+      // put class url here
+      return <Redirect to="/class" />;
     }
 
     if (this.state.next) {
@@ -290,4 +261,4 @@ class CreateSketchModal extends React.Component {
   }
 }
 
-export default CreateSketchModal;
+export default CreateClassModal;

@@ -4,7 +4,7 @@ import ConfirmDeleteModalContainer from "./containers/ConfirmDeleteModalContaine
 import CreateSketchModalContainer from "./containers/CreateSketchModalContainer";
 import EditSketchModalContainer from "./containers/EditSketchModalContainer";
 import OpenPanelButtonContainer from "../common/containers/OpenPanelButtonContainer";
-import { SketchThumbnailArray } from "./constants";
+import { ThumbnailArray } from "../../constants";
 import CodeDownloader from "../../util/languages/CodeDownloader";
 import "styles/Sketches.scss";
 
@@ -31,7 +31,7 @@ class Sketches extends React.Component {
   }
 
   getRandomSketchThumbnail = () => {
-    return SketchThumbnailArray[Math.floor(Math.random() * SketchThumbnailArray.length)];
+    return ThumbnailArray[Math.floor(Math.random() * ThumbnailArray.length)];
   };
 
   setCreateSketchModalOpen = (val) => {
@@ -72,10 +72,10 @@ class Sketches extends React.Component {
   );
 
   getThumbnailSrc = (val) => {
-    if (val === undefined || val === "" || val >= SketchThumbnailArray.length || val < 0) {
-      return SketchThumbnailArray[0];
+    if (val === undefined || val === "" || val >= ThumbnailArray.length || val < 0) {
+      return ThumbnailArray[0];
     }
-    return SketchThumbnailArray[val];
+    return ThumbnailArray[val];
   };
 
   renderSketches = () => {

@@ -5,10 +5,11 @@ import App from "../app.js";
 import { connect } from "react-redux";
 import { loadUserData, clearUserData, loadFailure } from "../../actions/userDataActions.js";
 import { loadPrograms, clearPrograms } from "../../actions/programsActions";
+import { clearClasses } from "../../actions/classesActions";
 import { screenResize } from "../../actions/uiActions";
 import * as fetch from "../../lib/fetch.js";
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     uid: state.userData.uid,
     errorMsg: state.userData.error,
@@ -17,7 +18,7 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     loadUserData: async (uid, onFailure) => {
       const { ok, data /*error*/ } = await fetch.getUserData(uid, true);
@@ -34,17 +35,15 @@ const mapDispatchToProps = dispatch => {
     clearUserData: () => {
       dispatch(clearUserData());
       dispatch(clearPrograms());
+      dispatch(clearClasses());
     },
-    loadFailure: err => {
+    loadFailure: (err) => {
       dispatch(loadFailure(err));
     },
     screenResize: (width, height) => dispatch(screenResize(width, height)),
   };
 };
 
-const Root = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(App);
+const Root = connect(mapStateToProps, mapDispatchToProps)(App);
 
 export default Root;

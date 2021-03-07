@@ -1,0 +1,129 @@
+@import 'styles/variables.scss';
+
+.classes-container {
+  flex-direction: column;
+  align-items: flex-start;
+  @include themify($themes) {
+    background-color: themed("backgroundColor");
+    color: themed("color");
+  }
+  justify-content: flex-start;
+  position: absolute;
+  transition: all 0.5s ease;
+  overflow: hidden;
+}
+
+.classes-content-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 90%;
+  width: 100%;
+  overflow: auto;
+}
+
+.classes-grid {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 90%;
+  width: 100%;
+  overflow: auto;
+}
+
+// a copy of .sketches-header
+.classes-header {
+  height: 67px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  @include themify($themes) {
+    border-bottom: 1px solid themed("color");
+  }
+}
+
+.classes-header-text {
+  font-weight: bold;
+  padding: 1rem;
+  cursor: pointer;
+  flex: 0 1 auto;
+  font-size: 45px;
+}
+
+.join-class-text {
+  margin-left: 20px;
+}
+
+.join-class-input {
+  font-size: 1.7em;
+  line-height: normal;
+  padding: 0.25rem 0.1rem 0px 0.1rem;
+  border: 0px;
+  @include themify($themes) {
+    background-color: themed("backgroundColor");
+    color: themed("color");
+  }
+  border-bottom: 2px solid #dddcdf;
+  outline: 0;
+  width: 50%;
+  min-width: 300px;
+  max-width: 500px;
+  transition: all 0.5s ease;
+  // color: #dddcdf;
+  display: inline-block;
+}
+
+.join-class-button {
+  display: inline-block;
+  font-family: "Josefin Slab", sans-serif;
+  // color: #dddcdf;
+  color: white;
+  // background-color: #857e8f;
+  @include themify($themes) {
+    background-color: themed("accentBackground");
+  }
+  cursor: pointer;
+  overflow: visible;
+  text-align: center;
+  border: 0;
+  border-radius: 3px;
+  padding: 8px 10px 8px 10px;
+  margin-left: 1rem;
+  font-size: 1.7em;
+  line-height: 1.4em;
+  transition: all 0.5s ease;
+}
+
+.join-class-button:hover {
+  /* border: 2px solid white;
+      border-radius: 10px;
+    /* box-shadow: inset 0 0 0 100px rgba(0, 0, 0, 0.2); */
+  box-shadow: inset 0 0 0 1px white;
+}
+
+.join-class-button:disabled {
+  opacity: 0.3;
+  box-shadow: none;
+  cursor: default;
+}
+
+.join-class-plus {
+  display: block;
+  width: 80px;
+  margin-left: 0px;
+}
+
+.no-classes-container {
+  margin-top: 3em;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  padding: 1em;
+  @include themify($themes) {
+    color: themed("color");
+  }
+}
