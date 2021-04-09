@@ -43,15 +43,23 @@ class TextEditor extends React.Component {
       forked: false,
       redirectToSketch: false,
       showShareModal: false,
+      collabId: null,
     };
   }
 
   //==============React Lifecycle Functions===================//
 
-  componentDidMount() {
+  componentDidMount = async () => {
     window.addEventListener("beforeunload", this.onLeave);
     window.addEventListener("close", this.onLeave);
-  }
+    try {
+      let collabId = await sketch.constructCollabId(this.props.uid);
+      this.setState({ collabId: collabId });
+      console.log("in mount collabId is: ", collabId);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   componentWillUnmount = () => {
     window.removeEventListener("beforeunload", this.onLeave);
@@ -296,6 +304,7 @@ class TextEditor extends React.Component {
           {this.renderForkModal()}
           <ShareSketchModal
             shareUrl={sketch.constructShareableSketchURL(this.props.mostRecentProgram)}
+            collabId={this.state.collabId}
             showModal={this.state.showShareModal}
             toggleModal={this.toggleShareModal}
           />

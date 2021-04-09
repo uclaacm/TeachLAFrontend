@@ -1,4 +1,5 @@
 import constants from "../constants";
+import * as fetch from "../lib/fetch.js";
 
 /**
  * constructShareableSketchURL: given a program ID, generate
@@ -17,4 +18,27 @@ export const constructShareableSketchURL = (programId, domainRoot = window.locat
   }
 
   return `${root}${constants.ROUTER_BASE_NAME}p/${programId}`;
+};
+
+/**
+ * constructCollabId: given a program ID, TODO: generate
+ * a collabId that students can join
+ * @param {String} uid the uid of the user who wants to create a collab session
+ */
+
+export const constructCollabId = async (uid) => {
+  let data = {
+    uid: uid,
+  };
+
+  let collabId = await fetch
+    .createCollab(data)
+    .then((res) => res.text())
+    .then((result) => {
+      return result;
+    })
+    .catch((err) => console.error(err));
+
+  console.log("collabId is: ", collabId);
+  return collabId;
 };

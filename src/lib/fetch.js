@@ -145,3 +145,16 @@ export const createCollab = async (data) => {
   const endpoint = `collab/create`;
   return makeServerRequest({ uid }, endpoint);
 };
+
+/**
+ * join the CollabSession with the passed-in id
+ * @param {string} id //id of CollabSession
+ */
+
+export const joinCollab = async (id) => {
+  const endpoint = `collab/create?id=${id}`;
+  let result = await makeServerRequest({}, endpoint, "get");
+  let ok = result.ok;
+  let session = await result.json();
+  return { ok, session };
+};

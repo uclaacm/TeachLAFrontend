@@ -7,6 +7,7 @@ import { faCopy } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import "styles/Modals.scss";
+import { text } from "@fortawesome/fontawesome-svg-core";
 
 /**
  * ShareSketchModal is a full-screen modal that displays
@@ -21,8 +22,9 @@ class ShareSketchModal extends React.Component {
     copyStatus: 'Hit "Copy to Clipboard"!',
   };
 
-  initiateCopy = () => {
-    navigator.clipboard.writeText(this.props.shareUrl).then(
+  initiateCopy = (textToBeCopied) => {
+    console.log("textToBeCopied is: ", textToBeCopied);
+    navigator.clipboard.writeText(textToBeCopied).then(
       () => {
         // success
         this.setState({ copyStatus: "Successfully copied!" });
@@ -47,7 +49,7 @@ class ShareSketchModal extends React.Component {
         <InputGroup>
           <Input value={this.props.shareUrl} disabled />
           <InputGroupAddon addonType="append">
-            <Button color="primary" onClick={this.initiateCopy}>
+            <Button color="primary" onClick={() => this.initiateCopy(this.props.shareUrl)}>
               <FontAwesomeIcon icon={faCopy} /> Copy to Clipboard
             </Button>
           </InputGroupAddon>
@@ -55,9 +57,9 @@ class ShareSketchModal extends React.Component {
         <hr />
         <h2 className="text-center">Share This Collab Session</h2>
         <InputGroup>
-          <Input value={this.props.shareUrl} disabled />
+          <Input value={this.props.collabId} disabled />
           <InputGroupAddon addonType="append">
-            <Button color="primary" onClick={this.initiateCopy}>
+            <Button color="primary" onClick={() => this.initiateCopy(this.props.collabId)}>
               <FontAwesomeIcon icon={faCopy} /> Copy to Clipboard
             </Button>
           </InputGroupAddon>
