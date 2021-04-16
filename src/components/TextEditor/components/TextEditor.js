@@ -55,7 +55,6 @@ class TextEditor extends React.Component {
     try {
       let collabId = await sketch.constructCollabId(this.props.uid);
       this.setState({ collabId: collabId });
-      console.log("in mount collabId is: ", collabId);
     } catch (err) {
       console.log(err);
     }

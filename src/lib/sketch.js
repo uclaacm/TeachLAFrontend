@@ -21,8 +21,8 @@ export const constructShareableSketchURL = (programId, domainRoot = window.locat
 };
 
 /**
- * constructCollabId: given a program ID, TODO: generate
- * a collabId that students can join
+ * constructCollabId: given a program ID,
+ * generate a collabId that students can join
  * @param {String} uid the uid of the user who wants to create a collab session
  */
 
@@ -37,8 +37,7 @@ export const constructCollabId = async (uid) => {
     .then((result) => {
       return result;
     })
-    .catch((err) => console.error(err));
+    .catch((err) => console.log(err));
 
-  console.log("collabId is: ", collabId);
   return collabId;
 };
