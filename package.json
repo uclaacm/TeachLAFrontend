@@ -14,7 +14,7 @@
     "crypto-js": "^4.0.0",
     "firebase": "^8.3.3",
     "immutable": "^3.8.2",
-    "node-sass": "^4.14.1",
+    "node-sass": "^5.0.0",
     "react": "^16.14.0",
     "react-codemirror2": "^7.2.1",
     "react-dom": "^16.14.0",
