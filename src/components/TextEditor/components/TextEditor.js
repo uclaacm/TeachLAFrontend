@@ -49,15 +49,9 @@ class TextEditor extends React.Component {
 
   //==============React Lifecycle Functions===================//
 
-  componentDidMount = async () => {
+  componentDidMount = () => {
     window.addEventListener("beforeunload", this.onLeave);
     window.addEventListener("close", this.onLeave);
-    try {
-      let collabId = await sketch.constructCollabId(this.props.uid);
-      this.setState({ collabId: collabId });
-    } catch (err) {
-      console.log(err);
-    }
   };
 
   componentWillUnmount = () => {
@@ -120,6 +114,15 @@ class TextEditor extends React.Component {
       codeMirrorInstance.addLineClass(line, "wrap", "selected-line");
     }
     this.setState({ currentLine: line });
+  };
+
+  createCollabSession = async () => {
+    try {
+      let collabId = await sketch.constructCollabId(this.props.uid);
+      this.setState({ collabId: collabId });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   renderForkModal = () => {
@@ -306,6 +309,7 @@ class TextEditor extends React.Component {
             collabId={this.state.collabId}
             showModal={this.state.showShareModal}
             toggleModal={this.toggleShareModal}
+            createCollabSession={this.createCollabSession}
           />
           <div
             className="text-editor-container"

@@ -3,7 +3,7 @@ import ReactModal from "react-modal";
 
 import { Button, Input, InputGroup, InputGroupAddon } from "reactstrap";
 
-import { faCopy } from "@fortawesome/free-solid-svg-icons";
+import { faCopy, faUser, faUserFriends } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import "styles/Modals.scss";
@@ -23,7 +23,6 @@ class ShareSketchModal extends React.Component {
   };
 
   initiateCopy = (textToBeCopied) => {
-    console.log("textToBeCopied is: ", textToBeCopied);
     navigator.clipboard.writeText(textToBeCopied).then(
       () => {
         // success
@@ -55,9 +54,14 @@ class ShareSketchModal extends React.Component {
           </InputGroupAddon>
         </InputGroup>
         <hr />
-        <h2 className="text-center">Share This Collab Session</h2>
+        <h2 className="text-center">Collab Session</h2>
+        <div style={{ textAlign: "center", marginBottom: "2%", marginTop: "1%" }}>
+          <Button color="primary" onClick={() => this.props.createCollabSession()}>
+            <FontAwesomeIcon icon={faUserFriends} /> Create a Collab session
+          </Button>
+        </div>
         <InputGroup>
-          <Input value={this.props.collabId} disabled />
+          <Input value={this.props.collabId === null ? "" : this.props.collabId} disabled />
           <InputGroupAddon addonType="append">
             <Button color="primary" onClick={() => this.initiateCopy(this.props.collabId)}>
               <FontAwesomeIcon icon={faCopy} /> Copy to Clipboard
