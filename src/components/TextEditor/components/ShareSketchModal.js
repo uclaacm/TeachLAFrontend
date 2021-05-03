@@ -3,10 +3,11 @@ import ReactModal from "react-modal";
 
 import { Button, Input, InputGroup, InputGroupAddon } from "reactstrap";
 
-import { faCopy } from "@fortawesome/free-solid-svg-icons";
+import { faCopy, faUser, faUserFriends } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import "styles/Modals.scss";
+import { text } from "@fortawesome/fontawesome-svg-core";
 
 /**
  * ShareSketchModal is a full-screen modal that displays
@@ -21,8 +22,8 @@ class ShareSketchModal extends React.Component {
     copyStatus: 'Hit "Copy to Clipboard"!',
   };
 
-  initiateCopy = () => {
-    navigator.clipboard.writeText(this.props.shareUrl).then(
+  initiateCopy = (textToBeCopied) => {
+    navigator.clipboard.writeText(textToBeCopied).then(
       () => {
         // success
         this.setState({ copyStatus: "Successfully copied!" });
@@ -47,7 +48,22 @@ class ShareSketchModal extends React.Component {
         <InputGroup>
           <Input value={this.props.shareUrl} disabled />
           <InputGroupAddon addonType="append">
-            <Button color="primary" onClick={this.initiateCopy}>
+            <Button color="primary" onClick={() => this.initiateCopy(this.props.shareUrl)}>
+              <FontAwesomeIcon icon={faCopy} /> Copy to Clipboard
+            </Button>
+          </InputGroupAddon>
+        </InputGroup>
+        <hr />
+        <h2 className="text-center">Collab Session</h2>
+        <div style={{ textAlign: "center", marginBottom: "2%", marginTop: "1%" }}>
+          <Button color="primary" onClick={() => this.props.createCollabSession()}>
+            <FontAwesomeIcon icon={faUserFriends} /> Create a Collab session
+          </Button>
+        </div>
+        <InputGroup>
+          <Input value={this.props.collabId === null ? "" : this.props.collabId} disabled />
+          <InputGroupAddon addonType="append">
+            <Button color="primary" onClick={() => this.initiateCopy(this.props.collabId)}>
               <FontAwesomeIcon icon={faCopy} /> Copy to Clipboard
             </Button>
           </InputGroupAddon>

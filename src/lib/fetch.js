@@ -85,7 +85,8 @@ export const updatePrograms = (uid = "", programs) => {
 
 export const createUser = (uid) => {
   console.log("creating user");
-  return makeServerRequest({ uid }, "user/create", "post");
+  const endpoint = `user/create`;
+  return makeServerRequest({ uid }, endpoint, "post");
 };
 
 /**
@@ -106,7 +107,8 @@ export const updateUserData = (uid = "", userData) => {
 
 export const createSketch = (data) => {
   const { uid, ...rest } = data;
-  return makeServerRequest({ uid, program: rest }, "program/create");
+  const endpoint = `program/create`;
+  return makeServerRequest({ uid, program: rest }, endpoint);
 };
 
 /**
@@ -116,7 +118,8 @@ export const createSketch = (data) => {
 
 export const deleteSketch = (data) => {
   const { uid, name } = data;
-  return makeServerRequest({ uid, pid: name }, "program/delete", "delete");
+  const endpoint = `program/delete`;
+  return makeServerRequest({ uid, pid: name }, endpoint, "delete");
 };
 
 /**
@@ -130,4 +133,15 @@ export const getSketch = async (docID) => {
   let ok = await result.ok;
   let sketch = await result.json();
   return { ok, sketch };
+};
+
+/**
+ * creates a CollabSession with passed-in data
+ * @param {string} data //required data to create program
+ */
+
+export const createCollab = async (data) => {
+  const { uid } = data;
+  const endpoint = `collab/create`;
+  return makeServerRequest({ uid }, endpoint);
 };
