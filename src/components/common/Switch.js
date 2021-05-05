@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-
 import "styles/Switch.scss";
 
 /**
@@ -11,28 +10,26 @@ import "styles/Switch.scss";
  */
 
 const Switch = (props) => {
-  const [state, setState] = useState({
-    on: !props.on ? false : props.on,
-  })
-
+  const [on, setOn] = useState(!props.on ? false : props.on);
+  
   useEffect(() => {
-    if(props.on !== state.on) {
-      setState({...state, on: props.on})
+    if(props.on !== on) {
+      setOn(props.on);
     }
-  })
+  });
 
   const onSwitchChange = () => {
-    props.onToggle(!state.on);
-    setState({...state, on: !state.on});
+    props.onToggle(!on);
+    setOn(!on);
   };
 
-  let switchedClass = state.on ? " switch-on" : "";
+  let switchedClass = on ? " switch-on" : "";
 
   return (
     <label className="switch">
       <input className="switch-input" type="checkbox" onChange={onSwitchChange} />
       <span className={"switch-body" + switchedClass}>
-        {state.on ? props.onImg : props.offImg}
+        {on ? props.onImg : props.offImg}
       </span>
       <span className={"switch-handle" + switchedClass}></span>
     </label>
