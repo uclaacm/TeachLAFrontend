@@ -1,30 +1,18 @@
+import { useContext } from 'react';
 import Login from '../Login.js'
-import {connect} from 'react-redux'
+import Context from '../../util/Context';
 import {loadUserData, clearUserData, loadFailure} from '../../actions/userDataActions.js'
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    loggedIn: state.userData,
-  }
-}
+const LoginPage = (props) => {
+  const { userData, userDataDispatch } = useContext(Context);
 
-const mapDispatchToProps = dispatch => {
-  return {
-    loadUserData: user => {
-      dispatch(loadUserData(user));
-    },
-    clearUserData: () => {
-      dispatch(clearUserData());
-    },
-    loadFailure: err => {
-      dispatch(loadFailure(err));
-    },
-  }
+  return <Login
+    loggedIn={userData.loggedIn}
+    loadUserData={user => userDataDispatch(loadUserData(user))}
+    clearUserData={() => userDataDispatch(clearUserData())}
+    loadFailure={err => userDataDispatch(loadFailure(err))}
+    {...props}
+  />
 }
-
-const LoginPage = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Login);
 
 export default LoginPage;
