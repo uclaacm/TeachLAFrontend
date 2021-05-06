@@ -19,25 +19,28 @@ const Root = () => {
   const [outputState, outputDispatch] = useReducer(outputReducer.outputReducer, outputReducer.initialState);
   const [uiState, uiDispatch] = useReducer(uiReducer.uiReducer, uiReducer.initialState);
 
+  const dispatch = (action) => [programsDispatch, userDataDispatch, outputDispatch, uiDispatch]
+    .forEach((fun) => fun(dispatch));
+
   const loadUserDataDispatch = async (uid, onFailure) => {
     const { ok, data /*error*/ } = await fetch.getUserData(uid, true);
     //if the request went fine, and there's a non empty userData
     if (ok && data && data.userData && Object.keys(data.userData).length) {
       if (data.programs) {
-        programsDispatch(loadPrograms(data.programs));
+        dispatch(loadPrograms(data.programs));
       }
-      userDataDispatch(loadUserData(uid, data.userData));
+      dispatch(loadUserData(uid, data.userData));
     } else {
       onFailure("SERVER ERROR: Unable to get user data from server");
     }
   };
 
   const clearUserDataDispatch = () => {
-    userDataDispatch(clearUserData());
-    programsDispatch(clearPrograms());
+    dispatch(clearUserData());
+    dispatch(clearPrograms());
   };
 
-  const loadFailureDispatch = err => userDataDispatch(loadFailure(err));
+  const loadFailureDispatch = err => dispatch(loadFailure(err));
 
   const screenResizeDispatch = (width, height) => dispatch(screenResize(width, height));
 
@@ -47,10 +50,7 @@ const Root = () => {
       output: outputState,
       userData: userDataState,
       ui: uiState,
-      programsDispatch,
-      userDataDispatch,
-      outputDispatch,
-      uiDispatch,
+      dispatch,
     }}
   >
     <App

@@ -56,7 +56,6 @@ const App = ({
   };
 
   useEffect(() => {
-    debugger;
     firebase.auth().onAuthStateChanged(async (user) => {
       await onAuthHandler(user);
     });
