@@ -26,4 +26,9 @@ function outputReducer(state = initialState, action) {
   }
 }
 
+export {
+  initialState,
+  outputReducer,
+}
+
 export default outputReducer;

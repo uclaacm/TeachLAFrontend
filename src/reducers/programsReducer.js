@@ -37,5 +37,9 @@ function programsReducer(state = initialState, action) {
       return state;
   }
 }
+export {
+  initialState,
+  programsReducer,
+};
 
 export default programsReducer;

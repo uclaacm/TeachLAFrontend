@@ -22,4 +22,9 @@ function uiReducer(state = initialState, action) {
   }
 }
 
+export {
+  initialState,
+  uiReducer,
+}
+
 export default uiReducer;

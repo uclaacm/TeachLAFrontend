@@ -61,4 +61,10 @@ function userDataReducer(state = initialState, action) {
       return state;
   }
 }
+
+export {
+  initialState,
+  userDataReducer,
+}
+
 export default userDataReducer;
