@@ -2,33 +2,34 @@ import React from "react";
 import ReactModal from "react-modal";
 import { Container } from "reactstrap";
 import "../../styles/ImageSelector.scss";
-class ImageSelector extends React.Component {
-  render() {
+
+const ImageSelector = (props) => {
+  // Extracting all data from props
+  const {isOpen, closeModal, maxWidth, thumbnailPreview, icons, error, children} = props
     return (
       <ReactModal
-        isOpen={this.props.isOpen}
-        onRequestClose={this.props.closeModal}
+        isOpen={isOpen}
+        onRequestClose={closeModal}
         className="image-selector-modal"
         overlayClassName="profile-image-overlay"
         ariaHideApp={false}
       >
-        <Container style={{ maxWidth: `${this.props.maxWidth}px` }}>
+        <Container style={{ maxWidth: `${maxWidth}px` }}>
           <div className=".image-selector-modal-header d-flex align-items-center">
             <h1>Choose a thumbnail</h1>
             <div className="image-selector-modal-header-thumbnail-container">
-              {this.props.thumbnailPreview || null}
+              {thumbnailPreview || null}
             </div>
           </div>
           <hr />
-          <div className="image-selector-gallery">{this.props.icons}</div>
+          <div className="image-selector-gallery">{icons}</div>
           <br />
-          <div className="text-center text-danger">{this.props.error || <br />}</div>
+          <div className="text-center text-danger">{error || <br />}</div>
           <hr />
-          {this.props.children} {/* Footer buttons as passed in as children */}
+          {children} {/* Footer buttons as passed in as children */}
         </Container>
       </ReactModal>
     );
   }
-}
 
 export default ImageSelector;

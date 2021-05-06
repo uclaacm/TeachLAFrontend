@@ -1,5 +1,4 @@
-import React from "react";
-
+import React, { useState, useEffect } from "react";
 import "styles/Switch.scss";
 
 /**
@@ -9,41 +8,32 @@ import "styles/Switch.scss";
  * @param {JSX} onImg (optional): (JSX) element to be displayed on switch body when set to "on"
  * @param {JSX} offImg (optional): (JSX) element to be displayed on switch body when set to "off"
  */
-export default class Switch extends React.Component {
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      on: !this.props.on ? false : this.props.on,
-    };
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.on !== prevProps.on) {
-      this.setState({
-        on: this.props.on,
-      });
+const Switch = (props) => {
+  const [on, setOn] = useState(!props.on ? false : props.on);
+  
+  useEffect(() => {
+    if(props.on !== on) {
+      setOn(props.on);
     }
-  }
+  });
 
-  onSwitchChange = () => {
-    this.props.onToggle(!this.state.on);
-    this.setState({
-      on: !this.state.on,
-    });
+  const onSwitchChange = () => {
+    props.onToggle(!on);
+    setOn(!on);
   };
 
-  render() {
-    let switchedClass = this.state.on ? " switch-on" : "";
+  let switchedClass = on ? " switch-on" : "";
 
-    return (
-      <label className="switch">
-        <input className="switch-input" type="checkbox" onChange={this.onSwitchChange} />
-        <span className={"switch-body" + switchedClass}>
-          {this.state.on ? this.props.onImg : this.props.offImg}
-        </span>
-        <span className={"switch-handle" + switchedClass}></span>
-      </label>
-    );
-  }
+  return (
+    <label className="switch">
+      <input className="switch-input" type="checkbox" onChange={onSwitchChange} />
+      <span className={"switch-body" + switchedClass}>
+        {on ? props.onImg : props.offImg}
+      </span>
+      <span className={"switch-handle" + switchedClass}></span>
+    </label>
+  )
 }
+
+export default Switch;
