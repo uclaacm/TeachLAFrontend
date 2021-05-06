@@ -3,7 +3,7 @@
   "plugins": [
     "stylelint-scss"
   ],
-  "ignoreFiles": ["**/*.ts", "**/*.tsx", "dist/*", "node_modules/*"],
+  "ignoreFiles": ["**/*.ts", "**/*.tsx", "dist/*", "node_modules/*", "coverage/*"],
   "rules": {
     "at-rule-no-unknown": null,
     "scss/at-rule-no-unknown": true
