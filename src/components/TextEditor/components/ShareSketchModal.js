@@ -1,12 +1,13 @@
-import React from "react";
-import ReactModal from "react-modal";
+import { faCopy } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from 'react';
+import ReactModal from 'react-modal';
 
-import { Button, Input, InputGroup, InputGroupAddon } from "reactstrap";
+import {
+  Button, Input, InputGroup, InputGroupAddon,
+} from 'reactstrap';
 
-import { faCopy } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-import "styles/Modals.scss";
+import '../../../styles/Modals.scss';
 
 /**
  * ShareSketchModal is a full-screen modal that displays
@@ -25,38 +26,38 @@ class ShareSketchModal extends React.Component {
     navigator.clipboard.writeText(this.props.shareUrl).then(
       () => {
         // success
-        this.setState({ copyStatus: "Successfully copied!" });
+        this.setState({ copyStatus: 'Successfully copied!' });
       },
       () => {
         // failed
-        this.setState({ copyStatus: "Copy failed. If this keeps on happening, let us know!" });
+        this.setState({ copyStatus: 'Copy failed. If this keeps on happening, let us know!' });
       },
     );
   };
 
-  render = () => {
-    return (
-      <ReactModal
-        className="modal-md"
-        overlayClassName="modal-overlay"
-        isOpen={this.props.showModal}
-        onRequestClose={this.props.toggleModal}
-        ariaHideApp={false}
-      >
-        <h2 className="text-center">Share This Sketch</h2>
-        <InputGroup>
-          <Input value={this.props.shareUrl} disabled />
-          <InputGroupAddon addonType="append">
-            <Button color="primary" onClick={this.initiateCopy}>
-              <FontAwesomeIcon icon={faCopy} /> Copy to Clipboard
-            </Button>
-          </InputGroupAddon>
-        </InputGroup>
-        <hr />
-        <p className="text-center">{this.state.copyStatus}</p>
-      </ReactModal>
-    );
-  };
+  render = () => (
+    <ReactModal
+      className="modal-md"
+      overlayClassName="modal-overlay"
+      isOpen={this.props.showModal}
+      onRequestClose={this.props.toggleModal}
+      ariaHideApp={false}
+    >
+      <h2 className="text-center">Share This Sketch</h2>
+      <InputGroup>
+        <Input value={this.props.shareUrl} disabled />
+        <InputGroupAddon addonType="append">
+          <Button color="primary" onClick={this.initiateCopy}>
+            <FontAwesomeIcon icon={faCopy} />
+            {' '}
+            Copy to Clipboard
+          </Button>
+        </InputGroupAddon>
+      </InputGroup>
+      <hr />
+      <p className="text-center">{this.state.copyStatus}</p>
+    </ReactModal>
+  );
 }
 
 export default ShareSketchModal;

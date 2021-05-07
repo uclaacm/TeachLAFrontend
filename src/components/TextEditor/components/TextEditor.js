@@ -1,32 +1,33 @@
-import React from "react";
-import ReactModal from "react-modal";
-import * as fetch from "../../../lib/fetch.js";
-import sketch from "../../../lib/";
+import {
+  faDownload, faSave, faShare, faCodeBranch,
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from 'react';
+import ReactModal from 'react-modal';
+import { Redirect } from 'react-router-dom';
+import { Button } from 'reactstrap';
+import { EDITOR_WIDTH_BREAKPOINT } from '../../../constants';
+import sketch from '../../../lib';
+import * as fetch from '../../../lib/fetch.js';
 
-import EditorRadio from "./EditorRadio.js";
-import ShareSketchModal from "./ShareSketchModal";
-
-import { Button } from "reactstrap";
-import OpenPanelButtonContainer from "../../common/containers/OpenPanelButtonContainer";
-import { EDITOR_WIDTH_BREAKPOINT } from "../../../constants";
-import ViewportAwareButton from "../../common/ViewportAwareButton.js";
-import DropdownButtonContainer from "../../common/containers/DropdownButtonContainer";
-import { faDownload, faSave, faShare, faCodeBranch } from "@fortawesome/free-solid-svg-icons";
-import { SketchThumbnailArray } from "../../Sketches/constants";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Redirect } from "react-router-dom";
+import DropdownButtonContainer from '../../common/containers/DropdownButtonContainer';
+import OpenPanelButtonContainer from '../../common/containers/OpenPanelButtonContainer';
+import ViewportAwareButton from '../../common/ViewportAwareButton.js';
+import { SketchThumbnailArray } from '../../Sketches/constants';
+import EditorRadio from './EditorRadio.js';
+import ShareSketchModal from './ShareSketchModal';
 
 let CodeMirror = null;
-if (typeof window !== "undefined" && typeof window.navigator !== "undefined") {
+if (typeof window !== 'undefined' && typeof window.navigator !== 'undefined') {
   // import {Controlled as CodeMirror} from 'react-codemirror2'
-  CodeMirror = require("react-codemirror2").Controlled;
-  require("codemirror/mode/javascript/javascript.js");
-  require("codemirror/mode/htmlmixed/htmlmixed.js");
-  require("codemirror/mode/python/python.js");
-  require("codemirror/mode/jsx/jsx.js");
-  require("codemirror/mode/clike/clike.js");
+  CodeMirror = require('react-codemirror2').Controlled;
+  require('codemirror/mode/javascript/javascript.js');
+  require('codemirror/mode/htmlmixed/htmlmixed.js');
+  require('codemirror/mode/python/python.js');
+  require('codemirror/mode/jsx/jsx.js');
+  require('codemirror/mode/clike/clike.js');
 }
-/**----------Props--------
+/** ----------Props--------
  * None
  */
 
@@ -46,16 +47,16 @@ class TextEditor extends React.Component {
     };
   }
 
-  //==============React Lifecycle Functions===================//
+  //= =============React Lifecycle Functions===================//
 
   componentDidMount() {
-    window.addEventListener("beforeunload", this.onLeave);
-    window.addEventListener("close", this.onLeave);
+    window.addEventListener('beforeunload', this.onLeave);
+    window.addEventListener('close', this.onLeave);
   }
 
   componentWillUnmount = () => {
-    window.removeEventListener("beforeunload", this.onLeave);
-    window.removeEventListener("close", this.onLeave);
+    window.removeEventListener('beforeunload', this.onLeave);
+    window.removeEventListener('close', this.onLeave);
   };
 
   openForkModal = () => {
@@ -72,13 +73,13 @@ class TextEditor extends React.Component {
     }
 
     try {
-      let programToUpdate = {};
+      const programToUpdate = {};
       programToUpdate[this.props.mostRecentProgram] = {
         code: this.props.code,
       };
 
       await fetch.updatePrograms(this.props.uid, programToUpdate);
-      //TODO: add functionality to be able to tell whether the fetch failed
+      // TODO: add functionality to be able to tell whether the fetch failed
     } catch (err) {
       console.log(err);
     }
@@ -86,7 +87,7 @@ class TextEditor extends React.Component {
 
   onLeave = async (ev) => {
     if (this.props.dirty) {
-      ev.returnValue = "";
+      ev.returnValue = '';
     }
     return ev;
   };
@@ -96,7 +97,7 @@ class TextEditor extends React.Component {
   };
 
   updateCode = (editor, data, newCode) => {
-    //if the code's not yet dirty, and the old code is different from the new code, make it dirty
+    // if the code's not yet dirty, and the old code is different from the new code, make it dirty
     if (!this.props.dirty && this.props.code !== newCode) {
       this.props.dirtyCode(this.props.mostRecentProgram);
     }
@@ -105,58 +106,56 @@ class TextEditor extends React.Component {
 
   setCurrentLine = (cm) => {
     const { codeMirrorInstance, currentLine } = this.state;
-    let { line } = cm.getCursor();
+    const { line } = cm.getCursor();
     if (codeMirrorInstance) {
-      //removeLineClass removes the back highlight style from the last selected line
-      codeMirrorInstance.removeLineClass(currentLine, "wrap", "selected-line");
-      //addLineClass adds the style to the newly selected line
-      codeMirrorInstance.addLineClass(line, "wrap", "selected-line");
+      // removeLineClass removes the back highlight style from the last selected line
+      codeMirrorInstance.removeLineClass(currentLine, 'wrap', 'selected-line');
+      // addLineClass adds the style to the newly selected line
+      codeMirrorInstance.addLineClass(line, 'wrap', 'selected-line');
     }
     this.setState({ currentLine: line });
   };
 
-  renderForkModal = () => {
-    return (
-      <ReactModal
-        isOpen={this.state.showForkModal}
-        onRequestClose={this.closeForkModal}
-        className="fork-modal"
-        overlayClassName="profile-image-overlay"
-        ariaHideApp={false}
-      >
-        <h1 className="text-center">Fork This Sketch</h1>
-        {!(this.state.forking || this.state.forked) && (
-          <p className="text-center">Would you like to create your own copy of this sketch?</p>
-        )}
-        {this.state.forking ? (
-          <p className="text-center">Forking...</p>
-        ) : this.state.forked ? (
-          <div>
-            <p className="text-center">Sketch forked! Go to your sketches to see your new copy!</p>
-            <Button color="danger" size="lg" onClick={this.closeForkModal} block>
-              Close
-            </Button>
-            <Button color="success" size="lg" onClick={this.redirectSketch} block>
-              Go to Sketches
-            </Button>
-          </div>
-        ) : (
-          <div className="text-center">
-            <Button color="danger" size="lg" onClick={this.closeForkModal} block>
-              Cancel
-            </Button>
-            <Button color="success" size="lg" onClick={this.handleFork} block>
-              Fork
-            </Button>
-          </div>
-        )}
-      </ReactModal>
-    );
-  };
+  renderForkModal = () => (
+    <ReactModal
+      isOpen={this.state.showForkModal}
+      onRequestClose={this.closeForkModal}
+      className="fork-modal"
+      overlayClassName="profile-image-overlay"
+      ariaHideApp={false}
+    >
+      <h1 className="text-center">Fork This Sketch</h1>
+      {!(this.state.forking || this.state.forked) && (
+        <p className="text-center">Would you like to create your own copy of this sketch?</p>
+      )}
+      {this.state.forking ? (
+        <p className="text-center">Forking...</p>
+      ) : this.state.forked ? (
+        <div>
+          <p className="text-center">Sketch forked! Go to your sketches to see your new copy!</p>
+          <Button color="danger" size="lg" onClick={this.closeForkModal} block>
+            Close
+          </Button>
+          <Button color="success" size="lg" onClick={this.redirectSketch} block>
+            Go to Sketches
+          </Button>
+        </div>
+      ) : (
+        <div className="text-center">
+          <Button color="danger" size="lg" onClick={this.closeForkModal} block>
+            Cancel
+          </Button>
+          <Button color="success" size="lg" onClick={this.handleFork} block>
+            Fork
+          </Button>
+        </div>
+      )}
+    </ReactModal>
+  );
 
   handleFork = async () => {
     this.setState({ forking: true });
-    let data = {
+    const data = {
       uid: this.props.uid,
       thumbnail: this.props.vthumbnail,
       language: this.props.vlanguage,
@@ -178,7 +177,7 @@ class TextEditor extends React.Component {
         })
         .catch((err) => {
           this.setState({
-            error: "Failed to create sketch, please try again later",
+            error: 'Failed to create sketch, please try again later',
           });
           console.log(err);
         });
@@ -204,11 +203,11 @@ class TextEditor extends React.Component {
 
   getCMTheme = (theme) => {
     switch (theme) {
-      case "light":
-        return "duotone-light";
-      case "dark":
-      default:
-        return "material";
+    case 'light':
+      return 'duotone-light';
+    case 'dark':
+    default:
+      return 'material';
     }
   };
 
@@ -217,8 +216,7 @@ class TextEditor extends React.Component {
   renderSketchName = () => <div className="program-sketch-name">{this.props.sketchName}</div>;
 
   renderBanner = () => {
-    let thumbnail =
-      SketchThumbnailArray[this.props.viewOnly ? this.props.vthumbnail : this.props.thumbnail];
+    const thumbnail = SketchThumbnailArray[this.props.viewOnly ? this.props.vthumbnail : this.props.thumbnail];
     return (
       <div className="code-section-banner">
         <OpenPanelButtonContainer />
@@ -228,7 +226,7 @@ class TextEditor extends React.Component {
           alt="sketch thumbnail"
         />
         {this.props.viewOnly ? this.renderSketchName() : this.renderDropdown()}
-        <div style={{ marginLeft: "auto", marginRight: ".5rem" }}>
+        <div style={{ marginLeft: 'auto', marginRight: '.5rem' }}>
           <EditorRadio
             viewMode={this.props.viewMode}
             updateViewMode={this.props.updateViewMode}
@@ -242,7 +240,7 @@ class TextEditor extends React.Component {
               onClick={this.openForkModal}
               isSmall={this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
               icon={<FontAwesomeIcon icon={faCodeBranch} />}
-              text={"Fork"}
+              text="Fork"
             />
           ) : null
         ) : (
@@ -264,7 +262,7 @@ class TextEditor extends React.Component {
             onClick={this.toggleShareModal}
             isSmall={this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
             icon={<FontAwesomeIcon icon={faShare} />}
-            text={"Share"}
+            text="Share"
           />
         )}
         {
@@ -280,17 +278,22 @@ class TextEditor extends React.Component {
     if (this.state.redirectToSketch === true) {
       return <Redirect to="/sketches" />;
     }
-    //json required by CodeMirror
+    // json required by CodeMirror
     const options = {
       mode: this.props.viewOnly ? this.props.vlanguage.codemirror : this.props.language.codemirror,
       theme: this.getCMTheme(this.props.theme),
-      lineNumbers: true, //text editor has line numbers
-      lineWrapping: true, //text editor does not overflow in the x direction, uses word wrap (NOTE: it's like MO Word wrapping, so words are not cut in the middle, if a word overlaps, the whole word is brought to the next line)
+      lineNumbers: true, // text editor has line numbers
+      /**
+       * text editor does not overflow in the x direction, uses word wrap
+       *    (NOTE: it's like MO Word wrapping, so words are not cut in the middle,
+       *    if a word overlaps, the whole word is brought to the next line)
+       */
+      lineWrapping: true,
       indentWithTabs: true,
     };
 
     return (
-      <div className={`theme-` + this.props.theme} style={{ height: "100%" }}>
+      <div className={`theme-${this.props.theme}`} style={{ height: '100%' }}>
         <div className="code-section">
           {this.renderBanner()}
           {this.renderForkModal()}
@@ -314,7 +317,7 @@ class TextEditor extends React.Component {
               }}
               value={this.props.code}
               lineWrapping
-              indentWithTabs={true}
+              indentWithTabs
               options={options}
               onCursor={(cm) => {
                 this.setCurrentLine(cm);

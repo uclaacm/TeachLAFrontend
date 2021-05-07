@@ -1,8 +1,8 @@
-import React from "react";
-import TLALogo from "../../img/tla-logo.svg";
-import "styles/Footer.scss";
+import React from 'react';
+import TLALogo from '../../img/tla-logo.svg';
+import '../../styles/Footer.scss';
 
-export default () => (
+const Footer = () => (
   <footer className="footer">
     <a href="https://github.com/uclaacm/TeachLAFrontend" target="_blank" rel="noopener noreferrer">
       <img
@@ -13,3 +13,5 @@ export default () => (
     </a>
   </footer>
 );
+
+export default Footer;

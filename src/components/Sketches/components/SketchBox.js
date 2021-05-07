@@ -1,12 +1,10 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import "styles/SketchBox.scss";
+import '../../../styles/SketchBox.scss';
+import { faDownload, faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { Row, Col } from "reactstrap";
-import { faDownload } from "@fortawesome/free-solid-svg-icons";
-import { faEdit } from "@fortawesome/free-solid-svg-icons";
-import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Row, Col } from 'reactstrap';
 
 class SketchBox extends React.Component {
   render() {
@@ -15,7 +13,7 @@ class SketchBox extends React.Component {
         <Link
           className="sketch-box-body"
           onClick={this.props.redirFunc}
-          to={{ pathname: "/editor" }}
+          to={{ pathname: '/editor' }}
         >
           <img
             alt={"User's sketch icon"}

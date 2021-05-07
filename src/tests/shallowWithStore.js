@@ -1,4 +1,4 @@
-import { shallow } from "enzyme";
+import { shallow } from 'enzyme';
 
 const shallowWithStore = (component, store) => {
   const context = {

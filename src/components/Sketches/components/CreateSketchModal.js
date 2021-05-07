@@ -1,47 +1,47 @@
-import React from "react";
-import DropdownButton from "./DropdownButton";
-import ImageSelector from "../../common/ImageSelector";
+import React from 'react';
+import ReactModal from 'react-modal';
+import { Redirect } from 'react-router-dom';
+import {
+  Button, Container, Row, Col, FormGroup, Label, Input,
+} from 'reactstrap';
+import * as fetch from '../../../lib/fetch.js';
+import ImageSelector from '../../common/ImageSelector';
 import {
   SketchThumbnailArray,
   LanguageDropdownValues,
   LanguageDropdownDefault,
-} from "../constants";
-import * as fetch from "../../../lib/fetch.js";
-import { Redirect } from "react-router-dom";
+} from '../constants';
+import DropdownButton from './DropdownButton';
 
-import { Button, Container, Row, Col, FormGroup, Label, Input } from "reactstrap";
-
-import ReactModal from "react-modal";
-
-import "styles/SketchesModal.scss";
+import '../../../styles/SketchesModal.scss';
 
 class CreateSketchModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       language: LanguageDropdownDefault,
-      name: "",
+      name: '',
       next: false,
       thumbnail: -1,
       disableSubmit: false,
-      error: "",
+      error: '',
       redirect: false,
     };
   }
 
-  //==============React Lifecycle Functions Start===================//
+  //= =============React Lifecycle Functions Start===================//
 
   closeModal = () => {
-    if (this.props.onClose && {}.toString.call(this.props.onClose) === "[object Function]") {
+    if (this.props.onClose && {}.toString.call(this.props.onClose) === '[object Function]') {
       this.props.onClose();
     }
 
     this.setState({
       next: false,
       language: LanguageDropdownDefault,
-      name: "",
+      name: '',
       thumbnail: -1,
-      error: "",
+      error: '',
       disableSubmit: false,
     });
   };
@@ -49,7 +49,7 @@ class CreateSketchModal extends React.Component {
   setNext = (val) => {
     this.setState({
       next: val,
-      error: "",
+      error: '',
       disableSubmit: false,
     });
   };
@@ -58,10 +58,10 @@ class CreateSketchModal extends React.Component {
 
   badThumbnailInput = () => {
     if (
-      this.state.thumbnail === undefined ||
-      this.state.thumbnail === "" ||
-      this.state.thumbnail >= SketchThumbnailArray.length ||
-      this.state.thumbnail < 0
+      this.state.thumbnail === undefined
+      || this.state.thumbnail === ''
+      || this.state.thumbnail >= SketchThumbnailArray.length
+      || this.state.thumbnail < 0
     ) {
       // this.setState({error: "Please select a thumbnail"})
       return true;
@@ -72,11 +72,11 @@ class CreateSketchModal extends React.Component {
 
   badNameInput = () => {
     if (!this.state.name) {
-      this.setState({ error: "Name is required" });
+      this.setState({ error: 'Name is required' });
       return true;
     }
     if (this.state.name.length > 15) {
-      this.setState({ error: "Name must be 15 characters or less" });
+      this.setState({ error: 'Name must be 15 characters or less' });
       return true;
     }
     // if( this.state.name.match(/[^a-zA-Z0-9!@#$%'" .]/)){
@@ -89,22 +89,22 @@ class CreateSketchModal extends React.Component {
 
   badLanguageInput = () => {
     if (!this.state.language) {
-      this.setState({ error: "Please select a language" });
+      this.setState({ error: 'Please select a language' });
       return true;
     }
 
     let notFound = true;
-    for (var i = 0; i < LanguageDropdownValues.length; i++) {
+    for (let i = 0; i < LanguageDropdownValues.length; i++) {
       if (
-        this.state.language.display === LanguageDropdownValues[i].display &&
-        this.state.language.value === LanguageDropdownValues[i].value
+        this.state.language.display === LanguageDropdownValues[i].display
+        && this.state.language.value === LanguageDropdownValues[i].value
       ) {
         notFound = false;
         break;
       }
     }
     if (notFound) {
-      this.setState({ error: "Invalid language selected" });
+      this.setState({ error: 'Invalid language selected' });
       return true;
     }
 
@@ -124,12 +124,12 @@ class CreateSketchModal extends React.Component {
 
     if (this.badThumbnailInput()) return;
 
-    let data = {
+    const data = {
       uid: this.props.uid,
       thumbnail: this.state.thumbnail,
       language: this.state.language.value,
       name: this.state.name,
-      code: "",
+      code: '',
     };
 
     try {
@@ -149,43 +149,40 @@ class CreateSketchModal extends React.Component {
         .catch((err) => {
           this.setState({
             disableSubmit: false,
-            error: "Failed to create sketch, please try again later",
+            error: 'Failed to create sketch, please try again later',
           });
           console.log(err);
         });
     } catch (err) {
       console.log(err);
     }
-    this.setState({ disableSubmit: true, error: "" });
+    this.setState({ disableSubmit: true, error: '' });
   };
 
   renderSecondModal = () => {
-    let icons = SketchThumbnailArray.map((val, index) => {
-      return (
-        <figure
-          className="sketches-gallery-item"
-          key={val}
-          onClick={() => this.setState({ thumbnail: index })}
-        >
-          <img
-            src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${val}.svg`}
-            className={"sketches-gallery-img" + (this.state.thumbnail === index ? "-selected" : "")}
-            alt="icon"
-          />
-        </figure>
-      );
-    });
-
-    let thumbnailPreview =
-      this.state.thumbnail !== -1 ? (
+    const icons = SketchThumbnailArray.map((val, index) => (
+      <figure
+        className="sketches-gallery-item"
+        key={val}
+        onClick={() => this.setState({ thumbnail: index })}
+      >
         <img
-          src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${
-            SketchThumbnailArray[this.state.thumbnail]
-          }.svg`}
-          className={"sketches-modal-header-thumbnail"}
+          src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${val}.svg`}
+          className={`sketches-gallery-img${this.state.thumbnail === index ? '-selected' : ''}`}
           alt="icon"
         />
-      ) : null;
+      </figure>
+    ));
+
+    const thumbnailPreview = this.state.thumbnail !== -1 ? (
+      <img
+        src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${
+          SketchThumbnailArray[this.state.thumbnail]
+        }.svg`}
+        className="sketches-modal-header-thumbnail"
+        alt="icon"
+      />
+    ) : null;
     return (
       <ImageSelector
         isOpen={this.props.isOpen}
@@ -222,62 +219,60 @@ class CreateSketchModal extends React.Component {
     );
   };
 
-  renderFirstModal = () => {
-    return (
-      <ReactModal
-        isOpen={this.props.isOpen}
-        onRequestClose={this.closeModal}
-        className="sketches-modal"
-        overlayClassName="profile-image-overlay"
-        ariaHideApp={false}
-      >
-        <Container>
-          <h1 className="text-center">Create a Sketch</h1>
-          <hr />
-          <FormGroup row>
-            <Label className="text-right" for="sketch-name" xs={4}>
-              Name
-            </Label>
-            <Col xs={8}>
-              <Input
-                onChange={(e) => this.setState({ name: e.target.value })}
-                value={this.state.name}
-                id="sketch-name"
-              />
-            </Col>
-          </FormGroup>
-          <br />
-          <Row>
-            <Col xs="4" className="text-right">
-              Language
-            </Col>
-            <Col xs="8" className="d-flex align-items-center">
-              <DropdownButton
-                dropdownItems={LanguageDropdownValues}
-                onSelect={(lang) => this.setState({ language: lang })}
-                displayValue={this.state.language.display || LanguageDropdownDefault.display}
-              />
-            </Col>
-          </Row>
-          <br />
-          <div className="text-center text-danger">{this.state.error || <br />}</div>
-          <hr />
-          <Row>
-            <Col>
-              <Button color="danger" onClick={this.closeModal} size="lg" block>
-                Cancel
-              </Button>
-            </Col>
-            <Col>
-              <Button color="success" onClick={this.onFirstSubmit} size="lg" block>
-                Next
-              </Button>
-            </Col>
-          </Row>
-        </Container>
-      </ReactModal>
-    );
-  };
+  renderFirstModal = () => (
+    <ReactModal
+      isOpen={this.props.isOpen}
+      onRequestClose={this.closeModal}
+      className="sketches-modal"
+      overlayClassName="profile-image-overlay"
+      ariaHideApp={false}
+    >
+      <Container>
+        <h1 className="text-center">Create a Sketch</h1>
+        <hr />
+        <FormGroup row>
+          <Label className="text-right" for="sketch-name" xs={4}>
+            Name
+          </Label>
+          <Col xs={8}>
+            <Input
+              onChange={(e) => this.setState({ name: e.target.value })}
+              value={this.state.name}
+              id="sketch-name"
+            />
+          </Col>
+        </FormGroup>
+        <br />
+        <Row>
+          <Col xs="4" className="text-right">
+            Language
+          </Col>
+          <Col xs="8" className="d-flex align-items-center">
+            <DropdownButton
+              dropdownItems={LanguageDropdownValues}
+              onSelect={(lang) => this.setState({ language: lang })}
+              displayValue={this.state.language.display || LanguageDropdownDefault.display}
+            />
+          </Col>
+        </Row>
+        <br />
+        <div className="text-center text-danger">{this.state.error || <br />}</div>
+        <hr />
+        <Row>
+          <Col>
+            <Button color="danger" onClick={this.closeModal} size="lg" block>
+              Cancel
+            </Button>
+          </Col>
+          <Col>
+            <Button color="success" onClick={this.onFirstSubmit} size="lg" block>
+              Next
+            </Button>
+          </Col>
+        </Row>
+      </Container>
+    </ReactModal>
+  );
 
   render() {
     if (this.state.redirect) {

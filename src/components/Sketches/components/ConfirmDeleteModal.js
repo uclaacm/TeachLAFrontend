@@ -1,17 +1,19 @@
-import React from "react";
-import ReactModal from "react-modal";
-import { Container, Row, Col, Button } from "reactstrap";
-import * as fetch from "../../../lib/fetch.js";
+import React from 'react';
+import ReactModal from 'react-modal';
+import {
+  Container, Row, Col, Button,
+} from 'reactstrap';
+import * as fetch from '../../../lib/fetch.js';
 
 class ConfirmDeleteModal extends React.Component {
   closeModal = () => {
-    if (this.props.onClose && {}.toString.call(this.props.onClose) === "[object Function]") {
+    if (this.props.onClose && {}.toString.call(this.props.onClose) === '[object Function]') {
       this.props.onClose();
     }
   };
 
   onDeleteSubmit = () => {
-    let data = {
+    const data = {
       uid: this.props.uid,
       docID: this.props.sketchKey,
       name: this.props.sketchKey,
@@ -23,7 +25,7 @@ class ConfirmDeleteModal extends React.Component {
           if (!res.ok) {
             this.setState({
               spinner: false,
-              error: res.text() || "Failed to delete sketch, please try again later",
+              error: res.text() || 'Failed to delete sketch, please try again later',
             });
             return;
           }
@@ -33,8 +35,8 @@ class ConfirmDeleteModal extends React.Component {
           // this next piece of code is a guard against deleting mostRecentProgram - if we do,
           // then we need to re-populate it with something different.
           if (
-            this.props.sketchKey === this.props.mostRecentProgram &&
-            this.props.programKeys.size > 0
+            this.props.sketchKey === this.props.mostRecentProgram
+            && this.props.programKeys.size > 0
           ) {
             this.props.setMostRecentProgram(this.props.programKeys.get(0));
           }
@@ -44,14 +46,14 @@ class ConfirmDeleteModal extends React.Component {
         .catch((err) => {
           this.setState({
             spinner: false,
-            error: "Failed to create sketch, please try again later",
+            error: 'Failed to create sketch, please try again later',
           });
           console.error(err);
         });
     } catch (err) {
       console.error(err);
     }
-    this.setState({ spinner: true, error: "" });
+    this.setState({ spinner: true, error: '' });
   };
 
   render() {
@@ -64,7 +66,9 @@ class ConfirmDeleteModal extends React.Component {
       >
         <Container>
           <h2 className="text-center">
-            Are you sure you want to delete "{this.props.sketchName}"?
+            Are you sure you want to delete &quot;
+            {this.props.sketchName}
+            &quot;?
           </h2>
           <hr />
           <Row>

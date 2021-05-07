@@ -1,4 +1,4 @@
-import { getJsSrcDocLoggingScript } from "./languages.js";
+import { getJsSrcDocLoggingScript } from './languages.js';
 
 const getUserScript = (code) => `
   <script type="text/javascript">
@@ -9,10 +9,10 @@ const getUserScript = (code) => `
 const getProcessingSrcDocBody = (code, showConsole) => `
     <body>
       ${
-        showConsole
-          ? `<div id="outer"><textarea id="inner"></textarea></div>`
-          : `<div id="outer" style="display:none;"><textarea id="inner"></textarea></div>`
-      }
+  showConsole
+    ? '<div id="outer"><textarea id="inner"></textarea></div>'
+    : '<div id="outer" style="display:none;"><textarea id="inner"></textarea></div>'
+}
       ${getJsSrcDocLoggingScript()}
       ${getUserScript(code)}
     </body>
