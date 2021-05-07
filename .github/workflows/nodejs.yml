@@ -18,4 +18,20 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm install
     - run: npm run prod_build --if-present
-    - run: npm test
+    - name: Run Tests
+      if: > 
+        !(github.event.push.branches == 'master' ||
+        ${{ github.event.issue.pull_request}})
+      run: npm test
+    - name: Calc Coverage
+      if: > 
+        (github.event.push.branches == 'master' ||
+        ${{ github.event.issue.pull_request}})
+      run:  npm run test-coverage
+    - name: Coveralls
+      if: > 
+        (github.event.push.branches == 'master' ||
+        ${{ github.event.issue.pull_request}})
+      uses: coverallsapp/github-action@v1.1.2
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
