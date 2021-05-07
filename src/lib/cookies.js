@@ -6,9 +6,9 @@
  */
 
 function getCookie(cname) {
-  let name = cname + '=';
-  let decodedCookie = decodeURIComponent(document.cookie);
-  let ca = decodedCookie.split(';');
+  const name = `${cname}=`;
+  const decodedCookie = decodeURIComponent(document.cookie);
+  const ca = decodedCookie.split(';');
   for (let i = 0; i < ca.length; i++) {
     let c = ca[i];
     while (c.charAt(0) === ' ') {
@@ -30,10 +30,10 @@ function getCookie(cname) {
  */
 
 function setCookie(cname, cvalue, exdays) {
-  let d = new Date();
+  const d = new Date();
   d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
-  let expires = 'expires=' + d.toUTCString();
-  document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
+  const expires = `expires=${d.toUTCString()}`;
+  document.cookie = `${cname}=${cvalue};${expires};path=/`;
 }
 
 /**
@@ -43,13 +43,12 @@ function setCookie(cname, cvalue, exdays) {
  */
 
 export const getThemeFromCookie = () => {
-  let theme = getCookie('theme');
+  const theme = getCookie('theme');
   if (theme !== '') {
     return theme;
-  } else {
-    setCookie('theme', 'dark', 365);
-    return 'dark';
   }
+  setCookie('theme', 'dark', 365);
+  return 'dark';
 };
 
 /**
@@ -57,7 +56,7 @@ export const getThemeFromCookie = () => {
  * @param {string} theme theme string to store in the cookie
  */
 
-export const setThemeCookie = theme => {
+export const setThemeCookie = (theme) => {
   setCookie('theme', theme, 365);
 };
 

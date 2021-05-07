@@ -22,7 +22,7 @@ describe('LoadingPage', () => {
     expect(component_sht_false.find('.Loading-page-text')).toHaveLength(0);
     expect(component_sht_false.state().showHelpText).toEqual(false);
 
-    const component_sht_true = shallow(<LoadingPage showHelpText={true} />);
+    const component_sht_true = shallow(<LoadingPage showHelpText />);
     expect(component_sht_true.find('.Loading-page-text')).toHaveLength(1);
     expect(component_sht_true.state().showHelpText).toEqual(true);
   });
@@ -32,7 +32,7 @@ describe('LoadingPage', () => {
     const component = shallow(<LoadingPage />);
     expect(component.state().showHelpText).toEqual(false);
     expect(component.find('.Loading-page-text')).toHaveLength(0);
-    await new Promise(r => setTimeout(r, 2000));
+    await new Promise((r) => setTimeout(r, 2000));
     expect(component.state().showHelpText).toEqual(true);
     expect(component.find('.Loading-page-text')).toHaveLength(1);
   });

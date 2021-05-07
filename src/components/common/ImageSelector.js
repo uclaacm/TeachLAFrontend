@@ -5,7 +5,9 @@ import '../../styles/ImageSelector.scss';
 
 const ImageSelector = (props) => {
   // Extracting all data from props
-  const {isOpen, closeModal, maxWidth, thumbnailPreview, icons, error, children} = props;
+  const {
+    isOpen, closeModal, maxWidth, thumbnailPreview, icons, error, children,
+  } = props;
   return (
     <ReactModal
       isOpen={isOpen}
@@ -26,7 +28,9 @@ const ImageSelector = (props) => {
         <br />
         <div className="text-center text-danger">{error || <br />}</div>
         <hr />
-        {children} {/* Footer buttons as passed in as children */}
+        {children}
+        {' '}
+        {/* Footer buttons as passed in as children */}
       </Container>
     </ReactModal>
   );

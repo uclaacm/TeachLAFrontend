@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactModal from 'react-modal';
-import { Container, Row, Col, Button } from 'reactstrap';
+import {
+  Container, Row, Col, Button,
+} from 'reactstrap';
 import * as fetch from '../../../lib/fetch.js';
 
 class ConfirmDeleteModal extends React.Component {
@@ -11,7 +13,7 @@ class ConfirmDeleteModal extends React.Component {
   };
 
   onDeleteSubmit = () => {
-    let data = {
+    const data = {
       uid: this.props.uid,
       docID: this.props.sketchKey,
       name: this.props.sketchKey,
@@ -33,8 +35,8 @@ class ConfirmDeleteModal extends React.Component {
           // this next piece of code is a guard against deleting mostRecentProgram - if we do,
           // then we need to re-populate it with something different.
           if (
-            this.props.sketchKey === this.props.mostRecentProgram &&
-            this.props.programKeys.size > 0
+            this.props.sketchKey === this.props.mostRecentProgram
+            && this.props.programKeys.size > 0
           ) {
             this.props.setMostRecentProgram(this.props.programKeys.get(0));
           }
@@ -64,7 +66,9 @@ class ConfirmDeleteModal extends React.Component {
       >
         <Container>
           <h2 className="text-center">
-            Are you sure you want to delete "{this.props.sketchName}"?
+            Are you sure you want to delete &quot;
+            {this.props.sketchName}
+            &quot;?
           </h2>
           <hr />
           <Row>

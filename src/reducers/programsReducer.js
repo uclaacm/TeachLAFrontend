@@ -11,7 +11,7 @@ import {
   ADD_PROGRAM,
 } from '../actions/programsActions.js';
 
-let initialState = Immutable.Map();
+const initialState = Immutable.Map();
 
 function programsReducer(state = initialState, action) {
   switch (action.type) {

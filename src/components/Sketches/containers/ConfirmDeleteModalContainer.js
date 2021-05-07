@@ -13,12 +13,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    deleteProgram: (program, data) => dispatch(deleteProgram(program, data)),
-    setMostRecentProgram: (value) => dispatch(setMostRecentProgram(value)),
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  deleteProgram: (program, data) => dispatch(deleteProgram(program, data)),
+  setMostRecentProgram: (value) => dispatch(setMostRecentProgram(value)),
+});
 
 const ConfirmDeleteModalContainer = connect(
   mapStateToProps,

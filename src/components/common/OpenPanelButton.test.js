@@ -11,7 +11,7 @@ describe('OpenPanelButton', () => {
   });
 
   it('panelOpen=true snapshot', () => {
-    const component = shallow(<OpenPanelButton panelOpen={true} />);
+    const component = shallow(<OpenPanelButton panelOpen />);
 
     expect(component).toMatchSnapshot();
   });

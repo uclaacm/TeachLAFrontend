@@ -20,43 +20,46 @@ const initialState = {
 function userDataReducer(state = initialState, action) {
   switch (action.type) {
   case LOAD_USER_DATA:
-    //pull all values we want to pay attention to out of the object
-    return Object.assign({}, state, action.userData);
+    // pull all values we want to pay attention to out of the object
+    return { ...state, ...action.userData };
   case CLEAR_USER_DATA:
     return initialState;
   case LOAD_FAILURE:
-    return Object.assign({}, state, { error: action.message });
-  case SET_DISPLAY_NAME:
-    let newName = action.value;
+    return { ...state, error: action.message };
+  case SET_DISPLAY_NAME: {
+    const newName = action.value;
     fetch
       .updateUserData(state.uid, { displayName: newName })
-      .then(response => {})
-      .catch(err => {
+      // .then((response) => {})
+      .catch((err) => {
         state.error = err;
         console.log(err);
       });
-    return Object.assign({}, state, { displayName: newName });
-  case SET_PHOTO_NAME:
-    let newPhotoName = action.photoName;
+    return { ...state, displayName: newName };
+  }
+  case SET_PHOTO_NAME: {
+    const newPhotoName = action.photoName;
     fetch
       .updateUserData(state.uid, { photoName: newPhotoName })
-      .then(response => {
-        //if nothing went bad, keep the display name, otherwise, change it back (or dont, depends how we wanna do it)
+      .then(() => {
+        // TODO: if nothing went bad, keep the display name,
+        // otherwise, change it back (or dont, depends how we wanna do it)
       })
-      .catch(err => {
+      .catch((err) => {
         state.error = err;
         console.log(err);
       });
-    return Object.assign({}, state, { photoName: newPhotoName });
+    return { ...state, photoName: newPhotoName };
+  }
   case SET_MOST_RECENT_PROGRAM:
     fetch
       .updateUserData(state.uid, { mostRecentProgram: action.value })
-      .then(response => {})
-      .catch(err => {
+      // .then((response) => {})
+      .catch((err) => {
         state.error = err;
         console.log(err);
       });
-    return Object.assign({}, state, { mostRecentProgram: action.value });
+    return { ...state, mostRecentProgram: action.value };
   default:
     return state;
   }

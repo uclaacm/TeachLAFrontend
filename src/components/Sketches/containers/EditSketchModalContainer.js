@@ -6,19 +6,15 @@ import {
 } from '../../../actions/programsActions';
 import EditSketchModal from '../components/EditSketchModal.js';
 
-const mapStateToProps = state => {
-  return {
-    uid: state.userData.uid,
-  };
-};
+const mapStateToProps = (state) => ({
+  uid: state.userData.uid,
+});
 
-const mapDispatchToProps = dispatch => {
-  return {
-    setProgramLanguage: (program, value) => dispatch(setProgramLanguage(program, value)),
-    setProgramName: (program, value) => dispatch(setProgramName(program, value)),
-    setProgramThumbnail: (program, value) => dispatch(setProgramThumbnail(program, value)),
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  setProgramLanguage: (program, value) => dispatch(setProgramLanguage(program, value)),
+  setProgramName: (program, value) => dispatch(setProgramName(program, value)),
+  setProgramThumbnail: (program, value) => dispatch(setProgramThumbnail(program, value)),
+});
 
 const EditSketchModalContainer = connect(
   mapStateToProps,

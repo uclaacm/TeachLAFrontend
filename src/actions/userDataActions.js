@@ -1,7 +1,7 @@
 export const LOAD_USER_DATA = 'LOAD_USER_DATA';
 export function loadUserData(uid, userData) {
   // add uid to the userData object
-  return { type: LOAD_USER_DATA, userData: { ...userData, uid: uid } };
+  return { type: LOAD_USER_DATA, userData: { ...userData, uid } };
 }
 
 export const CLEAR_USER_DATA = 'CLEAR_USER_DATA';
@@ -21,7 +21,7 @@ export function setDisplayName(displayName) {
 
 export const REQUEST_DATA_UPLOAD = 'REQUEST_DATA_UPLOAD';
 export function requestDataUpload(packet) {
-  return { type: REQUEST_DATA_UPLOAD, packet: packet };
+  return { type: REQUEST_DATA_UPLOAD, packet };
 }
 
 export const REQUEST_PROGRAM_LOAD = 'REQUEST_PROGRAM_LOAD';
@@ -31,7 +31,7 @@ export function requestProgramLoad(collection) {
 
 export const PROGRAM_LOAD_FAILURE = 'PROGRAM_LOAD_FAILURE';
 export function programLoadFailure(error) {
-  return { type: PROGRAM_LOAD_FAILURE, error: error };
+  return { type: PROGRAM_LOAD_FAILURE, error };
 }
 
 export const PROGRAM_UPLOAD_SUCCESS = 'PROGRAM_UPLOAD_SUCCESS';
@@ -56,7 +56,7 @@ export function setMostRecentProgram(program) {
 
 export const SET_PHOTO_NAME = 'SET_PHOTO_NAME';
 export function setPhotoName(photoName) {
-  return { type: SET_PHOTO_NAME, photoName: photoName };
+  return { type: SET_PHOTO_NAME, photoName };
 }
 
 // /**

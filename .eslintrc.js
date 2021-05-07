@@ -29,6 +29,8 @@ module.exports = {
     'eslint:recommended',
     'plugin:react/recommended',
     'plugin:jest/recommended',
+    'prettier',
+    // 'airbnb',
   ],
   parser: 'babel-eslint',
   parserOptions: {
@@ -65,8 +67,9 @@ module.exports = {
     'import/no-extraneous-dependencies': [
       'error',
       {
-        optionalDependencies: false,    // Disallow importing optional dependencies (those shouldn't be in use in the project)
-        peerDependencies: false,         // Disallow importing peer dependencies (that aren't also direct dependencies)
+        // Disallow importing optional dependencies (those shouldn't be in use in the project)
+        optionalDependencies: false,
+        peerDependencies: false, // Disallow importing peer dependencies (that aren't also direct dependencies)
       },
     ],
 
@@ -103,7 +106,6 @@ module.exports = {
       ignoreUrls: true, // Most common reason to disable it
       ignoreStrings: true, // These are not fantastic but necessary for error messages
       ignoreTemplateLiterals: true,
-      ignoreComments: true,
       ignoreRegExpLiterals: true,
     }],
 

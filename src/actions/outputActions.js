@@ -15,7 +15,7 @@ export function setOutputLanguage(value) {
 
 export const SET_OUTPUT = 'SET_OUTPUT';
 export function setOutput({ output }) {
-  //if output is not an object
+  // if output is not an object
   if (!output) {
     return { type: 'IGNORE' };
   }

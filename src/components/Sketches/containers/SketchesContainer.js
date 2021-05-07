@@ -5,10 +5,10 @@ import { setMostRecentProgram } from '../../../actions/userDataActions.js';
 import { OPEN_PANEL_LEFT, CLOSED_PANEL_LEFT, PANEL_SIZE } from '../../../constants';
 import Sketches from '../index.js';
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const { mostRecentProgram } = state.userData;
-  const programs = state.programs.keySeq().map(id => {
-    let temp = state.programs.get(id, Immutable.Map()).toJS();
+  const programs = state.programs.keySeq().map((id) => {
+    const temp = state.programs.get(id, Immutable.Map()).toJS();
     temp.key = id;
     return temp;
   });
@@ -26,12 +26,10 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    setMostRecentProgram: value => dispatch(setMostRecentProgram(value)),
-    togglePanel: () => dispatch(togglePanel()),
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  setMostRecentProgram: (value) => dispatch(setMostRecentProgram(value)),
+  togglePanel: () => dispatch(togglePanel()),
+});
 
 const SketchesContainer = connect(mapStateToProps, mapDispatchToProps)(Sketches);
 

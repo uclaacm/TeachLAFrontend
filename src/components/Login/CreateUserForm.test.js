@@ -9,7 +9,7 @@ describe('CreateUserForm', () => {
   });
 
   it('spinner shows up on waiting', () => {
-    //check spinner shows up on waiting=true
+    // check spinner shows up on waiting=true
     const component = shallow(<CreateUserForm />);
 
     expect(component.find('.login-form-loader')).toHaveLength(0);
@@ -17,7 +17,7 @@ describe('CreateUserForm', () => {
     expect(component.find('.login-form-loader')).toHaveLength(1);
   });
 
-  //TODO
+  // TODO
 
-  //test re-direct
+  // test re-direct
 });

@@ -10,10 +10,9 @@ import LoadingPage from './common/LoadingPage';
 import EditorAndOutput from './EditorAndOutput/EditorAndOutput';
 import PageNotFound from './PageNotFound';
 
+import '../styles/Main.scss';
 
-import 'styles/Main.scss';
-
-/**------Props-------
+/** ------Props-------
  * togglePanel: function to call when you want the Profile Panel to disappear/reapper
  * panelOpen: boolean telling whether the Profile Panel is open or not
  * left: the left css property that should be applied on the top level element
@@ -93,7 +92,7 @@ class ViewOnly extends React.Component {
   };
 
   onThemeChange = () => {
-    let newTheme = this.props.theme === 'dark' ? 'light' : 'dark';
+    const newTheme = this.props.theme === 'dark' ? 'light' : 'dark';
     cookies.setThemeCookie(newTheme);
     this.props.setTheme(newTheme);
   };
@@ -112,7 +111,7 @@ class ViewOnly extends React.Component {
     };
 
     return (
-      <div className={'main theme-' + this.props.theme}>
+      <div className={`main theme-${this.props.theme}`}>
         <ProfilePanelContainer
           contentType={this.props.contentType}
           theme={this.props.theme}
@@ -130,7 +129,7 @@ class ViewOnly extends React.Component {
             screenWidth={this.props.screenWidth}
             screenHeight={this.props.screenHeight}
             // view only trigger
-            viewOnly={true}
+            viewOnly
             // pane
             panelOpen={this.props.panelOpen}
             pane1Style={this.state.pane1Style}

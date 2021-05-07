@@ -7,7 +7,7 @@ import { Button } from 'reactstrap';
 import { EMAIL_DOMAIN_NAME } from '../../constants';
 import LoginInput from './LoginInput';
 import 'firebase/auth';
-import 'styles/Login.scss';
+import '../../styles/Login.scss';
 
 export default class LoginModal extends React.Component {
   constructor(props) {
@@ -25,9 +25,9 @@ export default class LoginModal extends React.Component {
   handleEmailLogin = (e) => {
     this.setState({ waiting: true, errorMsg: '' });
 
-    e.preventDefault(); //prevents page from reloading after submitting form
-    let email = this.state.username + EMAIL_DOMAIN_NAME;
-    let passwordHash = SHA256(this.state.password).toString();
+    e.preventDefault(); // prevents page from reloading after submitting form
+    const email = this.state.username + EMAIL_DOMAIN_NAME;
+    const passwordHash = SHA256(this.state.password).toString();
 
     if (email && passwordHash) {
       firebase
@@ -39,8 +39,7 @@ export default class LoginModal extends React.Component {
           let newMsg = err.message;
           switch (err.code) {
           case 'auth/invalid-email':
-            newMsg =
-                'Invalid username. Usernames must only have alphanumeric characters plus !@#$%.';
+            newMsg = 'Invalid username. Usernames must only have alphanumeric characters plus !@#$%.';
             break;
           case 'auth/user-not-found':
             newMsg = 'No account found for username.';
@@ -58,17 +57,16 @@ export default class LoginModal extends React.Component {
           case 'auth/operation-not-allowed':
           case 'auth/requires-recent-login':
           case 'auth/unauthorized-domain':
-            newMsg =
-                'App was not properly configured. Please contact administrator. Error: ' + err.code;
+            newMsg = `App was not properly configured. Please contact administrator. Error: ${err.code}`;
             break;
           case 'auth/invalid-user-token':
           case 'auth/user-disabled':
           case 'auth/user-token-expired':
           case 'auth/web-storage-unsupported':
-            newMsg = 'Issue with user. Please contact administrator. Error: ' + err.code;
+            newMsg = `Issue with user. Please contact administrator. Error: ${err.code}`;
             break;
           default:
-            newMsg = 'Failed to sign in: ' + err.code;
+            newMsg = `Failed to sign in: ${err.code}`;
           }
           this.setState({ errorMsg: newMsg, waiting: false });
         });
@@ -78,16 +76,18 @@ export default class LoginModal extends React.Component {
   };
 
   updateUsername = (username) => this.setState({ username });
+
   updatePassword = (password) => this.setState({ password });
 
   renderErrorMessage = (msg, addBreak) => {
-    if (msg)
+    if (msg) {
       return (
         <span>
           <div className="login-form-input-error">{msg}</div>
           {addBreak ? <br /> : null}
         </span>
       );
+    }
 
     return <br />;
   };
@@ -96,13 +96,13 @@ export default class LoginModal extends React.Component {
     <div className="login-form-input-list">
       <div>
         <LoginInput
-          type={'Username'}
+          type="Username"
           data={this.state.username}
           waiting={this.state.waiting}
           onChange={this.updateUsername}
         />
         <LoginInput
-          type={'Password'}
+          type="Password"
           data={this.state.password}
           waiting={this.state.waiting}
           onChange={this.updatePassword}
@@ -132,33 +132,32 @@ export default class LoginModal extends React.Component {
     if (this.state.waiting) {
       return (
         <div className="login-form-loader">
-          <RingLoader color={this.props.themeColor} size={80} loading={true} />
-        </div>
-      );
-    } else {
-      return (
-        <div>
-          <Button
-            size="lg"
-            type="submit"
-            style={this.state.hoverButton ? clickedStyle : unclickedStyle}
-            onMouseEnter={() => this.setState({ hoverButton: !this.state.hoverButton })}
-            onMouseLeave={() => this.setState({ hoverButton: !this.state.hoverButton })}
-          >
-            Login
-          </Button>
-          <Link
-            to={{
-              pathname: '/createUser',
-              state: { username: this.state.username, password: this.state.password },
-            }}
-            className="login-form-link ml-4"
-          >
-            or, create an account
-          </Link>
+          <RingLoader color={this.props.themeColor} size={80} loading />
         </div>
       );
     }
+    return (
+      <div>
+        <Button
+          size="lg"
+          type="submit"
+          style={this.state.hoverButton ? clickedStyle : unclickedStyle}
+          onMouseEnter={() => this.setState({ hoverButton: !this.state.hoverButton })}
+          onMouseLeave={() => this.setState({ hoverButton: !this.state.hoverButton })}
+        >
+          Login
+        </Button>
+        <Link
+          to={{
+            pathname: '/createUser',
+            state: { username: this.state.username, password: this.state.password },
+          }}
+          className="login-form-link ml-4"
+        >
+          or, create an account
+        </Link>
+      </div>
+    );
   };
 
   render() {
@@ -170,8 +169,11 @@ export default class LoginModal extends React.Component {
           <details className="mt-2">
             <summary>Forgot your password?</summary>
             <p>
-              Send us an email at <a href="mailto:acmteachla@gmail.com">acmteachla@gmail.com</a>{' '}
-              with "Forgot Password" in the subject, and we'll do our best to help you out!
+              Send us an email at
+              {' '}
+              <a href="mailto:acmteachla@gmail.com">acmteachla@gmail.com</a>
+              {' '}
+              with &quot;Forgot Password&quot; in the subject, and we&apos;ll do our best to help you out!
             </p>
           </details>
         </form>

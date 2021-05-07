@@ -13,11 +13,9 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    clearOutput: () => {},
-  };
-};
+const mapDispatchToProps = () => ({
+  clearOutput: () => {},
+});
 
 const OutputContainer = connect(mapStateToProps, mapDispatchToProps)(Output);
 

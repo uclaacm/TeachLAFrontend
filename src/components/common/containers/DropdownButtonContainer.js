@@ -5,18 +5,16 @@ import DropdownButton from '../DropdownButton.js';
 
 const mapStateToProps = (state) => {
   const { mostRecentProgram } = state.userData;
-  let mostRecentLanguage = getLanguageData(
+  const mostRecentLanguage = getLanguageData(
     state.programs.getIn([mostRecentProgram, 'language'], 'python'),
   );
-  let displayValue = state.programs.getIn([mostRecentProgram, 'name'], mostRecentProgram);
+  const displayValue = state.programs.getIn([mostRecentProgram, 'name'], mostRecentProgram);
 
-  let listOfPrograms = state.programs.keySeq().map((id) => {
-    return {
-      name: state.programs.getIn([id, 'name'], id),
-      language: getLanguageData(state.programs.getIn([id, 'language'], 'python')),
-      key: id,
-    };
-  });
+  const listOfPrograms = state.programs.keySeq().map((id) => ({
+    name: state.programs.getIn([id, 'name'], id),
+    language: getLanguageData(state.programs.getIn([id, 'language'], 'python')),
+    key: id,
+  }));
 
   const dirty = state.programs.getIn([mostRecentProgram, 'dirty'], false);
 
@@ -28,13 +26,11 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onSelect: (value) => {
-      dispatch(setMostRecentProgram(value));
-    },
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  onSelect: (value) => {
+    dispatch(setMostRecentProgram(value));
+  },
+});
 
 const DropdownButtonContainer = connect(mapStateToProps, mapDispatchToProps)(DropdownButton);
 

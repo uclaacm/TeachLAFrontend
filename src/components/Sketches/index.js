@@ -1,4 +1,10 @@
+import '../../styles/Sketches.scss';
+
+import { faFile } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import React from 'react';
+import { Button } from 'reactstrap';
 import CodeDownloader from '../../util/languages/CodeDownloader';
 import OpenPanelButtonContainer from '../common/containers/OpenPanelButtonContainer';
 import SketchBox from './components/SketchBox';
@@ -6,12 +12,6 @@ import { SketchThumbnailArray } from './constants';
 import ConfirmDeleteModalContainer from './containers/ConfirmDeleteModalContainer';
 import CreateSketchModalContainer from './containers/CreateSketchModalContainer';
 import EditSketchModalContainer from './containers/EditSketchModalContainer';
-import 'styles/Sketches.scss';
-
-import { Button } from 'reactstrap';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFile } from '@fortawesome/free-solid-svg-icons';
 
 const ROW_PADDING = 100;
 const SKETCH_WIDTH = 220;
@@ -30,9 +30,7 @@ class Sketches extends React.Component {
     };
   }
 
-  getRandomSketchThumbnail = () => {
-    return SketchThumbnailArray[Math.floor(Math.random() * SketchThumbnailArray.length)];
-  };
+  getRandomSketchThumbnail = () => SketchThumbnailArray[Math.floor(Math.random() * SketchThumbnailArray.length)];
 
   setCreateSketchModalOpen = (val) => {
     this.setState({ createSketchModalOpen: val });
@@ -66,7 +64,9 @@ class Sketches extends React.Component {
         size="lg"
         onClick={() => this.setCreateSketchModalOpen(true)}
       >
-        <FontAwesomeIcon icon={faFile} /> Create Sketch
+        <FontAwesomeIcon icon={faFile} />
+        {' '}
+        Create Sketch
       </Button>
     </div>
   );
@@ -79,12 +79,12 @@ class Sketches extends React.Component {
   };
 
   renderSketches = () => {
-    let newList = this.props.programs.concat([]);
+    const newList = this.props.programs.concat([]);
     if (newList.size === 0) {
       return (
         <div>
           <div className="no-sketches-container">
-            <h2>There's nothing here! Why don't you try creating a sketch?</h2>
+            <h2>There&apos;s nothing here! Why don&apos;t you try creating a sketch?</h2>
             <br />
             <p>
               <Button color="success" size="lg" onClick={() => this.setCreateSketchModalOpen(true)}>
@@ -95,14 +95,16 @@ class Sketches extends React.Component {
         </div>
       );
     }
-    let sketches = [];
+    const sketches = [];
     newList.sort((a, b) => {
       if (a.name < b.name) return -1;
       if (a.name === b.name) return 0;
       // if (a.name > b.name) return 1;
-      else return 1;
+      return 1;
     });
-    newList.forEach(({ key, name, language, thumbnail, code }) => {
+    newList.forEach(({
+      key, name, language, thumbnail, code,
+    }) => {
       sketches.push(
         <SketchBox
           img={this.getThumbnailSrc(thumbnail)}
@@ -130,9 +132,9 @@ class Sketches extends React.Component {
         />,
       );
     });
-    let numSketchesPerRow = Math.floor((this.props.calculatedWidth - ROW_PADDING) / SKETCH_WIDTH);
-    let rows = [];
-    let originalLength = sketches.length;
+    const numSketchesPerRow = Math.floor((this.props.calculatedWidth - ROW_PADDING) / SKETCH_WIDTH);
+    const rows = [];
+    const originalLength = sketches.length;
     for (let i = 0; i < originalLength / numSketchesPerRow; i++) {
       rows.push(
         <div className="sketches-grid-row" key={i}>
@@ -171,17 +173,15 @@ class Sketches extends React.Component {
     />
   );
 
-  renderContent = () => {
-    return (
-      <React.Fragment>
-        {this.renderHeader()}
-        {this.renderSketches()}
-        {this.renderCreateSketchModal()}
-        {this.renderConfirmDeleteModal()}
-        {this.renderEditSketchModal()}
-      </React.Fragment>
-    );
-  };
+  renderContent = () => (
+    <>
+      {this.renderHeader()}
+      {this.renderSketches()}
+      {this.renderCreateSketchModal()}
+      {this.renderConfirmDeleteModal()}
+      {this.renderEditSketchModal()}
+    </>
+  );
 
   render() {
     const containerStyle = {

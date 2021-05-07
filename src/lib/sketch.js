@@ -5,7 +5,8 @@ import constants from '../constants';
  * a shareable link to the view-only version of that program.
  * checks for the current hostname using window.location.hostname,
  * @param {String} programId the id of the program
- * @param {String} [domainRoot=window.location.hostname] domainRoot (e.g. editor.uclaacm.com). defaults localhost to 8080
+ * @param {String} [domainRoot=window.location.hostname] domainRoot (e.g. editor.uclaacm.com).
+ *                                                       defaults localhost to 8080
  */
 
 export const constructShareableSketchURL = (programId, domainRoot = window.location.hostname) => {

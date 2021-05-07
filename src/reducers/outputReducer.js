@@ -16,11 +16,11 @@ function outputReducer(state = initialState, action) {
   case CLEAR_OUTPUT:
     return initialState;
   case SET_RUN_RESULT:
-    return Object.assign({}, state, { runResult: action.value });
+    return { ...state, runResult: action.value };
   case SET_OUTPUT_LANGUAGE:
-    return Object.assign({}, state, { language: action.value });
+    return { ...state, language: action.value };
   case SET_OUTPUT:
-    return Object.assign({}, state, { runResult: action.runResult, language: action.language });
+    return { ...state, runResult: action.runResult, language: action.language };
   default:
     return state;
   }

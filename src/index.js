@@ -1,3 +1,4 @@
+import firebase from 'firebase/app';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -8,7 +9,6 @@ import Root from './components/containers/AppContainer.js';
 import config from './firebase';
 import appReducers from './reducers';
 import registerServiceWorker from './registerServiceWorker';
-import firebase from 'firebase/app';
 
 firebase.initializeApp(config);
 

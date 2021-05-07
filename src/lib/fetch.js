@@ -1,6 +1,6 @@
 import constants from '../constants';
 
-/**---------getUserData--------
+/** ---------getUserData--------
  * fetches object from server containg information about user at uid
  * includes users' programs in json if includePrograms is true
  * returned json will be of the form
@@ -15,8 +15,7 @@ import constants from '../constants';
  * }
  */
 export const getUserData = async (uid = '', includePrograms = false) => {
-  const getUserDataEndpoint = (uid = '', includePrograms = false) =>
-    `${constants.SERVER_URL}/user/get?uid=${uid}${includePrograms ? '&programs=true' : ''}`;
+  const userDataEndpoint = `${constants.SERVER_URL}/user/get?uid=${uid}${includePrograms ? '&programs=true' : ''}`;
 
   const options = {
     method: 'get',
@@ -24,15 +23,15 @@ export const getUserData = async (uid = '', includePrograms = false) => {
   };
 
   try {
-    const result = await fetch(getUserDataEndpoint(uid, includePrograms), options);
+    const result = await fetch(userDataEndpoint, options);
     const status = await result.status;
     const ok = status === 200;
     if (status === 404) {
       await createUser(uid);
       return getUserData(uid, includePrograms);
     }
-    let data = ok ? await result.json() : {};
-    let error = !ok ? await result.text() : '';
+    const data = ok ? await result.json() : {};
+    const error = !ok ? await result.text() : '';
     return { ok, data, error };
   } catch (err) {
     await createUser(uid);
@@ -48,8 +47,8 @@ export const getUserData = async (uid = '', includePrograms = false) => {
  */
 
 const makeServerRequest = (data, endpoint, method = 'post') => {
-  let options = {
-    method: method,
+  const options = {
+    method,
     headers: {
       'Content-Type': 'application/json; charset=utf-8',
     },
@@ -126,8 +125,8 @@ export const deleteSketch = (data) => {
 
 export const getSketch = async (docID) => {
   const endpoint = `program/get?pid=${docID}`;
-  let result = await makeServerRequest({}, endpoint, 'get');
-  let ok = await result.ok;
-  let sketch = await result.json();
+  const result = await makeServerRequest({}, endpoint, 'get');
+  const ok = await result.ok;
+  const sketch = await result.json();
   return { ok, sketch };
 };

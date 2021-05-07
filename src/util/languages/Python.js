@@ -90,15 +90,13 @@ const getPythonSrcDocSkulptScript = (code) => `
   </script>
 `;
 
-const getPythonSrcDocBody = (code, showConsole) => {
-  return `
+const getPythonSrcDocBody = (code, showConsole) => `
     <body onload="runit()">
       ${getPythonSrcDocSkulptScript(code)}
       ${showConsole ? '<div id="output"> </div>' : '<div id="output" style="display:none;"> </div>'}
       <div id="mycanvas"></div>
     </body>
   `;
-};
 
 export default function (code, showConsole) {
   return `<html> ${getPythonSrcDocHead()} ${getPythonSrcDocBody(code, showConsole)} </html>`;

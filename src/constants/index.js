@@ -1,6 +1,6 @@
-//TODO: Break up large constants file into smaller constants file
+// TODO: Break up large constants file into smaller constants file
 
-const PUBLIC_URL = process.env.PUBLIC_URL;
+const { PUBLIC_URL } = process.env;
 const PHOTO_NAMES = {
   lightbulb: `${PUBLIC_URL}/img/icons/lightbulb.png`,
   orange: `${PUBLIC_URL}/img/icons/orange.png`,
@@ -22,7 +22,7 @@ const GH_REPO_NAME = 'https://github.com/uclaacm/TeachLAFrontend';
 const ROUTER_BASE_NAME = '/';
 
 // Various Server URLs
-var SERVER_URL = 'http://localhost:8081';
+let SERVER_URL = 'http://localhost:8081';
 if (process && process.env) {
   if (process.env.REACT_APP_SERVER_TYPE === 'staging') {
     SERVER_URL = 'https://tla-backend-staging.herokuapp.com';
@@ -36,12 +36,12 @@ const PANEL_SIZE = 250;
 const PANEL_IMAGE_SELECTOR_SIZE = 325;
 
 // Editor and Output constants
-//View Mode
+// View Mode
 const CODE_AND_OUTPUT = 0;
 const CODE_ONLY = 1;
 const OUTPUT_ONLY = 2;
 
-//UI
+// UI
 const EDITOR_WIDTH_BREAKPOINT = 1000;
 
 module.exports = {
@@ -54,10 +54,10 @@ module.exports = {
   // Router Base Name
   ROUTER_BASE_NAME,
 
-  //Server Host Name
+  // Server Host Name
   SERVER_URL,
 
-  //User value constants
+  // User value constants
   MINIMUM_USERNAME_LENGTH: 6,
   MINIMUM_PASSWORD_LENGTH: 6,
   MINIMUM_DISPLAY_NAME_LENGTH: 1,
@@ -79,7 +79,7 @@ module.exports = {
   // UI
   EDITOR_WIDTH_BREAKPOINT,
 
-  //Firebase constants
+  // Firebase constants
   EMAIL_DOMAIN_NAME: '@fake.com',
   PANEL_IMAGE_SELECTOR_SIZE,
 };

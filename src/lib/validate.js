@@ -59,7 +59,9 @@ export const isValidPassword = (password) => {
 };
 
 /**
- * isValidDisplayName takes in a display name and returns an object containing whether or not the the display name is valid;
+ * isValidDisplayName takes in a display name and returns an object containing
+ * whether or not the the display name is valid;
+ *
  * if the display name is invalid, it also contains an explanation as to why not
  * @param {string} displayName - the display name
  * @returns {ValidMessage} - a ValidMessage object: 'ok' is a boolean determining the validity, and 'message' is an
@@ -68,8 +70,8 @@ export const isValidPassword = (password) => {
 export const isValidDisplayName = (displayName) => {
   // display name is too short or too long
   if (
-    displayName.length < MINIMUM_DISPLAY_NAME_LENGTH ||
-    displayName.length > MAXIMUM_DISPLAY_NAME_LENGTH
+    displayName.length < MINIMUM_DISPLAY_NAME_LENGTH
+    || displayName.length > MAXIMUM_DISPLAY_NAME_LENGTH
   ) {
     return {
       ok: false,

@@ -9,10 +9,9 @@ import ProfilePanelContainer from './common/containers/ProfilePanelContainer';
 import EditorAndOutput from './EditorAndOutput/EditorAndOutput';
 import SketchesPageContainer from './Sketches/containers/SketchesContainer';
 
+import '../styles/Main.scss';
 
-import 'styles/Main.scss';
-
-/**------Props-------
+/** ------Props-------
  * togglePanel: function to call when you want the Profile Panel to disappear/reapper
  * panelOpen: boolean telling whether the Profile Panel is open or not
  * left: the left css property that should be applied on the top level element
@@ -42,7 +41,7 @@ class Main extends React.Component {
   }
 
   onThemeChange = () => {
-    let newTheme = this.props.theme === 'dark' ? 'light' : 'dark';
+    const newTheme = this.props.theme === 'dark' ? 'light' : 'dark';
     cookies.setThemeCookie(newTheme);
     this.props.setTheme(newTheme);
   };
@@ -59,7 +58,7 @@ class Main extends React.Component {
       saveText: 'Saving...',
     });
 
-    let programToUpdate = {};
+    const programToUpdate = {};
 
     programToUpdate[this.props.mostRecentProgram] = {
       code: this.props.code,
@@ -117,7 +116,7 @@ class Main extends React.Component {
   render() {
     // this stops us from rendering editor with no sketches available
     if (this.props.contentType === 'editor' && this.props.listOfPrograms.length === 0) {
-      return <Redirect to={'/sketches'} />;
+      return <Redirect to="/sketches" />;
     }
     const codeStyle = {
       left: this.props.left || 0,
@@ -126,7 +125,7 @@ class Main extends React.Component {
     };
 
     return (
-      <div className={'main theme-' + this.props.theme}>
+      <div className={`main theme-${this.props.theme}`}>
         <ProfilePanelContainer
           contentType={this.props.contentType}
           theme={this.props.theme}

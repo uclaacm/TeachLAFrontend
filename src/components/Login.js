@@ -1,14 +1,17 @@
-import React from 'react';
-import 'styles/Login.scss';
+import '../styles/Login.scss';
 
-import { faCode, faHeart, faPaintBrush, faRedo, faRocket } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCode, faHeart, faPaintBrush, faRedo, faRocket,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import LoginImg1 from 'img/login1.svg';
-import LoginImg2 from 'img/login2.svg';
-import LoginImg3 from 'img/login3.svg';
-import LoginImg4 from 'img/login4.svg';
-import LoginImg5 from 'img/login5.svg';
+import React from 'react';
+import LoginImg1 from '../img/login1.svg';
+import LoginImg2 from '../img/login2.svg';
+import LoginImg3 from '../img/login3.svg';
+import LoginImg4 from '../img/login4.svg';
+import LoginImg5 from '../img/login5.svg';
+
 import CreateUserForm from './Login/CreateUserForm.js';
 import LoginForm from './Login/LoginForm';
 
@@ -42,23 +45,25 @@ class Login extends React.Component {
     dummy: false,
     index: Math.floor(Math.random() * 5),
   };
+
   // basically, when the window resizes, we should recalculate get SVG - the window parameters change!
   componentDidMount = () => {
     window.addEventListener('resize', () => this.setState({ dummy: !this.state.dummy }));
   };
+
   componentWillUnmount = () => {
     window.removeEventListener('resize', () => this.setState({ dummy: !this.state.dummy }));
   };
-  getSVG = () => {
-    return (
-      <svg
-        className="background-svg"
-        viewBox={`0 0 1084 ${window.innerHeight}`}
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d={`
+
+  getSVG = () => (
+    <svg
+      className="background-svg"
+      viewBox={`0 0 1084 ${window.innerHeight}`}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d={`
             M204.407 691.847
             C51.4294 796.853 0.666362 951.817 0 ${window.innerHeight}
             H1094
@@ -66,24 +71,23 @@ class Login extends React.Component {
             L53.4756 -6.443
             C178.418 14.2132 602.225 418.778 204.407 691.847Z
             `}
-          fill="url(#paint0_linear)"
-        />
-        <defs>
-          <linearGradient
-            id="paint0_linear"
-            x1="547"
-            y1="0"
-            x2="547"
-            y2={`${window.innerHeight}`}
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stopColor={gradientColors[this.state.index][0]} />
-            <stop offset="1" stopColor={gradientColors[this.state.index][1]} stopOpacity="0.47" />
-          </linearGradient>
-        </defs>
-      </svg>
-    );
-  };
+        fill="url(#paint0_linear)"
+      />
+      <defs>
+        <linearGradient
+          id="paint0_linear"
+          x1="547"
+          y1="0"
+          x2="547"
+          y2={`${window.innerHeight}`}
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor={gradientColors[this.state.index][0]} />
+          <stop offset="1" stopColor={gradientColors[this.state.index][1]} stopOpacity="0.47" />
+        </linearGradient>
+      </defs>
+    </svg>
+  );
 
   render = () => {
     const textHighlightStyle = {
@@ -103,7 +107,10 @@ class Login extends React.Component {
           <div className="login-page-content-main">
             <div>
               <h1 className="font-weight-bold">
-                The ACM <span className="teachla-green">Teach LA</span>{' '}
+                The ACM
+                {' '}
+                <span className="teachla-green">Teach LA</span>
+                {' '}
                 <span style={textHighlightStyle}>Online Editor</span>
               </h1>
               <p>a web IDE that lets you write and run Python &amp; Processing code, anywhere.</p>
@@ -122,12 +129,21 @@ class Login extends React.Component {
             </div>
           </div>
           <div className="login-page-content-footer">
-            <FontAwesomeIcon icon={faPaintBrush} /> <FontAwesomeIcon icon={faCode} />{' '}
-            <FontAwesomeIcon icon={faRocket} /> by{' '}
+            <FontAwesomeIcon icon={faPaintBrush} />
+            {' '}
+            <FontAwesomeIcon icon={faCode} />
+            {' '}
+            <FontAwesomeIcon icon={faRocket} />
+            {' '}
+            by
+            {' '}
             <a href="https://teachla.uclaacm.com" target="_blank" rel="noopener noreferrer">
               <span className="teachla-green">ACM Teach LA</span>
-            </a>{' '}
-            with <FontAwesomeIcon className="beating-heart" icon={faHeart} />
+            </a>
+            {' '}
+            with
+            {' '}
+            <FontAwesomeIcon className="beating-heart" icon={faHeart} />
           </div>
         </div>
         <div className="login-page-images">

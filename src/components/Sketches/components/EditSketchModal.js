@@ -1,13 +1,15 @@
 import React from 'react';
 import ReactModal from 'react-modal';
-import { Button } from 'reactstrap';
-import { Container, Row, Col, FormGroup, Label, Input } from 'reactstrap';
+import {
+  Button, Container, Row, Col, FormGroup, Label, Input,
+} from 'reactstrap';
+
 import * as fetch from '../../../lib/fetch.js';
 import ImageSelector from '../../common/ImageSelector';
 import { SketchThumbnailArray, LanguageDropdownValues } from '../constants';
 import DropdownButton from './DropdownButton';
 
-import 'styles/SketchesModal.scss';
+import '../../../styles/SketchesModal.scss';
 
 class EditSketchModal extends React.Component {
   constructor(props) {
@@ -63,10 +65,10 @@ class EditSketchModal extends React.Component {
     }
 
     let notFound = true;
-    for (var i = 0; i < LanguageDropdownValues.length; i++) {
+    for (let i = 0; i < LanguageDropdownValues.length; i++) {
       if (
-        this.state.newLanguage.display === LanguageDropdownValues[i].display &&
-        this.state.newLanguage.value === LanguageDropdownValues[i].value
+        this.state.newLanguage.display === LanguageDropdownValues[i].display
+        && this.state.newLanguage.value === LanguageDropdownValues[i].value
       ) {
         notFound = false;
         break;
@@ -88,7 +90,7 @@ class EditSketchModal extends React.Component {
       return;
     }
 
-    let data = {};
+    const data = {};
     let doUpdate = false;
 
     if (this.state.newLanguage !== -1) {
@@ -104,7 +106,7 @@ class EditSketchModal extends React.Component {
       doUpdate = true;
     }
     if (doUpdate) {
-      let updateData = {};
+      const updateData = {};
       updateData[this.props.sketchKey] = data;
       try {
         fetch
@@ -126,7 +128,6 @@ class EditSketchModal extends React.Component {
                 disableSubmit: false,
                 error: res.text() || 'Failed to edit sketch, please try again later',
               });
-              return;
             }
           })
           .catch((err) => {
@@ -146,14 +147,14 @@ class EditSketchModal extends React.Component {
   };
 
   renderMainModal() {
-    let thumbnailPreview = (
+    const thumbnailPreview = (
       <img
         src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${
           this.state.newThumbnail !== -1
             ? SketchThumbnailArray[this.state.newThumbnail]
             : this.props.sketchImg
         }.svg`}
-        className={'sketches-modal-header-thumbnail'}
+        className="sketches-modal-header-thumbnail"
         alt="icon"
       />
     );
@@ -166,7 +167,11 @@ class EditSketchModal extends React.Component {
         ariaHideApp={false}
       >
         <Container>
-          <h2 className="text-center">Editing "{this.props.sketchName}"</h2>
+          <h2 className="text-center">
+            Editing &quot;
+            {this.props.sketchName}
+            &quot;
+          </h2>
           <hr />
           <FormGroup row>
             <Label className="text-right" for="sketch-name" xs={4}>
@@ -252,40 +257,37 @@ class EditSketchModal extends React.Component {
   }
 
   renderThumbnailModal() {
-    let icons = SketchThumbnailArray.map((val, index) => {
-      return (
-        <figure
-          className="sketches-gallery-item"
-          key={val}
-          onClick={() => this.setState({ newThumbnail: index })}
-        >
-          <img
-            src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${val}.svg`}
-            className={
-              'sketches-gallery-img' + (this.state.newThumbnail === index ? '-selected' : '')
-            }
-            alt="icon"
-          />
-        </figure>
-      );
-    });
+    const icons = SketchThumbnailArray.map((val, index) => (
+      <figure
+        className="sketches-gallery-item"
+        key={val}
+        onClick={() => this.setState({ newThumbnail: index })}
+      >
+        <img
+          src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${val}.svg`}
+          className={
+            `sketches-gallery-img${this.state.newThumbnail === index ? '-selected' : ''}`
+          }
+          alt="icon"
+        />
+      </figure>
+    ));
 
-    let thumbnailPreview =
-      this.state.newThumbnail !== -1 ? (
-        <img
-          src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${
-            SketchThumbnailArray[this.state.newThumbnail]
-          }.svg`}
-          className={'sketches-modal-header-thumbnail'}
-          alt="icon"
-        />
-      ) : (
-        <img
-          src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${this.props.sketchImg}.svg`}
-          className={'sketches-modal-header-thumbnail'}
-          alt="icon"
-        />
-      );
+    const thumbnailPreview = this.state.newThumbnail !== -1 ? (
+      <img
+        src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${
+          SketchThumbnailArray[this.state.newThumbnail]
+        }.svg`}
+        className="sketches-modal-header-thumbnail"
+        alt="icon"
+      />
+    ) : (
+      <img
+        src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${this.props.sketchImg}.svg`}
+        className="sketches-modal-header-thumbnail"
+        alt="icon"
+      />
+    );
     return (
       <ImageSelector
         isOpen={this.props.isOpen}
@@ -305,7 +307,8 @@ class EditSketchModal extends React.Component {
               block
             >
               Back
-            </Button>{' '}
+            </Button>
+            {' '}
           </Col>
         </Row>
       </ImageSelector>
