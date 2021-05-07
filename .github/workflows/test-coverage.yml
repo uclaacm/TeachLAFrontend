@@ -18,6 +18,6 @@ jobs:
     - name: Calc Coverage
       run:  npm run test-coverage
     - name: Coveralls
-      uses: coveralls/github-action@master
+      uses: coverallsapp/github-action@v1.1.2
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
