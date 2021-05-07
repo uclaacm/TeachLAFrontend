@@ -4,7 +4,6 @@ on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -20,5 +19,3 @@ jobs:
     - run: npm install
     - run: npm run prod_build --if-present
     - run: npm test
-      env:
-        CI: true
