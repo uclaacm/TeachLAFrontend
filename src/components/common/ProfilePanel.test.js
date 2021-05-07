@@ -21,11 +21,11 @@ describe('ProfilePanel', () => {
   it('Buttons change based on content type', () => {
     const component = shallow(<ProfilePanel uid="foo" contentType="sketches" />);
     expect(component.find('#editor-button').length).toBeGreaterThan(0);
-    expect(component.find('#sign-out-button')).toExist();
+    expect(component.find('#sign-out-button').exists()).toBe(true);
 
     const component2 = shallow(<ProfilePanel uid="foo" contentType="editor" />);
-    expect(component2.find('#sketches-button')).toExist();
-    expect(component2.find('#sign-out-button')).toExist();
+    expect(component2.find('#sketches-button').exists()).toBe(true);
+    expect(component2.find('#sign-out-button').exists()).toBe(true);
   });
 
   it('togglePanel called when button is clicked', () => {
