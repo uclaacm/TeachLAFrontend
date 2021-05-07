@@ -1,12 +1,12 @@
-import React from "react";
-import ReactModal from "react-modal";
+import { faCopy } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from 'react';
+import ReactModal from 'react-modal';
 
-import { Button, Input, InputGroup, InputGroupAddon } from "reactstrap";
+import { Button, Input, InputGroup, InputGroupAddon } from 'reactstrap';
 
-import { faCopy } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import "styles/Modals.scss";
+import 'styles/Modals.scss';
 
 /**
  * ShareSketchModal is a full-screen modal that displays
@@ -25,11 +25,11 @@ class ShareSketchModal extends React.Component {
     navigator.clipboard.writeText(this.props.shareUrl).then(
       () => {
         // success
-        this.setState({ copyStatus: "Successfully copied!" });
+        this.setState({ copyStatus: 'Successfully copied!' });
       },
       () => {
         // failed
-        this.setState({ copyStatus: "Copy failed. If this keeps on happening, let us know!" });
+        this.setState({ copyStatus: 'Copy failed. If this keeps on happening, let us know!' });
       },
     );
   };

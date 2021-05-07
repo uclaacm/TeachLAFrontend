@@ -1,10 +1,10 @@
-import React from "react";
-import { shallow, render, mount } from "enzyme";
+import { shallow, render, mount } from 'enzyme';
+import React from 'react';
 
-import DropdownButton from "./DropdownButton";
-import { DropdownItem, DropdownToggle } from "reactstrap";
+import { DropdownItem, DropdownToggle } from 'reactstrap';
+import DropdownButton from './DropdownButton';
 
-const dropdownItems = ["Python", "HTML", "Processing"];
+const dropdownItems = ['Python', 'HTML', 'Processing'];
 
 // function setup(){
 
@@ -19,12 +19,12 @@ const dropdownItems = ["Python", "HTML", "Processing"];
 //   return { dropdownButton, props }
 // }
 
-describe("<DropdownButton />", () => {
+describe('<DropdownButton />', () => {
   // const {dropdownButton, props} = setup()
   // let dropdownRefs = dropdownButton.find(DropdownItem)
 
-  xit("renders with the correct language being used.", () => {
-    let children = dropdownButton.find(DropdownToggle).prop("children");
+  it.skip('renders with the correct language being used.', () => {
+    let children = dropdownButton.find(DropdownToggle).prop('children');
     let currentLanguage = shallow(<div>{children}</div>).text();
     expect(currentLanguage).toMatch(JAVASCRIPT);
   });

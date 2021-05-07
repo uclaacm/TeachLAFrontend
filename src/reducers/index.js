@@ -1,8 +1,8 @@
-import { combineReducers } from "redux";
-import userDataReducer from "./userDataReducer";
-import programsReducer from "./programsReducer";
-import outputReducer from "./outputReducer";
-import uiReducer from "./uiReducer";
+import { combineReducers } from 'redux';
+import outputReducer from './outputReducer';
+import programsReducer from './programsReducer';
+import uiReducer from './uiReducer';
+import userDataReducer from './userDataReducer';
 
 const appReducers = combineReducers({
   userData: userDataReducer,

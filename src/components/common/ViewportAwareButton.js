@@ -1,5 +1,5 @@
-import React from "react";
-import { Button } from "reactstrap";
+import React from 'react';
+import { Button } from 'reactstrap';
 
 /**-------Props--------
  * isSmall: dictates display of text field

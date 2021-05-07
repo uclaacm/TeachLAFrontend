@@ -1,5 +1,5 @@
-import React from "react";
-import "styles/Login.scss";
+import React from 'react';
+import 'styles/Login.scss';
 
 /**-------Props-------
  * type: string, if password, hides the input with dots; also used as the header for the input
@@ -13,7 +13,7 @@ export default ({ type, waiting, data, onChange }) => (
     <div className="login-form-input-header">{type}</div>
     <input
       className="login-form-input"
-      type={type === "Password" || type === "Confirm Password" ? "password" : "text"}
+      type={type === 'Password' || type === 'Confirm Password' ? 'password' : 'text'}
       disabled={waiting}
       name={type}
       placeholder=""

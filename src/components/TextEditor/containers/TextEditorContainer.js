@@ -1,10 +1,10 @@
-import Immutable from "immutable";
-import TextEditor from "../components/TextEditor";
-import { connect } from "react-redux";
-import { setProgramCode, setProgramDirty } from "../../../actions/programsActions.js";
-import { addProgram } from "../../../actions/programsActions";
-import { setMostRecentProgram } from "../../../actions/userDataActions.js";
-import { getLanguageData } from "../../../util/languages/languages.js";
+import Immutable from 'immutable';
+import { connect } from 'react-redux';
+import { addProgram } from '../../../actions/programsActions';
+import { setProgramCode, setProgramDirty } from '../../../actions/programsActions.js';
+import { setMostRecentProgram } from '../../../actions/userDataActions.js';
+import { getLanguageData } from '../../../util/languages/languages.js';
+import TextEditor from '../components/TextEditor';
 
 const mapStateToProps = (state, ownProps) => {
   const { uid, mostRecentProgram } = state.userData;

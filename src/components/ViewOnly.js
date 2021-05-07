@@ -1,17 +1,17 @@
-import React from "react";
+import React from 'react';
 
-import * as fetch from "../lib/fetch.js";
-import * as cookies from "../lib/cookies.js";
+import { EDITOR_WIDTH_BREAKPOINT, CODE_AND_OUTPUT, CODE_ONLY } from '../constants';
+import * as cookies from '../lib/cookies.js';
+import * as fetch from '../lib/fetch.js';
 
-import ProfilePanelContainer from "./common/containers/ProfilePanelContainer";
-import EditorAndOutput from "./EditorAndOutput/EditorAndOutput";
-import PageNotFound from "./PageNotFound";
-import LoadingPage from "./common/LoadingPage";
+import { getLanguageData } from '../util/languages/languages.js';
+import ProfilePanelContainer from './common/containers/ProfilePanelContainer';
+import LoadingPage from './common/LoadingPage';
+import EditorAndOutput from './EditorAndOutput/EditorAndOutput';
+import PageNotFound from './PageNotFound';
 
-import { EDITOR_WIDTH_BREAKPOINT, CODE_AND_OUTPUT, CODE_ONLY } from "../constants";
-import { getLanguageData } from "../util/languages/languages.js";
 
-import "styles/Main.scss";
+import 'styles/Main.scss';
 
 /**------Props-------
  * togglePanel: function to call when you want the Profile Panel to disappear/reapper
@@ -24,16 +24,16 @@ class ViewOnly extends React.Component {
     super(props);
     this.state = {
       viewMode: this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT ? CODE_ONLY : CODE_AND_OUTPUT,
-      pane1Style: { transition: "width .5s ease" },
-      sketchName: "",
+      pane1Style: { transition: 'width .5s ease' },
+      sketchName: '',
       language: null,
-      thumbnail: "",
-      code: "",
+      thumbnail: '',
+      code: '',
       loaded: false,
       notfound: false,
-      originalCode: "",
+      originalCode: '',
     };
-    this.savePrevProgram = this.props.uid !== "";
+    this.savePrevProgram = this.props.uid !== '';
     this.props.setTheme(cookies.getThemeFromCookie());
   }
 
@@ -93,7 +93,7 @@ class ViewOnly extends React.Component {
   };
 
   onThemeChange = () => {
-    let newTheme = this.props.theme === "dark" ? "light" : "dark";
+    let newTheme = this.props.theme === 'dark' ? 'light' : 'dark';
     cookies.setThemeCookie(newTheme);
     this.props.setTheme(newTheme);
   };
@@ -112,7 +112,7 @@ class ViewOnly extends React.Component {
     };
 
     return (
-      <div className={`main theme-` + this.props.theme}>
+      <div className={'main theme-' + this.props.theme}>
         <ProfilePanelContainer
           contentType={this.props.contentType}
           theme={this.props.theme}

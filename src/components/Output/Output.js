@@ -1,13 +1,13 @@
-import React from "react";
-import { OUTPUT_ONLY } from "../../constants";
-import EditorRadio from "../TextEditor/components/EditorRadio.js";
-import { Button } from "reactstrap";
-import ViewportAwareButton from "../common/ViewportAwareButton.js";
-import OpenPanelButtonContainer from "../common/containers/OpenPanelButtonContainer.js";
+import { faPlay } from '@fortawesome/free-solid-svg-icons';
+import { faTerminal } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from 'react';
+import { Button } from 'reactstrap';
+import { OUTPUT_ONLY } from '../../constants';
+import OpenPanelButtonContainer from '../common/containers/OpenPanelButtonContainer.js';
+import ViewportAwareButton from '../common/ViewportAwareButton.js';
+import EditorRadio from '../TextEditor/components/EditorRadio.js';
 
-import { faPlay } from "@fortawesome/free-solid-svg-icons";
-import { faTerminal } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 /**--------Props--------
  * None
@@ -55,17 +55,17 @@ class Output extends React.Component {
 
   renderIframe = (getSrcDoc) => {
     //check if getsrcdoc is a function
-    if (!getSrcDoc && {}.toString.call(getSrcDoc) === "[object Function]") {
-      console.log("Null src doc function found");
+    if (!getSrcDoc && {}.toString.call(getSrcDoc) === '[object Function]') {
+      console.log('Null src doc function found');
       return null;
     }
 
     return (
       <iframe
-        id={this.state.counter + " " + this.state.run}
-        key={this.state.counter + " " + this.state.run}
+        id={this.state.counter + ' ' + this.state.run}
+        key={this.state.counter + ' ' + this.state.run}
         className="editor-output-iframe"
-        style={{ height: this.props.screenHeight - 61 + "px" }}
+        style={{ height: this.props.screenHeight - 61 + 'px' }}
         srcDoc={getSrcDoc()}
         src=""
         title="output-iframe"
@@ -96,7 +96,7 @@ class Output extends React.Component {
 
   renderRadio = () =>
     this.props.viewMode === OUTPUT_ONLY && (
-      <div style={{ marginLeft: "auto" }}>
+      <div style={{ marginLeft: 'auto' }}>
         <EditorRadio
           viewMode={this.props.viewMode}
           updateViewMode={this.props.updateViewMode}
@@ -114,9 +114,9 @@ class Output extends React.Component {
   renderConsoleButton = () => (
     <Button
       className="mx-2"
-      color={this.state.showConsole ? "danger" : "primary"}
+      color={this.state.showConsole ? 'danger' : 'primary'}
       onClick={this.toggleConsole}
-      title={this.state.showConsole ? "Hide Console" : "Show Console"}
+      title={this.state.showConsole ? 'Hide Console' : 'Show Console'}
       size="lg"
     >
       <FontAwesomeIcon icon={faTerminal} />
@@ -126,7 +126,7 @@ class Output extends React.Component {
   renderBanner = () => (
     <div className="editor-output-banner">
       {this.renderOpenPanelButton()}
-      <div style={{ flex: "1 1 auto" }}> </div> {/*whitespace*/}
+      <div style={{ flex: '1 1 auto' }}> </div> {/*whitespace*/}
       {this.renderRadio()}
       {this.renderConsoleButton()}
       <ViewportAwareButton

@@ -1,40 +1,40 @@
-import React from "react";
-import "styles/Login.scss";
-import LoginForm from "./Login/LoginForm";
-import CreateUserForm from "./Login/CreateUserForm.js";
+import React from 'react';
+import 'styles/Login.scss';
 
-import { faCode, faHeart, faPaintBrush, faRedo, faRocket } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCode, faHeart, faPaintBrush, faRedo, faRocket } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import LoginImg1 from "img/login1.svg";
-import LoginImg2 from "img/login2.svg";
-import LoginImg3 from "img/login3.svg";
-import LoginImg4 from "img/login4.svg";
-import LoginImg5 from "img/login5.svg";
+import LoginImg1 from 'img/login1.svg';
+import LoginImg2 from 'img/login2.svg';
+import LoginImg3 from 'img/login3.svg';
+import LoginImg4 from 'img/login4.svg';
+import LoginImg5 from 'img/login5.svg';
+import CreateUserForm from './Login/CreateUserForm.js';
+import LoginForm from './Login/LoginForm';
 
 const loginArt = [LoginImg1, LoginImg2, LoginImg3, LoginImg4, LoginImg5];
 const loginArtAlts = [
-  "girl on tablet",
-  "boy using VR headset",
-  "girl controlling drone",
-  "boy developing an app",
-  "girl coding for robot",
+  'girl on tablet',
+  'boy using VR headset',
+  'girl controlling drone',
+  'boy developing an app',
+  'girl coding for robot',
 ];
 
 const gradientColors = {
-  0: ["#FFB5B5", "#FFF7F3"],
-  1: ["#54C9FE", "#D8F6FF"],
-  2: ["#ACF53F", "#DAFFA4"],
-  3: ["#FFF065", "#FFF7F3"],
-  4: ["#FF94DB", "#FFE4EE"],
+  0: ['#FFB5B5', '#FFF7F3'],
+  1: ['#54C9FE', '#D8F6FF'],
+  2: ['#ACF53F', '#DAFFA4'],
+  3: ['#FFF065', '#FFF7F3'],
+  4: ['#FF94DB', '#FFE4EE'],
 };
 
 const themeColors = {
-  0: ["#FF5F54", "white"],
-  1: ["#36C5FC", "white"],
-  2: ["#ACF53F", "white"],
-  3: ["#FFF065", "black"],
-  4: ["#FF94DB", "white"],
+  0: ['#FF5F54', 'white'],
+  1: ['#36C5FC', 'white'],
+  2: ['#ACF53F', 'white'],
+  3: ['#FFF065', 'black'],
+  4: ['#FF94DB', 'white'],
 };
 
 class Login extends React.Component {
@@ -44,10 +44,10 @@ class Login extends React.Component {
   };
   // basically, when the window resizes, we should recalculate get SVG - the window parameters change!
   componentDidMount = () => {
-    window.addEventListener("resize", () => this.setState({ dummy: !this.state.dummy }));
+    window.addEventListener('resize', () => this.setState({ dummy: !this.state.dummy }));
   };
   componentWillUnmount = () => {
-    window.removeEventListener("resize", () => this.setState({ dummy: !this.state.dummy }));
+    window.removeEventListener('resize', () => this.setState({ dummy: !this.state.dummy }));
   };
   getSVG = () => {
     return (
@@ -103,7 +103,7 @@ class Login extends React.Component {
           <div className="login-page-content-main">
             <div>
               <h1 className="font-weight-bold">
-                The ACM <span className="teachla-green">Teach LA</span>{" "}
+                The ACM <span className="teachla-green">Teach LA</span>{' '}
                 <span style={textHighlightStyle}>Online Editor</span>
               </h1>
               <p>a web IDE that lets you write and run Python &amp; Processing code, anywhere.</p>
@@ -122,11 +122,11 @@ class Login extends React.Component {
             </div>
           </div>
           <div className="login-page-content-footer">
-            <FontAwesomeIcon icon={faPaintBrush} /> <FontAwesomeIcon icon={faCode} />{" "}
-            <FontAwesomeIcon icon={faRocket} /> by{" "}
+            <FontAwesomeIcon icon={faPaintBrush} /> <FontAwesomeIcon icon={faCode} />{' '}
+            <FontAwesomeIcon icon={faRocket} /> by{' '}
             <a href="https://teachla.uclaacm.com" target="_blank" rel="noopener noreferrer">
               <span className="teachla-green">ACM Teach LA</span>
-            </a>{" "}
+            </a>{' '}
             with <FontAwesomeIcon className="beating-heart" icon={faHeart} />
           </div>
         </div>

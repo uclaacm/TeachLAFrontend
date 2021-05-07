@@ -94,7 +94,7 @@ const getPythonSrcDocBody = (code, showConsole) => {
   return `
     <body onload="runit()">
       ${getPythonSrcDocSkulptScript(code)}
-      ${showConsole ? `<div id="output"> </div>` : `<div id="output" style="display:none;"> </div>`}
+      ${showConsole ? '<div id="output"> </div>' : '<div id="output" style="display:none;"> </div>'}
       <div id="mycanvas"></div>
     </body>
   `;

@@ -1,30 +1,30 @@
-import React from "react";
-import ReactModal from "react-modal";
-import * as fetch from "../../../lib/fetch.js";
-import sketch from "../../../lib/";
+import { faDownload, faSave, faShare, faCodeBranch } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from 'react';
+import ReactModal from 'react-modal';
+import { Redirect } from 'react-router-dom';
+import { Button } from 'reactstrap';
+import { EDITOR_WIDTH_BREAKPOINT } from '../../../constants';
+import sketch from '../../../lib/';
+import * as fetch from '../../../lib/fetch.js';
 
-import EditorRadio from "./EditorRadio.js";
-import ShareSketchModal from "./ShareSketchModal";
+import DropdownButtonContainer from '../../common/containers/DropdownButtonContainer';
+import OpenPanelButtonContainer from '../../common/containers/OpenPanelButtonContainer';
+import ViewportAwareButton from '../../common/ViewportAwareButton.js';
+import { SketchThumbnailArray } from '../../Sketches/constants';
+import EditorRadio from './EditorRadio.js';
+import ShareSketchModal from './ShareSketchModal';
 
-import { Button } from "reactstrap";
-import OpenPanelButtonContainer from "../../common/containers/OpenPanelButtonContainer";
-import { EDITOR_WIDTH_BREAKPOINT } from "../../../constants";
-import ViewportAwareButton from "../../common/ViewportAwareButton.js";
-import DropdownButtonContainer from "../../common/containers/DropdownButtonContainer";
-import { faDownload, faSave, faShare, faCodeBranch } from "@fortawesome/free-solid-svg-icons";
-import { SketchThumbnailArray } from "../../Sketches/constants";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Redirect } from "react-router-dom";
 
 let CodeMirror = null;
-if (typeof window !== "undefined" && typeof window.navigator !== "undefined") {
+if (typeof window !== 'undefined' && typeof window.navigator !== 'undefined') {
   // import {Controlled as CodeMirror} from 'react-codemirror2'
-  CodeMirror = require("react-codemirror2").Controlled;
-  require("codemirror/mode/javascript/javascript.js");
-  require("codemirror/mode/htmlmixed/htmlmixed.js");
-  require("codemirror/mode/python/python.js");
-  require("codemirror/mode/jsx/jsx.js");
-  require("codemirror/mode/clike/clike.js");
+  CodeMirror = require('react-codemirror2').Controlled;
+  require('codemirror/mode/javascript/javascript.js');
+  require('codemirror/mode/htmlmixed/htmlmixed.js');
+  require('codemirror/mode/python/python.js');
+  require('codemirror/mode/jsx/jsx.js');
+  require('codemirror/mode/clike/clike.js');
 }
 /**----------Props--------
  * None
@@ -49,13 +49,13 @@ class TextEditor extends React.Component {
   //==============React Lifecycle Functions===================//
 
   componentDidMount() {
-    window.addEventListener("beforeunload", this.onLeave);
-    window.addEventListener("close", this.onLeave);
+    window.addEventListener('beforeunload', this.onLeave);
+    window.addEventListener('close', this.onLeave);
   }
 
   componentWillUnmount = () => {
-    window.removeEventListener("beforeunload", this.onLeave);
-    window.removeEventListener("close", this.onLeave);
+    window.removeEventListener('beforeunload', this.onLeave);
+    window.removeEventListener('close', this.onLeave);
   };
 
   openForkModal = () => {
@@ -86,7 +86,7 @@ class TextEditor extends React.Component {
 
   onLeave = async (ev) => {
     if (this.props.dirty) {
-      ev.returnValue = "";
+      ev.returnValue = '';
     }
     return ev;
   };
@@ -108,9 +108,9 @@ class TextEditor extends React.Component {
     let { line } = cm.getCursor();
     if (codeMirrorInstance) {
       //removeLineClass removes the back highlight style from the last selected line
-      codeMirrorInstance.removeLineClass(currentLine, "wrap", "selected-line");
+      codeMirrorInstance.removeLineClass(currentLine, 'wrap', 'selected-line');
       //addLineClass adds the style to the newly selected line
-      codeMirrorInstance.addLineClass(line, "wrap", "selected-line");
+      codeMirrorInstance.addLineClass(line, 'wrap', 'selected-line');
     }
     this.setState({ currentLine: line });
   };
@@ -178,7 +178,7 @@ class TextEditor extends React.Component {
         })
         .catch((err) => {
           this.setState({
-            error: "Failed to create sketch, please try again later",
+            error: 'Failed to create sketch, please try again later',
           });
           console.log(err);
         });
@@ -204,11 +204,11 @@ class TextEditor extends React.Component {
 
   getCMTheme = (theme) => {
     switch (theme) {
-      case "light":
-        return "duotone-light";
-      case "dark":
-      default:
-        return "material";
+    case 'light':
+      return 'duotone-light';
+    case 'dark':
+    default:
+      return 'material';
     }
   };
 
@@ -228,7 +228,7 @@ class TextEditor extends React.Component {
           alt="sketch thumbnail"
         />
         {this.props.viewOnly ? this.renderSketchName() : this.renderDropdown()}
-        <div style={{ marginLeft: "auto", marginRight: ".5rem" }}>
+        <div style={{ marginLeft: 'auto', marginRight: '.5rem' }}>
           <EditorRadio
             viewMode={this.props.viewMode}
             updateViewMode={this.props.updateViewMode}
@@ -242,7 +242,7 @@ class TextEditor extends React.Component {
               onClick={this.openForkModal}
               isSmall={this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
               icon={<FontAwesomeIcon icon={faCodeBranch} />}
-              text={"Fork"}
+              text={'Fork'}
             />
           ) : null
         ) : (
@@ -264,7 +264,7 @@ class TextEditor extends React.Component {
             onClick={this.toggleShareModal}
             isSmall={this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
             icon={<FontAwesomeIcon icon={faShare} />}
-            text={"Share"}
+            text={'Share'}
           />
         )}
         {
@@ -290,7 +290,7 @@ class TextEditor extends React.Component {
     };
 
     return (
-      <div className={`theme-` + this.props.theme} style={{ height: "100%" }}>
+      <div className={'theme-' + this.props.theme} style={{ height: '100%' }}>
         <div className="code-section">
           {this.renderBanner()}
           {this.renderForkModal()}

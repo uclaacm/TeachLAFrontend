@@ -1,16 +1,16 @@
-import React from "react";
-import { Redirect } from "react-router-dom";
+import React from 'react';
+import { Redirect } from 'react-router-dom';
 
-import * as fetch from "../lib/fetch.js";
-import * as cookies from "../lib/cookies.js";
+import { EDITOR_WIDTH_BREAKPOINT, CODE_AND_OUTPUT, CODE_ONLY } from '../constants';
+import * as cookies from '../lib/cookies.js';
+import * as fetch from '../lib/fetch.js';
 
-import ProfilePanelContainer from "./common/containers/ProfilePanelContainer";
-import SketchesPageContainer from "./Sketches/containers/SketchesContainer";
-import EditorAndOutput from "./EditorAndOutput/EditorAndOutput";
+import ProfilePanelContainer from './common/containers/ProfilePanelContainer';
+import EditorAndOutput from './EditorAndOutput/EditorAndOutput';
+import SketchesPageContainer from './Sketches/containers/SketchesContainer';
 
-import { EDITOR_WIDTH_BREAKPOINT, CODE_AND_OUTPUT, CODE_ONLY } from "../constants";
 
-import "styles/Main.scss";
+import 'styles/Main.scss';
 
 /**------Props-------
  * togglePanel: function to call when you want the Profile Panel to disappear/reapper
@@ -22,9 +22,9 @@ class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      saveText: "Save",
+      saveText: 'Save',
       viewMode: this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT ? CODE_ONLY : CODE_AND_OUTPUT,
-      pane1Style: { transition: "width .5s ease" },
+      pane1Style: { transition: 'width .5s ease' },
     };
 
     // Set theme from cookies (yum)
@@ -42,21 +42,21 @@ class Main extends React.Component {
   }
 
   onThemeChange = () => {
-    let newTheme = this.props.theme === "dark" ? "light" : "dark";
+    let newTheme = this.props.theme === 'dark' ? 'light' : 'dark';
     cookies.setThemeCookie(newTheme);
     this.props.setTheme(newTheme);
   };
 
   resetSaveText = () => {
     this.setState({
-      saveText: "Save",
+      saveText: 'Save',
     });
   };
 
   handleSave = () => {
     if (!this.props.dirty) return; // Don't save if not dirty (unedited)
     this.setState({
-      saveText: "Saving...",
+      saveText: 'Saving...',
     });
 
     let programToUpdate = {};
@@ -67,7 +67,7 @@ class Main extends React.Component {
 
     fetch.updatePrograms(this.props.uid, programToUpdate).then(() => {
       this.setState({
-        saveText: "Saved!",
+        saveText: 'Saved!',
       });
 
       setTimeout(this.resetSaveText, 3000);
@@ -77,11 +77,11 @@ class Main extends React.Component {
 
   renderContent = () => {
     switch (this.props.contentType) {
-      case "editor":
-        return this.renderEditor();
-      case "sketches":
-      default:
-        return <SketchesPageContainer />;
+    case 'editor':
+      return this.renderEditor();
+    case 'sketches':
+    default:
+      return <SketchesPageContainer />;
     }
   };
 
@@ -116,8 +116,8 @@ class Main extends React.Component {
 
   render() {
     // this stops us from rendering editor with no sketches available
-    if (this.props.contentType === "editor" && this.props.listOfPrograms.length === 0) {
-      return <Redirect to={"/sketches"} />;
+    if (this.props.contentType === 'editor' && this.props.listOfPrograms.length === 0) {
+      return <Redirect to={'/sketches'} />;
     }
     const codeStyle = {
       left: this.props.left || 0,
@@ -126,7 +126,7 @@ class Main extends React.Component {
     };
 
     return (
-      <div className={`main theme-` + this.props.theme}>
+      <div className={'main theme-' + this.props.theme}>
         <ProfilePanelContainer
           contentType={this.props.contentType}
           theme={this.props.theme}

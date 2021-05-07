@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import "styles/Switch.scss";
+import React, { useState, useEffect } from 'react';
+import 'styles/Switch.scss';
 
 /**
  * Generic switch component. Props are as follows:
@@ -11,7 +11,7 @@ import "styles/Switch.scss";
 
 const Switch = (props) => {
   const [on, setOn] = useState(!props.on ? false : props.on);
-  
+
   useEffect(() => {
     if(props.on !== on) {
       setOn(props.on);
@@ -23,17 +23,17 @@ const Switch = (props) => {
     setOn(!on);
   };
 
-  let switchedClass = on ? " switch-on" : "";
+  let switchedClass = on ? ' switch-on' : '';
 
   return (
     <label className="switch">
       <input className="switch-input" type="checkbox" onChange={onSwitchChange} />
-      <span className={"switch-body" + switchedClass}>
+      <span className={'switch-body' + switchedClass}>
         {on ? props.onImg : props.offImg}
       </span>
-      <span className={"switch-handle" + switchedClass}></span>
+      <span className={'switch-handle' + switchedClass}></span>
     </label>
-  )
-}
+  );
+};
 
 export default Switch;

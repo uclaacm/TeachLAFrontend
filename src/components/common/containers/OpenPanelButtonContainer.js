@@ -1,6 +1,6 @@
-import OpenPanelButton from "../OpenPanelButton.js";
-import { connect } from "react-redux";
-import { togglePanel } from "../../../actions/uiActions.js";
+import { connect } from 'react-redux';
+import { togglePanel } from '../../../actions/uiActions.js';
+import OpenPanelButton from '../OpenPanelButton.js';
 
 const mapStateToProps = state => {
   return {

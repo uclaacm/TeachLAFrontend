@@ -1,10 +1,10 @@
-import EditSketchModal from "../components/EditSketchModal.js";
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import {
   setProgramLanguage,
   setProgramName,
   setProgramThumbnail,
-} from "../../../actions/programsActions";
+} from '../../../actions/programsActions';
+import EditSketchModal from '../components/EditSketchModal.js';
 
 const mapStateToProps = state => {
   return {

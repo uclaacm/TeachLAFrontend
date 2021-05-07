@@ -1,7 +1,7 @@
-import CreateSketchModal from "../components/CreateSketchModal.js";
-import { connect } from "react-redux";
-import { addProgram } from "../../../actions/programsActions";
-import { setMostRecentProgram } from "../../../actions/userDataActions.js";
+import { connect } from 'react-redux';
+import { addProgram } from '../../../actions/programsActions';
+import { setMostRecentProgram } from '../../../actions/userDataActions.js';
+import CreateSketchModal from '../components/CreateSketchModal.js';
 
 const mapStateToProps = state => {
   return {

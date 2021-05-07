@@ -1,5 +1,5 @@
-import React from "react";
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";
+import React from 'react';
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
 /**--------Props---------------
  * dropdownItems: array of strings, each string being the name of a Program

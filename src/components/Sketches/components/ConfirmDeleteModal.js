@@ -1,11 +1,11 @@
-import React from "react";
-import ReactModal from "react-modal";
-import { Container, Row, Col, Button } from "reactstrap";
-import * as fetch from "../../../lib/fetch.js";
+import React from 'react';
+import ReactModal from 'react-modal';
+import { Container, Row, Col, Button } from 'reactstrap';
+import * as fetch from '../../../lib/fetch.js';
 
 class ConfirmDeleteModal extends React.Component {
   closeModal = () => {
-    if (this.props.onClose && {}.toString.call(this.props.onClose) === "[object Function]") {
+    if (this.props.onClose && {}.toString.call(this.props.onClose) === '[object Function]') {
       this.props.onClose();
     }
   };
@@ -23,7 +23,7 @@ class ConfirmDeleteModal extends React.Component {
           if (!res.ok) {
             this.setState({
               spinner: false,
-              error: res.text() || "Failed to delete sketch, please try again later",
+              error: res.text() || 'Failed to delete sketch, please try again later',
             });
             return;
           }
@@ -44,14 +44,14 @@ class ConfirmDeleteModal extends React.Component {
         .catch((err) => {
           this.setState({
             spinner: false,
-            error: "Failed to create sketch, please try again later",
+            error: 'Failed to create sketch, please try again later',
           });
           console.error(err);
         });
     } catch (err) {
       console.error(err);
     }
-    this.setState({ spinner: true, error: "" });
+    this.setState({ spinner: true, error: '' });
   };
 
   render() {

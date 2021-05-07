@@ -1,12 +1,12 @@
-import Login from '../Login.js'
-import {connect} from 'react-redux'
-import {loadUserData, clearUserData, loadFailure} from '../../actions/userDataActions.js'
+import {connect} from 'react-redux';
+import {loadUserData, clearUserData, loadFailure} from '../../actions/userDataActions.js';
+import Login from '../Login.js';
 
 const mapStateToProps = (state, ownProps) => {
   return {
     loggedIn: state.userData,
-  }
-}
+  };
+};
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -19,8 +19,8 @@ const mapDispatchToProps = dispatch => {
     loadFailure: err => {
       dispatch(loadFailure(err));
     },
-  }
-}
+  };
+};
 
 const LoginPage = connect(
   mapStateToProps,

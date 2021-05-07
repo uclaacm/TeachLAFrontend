@@ -1,30 +1,29 @@
-import React from "react";
-import DropdownButton from "./DropdownButton";
-import ImageSelector from "../../common/ImageSelector";
+import React from 'react';
+import ReactModal from 'react-modal';
+import { Redirect } from 'react-router-dom';
+import { Button, Container, Row, Col, FormGroup, Label, Input } from 'reactstrap';
+import * as fetch from '../../../lib/fetch.js';
+import ImageSelector from '../../common/ImageSelector';
 import {
   SketchThumbnailArray,
   LanguageDropdownValues,
   LanguageDropdownDefault,
-} from "../constants";
-import * as fetch from "../../../lib/fetch.js";
-import { Redirect } from "react-router-dom";
+} from '../constants';
+import DropdownButton from './DropdownButton';
 
-import { Button, Container, Row, Col, FormGroup, Label, Input } from "reactstrap";
 
-import ReactModal from "react-modal";
-
-import "styles/SketchesModal.scss";
+import 'styles/SketchesModal.scss';
 
 class CreateSketchModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       language: LanguageDropdownDefault,
-      name: "",
+      name: '',
       next: false,
       thumbnail: -1,
       disableSubmit: false,
-      error: "",
+      error: '',
       redirect: false,
     };
   }
@@ -32,16 +31,16 @@ class CreateSketchModal extends React.Component {
   //==============React Lifecycle Functions Start===================//
 
   closeModal = () => {
-    if (this.props.onClose && {}.toString.call(this.props.onClose) === "[object Function]") {
+    if (this.props.onClose && {}.toString.call(this.props.onClose) === '[object Function]') {
       this.props.onClose();
     }
 
     this.setState({
       next: false,
       language: LanguageDropdownDefault,
-      name: "",
+      name: '',
       thumbnail: -1,
-      error: "",
+      error: '',
       disableSubmit: false,
     });
   };
@@ -49,7 +48,7 @@ class CreateSketchModal extends React.Component {
   setNext = (val) => {
     this.setState({
       next: val,
-      error: "",
+      error: '',
       disableSubmit: false,
     });
   };
@@ -59,7 +58,7 @@ class CreateSketchModal extends React.Component {
   badThumbnailInput = () => {
     if (
       this.state.thumbnail === undefined ||
-      this.state.thumbnail === "" ||
+      this.state.thumbnail === '' ||
       this.state.thumbnail >= SketchThumbnailArray.length ||
       this.state.thumbnail < 0
     ) {
@@ -72,11 +71,11 @@ class CreateSketchModal extends React.Component {
 
   badNameInput = () => {
     if (!this.state.name) {
-      this.setState({ error: "Name is required" });
+      this.setState({ error: 'Name is required' });
       return true;
     }
     if (this.state.name.length > 15) {
-      this.setState({ error: "Name must be 15 characters or less" });
+      this.setState({ error: 'Name must be 15 characters or less' });
       return true;
     }
     // if( this.state.name.match(/[^a-zA-Z0-9!@#$%'" .]/)){
@@ -89,7 +88,7 @@ class CreateSketchModal extends React.Component {
 
   badLanguageInput = () => {
     if (!this.state.language) {
-      this.setState({ error: "Please select a language" });
+      this.setState({ error: 'Please select a language' });
       return true;
     }
 
@@ -104,7 +103,7 @@ class CreateSketchModal extends React.Component {
       }
     }
     if (notFound) {
-      this.setState({ error: "Invalid language selected" });
+      this.setState({ error: 'Invalid language selected' });
       return true;
     }
 
@@ -129,7 +128,7 @@ class CreateSketchModal extends React.Component {
       thumbnail: this.state.thumbnail,
       language: this.state.language.value,
       name: this.state.name,
-      code: "",
+      code: '',
     };
 
     try {
@@ -149,14 +148,14 @@ class CreateSketchModal extends React.Component {
         .catch((err) => {
           this.setState({
             disableSubmit: false,
-            error: "Failed to create sketch, please try again later",
+            error: 'Failed to create sketch, please try again later',
           });
           console.log(err);
         });
     } catch (err) {
       console.log(err);
     }
-    this.setState({ disableSubmit: true, error: "" });
+    this.setState({ disableSubmit: true, error: '' });
   };
 
   renderSecondModal = () => {
@@ -169,7 +168,7 @@ class CreateSketchModal extends React.Component {
         >
           <img
             src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${val}.svg`}
-            className={"sketches-gallery-img" + (this.state.thumbnail === index ? "-selected" : "")}
+            className={'sketches-gallery-img' + (this.state.thumbnail === index ? '-selected' : '')}
             alt="icon"
           />
         </figure>
@@ -182,7 +181,7 @@ class CreateSketchModal extends React.Component {
           src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${
             SketchThumbnailArray[this.state.thumbnail]
           }.svg`}
-          className={"sketches-modal-header-thumbnail"}
+          className={'sketches-modal-header-thumbnail'}
           alt="icon"
         />
       ) : null;

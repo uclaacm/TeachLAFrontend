@@ -1,14 +1,14 @@
-import React from "react";
-import { Button } from "reactstrap";
-import { RingLoader } from "react-spinners";
-import { Link } from "react-router-dom";
-import firebase from "firebase/app";
-import "firebase/auth";
-import SHA256 from "crypto-js/sha256";
-import LoginInput from "./LoginInput.js";
-import { EMAIL_DOMAIN_NAME } from "../../constants";
+import firebase from 'firebase/app';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { RingLoader } from 'react-spinners';
+import { Button } from 'reactstrap';
+import 'firebase/auth';
+import SHA256 from 'crypto-js/sha256';
+import { EMAIL_DOMAIN_NAME } from '../../constants';
+import { isValidUsername, isValidPassword } from '../../lib/validate';
+import LoginInput from './LoginInput.js';
 
-import { isValidUsername, isValidPassword } from "../../lib/validate";
 
 /**
  * Props
@@ -23,13 +23,13 @@ export default class CreateUserForm extends React.Component {
     let init = this.props.initialState;
 
     this.state = {
-      username: init ? init.username : "",
-      password: init ? init.password : "",
-      confirmPassword: "",
-      errorMessage: "",
+      username: init ? init.username : '',
+      password: init ? init.password : '',
+      confirmPassword: '',
+      errorMessage: '',
       waiting: false,
-      usernameMessage: "",
-      passwordMessage: "",
+      usernameMessage: '',
+      passwordMessage: '',
     };
   }
 
@@ -65,9 +65,9 @@ export default class CreateUserForm extends React.Component {
 
     if (password !== confirmPassword) {
       this.setState({
-        passwordMessage: `Password and Confirm Password don't match`,
-        password: "",
-        confirmPassword: "",
+        passwordMessage: 'Password and Confirm Password don\'t match',
+        password: '',
+        confirmPassword: '',
       });
       validInputs = false;
     }
@@ -88,9 +88,9 @@ export default class CreateUserForm extends React.Component {
 
     this.setState({
       waiting: true,
-      errorMessage: "",
-      usernameMessage: "",
-      passwordMessage: "",
+      errorMessage: '',
+      usernameMessage: '',
+      passwordMessage: '',
     });
 
     let validInputs = this.validateInputs();
@@ -116,45 +116,45 @@ export default class CreateUserForm extends React.Component {
         console.error(err);
         let newMsg = err.message;
         switch (err.code) {
-          case "auth/invalid-email":
-            newMsg =
-              "Invalid username. Usernames must only have alphanumeric characters plus !@#$%.";
-            break;
-          case "auth/email-already-in-use":
-            newMsg = "Username is taken; please use another one.";
-            break;
-          case "auth/user-not-found": // this shouldn't ever happen
-            newMsg = "No account found for username.";
-            break;
-          case "auth/wrong-password":
-            newMsg = "Invalid password provided.";
-            break;
-          case "auth/network-request-failed":
-            newMsg = "Network error - check your internet connection.";
-            break;
-          case "auth/app-deleted":
-          case "auth/app-not-authorized":
-          case "auth/argument-error":
-          case "auth/invalid-api-key":
-          case "auth/operation-not-allowed":
-          case "auth/requires-recent-login":
-          case "auth/unauthorized-domain":
-            newMsg =
-              "App was not properly configured. Please contact administrator. Error: " + err.code;
-            break;
-          case "auth/invalid-user-token":
-          case "auth/user-disabled":
-          case "auth/user-token-expired":
-          case "auth/web-storage-unsupported":
-            newMsg = "Issue with user. Please contact administrator. Error: " + err.code;
-            break;
-          default:
-            newMsg = "Failed to create user: " + err.code;
+        case 'auth/invalid-email':
+          newMsg =
+              'Invalid username. Usernames must only have alphanumeric characters plus !@#$%.';
+          break;
+        case 'auth/email-already-in-use':
+          newMsg = 'Username is taken; please use another one.';
+          break;
+        case 'auth/user-not-found': // this shouldn't ever happen
+          newMsg = 'No account found for username.';
+          break;
+        case 'auth/wrong-password':
+          newMsg = 'Invalid password provided.';
+          break;
+        case 'auth/network-request-failed':
+          newMsg = 'Network error - check your internet connection.';
+          break;
+        case 'auth/app-deleted':
+        case 'auth/app-not-authorized':
+        case 'auth/argument-error':
+        case 'auth/invalid-api-key':
+        case 'auth/operation-not-allowed':
+        case 'auth/requires-recent-login':
+        case 'auth/unauthorized-domain':
+          newMsg =
+              'App was not properly configured. Please contact administrator. Error: ' + err.code;
+          break;
+        case 'auth/invalid-user-token':
+        case 'auth/user-disabled':
+        case 'auth/user-token-expired':
+        case 'auth/web-storage-unsupported':
+          newMsg = 'Issue with user. Please contact administrator. Error: ' + err.code;
+          break;
+        default:
+          newMsg = 'Failed to create user: ' + err.code;
         }
-        this.setState({ waiting: false, errorMessage: newMsg || "Failed to create user." });
+        this.setState({ waiting: false, errorMessage: newMsg || 'Failed to create user.' });
       });
 
-    this.setState({ password: "", confirmPassword: "" });
+    this.setState({ password: '', confirmPassword: '' });
   };
 
   renderErrorMessage = (msg, addBreak) => {
@@ -176,19 +176,19 @@ export default class CreateUserForm extends React.Component {
     <div className="login-form-input-list">
       <div>
         <LoginInput
-          type={"Username"}
+          type={'Username'}
           data={this.state.username}
           waiting={this.state.waiting}
           onChange={this.updateUsername}
         />
         <LoginInput
-          type={"Password"}
+          type={'Password'}
           data={this.state.password}
           waiting={this.state.waiting}
           onChange={this.updatePassword}
         />
         <LoginInput
-          type={"Confirm Password"}
+          type={'Confirm Password'}
           data={this.state.confirmPassword}
           waiting={this.state.waiting}
           onChange={this.updateConfirmPassword}
@@ -209,18 +209,18 @@ export default class CreateUserForm extends React.Component {
       );
     } else {
       const unclickedStyle = {
-        backgroundColor: "white",
+        backgroundColor: 'white',
         borderColor: this.props.themeColor,
-        borderWidth: "medium",
-        borderRadius: "4px",
-        color: "black",
+        borderWidth: 'medium',
+        borderRadius: '4px',
+        color: 'black',
       };
 
       const clickedStyle = {
         backgroundColor: this.props.themeColor,
         borderColor: this.props.themeColor,
-        borderWidth: "medium",
-        borderRadius: "4px",
+        borderWidth: 'medium',
+        borderRadius: '4px',
         color: this.props.textColor,
       };
       return (

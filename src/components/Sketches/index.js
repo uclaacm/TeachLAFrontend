@@ -1,17 +1,17 @@
-import React from "react";
-import SketchBox from "./components/SketchBox";
-import ConfirmDeleteModalContainer from "./containers/ConfirmDeleteModalContainer";
-import CreateSketchModalContainer from "./containers/CreateSketchModalContainer";
-import EditSketchModalContainer from "./containers/EditSketchModalContainer";
-import OpenPanelButtonContainer from "../common/containers/OpenPanelButtonContainer";
-import { SketchThumbnailArray } from "./constants";
-import CodeDownloader from "../../util/languages/CodeDownloader";
-import "styles/Sketches.scss";
+import React from 'react';
+import CodeDownloader from '../../util/languages/CodeDownloader';
+import OpenPanelButtonContainer from '../common/containers/OpenPanelButtonContainer';
+import SketchBox from './components/SketchBox';
+import { SketchThumbnailArray } from './constants';
+import ConfirmDeleteModalContainer from './containers/ConfirmDeleteModalContainer';
+import CreateSketchModalContainer from './containers/CreateSketchModalContainer';
+import EditSketchModalContainer from './containers/EditSketchModalContainer';
+import 'styles/Sketches.scss';
 
-import { Button } from "reactstrap";
+import { Button } from 'reactstrap';
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFile } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFile } from '@fortawesome/free-solid-svg-icons';
 
 const ROW_PADDING = 100;
 const SKETCH_WIDTH = 220;
@@ -23,10 +23,10 @@ class Sketches extends React.Component {
       confirmDeleteModalOpen: false,
       createSketchModalOpen: false,
       editSketchModalOpen: false,
-      selectedSketch: "",
-      selectedImg: "",
-      selectedLang: "",
-      selectedKey: "",
+      selectedSketch: '',
+      selectedImg: '',
+      selectedLang: '',
+      selectedKey: '',
     };
   }
 
@@ -72,7 +72,7 @@ class Sketches extends React.Component {
   );
 
   getThumbnailSrc = (val) => {
-    if (val === undefined || val === "" || val >= SketchThumbnailArray.length || val < 0) {
+    if (val === undefined || val === '' || val >= SketchThumbnailArray.length || val < 0) {
       return SketchThumbnailArray[0];
     }
     return SketchThumbnailArray[val];

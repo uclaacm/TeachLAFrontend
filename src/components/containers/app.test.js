@@ -7,11 +7,11 @@
 //   ReactDOM.render(<App />, div);
 //   ReactDOM.unmountComponentAtNode(div);
 // });
-import React from "react";
-import { shallow } from "enzyme";
+import { shallow } from 'enzyme';
+import React from 'react';
 
-describe("LoadingPage", () => {
-  xit("panelOpen=true snapshot", () => {
+describe('LoadingPage', () => {
+  it.skip('panelOpen=true snapshot', () => {
     const component = shallow(<OpenPanelButton panelOpen={true} />);
 
     expect(component).toMatchSnapshot();

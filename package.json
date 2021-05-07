@@ -37,7 +37,7 @@
     "dev": "concurrently --kill-others-on-fail \"yarn start\" \"yarn server\"",
     "lint-css": "stylelint \"**/*.css\" \"**/*.scss\"",
     "lint-css-fix": "stylelint --fix \"**/*.css\" \"**/*.scss\"",
-    "lint-js": "eslint \"**/*.js\" \"**/*.jsx\"",
+    "lint-js": "eslint \"**/*.js\"",
     "staging_start": "cross-env REACT_APP_FS_PROJ=staging REACT_APP_SERVER_TYPE=staging react-scripts start",
     "staging_build": "cross-env REACT_APP_FS_PROJ=staging REACT_APP_SERVER_TYPE=staging react-scripts build",
     "prod_start": "cross-env REACT_APP_FS_PROJ=prod REACT_APP_SERVER_TYPE=prod react-scripts start",

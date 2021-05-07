@@ -1,8 +1,8 @@
-import ProfilePanel from "../ProfilePanel";
-import { connect } from "react-redux";
-import { setDisplayName, setPhotoName } from "../../../actions/userDataActions";
-import { togglePanel } from "../../../actions/uiActions";
-import { DEFAULT_PHOTO_NAME, CLOSED_PANEL_LEFT, OPEN_PANEL_LEFT } from "../../../constants";
+import { connect } from 'react-redux';
+import { togglePanel } from '../../../actions/uiActions';
+import { setDisplayName, setPhotoName } from '../../../actions/userDataActions';
+import { DEFAULT_PHOTO_NAME, CLOSED_PANEL_LEFT, OPEN_PANEL_LEFT } from '../../../constants';
+import ProfilePanel from '../ProfilePanel';
 
 const mapStateToProps = (state, ownProps) => {
   return {

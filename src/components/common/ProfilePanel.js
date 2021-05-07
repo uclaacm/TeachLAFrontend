@@ -1,31 +1,31 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Row, Col, Button } from "reactstrap";
-import firebase from "firebase/app";
-import "firebase/auth";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import 'firebase/auth';
+import { faBook } from '@fortawesome/free-solid-svg-icons';
+import { faCheckSquare } from '@fortawesome/free-solid-svg-icons';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faMoon } from '@fortawesome/free-solid-svg-icons';
+import { faSun } from '@fortawesome/free-solid-svg-icons';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import firebase from 'firebase/app';
+import { Row, Col, Button } from 'reactstrap';
 import {
   PHOTO_NAMES,
   DEFAULT_PHOTO_NAME,
   PANEL_SIZE,
   PANEL_IMAGE_SELECTOR_SIZE,
-} from "../../constants";
-import { faBook } from "@fortawesome/free-solid-svg-icons";
-import { faCheckSquare } from "@fortawesome/free-solid-svg-icons";
-import { faEdit } from "@fortawesome/free-solid-svg-icons";
-import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
-import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
-import { faMoon } from "@fortawesome/free-solid-svg-icons";
-import { faSun } from "@fortawesome/free-solid-svg-icons";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
-import "styles/Panel.scss";
-import Switch from "./Switch";
-import Footer from "./Footer";
+} from '../../constants';
+import 'styles/Panel.scss';
 
-import ImageSelector from "./ImageSelector";
 
-import { isValidDisplayName } from "../../lib/validate";
+import { isValidDisplayName } from '../../lib/validate';
+import Footer from './Footer';
+import ImageSelector from './ImageSelector';
+import Switch from './Switch';
 
 /**--------Props--------
  * togglePanel: function to be called when the panel is collapsed or opened
@@ -41,8 +41,8 @@ class ProfilePanel extends React.Component {
       showModal: false,
       nameSubmitted: false,
       name: this.props.displayName,
-      selectedImage: "",
-      displayNameMessage: "",
+      selectedImage: '',
+      displayNameMessage: '',
     };
   }
 
@@ -51,7 +51,7 @@ class ProfilePanel extends React.Component {
   };
 
   handleCloseModal = () => {
-    this.setState({ selectedImage: "", showModal: false });
+    this.setState({ selectedImage: '', showModal: false });
   };
 
   handleEditNameClick = () => {
@@ -78,7 +78,7 @@ class ProfilePanel extends React.Component {
       });
     } else {
       this.props.setDisplayName(this.state.name);
-      this.setState({ editingName: false, nameSubmitted: true, displayNameMessage: "" });
+      this.setState({ editingName: false, nameSubmitted: true, displayNameMessage: '' });
       setTimeout(() => {
         this.setState({
           nameSubmitted: false,
@@ -95,7 +95,7 @@ class ProfilePanel extends React.Component {
     // SEND IMAGE NAME TO BACKEND, CHANGE IMAGE
     this.props.setPhotoName(this.state.selectedImage);
     this.handleCloseModal();
-    this.setState({ selectedImage: "" });
+    this.setState({ selectedImage: '' });
   };
 
   renderErrorMessage = (msg, addBreak) => {
@@ -141,7 +141,7 @@ class ProfilePanel extends React.Component {
         <figure className="gallery-item" key={val} onClick={() => this.onImageClick(val)}>
           <img
             src={PHOTO_NAMES[val]}
-            className={"gallery-img" + (this.state.selectedImage === val ? "-selected" : "")}
+            className={'gallery-img' + (this.state.selectedImage === val ? '-selected' : '')}
             alt="icon"
           />
         </figure>
@@ -154,7 +154,7 @@ class ProfilePanel extends React.Component {
         icons={icons}
         error={this.state.error}
         maxWidth={PANEL_IMAGE_SELECTOR_SIZE}
-        className={"image-selector"}
+        className={'image-selector'}
       >
         <Row>
           <Col>
@@ -182,7 +182,7 @@ class ProfilePanel extends React.Component {
           onMouseLeave={() => this.setState({ nameIsHovering: false })}
           onClick={this.handleEditNameClick}
         >
-          <div className="panel-name-text">{this.props.displayName || "Joe Bruin"}</div>
+          <div className="panel-name-text">{this.props.displayName || 'Joe Bruin'}</div>
           {this.state.nameIsHovering && (
             <button className="edit-icon-image" onClick={this.handleEditNameClick}>
               <FontAwesomeIcon icon={faEdit} />
@@ -190,7 +190,7 @@ class ProfilePanel extends React.Component {
           )}
           <div
             className="submitted-icon-image"
-            style={{ opacity: +(this.state.nameSubmitted ? "1" : "0") }}
+            style={{ opacity: +(this.state.nameSubmitted ? '1' : '0') }}
           >
             <FontAwesomeIcon icon={faCheckSquare} />
           </div>
@@ -214,7 +214,7 @@ class ProfilePanel extends React.Component {
 
   renderEditorButton = () => (
     <Link
-      to={{ pathname: "/editor" }}
+      to={{ pathname: '/editor' }}
       className="panel-button btn btn-secondary btn-lg btn-block"
       key="editor-button"
       id="editor-button"
@@ -226,7 +226,7 @@ class ProfilePanel extends React.Component {
 
   renderSketchesButton = () => (
     <Link
-      to={{ pathname: "/sketches" }}
+      to={{ pathname: '/sketches' }}
       className="panel-button btn btn-secondary btn-lg btn-block"
       key="sketches-button"
       id="sketches-button"
@@ -253,13 +253,13 @@ class ProfilePanel extends React.Component {
   renderButtons = () => {
     let panelButtons = [];
     switch (this.props.contentType) {
-      case "sketches":
-        panelButtons.push(this.renderEditorButton());
-        break;
-      case "editor":
-      default:
-        panelButtons.push(this.renderSketchesButton());
-        break;
+    case 'sketches':
+      panelButtons.push(this.renderEditorButton());
+      break;
+    case 'editor':
+    default:
+      panelButtons.push(this.renderSketchesButton());
+      break;
     }
 
     panelButtons.push(this.renderSignOutButton());
@@ -269,12 +269,12 @@ class ProfilePanel extends React.Component {
 
   renderThemeSwitch = () => {
     let onToggle = (on) => {
-      this.props.onThemeChange(on ? "light" : "dark");
+      this.props.onThemeChange(on ? 'light' : 'dark');
     };
 
     return (
       <Switch
-        on={this.props.theme === "dark" ? true : false}
+        on={this.props.theme === 'dark' ? true : false}
         onToggle={onToggle}
         onImg={<FontAwesomeIcon icon={faMoon} className="icon-dark" />}
         offImg={<FontAwesomeIcon icon={faSun} className="icon-light" />}
@@ -284,7 +284,7 @@ class ProfilePanel extends React.Component {
 
   renderLoginButton = () => (
     <Link
-      to={{ pathname: "/login" }}
+      to={{ pathname: '/login' }}
       className="panel-button btn btn-secondary btn-lg btn-block"
       key="login-button"
       id="login-button"
@@ -296,7 +296,7 @@ class ProfilePanel extends React.Component {
 
   renderCreateUserButton = () => (
     <Link
-      to={{ pathname: "/createUser" }}
+      to={{ pathname: '/createUser' }}
       className="panel-button btn btn-secondary btn-lg btn-block"
       key="create-user-button"
       id="create-user-button"

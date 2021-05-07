@@ -1,7 +1,7 @@
-import React from "react";
-import { RingLoader } from "react-spinners";
-import "styles/Loading.scss";
-import { GH_REPO_NAME } from "../../constants";
+import React from 'react';
+import { RingLoader } from 'react-spinners';
+import 'styles/Loading.scss';
+import { GH_REPO_NAME } from '../../constants';
 
 /*
 	Props:
@@ -21,7 +21,7 @@ class Loading extends React.Component {
   }
   componentDidMount = () => {
     this.timer = setTimeout(() => {
-		this.setState({ showHelpText: true });
+      this.setState({ showHelpText: true });
     }, 2000);
   }
 
@@ -33,10 +33,10 @@ class Loading extends React.Component {
     return (
       <div className="Loading">
         <div className="Loading-title">Loading</div>
-        <RingLoader color={"#171124"} size={250} loading={true} />
+        <RingLoader color={'#171124'} size={250} loading={true} />
         {this.state.showHelpText && (
-          <p className="Loading-page-text" style={{ color: "white" }}>
-            Looks like loading is taking a bit long! If it takes too long, submit an issue on{" "}
+          <p className="Loading-page-text" style={{ color: 'white' }}>
+            Looks like loading is taking a bit long! If it takes too long, submit an issue on{' '}
             <span> </span>
             <a href={`${GH_REPO_NAME}/issues`} className="Loading-link-text">
               Github

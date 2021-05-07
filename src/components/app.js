@@ -1,15 +1,15 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
-import { ROUTER_BASE_NAME } from "../constants";
-import LoginPage from "./containers/LoginContainer";
-import MainContainer from "./containers/MainContainer";
-import ViewOnlyContainer from "./containers/ViewOnlyContainer";
-import LoadingPage from "./common/LoadingPage";
-import Error from "./Error";
-import PageNotFound from "./PageNotFound";
-import firebase from "firebase/app";
-import "firebase/auth";
-import "styles/app.scss";
+import firebase from 'firebase/app';
+import React from 'react';
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
+import { ROUTER_BASE_NAME } from '../constants';
+import LoadingPage from './common/LoadingPage';
+import LoginPage from './containers/LoginContainer';
+import MainContainer from './containers/MainContainer';
+import ViewOnlyContainer from './containers/ViewOnlyContainer';
+import Error from './Error';
+import PageNotFound from './PageNotFound';
+import 'firebase/auth';
+import 'styles/app.scss';
 
 const provider = new firebase.auth.EmailAuthProvider();
 
@@ -28,11 +28,11 @@ class App extends React.Component {
     firebase.auth().onAuthStateChanged(async (user) => {
       await this.onAuthHandler(user);
     });
-    window.addEventListener("resize", this.handleResize, true);
+    window.addEventListener('resize', this.handleResize, true);
   };
 
   componentWillUnmount = () => {
-    window.removeEventListener("resize", this.handleResize, true);
+    window.removeEventListener('resize', this.handleResize, true);
   };
 
   handleResize = () => {
@@ -48,19 +48,19 @@ class App extends React.Component {
    * @param  {firebase.auth().currentUser}  user - a user object as passed by firebase.auth()
    */
   onAuthHandler = async (user) => {
-    console.log("checking auth");
+    console.log('checking auth');
     if (user) {
-      console.log("found user");
+      console.log('found user');
       const { uid } = user;
       if (uid) {
         await this.props.loadUserData(uid, this.showErrorPage);
         this.setState({ checkedAuth: true });
       } else {
-        this.props.loadFailure("Failed to load user data...");
+        this.props.loadFailure('Failed to load user data...');
         this.setState({ checkedAuth: true });
       }
     } else {
-      console.log("no user found");
+      console.log('no user found');
       this.props.clearUserData();
       this.setState({ checkedAuth: true });
     }
@@ -93,7 +93,7 @@ class App extends React.Component {
               exact
               path="/"
               render={() =>
-                this.props.errorMsg !== "" ? (
+                this.props.errorMsg !== '' ? (
                   <Error errorMsg={this.props.errorMsg} isValidUser={isValidUser} />
                 ) : isValidUser ? (
                   <Redirect to="/editor" />
@@ -106,7 +106,7 @@ class App extends React.Component {
             <Route
               path="/login"
               render={() =>
-                this.props.errorMsg !== "" ? (
+                this.props.errorMsg !== '' ? (
                   <Error errorMsg={this.props.errorMsg} isValidUser={isValidUser} />
                 ) : isValidUser ? (
                   <Redirect to="/editor" />
@@ -119,7 +119,7 @@ class App extends React.Component {
             <Route
               path="/editor"
               render={() =>
-                this.props.errorMsg !== "" ? (
+                this.props.errorMsg !== '' ? (
                   <Error errorMsg={this.props.errorMsg} isValidUser={isValidUser} />
                 ) : !isValidUser ? (
                   <Redirect to="/login" />
@@ -132,7 +132,7 @@ class App extends React.Component {
             <Route
               path="/createUser"
               render={({ location }) =>
-                this.props.errorMsg !== "" ? (
+                this.props.errorMsg !== '' ? (
                   <Error errorMsg={this.props.errorMsg} isValidUser={isValidUser} />
                 ) : isValidUser ? (
                   <Redirect to="/editor" />
@@ -145,7 +145,7 @@ class App extends React.Component {
             <Route
               path="/sketches"
               render={() =>
-                this.props.errorMsg !== "" ? (
+                this.props.errorMsg !== '' ? (
                   <Error errorMsg={this.props.errorMsg} isValidUser={isValidUser} />
                 ) : isValidUser ? (
                   <MainContainer contentType="sketches" />

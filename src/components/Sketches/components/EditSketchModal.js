@@ -1,13 +1,13 @@
-import React from "react";
-import ReactModal from "react-modal";
-import { Button } from "reactstrap";
-import DropdownButton from "./DropdownButton";
-import ImageSelector from "../../common/ImageSelector";
-import { SketchThumbnailArray, LanguageDropdownValues } from "../constants";
-import { Container, Row, Col, FormGroup, Label, Input } from "reactstrap";
-import * as fetch from "../../../lib/fetch.js";
+import React from 'react';
+import ReactModal from 'react-modal';
+import { Button } from 'reactstrap';
+import { Container, Row, Col, FormGroup, Label, Input } from 'reactstrap';
+import * as fetch from '../../../lib/fetch.js';
+import ImageSelector from '../../common/ImageSelector';
+import { SketchThumbnailArray, LanguageDropdownValues } from '../constants';
+import DropdownButton from './DropdownButton';
 
-import "styles/SketchesModal.scss";
+import 'styles/SketchesModal.scss';
 
 class EditSketchModal extends React.Component {
   constructor(props) {
@@ -17,20 +17,20 @@ class EditSketchModal extends React.Component {
       newName: -1,
       newThumbnail: -1,
       disableSubmit: false,
-      error: "",
+      error: '',
       onThumbnails: false,
     };
   }
 
   closeModal = () => {
-    if (this.props.onClose && {}.toString.call(this.props.onClose) === "[object Function]") {
+    if (this.props.onClose && {}.toString.call(this.props.onClose) === '[object Function]') {
       this.props.onClose();
     }
     this.setState({
       newLanguage: -1,
       newName: -1,
       newThumbnail: -1,
-      error: "",
+      error: '',
       onThumbnails: false,
       disableSubmit: false,
     });
@@ -43,11 +43,11 @@ class EditSketchModal extends React.Component {
       return false;
     }
     if (!this.state.newName) {
-      this.setState({ error: "Name is required" });
+      this.setState({ error: 'Name is required' });
       return true;
     }
     if (this.state.newName.length > 15) {
-      this.setState({ error: "Name must be 15 characters or less" });
+      this.setState({ error: 'Name must be 15 characters or less' });
       return true;
     }
     return false;
@@ -58,7 +58,7 @@ class EditSketchModal extends React.Component {
       return false;
     }
     if (!this.state.newLanguage) {
-      this.setState({ error: "Please select a language" });
+      this.setState({ error: 'Please select a language' });
       return true;
     }
 
@@ -73,7 +73,7 @@ class EditSketchModal extends React.Component {
       }
     }
     if (notFound) {
-      this.setState({ error: "Invalid language selected" });
+      this.setState({ error: 'Invalid language selected' });
       return true;
     }
 
@@ -96,11 +96,11 @@ class EditSketchModal extends React.Component {
       doUpdate = true;
     }
     if (this.state.newName !== -1) {
-      data["name"] = this.state.newName;
+      data.name = this.state.newName;
       doUpdate = true;
     }
     if (this.state.newThumbnail !== -1) {
-      data["thumbnail"] = this.state.newThumbnail;
+      data.thumbnail = this.state.newThumbnail;
       doUpdate = true;
     }
     if (doUpdate) {
@@ -124,7 +124,7 @@ class EditSketchModal extends React.Component {
             } else {
               this.setState({
                 disableSubmit: false,
-                error: res.text() || "Failed to edit sketch, please try again later",
+                error: res.text() || 'Failed to edit sketch, please try again later',
               });
               return;
             }
@@ -132,14 +132,14 @@ class EditSketchModal extends React.Component {
           .catch((err) => {
             this.setState({
               disableSubmit: false,
-              error: "Failed to edit sketch, please try again later",
+              error: 'Failed to edit sketch, please try again later',
             });
             console.log(err);
           });
       } catch (err) {
         console.log(err);
       }
-      this.setState({ disableSubmit: true, error: "" });
+      this.setState({ disableSubmit: true, error: '' });
     } else {
       this.closeModal();
     }
@@ -153,7 +153,7 @@ class EditSketchModal extends React.Component {
             ? SketchThumbnailArray[this.state.newThumbnail]
             : this.props.sketchImg
         }.svg`}
-        className={"sketches-modal-header-thumbnail"}
+        className={'sketches-modal-header-thumbnail'}
         alt="icon"
       />
     );
@@ -202,7 +202,7 @@ class EditSketchModal extends React.Component {
             <Col xs="4" className="text-right">
               <div
                 className="sketches-modal-header-thumbnail-container"
-                style={{ display: "block", marginLeft: "auto", marginRight: "0" }}
+                style={{ display: 'block', marginLeft: 'auto', marginRight: '0' }}
               >
                 {thumbnailPreview}
               </div>
@@ -262,7 +262,7 @@ class EditSketchModal extends React.Component {
           <img
             src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${val}.svg`}
             className={
-              "sketches-gallery-img" + (this.state.newThumbnail === index ? "-selected" : "")
+              'sketches-gallery-img' + (this.state.newThumbnail === index ? '-selected' : '')
             }
             alt="icon"
           />
@@ -276,13 +276,13 @@ class EditSketchModal extends React.Component {
           src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${
             SketchThumbnailArray[this.state.newThumbnail]
           }.svg`}
-          className={"sketches-modal-header-thumbnail"}
+          className={'sketches-modal-header-thumbnail'}
           alt="icon"
         />
       ) : (
         <img
           src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${this.props.sketchImg}.svg`}
-          className={"sketches-modal-header-thumbnail"}
+          className={'sketches-modal-header-thumbnail'}
           alt="icon"
         />
       );
@@ -305,7 +305,7 @@ class EditSketchModal extends React.Component {
               block
             >
               Back
-            </Button>{" "}
+            </Button>{' '}
           </Col>
         </Row>
       </ImageSelector>

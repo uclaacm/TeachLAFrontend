@@ -1,17 +1,17 @@
-import React from "react";
-import SplitPane from "react-split-pane";
-import OutputContainer from "../Output/OutputContainer.js";
-import TextEditorContainer from "../TextEditor/containers/TextEditorContainer.js";
+import React from 'react';
+import SplitPane from 'react-split-pane';
+import { EDITOR_WIDTH_BREAKPOINT, CODE_ONLY, OUTPUT_ONLY, PANEL_SIZE } from '../../constants';
+import CodeDownloader from '../../util/languages/CodeDownloader';
+import OutputContainer from '../Output/OutputContainer.js';
+import TextEditorContainer from '../TextEditor/containers/TextEditorContainer.js';
 
-import { EDITOR_WIDTH_BREAKPOINT, CODE_ONLY, OUTPUT_ONLY, PANEL_SIZE } from "../../constants";
-import CodeDownloader from "../../util/languages/CodeDownloader";
 
-import "codemirror/lib/codemirror.css";
-import "codemirror/theme/material.css";
-import "codemirror/theme/duotone-light.css";
-import "styles/CustomCM.scss";
-import "styles/Resizer.scss";
-import "styles/Editor.scss";
+import 'codemirror/lib/codemirror.css';
+import 'codemirror/theme/material.css';
+import 'codemirror/theme/duotone-light.css';
+import 'styles/CustomCM.scss';
+import 'styles/Resizer.scss';
+import 'styles/Editor.scss';
 
 class EditorAndOutput extends React.Component {
   handleDownload = () => {
@@ -21,17 +21,17 @@ class EditorAndOutput extends React.Component {
   renderCodeAndOutput = () => (
     <SplitPane
       resizerStyle={{
-        height: "67px",
-        borderLeft: "2px solid #333",
-        borderRight: "2px solid #333",
-        width: "10px",
+        height: '67px',
+        borderLeft: '2px solid #333',
+        borderRight: '2px solid #333',
+        width: '10px',
       }}
       pane1Style={this.props.pane1Style}
       //functions called when you start and finish a drag
       //removes and re-addsthe transition effect on the first panel when manually resizing
       onDragStarted={() => this.props.changePane1Style({ pane1Style: {} })}
       onDragFinished={() =>
-        this.props.changePane1Style({ pane1Style: { transition: "width .5s ease" } })
+        this.props.changePane1Style({ pane1Style: { transition: 'width .5s ease' } })
       }
       split="vertical" //the resizer is a vertical line (horizontal means resizer is a horizontal bar)
       minSize={
@@ -88,12 +88,12 @@ class EditorAndOutput extends React.Component {
     };
 
     switch (this.props.viewMode) {
-      case CODE_ONLY:
-        return <div style={codeStyle}>{this.renderCode()}</div>;
-      case OUTPUT_ONLY:
-        return <div style={codeStyle}>{this.renderOutput()}</div>;
-      default:
-        return this.renderCodeAndOutput();
+    case CODE_ONLY:
+      return <div style={codeStyle}>{this.renderCode()}</div>;
+    case OUTPUT_ONLY:
+      return <div style={codeStyle}>{this.renderOutput()}</div>;
+    default:
+      return this.renderCodeAndOutput();
     }
   };
 }

@@ -5,7 +5,7 @@ import {
   MAXIMUM_USERNAME_LENGTH,
   MAXIMUM_PASSWORD_LENGTH,
   MAXIMUM_DISPLAY_NAME_LENGTH,
-} from "../constants";
+} from '../constants';
 
 /**
  * @typedef {Object} ValidMessage
@@ -34,10 +34,10 @@ export const isValidUsername = (username) => {
     return {
       ok: false,
       message:
-        "Username must only use upper case letters, lower case letters, numbers, or the characters .-_",
+        'Username must only use upper case letters, lower case letters, numbers, or the characters .-_',
     };
   }
-  return { ok: true, message: "" };
+  return { ok: true, message: '' };
 };
 
 /**
@@ -55,7 +55,7 @@ export const isValidPassword = (password) => {
       message: `Password must be between ${MINIMUM_PASSWORD_LENGTH}-${MAXIMUM_PASSWORD_LENGTH} characters long`,
     };
   }
-  return { ok: true, message: "" };
+  return { ok: true, message: '' };
 };
 
 /**
@@ -82,8 +82,8 @@ export const isValidDisplayName = (displayName) => {
     return {
       ok: false,
       message:
-        "Display name must only use upper case and lower case letters, numbers, spaces, and/or the special characters !@#$%.-_",
+        'Display name must only use upper case and lower case letters, numbers, spaces, and/or the special characters !@#$%.-_',
     };
   }
-  return { ok: true, message: "" };
+  return { ok: true, message: '' };
 };

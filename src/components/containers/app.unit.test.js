@@ -26,11 +26,11 @@
 //     expect(appWrapper.state("height")).toBe(window.innerHeight);
 //   });
 // });
-import React from "react";
-import { shallow } from "enzyme";
+import { shallow } from 'enzyme';
+import React from 'react';
 
-describe("LoadingPage", () => {
-  xit("panelOpen=true snapshot", () => {
+describe('LoadingPage', () => {
+  it.skip('panelOpen=true snapshot', () => {
     const component = shallow(<OpenPanelButton panelOpen={true} />);
 
     expect(component).toMatchSnapshot();

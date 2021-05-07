@@ -15,20 +15,20 @@ const PHOTO_NAMES = {
 
 // GH Repo for FE
 
-const GH_REPO_NAME = "https://github.com/uclaacm/TeachLAFrontend";
+const GH_REPO_NAME = 'https://github.com/uclaacm/TeachLAFrontend';
 
 // Router's base (i.e. anything after the domain)
 
-const ROUTER_BASE_NAME = "/";
+const ROUTER_BASE_NAME = '/';
 
 // Various Server URLs
-var SERVER_URL = "http://localhost:8081";
+var SERVER_URL = 'http://localhost:8081';
 if (process && process.env) {
-  if (process.env.REACT_APP_SERVER_TYPE === "staging") {
-    SERVER_URL = "https://tla-backend-staging.herokuapp.com";
+  if (process.env.REACT_APP_SERVER_TYPE === 'staging') {
+    SERVER_URL = 'https://tla-backend-staging.herokuapp.com';
   }
-  if (process.env.REACT_APP_SERVER_TYPE === "prod") {
-    SERVER_URL = "https://tla-backend-prod.herokuapp.com";
+  if (process.env.REACT_APP_SERVER_TYPE === 'prod') {
+    SERVER_URL = 'https://tla-backend-prod.herokuapp.com';
   }
 }
 
@@ -47,7 +47,7 @@ const EDITOR_WIDTH_BREAKPOINT = 1000;
 module.exports = {
   // photo names
   PHOTO_NAMES,
-  DEFAULT_PHOTO_NAME: "icecream",
+  DEFAULT_PHOTO_NAME: 'icecream',
 
   GH_REPO_NAME,
 
@@ -80,6 +80,6 @@ module.exports = {
   EDITOR_WIDTH_BREAKPOINT,
 
   //Firebase constants
-  EMAIL_DOMAIN_NAME: "@fake.com",
+  EMAIL_DOMAIN_NAME: '@fake.com',
   PANEL_IMAGE_SELECTOR_SIZE,
 };

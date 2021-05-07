@@ -1,4 +1,4 @@
-import constants from "../constants";
+import constants from '../constants';
 
 /**---------getUserData--------
  * fetches object from server containg information about user at uid
@@ -14,13 +14,13 @@ import constants from "../constants";
  *   }
  * }
  */
-export const getUserData = async (uid = "", includePrograms = false) => {
-  const getUserDataEndpoint = (uid = "", includePrograms = false) =>
-    `${constants.SERVER_URL}/user/get?uid=${uid}${includePrograms ? "&programs=true" : ""}`;
+export const getUserData = async (uid = '', includePrograms = false) => {
+  const getUserDataEndpoint = (uid = '', includePrograms = false) =>
+    `${constants.SERVER_URL}/user/get?uid=${uid}${includePrograms ? '&programs=true' : ''}`;
 
   const options = {
-    method: "get",
-    mode: "cors", // no-cors, cors, *same-origin
+    method: 'get',
+    mode: 'cors', // no-cors, cors, *same-origin
   };
 
   try {
@@ -32,7 +32,7 @@ export const getUserData = async (uid = "", includePrograms = false) => {
       return getUserData(uid, includePrograms);
     }
     let data = ok ? await result.json() : {};
-    let error = !ok ? await result.text() : "";
+    let error = !ok ? await result.text() : '';
     return { ok, data, error };
   } catch (err) {
     await createUser(uid);
@@ -47,16 +47,16 @@ export const getUserData = async (uid = "", includePrograms = false) => {
  * @param {string} method HTTP method to make the request, defaults to post
  */
 
-const makeServerRequest = (data, endpoint, method = "post") => {
+const makeServerRequest = (data, endpoint, method = 'post') => {
   let options = {
     method: method,
     headers: {
-      "Content-Type": "application/json; charset=utf-8",
+      'Content-Type': 'application/json; charset=utf-8',
     },
   };
 
-  if (method !== "get") {
-    let body = "";
+  if (method !== 'get') {
+    let body = '';
     // if the passed-in data object has at least 1 key, set the body to the stringified data object
     try {
       if (Object.keys(data).length) {
@@ -78,14 +78,14 @@ const makeServerRequest = (data, endpoint, method = "post") => {
  * @param {Object} programs object that contains only the keys of the project that need to be updated
  */
 
-export const updatePrograms = (uid = "", programs) => {
-  const endpoint = `program/update`;
-  return makeServerRequest({ uid, programs }, endpoint, "put");
+export const updatePrograms = (uid = '', programs) => {
+  const endpoint = 'program/update';
+  return makeServerRequest({ uid, programs }, endpoint, 'put');
 };
 
 export const createUser = (uid) => {
-  console.log("creating user");
-  return makeServerRequest({ uid }, "user/create", "post");
+  console.log('creating user');
+  return makeServerRequest({ uid }, 'user/create', 'post');
 };
 
 /**
@@ -94,9 +94,9 @@ export const createUser = (uid) => {
  * @param {Object} userData object that contains only the keys of the user data that need to be updated
  */
 
-export const updateUserData = (uid = "", userData) => {
-  const endpoint = `user/update`;
-  return makeServerRequest({ uid, ...userData }, endpoint, "put");
+export const updateUserData = (uid = '', userData) => {
+  const endpoint = 'user/update';
+  return makeServerRequest({ uid, ...userData }, endpoint, 'put');
 };
 
 /**
@@ -106,7 +106,7 @@ export const updateUserData = (uid = "", userData) => {
 
 export const createSketch = (data) => {
   const { uid, ...rest } = data;
-  return makeServerRequest({ uid, program: rest }, "program/create");
+  return makeServerRequest({ uid, program: rest }, 'program/create');
 };
 
 /**
@@ -116,7 +116,7 @@ export const createSketch = (data) => {
 
 export const deleteSketch = (data) => {
   const { uid, name } = data;
-  return makeServerRequest({ uid, pid: name }, "program/delete", "delete");
+  return makeServerRequest({ uid, pid: name }, 'program/delete', 'delete');
 };
 
 /**
@@ -126,7 +126,7 @@ export const deleteSketch = (data) => {
 
 export const getSketch = async (docID) => {
   const endpoint = `program/get?pid=${docID}`;
-  let result = await makeServerRequest({}, endpoint, "get");
+  let result = await makeServerRequest({}, endpoint, 'get');
   let ok = await result.ok;
   let sketch = await result.json();
   return { ok, sketch };
