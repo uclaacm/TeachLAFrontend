@@ -14,6 +14,7 @@
     "crypto-js": "^4.0.0",
     "firebase": "^8.5.0",
     "immutable": "^3.8.2",
+    "jest-coverage-badges": "^1.1.2",
     "node-sass": "^5.0.0",
     "react": "^16.14.0",
     "react-codemirror2": "^7.2.1",
@@ -83,7 +84,8 @@
       }
     },
     "coverageReporters": [
-      "text"
+      "text",
+      "lcov"
     ],
     "snapshotSerializers": [
       "enzyme-to-json/serializer"

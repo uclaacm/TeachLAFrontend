@@ -1,0 +1,24 @@
+name: test coverage
+on:
+  push:
+    branches:
+      - master
+  pull-request:
+jobs:
+  coverage: 
+    runs-on: ubuntu-latest
+    with:
+      node-version: 14.x
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Use Node.js 
+      uses: actions/setup-node@v1
+    - name: Calc Coverage
+      run: |
+      npm install
+      npm run test-coverage
+    - name: Coveralls
+      uses: coveralls/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
