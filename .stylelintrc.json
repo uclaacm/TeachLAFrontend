@@ -6,6 +6,10 @@
   "rules": {
     "color-named": null,
     "selector-max-id": null,
-    "scss/at-import-partial-extension-blacklist": null
+    "selector-no-qualifying-type": null,
+
+    "scss/at-import-partial-extension-blacklist": null,
+    "declaration-property-value-disallowed-list": null,
+    "selector-class-pattern": null
   }
 }
