@@ -1,15 +1,15 @@
 @import 'styles/variables.scss';
 
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 8vh; /* calc used to do arithmetic */
-  text-align: center;
   align-items: center;
+  bottom: 0;
+  height: 8vh; /* calc used to do arithmetic */
+  position: absolute;
+  text-align: center;
+  width: 100%;
 
   @include themify($themes) {
-    background-color: themed("accentBackground");
+    background-color: themed('accentBackground');
   }
 }
 

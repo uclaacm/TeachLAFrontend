@@ -1,33 +1,33 @@
 .modal-sm {
+  background-color: rgb(255, 255, 255);
+  border-radius: 20px;
+  left: 50%;
+  min-width: 400px;
+  padding: 40px;
   position: fixed;
   top: 50%;
-  left: 50%;
   transform: translate(-50%, -50%);
   width: 50%;
-  min-width: 400px;
-  background-color: rgb(255, 255, 255);
-  padding: 40px;
-  border-radius: 20px;
 }
 
 .modal-md {
+  background-color: rgb(255, 255, 255);
+  border-radius: 20px;
+  left: 50%;
+  min-width: 450px;
+  padding: 40px;
   position: fixed;
   top: 50%;
-  left: 50%;
   transform: translate(-50%, -50%);
   width: 50%;
-  min-width: 450px;
-  background-color: rgb(255, 255, 255);
-  padding: 40px;
-  border-radius: 20px;
 }
 
 .modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
   background-color: rgba(59, 59, 59, 0.514);
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
   z-index: 80;
 }

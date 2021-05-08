@@ -2,36 +2,36 @@
 
 .sketch-thumbnail {
   display: block;
-  width: 80px;
   height: 80px;
   margin-left: auto;
   margin-right: auto;
+  width: 80px;
 }
 
 .sketch-box {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
   align-items: center;
-  width: 200px;
   border-radius: 5px;
   color: $theme-dark;
-  margin: 0 10px;
   cursor: pointer;
+  display: flex;
   flex: 0 0 auto;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: 0 10px;
+  width: 200px;
 
   @include themify($themes) {
-    color: themed("cardColor");
-    background-color: themed("cardBackground");
-    border: themed("cardBorder");
+    background-color: themed('cardBackground');
+    border: themed('cardBorder');
+    color: themed('cardColor');
   }
 }
 
 .sketch-box-body {
   color: inherit;
-  width: 90%;
   margin-left: auto;
   margin-right: auto;
+  width: 90%;
 }
 
 .sketch-box-body:hover {
@@ -40,12 +40,12 @@
 }
 
 .sketch-divider {
-  width: 100%;
   margin: 0;
   padding: 0;
+  width: 100%;
 
   @include themify($themes) {
-    border-top: 1px solid themed("cardDivider");
+    border-top: 1px solid themed('cardDivider');
   }
 }
 
@@ -53,28 +53,28 @@
   width: 1px;
 
   @include themify($themes) {
-    border: 0.5px solid themed("cardDivider");
+    border: 0.5px solid themed('cardDivider');
   }
 }
 
 .sketch-name {
-  width: 85%;
+  overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  overflow: hidden;
+  width: 85%;
 }
 
 .sketch-icon {
-  width: 85%;
+  overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  overflow: hidden;
+  width: 85%;
 }
 
 .sketch-metadata {
+  align-items: center;
   display: flex;
-  width: 100%;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  width: 100%;
 }
