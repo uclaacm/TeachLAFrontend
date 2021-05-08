@@ -3,7 +3,6 @@
   "plugins": [
     "stylelint-scss"
   ],
-  "ignoreFiles": ["**/*.ts", "**/*.tsx", "dist/*", "node_modules/*", "coverage/*"],
   "rules": {
     "color-named": null,
     "selector-max-id": null,
