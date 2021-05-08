@@ -23,6 +23,7 @@ export default class LoginModal extends React.Component {
   }
 
   handleEmailLogin = (e) => {
+    console.log("not tested")
     this.setState({ waiting: true, errorMsg: '' });
 
     e.preventDefault(); // prevents page from reloading after submitting form
