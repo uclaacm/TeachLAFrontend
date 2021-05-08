@@ -1,11 +1,8 @@
 name: Run tests
 on: [push]
 
-env: 
-  SHOULD_RUN_COVERAGE: ${{ !(github.event.push.branches == 'master' || github.event.issue.pull_request) }}
-
 jobs:
-  coverage: 
+  test-coverage: 
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -18,14 +15,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install
-    - name: Run Tests
-      if: ${{ !env.SHOULD_RUN_COVERAGE }}
-      run: npm test
     - name: Calc Coverage
-      if: ${{ env.SHOULD_RUN_COVERAGE }}
       run:  npm run test-coverage
     - name: Coveralls
-      if: ${{ env.SHOULD_RUN_COVERAGE }}
       uses: coverallsapp/github-action@v1.1.2
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
