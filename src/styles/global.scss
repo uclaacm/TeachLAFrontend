@@ -9,9 +9,9 @@ body,
 }
 
 body {
+  box-sizing: border-box;
   font-family: $font-family-body;
   overflow: hidden;
-  box-sizing: border-box;
 }
 
 h1,
@@ -33,12 +33,12 @@ h6 {
 }
 
 .teachla-green {
+  background-clip: text;
+  background-clip: text;
   //color: #92D32B;
   background-color: $teachla-primary;
   background-image: $teachla-gradient;
   background-size: 100%;
-  -webkit-background-clip: text;
-  -mox-background-clip: text;
   -webkit-text-fill-color: transparent;
   -moz-text-fill-color: transparent;
 }
@@ -46,7 +46,7 @@ h6 {
 .black-divider {
   border: 0;
   border-top: 1px solid $theme-dark;
-  margin: 0;
   height: 1px;
+  margin: 0;
   margin-top: 1em;
 }

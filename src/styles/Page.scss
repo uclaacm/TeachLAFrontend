@@ -6,14 +6,14 @@
 }
 
 .page-container {
-  @include themify($themes) {
-    background-color: themed("backgroundColor");
-    color: themed("color");
-  }
-
-  height: 100%;
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
+
+  height: 100%;
   justify-content: center;
+  @include themify($themes) {
+    background-color: themed('backgroundColor');
+    color: themed('color');
+  }
 }

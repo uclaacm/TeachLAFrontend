@@ -1,4 +1,4 @@
-@import "styles/variables.scss";
+@import 'styles/variables.scss';
 
 .CodeMirror-lines {
   cursor: default;
@@ -9,70 +9,70 @@
 /* comments, e.g. // # /* */
 .cm-comment {
   @include themify($themes) {
-    color: themed("comment");
+    color: themed('comment');
   }
 }
 
 /* import for while in etc */
 span.cm-keyword {
   @include themify($themes) {
-    color: themed("keyword");
+    color: themed('keyword');
   }
 }
 
 /* e.g. var *blah*, blah will be colored */
 span.cm-def {
   @include themify($themes) {
-    color: themed("def");
+    color: themed('def');
   }
 }
 
 /* e.g. var *blah*, blah will be colored */
 span.cm-variable {
   @include themify($themes) {
-    color: themed("variable");
+    color: themed('variable');
   }
 }
 
 /* for python: print, range, all built-in functions */
 .cm-builtin {
   @include themify($themes) {
-    color: themed("builtin");
+    color: themed('builtin');
   }
 }
 
 /* 1 2 -11 etc */
 .cm-number {
   @include themify($themes) {
-    color: themed("number");
+    color: themed('number');
   }
 }
 
 /* + - > < etc */
 .cm-operator {
   @include themify($themes) {
-    color: themed("operator");
+    color: themed('operator');
   }
 }
 
 .cm-property {
   @include themify($themes) {
-    color: themed("property");
+    color: themed('property');
   }
 }
 
 .CodeMirror {
   box-sizing: border-box;
-  max-width: inherit;
-  max-height: inherit;
-  min-height: inherit;
-  font-family: "Ubuntu Mono", monospace;
+  font-family: 'Ubuntu Mono', monospace;
   font-size: 18px;
   height: 100%;
+  max-height: inherit;
+  max-width: inherit;
+  min-height: inherit;
 
   @include themify($themes) {
-    background-color: themed("backgroundColor");
-    color: themed("color");
+    background-color: themed('backgroundColor');
+    color: themed('color');
   }
 }
 
@@ -82,52 +82,52 @@ span.cm-variable {
 }
 
 .CodeMirror-gutter {
-  @include themify($themes) {
-    background-color: themed("backgroundColor");
-    color: themed("color");
-  }
+  display: inline-block;
+  height: 100%;
+  margin-bottom: -30px;
+  vertical-align: top;
 
   white-space: normal;
-  height: 100%;
-  display: inline-block;
-  vertical-align: top;
-  margin-bottom: -30px;
   width: 41px;
+  @include themify($themes) {
+    background-color: themed('backgroundColor');
+    color: themed('color');
+  }
 }
 
 .CodeMirror-linenumber {
-  width: 23px;
   color: #fff;
-  text-align: left;
   padding-left: 15px;
+  text-align: left;
+  width: 23px;
 
   @include themify($themes) {
-    color: themed("color");
+    color: themed('color');
   }
 }
 
 // a strange CSS way to create our floating cursor. not great, not awful.
 
 .CodeMirror-cursor {
-  border-top: none !important;
   border-bottom: none !important;
   border-left: 1px solid #a38b41 !important;
   border-right: 0.5px solid #a38b41 !important;
+  border-top: none !important;
 }
 
 .CodeMirror-cursor::after {
-  position: absolute;
-  margin-top: 26px;
-  left: -10px;
-  color: rgba(255, 255, 255, 0);
-  content: "";
-  width: 500px;
-  height: 500px;
-  background-position: left top;
   background-color: rgba(255, 255, 255, 0);
-  background-size: 20px auto;
+  background-image: url('./triangle.png');
+  background-position: left top;
   background-repeat: no-repeat;
-  background-image: url("./triangle.png");
+  background-size: 20px auto;
+  color: rgba(255, 255, 255, 0);
+  content: '';
+  height: 500px;
+  left: -10px;
+  margin-top: 26px;
+  position: absolute;
+  width: 500px;
 }
 
 /* required for safari because it places the ::after element differently than chrome/fiefox; taken from https://stackoverflow.com/questions/16348489/is-there-a-css-hack-for-safari-only-not-chrome */
