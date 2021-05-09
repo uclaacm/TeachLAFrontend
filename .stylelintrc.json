@@ -1,8 +1,5 @@
 {
   "extends": "stylelint-config-sass-guidelines",
-  "plugins": [
-    "stylelint-scss"
-  ],
   "rules": {
     "color-named": null,
     "selector-max-id": null,
