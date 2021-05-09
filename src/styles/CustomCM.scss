@@ -86,9 +86,9 @@ span.cm-variable {
   height: 100%;
   margin-bottom: -30px;
   vertical-align: top;
-
   white-space: normal;
   width: 41px;
+
   @include themify($themes) {
     background-color: themed('backgroundColor');
     color: themed('color');

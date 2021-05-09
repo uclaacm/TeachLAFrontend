@@ -43,7 +43,6 @@
   flex: 0 1 auto;
   font-size: 24px;
   margin-left: 1em;
-
   max-width: 200px;
 
   @include themify($themes) {
@@ -68,9 +67,9 @@
 .editor-expand-panel-arrow {
   cursor: pointer;
   flex: 0 1 auto;
-
   padding: 1rem;
   width: 46px;
+
   @include themify($themes) {
     color: themed('color');
   }
@@ -91,8 +90,8 @@
 }
 
 .editor-output {
-
   height: 100%;
+
   @include themify($themes) {
     background-color: themed('outputBackground');
   }
@@ -113,7 +112,6 @@
 }
 
 .editor-output-iframe {
-
   border: none;
   display: flex;
   height: 100%;
@@ -137,7 +135,6 @@
 
 .btn-language-dropdown {
   align-items: center;
-
   border: 0;
   display: flex;
   font-size: 24px;

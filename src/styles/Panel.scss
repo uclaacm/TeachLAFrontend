@@ -25,8 +25,8 @@
   font-size: 1.25rem;
   height: 67px;
   margin-left: auto;
-
   padding-right: 15px;
+
   @include themify($themes) {
     color: themed('accentColor');
   }
@@ -140,7 +140,6 @@
   border: none;
   font-size: 1.25rem;
   margin-top: -15px;
-
   position: absolute;
   right: -30px;
   top: 50%;
@@ -175,7 +174,6 @@
   background: none;
   border: none;
   float: middle;
-
   font-family: $font-family-heading;
   font-size: 2rem;
   outline: none;
@@ -203,7 +201,6 @@
   font-size: 2rem;
   margin: 10px 50px 0;
   padding: 10px 0 6px;
-
   position: relative;
   text-align: center;
   width: 70%;
