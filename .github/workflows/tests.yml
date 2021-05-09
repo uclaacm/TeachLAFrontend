@@ -1,12 +1,12 @@
-name: Node.js CI
+name: Run tests
 on: [push]
 
 jobs:
-  build:
+  test-coverage: 
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [14.x, 15.x]
+        node-version: [14.x]
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -15,4 +15,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install
-    - run: npm run prod_build --if-present
+    - name: Calc Coverage
+      run:  npm run test-coverage
+    - name: Coveralls
+      uses: coverallsapp/github-action@v1.1.2
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
