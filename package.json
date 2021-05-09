@@ -26,7 +26,8 @@
     "react-spinners": "^0.10.6",
     "react-split-pane": "^0.1.92",
     "reactstrap": "^8.9.0",
-    "redux": "^4.1.0"
+    "redux": "^4.1.0",
+    "stylelint-config-sass-guidelines": "^8.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

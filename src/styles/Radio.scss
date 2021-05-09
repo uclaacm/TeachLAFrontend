@@ -1,17 +1,17 @@
-@import "styles/variables.scss";
+@import 'styles/variables.scss';
 
 .radio-selector {
   display: flex;
-  height: 60px;
   font-size: 1rem;
+  height: 60px;
 }
 
 .radio-option {
   background-color: $theme-light;
   color: #eee;
-  padding: 8px;
   cursor: pointer;
   max-width: 70px;
+  padding: 8px;
 }
 
 .radio-option:hover {
@@ -19,11 +19,11 @@
 }
 
 .radio-option-selected {
-  border: none !important;
   background-color: $radio-purple;
+  border: none !important;
   color: #fff;
-  padding: 8px;
   cursor: pointer;
+  padding: 8px;
 }
 
 .radio-option-selected:hover {
@@ -36,6 +36,6 @@
 }
 
 #radio-right {
-  border-radius: 0 0.3rem 0.3rem 0;
   border-left: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0 0.3rem 0.3rem 0;
 }

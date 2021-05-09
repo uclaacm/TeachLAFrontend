@@ -1,7 +1,7 @@
 // Fonts - currently the ACM Brand
 
-$font-family-heading: "Poppins", sans-serif;
-$font-family-body: "Chivo", sans-serif;
+$font-family-heading: 'Poppins', sans-serif;
+$font-family-body: 'Chivo', sans-serif;
 
 // Colours - not creatively named
 
@@ -62,7 +62,7 @@ $themes: (
     cardBorder: 1px solid $light-lavender,
     cardDivider: $light-lavender,
     // code mirror
-    comment:$theme-dark,
+    comment: $theme-dark,
     keyword: #9715f3,
     def: #0052ff,
     variable: #f07178,
@@ -105,13 +105,11 @@ $themes: (
       $theme-map: () !global;
 
       @each $key, $submap in $map {
-        $value: map-get(map-get($themes, $theme), "#{$key}");
-        $theme-map: map-merge(
-          $theme-map,
-          (
-            $key: $value,
-          )
-        ) !global;
+        $value: map-get(map-get($themes, $theme), '#{$key}');
+        $theme-map: map-merge($theme-map,
+        (
+          $key: $value,
+        )) !global;
       }
 
       @content;

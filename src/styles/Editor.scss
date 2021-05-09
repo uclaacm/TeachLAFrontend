@@ -1,163 +1,160 @@
-@import "styles/variables.scss";
+@import 'styles/variables.scss';
 
 .root {
   transition: all 0.5s ease;
 }
 
 .editor {
+  align-items: flex-start;
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
   justify-content: flex-start;
   position: absolute;
   transition: all 0.5s ease;
 }
 
 .code-section {
-  display: flex;
-  height: 100%;
-  flex-direction: column;
   align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   max-height: 100vh;
   overflow-y: auto;
 
   @include themify($themes) {
-    background-color: themed("backgroundColor");
+    background-color: themed('backgroundColor');
   }
 }
 
 .program-sketch-thumbnail {
-  position: relative;
-  left: 6px;
-  height: 50px;
-  width: 50px;
-  padding: 4px;
   border-radius: 25px;
+  height: 50px;
+  left: 6px;
+  padding: 4px;
+  position: relative;
+  width: 50px;
 
   @include themify($themes) {
-    background-color: themed("cardBackground");
+    background-color: themed('cardBackground');
   }
 }
 
 .program-sketch-name {
   flex: 0 1 auto;
-
-  @include themify($themes) {
-    color: themed("color");
-  }
-
-  max-width: 200px;
   font-size: 24px;
   margin-left: 1em;
+  max-width: 200px;
+
+  @include themify($themes) {
+    color: themed('color');
+  }
 }
 
 .code-section-banner {
+  align-items: center;
   display: flex;
   flex-direction: row;
-  padding: 5px 0;
-  align-items: center;
-  justify-content: flex-start;
-  width: 100%;
   height: 67px;
+  justify-content: flex-start;
+  padding: 5px 0;
+  width: 100%;
 
   @include themify($themes) {
-    border-bottom: 1px solid themed("color");
+    border-bottom: 1px solid themed('color');
   }
 }
 
 .editor-expand-panel-arrow {
-  @include themify($themes) {
-    color: themed("color");
-  }
-
-  padding: 1rem;
   cursor: pointer;
   flex: 0 1 auto;
+  padding: 1rem;
   width: 46px;
+
+  @include themify($themes) {
+    color: themed('color');
+  }
 }
 
 .editor-language-dropdown {
-  position: relative;
-  left: 6px;
   flex: 0 1 auto;
+  left: 6px;
+  position: relative;
 }
 
 .editor-language-dropdown-closed-content {
   display: inline-block;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
   max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .editor-output {
-  @include themify($themes) {
-    background-color: themed("outputBackground");
-  }
-
   height: 100%;
+
+  @include themify($themes) {
+    background-color: themed('outputBackground');
+  }
 }
 
 .editor-output-banner {
-  height: 67px;
-  padding: 5px 0;
+  align-items: center;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  height: 67px;
   justify-content: flex-start;
+  padding: 5px 0;
   width: 100%;
 
   @include themify($themes) {
-    border-bottom: 1px solid themed("color");
+    border-bottom: 1px solid themed('color');
   }
 }
 
 .editor-output-iframe {
-  width: 100%;
-  height: 100%;
-
-  @include themify($themes) {
-    background-color: themed("outputBackground");
-  }
-
   border: none;
   display: flex;
+  height: 100%;
+  width: 100%;
+
+  @include themify($themes) {
+    background-color: themed('outputBackground');
+  }
 }
 
 .text-editor-container {
-  width: 100%;
+  overflow: auto;
   padding-top: 10px;
   top: 61px;
-  overflow: auto;
+  width: 100%;
 
   @include themify($themes) {
-    background-color: themed("backgroundColor");
+    background-color: themed('backgroundColor');
   }
 }
 
 .btn-language-dropdown {
-  transition: none;
-  display: flex;
   align-items: center;
+  border: 0;
+  display: flex;
   font-size: 24px;
+  transition: none;
 
   @include themify($themes) {
-    color: themed("color");
     background-color: none;
+    color: themed('color');
   }
-
-  border: 0;
 }
 
 .btn-language-dropdown:hover {
   @include themify($themes) {
-    color: themed("color");
+    color: themed('color');
   }
 }
 
 .selected-line {
   @include themify($themes) {
-    background-color: themed("selectedLine");
+    background-color: themed('selectedLine');
   }
 }
 
@@ -181,13 +178,13 @@
 }
 
 .fork-modal {
+  background-color: rgb(255, 255, 255);
+  border-radius: 20px;
+  left: 50%;
+  min-width: 400px;
+  padding: 40px;
   position: fixed;
   top: 50%;
-  left: 50%;
   transform: translate(-50%, -50%);
   width: 50%;
-  min-width: 400px;
-  background-color: rgb(255, 255, 255);
-  padding: 40px;
-  border-radius: 20px;
 }

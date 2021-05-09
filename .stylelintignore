@@ -1,0 +1,14 @@
+# dependencies
+/node_modules
+
+# testing
+/coverage
+
+# production
+/build
+/dist
+
+# ignore ts and js files
+*.ts
+*.tsx
+*.js

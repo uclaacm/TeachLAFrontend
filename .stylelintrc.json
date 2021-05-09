@@ -1,11 +1,13 @@
 {
-  "extends": "stylelint-config-standard",
-  "plugins": [
-    "stylelint-scss"
-  ],
-  "ignoreFiles": ["**/*.ts", "**/*.tsx", "dist/*", "node_modules/*", "coverage/*"],
+  "extends":  ["stylelint-config-recommended", "stylelint-config-sass-guidelines"],
   "rules": {
-    "at-rule-no-unknown": null,
-    "scss/at-rule-no-unknown": true
+    "color-named": null,
+    "selector-max-id": null,
+    "selector-no-qualifying-type": null,
+    "property-no-vendor-prefix": null,
+
+    "scss/at-import-partial-extension-blacklist": null,
+    "declaration-property-value-disallowed-list": null,
+    "selector-class-pattern": null
   }
 }

@@ -1,56 +1,56 @@
-@import "styles/variables.scss";
+@import 'styles/variables.scss';
 
 .switch {
+  border-radius: 6px;
+  box-sizing: content-box;
+  cursor: pointer;
+  display: block;
+  font-family: inherit;
+  height: 30px;
   padding: 0.5rem 1rem;
   position: relative;
-  display: block;
   width: 100px;
-  height: 30px;
-  border-radius: 6px;
-  cursor: pointer;
-  box-sizing: content-box;
-  font-family: inherit;
 }
 
 .switch-input {
+  box-sizing: content-box;
+  left: 0;
+  opacity: 0;
   padding: 0;
   position: absolute;
   top: 0;
-  left: 0;
-  opacity: 0;
-  box-sizing: content-box;
 }
 
 .switch-body {
-  position: relative;
-  display: flex;
   align-items: center;
-  justify-content: flex-end;
-  padding: 10px;
-  height: inherit;
-  font-size: 1rem;
   background: $white;
   border-radius: inherit;
+  display: flex;
+  font-size: 1rem;
+  height: inherit;
+  justify-content: flex-end;
+  padding: 10px;
+  position: relative;
   transition: all $switch-transition-time;
 
   &.switch-on {
-    justify-content: flex-start !important;
     background: $theme-dark;
+    justify-content: flex-start !important;
   }
 }
 
 .switch-handle {
-  position: absolute;
-  top: 8px;
-  width: 30px;
-  height: 30px;
+  background: $theme-dark;
   border-radius: 6px;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
-  background: $theme-dark;
+  height: 30px;
+  position: absolute;
+  top: 8px;
   transition: all $switch-transition-time;
+  width: 30px;
 
   &.switch-on {
-    margin-left: 70px;
     background: white;
+    margin-left: 70px;
   }
 }

@@ -1,21 +1,21 @@
-@import "styles/variables.scss";
+@import 'styles/variables.scss';
 
 .login-page-content {
-  display: flex;
-  width: 100%;
-  height: 100vh;
-  background-repeat: no-repeat;
-  overflow-y: auto;
-  box-sizing: border-box;
   background-color: white;
-  background-size: auto 100%;
   background-position: right;
+  background-repeat: no-repeat;
+  background-size: auto 100%;
+  box-sizing: border-box;
+  display: flex;
+  height: 100vh;
+  overflow-y: auto;
   padding-left: 4em;
+  width: 100%;
 }
 
 .login-page-content-main {
-  flex: 1 0 auto;
   display: flex;
+  flex: 1 0 auto;
   flex-direction: column;
   justify-content: center;
 }
@@ -27,18 +27,18 @@
 
 @media only screen and (max-width: 1024px) {
   .login-page-content {
-    padding-top: 3em;
     background-image: none;
     flex-direction: column;
     padding-left: 0;
+    padding-top: 3em;
   }
 
   .login-form-loader {
-    width: 100%;
     align-items: center;
+    display: flex;
     flex-direction: column;
     justify-content: center;
-    display: flex;
+    width: 100%;
   }
 }
 
@@ -62,43 +62,43 @@
 
 @media only screen and (max-width: 1024px) {
   .login-page-content-container {
-    text-align: center;
     align-items: center;
+    text-align: center;
     width: 100%;
   }
 }
 
 .login-page-images {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
   align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
 }
 
 .login-page-art {
-  position: absolute;
-  top: 120px;
-  right: 30px;
-  width: 1000px;
   max-height: 500px;
+  position: absolute;
+  right: 30px;
+  top: 120px;
+  width: 1000px;
   z-index: 1;
 
   @media only screen and (max-width: 1024px) {
-    position: relative;
-    top: -30px;
-    right: 0;
-    max-width: 300px;
     max-height: 200px;
+    max-width: 300px;
+    position: relative;
+    right: 0;
+    top: -30px;
   }
 }
 
 .background-svg {
-  max-width: 1084px;
   height: 100%;
+  max-width: 1084px;
   position: absolute;
-  top: 0;
   right: 0;
+  top: 0;
 
   @media only screen and (max-width: 1024px) {
     display: none;
@@ -106,38 +106,35 @@
 }
 
 .login-form-input {
-  font-size: 1.5em;
-  line-height: normal;
-  padding: 0.2rem 0.5rem;
-  border: 0;
-  border-radius: 8px;
-  background-color: $theme-dark;
-  border-top: 0;
-  border-left: 0;
-  border-right: 0;
-  -webkit-appearance: none;
-  -moz-appearance: none;
   appearance: none;
-  outline: 0;
-  width: 50%;
-  min-width: 300px;
-  max-width: 400px;
-  margin: 0 2px 1rem; /* last value controls how far the next input starts */
-  font-variant-ligatures: none;
-  -webkit-transition: box-shadow 70ms ease-out, border-color 70ms ease-out;
-  -moz-transition: box-shadow 70ms ease-out, border-color 70ms ease-out;
-  transition: box-shadow 70ms ease-out, border-color 70ms ease-out;
+  background-color: $theme-dark;
+  border: 0;
+  border-left: 0;
+  border-radius: 8px;
+  border-right: 0;
+  border-top: 0;
   box-shadow: none;
   color: $off-white;
-  height: auto;
   display: inline-block;
+  font-size: 1.5em;
+  font-variant-ligatures: none;
+  height: auto;
+  line-height: normal;
+  margin: 0 2px 1rem; /* last value controls how far the next input starts */
+  max-width: 400px;
+  min-width: 300px;
+  outline: 0;
+  padding: 0.2rem 0.5rem;
+  transition: box-shadow 70ms ease-out, border-color 70ms ease-out;
+  width: 50%;
 }
 
 .login-form-input:disabled {
   color: #686868;
 }
 
-.login-modal ::-webkit-input-placeholder {
+/* stylelint-disable-next-line selector-pseudo-element-no-unknown */
+.login-modal ::input-placeholder {
   /* Chrome/Opera/Safari */
 
   /* changes to the placeholder text */
@@ -146,8 +143,8 @@
 
 .login-form-link {
   color: inherit;
-  text-decoration: none;
   font-size: 1.2rem;
+  text-decoration: none;
 }
 
 .login-form-link:hover {
@@ -157,8 +154,8 @@
 
 .bottom-right-toggle {
   position: absolute;
-  top: 20px;
   right: 20px;
+  top: 20px;
 
   @media only screen and (max-width: 1024px) {
     display: none;
@@ -166,8 +163,8 @@
 }
 
 .beating-heart {
-  color: red;
   animation: heartbeat 2s infinite;
+  color: red;
 }
 
 /* The keyframes + class for the heartbeat animation I use across the site. */

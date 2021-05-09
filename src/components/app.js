@@ -87,7 +87,7 @@ class App extends React.Component {
 
     return (
       <Router basename={ROUTER_BASE_NAME}>
-        <div className="App">
+        <div className="app">
           <Switch>
             {/* if the user is loggedIn, redirect them to the editor, otherwise, show the login page*? */}
             <Route

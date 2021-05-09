@@ -1,51 +1,51 @@
-@import "styles/variables.scss";
+@import 'styles/variables.scss';
 
 .panel {
-  display: flex;
-  position: absolute;
-  flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
   box-sizing: content-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   margin: 0;
   padding: 0;
+  position: absolute;
   transition: left 0.5s ease;
 
   @include themify($themes) {
-    color: themed("accentColor");
-    background-color: themed("accentBackground");
+    background-color: themed('accentBackground');
+    color: themed('accentColor');
   }
 }
 
 .panel-collapse-button {
-  @include themify($themes) {
-    color: themed("accentColor");
-  }
-
-  padding-right: 15px;
+  align-items: center;
+  cursor: pointer;
+  display: flex;
   flex: 0 0 auto;
   font-size: 1.25rem;
   height: 67px;
-  display: flex;
-  align-items: center;
   margin-left: auto;
-  cursor: pointer;
+  padding-right: 15px;
+
+  @include themify($themes) {
+    color: themed('accentColor');
+  }
 }
 
 .panel-content {
-  display: flex;
-  width: 100%;
-  flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  overflow-y: auto;
-  overflow-x: hidden;
   box-sizing: content-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow-x: hidden;
+  overflow-y: auto;
+  width: 100%;
 }
 
 .panel-image {
-  width: 205px;
   height: 200px;
+  width: 205px;
 
   /* background:#000; */
 
@@ -53,165 +53,162 @@
 }
 
 .profile-image-modal {
+  background-color: white;
+  border-radius: 20px;
+  height: 470px;
+  left: 50%;
+  padding: 40px;
   position: fixed;
   top: 50%;
-  left: 50%;
   transform: translate(-50%, -50%);
-  height: 470px;
   width: 400px;
-  background-color: white;
-  padding: 40px;
-  border-radius: 20px;
 }
 
 .profile-image-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
   background-color: rgba(59, 59, 59, 0.514);
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
   z-index: 80;
 }
 
 .panel-image-container {
+  height: 200px;
   position: relative;
   width: 205px;
-  height: 200px;
 }
 
 .image-edit-button {
-  font-size: 1.25rem;
-  border: none;
   background-color: transparent;
+  border: none;
+  bottom: -5px;
+  font-size: 1.25rem;
   position: absolute;
   right: -15px;
-  bottom: -5px;
 
   @include themify($themes) {
-    color: themed("accentColor");
+    color: themed('accentColor');
   }
 }
 
 .gallery {
   display: grid;
+  grid-gap: 40px;
   grid-template-columns: 80px 80px 80px;
   grid-template-rows: 80px 80px 80px;
-  grid-gap: 40px;
   padding-bottom: 40px;
 }
 
 .gallery-img {
-  width: 80px;
+  border: 3px white solid;
+  border-radius: 100%;
   height: 80px;
   object-fit: cover;
-  border-radius: 100%;
   padding: 2px;
-  border: 3px white solid;
+  width: 80px;
 }
 
 .gallery-img-selected {
-  width: 80px;
+  border: 3px $theme-highlight solid;
+  border-radius: 100%;
   height: 80px;
   object-fit: cover;
-  border-radius: 100%;
   padding: 2px;
-  border: 3px $theme-highlight solid;
+  width: 80px;
 }
 
 .gallery-img:hover {
-  width: 80px;
+  border: 3px $theme-light solid;
+  border-radius: 100%;
   height: 80px;
   object-fit: cover;
-  border-radius: 100%;
   padding: 2px;
-  border: 3px $theme-light solid;
+  width: 80px;
 }
 
 .name-container {
-  width: 25vw;
-  position: relative;
   float: middle;
   padding: 27px 0 5px;
+  position: relative;
+  width: 25vw;
 }
 
 .edit-icon-image {
-  font-size: 1.25rem;
-
-  @include themify($themes) {
-    color: themed("accentColor");
-  }
-
-  position: absolute;
+  background-color: transparent;
   border: none;
+  font-size: 1.25rem;
+  margin-top: -15px;
+  position: absolute;
   right: -30px;
   top: 50%;
-  margin-top: -15px;
-  background-color: transparent;
+
+  @include themify($themes) {
+    color: themed('accentColor');
+  }
 }
 
 .submitted-icon-image {
-  font-size: 1.4rem;
-  color: $teachla-green;
-  position: absolute;
-  float: left;
-  border: none;
-  left: -20px;
-  top: 50%;
-  margin-top: -13px;
   background-color: transparent;
+  border: none;
+  color: $teachla-green;
+  float: left;
+  font-size: 1.4rem;
+  left: -20px;
+  margin-top: -13px;
+  position: absolute;
+  top: 50%;
   transition: 0.5s;
 }
 
 .panel-edit-container {
+  align-items: center;
   display: flex;
   flex-direction: column;
   width: 100%;
-  align-items: center;
 }
 
 .panel-edit {
-  width: 90%;
+  align-items: baseline;
+  background: none;
+  border: none;
   float: middle;
+  font-family: $font-family-heading;
+  font-size: 2rem;
+  outline: none;
   padding: 20px 0 5px;
   text-align: center;
-  font-size: 2rem;
+  width: 90%;
   word-wrap: break-word;
-  background: none;
-  align-items: baseline;
-  border: none;
-  outline: none;
 
   @include themify($themes) {
-    color: themed("accentColor");
-    border-bottom: 1px solid themed("accentColor");
+    border-bottom: 1px solid themed('accentColor');
+    color: themed('accentColor');
   }
-
-  font-family: $font-family-heading;
 }
 
 .profile-input-error {
   color: $error-red;
   font-size: 1rem;
-  text-align: center;
   padding: 0 25px;
+  text-align: center;
 }
 
 .panel-name {
   float: middle;
-  text-align: center;
-  margin: 10px 50px 0;
-  width: 70%;
-  padding: 10px 0 6px;
+  font-family: $font-family-heading;
   font-size: 2rem;
+  margin: 10px 50px 0;
+  padding: 10px 0 6px;
+  position: relative;
+  text-align: center;
+  width: 70%;
   word-wrap: break-word;
 
   @include themify($themes) {
-    color: themed("accentColor");
+    color: themed('accentColor');
   }
-
-  position: relative;
-  font-family: $font-family-heading;
 }
 
 .panel-name:hover {
@@ -219,37 +216,37 @@
 }
 
 .panel-buttons {
-  width: 90%;
+  cursor: default;
+  justify-content: flex-start;
   margin-left: auto;
   margin-right: auto;
-  justify-content: flex-start;
   padding-top: 25px;
-  cursor: default;
+  width: 90%;
 }
 
 .panel-button {
-  text-align: left;
-  font-size: 2em !important; /* reactstrap also has a !important somewhere, so we need to do this */
+  align-items: center;
 
   /* this next block of CSS properly aligns button content */
   display: flex;
   flex-direction: row;
+  font-size: 2em !important; /* reactstrap also has a !important somewhere, so we need to do this */
   justify-content: flex-start;
-  align-items: center;
+  text-align: left;
 
   @include themify($themes) {
-    color: themed("color");
-    border-color: themed("backgroundColor");
-    background-color: themed("backgroundColor");
+    background-color: themed('backgroundColor');
+    border-color: themed('backgroundColor');
+    color: themed('color');
   }
 }
 
 .panel-button:hover,
 .panel-button:active {
   @include themify($themes) {
-    color: themed("backgroundColor");
-    border-color: themed("color");
-    background-color: themed("color");
+    background-color: themed('color');
+    border-color: themed('color');
+    color: themed('backgroundColor');
   }
 }
 
