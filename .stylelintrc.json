@@ -3,6 +3,7 @@
   "rules": {
     "color-named": null,
     "selector-max-id": null,
+    "function-parentheses-space-inside": null,
     "selector-no-qualifying-type": null,
     "property-no-vendor-prefix": null,
 
