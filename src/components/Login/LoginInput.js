@@ -8,9 +8,7 @@ import '../../styles/Login.scss';
  * onChange: function to be called when input changes
  */
 
-const LoginInput = ({
-  type, waiting, data, onChange,
-}) => (
+const LoginInput = ({ type, waiting, data, onChange }) => (
   <div>
     <div className="login-form-input-header">{type}</div>
     <input

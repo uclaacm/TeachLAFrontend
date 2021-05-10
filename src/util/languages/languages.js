@@ -1,6 +1,4 @@
-import {
-  faPython, faHtml5, faReact,
-} from '@fortawesome/free-brands-svg-icons';
+import { faPython, faHtml5, faReact } from '@fortawesome/free-brands-svg-icons';
 import { faCogs } from '@fortawesome/free-solid-svg-icons';
 import CreateProcessingDoc from './Processing';
 import CreatePythonDoc from './Python';
@@ -54,8 +52,8 @@ const DEFAULT_LANGUAGE = {
   display: 'Text',
   codemirror: undefined,
   extension: 'txt',
-  render: code => code,
-  renderDownload: code => code,
+  render: (code) => code,
+  renderDownload: (code) => code,
 };
 
 export const getLanguageData = (lang) => ({

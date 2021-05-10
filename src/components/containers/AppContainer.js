@@ -39,9 +39,6 @@ const mapDispatchToProps = (dispatch) => ({
   screenResize: (width, height) => dispatch(screenResize(width, height)),
 });
 
-const Root = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(App);
+const Root = connect(mapStateToProps, mapDispatchToProps)(App);
 
 export default Root;

@@ -6,9 +6,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: [
-        '**/*.test.js',
-      ],
+      files: ['**/*.test.js'],
       env: {
         jest: true, // now **/*.test.js files' env has both es6 *and* jest
       },
@@ -30,7 +28,7 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:jest/recommended',
     'prettier',
-    // 'airbnb',
+    'airbnb',
   ],
   parser: 'babel-eslint',
   parserOptions: {
@@ -41,24 +39,17 @@ module.exports = {
     sourceType: 'module',
     project: './jsconfig.json',
   },
-  plugins: [
-    'import',
-    'react',
-    'jest',
-  ],
+  plugins: ['import', 'react', 'jest'],
   rules: {
     'linebreak-style': ['error', 'unix'],
 
-    'no-unused-vars': [
-      'error',
-      { argsIgnorePattern: '^_' },
-    ],
+    'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
 
     // 2 space indentation
-    'indent': ['error', 2],
+    indent: ['error', 2],
 
     // Style
-    'quotes': ['error', 'single', { avoidEscape: true }],
+    quotes: ['error', 'single', { avoidEscape: true }],
 
     // ensures clean diffs, see https://medium.com/@nikgraf/why-you-should-enforce-dangling-commas-for-multiline-statements-d034c98e36f8
     'comma-dangle': ['error', 'always-multiline'],
@@ -77,10 +68,13 @@ module.exports = {
     'import/no-unresolved': ['error'],
 
     // Require an ordering on all imports
-    'import/order': ['warn', {
-      groups: ['builtin', 'external'],
-      alphabetize: { order: 'asc', caseInsensitive: true },
-    }],
+    'import/order': [
+      'warn',
+      {
+        groups: ['builtin', 'external'],
+        alphabetize: { order: 'asc', caseInsensitive: true },
+      },
+    ],
 
     // Cannot import from the same module twice
     'no-duplicate-imports': ['error'],
@@ -92,7 +86,7 @@ module.exports = {
     'key-spacing': ['error'],
 
     // Require semicolons
-    'semi': ['error', 'always'],
+    semi: ['error', 'always'],
 
     // Don't unnecessarily quote properties
     'quote-props': ['error', 'consistent-as-needed'],
@@ -101,13 +95,16 @@ module.exports = {
     'no-multiple-empty-lines': ['error'],
 
     // Max line lengths
-    'max-len': ['error', {
-      code: 120,
-      ignoreUrls: true, // Most common reason to disable it
-      ignoreStrings: true, // These are not fantastic but necessary for error messages
-      ignoreTemplateLiterals: true,
-      ignoreRegExpLiterals: true,
-    }],
+    'max-len': [
+      'error',
+      {
+        code: 120,
+        ignoreUrls: true, // Most common reason to disable it
+        ignoreStrings: true, // These are not fantastic but necessary for error messages
+        ignoreTemplateLiterals: true,
+        ignoreRegExpLiterals: true,
+      },
+    ],
 
     // Useless diff results
     'no-trailing-spaces': ['error'],
