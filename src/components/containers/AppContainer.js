@@ -2,12 +2,12 @@
 	used to link state to App which contains the router, could link functions,
   but rather do that in each individual container
 */
-import { connect } from "react-redux";
-import { loadPrograms, clearPrograms } from "../../actions/programsActions";
-import { screenResize } from "../../actions/uiActions";
-import { loadUserData, clearUserData, loadFailure } from "../../actions/userDataActions.js";
-import * as fetch from "../../lib/fetch.js";
-import App from "../app.js";
+import { connect } from 'react-redux';
+import { loadPrograms, clearPrograms } from '../../actions/programsActions';
+import { screenResize } from '../../actions/uiActions';
+import { loadUserData, clearUserData, loadFailure } from '../../actions/userDataActions.js';
+import * as fetch from '../../lib/fetch.js';
+import App from '../app.js';
 
 const mapStateToProps = (state) => ({
   uid: state.userData.uid,
@@ -26,7 +26,7 @@ const mapDispatchToProps = (dispatch) => ({
       }
       dispatch(loadUserData(uid, data.userData));
     } else {
-      onFailure("SERVER ERROR: Unable to get user data from server");
+      onFailure('SERVER ERROR: Unable to get user data from server');
     }
   },
   clearUserData: () => {

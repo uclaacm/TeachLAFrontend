@@ -5,7 +5,8 @@
       "options": {
         "trailingComma": "all",
         "bracketSpacing": true,
-        "printWidth": 100
+        "printWidth": 100,
+        "singleQuote": true
       }
     }
   ]

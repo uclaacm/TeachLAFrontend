@@ -1,16 +1,16 @@
-import { faPython, faHtml5, faReact } from "@fortawesome/free-brands-svg-icons";
-import { faCogs } from "@fortawesome/free-solid-svg-icons";
-import CreateProcessingDoc from "./Processing";
-import CreatePythonDoc from "./Python";
-import CreateReactDoc from "./React";
+import { faPython, faHtml5, faReact } from '@fortawesome/free-brands-svg-icons';
+import { faCogs } from '@fortawesome/free-solid-svg-icons';
+import CreateProcessingDoc from './Processing';
+import CreatePythonDoc from './Python';
+import CreateReactDoc from './React';
 
 export const SUPPORTED_LANGUAGES = [
   {
-    value: "python",
-    display: "Python",
+    value: 'python',
+    display: 'Python',
     icon: faPython,
-    codemirror: "python",
-    extension: "py",
+    codemirror: 'python',
+    extension: 'py',
     render: (code, showConsole) => CreatePythonDoc(btoa(code), showConsole),
   },
   //   {
@@ -21,37 +21,37 @@ export const SUPPORTED_LANGUAGES = [
   //     extension: "js",
   //   },
   {
-    value: "html",
-    display: "HTML",
+    value: 'html',
+    display: 'HTML',
     icon: faHtml5,
-    codemirror: "htmlmixed",
-    extension: "html",
+    codemirror: 'htmlmixed',
+    extension: 'html',
   },
   {
-    value: "processing",
-    display: "Processing",
+    value: 'processing',
+    display: 'Processing',
     icon: faCogs,
-    codemirror: "javascript",
-    extension: "html",
+    codemirror: 'javascript',
+    extension: 'html',
     render: CreateProcessingDoc,
     renderDownload: CreateProcessingDoc,
   },
   {
-    value: "react",
-    display: "React.JS",
+    value: 'react',
+    display: 'React.JS',
     icon: faReact,
-    codemirror: "jsx",
-    extension: "html",
+    codemirror: 'jsx',
+    extension: 'html',
     render: CreateReactDoc,
     renderDownload: CreateReactDoc,
   },
 ];
 
 const DEFAULT_LANGUAGE = {
-  identifier: "txt",
-  display: "Text",
+  identifier: 'txt',
+  display: 'Text',
   codemirror: undefined,
-  extension: "txt",
+  extension: 'txt',
   render: (code) => code,
   renderDownload: (code) => code,
 };
