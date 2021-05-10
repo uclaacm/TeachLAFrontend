@@ -1,6 +1,6 @@
-import React from 'react';
-import TLALogo from '../../img/tla-logo.svg';
-import '../../styles/Footer.scss';
+import React from "react";
+import TLALogo from "../../img/tla-logo.svg";
+import "../../styles/Footer.scss";
 
 const Footer = () => (
   <footer className="footer">
