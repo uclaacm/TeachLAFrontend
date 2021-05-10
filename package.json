@@ -39,7 +39,7 @@
     "dev": "concurrently --kill-others-on-fail \"yarn start\" \"yarn server\"",
     "lint": "lint-staged",
     "lint-full": "eslint \"**/*.js\" && stylelint \"**/*.css\" \"**/*.scss\"",
-    "lint-fix": "eslint --fix \"**/*.js\" && stylelint --fix \"**/*.css\" \"**/*.scss\"",
+    "lint-full-fix": "eslint --fix \"**/*.js\" && stylelint --fix \"**/*.css\" \"**/*.scss\"",
     "lint-css": "stylelint \"**/*.css\" \"**/*.scss\"",
     "lint-css-fix": "stylelint --fix \"**/*.css\" \"**/*.scss\"",
     "lint-js": "eslint \"**/*.js\"",
