@@ -12,7 +12,7 @@
     "codemirror": "^5.61.0",
     "cross-env": "^7.0.3",
     "crypto-js": "^4.0.0",
-    "firebase": "^8.6.0",
+    "firebase": "^8.6.1",
     "immutable": "^3.8.2",
     "node-sass": "^5.0.0",
     "react": "^16.14.0",
