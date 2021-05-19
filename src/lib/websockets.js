@@ -41,56 +41,57 @@ class CollabSocket {
   }
 
   /**
-   * Asks the backend to make a write to `target`'s
-   * editor once. Returns the new content of said `target`'s
-   * editor if the write was accepted.
+   * Asks the target UID to announce their presence and current editor
+   * contents.
    * 
-   * @param {String} target UID of target editor.
-   * @param {String} value Value to update the current user's editor with.
-   * @returns {Promise<String>} Result of write request.
+   * @param {String} target UID of the target editor.
+   * @returns {Promise<String>} Value of the editor's sketch.
    */
-  requestWrite(target, value) {
+  requestAnnounce(target) {
     return new Promise((resolve, reject) => {
-      const oldOnMessage = this._onMessage;
-
       setTimeout(() => {
-        this.ws.onmessage = m => {
-          const content = JSON.parse(m);
-          if (content.uid !== this.uid)
-            oldOnMessage(m);
-          else {
-            this.ws.onmessage = oldOnMessage;
-            resolve(content.value);
-          }
-        };
-
         this.ws.send(JSON.stringify({
-          author: this.uid,
-          type: "WRITE",
-          body: {
-            target,
-            value,
-          }
+          type: "REQUEST_ANNOUNCE",
+          target,
         }));
+
+        this.onMessage = (m) => {
+          if (m.type === "READ")
+            resolve(m.content);
+        };
       }, this.timeout);
-      
-      // Reset our onmessage and reject.
-      this.ws.onmessage = oldOnMessage;
+
       reject("Timed out.");
     });
   }
 
   /**
-   * Writes to their own editor. Returns the new content of
-   * editor if the write was accepted.
+   * Writes to their own editor, broadcasting to any subscribed users.
+   * Returns the new content of editor if the write was accepted.
    * 
-   * @param {String} value Value to update the current user's editor with.
+   * @param {String} target UID of editor to update.
+   * @param {Object} data Data packet to update the current user's editor with.
    * @returns {Promise<String>} Result of write request.
    */
-  sendWrite(value) {
-    return this.requestWrite(this.uid, value);
+  update(target = this.uid, data) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        this.ws.send(JSON.stringify({
+          type: "UPDATE",
+          target,
+          data,
+        }));
+
+        this.onMessage = (m) => {
+          if (m.type === "READ")
+            resolve(m.content);
+        };
+      }, this.timeout);
+
+      reject("Timed out");
+    });
   }
-  
+
   /**
    * Asks the backend for permission to read `target`'s
    * editor once. Returns the content of said `target`'s
@@ -99,14 +100,14 @@ class CollabSocket {
    * @param {String} target UID of target editor.
    * @returns {Promise<String>} Contents of the user's editor.
    */
-  requestRead(target) {
+  readOnce(target) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         this.ws.send(JSON.stringify({
           type: "READ",
           target,
         }));
-        
+
         // Loop until we reach our timeout or resolve the
         // Promise.
         this.onMessage = (m) => {
@@ -122,13 +123,13 @@ class CollabSocket {
   /**
    * Subscribe to all current and future changes in editor
    * `target`, if possible. All changes will be passed to
-   * `onChange`.
+   * `onChange`. Removes previous subscription.
    * 
    * @param {String} target Editor to subscribe to reads from.
    * @param {(data, value) => any} onChange Fired on change in `target`.
    * @returns {Promise<() => void>} Unsubscribes onChange handler.
    */
-  subscribeRead(target, onChange) {
+  read(target, onChange) {
     return new Promise((resolve, reject) => {
       const oldHandler = this.defaultHandler;
 
