@@ -1,30 +1,35 @@
-import { programUploadSuccess } from 'actions/userDataActions.js';
 import React, { useState } from 'react';
 import ReactModal from 'react-modal';
 import { Container, Row, Col, Button } from 'reactstrap';
 import * as fetch from '../../../lib/fetch.js';
 
 const ConfirmDeleteModal = (props) => {
-  // extract props
-  // add props section in later if I want to?
-  //const {
-  //onClose, uid, sketchKey, programKeys
-  //} = props;
+  const {
+    onClose,
+    isOpen,
+    sketchName,
+    uid,
+    sketchKey,
+    deleteProgram,
+    mostRecentProgram,
+    programKeys,
+    setMostRecentProgram,
+  } = props;
 
   const [spinner, setSpinner] = useState(true);
   const [error, setError] = useState('');
 
   const closeModal = () => {
-    if (props.onClose && {}.toString.call(props.onClose) === '[object Function]') {
-      props.onClose();
+    if (onClose && {}.toString.call(onClose) === '[object Function]') {
+      onClose();
     }
   };
 
   const onDeleteSubmit = () => {
     const data = {
-      uid: props.uid,
-      docID: props.sketchKey,
-      name: props.sketchKey,
+      uid: uid,
+      docID: sketchKey,
+      name: sketchKey,
     };
     try {
       fetch
@@ -36,12 +41,12 @@ const ConfirmDeleteModal = (props) => {
             return;
           }
 
-          props.deleteProgram(props.sketchKey);
+          deleteProgram(sketchKey);
 
           // this next piece of code is a guard against deleting mostRecentProgram - if we do,
           // then we need to re-populate it with something different.
-          if (props.sketchKey === props.mostRecentProgram && props.programKeys.size > 0) {
-            props.setMostRecentProgram(props.programKeys.get(0));
+          if (sketchKey === mostRecentProgram && programKeys.size > 0) {
+            setMostRecentProgram(programKeys.get(0));
           }
 
           closeModal();
@@ -60,7 +65,7 @@ const ConfirmDeleteModal = (props) => {
 
   return (
     <ReactModal
-      isOpen={props.isOpen}
+      isOpen={isOpen}
       onRequestClose={closeModal}
       className="sketches-modal"
       ariaHideApp={false}
@@ -68,7 +73,7 @@ const ConfirmDeleteModal = (props) => {
       <Container>
         <h2 className="text-center">
           Are you sure you want to delete &quot;
-          {props.sketchName}
+          {sketchName}
           &quot;?
         </h2>
         <hr />
