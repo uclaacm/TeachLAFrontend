@@ -1,92 +1,97 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactModal from 'react-modal';
-import {
-  Container, Row, Col, Button,
-} from 'reactstrap';
+import { Container, Row, Col, Button } from 'reactstrap';
 import * as fetch from '../../../lib/fetch.js';
 
-class ConfirmDeleteModal extends React.Component {
-  closeModal = () => {
-    if (this.props.onClose && {}.toString.call(this.props.onClose) === '[object Function]') {
-      this.props.onClose();
+const ConfirmDeleteModal = (props) => {
+  const {
+    onClose,
+    isOpen,
+    sketchName,
+    uid,
+    sketchKey,
+    deleteProgram,
+    mostRecentProgram,
+    programKeys,
+    setMostRecentProgram,
+  } = props;
+
+  const [spinner, setSpinner] = useState(true);
+  const [error, setError] = useState('');
+
+  const closeModal = () => {
+    if (onClose && {}.toString.call(onClose) === '[object Function]') {
+      onClose();
     }
   };
 
-  onDeleteSubmit = () => {
+  const onDeleteSubmit = () => {
     const data = {
-      uid: this.props.uid,
-      docID: this.props.sketchKey,
-      name: this.props.sketchKey,
+      uid: uid,
+      docID: sketchKey,
+      name: sketchKey,
     };
     try {
       fetch
         .deleteSketch(data)
         .then((res) => {
           if (!res.ok) {
-            this.setState({
-              spinner: false,
-              error: res.text() || 'Failed to delete sketch, please try again later',
-            });
+            setSpinner(false);
+            setError(res.text() || 'Failed to delete sketch, please try again later');
             return;
           }
 
-          this.props.deleteProgram(this.props.sketchKey);
+          deleteProgram(sketchKey);
 
           // this next piece of code is a guard against deleting mostRecentProgram - if we do,
           // then we need to re-populate it with something different.
-          if (
-            this.props.sketchKey === this.props.mostRecentProgram
-            && this.props.programKeys.size > 0
-          ) {
-            this.props.setMostRecentProgram(this.props.programKeys.get(0));
+          if (sketchKey === mostRecentProgram && programKeys.size > 0) {
+            setMostRecentProgram(programKeys.get(0));
           }
 
-          this.closeModal();
+          closeModal();
         })
         .catch((err) => {
-          this.setState({
-            spinner: false,
-            error: 'Failed to create sketch, please try again later',
-          });
+          setSpinner(false);
+          setError('Failed to create sketch, please try again later');
           console.error(err);
         });
     } catch (err) {
       console.error(err);
     }
-    this.setState({ spinner: true, error: '' });
+    setSpinner(true);
+    setError('');
   };
 
-  render() {
-    return (
-      <ReactModal
-        isOpen={this.props.isOpen}
-        onRequestClose={this.closeModal}
-        className="sketches-modal"
-        ariaHideApp={false}
-      >
-        <Container>
-          <h2 className="text-center">
-            Are you sure you want to delete &quot;
-            {this.props.sketchName}
-            &quot;?
-          </h2>
-          <hr />
-          <Row>
-            <Col>
-              <Button color="secondary" onClick={this.closeModal} size="lg" block>
-                No thanks!
-              </Button>
-            </Col>
-            <Col>
-              <Button color="danger" onClick={this.onDeleteSubmit} size="lg" block>
-                Delete Forever!
-              </Button>
-            </Col>
-          </Row>
-        </Container>
-      </ReactModal>
-    );
-  }
-}
+  return (
+    <ReactModal
+      isOpen={isOpen}
+      onRequestClose={closeModal}
+      className="sketches-modal"
+      ariaHideApp={false}
+    >
+      <Container>
+        <h2 className="text-center">
+          Are you sure you want to delete &quot;
+          {sketchName}
+          &quot;?
+        </h2>
+        <hr />
+        <Row>
+          <Col>
+            <Button color="secondary" onClick={closeModal} size="lg" block>
+              No thanks!
+            </Button>
+          </Col>
+          <Col>
+            <Button color="danger" onClick={onDeleteSubmit} size="lg" block>
+              Delete Forever!
+            </Button>
+          </Col>
+        </Row>
+      </Container>
+    </ReactModal>
+  );
+};
 
 export default ConfirmDeleteModal;
