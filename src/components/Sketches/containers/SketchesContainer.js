@@ -4,12 +4,14 @@ import { togglePanel } from '../../../actions/uiActions.js';
 import { setMostRecentProgram } from '../../../actions/userDataActions.js';
 import { OPEN_PANEL_LEFT, CLOSED_PANEL_LEFT, PANEL_SIZE } from '../../../constants';
 import Sketches from '../index.js';
+import { getLanguageData } from '../../../util/languages/languages.js';
 
 const mapStateToProps = (state) => {
   const { mostRecentProgram } = state.userData;
   const programs = state.programs.keySeq().map((id) => {
     const temp = state.programs.get(id, Immutable.Map()).toJS();
     temp.key = id;
+    temp.language = getLanguageData(temp.language);
     return temp;
   });
 
