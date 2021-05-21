@@ -1,25 +1,25 @@
-import React from "react";
-import * as fetch from "../../lib/fetch.js";
-import ClassInfoBox from "./components/ClassInfoBox";
-import OpenPanelButtonContainer from "../common/containers/OpenPanelButtonContainer";
-import "../../styles/Classes.scss";
-import "../../styles/ClassPage.scss";
-import LoadingPage from "../common/LoadingPage";
-import { Redirect } from "react-router-dom";
-import { Button } from "reactstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSignOutAlt, faPlus } from "@fortawesome/free-solid-svg-icons";
-import ConfirmLeaveModalContainer from "../Classes/containers/ConfirmLeaveModalContainer";
-import Error from "../Error";
+import React from 'react';
+import * as fetch from '../../lib/fetch.js';
+import ClassInfoBox from './components/ClassInfoBox';
+import OpenPanelButtonContainer from '../common/containers/OpenPanelButtonContainer';
+import '../../styles/Classes.scss';
+import '../../styles/ClassPage.scss';
+import LoadingPage from '../common/LoadingPage';
+import { Redirect } from 'react-router-dom';
+import { Button } from 'reactstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignOutAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
+import ConfirmLeaveModalContainer from '../Classes/containers/ConfirmLeaveModalContainer';
+import Error from '../Error';
 // For sketches list
-import { faCogs } from "@fortawesome/free-solid-svg-icons";
-import { faPython } from "@fortawesome/free-brands-svg-icons";
-import { faHtml5 } from "@fortawesome/free-brands-svg-icons";
-import SketchBox from "./components/SketchBox";
-import "../../styles/SketchBox.scss";
-import { ThumbnailArray } from "../../constants";
-import CodeDownloader from "../../util/languages/CodeDownloader";
-import CreateSketchModalContainer from "./containers/CreateSketchModalContainer";
+import { faCogs } from '@fortawesome/free-solid-svg-icons';
+import { faPython } from '@fortawesome/free-brands-svg-icons';
+import { faHtml5 } from '@fortawesome/free-brands-svg-icons';
+import SketchBox from './components/SketchBox';
+import '../../styles/SketchBox.scss';
+import { ThumbnailArray } from '../../constants';
+import CodeDownloader from '../../util/languages/CodeDownloader';
+import CreateSketchModalContainer from './containers/CreateSketchModalContainer';
 
 const SKETCHES_ROW_PADDING = 100;
 const SKETCH_WIDTH = 220;
@@ -63,7 +63,7 @@ class ClassPage extends React.Component {
     super(props);
     this.state = {
       loaded: false,
-      error: "",
+      error: '',
       confirmLeaveModalOpen: false,
       createSketchModalOpen: false,
       // TEST VALUES
@@ -76,13 +76,13 @@ class ClassPage extends React.Component {
       // wid: "Big Chunky Monkey",
       // Real values
       thumbnail: 0,
-      name: "Class",
+      name: 'Class',
       instructors: [],
       sketchIDs: [],
       sketches: [],
       isInstr: false,
       students: [],
-      wid: "",
+      wid: '',
       // Uncomment when description is implemented
       // description: "",
     };
@@ -92,7 +92,7 @@ class ClassPage extends React.Component {
   componentDidMount = async () => {
     // Don't try to load class if there's no cid.
     // Comment this out to test
-    if (this.props.cid === "") {
+    if (this.props.cid === '') {
       return;
     }
 
@@ -100,10 +100,10 @@ class ClassPage extends React.Component {
       uid: this.props.uid,
       cid: this.props.cid,
     };
-    console.log("about to get class with this data: " + JSON.stringify(data));
+    console.log('about to get class with this data: ' + JSON.stringify(data));
     try {
       fetch
-        .getClass(data, true, true)
+        .getClass(data, true, this.state.isInstr)
         .then((res) => {
           if (!res.ok) throw new Error(`Error loading this class! Got status ${res.status}`);
           return res.classData;
@@ -114,7 +114,7 @@ class ClassPage extends React.Component {
             loaded: true,
             name: json.name,
             instructors: json.instructors,
-            isInstr: json.instructors.some(instrID => instrID === this.props.uid),
+            isInstr: json.instructors.some((instrID) => instrID === this.props.uid),
             sketchIDs: json.programs, // List of IDs
             sketches: json.programData || [], // List of sketch objects
             students: json.members,
@@ -122,6 +122,10 @@ class ClassPage extends React.Component {
             thumbnail: json.thumbnail,
           });
           // this.props.loadClass(classData);
+          // TODO: make a bulk add program action
+          (json.programData || []).forEach((data) => {
+            this.props.addProgram(data.uid, data);
+          });
         })
         .catch((err) => {
           this.setState({
@@ -166,7 +170,7 @@ class ClassPage extends React.Component {
         inClass={true}
       />
     ) : (
-      ""
+      ''
     );
   };
 
@@ -190,7 +194,7 @@ class ClassPage extends React.Component {
         <FontAwesomeIcon icon={faSignOutAlt} /> Leave Class
       </Button>
     ) : (
-      ""
+      ''
     );
 
     return (
@@ -203,7 +207,7 @@ class ClassPage extends React.Component {
   };
 
   renderClassInfo = () => {
-    let instString = "";
+    let instString = '';
     switch (this.state.instructors.length) {
       case 0:
         break;
@@ -211,19 +215,19 @@ class ClassPage extends React.Component {
         instString = this.state.instructors[0];
         break;
       case 2:
-        instString = this.state.instructors.join(" and ");
+        instString = this.state.instructors.join(' and ');
         break;
       default:
         for (let i = 0; i < this.state.instructors.length - 1; i++) {
           instString += this.state.instructors[i];
-          instString += ", ";
+          instString += ', ';
         }
-        instString += "and ";
+        instString += 'and ';
         instString += this.state.instructors[this.state.instructors.length - 1];
     }
     return (
-      <>
-        <ClassInfoBox title={"Instructors"} content={instString} />
+      <React.Fragment>
+        <ClassInfoBox title={'Instructors'} content={instString} />
         {
           // Add this in once description is added to back-end
           /* <ClassInfoBox
@@ -231,24 +235,28 @@ class ClassPage extends React.Component {
           content={this.props.description}
         /> */
         }
-      </>
+      </React.Fragment>
     );
   };
 
   renderStudentList = () => {
     return this.state.isInstr ? (
       <ClassInfoBox
-        title={"Students"}
-        content={this.state.students ? this.state.students.map((student) => student.name).join(", ") : "No students enrolled."}
+        title={'Students'}
+        content={
+          this.state.students
+            ? this.state.students.map((student) => student.name).join(', ')
+            : 'No students enrolled.'
+        }
       />
     ) : (
-      ""
+      ''
     );
   };
 
   // Start of sketches list stuff -- it should probably be moved out of here
   getThumbnailSrc = (val) => {
-    if (val === undefined || val === "" || val >= ThumbnailArray.length || val < 0) {
+    if (val === undefined || val === '' || val >= ThumbnailArray.length || val < 0) {
       return ThumbnailArray[0];
     }
     return ThumbnailArray[val];
@@ -266,22 +274,22 @@ class ClassPage extends React.Component {
       else return 1;
     });
     let sketchList = [];
-    newList.forEach(({ key, name, language, thumbnail, code }) => {
+    newList.forEach(({ uid, name, language, thumbnail, code }) => {
       let faLanguage;
       switch (language) {
-        case "python":
+        case 'python':
           faLanguage = faPython;
           break;
-        case "processing":
+        case 'processing':
           faLanguage = faCogs;
           break;
-        case "html":
+        case 'html':
         default:
           faLanguage = faHtml5;
       }
       sketchList.push(
         <SketchBox
-          key={key}
+          key={uid}
           img={this.getThumbnailSrc(thumbnail)}
           icon={faLanguage}
           name={name}
@@ -289,7 +297,7 @@ class ClassPage extends React.Component {
             CodeDownloader.download(name, language, code);
           }}
           redirFunc={() => {
-            this.setProgram(key);
+            this.setProgram(uid);
           }}
         />,
       );
@@ -298,6 +306,7 @@ class ClassPage extends React.Component {
     if (this.state.isInstr) {
       sketchList.push(
         <div
+          key="add-sketch"
           className="add-sketch-box sketch-box"
           onClick={() => this.setCreateSketchModalOpen(true)}
         >
@@ -323,7 +332,7 @@ class ClassPage extends React.Component {
       );
     }
     let sketchesDisplay = <div className="class-sketches-grid">{rows}</div>;
-    return <ClassInfoBox title={"Sketches"} content={sketchesDisplay} />;
+    return <ClassInfoBox title={'Sketches'} content={sketchesDisplay} />;
   };
 
   renderContent = () => {
@@ -341,7 +350,7 @@ class ClassPage extends React.Component {
   render() {
     // If no class selected, go back to classes page.
     // Comment this out to test
-    if (this.props.cid === "") {
+    if (this.props.cid === '') {
       return <Redirect to="/classes" />;
     }
 

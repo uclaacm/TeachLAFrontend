@@ -104,8 +104,8 @@ export const updateUserData = (uid = '', userData) => {
  */
 
 export const createSketch = (data) => {
-  const { uid, ...rest } = data;
-  return makeServerRequest({ uid, program: rest }, 'program/create');
+  const { uid, wid, ...rest } = data;
+  return makeServerRequest({ uid, wid, program: rest }, 'program/create');
 };
 
 /**

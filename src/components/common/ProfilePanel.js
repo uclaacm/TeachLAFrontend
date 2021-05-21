@@ -271,19 +271,19 @@ function ProfilePanel(props) {
   const renderButtons = () => {
     const panelButtons = [];
     switch (contentType) {
+      case 'sketches':
+        panelButtons.push(renderEditorButton());
+        panelButtons.push(renderClassesButton());
+        break;
       case "classes":
       case "classPage":
-        panelButtons.push(this.renderEditorButton());
-        panelButtons.push(this.renderSketchesButton());
+        panelButtons.push(renderEditorButton());
+        panelButtons.push(renderSketchesButton());
         break;
-      case "sketches":
-        panelButtons.push(this.renderEditorButton());
-        panelButtons.push(this.renderClassesButton());
-        break;
-      case "editor":
+      case 'editor':
       default:
-        panelButtons.push(this.renderSketchesButton());
-        panelButtons.push(this.renderClassesButton());
+        panelButtons.push(renderSketchesButton());
+        panelButtons.push(renderClassesButton());
         break;
     }
 

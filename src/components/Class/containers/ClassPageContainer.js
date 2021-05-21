@@ -1,9 +1,9 @@
-import ClassPage from "../index.js";
-import { connect } from "react-redux";
-import { setMostRecentProgram } from "../../../actions/userDataActions.js";
-import { loadClass, loadPrograms } from "../../../actions/classPageActions";
-import { togglePanel } from "../../../actions/uiActions.js";
-import { OPEN_PANEL_LEFT, CLOSED_PANEL_LEFT, PANEL_SIZE } from "../../../constants";
+import ClassPage from '../index.js';
+import { connect } from 'react-redux';
+import { setMostRecentProgram } from '../../../actions/userDataActions.js';
+import { addProgram } from '../../../actions/programsActions.js';
+import { togglePanel } from '../../../actions/uiActions.js';
+import { OPEN_PANEL_LEFT, CLOSED_PANEL_LEFT, PANEL_SIZE } from '../../../constants';
 
 const mapStateToProps = (state) => {
   const left = (state.ui.panelOpen ? OPEN_PANEL_LEFT : CLOSED_PANEL_LEFT) + PANEL_SIZE;
@@ -29,7 +29,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     // loadClass: (classData) => dispatch(loadClass(classData)),
-    // loadPrograms: (programs) => dispatch(loadPrograms(programs)),
+    addProgram: (program, value) => dispatch(addProgram(program, value)),
     setMostRecentProgram: (value) => dispatch(setMostRecentProgram(value)),
     togglePanel: () => dispatch(togglePanel()),
   };

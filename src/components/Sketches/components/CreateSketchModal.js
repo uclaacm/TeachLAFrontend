@@ -158,7 +158,7 @@ const CreateSketchModal = (props) => {
     const thumbnailPreview =
       thumbnail !== -1 ? (
         <img
-          src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${SketchThumbnailArray[thumbnail]}.svg`}
+          src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${ThumbnailArray[thumbnail]}.svg`}
           className="sketches-modal-header-thumbnail"
           alt="icon"
         />

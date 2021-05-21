@@ -1,16 +1,17 @@
 import '../../styles/Sketches.scss';
-import React from "react";
-import SketchBox from "./components/SketchBox";
-import ConfirmDeleteModalContainer from "./containers/ConfirmDeleteModalContainer";
-import CreateSketchModalContainer from "./containers/CreateSketchModalContainer";
-import EditSketchModalContainer from "./containers/EditSketchModalContainer";
-import OpenPanelButtonContainer from "../common/containers/OpenPanelButtonContainer";
-import { ThumbnailArray } from "../../constants";
 import CodeDownloader from "../../util/languages/CodeDownloader";
 
 import { faFile } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import React from 'react';
+import { Button } from 'reactstrap';
+import OpenPanelButtonContainer from '../common/containers/OpenPanelButtonContainer';
+import SketchBox from './components/SketchBox';
+import { ThumbnailArray } from "../../constants";
+import ConfirmDeleteModalContainer from './containers/ConfirmDeleteModalContainer';
+import CreateSketchModalContainer from './containers/CreateSketchModalContainer';
+import EditSketchModalContainer from './containers/EditSketchModalContainer';
 
 const ROW_PADDING = 100;
 const SKETCH_WIDTH = 220;
@@ -73,7 +74,7 @@ class Sketches extends React.Component {
   );
 
   getThumbnailSrc = (val) => {
-    if (val === undefined || val === "" || val >= ThumbnailArray.length || val < 0) {
+    if (val === undefined || val === '' || val >= ThumbnailArray.length || val < 0) {
       return ThumbnailArray[0];
     }
     return ThumbnailArray[val];
