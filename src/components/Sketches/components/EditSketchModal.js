@@ -6,7 +6,6 @@ import {
 import DropdownButton from "./DropdownButton";
 import { LanguageDropdownValues } from "../constants";
 import { ThumbnailArray } from "../../../constants";
-import { Container, Row, Col, FormGroup, Label, Input } from "reactstrap";
 import * as fetch from '../../../lib/fetch.js';
 import ImageSelector from '../../common/ImageSelector';
 

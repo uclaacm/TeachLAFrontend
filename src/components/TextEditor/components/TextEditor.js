@@ -13,6 +13,8 @@ import * as fetch from '../../../lib/fetch.js';
 import DropdownButtonContainer from '../../common/containers/DropdownButtonContainer';
 import OpenPanelButtonContainer from '../../common/containers/OpenPanelButtonContainer';
 import ViewportAwareButton from '../../common/ViewportAwareButton.js';
+import EditorRadio from './EditorRadio.js';
+import ShareSketchModal from './ShareSketchModal';
 
 
 let CodeMirror = null;

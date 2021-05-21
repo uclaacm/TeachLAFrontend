@@ -257,30 +257,20 @@ class ProfilePanel extends React.Component {
   renderButtons = () => {
     const panelButtons = [];
     switch (this.props.contentType) {
-<<<<<<< HEAD
     case 'sketches':
       panelButtons.push(this.renderEditorButton());
+        panelButtons.push(this.renderClassesButton());
+      break;
+    case "classes":
+    case "classPage":
+      panelButtons.push(this.renderEditorButton());
+      panelButtons.push(this.renderSketchesButton());
       break;
     case 'editor':
     default:
       panelButtons.push(this.renderSketchesButton());
+      panelButtons.push(this.renderClassesButton());
       break;
-=======
-      case "classes":
-      case "classPage":
-        panelButtons.push(this.renderEditorButton());
-        panelButtons.push(this.renderSketchesButton());
-        break;
-      case "sketches":
-        panelButtons.push(this.renderEditorButton());
-        panelButtons.push(this.renderClassesButton());
-        break;
-      case "editor":
-      default:
-        panelButtons.push(this.renderSketchesButton());
-        panelButtons.push(this.renderClassesButton());
-        break;
->>>>>>> 4365d7b... Create classes page
     }
 
     panelButtons.push(this.renderSignOutButton());

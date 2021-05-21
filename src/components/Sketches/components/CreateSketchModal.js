@@ -129,12 +129,8 @@ class CreateSketchModal extends React.Component {
       thumbnail: this.state.thumbnail,
       language: this.state.language.value,
       name: this.state.name,
-<<<<<<< HEAD
       code: '',
-=======
-      code: "",
-      wid: this.props.wid ?? "",
->>>>>>> 3fc75f8... Get classes page requests to work, improve classes Redux, add API call to add sketch to class
+      wid: this.props.wid ?? '',
     };
 
     try {
@@ -184,7 +180,7 @@ class CreateSketchModal extends React.Component {
     const thumbnailPreview = this.state.thumbnail !== -1 ? (
       <img
         src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${
-          SketchThumbnailArray[this.state.thumbnail]
+          ThumbnailArray[this.state.thumbnail]
         }.svg`}
         className="sketches-modal-header-thumbnail"
         alt="icon"
