@@ -1,9 +1,7 @@
 import React from 'react';
 import ReactModal from 'react-modal';
 import { Redirect } from 'react-router-dom';
-import {
-  Button, Container, Row, Col, FormGroup, Label, Input,
-} from 'reactstrap';
+import { Button, Container, Row, Col, FormGroup, Label, Input } from 'reactstrap';
 import * as fetch from '../../../lib/fetch.js';
 import ImageSelector from '../../common/ImageSelector';
 import {
@@ -11,8 +9,7 @@ import {
   LanguageDropdownValues,
   LanguageDropdownDefault,
 } from '../constants';
-import DropdownButton from './DropdownButton';
-
+import DropdownButton from '../../common/DropdownButton.js';
 import '../../../styles/SketchesModal.scss';
 
 class CreateSketchModal extends React.Component {
@@ -58,10 +55,10 @@ class CreateSketchModal extends React.Component {
 
   badThumbnailInput = () => {
     if (
-      this.state.thumbnail === undefined
-      || this.state.thumbnail === ''
-      || this.state.thumbnail >= SketchThumbnailArray.length
-      || this.state.thumbnail < 0
+      this.state.thumbnail === undefined ||
+      this.state.thumbnail === '' ||
+      this.state.thumbnail >= SketchThumbnailArray.length ||
+      this.state.thumbnail < 0
     ) {
       // this.setState({error: "Please select a thumbnail"})
       return true;
@@ -96,8 +93,8 @@ class CreateSketchModal extends React.Component {
     let notFound = true;
     for (let i = 0; i < LanguageDropdownValues.length; i++) {
       if (
-        this.state.language.display === LanguageDropdownValues[i].display
-        && this.state.language.value === LanguageDropdownValues[i].value
+        this.state.language.display === LanguageDropdownValues[i].display &&
+        this.state.language.value === LanguageDropdownValues[i].value
       ) {
         notFound = false;
         break;
@@ -174,15 +171,16 @@ class CreateSketchModal extends React.Component {
       </figure>
     ));
 
-    const thumbnailPreview = this.state.thumbnail !== -1 ? (
-      <img
-        src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${
-          SketchThumbnailArray[this.state.thumbnail]
-        }.svg`}
-        className="sketches-modal-header-thumbnail"
-        alt="icon"
-      />
-    ) : null;
+    const thumbnailPreview =
+      this.state.thumbnail !== -1 ? (
+        <img
+          src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${
+            SketchThumbnailArray[this.state.thumbnail]
+          }.svg`}
+          className="sketches-modal-header-thumbnail"
+          alt="icon"
+        />
+      ) : null;
     return (
       <ImageSelector
         isOpen={this.props.isOpen}

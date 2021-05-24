@@ -1,8 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
-import {
-  Dropdown, DropdownToggle, DropdownMenu, DropdownItem,
-} from 'reactstrap';
+import React, { useState } from 'react';
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
 /** --------Props---------------
  * dropdownItems: array of strings, each string being the name of a Program
@@ -12,66 +10,48 @@ import {
 /** --------Optional props--------
  * defaultOpen: boolean determining if the dropdown should start off open or closed
  */
-export default class DropdownButton extends React.Component {
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      dropdownOpen: this.props.defaultOpen || false,
-    };
-  }
+const DropdownButton = (props) => {
+  const { dirty, onSelect, dropdownItems, defaultOpen, displayValue, currentLanguage } = props;
 
-  //= =============React Lifecycle Functions===================//
-  componentDidMount() {}
+  const [dropdownOpen, setdropdownOpen] = useState(defaultOpen || false);
 
-  toggleHandler = (prevVal) => {
-    this.setState({ dropdownOpen: !prevVal });
+  const toggleHandler = (prevVal) => {
+    setdropdownOpen(!prevVal);
   };
 
-  selectLanguage = (program) => {
+  const selectLanguage = (program) => {
     let result = true;
-    if (this.props.dirty) {
+    if (dirty) {
       result = window.confirm('Are you sure you want to change programs? You have unsaved changes');
     }
 
-    if (this.props.onSelect && result) {
-      this.props.onSelect(program);
+    if (onSelect && result) {
+      onSelect(program);
     }
   };
 
-  renderDropdownItems = () =>
+  const renderDropdownItems = () =>
     // map each program string in the array to a dropdown item
-    this.props.dropdownItems.map((program) => (
-      <DropdownItem key={program.key} onClick={() => this.selectLanguage(program.key)}>
+    dropdownItems.map((program) => (
+      <DropdownItem key={program.key} onClick={() => selectLanguage(program.key)}>
         <FontAwesomeIcon icon={program.language.icon} fixedWidth />
         <span style={{ marginLeft: '10px' }}>{program.name}</span>
       </DropdownItem>
-    ))
-  ;
+    ));
+  return (
+    <div className="editor-language-dropdown">
+      <Dropdown isOpen={dropdownOpen} toggle={() => toggleHandler(dropdownOpen)}>
+        {/* HACK: disables the colors entirely, makes the dropdown transparent */}
+        <DropdownToggle className="btn-language-dropdown" color="" caret>
+          <div className="editor-language-dropdown-closed-content">
+            <FontAwesomeIcon icon={currentLanguage.icon} fixedWidth /> {displayValue}
+          </div>
+        </DropdownToggle>
+        <DropdownMenu>{renderDropdownItems()}</DropdownMenu>
+      </Dropdown>
+    </div>
+  );
+};
 
-  render() {
-    // let value = this.props.displayValue
-    // if(this.props.dirty){
-    //   value = (<span>&#8226;{this.props.displayValue}</span>)
-    // }
-
-    return (
-      <div className="editor-language-dropdown">
-        <Dropdown
-          isOpen={this.state.dropdownOpen}
-          toggle={() => this.toggleHandler(this.state.dropdownOpen)}
-        >
-          {/* HACK: disables the colors entirely, makes the dropdown transparent */}
-          <DropdownToggle className="btn-language-dropdown" color="" caret>
-            <div className="editor-language-dropdown-closed-content">
-              <FontAwesomeIcon icon={this.props.currentLanguage.icon} fixedWidth />
-              {' '}
-              {this.props.displayValue}
-            </div>
-          </DropdownToggle>
-          <DropdownMenu>{this.renderDropdownItems()}</DropdownMenu>
-        </Dropdown>
-      </div>
-    );
-  }
-}
+export default DropdownButton;
