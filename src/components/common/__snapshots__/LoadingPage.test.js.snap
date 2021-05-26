@@ -14,6 +14,7 @@ exports[`LoadingPage should handle showHelpText prop properly 1`] = `
     css=""
     loading={true}
     size={250}
+    speedMultiplier={1}
   />
 </div>
 `;
@@ -32,6 +33,7 @@ exports[`LoadingPage should render correctly 1`] = `
     css=""
     loading={true}
     size={250}
+    speedMultiplier={1}
   />
 </div>
 `;
