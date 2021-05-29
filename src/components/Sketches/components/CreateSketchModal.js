@@ -250,6 +250,7 @@ class CreateSketchModal extends React.Component {
               dropdownItems={LanguageDropdownValues}
               onSelect={(lang) => this.setState({ language: lang })}
               displayValue={this.state.language.display || LanguageDropdownDefault.display}
+              isSketchCallee={true}
             />
           </Col>
         </Row>

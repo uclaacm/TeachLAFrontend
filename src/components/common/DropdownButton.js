@@ -12,7 +12,15 @@ import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap
  */
 
 const DropdownButton = (props) => {
-  const { dirty, onSelect, dropdownItems, defaultOpen, displayValue, currentLanguage } = props;
+  const {
+    dirty,
+    onSelect,
+    dropdownItems,
+    defaultOpen,
+    displayValue,
+    currentLanguage,
+    isSketchCallee,
+  } = props;
 
   const [dropdownOpen, setdropdownOpen] = useState(defaultOpen || false);
 
@@ -32,14 +40,29 @@ const DropdownButton = (props) => {
   };
 
   const renderDropdownItems = () =>
-    // map each program string in the array to a dropdown item
-    dropdownItems.map((program) => (
-      <DropdownItem key={program.key} onClick={() => selectLanguage(program.key)}>
-        <FontAwesomeIcon icon={program.language.icon} fixedWidth />
-        <span style={{ marginLeft: '10px' }}>{program.name}</span>
-      </DropdownItem>
-    ));
-  return (
+    !isSketchCallee
+      ? dropdownItems.map((program) => (
+          <DropdownItem key={program.key} onClick={() => selectLanguage(program.key)}>
+            <FontAwesomeIcon icon={program.language.icon} fixedWidth />
+            <span style={{ marginLeft: '10px' }}>{program.name}</span>
+          </DropdownItem>
+        ))
+      : dropdownItems.map(({ display, value }) => {
+          // if the program doesn't exist, or is an empty string, return null
+          if (!display || !display.length || !value || !value.length) {
+            return null;
+          }
+          return (
+            <DropdownItem
+              key={value}
+              onClick={onSelect ? () => onSelect({ display, value }) : null}
+            >
+              {display}
+            </DropdownItem>
+          );
+        });
+
+  return !isSketchCallee ? (
     <div className="editor-language-dropdown">
       <Dropdown isOpen={dropdownOpen} toggle={() => toggleHandler(dropdownOpen)}>
         {/* HACK: disables the colors entirely, makes the dropdown transparent */}
@@ -47,6 +70,15 @@ const DropdownButton = (props) => {
           <div className="editor-language-dropdown-closed-content">
             <FontAwesomeIcon icon={currentLanguage.icon} fixedWidth /> {displayValue}
           </div>
+        </DropdownToggle>
+        <DropdownMenu>{renderDropdownItems()}</DropdownMenu>
+      </Dropdown>
+    </div>
+  ) : (
+    <div className="sketches-language-dropdown">
+      <Dropdown isOpen={dropdownOpen} toggle={() => toggleHandler(dropdownOpen)}>
+        <DropdownToggle color="primary" size="lg" caret>
+          <div className="sketches-language-dropdown-closed-content">{displayValue}</div>
         </DropdownToggle>
         <DropdownMenu>{renderDropdownItems()}</DropdownMenu>
       </Dropdown>

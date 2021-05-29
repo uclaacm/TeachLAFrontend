@@ -197,6 +197,7 @@ class EditSketchModal extends React.Component {
                     ? this.state.newLanguage.display
                     : this.props.sketchLang
                 }
+                isSketchCallee={true}
               />
             </Col>
           </Row>

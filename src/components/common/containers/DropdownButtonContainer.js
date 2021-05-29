@@ -18,7 +18,10 @@ const mapStateToProps = (state) => {
 
   const dirty = state.programs.getIn([mostRecentProgram, 'dirty'], false);
 
+  const isSketchCallee = false;
+
   return {
+    isSketchCallee,
     dirty,
     dropdownItems: listOfPrograms,
     displayValue,
