@@ -190,14 +190,17 @@ class EditSketchModal extends React.Component {
             </Col>
             <Col xs="8" className="d-flex align-items-center">
               <DropdownButton
-                dropdownItems={LanguageDropdownValues}
+                children={LanguageDropdownValues}
                 onSelect={(lang) => this.setState({ newLanguage: lang })}
                 displayValue={
                   this.state.newLanguage !== -1
                     ? this.state.newLanguage.display
                     : this.props.sketchLang
                 }
-                isSketchCallee={true}
+                displayClass={'sketches'}
+                toggleClass={''}
+                toggleColor={'primary'}
+                toggleSize={'lg'}
               />
             </Col>
           </Row>

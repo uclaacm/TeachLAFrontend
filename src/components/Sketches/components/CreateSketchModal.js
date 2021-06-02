@@ -247,10 +247,13 @@ class CreateSketchModal extends React.Component {
           </Col>
           <Col xs="8" className="d-flex align-items-center">
             <DropdownButton
-              dropdownItems={LanguageDropdownValues}
+              children={LanguageDropdownValues}
               onSelect={(lang) => this.setState({ language: lang })}
               displayValue={this.state.language.display || LanguageDropdownDefault.display}
-              isSketchCallee={true}
+              displayClass={'sketches'}
+              toggleClass={''}
+              toggleColor={'primary'}
+              toggleSize={'lg'}
             />
           </Col>
         </Row>
