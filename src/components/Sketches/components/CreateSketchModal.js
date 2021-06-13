@@ -27,13 +27,6 @@ class CreateSketchModal extends React.Component {
       error: '',
       redirect: false,
     };
-    dropDownValues = LanguageDropdownValues.map(({ display, value }) => {
-      return (
-        <DropdownItem key={value} onClick={() => this.changeLanguage({ display, value })}>
-          {display}
-        </DropdownItem>
-      );
-    });
   }
 
   //= =============React Lifecycle Functions Start===================//
@@ -56,6 +49,14 @@ class CreateSketchModal extends React.Component {
   changeLanguage = (lang) => {
     this.setState({ language: lang });
   };
+
+  dropDownValues = LanguageDropdownValues.map(({ display, value }) => {
+    return (
+      <DropdownItem key={value} onClick={() => this.changeLanguage({ display, value })}>
+        {display}
+      </DropdownItem>
+    );
+  });
 
   setNext = (val) => {
     this.setState({

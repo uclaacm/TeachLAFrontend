@@ -23,13 +23,6 @@ class EditSketchModal extends React.Component {
       error: '',
       onThumbnails: false,
     };
-    dropDownValues = LanguageDropdownValues.map(({ display, value }) => {
-      return (
-        <DropdownItem key={value} onClick={() => this.changeLanguage({ display, value })}>
-          {display}
-        </DropdownItem>
-      );
-    });
   }
 
   closeModal = () => {
@@ -49,6 +42,14 @@ class EditSketchModal extends React.Component {
   changeLanguage = (lang) => {
     this.setState({ newLanguage: lang });
   };
+
+  dropDownValues = LanguageDropdownValues.map(({ display, value }) => {
+    return (
+      <DropdownItem key={value} onClick={() => this.changeLanguage({ display, value })}>
+        {display}
+      </DropdownItem>
+    );
+  });
 
   // Next two bad____input are copied (and slightly modified) from create sketch modal
 
