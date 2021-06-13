@@ -1,6 +1,4 @@
-import {
-  faDownload, faSave, faShare, faCodeBranch,
-} from '@fortawesome/free-solid-svg-icons';
+import { faDownload, faSave, faShare, faCodeBranch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import ReactModal from 'react-modal';
@@ -10,7 +8,7 @@ import { EDITOR_WIDTH_BREAKPOINT } from '../../../constants';
 import sketch from '../../../lib';
 import * as fetch from '../../../lib/fetch.js';
 
-import DropdownButtonContainer from '../../common/containers/DropdownButtonContainer';
+import DropdownButtonContainer from '../containers/DropdownButtonContainer';
 import OpenPanelButtonContainer from '../../common/containers/OpenPanelButtonContainer';
 import ViewportAwareButton from '../../common/ViewportAwareButton.js';
 import { SketchThumbnailArray } from '../../Sketches/constants';
@@ -203,11 +201,11 @@ class TextEditor extends React.Component {
 
   getCMTheme = (theme) => {
     switch (theme) {
-    case 'light':
-      return 'duotone-light';
-    case 'dark':
-    default:
-      return 'material';
+      case 'light':
+        return 'duotone-light';
+      case 'dark':
+      default:
+        return 'material';
     }
   };
 
@@ -216,7 +214,8 @@ class TextEditor extends React.Component {
   renderSketchName = () => <div className="program-sketch-name">{this.props.sketchName}</div>;
 
   renderBanner = () => {
-    const thumbnail = SketchThumbnailArray[this.props.viewOnly ? this.props.vthumbnail : this.props.thumbnail];
+    const thumbnail =
+      SketchThumbnailArray[this.props.viewOnly ? this.props.vthumbnail : this.props.thumbnail];
     return (
       <div className="code-section-banner">
         <OpenPanelButtonContainer />
