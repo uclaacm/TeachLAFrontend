@@ -10,9 +10,12 @@ import {
   LanguageDropdownDefault,
 } from '../constants';
 import DropdownButton from '../../common/DropdownButton.js';
+import { DropdownItem } from 'reactstrap';
 import '../../../styles/SketchesModal.scss';
 
 class CreateSketchModal extends React.Component {
+  toggleProps = { class: '', color: 'primary', size: 'lg' };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -24,6 +27,13 @@ class CreateSketchModal extends React.Component {
       error: '',
       redirect: false,
     };
+    dropDownValues = LanguageDropdownValues.map(({ display, value }) => {
+      return (
+        <DropdownItem key={value} onClick={() => this.changeLanguage({ display, value })}>
+          {display}
+        </DropdownItem>
+      );
+    });
   }
 
   //= =============React Lifecycle Functions Start===================//
@@ -41,6 +51,10 @@ class CreateSketchModal extends React.Component {
       error: '',
       disableSubmit: false,
     });
+  };
+
+  changeLanguage = (lang) => {
+    this.setState({ language: lang });
   };
 
   setNext = (val) => {
@@ -247,14 +261,13 @@ class CreateSketchModal extends React.Component {
           </Col>
           <Col xs="8" className="d-flex align-items-center">
             <DropdownButton
-              children={LanguageDropdownValues}
-              onSelect={(lang) => this.setState({ language: lang })}
               displayValue={this.state.language.display || LanguageDropdownDefault.display}
               displayClass={'sketches'}
-              toggleClass={''}
-              toggleColor={'primary'}
-              toggleSize={'lg'}
-            />
+              icon={null}
+              {...this.toggleProps}
+            >
+              {this.dropDownValues}
+            </DropdownButton>
           </Col>
         </Row>
         <br />

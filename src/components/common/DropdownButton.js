@@ -3,80 +3,45 @@ import React, { useState } from 'react';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
 /** --------Props---------------
- * children: array of strings, each string being the name of a Program
+ * children: array of dropDownButtons, each containing the button to switch to another language
  * displayValue: string to be displayed as the placeholder for the dropdown
- * onSelect: function called when an item is selected in the dropdown
+ * toggleProps: props that dictate the styling of dropDownToggle
+ * icon: contains optional icon for editor dropDown
+ * displayClass: contains different classes for editor and sketch dropdownbutton
  */
 /** --------Optional props--------
  * defaultOpen: boolean determining if the dropdown should start off open or closed
  */
 
 const DropdownButton = (props) => {
-  const {
-    dirty,
-    onSelect,
-    children,
-    defaultOpen,
-    displayValue,
-    displayClass,
-    toggleClass,
-    toggleColor,
-    toggleSize,
-  } = props;
+  const { children, icon, defaultOpen, displayValue, displayClass, ...toggleProps } = props;
 
-  const parentDisplay = displayClass + '-language-dropdown';
-  const itemDisplay = displayClass + '-language-dropdown-closed-content';
+  const dropDownParentClass = displayClass + '-language-dropdown';
+  const dropDownItemClass = displayClass + '-language-dropdown-closed-content';
   const [dropdownOpen, setdropdownOpen] = useState(defaultOpen || false);
 
-  const toggleHandler = (prevVal) => {
-    setdropdownOpen(!prevVal);
+  const toggleHandler = () => {
+    setdropdownOpen(!dropdownOpen);
   };
 
-  const renderDropdownItems = () =>
-    children.map(({ display, value }) => {
-      return (
-        <DropdownItem key={value} onClick={() => onSelect({ display, value, dirty })}>
-          {display}
-        </DropdownItem>
-      );
-    });
-
   return (
-    <div className={parentDisplay}>
+    <div className={dropDownParentClass}>
       <Dropdown isOpen={dropdownOpen} toggle={() => toggleHandler(dropdownOpen)}>
         {/* HACK: disables the colors entirely, makes the dropdown transparent*/}
-        <DropdownToggle className={toggleClass} color={toggleColor} size={toggleSize} caret>
-          <div className={itemDisplay}>{displayValue}</div>
+        <DropdownToggle
+          className={toggleProps.class}
+          color={toggleProps.color}
+          size={toggleProps.size}
+          caret
+        >
+          <div className={dropDownItemClass}>
+            <FontAwesomeIcon icon={icon} fixedWidth />
+            {displayValue}
+          </div>
         </DropdownToggle>
-        <DropdownMenu>{renderDropdownItems()}</DropdownMenu>
+        <DropdownMenu>{children}</DropdownMenu>
       </Dropdown>
     </div>
   );
 };
 export default DropdownButton;
-
-/*
-  return !isSketchCallee ? (
-    <div className="editor-language-dropdown">
-      <Dropdown isOpen={dropdownOpen} toggle={() => toggleHandler(dropdownOpen)}>
-        {/* HACK: disables the colors entirely, makes the dropdown transparent/}
-        <DropdownToggle className="btn-language-dropdown" color="" caret>
-          <div className="editor-language-dropdown-closed-content">
-            <FontAwesomeIcon icon={currentLanguage.icon} fixedWidth /> {displayValue}
-          </div>
-        </DropdownToggle>
-        <DropdownMenu>{renderDropdownItems()}</DropdownMenu>
-      </Dropdown>
-    </div>
-  ) : (
-    <div className="sketches-language-dropdown">
-      <Dropdown isOpen={dropdownOpen} toggle={() => toggleHandler(dropdownOpen)}>
-        <DropdownToggle color="primary" size="lg" caret>
-          <div className="sketches-language-dropdown-closed-content">{displayValue}</div>
-        </DropdownToggle>
-        <DropdownMenu>{renderDropdownItems()}</DropdownMenu>
-      </Dropdown>
-    </div>
-  );
-};
-*/

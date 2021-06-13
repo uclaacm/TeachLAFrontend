@@ -6,10 +6,13 @@ import * as fetch from '../../../lib/fetch.js';
 import ImageSelector from '../../common/ImageSelector';
 import { SketchThumbnailArray, LanguageDropdownValues } from '../constants';
 import DropdownButton from '../../common/DropdownButton.js';
+import { DropdownItem } from 'reactstrap';
 
 import '../../../styles/SketchesModal.scss';
 
 class EditSketchModal extends React.Component {
+  toggleProps = { class: '', color: 'primary', size: 'lg' };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -20,6 +23,13 @@ class EditSketchModal extends React.Component {
       error: '',
       onThumbnails: false,
     };
+    dropDownValues = LanguageDropdownValues.map(({ display, value }) => {
+      return (
+        <DropdownItem key={value} onClick={() => this.changeLanguage({ display, value })}>
+          {display}
+        </DropdownItem>
+      );
+    });
   }
 
   closeModal = () => {
@@ -34,6 +44,10 @@ class EditSketchModal extends React.Component {
       onThumbnails: false,
       disableSubmit: false,
     });
+  };
+
+  changeLanguage = (lang) => {
+    this.setState({ newLanguage: lang });
   };
 
   // Next two bad____input are copied (and slightly modified) from create sketch modal
@@ -190,18 +204,17 @@ class EditSketchModal extends React.Component {
             </Col>
             <Col xs="8" className="d-flex align-items-center">
               <DropdownButton
-                children={LanguageDropdownValues}
-                onSelect={(lang) => this.setState({ newLanguage: lang })}
                 displayValue={
                   this.state.newLanguage !== -1
                     ? this.state.newLanguage.display
                     : this.props.sketchLang
                 }
                 displayClass={'sketches'}
-                toggleClass={''}
-                toggleColor={'primary'}
-                toggleSize={'lg'}
-              />
+                icon={null}
+                {...this.toggleProps}
+              >
+                {this.dropDownValues}
+              </DropdownButton>
             </Col>
           </Row>
           <br />
