@@ -6,8 +6,6 @@ import * as fetch from '../../../lib/fetch.js';
 import ImageSelector from '../../common/ImageSelector';
 import { SketchThumbnailArray, LanguageDropdownValues } from '../constants';
 import DropdownButton from '../../common/DropdownButton.js';
-import { DropdownItem } from 'reactstrap';
-
 import '../../../styles/SketchesModal.scss';
 
 class EditSketchModal extends React.Component {
@@ -42,14 +40,6 @@ class EditSketchModal extends React.Component {
   changeLanguage = (lang) => {
     this.setState({ newLanguage: lang });
   };
-
-  dropDownValues = LanguageDropdownValues.map(({ display, value }) => {
-    return (
-      <DropdownItem key={value} onClick={() => this.changeLanguage({ display, value })}>
-        {display}
-      </DropdownItem>
-    );
-  });
 
   // Next two bad____input are copied (and slightly modified) from create sketch modal
 
@@ -212,10 +202,10 @@ class EditSketchModal extends React.Component {
                 }
                 displayClass={'sketches'}
                 icon={null}
-                {...this.toggleProps}
-              >
-                {this.dropDownValues}
-              </DropdownButton>
+                toggleProps={this.toggleProps}
+                onSelect={this.changeLanguage}
+                DropdownItems={LanguageDropdownValues}
+              />
             </Col>
           </Row>
           <br />

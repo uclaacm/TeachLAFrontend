@@ -3,7 +3,6 @@ import { setMostRecentProgram } from '../../../actions/userDataActions.js';
 import { getLanguageData } from '../../../util/languages/languages.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import DropdownButton from '../../common/DropdownButton.js';
-import { DropdownItem } from 'reactstrap';
 
 const mapStateToProps = (state) => {
   const { mostRecentProgram } = state.userData;
@@ -36,9 +35,9 @@ const mapStateToProps = (state) => {
     displayValue,
     displayClass,
     dirty,
-    programStateValues,
+    DropdownItems: programStateValues,
     icon,
-    ...toggleProps,
+    toggleProps,
   };
 };
 
@@ -52,34 +51,6 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-const mergeProps = (stateProps, dispatchProps) => {
-  const { displayValue, displayClass, dirty, icon, programStateValues, ...toggleProps } =
-    stateProps;
-
-  const { onSelect } = dispatchProps;
-
-  const children = stateProps.programStateValues.map(({ display, value, icon }) => {
-    return (
-      <DropdownItem key={value} onClick={() => onSelect({ display, value, dirty })}>
-        <FontAwesomeIcon icon={icon} fixedWidth />
-        <span style={{ marginLeft: '10px' }}> {display}</span>
-      </DropdownItem>
-    );
-  });
-
-  return {
-    children,
-    displayValue,
-    displayClass,
-    icon,
-    ...toggleProps,
-  };
-};
-
-const DropdownButtonContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-  mergeProps,
-)(DropdownButton);
+const DropdownButtonContainer = connect(mapStateToProps, mapDispatchToProps)(DropdownButton);
 
 export default DropdownButtonContainer;

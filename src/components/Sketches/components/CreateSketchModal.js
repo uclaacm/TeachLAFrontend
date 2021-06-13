@@ -50,14 +50,6 @@ class CreateSketchModal extends React.Component {
     this.setState({ language: lang });
   };
 
-  dropDownValues = LanguageDropdownValues.map(({ display, value }) => {
-    return (
-      <DropdownItem key={value} onClick={() => this.changeLanguage({ display, value })}>
-        {display}
-      </DropdownItem>
-    );
-  });
-
   setNext = (val) => {
     this.setState({
       next: val,
@@ -265,10 +257,10 @@ class CreateSketchModal extends React.Component {
               displayValue={this.state.language.display || LanguageDropdownDefault.display}
               displayClass={'sketches'}
               icon={null}
-              {...this.toggleProps}
-            >
-              {this.dropDownValues}
-            </DropdownButton>
+              toggleProps={this.toggleProps}
+              onSelect={this.changeLanguage}
+              DropdownItems={LanguageDropdownValues}
+            />
           </Col>
         </Row>
         <br />
