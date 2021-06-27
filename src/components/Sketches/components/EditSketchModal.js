@@ -201,7 +201,6 @@ class EditSketchModal extends React.Component {
                     : this.props.sketchLang
                 }
                 displayClass={'sketches'}
-                icon={null}
                 toggleProps={this.toggleProps}
                 onSelect={this.changeLanguage}
                 DropdownItems={LanguageDropdownValues}

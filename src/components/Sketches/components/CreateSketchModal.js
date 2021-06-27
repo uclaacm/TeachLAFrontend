@@ -256,7 +256,6 @@ class CreateSketchModal extends React.Component {
             <DropdownButton
               displayValue={this.state.language.display || LanguageDropdownDefault.display}
               displayClass={'sketches'}
-              icon={null}
               toggleProps={this.toggleProps}
               onSelect={this.changeLanguage}
               DropdownItems={LanguageDropdownValues}

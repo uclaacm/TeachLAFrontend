@@ -33,7 +33,6 @@ const DropdownButton = (props) => {
     dirty,
   } = props;
 
-  const togglePropsValues = { ...toggleProps };
   const dropDownParentClass = displayClass + '-language-dropdown';
   const dropDownItemClass = displayClass + '-language-dropdown-closed-content';
 
@@ -47,8 +46,8 @@ const DropdownButton = (props) => {
     DropdownItems.map(({ display, value, icon }) => {
       return (
         <DropdownItem key={value} onClick={() => onSelect({ display, value, dirty })}>
-          <FontAwesomeIcon icon={icon} fixedWidth />
-          <span style={{ marginLeft: '10px' }}> {display} </span>
+          <FontAwesomeIcon style={{ marginRight: '10px' }} icon={icon} fixedWidth />
+          {display}
         </DropdownItem>
       );
     });
@@ -58,9 +57,9 @@ const DropdownButton = (props) => {
       <Dropdown isOpen={dropdownOpen} toggle={() => toggleHandler(dropdownOpen)}>
         {/* HACK: disables the colors entirely, makes the dropdown transparent*/}
         <DropdownToggle
-          className={togglePropsValues.class}
-          color={togglePropsValues.color}
-          size={togglePropsValues.size}
+          className={toggleProps.class}
+          color={toggleProps.color}
+          size={toggleProps.size}
           caret
         >
           <div className={dropDownItemClass}>
