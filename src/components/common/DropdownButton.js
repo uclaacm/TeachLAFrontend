@@ -13,14 +13,6 @@ import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap
  * defaultOpen: boolean determining if the dropdown should start off open or closed
  */
 
-/*
-TODO
--> change rendering of items back into the same thing. Essentially, change "children" to dropdownData and make it so that 
-  it's just rendered inside of the main dropDownButton
-
-
-*/
-
 const DropdownButton = (props) => {
   const {
     icon,
@@ -55,7 +47,6 @@ const DropdownButton = (props) => {
   return (
     <div className={dropDownParentClass}>
       <Dropdown isOpen={dropdownOpen} toggle={() => toggleHandler(dropdownOpen)}>
-        {/* HACK: disables the colors entirely, makes the dropdown transparent*/}
         <DropdownToggle
           className={toggleProps.class}
           color={toggleProps.color}
