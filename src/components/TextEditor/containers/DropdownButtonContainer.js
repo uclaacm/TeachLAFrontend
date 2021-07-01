@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import { setMostRecentProgram } from '../../../actions/userDataActions.js';
 import { getLanguageData } from '../../../util/languages/languages.js';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import DropdownButton from '../../common/DropdownButton.js';
 
 const mapStateToProps = (state) => {

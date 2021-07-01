@@ -48,9 +48,9 @@ const DropdownButton = (props) => {
     <div className={dropDownParentClass}>
       <Dropdown isOpen={dropdownOpen} toggle={() => toggleHandler(dropdownOpen)}>
         <DropdownToggle
-          className={toggleProps.class}
-          color={toggleProps.color}
-          size={toggleProps.size}
+          className={{ ...toggleProps }.class}
+          color={{ ...toggleProps }.color}
+          size={{ ...toggleProps }.size}
           caret
         >
           <div className={dropDownItemClass}>
