@@ -47,12 +47,7 @@ const DropdownButton = (props) => {
   return (
     <div className={dropDownParentClass}>
       <Dropdown isOpen={dropdownOpen} toggle={() => toggleHandler(dropdownOpen)}>
-        <DropdownToggle
-          className={{ ...toggleProps }.class}
-          color={{ ...toggleProps }.color}
-          size={{ ...toggleProps }.size}
-          caret
-        >
+        <DropdownToggle caret {...toggleProps}>
           <div className={dropDownItemClass}>
             <FontAwesomeIcon icon={icon} fixedWidth />
             {displayValue}

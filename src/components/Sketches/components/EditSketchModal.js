@@ -9,7 +9,7 @@ import DropdownButton from '../../common/DropdownButton.js';
 import '../../../styles/SketchesModal.scss';
 
 class EditSketchModal extends React.Component {
-  toggleProps = { class: '', color: 'primary', size: 'lg' };
+  toggleProps = { className: '', color: 'primary', size: 'lg' };
 
   constructor(props) {
     super(props);

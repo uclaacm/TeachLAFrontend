@@ -14,7 +14,7 @@ import { DropdownItem } from 'reactstrap';
 import '../../../styles/SketchesModal.scss';
 
 class CreateSketchModal extends React.Component {
-  toggleProps = { class: '', color: 'primary', size: 'lg' };
+  toggleProps = { className: '', color: 'primary', size: 'lg' };
 
   constructor(props) {
     super(props);

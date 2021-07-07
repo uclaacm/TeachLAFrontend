@@ -23,7 +23,7 @@ const mapStateToProps = (state) => {
   const displayClass = 'editor';
 
   const toggleProps = {
-    class: 'btn-language-dropdown',
+    className: 'btn-language-dropdown',
     color: '',
     size: '',
   };
