@@ -1,77 +1,61 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
-import {
-  Dropdown, DropdownToggle, DropdownMenu, DropdownItem,
-} from 'reactstrap';
+import React, { useState } from 'react';
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
 /** --------Props---------------
- * dropdownItems: array of strings, each string being the name of a Program
+ * dropDownItems: array of data for each dropdown item
  * displayValue: string to be displayed as the placeholder for the dropdown
- * onSelect: function called when an item is selected in the dropdown
+ * toggleProps: props that dictate the styling of dropDownToggle
+ * icon: contains optional icon for editor dropDown
+ * displayClass: contains different classes for editor and sketch dropdownbutton
  */
 /** --------Optional props--------
  * defaultOpen: boolean determining if the dropdown should start off open or closed
  */
-export default class DropdownButton extends React.Component {
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      dropdownOpen: this.props.defaultOpen || false,
-    };
-  }
+const DropdownButton = (props) => {
+  const {
+    icon,
+    DropdownItems,
+    defaultOpen,
+    displayValue,
+    displayClass,
+    toggleProps,
+    onSelect,
+    dirty,
+  } = props;
 
-  //= =============React Lifecycle Functions===================//
-  componentDidMount() {}
+  const dropDownParentClass = displayClass + '-language-dropdown';
+  const dropDownItemClass = displayClass + '-language-dropdown-closed-content';
 
-  toggleHandler = (prevVal) => {
-    this.setState({ dropdownOpen: !prevVal });
+  const [dropdownOpen, setdropdownOpen] = useState(defaultOpen || false);
+
+  const toggleHandler = () => {
+    setdropdownOpen(!dropdownOpen);
   };
 
-  selectLanguage = (program) => {
-    let result = true;
-    if (this.props.dirty) {
-      result = window.confirm('Are you sure you want to change programs? You have unsaved changes');
-    }
+  const renderDropdownItems = () =>
+    DropdownItems.map(({ display, value, icon }) => {
+      return (
+        <DropdownItem key={value} onClick={() => onSelect({ display, value, dirty })}>
+          <FontAwesomeIcon style={{ marginRight: '10px' }} icon={icon} fixedWidth />
+          {display}
+        </DropdownItem>
+      );
+    });
 
-    if (this.props.onSelect && result) {
-      this.props.onSelect(program);
-    }
-  };
-
-  renderDropdownItems = () =>
-    // map each program string in the array to a dropdown item
-    this.props.dropdownItems.map((program) => (
-      <DropdownItem key={program.key} onClick={() => this.selectLanguage(program.key)}>
-        <FontAwesomeIcon icon={program.language.icon} fixedWidth />
-        <span style={{ marginLeft: '10px' }}>{program.name}</span>
-      </DropdownItem>
-    ))
-  ;
-
-  render() {
-    // let value = this.props.displayValue
-    // if(this.props.dirty){
-    //   value = (<span>&#8226;{this.props.displayValue}</span>)
-    // }
-
-    return (
-      <div className="editor-language-dropdown">
-        <Dropdown
-          isOpen={this.state.dropdownOpen}
-          toggle={() => this.toggleHandler(this.state.dropdownOpen)}
-        >
-          {/* HACK: disables the colors entirely, makes the dropdown transparent */}
-          <DropdownToggle className="btn-language-dropdown" color="" caret>
-            <div className="editor-language-dropdown-closed-content">
-              <FontAwesomeIcon icon={this.props.currentLanguage.icon} fixedWidth />
-              {' '}
-              {this.props.displayValue}
-            </div>
-          </DropdownToggle>
-          <DropdownMenu>{this.renderDropdownItems()}</DropdownMenu>
-        </Dropdown>
-      </div>
-    );
-  }
-}
+  return (
+    <div className={dropDownParentClass}>
+      <Dropdown isOpen={dropdownOpen} toggle={() => toggleHandler(dropdownOpen)}>
+        <DropdownToggle caret {...toggleProps}>
+          <div className={dropDownItemClass}>
+            <FontAwesomeIcon icon={icon} fixedWidth />
+            {displayValue}
+          </div>
+        </DropdownToggle>
+        <DropdownMenu>{renderDropdownItems()}</DropdownMenu>
+      </Dropdown>
+    </div>
+  );
+};
+export default DropdownButton;

@@ -1,17 +1,16 @@
 import React from 'react';
 import ReactModal from 'react-modal';
-import {
-  Button, Container, Row, Col, FormGroup, Label, Input,
-} from 'reactstrap';
+import { Button, Container, Row, Col, FormGroup, Label, Input } from 'reactstrap';
 
 import * as fetch from '../../../lib/fetch.js';
 import ImageSelector from '../../common/ImageSelector';
 import { SketchThumbnailArray, LanguageDropdownValues } from '../constants';
-import DropdownButton from './DropdownButton';
-
+import DropdownButton from '../../common/DropdownButton.js';
 import '../../../styles/SketchesModal.scss';
 
 class EditSketchModal extends React.Component {
+  toggleProps = { className: '', color: 'primary', size: 'lg' };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -36,6 +35,10 @@ class EditSketchModal extends React.Component {
       onThumbnails: false,
       disableSubmit: false,
     });
+  };
+
+  changeLanguage = (lang) => {
+    this.setState({ newLanguage: lang });
   };
 
   // Next two bad____input are copied (and slightly modified) from create sketch modal
@@ -67,8 +70,8 @@ class EditSketchModal extends React.Component {
     let notFound = true;
     for (let i = 0; i < LanguageDropdownValues.length; i++) {
       if (
-        this.state.newLanguage.display === LanguageDropdownValues[i].display
-        && this.state.newLanguage.value === LanguageDropdownValues[i].value
+        this.state.newLanguage.display === LanguageDropdownValues[i].display &&
+        this.state.newLanguage.value === LanguageDropdownValues[i].value
       ) {
         notFound = false;
         break;
@@ -192,13 +195,15 @@ class EditSketchModal extends React.Component {
             </Col>
             <Col xs="8" className="d-flex align-items-center">
               <DropdownButton
-                dropdownItems={LanguageDropdownValues}
-                onSelect={(lang) => this.setState({ newLanguage: lang })}
                 displayValue={
                   this.state.newLanguage !== -1
                     ? this.state.newLanguage.display
                     : this.props.sketchLang
                 }
+                displayClass={'sketches'}
+                toggleProps={this.toggleProps}
+                onSelect={this.changeLanguage}
+                DropdownItems={LanguageDropdownValues}
               />
             </Col>
           </Row>
@@ -265,29 +270,28 @@ class EditSketchModal extends React.Component {
       >
         <img
           src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${val}.svg`}
-          className={
-            `sketches-gallery-img${this.state.newThumbnail === index ? '-selected' : ''}`
-          }
+          className={`sketches-gallery-img${this.state.newThumbnail === index ? '-selected' : ''}`}
           alt="icon"
         />
       </figure>
     ));
 
-    const thumbnailPreview = this.state.newThumbnail !== -1 ? (
-      <img
-        src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${
-          SketchThumbnailArray[this.state.newThumbnail]
-        }.svg`}
-        className="sketches-modal-header-thumbnail"
-        alt="icon"
-      />
-    ) : (
-      <img
-        src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${this.props.sketchImg}.svg`}
-        className="sketches-modal-header-thumbnail"
-        alt="icon"
-      />
-    );
+    const thumbnailPreview =
+      this.state.newThumbnail !== -1 ? (
+        <img
+          src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${
+            SketchThumbnailArray[this.state.newThumbnail]
+          }.svg`}
+          className="sketches-modal-header-thumbnail"
+          alt="icon"
+        />
+      ) : (
+        <img
+          src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${this.props.sketchImg}.svg`}
+          className="sketches-modal-header-thumbnail"
+          alt="icon"
+        />
+      );
     return (
       <ImageSelector
         isOpen={this.props.isOpen}
@@ -307,8 +311,7 @@ class EditSketchModal extends React.Component {
               block
             >
               Back
-            </Button>
-            {' '}
+            </Button>{' '}
           </Col>
         </Row>
       </ImageSelector>
