@@ -35,13 +35,28 @@ import Switch from './Switch';
  */
 
 function ProfilePanel(props) {
+  //Props
+  const {
+    photoName,
+    setPhotoName,
+    displayName,
+    setDisplayName,
+    contentType,
+    theme,
+    onThemeChange,
+    togglePanel,
+    left,
+    screenHeight,
+    uid,
+  } = props;
+
   //States
   const [nameIsHovering, setNameHover] = useState(false);
   const [imageIsHovering, setImageHover] = useState(false);
   const [editingName, setEditingName] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [nameSubmitted, setNameSubmitted] = useState(false);
-  const [name, setName] = useState(props.displayName);
+  const [name, setName] = useState(displayName);
   const [selectedImage, setSelectedImage] = useState('');
   const [displayNameMessage, setDisplayNameMessage] = useState('');
   const [error, setError] = useState('');
@@ -49,7 +64,7 @@ function ProfilePanel(props) {
   //State Changing functions
   const handleOpenModal = () => {
     setShowModal(true);
-    setSelectedImage(props.photoName);
+    setSelectedImage(photoName);
   };
 
   const handleCloseModal = () => {
@@ -61,11 +76,6 @@ function ProfilePanel(props) {
     setEditingName(true);
   };
 
-  //Function not used
-  const handleEditImageClick = () => {
-    setShowModal(true);
-  };
-
   const onNameChange = (e) => {
     setName(e.target.value);
   };
@@ -75,11 +85,11 @@ function ProfilePanel(props) {
 
     const { ok, message } = isValidDisplayName(name);
     if (!ok) {
-      setName(props.displayName);
+      setName(displayName);
       setEditingName(true);
       setDisplayNameMessage(message);
     } else {
-      props.setDisplayName(name);
+      setDisplayName(name);
       setEditingName(false);
       setNameSubmitted(true);
       setDisplayNameMessage('');
@@ -95,7 +105,7 @@ function ProfilePanel(props) {
    */
   const onImageSubmit = () => {
     // SEND IMAGE NAME TO BACKEND, CHANGE IMAGE
-    props.setPhotoName(selectedImage);
+    setPhotoName(selectedImage);
     handleCloseModal();
     setSelectedImage('');
   };
@@ -121,7 +131,7 @@ function ProfilePanel(props) {
       <img
         className="panel-image"
         // needs to be edited to use profile image name
-        src={PHOTO_NAMES[props.photoName] || PHOTO_NAMES[DEFAULT_PHOTO_NAME]}
+        src={PHOTO_NAMES[photoName] || PHOTO_NAMES[DEFAULT_PHOTO_NAME]}
         alt="Your profile"
       />
       {imageIsHovering && (
@@ -182,7 +192,7 @@ function ProfilePanel(props) {
           onMouseLeave={() => setNameHover(false)}
           onClick={handleEditNameClick}
         >
-          <div className="panel-name-text">{props.displayName || 'Joe Bruin'}</div>
+          <div className="panel-name-text">{displayName || 'Joe Bruin'}</div>
           {nameIsHovering && (
             <button className="edit-icon-image" onClick={handleEditNameClick}>
               <FontAwesomeIcon icon={faEdit} />
@@ -199,7 +209,7 @@ function ProfilePanel(props) {
         <input
           autoFocus
           className="panel-edit"
-          placeholder={props.displayName}
+          placeholder={displayName}
           onChange={onNameChange}
           value={name}
           onBlur={onNameSubmit}
@@ -248,9 +258,7 @@ function ProfilePanel(props) {
 
   const renderButtons = () => {
     const panelButtons = [];
-    switch (
-      props.contentType //props need to be passed contentType
-    ) {
+    switch (contentType) {
       case 'sketches':
         panelButtons.push(renderEditorButton());
         break;
@@ -267,12 +275,12 @@ function ProfilePanel(props) {
 
   const renderThemeSwitch = () => {
     const onToggle = (on) => {
-      props.onThemeChange(on ? 'light' : 'dark');
+      onThemeChange(on ? 'light' : 'dark');
     };
 
     return (
       <Switch
-        on={props.theme === 'dark'}
+        on={theme === 'dark'}
         onToggle={onToggle}
         onImg={<FontAwesomeIcon icon={faMoon} className="icon-dark" />}
         offImg={<FontAwesomeIcon icon={faSun} className="icon-light" />}
@@ -326,20 +334,20 @@ function ProfilePanel(props) {
   );
 
   const renderCollapseButton = () => (
-    <div className="panel-collapse-button" onClick={props.togglePanel}>
+    <div className="panel-collapse-button" onClick={togglePanel}>
       <FontAwesomeIcon icon={faTimes} />
     </div>
   );
 
   const panelStyle = {
-    left: props.left,
-    height: props.screenHeight,
+    left: left,
+    height: screenHeight,
     width: PANEL_SIZE,
   };
   return (
     <div className="panel" style={panelStyle}>
       {renderCollapseButton()}
-      {props.uid ? renderContent() : renderLoggedOutContent()}
+      {uid ? renderContent() : renderLoggedOutContent()}
       <Footer />
     </div>
   );
