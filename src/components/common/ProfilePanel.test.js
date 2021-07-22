@@ -63,9 +63,9 @@ describe('ProfilePanel', () => {
     expect(component.find('.panel-image').get(0).props.src).toBe(PHOTO_NAMES[DEFAULT_PHOTO_NAME]);
 
     // hover over the panel image
-    expect(component.find('.image-edit-button')).toBe(null);
+    expect(component.find('.image-edit-button').exists()).toBe(false);
     component.find('.panel-image-container').simulate('mouseenter');
-    expect(component.find('.image-edit-button')).toBe(true);
+    expect(component.find('.image-edit-button').exists()).toBe(true);
 
     // click the pencil icon (opens modal)
     expect(component.state().showModal).toBe(false);
@@ -88,9 +88,9 @@ describe('ProfilePanel', () => {
     // expect(clickFn.mock.calls[0][0] == Object.keys(PHOTO_NAMES)[3]);
 
     // unhover the panel image
-    expect(component.find('.image-edit-button')).toBe(true);
+    expect(component.find('.image-edit-button').exists()).toBe(true);
     component.find('.panel-image-container').simulate('mouseleave');
-    expect(component.find('.image-edit-button')).toBe(false);
+    expect(component.find('.image-edit-button').exists()).toBe(false);
   });
 
   it('changing the display name works', () => {
@@ -102,9 +102,9 @@ describe('ProfilePanel', () => {
     expect(component.find('.panel-name-text').text()).toBe('Mark');
 
     // hover over the panel name
-    expect(component.find('.edit-icon-image')).toBe(null);
+    expect(component.find('.edit-icon-image').exists()).toBe(false);
     component.find('.panel-name').simulate('mouseenter');
-    expect(component.find('.edit-icon-image')).toBe(true);
+    expect(component.find('.edit-icon-image').exists()).toBe(true);
 
     // click the pencil icon (changes to input)
     expect(component.state().editingName).toBe(false);
@@ -133,9 +133,9 @@ describe('ProfilePanel', () => {
     expect(component.state().displayNameMessage).toBe('');
 
     // unhover the panel name
-    expect(component.find('.edit-icon-image')).toBe(true);
+    expect(component.find('.edit-icon-image').exists()).toBe(true);
     component.find('.panel-name').simulate('mouseleave');
-    expect(component.find('.edit-icon-image')).toBe(false);
+    expect(component.find('.edit-icon-image').exists()).toBe(false);
   });
 
   // TODO:
