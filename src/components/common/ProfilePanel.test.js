@@ -63,7 +63,7 @@ describe('ProfilePanel', () => {
     expect(component.find('.panel-image').get(0).props.src).toBe(PHOTO_NAMES[DEFAULT_PHOTO_NAME]);
 
     // hover over the panel image
-    expect(component.find('.image-edit-button')).toBe(false);
+    expect(component.find('.image-edit-button')).toBe(null);
     component.find('.panel-image-container').simulate('mouseenter');
     expect(component.find('.image-edit-button')).toBe(true);
 
@@ -102,7 +102,7 @@ describe('ProfilePanel', () => {
     expect(component.find('.panel-name-text').text()).toBe('Mark');
 
     // hover over the panel name
-    expect(component.find('.edit-icon-image')).toBe(false);
+    expect(component.find('.edit-icon-image')).toBe(null);
     component.find('.panel-name').simulate('mouseenter');
     expect(component.find('.edit-icon-image')).toBe(true);
 
