@@ -9,7 +9,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/react-fontawesome": "^0.1.15",
     "bootstrap": ">=4.6.0",
-    "codemirror": "^5.62.2",
+    "codemirror": "^5.62.3",
     "cross-env": "^7.0.3",
     "crypto-js": "^4.1.1",
     "firebase": "^8.8.1",
