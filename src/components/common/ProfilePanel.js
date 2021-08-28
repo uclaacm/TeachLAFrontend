@@ -192,7 +192,7 @@ function ProfilePanel(props) {
           onMouseLeave={() => setNameHover(false)}
           onClick={handleEditNameClick}
         >
-          <div className="panel-name-text">{displayName || 'Joe Bruin'}</div>
+          <div className="panel-name-text">{name || 'Joe Bruin'}</div>
           {nameIsHovering && (
             <button className="edit-icon-image" onClick={handleEditNameClick}>
               <FontAwesomeIcon icon={faEdit} />

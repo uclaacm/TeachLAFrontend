@@ -68,10 +68,8 @@ describe('ProfilePanel', () => {
     expect(component.find('.image-edit-button').exists()).toBe(true);
 
     // click the pencil icon (opens modal)
-    expect(component.state().showModal).toBe(false);
     expect(component.find('.image-selector').prop('isOpen')).toEqual(false);
     component.find('.image-edit-button').simulate('click');
-    expect(component.state().showModal).toBe(true);
     expect(component.find('.image-selector').prop('isOpen')).toEqual(true);
 
     // //select an option, check if state updates
@@ -107,14 +105,14 @@ describe('ProfilePanel', () => {
     expect(component.find('.edit-icon-image').exists()).toBe(true);
 
     // click the pencil icon (changes to input)
-    expect(component.state().editingName).toBe(false);
+    expect(component.find('.panel-edit-container').exists()).toBe(false);
     component.find('.edit-icon-image').simulate('click');
-    expect(component.state().editingName).toBe(true);
+    // expect(component.state().editingName).toBe(true);
     expect(component.find('.panel-edit-container')).toHaveLength(1);
 
     // check the input value starts as 'Mark', type in the input 'Not Mark',
     // check that the input value and state changes to 'Not Mark'
-    expect(component.state().name).toBe('Mark');
+    // expect(component.state().name).toBe('Mark');
     expect(component.find('.panel-edit').props().value).toBe('Mark');
     component.find('.panel-edit').simulate('change', {
       target: {
@@ -122,15 +120,15 @@ describe('ProfilePanel', () => {
       },
     });
     expect(component.find('.panel-edit').props().value).toBe('Not Mark');
-    expect(component.state().name).toBe('Not Mark');
+    // expect(component.state().name).toBe('Not Mark');
 
     // submit change
     component.find('.panel-edit-container').simulate('submit', { preventDefault: () => {} });
-    expect(component.state().showModal).toBe(false);
+    expect(component.find('.image-selector').prop('isOpen')).toEqual(false);
     expect(clickFn.mock.calls[0][0]).toBe('Not Mark');
-    expect(component.state().name).toBe('Not Mark');
-    expect(component.state().editingName).toBe(false);
-    expect(component.state().displayNameMessage).toBe('');
+    expect(component.find('.panel-name').exists()).toBe(true);
+    expect(component.find('.panel-name-text').text()).toBe('Not Mark');
+    expect(component.find('.profile-input-error').exists()).toBe(false);
 
     // unhover the panel name
     expect(component.find('.edit-icon-image').exists()).toBe(true);
