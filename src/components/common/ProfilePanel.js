@@ -59,7 +59,7 @@ function ProfilePanel(props) {
   const [name, setName] = useState(displayName);
   const [selectedImage, setSelectedImage] = useState('');
   const [displayNameMessage, setDisplayNameMessage] = useState('');
-  const [error, setError] = useState('');
+  const [error, setError] = useState(''); // setError is never used
 
   //State Changing functions
   const handleOpenModal = () => {
