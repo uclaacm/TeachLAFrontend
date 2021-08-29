@@ -216,6 +216,7 @@ class TextEditor extends React.Component {
   renderBanner = () => {
     const thumbnail =
       SketchThumbnailArray[this.props.viewOnly ? this.props.vthumbnail : this.props.thumbnail];
+    console.log(thumbnail);
     return (
       <div className="code-section-banner">
         <OpenPanelButtonContainer />
