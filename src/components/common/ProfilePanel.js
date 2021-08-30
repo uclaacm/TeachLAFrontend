@@ -1,11 +1,19 @@
 import {
-  faBook, faCheckSquare, faEdit, faPencilAlt, faSignOutAlt, faMoon, faSun, faTimes, faUserCircle,
+  faBook,
+  faCheckSquare,
+  faEdit,
+  faPencilAlt,
+  faSignOutAlt,
+  faMoon,
+  faSun,
+  faTimes,
+  faUserCircle,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { Row, Col, Button } from 'reactstrap';
@@ -26,58 +34,67 @@ import Switch from './Switch';
  * togglePanel: function to be called when the panel is collapsed or opened
  */
 
-class ProfilePanel extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      nameIsHovering: false,
-      imageIsHovering: false,
-      editingName: false,
-      showModal: false,
-      nameSubmitted: false,
-      name: this.props.displayName,
-      selectedImage: '',
-      displayNameMessage: '',
-    };
-  }
+function ProfilePanel(props) {
+  //Props
+  const {
+    photoName,
+    setPhotoName,
+    displayName,
+    setDisplayName,
+    contentType,
+    theme,
+    onThemeChange,
+    togglePanel,
+    left,
+    screenHeight,
+    uid,
+  } = props;
 
-  handleOpenModal = () => {
-    this.setState({ showModal: true, selectedImage: this.props.photoName });
+  //States
+  const [nameIsHovering, setNameHover] = useState(false);
+  const [imageIsHovering, setImageHover] = useState(false);
+  const [editingName, setEditingName] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [nameSubmitted, setNameSubmitted] = useState(false);
+  const [name, setName] = useState(displayName);
+  const [selectedImage, setSelectedImage] = useState('');
+  const [displayNameMessage, setDisplayNameMessage] = useState('');
+  const [error, setError] = useState(''); // setError is never used
+
+  //State Changing functions
+  const handleOpenModal = () => {
+    setShowModal(true);
+    setSelectedImage(photoName);
   };
 
-  handleCloseModal = () => {
-    this.setState({ selectedImage: '', showModal: false });
+  const handleCloseModal = () => {
+    setSelectedImage('');
+    setShowModal(false);
   };
 
-  handleEditNameClick = () => {
-    this.setState({ editingName: true });
+  const handleEditNameClick = () => {
+    setEditingName(true);
   };
 
-  handleEditImageClick = () => {
-    this.setState({ showModal: true });
+  const onNameChange = (e) => {
+    setName(e.target.value);
   };
 
-  onNameChange = (e) => {
-    this.setState({ name: e.target.value });
-  };
-
-  onNameSubmit = (e) => {
+  const onNameSubmit = (e) => {
     e.preventDefault();
 
-    const { ok, message } = isValidDisplayName(this.state.name);
+    const { ok, message } = isValidDisplayName(name);
     if (!ok) {
-      this.setState({
-        name: this.props.displayName,
-        editingName: true,
-        displayNameMessage: message,
-      });
+      setName(displayName);
+      setEditingName(true);
+      setDisplayNameMessage(message);
     } else {
-      this.props.setDisplayName(this.state.name);
-      this.setState({ editingName: false, nameSubmitted: true, displayNameMessage: '' });
+      setDisplayName(name);
+      setEditingName(false);
+      setNameSubmitted(true);
+      setDisplayNameMessage('');
       setTimeout(() => {
-        this.setState({
-          nameSubmitted: false,
-        });
+        setNameSubmitted(false);
       }, 500);
     }
   };
@@ -86,14 +103,14 @@ class ProfilePanel extends React.Component {
    * dispatches Redux action that changes current photo to new photo, and updates backend;
    * closes the modal; resets the state
    */
-  onImageSubmit = () => {
+  const onImageSubmit = () => {
     // SEND IMAGE NAME TO BACKEND, CHANGE IMAGE
-    this.props.setPhotoName(this.state.selectedImage);
-    this.handleCloseModal();
-    this.setState({ selectedImage: '' });
+    setPhotoName(selectedImage);
+    handleCloseModal();
+    setSelectedImage('');
   };
 
-  renderErrorMessage = (msg, addBreak) => {
+  const renderErrorMessage = (msg, addBreak) => {
     if (msg) {
       return (
         <span>
@@ -105,47 +122,47 @@ class ProfilePanel extends React.Component {
     return addBreak ? <br /> : null;
   };
 
-  renderPanelImage = () => (
+  const renderPanelImage = () => (
     <div
       className="panel-image-container"
-      onMouseEnter={() => this.setState({ imageIsHovering: true })}
-      onMouseLeave={() => this.setState({ imageIsHovering: false })}
+      onMouseEnter={() => setImageHover(true)}
+      onMouseLeave={() => setImageHover(false)}
     >
       <img
         className="panel-image"
         // needs to be edited to use profile image name
-        src={PHOTO_NAMES[this.props.photoName] || PHOTO_NAMES[DEFAULT_PHOTO_NAME]}
+        src={PHOTO_NAMES[photoName] || PHOTO_NAMES[DEFAULT_PHOTO_NAME]}
         alt="Your profile"
       />
-      {this.state.imageIsHovering && (
-        <button className="image-edit-button" onClick={this.handleOpenModal}>
+      {imageIsHovering && (
+        <button className="image-edit-button" onClick={handleOpenModal}>
           <FontAwesomeIcon icon={faEdit} />
         </button>
       )}
     </div>
   );
 
-  onImageClick = (name) => {
-    this.setState({ selectedImage: name });
+  const onImageClick = (name) => {
+    setSelectedImage(name);
   };
 
-  renderImageModal = () => {
+  const renderImageModal = () => {
     const names = Object.keys(PHOTO_NAMES);
     const icons = names.map((val) => (
-      <figure className="gallery-item" key={val} onClick={() => this.onImageClick(val)}>
+      <figure className="gallery-item" key={val} onClick={() => onImageClick(val)}>
         <img
           src={PHOTO_NAMES[val]}
-          className={`gallery-img${this.state.selectedImage === val ? '-selected' : ''}`}
+          className={`gallery-img${selectedImage === val ? '-selected' : ''}`}
           alt="icon"
         />
       </figure>
     ));
     return (
       <ImageSelector
-        isOpen={this.state.showModal}
-        closeModal={this.handleCloseModal}
+        isOpen={showModal}
+        closeModal={handleCloseModal}
         icons={icons}
-        error={this.state.error}
+        error={error}
         maxWidth={PANEL_IMAGE_SELECTOR_SIZE}
         className="image-selector"
       >
@@ -154,7 +171,7 @@ class ProfilePanel extends React.Component {
             <Button
               color="success"
               size="lg"
-              onClick={this.onImageSubmit}
+              onClick={onImageSubmit}
               id="modal-change-image-button"
               block
             >
@@ -166,45 +183,42 @@ class ProfilePanel extends React.Component {
     );
   };
 
-  renderName = () => {
-    if (!this.state.editingName) {
+  const renderName = () => {
+    if (!editingName) {
       return (
         <div
           className="panel-name"
-          onMouseEnter={() => this.setState({ nameIsHovering: true })}
-          onMouseLeave={() => this.setState({ nameIsHovering: false })}
-          onClick={this.handleEditNameClick}
+          onMouseEnter={() => setNameHover(true)}
+          onMouseLeave={() => setNameHover(false)}
+          onClick={handleEditNameClick}
         >
-          <div className="panel-name-text">{this.props.displayName || 'Joe Bruin'}</div>
-          {this.state.nameIsHovering && (
-            <button className="edit-icon-image" onClick={this.handleEditNameClick}>
+          <div className="panel-name-text">{name || 'Joe Bruin'}</div>
+          {nameIsHovering && (
+            <button className="edit-icon-image" onClick={handleEditNameClick}>
               <FontAwesomeIcon icon={faEdit} />
             </button>
           )}
-          <div
-            className="submitted-icon-image"
-            style={{ opacity: +(this.state.nameSubmitted ? '1' : '0') }}
-          >
+          <div className="submitted-icon-image" style={{ opacity: +(nameSubmitted ? '1' : '0') }}>
             <FontAwesomeIcon icon={faCheckSquare} />
           </div>
         </div>
       );
     }
     return (
-      <form className="panel-edit-container" onSubmit={this.onNameSubmit}>
+      <form className="panel-edit-container" onSubmit={onNameSubmit}>
         <input
           autoFocus
           className="panel-edit"
-          placeholder={this.props.displayName}
-          onChange={this.onNameChange}
-          value={this.state.name}
-          onBlur={this.onNameSubmit}
+          placeholder={displayName}
+          onChange={onNameChange}
+          value={name}
+          onBlur={onNameSubmit}
         />
       </form>
     );
   };
 
-  renderEditorButton = () => (
+  const renderEditorButton = () => (
     <Link
       to={{ pathname: '/editor' }}
       className="panel-button btn btn-secondary btn-lg btn-block"
@@ -216,7 +230,7 @@ class ProfilePanel extends React.Component {
     </Link>
   );
 
-  renderSketchesButton = () => (
+  const renderSketchesButton = () => (
     <Link
       to={{ pathname: '/sketches' }}
       className="panel-button btn btn-secondary btn-lg btn-block"
@@ -228,7 +242,7 @@ class ProfilePanel extends React.Component {
     </Link>
   );
 
-  renderSignOutButton = () => (
+  const renderSignOutButton = () => (
     <Button
       className="panel-button"
       key="sign-out-button"
@@ -242,31 +256,31 @@ class ProfilePanel extends React.Component {
     </Button>
   );
 
-  renderButtons = () => {
+  const renderButtons = () => {
     const panelButtons = [];
-    switch (this.props.contentType) {
-    case 'sketches':
-      panelButtons.push(this.renderEditorButton());
-      break;
-    case 'editor':
-    default:
-      panelButtons.push(this.renderSketchesButton());
-      break;
+    switch (contentType) {
+      case 'sketches':
+        panelButtons.push(renderEditorButton());
+        break;
+      case 'editor':
+      default:
+        panelButtons.push(renderSketchesButton());
+        break;
     }
 
-    panelButtons.push(this.renderSignOutButton());
+    panelButtons.push(renderSignOutButton());
 
     return <div className="panel-buttons">{panelButtons}</div>;
   };
 
-  renderThemeSwitch = () => {
+  const renderThemeSwitch = () => {
     const onToggle = (on) => {
-      this.props.onThemeChange(on ? 'light' : 'dark');
+      onThemeChange(on ? 'light' : 'dark');
     };
 
     return (
       <Switch
-        on={this.props.theme === 'dark'}
+        on={theme === 'dark'}
         onToggle={onToggle}
         onImg={<FontAwesomeIcon icon={faMoon} className="icon-dark" />}
         offImg={<FontAwesomeIcon icon={faSun} className="icon-light" />}
@@ -274,7 +288,7 @@ class ProfilePanel extends React.Component {
     );
   };
 
-  renderLoginButton = () => (
+  const renderLoginButton = () => (
     <Link
       to={{ pathname: '/login' }}
       className="panel-button btn btn-secondary btn-lg btn-block"
@@ -286,7 +300,7 @@ class ProfilePanel extends React.Component {
     </Link>
   );
 
-  renderCreateUserButton = () => (
+  const renderCreateUserButton = () => (
     <Link
       to={{ pathname: '/createUser' }}
       className="panel-button btn btn-secondary btn-lg btn-block"
@@ -298,47 +312,45 @@ class ProfilePanel extends React.Component {
     </Link>
   );
 
-  renderLoggedOutContent = () => (
+  const renderLoggedOutContent = () => (
     <div className="panel-content">
       <div className="panel-buttons">
-        {this.renderLoginButton()}
-        {this.renderCreateUserButton()}
+        {renderLoginButton()}
+        {renderCreateUserButton()}
       </div>
-      {this.renderThemeSwitch()}
+      {renderThemeSwitch()}
     </div>
   );
 
-  renderContent = () => (
+  const renderContent = () => (
     <div className="panel-content">
-      {this.renderPanelImage()}
-      {this.renderImageModal()}
-      {this.renderName()}
-      {this.renderErrorMessage(this.state.displayNameMessage)}
-      {this.renderButtons()}
-      {this.renderThemeSwitch()}
+      {renderPanelImage()}
+      {renderImageModal()}
+      {renderName()}
+      {renderErrorMessage(displayNameMessage)}
+      {renderButtons()}
+      {renderThemeSwitch()}
     </div>
   );
 
-  renderCollapseButton = () => (
-    <div className="panel-collapse-button" onClick={this.props.togglePanel}>
+  const renderCollapseButton = () => (
+    <div className="panel-collapse-button" onClick={togglePanel}>
       <FontAwesomeIcon icon={faTimes} />
     </div>
   );
 
-  render() {
-    const panelStyle = {
-      left: this.props.left,
-      height: this.props.screenHeight,
-      width: PANEL_SIZE,
-    };
-    return (
-      <div className="panel" style={panelStyle}>
-        {this.renderCollapseButton()}
-        {this.props.uid ? this.renderContent() : this.renderLoggedOutContent()}
-        <Footer />
-      </div>
-    );
-  }
+  const panelStyle = {
+    left: left,
+    height: screenHeight,
+    width: PANEL_SIZE,
+  };
+  return (
+    <div className="panel" style={panelStyle}>
+      {renderCollapseButton()}
+      {uid ? renderContent() : renderLoggedOutContent()}
+      <Footer />
+    </div>
+  );
 }
 
 export default ProfilePanel;

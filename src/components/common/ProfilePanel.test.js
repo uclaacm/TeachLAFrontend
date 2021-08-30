@@ -63,15 +63,13 @@ describe('ProfilePanel', () => {
     expect(component.find('.panel-image').get(0).props.src).toBe(PHOTO_NAMES[DEFAULT_PHOTO_NAME]);
 
     // hover over the panel image
-    expect(component.state().imageIsHovering).toBe(false);
+    expect(component.find('.image-edit-button').exists()).toBe(false);
     component.find('.panel-image-container').simulate('mouseenter');
-    expect(component.state().imageIsHovering).toBe(true);
+    expect(component.find('.image-edit-button').exists()).toBe(true);
 
     // click the pencil icon (opens modal)
-    expect(component.state().showModal).toBe(false);
     expect(component.find('.image-selector').prop('isOpen')).toEqual(false);
     component.find('.image-edit-button').simulate('click');
-    expect(component.state().showModal).toBe(true);
     expect(component.find('.image-selector').prop('isOpen')).toEqual(true);
 
     // //select an option, check if state updates
@@ -88,9 +86,9 @@ describe('ProfilePanel', () => {
     // expect(clickFn.mock.calls[0][0] == Object.keys(PHOTO_NAMES)[3]);
 
     // unhover the panel image
-    expect(component.state().imageIsHovering).toBe(true);
+    expect(component.find('.image-edit-button').exists()).toBe(true);
     component.find('.panel-image-container').simulate('mouseleave');
-    expect(component.state().imageIsHovering).toBe(false);
+    expect(component.find('.image-edit-button').exists()).toBe(false);
   });
 
   it('changing the display name works', () => {
@@ -102,19 +100,17 @@ describe('ProfilePanel', () => {
     expect(component.find('.panel-name-text').text()).toBe('Mark');
 
     // hover over the panel name
-    expect(component.state().nameIsHovering).toBe(false);
+    expect(component.find('.edit-icon-image').exists()).toBe(false);
     component.find('.panel-name').simulate('mouseenter');
-    expect(component.state().nameIsHovering).toBe(true);
+    expect(component.find('.edit-icon-image').exists()).toBe(true);
 
     // click the pencil icon (changes to input)
-    expect(component.state().editingName).toBe(false);
+    expect(component.find('.panel-edit-container').exists()).toBe(false);
     component.find('.edit-icon-image').simulate('click');
-    expect(component.state().editingName).toBe(true);
     expect(component.find('.panel-edit-container')).toHaveLength(1);
 
     // check the input value starts as 'Mark', type in the input 'Not Mark',
     // check that the input value and state changes to 'Not Mark'
-    expect(component.state().name).toBe('Mark');
     expect(component.find('.panel-edit').props().value).toBe('Mark');
     component.find('.panel-edit').simulate('change', {
       target: {
@@ -122,20 +118,19 @@ describe('ProfilePanel', () => {
       },
     });
     expect(component.find('.panel-edit').props().value).toBe('Not Mark');
-    expect(component.state().name).toBe('Not Mark');
 
     // submit change
     component.find('.panel-edit-container').simulate('submit', { preventDefault: () => {} });
-    expect(component.state().showModal).toBe(false);
+    expect(component.find('.image-selector').prop('isOpen')).toEqual(false);
     expect(clickFn.mock.calls[0][0]).toBe('Not Mark');
-    expect(component.state().name).toBe('Not Mark');
-    expect(component.state().editingName).toBe(false);
-    expect(component.state().displayNameMessage).toBe('');
+    expect(component.find('.panel-name').exists()).toBe(true);
+    expect(component.find('.panel-name-text').text()).toBe('Not Mark');
+    expect(component.find('.profile-input-error').exists()).toBe(false);
 
     // unhover the panel name
-    expect(component.state().nameIsHovering).toBe(true);
+    expect(component.find('.edit-icon-image').exists()).toBe(true);
     component.find('.panel-name').simulate('mouseleave');
-    expect(component.state().nameIsHovering).toBe(false);
+    expect(component.find('.edit-icon-image').exists()).toBe(false);
   });
 
   // TODO:
