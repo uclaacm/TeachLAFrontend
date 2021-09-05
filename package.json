@@ -14,7 +14,6 @@
     "crypto-js": "^4.1.1",
     "firebase": "^8.8.1",
     "immutable": "^3.8.2",
-    "node-sass": "^5.0.0",
     "react": "^16.14.0",
     "react-codemirror2": "^7.2.1",
     "react-dom": "^16.14.0",
@@ -66,6 +65,7 @@
     "husky": "^7.0.2",
     "lint-staged": "^11.1.2",
     "prettier": "^2.3.2",
+    "sass": "^1.39.0",
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0",
     "stylelint-scss": "^3.20.1"
