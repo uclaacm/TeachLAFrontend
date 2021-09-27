@@ -299,6 +299,7 @@ class ClassPage extends React.Component {
           redirFunc={() => {
             this.setProgram(uid);
           }}
+          uid={uid}
         />,
       );
     });

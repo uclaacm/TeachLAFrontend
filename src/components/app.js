@@ -157,7 +157,7 @@ class App extends React.Component {
               path="/class"
               render={() =>
                 this.props.errorMsg !== "" ? (
-                  <Error errorMsg={this.props.errorMsg} isValidUser={isValidUser} returnTo="/" />
+                  <Error errorMsg={this.props.errorMsg} isValidUser={isValidUser} />
                 ) : isValidUser ? (
                   <MainContainer contentType="classPage" />
                 ) : (
@@ -170,7 +170,7 @@ class App extends React.Component {
               path="/classes"
               render={() =>
                 this.props.errorMsg !== "" ? (
-                  <Error errorMsg={this.props.errorMsg} isValidUser={isValidUser} returnTo="/" />
+                  <Error errorMsg={this.props.errorMsg} isValidUser={isValidUser} />
                 ) : isValidUser ? (
                   <MainContainer contentType="classes" />
                 ) : (
