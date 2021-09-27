@@ -51,10 +51,6 @@
 
 .sketch-button-divider {
   width: 1px;
-
-  @include themify($themes) {
-    border: 0.5px solid themed('cardDivider');
-  }
 }
 
 .sketch-name {
