@@ -156,7 +156,7 @@ class TextEditor extends React.Component {
     const data = {
       uid: this.props.uid,
       thumbnail: this.props.vthumbnail,
-      language: this.props.vlanguage,
+      language: (this.props.vlanguage || {}).value,
       name: this.props.sketchName,
       code: this.props.code,
     };
