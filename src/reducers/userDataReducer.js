@@ -70,7 +70,7 @@ function userDataReducer(state = initialState, action) {
     //     state.error = err;
     //     console.log(err);
     //   });
-    return Object.assign({}, state, { currentClass: action.value });
+    return { ...state, currentClass: action.value };
   default:
     return state;
   }

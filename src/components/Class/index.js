@@ -103,7 +103,7 @@ class ClassPage extends React.Component {
     console.log('about to get class with this data: ' + JSON.stringify(data));
     try {
       fetch
-        .getClass(data, true, this.state.isInstr)
+        .getClass(data, true, true)
         .then((res) => {
           if (!res.ok) throw new Error(`Error loading this class! Got status ${res.status}`);
           return res.classData;
@@ -118,14 +118,11 @@ class ClassPage extends React.Component {
             sketchIDs: json.programs, // List of IDs
             sketches: json.programData || [], // List of sketch objects
             students: json.members,
+            userData: json.userData || {},
             wid: json.wid,
             thumbnail: json.thumbnail,
           });
           // this.props.loadClass(classData);
-          // TODO: make a bulk add program action
-          (json.programData || []).forEach((data) => {
-            this.props.addProgram(data.uid, data);
-          });
         })
         .catch((err) => {
           this.setState({
@@ -212,18 +209,15 @@ class ClassPage extends React.Component {
       case 0:
         break;
       case 1:
-        instString = this.state.instructors[0];
+        instString = (this.state.userData[this.state.instructors[0]] || {}).displayName;
         break;
       case 2:
-        instString = this.state.instructors.join(' and ');
+        instString = this.state.instructors.map(id => (this.state.userData[id] || {}).displayName)
+                     .join(' and ');
         break;
       default:
-        for (let i = 0; i < this.state.instructors.length - 1; i++) {
-          instString += this.state.instructors[i];
-          instString += ', ';
-        }
-        instString += 'and ';
-        instString += this.state.instructors[this.state.instructors.length - 1];
+        instString = this.state.instructors.map(id => (this.state.userData[id] || {}).displayName)
+                     .join(', ');
     }
     return (
       <React.Fragment>
@@ -245,7 +239,7 @@ class ClassPage extends React.Component {
         title={'Students'}
         content={
           this.state.students
-            ? this.state.students.map((student) => student.name).join(', ')
+            ? this.state.students.map((student) => (this.state.userData[student] || {}).displayName).join(', ')
             : 'No students enrolled.'
         }
       />
