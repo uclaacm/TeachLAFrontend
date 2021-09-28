@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Button } from 'reactstrap';
 import OpenPanelButtonContainer from '../common/containers/OpenPanelButtonContainer';
-import SketchBox from './components/SketchBox';
+import SketchBox from '../common/SketchBox';
 import { ThumbnailArray } from "../../constants";
 import ConfirmDeleteModalContainer from './containers/ConfirmDeleteModalContainer';
 import CreateSketchModalContainer from './containers/CreateSketchModalContainer';

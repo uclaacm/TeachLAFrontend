@@ -9,11 +9,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 class ClassBox extends React.Component {
   render() {
     let leaveButton = this.props.showLeaveButton ? (
-      <Col className="class-box-body">
-        <Row className="p-2 text-center" onClick={this.props.deleteFunc}>
-          <FontAwesomeIcon className="fa-lg" icon={faTrashAlt} />
-        </Row>
-      </Col>
+      <div className="p-2 text-center" onClick={this.props.deleteFunc}>
+        <FontAwesomeIcon className="fa-lg" icon={faTrashAlt} />
+      </div>
     ) : (
       ""
     );

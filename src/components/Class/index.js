@@ -15,7 +15,7 @@ import ConfirmLeaveModalContainer from '../Classes/containers/ConfirmLeaveModalC
 import Error from '../Error';
 // For sketches list
 import { getInstructorString } from '../../util/classes';
-import SketchBox from './components/SketchBox';
+import SketchBox from '../common/SketchBox';
 import '../../styles/SketchBox.scss';
 import { ThumbnailArray } from '../../constants';
 import { enrichWithLanguageData } from '../../util/languages/languages';
