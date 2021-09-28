@@ -1,7 +1,6 @@
 import CreateSketchModal from "../../Sketches/components/CreateSketchModal.js";
 import { connect } from "react-redux";
-import { addProgram as addUserProgram } from "../../../actions/programsActions";
-import { addProgram as addClassProgram } from "../../../actions/classPageActions";
+import { addProgram } from "../../../actions/programsActions";
 import { setMostRecentProgram } from "../../../actions/userDataActions.js";
 
 const mapStateToProps = (state) => {
@@ -13,8 +12,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     addProgram: (program, data) => {
-      dispatch(addUserProgram(program, data));
-      dispatch(addClassProgram(program, data));
+      dispatch(addProgram(program, data));
     },
     setMostRecentProgram: (value) => dispatch(setMostRecentProgram(value)),
   };
