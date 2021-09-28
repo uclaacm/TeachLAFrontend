@@ -18,6 +18,7 @@ import { getInstructorString } from '../../util/classes';
 import SketchBox from './components/SketchBox';
 import '../../styles/SketchBox.scss';
 import { ThumbnailArray } from '../../constants';
+import { enrichWithLanguageData } from '../../util/languages/languages';
 import CodeDownloader from '../../util/languages/CodeDownloader';
 import CreateSketchModalContainer from './containers/CreateSketchModalContainer';
 
@@ -116,7 +117,7 @@ class ClassPage extends React.Component {
             instructors: json.instructors,
             isInstr: json.instructors.some((instrID) => instrID === this.props.uid),
             sketchIDs: json.programs, // List of IDs
-            sketches: json.programData || [], // List of sketch objects
+            sketches: enrichWithLanguageData(json.programData || []), // List of sketch objects
             students: json.members,
             userData: json.userData || {},
             wid: json.wid,
@@ -199,7 +200,7 @@ class ClassPage extends React.Component {
         <OpenPanelButtonContainer />
         <Link
           to={{ pathname: "/classes" }}
-          className="btn btn-secondary btn-lg btn-block"
+          className="btn btn-secondary btn-lg btn-block back-btn"
         >
           <FontAwesomeIcon icon={faArrowLeft} />
         </Link>

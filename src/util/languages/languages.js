@@ -61,6 +61,11 @@ export const getLanguageData = (lang) => ({
   ...SUPPORTED_LANGUAGES.find((data) => data.value === lang),
 });
 
+export const enrichWithLanguageData = (arr) => arr.map(sketch => ({
+  ...sketch,
+  language: getLanguageData(sketch.language),
+}));
+
 export const getJsSrcDocLoggingScript = () => `
 <script type="text/javascript">
   if (typeof console  != "undefined")
