@@ -39,6 +39,7 @@ const mapStateToProps = (state) => {
     onInstrView: state.ui.onInstrView,
     classList: state.userData.classes,
     uid: state.userData.uid,
+    username: state.userData.displayName,
   };
 };
 

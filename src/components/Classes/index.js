@@ -10,6 +10,7 @@ import "../../styles/ClassBox.scss";
 import "../../styles/Classes.scss";
 import "../../styles/Login.scss";
 import LoadingPage from "../common/LoadingPage";
+import { getInstructorString } from '../../util/classes';
 
 import { Button } from "reactstrap";
 
@@ -76,7 +77,7 @@ class Classes extends React.Component {
               cid: cid,
             };
             fetch
-              .getClass(data, false, false)
+              .getClass(data, false, true)
               .then((res) => {
                 if (!res.ok) throw new Error(`Error loading a class! Got status ${res.status}`);
                 console.log("res is:");
@@ -217,7 +218,7 @@ class Classes extends React.Component {
           key={element.cid}
           img={this.getThumbnailSrc(element.thumbnail)}
           name={element.name}
-          instructors={element.instructors}
+          instructorString={getInstructorString(element.instructors, element.userData, this.props.username)}
           showLeaveButton={!this.props.onInstrView}
           deleteFunc={() => {
             this.setConfirmLeaveModalOpen(true, element.name, element.cid);

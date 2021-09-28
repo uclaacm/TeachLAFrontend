@@ -12,6 +12,7 @@ import { faSignOutAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
 import ConfirmLeaveModalContainer from '../Classes/containers/ConfirmLeaveModalContainer';
 import Error from '../Error';
 // For sketches list
+import { getInstructorString } from '../../util/classes';
 import { faCogs } from '@fortawesome/free-solid-svg-icons';
 import { faPython } from '@fortawesome/free-brands-svg-icons';
 import { faHtml5 } from '@fortawesome/free-brands-svg-icons';
@@ -204,21 +205,7 @@ class ClassPage extends React.Component {
   };
 
   renderClassInfo = () => {
-    let instString = '';
-    switch (this.state.instructors.length) {
-      case 0:
-        break;
-      case 1:
-        instString = (this.state.userData[this.state.instructors[0]] || {}).displayName;
-        break;
-      case 2:
-        instString = this.state.instructors.map(id => (this.state.userData[id] || {}).displayName)
-                     .join(' and ');
-        break;
-      default:
-        instString = this.state.instructors.map(id => (this.state.userData[id] || {}).displayName)
-                     .join(', ');
-    }
+    const instString = getInstructorString(this.state.instructors, this.state.userData);
     return (
       <React.Fragment>
         <ClassInfoBox title={'Instructors'} content={instString} />
@@ -293,7 +280,7 @@ class ClassPage extends React.Component {
           redirFunc={() => {
             this.setProgram(uid);
           }}
-          uid={uid}
+          pathname={this.state.isInstr ? '/editor' : `/p/${uid}`}
         />,
       );
     });

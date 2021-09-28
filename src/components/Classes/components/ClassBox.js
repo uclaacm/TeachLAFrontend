@@ -7,12 +7,6 @@ import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class ClassBox extends React.Component {
-  // TODO: Change this to look up instructor name from uid
-  instructorString = (instructors) => {
-    if (instructors.length === 1) return "Instructor: ".concat(instructors[0]);
-    else return "Instructors: ".concat(instructors.join(", "));
-  };
-
   render() {
     let leaveButton = this.props.showLeaveButton ? (
       <Col className="class-box-body">
@@ -35,7 +29,7 @@ class ClassBox extends React.Component {
           <div className="class-info">
             <b className="fa-lg">{this.props.name}</b>
             <div className="fa-lg instructor-name">
-              {this.instructorString(this.props.instructors)}
+              {this.props.instructorString}
             </div>
           </div>
         </Link>

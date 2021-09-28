@@ -17,7 +17,7 @@ class SketchBox extends React.Component {
         <Link
           className="sketch-box-body"
           onClick={this.props.redirFunc}
-          to={{ pathname: `/p/${this.props.uid}` }}
+          to={{ pathname: this.props.pathname }}
         >
           <img
             alt={"User's sketch icon"}
