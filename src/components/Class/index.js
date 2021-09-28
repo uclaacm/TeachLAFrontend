@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from "react-router-dom";
+
 import * as fetch from '../../lib/fetch.js';
 import ClassInfoBox from './components/ClassInfoBox';
 import OpenPanelButtonContainer from '../common/containers/OpenPanelButtonContainer';
@@ -8,14 +10,11 @@ import LoadingPage from '../common/LoadingPage';
 import { Redirect } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignOutAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faSignOutAlt, faPlus, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import ConfirmLeaveModalContainer from '../Classes/containers/ConfirmLeaveModalContainer';
 import Error from '../Error';
 // For sketches list
 import { getInstructorString } from '../../util/classes';
-import { faCogs } from '@fortawesome/free-solid-svg-icons';
-import { faPython } from '@fortawesome/free-brands-svg-icons';
-import { faHtml5 } from '@fortawesome/free-brands-svg-icons';
 import SketchBox from './components/SketchBox';
 import '../../styles/SketchBox.scss';
 import { ThumbnailArray } from '../../constants';
@@ -198,6 +197,12 @@ class ClassPage extends React.Component {
     return (
       <div className="classes-header">
         <OpenPanelButtonContainer />
+        <Link
+          to={{ pathname: "/classes" }}
+          className="btn btn-secondary btn-lg btn-block"
+        >
+          <FontAwesomeIcon icon={faArrowLeft} />
+        </Link>
         <div className="classes-header-text">{this.state.name}</div>
         {leaveButton}
       </div>
@@ -256,23 +261,11 @@ class ClassPage extends React.Component {
     });
     let sketchList = [];
     newList.forEach(({ uid, name, language, thumbnail, code }) => {
-      let faLanguage;
-      switch (language) {
-        case 'python':
-          faLanguage = faPython;
-          break;
-        case 'processing':
-          faLanguage = faCogs;
-          break;
-        case 'html':
-        default:
-          faLanguage = faHtml5;
-      }
       sketchList.push(
         <SketchBox
           key={uid}
           img={this.getThumbnailSrc(thumbnail)}
-          icon={faLanguage}
+          icon={language.icon}
           name={name}
           downloadFunc={() => {
             CodeDownloader.download(name, language, code);
