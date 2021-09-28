@@ -12,6 +12,7 @@ import App from '../app.js';
 
 const mapStateToProps = (state) => ({
   uid: state.userData.uid,
+  developerAcc: state.userData.developerAcc,
   errorMsg: state.userData.error,
   screenWidth: state.ui.screenWidth,
   screenHeight: state.ui.screenHeight,

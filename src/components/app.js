@@ -158,10 +158,12 @@ class App extends React.Component {
               render={() =>
                 this.props.errorMsg !== "" ? (
                   <Error errorMsg={this.props.errorMsg} isValidUser={isValidUser} />
-                ) : isValidUser ? (
+                ) : !isValidUser ? (
+                  <Redirect to="/login" />
+                ) : this.props.developerAcc ? (
                   <MainContainer contentType="classPage" />
                 ) : (
-                  <Redirect to="/login" />
+                  <Redirect to="/sketches"/>
                 )
               }
             />
@@ -171,10 +173,12 @@ class App extends React.Component {
               render={() =>
                 this.props.errorMsg !== "" ? (
                   <Error errorMsg={this.props.errorMsg} isValidUser={isValidUser} />
-                ) : isValidUser ? (
+                ) : !isValidUser ? (
+                  <Redirect to="/login" />
+                ) : this.props.developerAcc ? (
                   <MainContainer contentType="classes" />
                 ) : (
-                  <Redirect to="/login" />
+                  <Redirect to="/sketches"/>
                 )
               }
             />
