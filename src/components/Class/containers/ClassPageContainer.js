@@ -8,6 +8,7 @@ import { OPEN_PANEL_LEFT, CLOSED_PANEL_LEFT, PANEL_SIZE } from '../../../constan
 const mapStateToProps = (state) => {
   const left = (state.ui.panelOpen ? OPEN_PANEL_LEFT : CLOSED_PANEL_LEFT) + PANEL_SIZE;
   const calculatedWidth = state.ui.screenWidth - (left || 0);
+  const cid = state.userData.currentClass;
 
   return {
     calculatedWidth,
@@ -16,7 +17,8 @@ const mapStateToProps = (state) => {
     screenHeight: state.ui.screenHeight,
     panelOpen: state.ui.panelOpen,
     uid: state.userData.uid,
-    cid: state.userData.currentClass,
+    cid,
+    classData: state.classes.instrClasses[cid] || state.classes.studentClasses[cid],
   };
 };
 

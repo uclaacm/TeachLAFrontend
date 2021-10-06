@@ -25,40 +25,6 @@ import CreateSketchModalContainer from './containers/CreateSketchModalContainer'
 const SKETCHES_ROW_PADDING = 100;
 const SKETCH_WIDTH = 220;
 
-// Test values
-// let sketches = [];
-// sketches.push({
-//   // key for my python sketch
-//   key: "QYZNoWd7HncnR1sR31MS",
-//   name: "Will's Python Sketch",
-//   language: "python",
-//   thumbnail: 14,
-//   code: "blah blah blah",
-// });
-// sketches.push({
-//   // this is the key for my html sketch
-//   key: "lx2jvbSqrTH2UhMhvdSh",
-//   name: "Some HTML",
-//   language: "html",
-//   thumbnail: 2,
-//   code: "<div>blah</div>",
-// });
-
-// let students = [];
-// students.push({
-//   key: "1",
-//   name: "Bob",
-// });
-// students.push({
-//   key: "2",
-//   name: "Jim",
-// });
-// students.push({
-//   key: "3",
-//   name: "Clark",
-// });
-// END test values
-
 class ClassPage extends React.Component {
   constructor(props) {
     super(props);
@@ -67,15 +33,6 @@ class ClassPage extends React.Component {
       error: '',
       confirmLeaveModalOpen: false,
       createSketchModalOpen: false,
-      // TEST VALUES
-      // thumbnail: 1,
-      // name: "Will's Class",
-      // instructors: ["Will O."],
-      // sketches: sketches,
-      // isInstr: true,
-      // students: students,
-      // wid: "Big Chunky Monkey",
-      // Real values
       thumbnail: 0,
       name: 'Class',
       instructors: [],
@@ -84,8 +41,6 @@ class ClassPage extends React.Component {
       isInstr: false,
       students: [],
       wid: '',
-      // Uncomment when description is implemented
-      // description: "",
     };
   }
 
