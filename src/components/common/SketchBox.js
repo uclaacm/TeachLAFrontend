@@ -43,8 +43,8 @@ class SketchBox extends React.Component {
         <Row className="sketch-box-body">
           {
             buttonData.filter(data => data.func)
-            .map(data => (
-              <Col className="p-2 text-center" onClick={data.func}>
+            .map((data, idx) => (
+              <Col className="p-2 text-center" onClick={data.func} key={idx}>
                 <FontAwesomeIcon className="fa-lg" icon={data.icon} />
               </Col>
             ))
