@@ -23,7 +23,7 @@ class Error extends React.Component {
             Let Us Know!
           </Button>
           &nbsp;
-          <Link to={this.props.returnTo ? this.props.returnTo : "/"}>
+          <Link to={this.props.returnTo || "/"}>
             <Button color="success" size="lg">
               Back to safety
             </Button>
