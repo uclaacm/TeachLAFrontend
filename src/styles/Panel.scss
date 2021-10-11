@@ -232,6 +232,7 @@
   flex-direction: row;
   font-size: 2em !important; /* reactstrap also has a !important somewhere, so we need to do this */
   justify-content: flex-start;
+  margin-bottom: 5px;
   text-align: left;
 
   @include themify($themes) {
