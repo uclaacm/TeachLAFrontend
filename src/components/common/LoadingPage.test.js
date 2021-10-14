@@ -1,4 +1,4 @@
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import React from 'react';
 import LoadingPage from './LoadingPage';
 
@@ -10,7 +10,6 @@ describe('LoadingPage', () => {
 
   it('should render correctly', () => {
     const component = shallow(<LoadingPage />);
-
     expect(component).toMatchSnapshot();
   });
 

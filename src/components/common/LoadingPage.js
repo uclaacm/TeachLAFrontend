@@ -22,12 +22,12 @@ const Loading = (props) => {
     },
     2000
   );
-
+  
   useEffect(() => {
     return () => {
       clearTimeout(timer);
     };
-  });
+  }, []);
 
   return (
     <div className="Loading">
