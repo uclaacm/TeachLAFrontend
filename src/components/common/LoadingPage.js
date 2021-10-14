@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { RingLoader } from 'react-spinners';
 import '../../styles/Loading.scss';
 import { GH_REPO_NAME } from '../../constants';
@@ -13,30 +13,27 @@ import { GH_REPO_NAME } from '../../constants';
     (give px units)
 */
 
-class Loading extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showHelpText: !!this.props.showHelpText,
+const Loading = (props) => {
+  const [showHelpText, setShowHelpText] = useState(props.showHelpText);
+
+  const timer = setTimeout(
+    () => {
+      setShowHelpText(true);
+    },
+    2000
+  );
+
+  useEffect(() => {
+    return () => {
+      clearTimeout(timer);
     };
-    this.timer = false;
-  }
+  });
 
-  componentDidMount = () => {
-    this.timer = setTimeout(() => {
-      this.setState({ showHelpText: true });
-    }, 2000);
-  }
-
-  componentWillUnmount = () => {
-    clearTimeout(this.timer);
-  }
-
-  render = () => (
+  return (
     <div className="Loading">
       <div className="Loading-title">Loading</div>
       <RingLoader color="#171124" size={250} loading />
-      {this.state.showHelpText && (
+      { showHelpText && (
         <p className="Loading-page-text" style={{ color: 'white' }}>
           Looks like loading is taking a bit long! If it takes too long, submit an issue on
           {' '}
@@ -48,7 +45,7 @@ class Loading extends React.Component {
         </p>
       )}
     </div>
-  );
+  )
 }
 
 export default Loading;
