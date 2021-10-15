@@ -14,6 +14,7 @@ import { DropdownItem } from 'reactstrap';
 import '../../../styles/SketchesModal.scss';
 
 const CreateSketchModal = (props) => {
+  const { onClose, uid, isOpen, addProgram, setMostRecentProgram } = props;
   const toggleProps = { className: '', color: 'primary', size: 'lg' };
 
   const [language, setLanguage] = useState(LanguageDropdownDefault);
@@ -25,8 +26,8 @@ const CreateSketchModal = (props) => {
   const [redirect, setRedirect] = useState(false);
 
   const closeModal = () => {
-    if (props.onClose && {}.toString.call(props.onClose) === '[object Function]') {
-      props.onClose();
+    if (onClose && {}.toString.call(onClose) === '[object Function]') {
+      onClose();
     }
 
     setNext(false);
@@ -37,10 +38,6 @@ const CreateSketchModal = (props) => {
     setDisableSubmit(false);
   };
 
-  const changeLanguage = (lang) => {
-    setLanguage(lang);
-  };
-
   const setNextHelper = (val) => {
     setNext(val);
     setError('');
@@ -49,7 +46,7 @@ const CreateSketchModal = (props) => {
 
   const onBack = () => setNextHelper(false);
 
-  const badThumbnailInput = () => {
+  const isBadThumbnailInput = () => {
     if (
       thumbnail === undefined ||
       thumbnail === '' ||
@@ -63,7 +60,7 @@ const CreateSketchModal = (props) => {
     return false;
   };
 
-  const badNameInput = () => {
+  const isBadNameInput = () => {
     if (!name) {
       setError('Name is required');
       return true;
@@ -80,33 +77,28 @@ const CreateSketchModal = (props) => {
     return false;
   };
 
-  const badLanguageInput = () => {
+  const isBadLanguageInput = () => {
     if (!language) {
       setError('Please select a language');
       return true;
     }
 
-    let notFound = true;
     for (let i = 0; i < LanguageDropdownValues.length; i++) {
       if (
         language.display === LanguageDropdownValues[i].display &&
         language.value === LanguageDropdownValues[i].value
       ) {
-        notFound = false;
-        break;
+        return false;
       }
     }
-    if (notFound) {
-      setError('Invalid language selected');
-      return true;
-    }
 
-    return false;
+    setError('Invalid language selected');
+    return true;
   };
 
   const onFirstSubmit = (e) => {
     e.preventDefault();
-    if (badNameInput() || badLanguageInput()) {
+    if (isBadNameInput() || isBadLanguageInput()) {
       return;
     }
     setNextHelper(true);
@@ -115,13 +107,13 @@ const CreateSketchModal = (props) => {
   const onSecondSubmit = async (e) => {
     e.preventDefault();
 
-    if (badThumbnailInput()) return;
+    if (isBadThumbnailInput()) return;
 
     const data = {
-      uid: props.uid,
-      thumbnail: thumbnail,
+      uid,
+      thumbnail,
       language: language.value,
-      name: name,
+      name,
       code: '',
     };
 
@@ -133,9 +125,9 @@ const CreateSketchModal = (props) => {
           return res.json();
         })
         .then((json) => {
-          const { uid, ...programData } = json;
-          props.addProgram(uid, programData || {});
-          props.setMostRecentProgram(uid);
+          const { id, ...programData } = json;
+          addProgram(id, programData || {});
+          setMostRecentProgram(id);
           setRedirect(true);
           closeModal();
         })
@@ -172,7 +164,7 @@ const CreateSketchModal = (props) => {
       ) : null;
     return (
       <ImageSelector
-        isOpen={props.isOpen}
+        isOpen={isOpen}
         closeModal={closeModal}
         thumbnailPreview={thumbnailPreview}
         icons={icons}
@@ -189,7 +181,7 @@ const CreateSketchModal = (props) => {
               color="success"
               onClick={onSecondSubmit}
               size="lg"
-              disabled={badThumbnailInput() || disableSubmit}
+              disabled={isBadThumbnailInput() || disableSubmit}
               block
             >
               Create
@@ -202,7 +194,7 @@ const CreateSketchModal = (props) => {
 
   const renderFirstModal = () => (
     <ReactModal
-      isOpen={props.isOpen}
+      isOpen={isOpen}
       onRequestClose={closeModal}
       className="sketches-modal"
       overlayClassName="profile-image-overlay"
@@ -229,7 +221,7 @@ const CreateSketchModal = (props) => {
               displayValue={language.display || LanguageDropdownDefault.display}
               displayClass={'sketches'}
               toggleProps={toggleProps}
-              onSelect={changeLanguage}
+              onSelect={setLanguage}
               DropdownItems={LanguageDropdownValues}
             />
           </Col>
