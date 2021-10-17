@@ -14,7 +14,8 @@ import '../../styles/Editor.scss';
 
 function EditorAndOutput(props) {
   const handleDownload = () => {
-    CodeDownloader.download(props.sketchName, props.language, props.code);
+    const { sketchName, language, code } = props;
+    CodeDownloader.download(props);
   };
 
   const renderCodeAndOutput = () => (
