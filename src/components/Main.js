@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 
 import { EDITOR_WIDTH_BREAKPOINT, CODE_AND_OUTPUT, CODE_ONLY } from '../constants';
@@ -17,126 +17,120 @@ import '../styles/Main.scss';
  * left: the left css property that should be applied on the top level element
  */
 
-class Main extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      saveText: 'Save',
-      viewMode: this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT ? CODE_ONLY : CODE_AND_OUTPUT,
-      pane1Style: { transition: 'width .5s ease' },
-    };
+const Main = (props) => {
+  const [saveText, setText] = useState('Save');
+  const [viewMode, setView] = useState(props.screenWidth <= EDITOR_WIDTH_BREAKPOINT ? CODE_ONLY : CODE_AND_OUTPUT);
+  const [pane1Style, changePane1Style] = useState([{ transition: 'width .5s ease' }]);
+  //const [varName] = props;
 
     // Set theme from cookies (yum)
-    this.props.setTheme(cookies.getThemeFromCookie());
-  }
+  //props.setTheme(cookies.getThemeFromCookie());
 
-  componentDidUpdate(prevProps) {
-    if (this.props.screenWidth !== prevProps.screenWidth) {
-      if (this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT) {
-        if (this.state.viewMode === CODE_AND_OUTPUT) {
-          this.setState({ viewMode: CODE_ONLY });
-        }
+  useEffect(() => {
+    if (props.screenWidth <= EDITOR_WIDTH_BREAKPOINT) {
+      if (viewMode === CODE_AND_OUTPUT) {
+        setView(CODE_ONLY);
       }
     }
+  },[props.screenWidth]);
+  // const componentDidUpdate = (prevProps) => {
+  //   if (props.screenWidth !== prevProps.screenWidth) {
+  //     if (props.screenWidth <= EDITOR_WIDTH_BREAKPOINT) {
+  //       if (viewMode === CODE_AND_OUTPUT) {
+  //         setView(CODE_ONLY);
+  //       }
+  //     }
+  //   }
+  // }
+
+  const onThemeChange = () => {
+    const newTheme = props.theme === 'dark' ? 'light' : 'dark';
+    cookies.setThemeCookie(newTheme);
+    props.setTheme(newTheme);
   }
 
-  onThemeChange = () => {
-    const newTheme = this.props.theme === 'dark' ? 'light' : 'dark';
-    cookies.setThemeCookie(newTheme);
-    this.props.setTheme(newTheme);
-  };
+  const resetSaveText = () => {
+    setText('Save');
+  }
 
-  resetSaveText = () => {
-    this.setState({
-      saveText: 'Save',
-    });
-  };
-
-  handleSave = () => {
-    if (!this.props.dirty) return; // Don't save if not dirty (unedited)
-    this.setState({
-      saveText: 'Saving...',
-    });
+  const handleSave = () => {
+    if (!props.dirty) return; // Don't save if not dirty (unedited)
+    setText('Saving...');
 
     const programToUpdate = {};
+    //do
+    programToUpdate[props.mostRecentProgram] = {
+      code: props.code,
+    }
 
-    programToUpdate[this.props.mostRecentProgram] = {
-      code: this.props.code,
-    };
+    fetch.updatePrograms(props.uid, programToUpdate).then(() => {
+      setText('Saved!');
 
-    fetch.updatePrograms(this.props.uid, programToUpdate).then(() => {
-      this.setState({
-        saveText: 'Saved!',
-      });
-
-      setTimeout(this.resetSaveText, 3000);
+      setTimeout(resetSaveText, 3000);
     });
-    this.props.cleanCode(this.props.mostRecentProgram); // Set code's "dirty" state to false
-  };
+    props.cleanCode(props.mostRecentProgram); // Set code's "dirty" state to false
+  }
 
-  renderContent = () => {
-    switch (this.props.contentType) {
+  const renderContent = () => {
+    switch (props.contentType) {
     case 'editor':
-      return this.renderEditor();
+      return renderEditor();
     case 'sketches':
     default:
       return <SketchesPageContainer />;
     }
-  };
+  }
 
-  renderEditor = () => (
+  const renderEditor = () => (
     <EditorAndOutput
       // view mode
-      viewMode={this.state.viewMode}
-      updateViewMode={(viewMode) => this.setState({ viewMode })}
+      viewMode={viewMode}
+      updateViewMode={(viewMode) => setView({ viewMode })}
       // theme
-      theme={this.props.theme}
+      theme={props.theme}
       // sizing
-      left={this.props.left}
-      screenWidth={this.props.screenWidth}
-      screenHeight={this.props.screenHeight}
+      left={props.left}
+      screenWidth={props.screenWidth}
+      screenHeight={props.screenHeight}
       // view only trigger
       viewOnly={false}
       // pane
-      panelOpen={this.props.panelOpen}
-      pane1Style={this.state.pane1Style}
-      changePane1Style={(newStyle) => this.setState(newStyle)}
+      panelOpen={props.panelOpen}
+      pane1Style={pane1Style}
+      changePane1Style={(newStyle) => changePane1Style(newStyle)}
       // program information
-      mostRecentProgram={this.props.mostRecentProgram}
-      language={this.props.language}
-      code={this.props.code}
-      programid={this.props.programid}
-      sketchName={this.props.sketchName}
+      mostRecentProgram={props.mostRecentProgram}
+      language={props.language}
+      code={props.code}
+      programid={props.programid}
+      sketchName={props.sketchName}
       // save handler
-      saveText={this.state.saveText}
-      handleSave={this.handleSave}
+      saveText={saveText}
+      handleSave={handleSave}
     />
   );
 
-  render() {
     // this stops us from rendering editor with no sketches available
-    if (this.props.contentType === 'editor' && this.props.listOfPrograms.length === 0) {
+    if (props.contentType === 'editor' && props.listOfPrograms.length === 0) {
       return <Redirect to="/sketches" />;
     }
     const codeStyle = {
-      left: this.props.left || 0,
-      width: this.props.screenWidth - (this.props.left || 0),
-      height: this.props.screenHeight,
-    };
+      left: props.left || 0,
+      width: props.screenWidth - (props.left || 0),
+      height: props.screenHeight,
+    }
 
     return (
-      <div className={`main theme-${this.props.theme}`}>
+      <div className={`main theme-${props.theme}`}>
         <ProfilePanelContainer
-          contentType={this.props.contentType}
-          theme={this.props.theme}
-          onThemeChange={this.onThemeChange}
+          contentType={props.contentType}
+          theme={props.theme}
+          onThemeChange={onThemeChange}
         />
         <div className="editor" style={codeStyle}>
-          {this.renderContent()}
+          {renderContent()}
         </div>
       </div>
     );
-  }
 }
-
 export default Main;
