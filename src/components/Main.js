@@ -20,11 +20,14 @@ import '../styles/Main.scss';
 const Main = (props) => {
   const [saveText, setText] = useState('Save');
   const [viewMode, setView] = useState(props.screenWidth <= EDITOR_WIDTH_BREAKPOINT ? CODE_ONLY : CODE_AND_OUTPUT);
-  const [pane1Style, changePane1Style] = useState([{ transition: 'width .5s ease' }]);
+  const [pane1Style, changePane1Style] = useState({ transition: 'width .5s ease' });
   //const [varName] = props;
 
     // Set theme from cookies (yum)
-  //props.setTheme(cookies.getThemeFromCookie());
+    //only run when the component first mounts
+    useEffect(() => {
+      props.setTheme(cookies.getThemeFromCookie());
+    },[]);
 
   useEffect(() => {
     if (props.screenWidth <= EDITOR_WIDTH_BREAKPOINT) {
@@ -33,15 +36,6 @@ const Main = (props) => {
       }
     }
   },[props.screenWidth]);
-  // const componentDidUpdate = (prevProps) => {
-  //   if (props.screenWidth !== prevProps.screenWidth) {
-  //     if (props.screenWidth <= EDITOR_WIDTH_BREAKPOINT) {
-  //       if (viewMode === CODE_AND_OUTPUT) {
-  //         setView(CODE_ONLY);
-  //       }
-  //     }
-  //   }
-  // }
 
   const onThemeChange = () => {
     const newTheme = props.theme === 'dark' ? 'light' : 'dark';
