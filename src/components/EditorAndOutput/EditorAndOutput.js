@@ -14,7 +14,26 @@ import '../../styles/Editor.scss';
 
 function EditorAndOutput(props) {
   const handleDownload = () => {
-    const { sketchName, language, code } = props;
+    const {
+      sketchName,
+      language,
+      code,
+      pane1Style,
+      changePane1Style,
+      panelOpen,
+      screenWidth,
+      mostRecentProgram,
+      viewMode,
+      updateViewMode,
+      screenHeight,
+      theme,
+      viewOnly,
+      programid,
+      handleSave,
+      saveText,
+      thumbnail,
+      left,
+    } = props;
     CodeDownloader.download(props);
   };
 
@@ -26,17 +45,15 @@ function EditorAndOutput(props) {
         borderRight: '2px solid #333',
         width: '10px',
       }}
-      pane1Style={props.pane1Style}
+      pane1Style={pane1Style}
       // functions called when you start and finish a drag
       // removes and re-addsthe transition effect on the first panel when manually resizing
-      onDragStarted={() => props.changePane1Style({ pane1Style: {} })}
-      onDragFinished={() =>
-        props.changePane1Style({ pane1Style: { transition: 'width .5s ease' } })
-      }
+      onDragStarted={() => changePane1Style({ pane1Style: {} })}
+      onDragFinished={() => changePane1Style({ pane1Style: { transition: 'width .5s ease' } })}
       split="vertical" // the resizer is a vertical line (horizontal means resizer is a horizontal bar)
-      minSize={(props.panelOpen ? props.screenWidth - PANEL_SIZE : props.screenWidth) * 0.33} // minimum size of code is 33% of the remaining screen size
-      maxSize={(props.panelOpen ? props.screenWidth - PANEL_SIZE : props.screenWidth) * 0.75} // max size of code is 75% of the remaining screen size
-      size={((props.panelOpen ? props.screenWidth - PANEL_SIZE : props.screenWidth) / 5) * 3} // the initial size of the text editor section
+      minSize={(panelOpen ? screenWidth - PANEL_SIZE : screenWidth) * 0.33} // minimum size of code is 33% of the remaining screen size
+      maxSize={(panelOpen ? screenWidth - PANEL_SIZE : screenWidth) * 0.75} // max size of code is 75% of the remaining screen size
+      size={((panelOpen ? screenWidth - PANEL_SIZE : screenWidth) / 5) * 3} // the initial size of the text editor section
       allowResize
     >
       {renderCode()}
@@ -46,40 +63,40 @@ function EditorAndOutput(props) {
 
   const renderCode = () => (
     <TextEditorContainer
-      key={props.mostRecentProgram}
-      viewMode={props.viewMode}
-      updateViewMode={props.updateViewMode}
-      screenHeight={props.screenHeight}
-      screenWidth={props.screenWidth}
-      theme={props.theme}
-      viewOnly={props.viewOnly}
-      program={props.programid}
-      sketchName={props.sketchName}
-      vlanguage={props.language}
+      key={mostRecentProgram}
+      viewMode={viewMode}
+      updateViewMode={updateViewMode}
+      screenHeight={screenHeight}
+      screenWidth={screenWidth}
+      theme={theme}
+      viewOnly={viewOnly}
+      program={programid}
+      sketchName={sketchName}
+      vlanguage={language}
       handleDownload={handleDownload}
-      handleSave={props.handleSave}
-      saveText={props.saveText}
-      vthumbnail={props.thumbnail}
+      handleSave={handleSave}
+      saveText={saveText}
+      vthumbnail={thumbnail}
     />
   );
 
   const renderOutput = () => (
     <OutputContainer
-      viewMode={props.viewMode}
-      updateViewMode={props.updateViewMode}
-      isSmall={props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
-      viewOnly={props.viewOnly}
-      vLanguage={props.language}
-      code={props.code}
+      viewMode={viewMode}
+      updateViewMode={updateViewMode}
+      isSmall={screenWidth <= EDITOR_WIDTH_BREAKPOINT}
+      viewOnly={viewOnly}
+      vLanguage={language}
+      code={code}
     />
   );
 
   const codeStyle = {
-    width: props.screenWidth - (props.left || 0),
-    height: props.screenHeight,
+    width: screenWidth - (left || 0),
+    height: screenHeight,
   };
 
-  switch (props.viewMode) {
+  switch (viewMode) {
     case CODE_ONLY:
       return <div style={codeStyle}>{renderCode()}</div>;
     case OUTPUT_ONLY:
