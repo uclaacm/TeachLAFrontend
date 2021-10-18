@@ -33,21 +33,12 @@ class ClassPage extends React.Component {
       error: '',
       confirmLeaveModalOpen: false,
       createSketchModalOpen: false,
-      thumbnail: 0,
-      name: 'Class',
-      instructors: [],
-      sketchIDs: [],
-      sketches: [],
       isInstr: false,
-      students: [],
-      wid: '',
     };
   }
 
-  // TODO: Save the result of the fetch in Redux and don't fetch if the right class is already loaded.
   componentDidMount = async () => {
     // Don't try to load class if there's no cid.
-    // Comment this out to test
     if (this.props.cid === '') {
       return;
     }
@@ -87,19 +78,9 @@ class ClassPage extends React.Component {
           }
 
           this.setState({
-            // Review these when back-end API is updated
             loaded: true,
-            // name: json.name,
-            // instructors: json.instructors,
             isInstr,
-            // sketchIDs: json.programs, // List of IDs
-            // sketches: enrichWithLanguageData(json.programData || []), // List of sketch objects
-            // students: json.members,
-            // userData: json.userData || {},
-            // wid: json.wid,
-            // thumbnail: json.thumbnail,
           });
-          // this.props.loadClass(classData);
         })
         .catch((err) => {
           this.setState({
@@ -114,11 +95,6 @@ class ClassPage extends React.Component {
       });
       console.log(err);
     }
-
-    // Test code
-    // this.setState({loaded: true});
-    // console.log("Would have just made server request for the class with cid " + this.props.cid);
-    // end test code
   };
 
   setCreateSketchModalOpen = (val) => {
@@ -159,7 +135,7 @@ class ClassPage extends React.Component {
   };
 
   renderHeader = () => {
-    let leaveButton = this.canLeaveClass() ? (
+    const leaveButton = this.canLeaveClass() ? (
       <Button
         className="ml-auto mr-2"
         size="lg"
@@ -301,7 +277,6 @@ class ClassPage extends React.Component {
 
   render() {
     // If no class selected, go back to classes page.
-    // Comment this out to test
     if (this.props.cid === '') {
       return <Redirect to="/classes" />;
     }
