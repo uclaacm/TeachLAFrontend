@@ -13,28 +13,28 @@ import '../../styles/Resizer.scss';
 import '../../styles/Editor.scss';
 
 function EditorAndOutput(props) {
+  const {
+    sketchName,
+    language,
+    code,
+    pane1Style,
+    changePane1Style,
+    panelOpen,
+    screenWidth,
+    mostRecentProgram,
+    viewMode,
+    updateViewMode,
+    screenHeight,
+    theme,
+    viewOnly,
+    programid,
+    handleSave,
+    saveText,
+    thumbnail,
+    left,
+  } = props;
   const handleDownload = () => {
-    const {
-      sketchName,
-      language,
-      code,
-      pane1Style,
-      changePane1Style,
-      panelOpen,
-      screenWidth,
-      mostRecentProgram,
-      viewMode,
-      updateViewMode,
-      screenHeight,
-      theme,
-      viewOnly,
-      programid,
-      handleSave,
-      saveText,
-      thumbnail,
-      left,
-    } = props;
-    CodeDownloader.download(props);
+    CodeDownloader.download(sketchName, language, code);
   };
 
   const renderCodeAndOutput = () => (
