@@ -1,5 +1,5 @@
 import React from "react";
-import "styles/ClassBox.scss";
+import "../../../styles/ClassBox.scss";
 
 class StudentListEntry extends React.Component {
   render() {

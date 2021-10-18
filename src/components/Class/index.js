@@ -56,6 +56,14 @@ class ClassPage extends React.Component {
       uid: this.props.uid,
       cid: this.props.cid,
     };
+    if (this.props.classData && this.props.classData.programData !== null) {
+      this.setState({
+        loaded: true,
+        isInstr: this.props.classData.instructors.some((instrID) => instrID === this.props.uid),
+      });
+      return;
+    }
+
     console.log('about to get class with this data: ' + JSON.stringify(data));
     try {
       fetch
@@ -65,18 +73,31 @@ class ClassPage extends React.Component {
           return res.classData;
         })
         .then((json) => {
+          const isInstr = json.instructors.some((instrID) => instrID === this.props.uid);
+          if (isInstr) {
+            this.props.addInstrClass(this.props.cid, {
+              ...json,
+              programData: enrichWithLanguageData(json.programData || []),
+            });
+          } else {
+            this.props.addStudentClass(this.props.cid, {
+              ...json,
+              programData: enrichWithLanguageData(json.programData || []),
+            });
+          }
+
           this.setState({
             // Review these when back-end API is updated
             loaded: true,
-            name: json.name,
-            instructors: json.instructors,
-            isInstr: json.instructors.some((instrID) => instrID === this.props.uid),
-            sketchIDs: json.programs, // List of IDs
-            sketches: enrichWithLanguageData(json.programData || []), // List of sketch objects
-            students: json.members,
-            userData: json.userData || {},
-            wid: json.wid,
-            thumbnail: json.thumbnail,
+            // name: json.name,
+            // instructors: json.instructors,
+            isInstr,
+            // sketchIDs: json.programs, // List of IDs
+            // sketches: enrichWithLanguageData(json.programData || []), // List of sketch objects
+            // students: json.members,
+            // userData: json.userData || {},
+            // wid: json.wid,
+            // thumbnail: json.thumbnail,
           });
           // this.props.loadClass(classData);
         })
@@ -110,7 +131,7 @@ class ClassPage extends React.Component {
 
   // Don't allow last instructor to leave class.
   canLeaveClass = () => {
-    return !this.state.isInstr || this.state.instructors.length > 1;
+    return !this.state.isInstr || this.props.classData.instructors.length > 1;
   };
 
   renderConfirmLeaveModal = () => {
@@ -118,7 +139,7 @@ class ClassPage extends React.Component {
       <ConfirmLeaveModalContainer
         isOpen={this.state.confirmLeaveModalOpen}
         onClose={() => this.setConfirmLeaveModalOpen(false)}
-        className={this.state.name}
+        className={this.props.classData.name}
         cid={this.props.cid}
         inClass={true}
       />
@@ -132,7 +153,7 @@ class ClassPage extends React.Component {
       <CreateSketchModalContainer
         isOpen={this.state.createSketchModalOpen}
         onClose={() => this.setCreateSketchModalOpen(false)}
-        wid={this.state.wid}
+        wid={this.props.classData.wid}
       />
     );
   };
@@ -159,14 +180,14 @@ class ClassPage extends React.Component {
         >
           <FontAwesomeIcon icon={faArrowLeft} />
         </Link>
-        <div className="classes-header-text">{this.state.name}</div>
+        <div className="classes-header-text">{this.props.classData.name}</div>
         {leaveButton}
       </div>
     );
   };
 
   renderClassInfo = () => {
-    const instString = getInstructorString(this.state.instructors, this.state.userData);
+    const instString = getInstructorString(this.props.classData.instructors, this.props.classData.userData);
     return (
       <React.Fragment>
         <ClassInfoBox title={'Instructors'} content={instString} />
@@ -186,8 +207,8 @@ class ClassPage extends React.Component {
       <ClassInfoBox
         title={'Students'}
         content={
-          this.state.students
-            ? this.state.students.map((student) => (this.state.userData[student] || {}).displayName).join(', ')
+          this.props.classData.students
+            ? this.props.classData.students.map((student) => (this.props.classData.userData[student] || {}).displayName).join(', ')
             : 'No students enrolled.'
         }
       />
@@ -209,7 +230,7 @@ class ClassPage extends React.Component {
   };
 
   renderSketchList = () => {
-    let newList = this.state.sketches.concat([]);
+    let newList = this.props.classData.programData?.concat([]) || [];
     newList.sort((a, b) => {
       if (a.name < b.name) return -1;
       if (a.name === b.name) return 0;

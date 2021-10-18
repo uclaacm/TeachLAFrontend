@@ -101,8 +101,8 @@ class CreateClassModal extends React.Component {
         })
         .then((json) => {
           console.log(JSON.stringify(json));
-          this.props.addInstrClass(json.cid, json || {});
           this.props.setCurrentClass(json.cid);
+          this.props.addInstrClass(json.cid, json || {});
           this.setState({ redirect: true });
           this.closeModal();
         })
