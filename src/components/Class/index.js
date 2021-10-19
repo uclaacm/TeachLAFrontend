@@ -201,10 +201,6 @@ class ClassPage extends React.Component {
     return ThumbnailArray[val];
   };
 
-  setProgram = (name) => {
-    this.props.setMostRecentProgram(name);
-  };
-
   renderSketchList = () => {
     let newList = this.props.classData.programData?.concat([]) || [];
     newList.sort((a, b) => {
@@ -222,9 +218,6 @@ class ClassPage extends React.Component {
           name={name}
           downloadFunc={() => {
             CodeDownloader.download(name, language, code);
-          }}
-          redirFunc={() => {
-            this.setProgram(uid);
           }}
           pathname={this.state.isInstr ? '/editor' : `/p/${uid}`}
         />,

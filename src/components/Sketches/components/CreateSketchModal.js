@@ -14,7 +14,14 @@ import { DropdownItem } from 'reactstrap';
 import '../../../styles/SketchesModal.scss';
 
 const CreateSketchModal = (props) => {
-  const { onClose, uid, isOpen, addProgram, setMostRecentProgram } = props;
+  const {
+    onClose,
+    uid,
+    isOpen,
+    addProgram,
+    setMostRecentProgram,
+    wid,
+  } = props;
   const toggleProps = { className: '', color: 'primary', size: 'lg' };
 
   const [language, setLanguage] = useState(LanguageDropdownDefault);
@@ -115,7 +122,7 @@ const CreateSketchModal = (props) => {
       language: language.value,
       name,
       code: '',
-      wid: this.props.wid ?? '',
+      wid,
     };
 
     try {
