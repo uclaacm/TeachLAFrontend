@@ -1,15 +1,14 @@
-import React from "react";
-import "../../../styles/ClassPage.scss";
+import React from 'react';
+import '../../../styles/ClassPage.scss';
 
-class ClassInfoBox extends React.Component {
-  render() {
-    return (
-      <div className="class-info-box">
-        <b className="section-header">{this.props.title}</b>
-        <div>{this.props.content}</div>
-      </div>
-    );
-  }
-}
+const ClassInfoBox = ({
+  title,
+  children
+}) => (
+  <div className="class-info-box">
+    <b className="section-header">{title}</b>
+    <div>{children}</div>
+  </div>
+);
 
 export default ClassInfoBox;

@@ -1,29 +1,25 @@
 import React from 'react';
-import { Link } from "react-router-dom";
-
-import * as fetch from '../../lib/fetch.js';
-import ClassInfoBox from './components/ClassInfoBox';
-import OpenPanelButtonContainer from '../common/containers/OpenPanelButtonContainer';
-import '../../styles/Classes.scss';
-import '../../styles/ClassPage.scss';
-import LoadingPage from '../common/LoadingPage';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignOutAlt, faPlus, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faSignOutAlt, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+
+import OpenPanelButtonContainer from '../common/containers/OpenPanelButtonContainer';
+import LoadingPage from '../common/LoadingPage';
+import ClassInfoBox from './components/ClassInfoBox';
+import ClassSketchList from './components/ClassSketchList';
 import ConfirmLeaveModalContainer from '../Classes/containers/ConfirmLeaveModalContainer';
 import Error from '../Error';
+import * as fetch from '../../lib/fetch';
+
 // For sketches list
 import { getInstructorString } from '../../util/classes';
-import SketchBox from '../common/SketchBox';
-import '../../styles/SketchBox.scss';
 import { ThumbnailArray } from '../../constants';
 import { enrichWithLanguageData } from '../../util/languages/languages';
-import CodeDownloader from '../../util/languages/CodeDownloader';
 import CreateSketchModalContainer from './containers/CreateSketchModalContainer';
 
-const SKETCHES_ROW_PADDING = 100;
-const SKETCH_WIDTH = 220;
+import '../../styles/Classes.scss';
+import '../../styles/ClassPage.scss';
 
 class ClassPage extends React.Component {
   constructor(props) {
@@ -47,6 +43,8 @@ class ClassPage extends React.Component {
       uid: this.props.uid,
       cid: this.props.cid,
     };
+
+    // Don't re-fetch existing data
     if (this.props.classData && this.props.classData.programData !== null) {
       this.setState({
         loaded: true,
@@ -55,7 +53,7 @@ class ClassPage extends React.Component {
       return;
     }
 
-    console.log('about to get class with this data: ' + JSON.stringify(data));
+    // console.log('about to get class with this data: ' + JSON.stringify(data));
     try {
       fetch
         .getClass(data, true, true)
@@ -87,13 +85,13 @@ class ClassPage extends React.Component {
             error: "Couldn't load your class. Please try again later.",
             loaded: true,
           });
-          console.log(err);
+          console.error(err);
         });
     } catch (err) {
       this.setState({
         loaded: true,
       });
-      console.log(err);
+      console.error(err);
     }
   };
 
@@ -150,10 +148,7 @@ class ClassPage extends React.Component {
     return (
       <div className="classes-header">
         <OpenPanelButtonContainer />
-        <Link
-          to={{ pathname: "/classes" }}
-          className="btn btn-secondary btn-lg btn-block back-btn"
-        >
+        <Link to={{ pathname: '/classes' }} className="btn btn-secondary btn-lg btn-block back-btn">
           <FontAwesomeIcon icon={faArrowLeft} />
         </Link>
         <div className="classes-header-text">{this.props.classData.name}</div>
@@ -163,10 +158,13 @@ class ClassPage extends React.Component {
   };
 
   renderClassInfo = () => {
-    const instString = getInstructorString(this.props.classData.instructors, this.props.classData.userData);
+    const instString = getInstructorString(
+      this.props.classData.instructors,
+      this.props.classData.userData,
+    );
     return (
       <React.Fragment>
-        <ClassInfoBox title={'Instructors'} content={instString} />
+        <ClassInfoBox title={'Instructors'}>{instString}</ClassInfoBox>
         {
           // Add this in once description is added to back-end
           /* <ClassInfoBox
@@ -180,14 +178,13 @@ class ClassPage extends React.Component {
 
   renderStudentList = () => {
     return this.state.isInstr ? (
-      <ClassInfoBox
-        title={'Students'}
-        content={
-          this.props.classData.students
-            ? this.props.classData.students.map((student) => (this.props.classData.userData[student] || {}).displayName).join(', ')
-            : 'No students enrolled.'
-        }
-      />
+      <ClassInfoBox title={'Students'}>
+        {this.props.classData.students
+          ? this.props.classData.students
+              .map((student) => (this.props.classData.userData[student] || {}).displayName)
+              .join(', ')
+          : 'No students enrolled.'}
+      </ClassInfoBox>
     ) : (
       ''
     );
@@ -202,58 +199,11 @@ class ClassPage extends React.Component {
   };
 
   renderSketchList = () => {
-    let newList = this.props.classData.programData?.concat([]) || [];
-    newList.sort((a, b) => {
-      if (a.name < b.name) return -1;
-      if (a.name === b.name) return 0;
-      else return 1;
-    });
-    let sketchList = [];
-    newList.forEach(({ uid, name, language, thumbnail, code }) => {
-      sketchList.push(
-        <SketchBox
-          key={uid}
-          img={this.getThumbnailSrc(thumbnail)}
-          icon={language.icon}
-          name={name}
-          downloadFunc={() => {
-            CodeDownloader.download(name, language, code);
-          }}
-          pathname={this.state.isInstr ? '/editor' : `/p/${uid}`}
-        />,
-      );
-    });
-    // Button for instructors to add a sketch to the class.
-    if (this.state.isInstr) {
-      sketchList.push(
-        <div
-          key="add-sketch"
-          className="add-sketch-box sketch-box"
-          onClick={() => this.setCreateSketchModalOpen(true)}
-        >
-          <div className="add-sketch-box-body sketch-box-body">
-            <FontAwesomeIcon className="fa-2x add-sketch-plus" icon={faPlus} />
-          </div>
-          <div className="fa-lg">
-            <b>Add a sketch</b>
-          </div>
-        </div>,
-      );
-    }
-    let numSketchesPerRow = Math.floor(
-      (this.props.calculatedWidth - SKETCHES_ROW_PADDING) / SKETCH_WIDTH,
+    return (
+      <ClassInfoBox title={'Sketches'}>
+        <ClassSketchList />
+      </ClassInfoBox>
     );
-    let rows = [];
-    let originalLength = sketchList.length;
-    for (let i = 0; i < originalLength / numSketchesPerRow; i++) {
-      rows.push(
-        <div className="class-sketches-grid-row" key={i}>
-          {sketchList.splice(0, numSketchesPerRow)}
-        </div>,
-      );
-    }
-    let sketchesDisplay = <div className="class-sketches-grid">{rows}</div>;
-    return <ClassInfoBox title={'Sketches'} content={sketchesDisplay} />;
   };
 
   renderContent = () => {
