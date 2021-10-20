@@ -4,7 +4,7 @@ import React from 'react';
 import ReactModal from 'react-modal';
 import { Redirect } from 'react-router-dom';
 import { Button } from 'reactstrap';
-import { EDITOR_WIDTH_BREAKPOINT, ThumbnailArray } from "../../../constants";
+import { EDITOR_WIDTH_BREAKPOINT, ThumbnailArray } from '../../../constants';
 import sketch from '../../../lib';
 import * as fetch from '../../../lib/fetch.js';
 

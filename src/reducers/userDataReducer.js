@@ -32,7 +32,6 @@ function userDataReducer(state = initialState, action) {
     const newName = action.value;
     fetch
       .updateUserData(state.uid, { displayName: newName })
-      // .then((response) => {})
       .catch((err) => {
         state.error = err;
         console.log(err);
@@ -56,20 +55,12 @@ function userDataReducer(state = initialState, action) {
   case SET_MOST_RECENT_PROGRAM:
     fetch
       .updateUserData(state.uid, { mostRecentProgram: action.value })
-      // .then((response) => {})
       .catch((err) => {
         state.error = err;
         console.log(err);
       });
     return { ...state, mostRecentProgram: action.value };
   case SET_CURRENT_CLASS:
-    // fetch
-    //   .updateUserData(state.uid, { currentClass: action.value })
-    //   .then(response => {})
-    //   .catch(err => {
-    //     state.error = err;
-    //     console.log(err);
-    //   });
     return { ...state, currentClass: action.value };
   default:
     return state;

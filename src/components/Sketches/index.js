@@ -1,14 +1,14 @@
 import '../../styles/Sketches.scss';
-import CodeDownloader from "../../util/languages/CodeDownloader";
 
 import { faFile } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import React from 'react';
 import { Button } from 'reactstrap';
+import CodeDownloader from '../../util/languages/CodeDownloader';
 import OpenPanelButtonContainer from '../common/containers/OpenPanelButtonContainer';
 import SketchBox from '../common/SketchBox';
-import { ThumbnailArray } from "../../constants";
+import { ThumbnailArray } from '../../constants';
 import ConfirmDeleteModalContainer from './containers/ConfirmDeleteModalContainer';
 import CreateSketchModalContainer from './containers/CreateSketchModalContainer';
 import EditSketchModalContainer from './containers/EditSketchModalContainer';
