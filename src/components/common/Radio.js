@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import '../../styles/Radio.scss';
 /**
  * Props
@@ -24,6 +24,31 @@ import '../../styles/Radio.scss';
  * allowMultipleSelected: (bool) if true, allows multiple options to be selected
  *                        changes handle click to be called with all selected values
  */
+
+
+const Radio = (props) => {
+  [selected, setSelected] = useState(props.defaultSelected);
+  if (props.allowMultipleSelected){
+    setSelected(selected || []);
+  }  
+  updateSelectedState = (selected, alreadySelected) => {
+    if (props.allowMultipleSelected) {
+      let newState = selected;
+      if (alreadySelected) {
+        const i = selected.indexOf(selected);
+        if (i >= 0) newState.splice(i, 1);
+      }
+      else { 
+        newState = selected.concat([selected])
+      }
+      if (props.handleClick) {
+        props.handleClick(newState);
+      }
+      setSelected(newState);
+    }
+  };
+  
+}
 
 export default class Radio extends React.Component {
   constructor(props) {
