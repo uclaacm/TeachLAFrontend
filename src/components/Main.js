@@ -17,30 +17,33 @@ import '../styles/Main.scss';
  * left: the left css property that should be applied on the top level element
  */
 
-const Main = (props) => {
+const Main = ({
+  screenWidth, theme, dirty, mostRecentProgram, code, uid,
+  contentType, left, screenHeight, panelOpen, language, programid,
+  sketchName, listOfPrograms, setTheme
+}) => {
   const [saveText, setText] = useState('Save');
-  const [viewMode, setView] = useState(props.screenWidth <= EDITOR_WIDTH_BREAKPOINT ? CODE_ONLY : CODE_AND_OUTPUT);
+  const [viewMode, setView] = useState(screenWidth <= EDITOR_WIDTH_BREAKPOINT ? CODE_ONLY : CODE_AND_OUTPUT);
   const [pane1Style, changePane1Style] = useState({ transition: 'width .5s ease' });
-  //const [varName] = props;
 
     // Set theme from cookies (yum)
     //only run when the component first mounts
-    useEffect(() => {
-      props.setTheme(cookies.getThemeFromCookie());
-    },[]);
+  useEffect(() => {
+    setTheme(cookies.getThemeFromCookie());
+  },[]);
 
   useEffect(() => {
-    if (props.screenWidth <= EDITOR_WIDTH_BREAKPOINT) {
+    if (screenWidth <= EDITOR_WIDTH_BREAKPOINT) {
       if (viewMode === CODE_AND_OUTPUT) {
         setView(CODE_ONLY);
       }
     }
-  },[props.screenWidth]);
+  },[screenWidth]);
 
   const onThemeChange = () => {
-    const newTheme = props.theme === 'dark' ? 'light' : 'dark';
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
     cookies.setThemeCookie(newTheme);
-    props.setTheme(newTheme);
+    setTheme(newTheme);
   }
 
   const resetSaveText = () => {
@@ -48,25 +51,24 @@ const Main = (props) => {
   }
 
   const handleSave = () => {
-    if (!props.dirty) return; // Don't save if not dirty (unedited)
+    if (!dirty) return; // Don't save if not dirty (unedited)
     setText('Saving...');
 
     const programToUpdate = {};
-    //do
-    programToUpdate[props.mostRecentProgram] = {
-      code: props.code,
+    programToUpdate[mostRecentProgram] = {
+      code: code,
     }
 
-    fetch.updatePrograms(props.uid, programToUpdate).then(() => {
+    fetch.updatePrograms(uid, programToUpdate).then(() => {
       setText('Saved!');
 
       setTimeout(resetSaveText, 3000);
     });
-    props.cleanCode(props.mostRecentProgram); // Set code's "dirty" state to false
+    cleanCode(mostRecentProgram); // Set code's "dirty" state to false
   }
 
   const renderContent = () => {
-    switch (props.contentType) {
+    switch (contentType) {
     case 'editor':
       return renderEditor();
     case 'sketches':
@@ -81,23 +83,23 @@ const Main = (props) => {
       viewMode={viewMode}
       updateViewMode={(viewMode) => setView({ viewMode })}
       // theme
-      theme={props.theme}
+      theme={theme}
       // sizing
-      left={props.left}
-      screenWidth={props.screenWidth}
-      screenHeight={props.screenHeight}
+      left={left}
+      screenWidth={screenWidth}
+      screenHeight={screenHeight}
       // view only trigger
       viewOnly={false}
       // pane
-      panelOpen={props.panelOpen}
+      panelOpen={panelOpen}
       pane1Style={pane1Style}
       changePane1Style={(newStyle) => changePane1Style(newStyle)}
       // program information
-      mostRecentProgram={props.mostRecentProgram}
-      language={props.language}
-      code={props.code}
-      programid={props.programid}
-      sketchName={props.sketchName}
+      mostRecentProgram={mostRecentProgram}
+      language={language}
+      code={code}
+      programid={programid}
+      sketchName={sketchName}
       // save handler
       saveText={saveText}
       handleSave={handleSave}
@@ -105,20 +107,20 @@ const Main = (props) => {
   );
 
     // this stops us from rendering editor with no sketches available
-    if (props.contentType === 'editor' && props.listOfPrograms.length === 0) {
+    if (contentType === 'editor' && listOfPrograms.length === 0) {
       return <Redirect to="/sketches" />;
     }
     const codeStyle = {
-      left: props.left || 0,
-      width: props.screenWidth - (props.left || 0),
-      height: props.screenHeight,
+      left: left || 0,
+      width: screenWidth - (left || 0),
+      height: screenHeight,
     }
 
     return (
-      <div className={`main theme-${props.theme}`}>
+      <div className={`main theme-${theme}`}>
         <ProfilePanelContainer
-          contentType={props.contentType}
-          theme={props.theme}
+          contentType={contentType}
+          theme={theme}
           onThemeChange={onThemeChange}
         />
         <div className="editor" style={codeStyle}>
