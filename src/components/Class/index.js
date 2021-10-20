@@ -195,7 +195,6 @@ class ClassPage extends React.Component {
       classData: {
         programData,
       },
-      setCreateSketchModalOpen,
     } = this.props;
     const { isInstr } = this.state;
 
@@ -205,7 +204,7 @@ class ClassPage extends React.Component {
           calculatedWidth={calculatedWidth}
           isInstr={isInstr}
           programData={programData}
-          setCreateSketchModalOpen={setCreateSketchModalOpen}
+          setCreateSketchModalOpen={this.setCreateSketchModalOpen}
         />
       </ClassInfoBox>
     );
