@@ -2,6 +2,7 @@ import React from 'react';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import { ThumbnailArray } from '../../../constants';
 import SketchBox from '../../common/SketchBox';
 import CodeDownloader from '../../../util/languages/CodeDownloader';
 
@@ -11,7 +12,6 @@ const SKETCHES_ROW_PADDING = 100;
 const SKETCH_WIDTH = 220;
 
 const ClassSketchList = ({
-  getThumbnailSrc,
   calculatedWidth, 
   isInstr,
   programData,
@@ -23,6 +23,14 @@ const ClassSketchList = ({
     if (a.name === b.name) return 0;
     else return 1;
   });
+
+  const getThumbnailSrc = (val) => {
+    if (val === undefined || val === '' || val >= ThumbnailArray.length || val < 0) {
+      return ThumbnailArray[0];
+    }
+    return ThumbnailArray[val];
+  };
+
   const sketchList = newList.map(({ uid, name, language, thumbnail, code }) => {
     return (
       <SketchBox

@@ -14,7 +14,6 @@ import * as fetch from '../../lib/fetch';
 
 // For sketches list
 import { getInstructorString } from '../../util/classes';
-import { ThumbnailArray } from '../../constants';
 import { enrichWithLanguageData } from '../../util/languages/languages';
 import CreateSketchModalContainer from './containers/CreateSketchModalContainer';
 
@@ -190,18 +189,24 @@ class ClassPage extends React.Component {
     );
   };
 
-  // Start of sketches list stuff -- it should probably be moved out of here
-  getThumbnailSrc = (val) => {
-    if (val === undefined || val === '' || val >= ThumbnailArray.length || val < 0) {
-      return ThumbnailArray[0];
-    }
-    return ThumbnailArray[val];
-  };
-
   renderSketchList = () => {
+    const {
+      calculatedWidth,
+      classData: {
+        programData,
+      },
+      setCreateSketchModalOpen,
+    } = this.props;
+    const { isInstr } = this.state;
+
     return (
       <ClassInfoBox title={'Sketches'}>
-        <ClassSketchList />
+        <ClassSketchList
+          calculatedWidth={calculatedWidth}
+          isInstr={isInstr}
+          programData={programData}
+          setCreateSketchModalOpen={setCreateSketchModalOpen}
+        />
       </ClassInfoBox>
     );
   };
