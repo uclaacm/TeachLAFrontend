@@ -43,14 +43,14 @@ class ClassPage extends React.Component {
       cid: this.props.cid,
     };
 
-    // Don't re-fetch existing data
-    if (this.props.classData && this.props.classData.programData !== null) {
-      this.setState({
-        loaded: true,
-        isInstr: this.props.classData.instructors.some((instrID) => instrID === this.props.uid),
-      });
-      return;
-    }
+    // TODO: Don't re-fetch existing data
+    // if (this.props.classData && this.props.classData.programData !== null) {
+    //   this.setState({
+    //     loaded: true,
+    //     isInstr: this.props.classData.instructors.some((instrID) => instrID === this.props.uid),
+    //   });
+    //   return;
+    // }
 
     // console.log('about to get class with this data: ' + JSON.stringify(data));
     try {
