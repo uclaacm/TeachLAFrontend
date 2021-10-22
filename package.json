@@ -41,8 +41,10 @@
     "lint-full-fix": "eslint --fix \"**/*.js\" && stylelint --fix \"**/*.css\" \"**/*.scss\"",
     "lint-css": "stylelint \"**/*.css\" \"**/*.scss\"",
     "lint-css-fix": "stylelint --fix \"**/*.css\" \"**/*.scss\"",
+    "lint-css-changes": "stylelint $(git diff --name-only origin/master | grep -E '\\.(css|scss)$' | xargs)",
     "lint-js": "eslint \"**/*.js\"",
     "lint-js-fix": "eslint --fix \"**/*.js\"",
+    "lint-js-changes": "eslint $(git diff --name-only origin/master | grep -E '\\.(js|jsx)$' | xargs)",
     "staging_start": "cross-env REACT_APP_FS_PROJ=staging REACT_APP_SERVER_TYPE=staging react-scripts start",
     "staging_build": "cross-env REACT_APP_FS_PROJ=staging REACT_APP_SERVER_TYPE=staging react-scripts build",
     "prepare": "husky install",
@@ -88,9 +90,13 @@
     ]
   },
   "lint-staged": {
-    "*.{js,json,css,md}": [
-      "prettier --write",
-      "git add"
+    "*js": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*css": [
+      "stylelint --fix",
+      "prettier --write"
     ]
   },
   "browserslist": [

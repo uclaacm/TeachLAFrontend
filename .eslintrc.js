@@ -119,6 +119,12 @@ module.exports = {
     'react/prop-types': 'off',
 
     // Don't leave log statements littering the premises!
-    // 'no-console': ['error'],
+    'no-console': ['error', { allow: ['error'] }],
+
+    // Not enforcing jsx extension
+    'react/jsx-filename-extension': 'off',
+
+    // For loops are ok
+    'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
   },
 };
