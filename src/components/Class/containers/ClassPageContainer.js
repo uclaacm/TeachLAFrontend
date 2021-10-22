@@ -12,7 +12,7 @@ const mapStateToProps = (state) => {
   const cid = state.userData.currentClass;
   const blankClass = {
     name: '',
-    creator: '',
+    creator: 'asdf',
     thumbnail: 0,
     programData: null,
     programs: null,
