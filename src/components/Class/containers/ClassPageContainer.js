@@ -1,10 +1,10 @@
-import ClassPage from '../index.js';
 import { connect } from 'react-redux';
-import { setMostRecentProgram } from '../../../actions/userDataActions.js';
-import { addInstrClass, addStudentClass } from '../../../actions/classesActions.js';
-import { addProgram } from '../../../actions/programsActions.js';
-import { togglePanel } from '../../../actions/uiActions.js';
+import { addInstrClass, addStudentClass } from '../../../actions/classesActions';
+import { addProgram } from '../../../actions/programsActions';
+import { togglePanel } from '../../../actions/uiActions';
+import { setMostRecentProgram } from '../../../actions/userDataActions';
 import { OPEN_PANEL_LEFT, CLOSED_PANEL_LEFT, PANEL_SIZE } from '../../../constants';
+import ClassPage from '../index';
 
 const mapStateToProps = (state) => {
   const left = (state.ui.panelOpen ? OPEN_PANEL_LEFT : CLOSED_PANEL_LEFT) + PANEL_SIZE;
@@ -30,19 +30,20 @@ const mapStateToProps = (state) => {
     panelOpen: state.ui.panelOpen,
     uid: state.userData.uid,
     cid,
-    classData: state.classes.getIn(['instrClasses', cid])?.toJS() || state.classes.getIn(['studClasses', cid])?.toJS() || blankClass,
+    classData:
+      state.classes.getIn(['instrClasses', cid])?.toJS() ||
+      state.classes.getIn(['studClasses', cid])?.toJS() ||
+      blankClass,
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addInstrClass: (cid, data) => dispatch(addInstrClass(cid, data)),
-    addStudentClass: (cid, data) => dispatch(addStudentClass(cid, data)),
-    addProgram: (program, value) => dispatch(addProgram(program, value)),
-    setMostRecentProgram: (value) => dispatch(setMostRecentProgram(value)),
-    togglePanel: () => dispatch(togglePanel()),
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  addInstrClass: (cid, data) => dispatch(addInstrClass(cid, data)),
+  addStudentClass: (cid, data) => dispatch(addStudentClass(cid, data)),
+  addProgram: (program, value) => dispatch(addProgram(program, value)),
+  setMostRecentProgram: (value) => dispatch(setMostRecentProgram(value)),
+  togglePanel: () => dispatch(togglePanel()),
+});
 
 const ClassPageContainer = connect(mapStateToProps, mapDispatchToProps)(ClassPage);
 
