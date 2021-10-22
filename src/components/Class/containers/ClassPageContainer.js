@@ -12,7 +12,7 @@ const mapStateToProps = (state) => {
   const cid = state.userData.currentClass;
   const blankClass = {
     name: '',
-    creator: 'asdf',
+    creator: '',
     thumbnail: 0,
     programData: null,
     programs: null,
@@ -31,9 +31,9 @@ const mapStateToProps = (state) => {
     uid: state.userData.uid,
     cid,
     classData:
-      state.classes.getIn(['instrClasses', cid])?.toJS() ||
-      state.classes.getIn(['studClasses', cid])?.toJS() ||
-      blankClass,
+      state.classes.getIn(['instrClasses', cid])?.toJS()
+      || state.classes.getIn(['studClasses', cid])?.toJS()
+      || blankClass,
   };
 };
 

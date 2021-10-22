@@ -72,11 +72,6 @@
     "stylelint-config-standard": "^22.0.0",
     "stylelint-scss": "^3.21.0"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}"
@@ -90,14 +85,9 @@
     ]
   },
   "lint-staged": {
-    "*js": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*css": [
-      "stylelint --fix",
-      "prettier --write"
-    ]
+    "*.js": "eslint --cache --fix",
+    "*.css": "stylelint --fix",
+    "*.{js,css,md}": "prettier --write"
   },
   "browserslist": [
     ">0.2%",
