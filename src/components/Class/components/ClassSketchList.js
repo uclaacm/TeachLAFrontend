@@ -63,6 +63,8 @@ const ClassSketchList = ({
       </div>,
     );
   }
+
+  // TODO: This should be a flexbox, instead of this
   let numSketchesPerRow = Math.floor((calculatedWidth - SKETCHES_ROW_PADDING) / SKETCH_WIDTH);
   let rows = [];
   let originalLength = sketchList.length;
@@ -73,6 +75,7 @@ const ClassSketchList = ({
       </div>,
     );
   }
+  if (rows.length === 0) return 'No sketches found';
   return <div className="class-sketches-grid">{rows}</div>;
 };
 
