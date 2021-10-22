@@ -152,6 +152,36 @@ class App extends React.Component {
                 <ViewOnlyContainer contentType="view" programid={props.match.params.programid} />
               )}
             />
+            {/* Class page */}
+            <Route
+              path="/class"
+              render={() =>
+                this.props.errorMsg !== "" ? (
+                  <Error errorMsg={this.props.errorMsg} isValidUser={isValidUser} />
+                ) : !isValidUser ? (
+                  <Redirect to="/login" />
+                ) : this.props.developerAcc ? (
+                  <MainContainer contentType="classPage" />
+                ) : (
+                  <Redirect to="/sketches"/>
+                )
+              }
+            />
+            {/* Classes page */}
+            <Route
+              path="/classes"
+              render={() =>
+                this.props.errorMsg !== "" ? (
+                  <Error errorMsg={this.props.errorMsg} isValidUser={isValidUser} />
+                ) : !isValidUser ? (
+                  <Redirect to="/login" />
+                ) : this.props.developerAcc ? (
+                  <MainContainer contentType="classes" />
+                ) : (
+                  <Redirect to="/sketches"/>
+                )
+              }
+            />
             {/* Default error page */}
             <Route
               path="/error"

@@ -48,6 +48,7 @@ function ProfilePanel(props) {
     left,
     screenHeight,
     uid,
+    developerAcc,
   } = props;
 
   //States
@@ -230,6 +231,20 @@ function ProfilePanel(props) {
     </Link>
   );
 
+  const renderClassesButton = () => (
+    developerAcc ? (
+      <Link
+        to={{ pathname: "/classes" }}
+        className="panel-button btn btn-secondary btn-lg btn-block"
+        key="classes-button"
+        id="classes-button"
+      >
+        <FontAwesomeIcon icon={faBook} />
+        <span className="panel-button-text">Classes</span>
+      </Link>
+    ) : ''
+  );
+
   const renderSketchesButton = () => (
     <Link
       to={{ pathname: '/sketches' }}
@@ -261,10 +276,17 @@ function ProfilePanel(props) {
     switch (contentType) {
       case 'sketches':
         panelButtons.push(renderEditorButton());
+        panelButtons.push(renderClassesButton());
+        break;
+      case "classes":
+      case "classPage":
+        panelButtons.push(renderEditorButton());
+        panelButtons.push(renderSketchesButton());
         break;
       case 'editor':
       default:
         panelButtons.push(renderSketchesButton());
+        panelButtons.push(renderClassesButton());
         break;
     }
 
