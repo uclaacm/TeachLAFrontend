@@ -22,12 +22,11 @@ const Main = ({
   contentType, left, screenHeight, panelOpen, language, programid,
   sketchName, listOfPrograms, setTheme
 }) => {
-  const [saveText, setText] = useState('Save');
-  const [viewMode, setView] = useState(screenWidth <= EDITOR_WIDTH_BREAKPOINT ? CODE_ONLY : CODE_AND_OUTPUT);
-  const [pane1Style, changePane1Style] = useState({ transition: 'width .5s ease' });
+  const [saveText, setSaveText] = useState('Save');
+  const [viewMode, setViewMode] = useState(screenWidth <= EDITOR_WIDTH_BREAKPOINT ? CODE_ONLY : CODE_AND_OUTPUT);
+  const [pane1Style, setPane1Style] = useState({ transition: 'width .5s ease' });
 
-    // Set theme from cookies (yum)
-    //only run when the component first mounts
+  // Set theme from cookies (yum)
   useEffect(() => {
     setTheme(cookies.getThemeFromCookie());
   },[]);
@@ -35,7 +34,7 @@ const Main = ({
   useEffect(() => {
     if (screenWidth <= EDITOR_WIDTH_BREAKPOINT) {
       if (viewMode === CODE_AND_OUTPUT) {
-        setView(CODE_ONLY);
+        setViewMode(CODE_ONLY);
       }
     }
   },[screenWidth]);
@@ -47,12 +46,12 @@ const Main = ({
   }
 
   const resetSaveText = () => {
-    setText('Save');
+    setSaveText('Save');
   }
 
   const handleSave = () => {
     if (!dirty) return; // Don't save if not dirty (unedited)
-    setText('Saving...');
+    setSaveText('Saving...');
 
     const programToUpdate = {};
     programToUpdate[mostRecentProgram] = {
@@ -60,7 +59,7 @@ const Main = ({
     }
 
     fetch.updatePrograms(uid, programToUpdate).then(() => {
-      setText('Saved!');
+      setSaveText('Saved!');
 
       setTimeout(resetSaveText, 3000);
     });
@@ -81,7 +80,7 @@ const Main = ({
     <EditorAndOutput
       // view mode
       viewMode={viewMode}
-      updateViewMode={(viewMode) => setView({ viewMode })}
+      updateViewMode={(viewMode) => setViewMode({ viewMode })}
       // theme
       theme={theme}
       // sizing
@@ -93,7 +92,7 @@ const Main = ({
       // pane
       panelOpen={panelOpen}
       pane1Style={pane1Style}
-      changePane1Style={(newStyle) => changePane1Style(newStyle)}
+      setPane1Style={(newStyle) => setPane1Style(newStyle)}
       // program information
       mostRecentProgram={mostRecentProgram}
       language={language}
