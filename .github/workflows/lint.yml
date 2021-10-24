@@ -14,4 +14,11 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install
-    - run: npm run lint
+    - name: Run ESlint
+      run: |
+        git fetch origin master
+        npm run lint-js-changes
+    - name: Run Stylelint
+      run: |
+        git fetch origin master
+        npm run lint-css-changes

@@ -41,8 +41,10 @@
     "lint-full-fix": "eslint --fix \"**/*.js\" && stylelint --fix \"**/*.css\" \"**/*.scss\"",
     "lint-css": "stylelint \"**/*.css\" \"**/*.scss\"",
     "lint-css-fix": "stylelint --fix \"**/*.css\" \"**/*.scss\"",
+    "lint-css-changes": "stylelint $(git diff --name-only origin/master | grep -E '\\.(css|scss)$' || echo \"src/styles/app.scss\")",
     "lint-js": "eslint \"**/*.js\"",
     "lint-js-fix": "eslint --fix \"**/*.js\"",
+    "lint-js-changes": "eslint $(git diff --name-only origin/master | grep -E '\\.(js|jsx)$')",
     "staging_start": "cross-env REACT_APP_FS_PROJ=staging REACT_APP_SERVER_TYPE=staging react-scripts start",
     "staging_build": "cross-env REACT_APP_FS_PROJ=staging REACT_APP_SERVER_TYPE=staging react-scripts build",
     "prepare": "husky install",
@@ -70,11 +72,6 @@
     "stylelint-config-standard": "^22.0.0",
     "stylelint-scss": "^3.21.0"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}"
@@ -88,10 +85,9 @@
     ]
   },
   "lint-staged": {
-    "*.{js,json,css,md}": [
-      "prettier --write",
-      "git add"
-    ]
+    "*.js": "eslint --cache --fix",
+    "*.css": "stylelint --fix",
+    "*.{js,css,md}": "prettier --write"
   },
   "browserslist": [
     ">0.2%",
