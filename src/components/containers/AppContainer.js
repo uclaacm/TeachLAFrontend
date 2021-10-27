@@ -3,6 +3,7 @@
   but rather do that in each individual container
 */
 import { connect } from 'react-redux';
+import { clearClasses } from "../../actions/classesActions";
 import { loadPrograms, clearPrograms } from '../../actions/programsActions';
 import { screenResize } from '../../actions/uiActions';
 import { loadUserData, clearUserData, loadFailure } from '../../actions/userDataActions.js';
@@ -11,6 +12,7 @@ import App from '../app.js';
 
 const mapStateToProps = (state) => ({
   uid: state.userData.uid,
+  developerAcc: state.userData.developerAcc,
   errorMsg: state.userData.error,
   screenWidth: state.ui.screenWidth,
   screenHeight: state.ui.screenHeight,
@@ -32,6 +34,7 @@ const mapDispatchToProps = (dispatch) => ({
   clearUserData: () => {
     dispatch(clearUserData());
     dispatch(clearPrograms());
+    dispatch(clearClasses());
   },
   loadFailure: (err) => {
     dispatch(loadFailure(err));

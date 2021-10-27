@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactModal from 'react-modal';
 import { Redirect } from 'react-router-dom';
 import { Button, Container, Row, Col, FormGroup, Label, Input } from 'reactstrap';
 import * as fetch from '../../../lib/fetch.js';
 import ImageSelector from '../../common/ImageSelector';
+import { ThumbnailArray } from "../../../constants";
 import {
-  SketchThumbnailArray,
   LanguageDropdownValues,
   LanguageDropdownDefault,
 } from '../constants';
@@ -13,127 +13,116 @@ import DropdownButton from '../../common/DropdownButton.js';
 import { DropdownItem } from 'reactstrap';
 import '../../../styles/SketchesModal.scss';
 
-class CreateSketchModal extends React.Component {
-  toggleProps = { className: '', color: 'primary', size: 'lg' };
+const CreateSketchModal = (props) => {
+  const {
+    onClose,
+    uid,
+    isOpen,
+    addProgram,
+    setMostRecentProgram,
+    wid,
+  } = props;
+  const toggleProps = { className: '', color: 'primary', size: 'lg' };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      language: LanguageDropdownDefault,
-      name: '',
-      next: false,
-      thumbnail: -1,
-      disableSubmit: false,
-      error: '',
-      redirect: false,
-    };
-  }
+  const [language, setLanguage] = useState(LanguageDropdownDefault);
+  const [name, setName] = useState('');
+  const [next, setNext] = useState(false);
+  const [thumbnail, setThumbnail] = useState(-1);
+  const [disableSubmit, setDisableSubmit] = useState(false);
+  const [error, setError] = useState('');
+  const [redirect, setRedirect] = useState(false);
 
-  //= =============React Lifecycle Functions Start===================//
-
-  closeModal = () => {
-    if (this.props.onClose && {}.toString.call(this.props.onClose) === '[object Function]') {
-      this.props.onClose();
+  const closeModal = () => {
+    if (onClose && {}.toString.call(onClose) === '[object Function]') {
+      onClose();
     }
 
-    this.setState({
-      next: false,
-      language: LanguageDropdownDefault,
-      name: '',
-      thumbnail: -1,
-      error: '',
-      disableSubmit: false,
-    });
+    setNext(false);
+    setLanguage(LanguageDropdownDefault);
+    setName('');
+    setThumbnail(-1);
+    setError('');
+    setDisableSubmit(false);
   };
 
-  changeLanguage = (lang) => {
-    this.setState({ language: lang });
+  const setNextHelper = (val) => {
+    setNext(val);
+    setError('');
+    setDisableSubmit(false);
   };
 
-  setNext = (val) => {
-    this.setState({
-      next: val,
-      error: '',
-      disableSubmit: false,
-    });
-  };
+  const onBack = () => setNextHelper(false);
 
-  onBack = () => this.setNext(false);
-
-  badThumbnailInput = () => {
+  const isBadThumbnailInput = () => {
     if (
-      this.state.thumbnail === undefined ||
-      this.state.thumbnail === '' ||
-      this.state.thumbnail >= SketchThumbnailArray.length ||
-      this.state.thumbnail < 0
+      thumbnail === undefined ||
+      thumbnail === '' ||
+      thumbnail >= ThumbnailArray.length ||
+      thumbnail < 0
     ) {
-      // this.setState({error: "Please select a thumbnail"})
+      // setError('Please select a thumbnail')
       return true;
     }
 
     return false;
   };
 
-  badNameInput = () => {
-    if (!this.state.name) {
-      this.setState({ error: 'Name is required' });
+  const isBadNameInput = () => {
+    if (!name) {
+      setError('Name is required');
       return true;
     }
-    if (this.state.name.length > 15) {
-      this.setState({ error: 'Name must be 15 characters or less' });
+    if (name.length > 15) {
+      setError('Name must be 15 characters or less');
       return true;
     }
-    // if( this.state.name.match(/[^a-zA-Z0-9!@#$%'" .]/)){
-    //   this.setState({error: "Sketch name nust be less than 20 characters"})
+    // if( .name.match(/[^a-zA-Z0-9!@#$%'" .]/)){
+    //   setError('Sketch name nust be less than 20 characters')
     //   return true
     // }
 
     return false;
   };
 
-  badLanguageInput = () => {
-    if (!this.state.language) {
-      this.setState({ error: 'Please select a language' });
+  const isBadLanguageInput = () => {
+    if (!language) {
+      setError('Please select a language');
       return true;
     }
 
-    let notFound = true;
     for (let i = 0; i < LanguageDropdownValues.length; i++) {
       if (
-        this.state.language.display === LanguageDropdownValues[i].display &&
-        this.state.language.value === LanguageDropdownValues[i].value
+        language.display === LanguageDropdownValues[i].display &&
+        language.value === LanguageDropdownValues[i].value
       ) {
-        notFound = false;
-        break;
+        return false;
       }
     }
-    if (notFound) {
-      this.setState({ error: 'Invalid language selected' });
-      return true;
-    }
 
-    return false;
+    setError('Invalid language selected');
+    return true;
   };
 
-  onFirstSubmit = (e) => {
+  const onFirstSubmit = (e) => {
     e.preventDefault();
-    if (this.badNameInput() || this.badLanguageInput()) {
+    if (isBadNameInput() || isBadLanguageInput()) {
       return;
     }
-    this.setNext(true);
+    setNextHelper(true);
   };
 
-  onSecondSubmit = async (e) => {
+  const onSecondSubmit = async (e) => {
     e.preventDefault();
 
-    if (this.badThumbnailInput()) return;
+    if (isBadThumbnailInput()) return;
 
     const data = {
-      uid: this.props.uid,
-      thumbnail: this.state.thumbnail,
-      language: this.state.language.value,
-      name: this.state.name,
+      uid,
+      thumbnail,
+      language: language.value,
+      name,
       code: '',
+      wid,
     };
 
     try {
@@ -144,76 +133,63 @@ class CreateSketchModal extends React.Component {
           return res.json();
         })
         .then((json) => {
-          const { uid, ...programData } = json;
-          this.props.addProgram(uid, programData || {});
-          this.props.setMostRecentProgram(uid);
-          this.setState({ redirect: true });
-          this.closeModal();
+          const { id, ...programData } = json;
+          addProgram(id, programData || {});
+          setMostRecentProgram(id);
+          setRedirect(true);
+          closeModal();
         })
         .catch((err) => {
-          this.setState({
-            disableSubmit: false,
-            error: 'Failed to create sketch, please try again later',
-          });
+          setDisableSubmit(false);
+          setError('Failed to create sketch, please try again later');
           console.log(err);
         });
     } catch (err) {
       console.log(err);
     }
-    this.setState({ disableSubmit: true, error: '' });
+    setDisableSubmit(true);
+    setError('');
   };
 
-  renderSecondModal = () => {
-    const icons = SketchThumbnailArray.map((val, index) => (
-      <figure
-        className="sketches-gallery-item"
-        key={val}
-        onClick={() => this.setState({ thumbnail: index })}
-      >
+  const renderSecondModal = () => {
+    const icons = ThumbnailArray.map((val, index) => (
+      <figure className="sketches-gallery-item" key={val} onClick={() => setThumbnail(index)}>
         <img
           src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${val}.svg`}
-          className={`sketches-gallery-img${this.state.thumbnail === index ? '-selected' : ''}`}
+          className={`sketches-gallery-img${thumbnail === index ? '-selected' : ''}`}
           alt="icon"
         />
       </figure>
     ));
 
     const thumbnailPreview =
-      this.state.thumbnail !== -1 ? (
+      thumbnail !== -1 ? (
         <img
-          src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${
-            SketchThumbnailArray[this.state.thumbnail]
-          }.svg`}
+          src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${ThumbnailArray[thumbnail]}.svg`}
           className="sketches-modal-header-thumbnail"
           alt="icon"
         />
       ) : null;
     return (
       <ImageSelector
-        isOpen={this.props.isOpen}
-        closeModal={this.closeModal}
+        isOpen={isOpen}
+        closeModal={closeModal}
         thumbnailPreview={thumbnailPreview}
         icons={icons}
-        error={this.state.error}
+        error={error}
       >
         <Row>
           <Col>
-            <Button
-              color="secondary"
-              onClick={this.onBack}
-              disabled={this.state.disableSubmit}
-              size="lg"
-              block
-            >
+            <Button color="secondary" onClick={onBack} disabled={disableSubmit} size="lg" block>
               Back
             </Button>
           </Col>
           <Col>
             <Button
               color="success"
-              onClick={this.onSecondSubmit}
+              onClick={onSecondSubmit}
               size="lg"
-              disabled={this.badThumbnailInput() || this.state.disableSubmit}
+              disabled={isBadThumbnailInput() || disableSubmit}
               block
             >
               Create
@@ -224,10 +200,10 @@ class CreateSketchModal extends React.Component {
     );
   };
 
-  renderFirstModal = () => (
+  const renderFirstModal = () => (
     <ReactModal
-      isOpen={this.props.isOpen}
-      onRequestClose={this.closeModal}
+      isOpen={isOpen}
+      onRequestClose={closeModal}
       className="sketches-modal"
       overlayClassName="profile-image-overlay"
       ariaHideApp={false}
@@ -240,11 +216,7 @@ class CreateSketchModal extends React.Component {
             Name
           </Label>
           <Col xs={8}>
-            <Input
-              onChange={(e) => this.setState({ name: e.target.value })}
-              value={this.state.name}
-              id="sketch-name"
-            />
+            <Input onChange={(e) => setName(e.target.value)} value={name} id="sketch-name" />
           </Col>
         </FormGroup>
         <br />
@@ -254,25 +226,25 @@ class CreateSketchModal extends React.Component {
           </Col>
           <Col xs="8" className="d-flex align-items-center">
             <DropdownButton
-              displayValue={this.state.language.display || LanguageDropdownDefault.display}
+              displayValue={language.display || LanguageDropdownDefault.display}
               displayClass={'sketches'}
-              toggleProps={this.toggleProps}
-              onSelect={this.changeLanguage}
+              toggleProps={toggleProps}
+              onSelect={setLanguage}
               DropdownItems={LanguageDropdownValues}
             />
           </Col>
         </Row>
         <br />
-        <div className="text-center text-danger">{this.state.error || <br />}</div>
+        <div className="text-center text-danger">{error || <br />}</div>
         <hr />
         <Row>
           <Col>
-            <Button color="danger" onClick={this.closeModal} size="lg" block>
+            <Button color="danger" onClick={closeModal} size="lg" block>
               Cancel
             </Button>
           </Col>
           <Col>
-            <Button color="success" onClick={this.onFirstSubmit} size="lg" block>
+            <Button color="success" onClick={onFirstSubmit} size="lg" block>
               Next
             </Button>
           </Col>
@@ -281,17 +253,15 @@ class CreateSketchModal extends React.Component {
     </ReactModal>
   );
 
-  render() {
-    if (this.state.redirect) {
-      return <Redirect to="/editor" />;
-    }
-
-    if (this.state.next) {
-      return this.renderSecondModal();
-    }
-
-    return this.renderFirstModal();
+  if (redirect) {
+    return <Redirect to="/editor" />;
   }
-}
+
+  if (next) {
+    return renderSecondModal();
+  }
+
+  return renderFirstModal();
+};
 
 export default CreateSketchModal;

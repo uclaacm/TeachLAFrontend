@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 
 import { EDITOR_WIDTH_BREAKPOINT, CODE_AND_OUTPUT, CODE_ONLY } from '../constants';
-import * as cookies from '../lib/cookies.js';
-import * as fetch from '../lib/fetch.js';
-
-import ProfilePanelContainer from './common/containers/ProfilePanelContainer';
-import EditorAndOutput from './EditorAndOutput/EditorAndOutput';
-import SketchesPageContainer from './Sketches/containers/SketchesContainer';
+import * as fetch from "../lib/fetch.js";
+import * as cookies from "../lib/cookies.js";
+import ClassPageContainer from "./Class/containers/ClassPageContainer";
+import ClassesPageContainer from "./Classes/containers/ClassesContainer";
+import ProfilePanelContainer from "./common/containers/ProfilePanelContainer";
+import SketchesPageContainer from "./Sketches/containers/SketchesContainer";
+import EditorAndOutput from "./EditorAndOutput/EditorAndOutput";
 
 import '../styles/Main.scss';
 
@@ -80,7 +81,7 @@ const Main = ({
     <EditorAndOutput
       // view mode
       viewMode={viewMode}
-      updateViewMode={(viewMode) => setViewMode({ viewMode })}
+      updateViewMode={(viewMode) => setViewMode(viewMode)}
       // theme
       theme={theme}
       // sizing
@@ -92,7 +93,7 @@ const Main = ({
       // pane
       panelOpen={panelOpen}
       pane1Style={pane1Style}
-      setPane1Style={(newStyle) => setPane1Style(newStyle)}
+      changePane1Style={(newStyle) => setPane1Style(newStyle)}
       // program information
       mostRecentProgram={mostRecentProgram}
       language={language}

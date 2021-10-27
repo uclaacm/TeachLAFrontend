@@ -1,11 +1,14 @@
 import React from 'react';
 import ReactModal from 'react-modal';
-import { Button, Container, Row, Col, FormGroup, Label, Input } from 'reactstrap';
-
+import {
+  Button, Container, Row, Col, FormGroup, Label, Input,
+} from 'reactstrap';
+import DropdownButton from "../../common/DropdownButton";
+import { LanguageDropdownValues } from "../constants";
+import { ThumbnailArray } from "../../../constants";
 import * as fetch from '../../../lib/fetch.js';
 import ImageSelector from '../../common/ImageSelector';
-import { SketchThumbnailArray, LanguageDropdownValues } from '../constants';
-import DropdownButton from '../../common/DropdownButton.js';
+
 import '../../../styles/SketchesModal.scss';
 
 class EditSketchModal extends React.Component {
@@ -154,7 +157,7 @@ class EditSketchModal extends React.Component {
       <img
         src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${
           this.state.newThumbnail !== -1
-            ? SketchThumbnailArray[this.state.newThumbnail]
+            ? ThumbnailArray[this.state.newThumbnail]
             : this.props.sketchImg
         }.svg`}
         className="sketches-modal-header-thumbnail"
@@ -262,19 +265,23 @@ class EditSketchModal extends React.Component {
   }
 
   renderThumbnailModal() {
-    const icons = SketchThumbnailArray.map((val, index) => (
-      <figure
-        className="sketches-gallery-item"
-        key={val}
-        onClick={() => this.setState({ newThumbnail: index })}
-      >
-        <img
-          src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${val}.svg`}
-          className={`sketches-gallery-img${this.state.newThumbnail === index ? '-selected' : ''}`}
-          alt="icon"
-        />
-      </figure>
-    ));
+    const icons = ThumbnailArray.map((val, index) => {
+      return (
+        <figure
+          className="sketches-gallery-item"
+          key={val}
+          onClick={() => this.setState({ newThumbnail: index })}
+        >
+          <img
+            src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${val}.svg`}
+            className={
+              "sketches-gallery-img" + (this.state.newThumbnail === index ? "-selected" : "")
+            }
+            alt="icon"
+          />
+        </figure>
+      );
+    });
 
     const thumbnailPreview =
       this.state.newThumbnail !== -1 ? (

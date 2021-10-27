@@ -11,6 +11,7 @@ const mapStateToProps = (state, ownProps) => ({
   screenHeight: state.ui.screenHeight,
   left: state.ui.panelOpen ? OPEN_PANEL_LEFT : CLOSED_PANEL_LEFT,
   theme: ownProps.theme,
+  developerAcc: state.userData.developerAcc,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

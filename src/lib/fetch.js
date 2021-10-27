@@ -104,8 +104,8 @@ export const updateUserData = (uid = '', userData) => {
  */
 
 export const createSketch = (data) => {
-  const { uid, ...rest } = data;
-  return makeServerRequest({ uid, program: rest }, 'program/create');
+  const { uid, wid, ...rest } = data;
+  return makeServerRequest({ uid, wid, program: rest }, 'program/create');
 };
 
 /**
@@ -129,4 +129,52 @@ export const getSketch = async (docID) => {
   const ok = await result.ok;
   const sketch = await result.json();
   return { ok, sketch };
+};
+
+/**
+ * creates a new class
+ * @param {Object} data required data to create class {uid, name, thumbnail}
+ */
+export const createClass = (data) => {
+  return makeServerRequest(data, "class/create");
+};
+
+/**
+ * add a student to an existing class
+ * @param {Object} data student's uid and class's word id {uid, wid}
+ */
+export const joinClass = async (data) => {
+  console.log(data)
+  let result = await makeServerRequest(data, "class/join", "put");
+  let ok = await result.ok;
+  let status = result.status;
+  let classData = ok ? await result.json() : {};
+  return { ok, status, classData };
+};
+
+/**
+ * remove a member from a class
+ * @param {Object} data member's uid and class's cid {uid, cid}
+ */
+export const leaveClass = async (data) => {
+  let result = await makeServerRequest(data, "class/leave", "put");
+  let ok = await result.ok;
+  console.log("ok: " + ok)
+  // let userData = await result.json();
+  let userData = {};
+  return { ok, userData };
+};
+
+/**
+ * Get class data for a user
+ * @param {Object} data member's uid and class's cid {uid, cid}
+ * @param {boolean} withPrograms whether to include this class's sketches or not
+ * @param {boolean} withUserData whether to include student data
+ */
+export const getClass = async (data, withPrograms, withUserData) => {
+  let result = await makeServerRequest(data, `class/get?programs=${withPrograms}&userData=${withUserData}`);
+  let ok = await result.ok;
+  console.log("response status: " + result.status)
+  let classData = await result.json();
+  return { ok, classData };
 };
