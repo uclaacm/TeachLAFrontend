@@ -131,8 +131,10 @@ const CreateClassModal = (props) => {
     const icons = ThumbnailArray.map((val, index) => (
       <figure
         className="sketches-gallery-item"
+        role="presentation"
         key={val}
-        // onClick={() => setThumbnail(index)}
+        onClick={() => setThumbnail(index)}
+        onKeyDown={() => setThumbnail(index)}
       >
         <img
           src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${val}.svg`}
