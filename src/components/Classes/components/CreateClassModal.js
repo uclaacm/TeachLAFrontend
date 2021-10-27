@@ -99,9 +99,11 @@ const CreateClassModal = (props) => {
         .catch((err) => {
           setDisableSubmit(false);
           setError(`Failed to create class, please try again later. Error: ${err}`);
+          console.error(err);
         });
     } catch (err) {
       setError(`Failed to create class, please try again later. Error: ${err}`);
+      console.error(err);
     }
 
     // Testing stuff (do this instead of the try-catch block):
