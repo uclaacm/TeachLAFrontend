@@ -131,17 +131,15 @@ const CreateClassModal = (props) => {
 
   const renderSecondModal = () => {
     const icons = ThumbnailArray.map((val, index) => (
-      <figure
-        className="sketches-gallery-item"
-        role="presentation"
-        key={val}
-        onClick={() => setThumbnail(index)}
-        onKeyDown={() => setThumbnail(index)}
-      >
-        <img
+      <figure className="sketches-gallery-item" key={val}>
+        <input
+          type="image"
           src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${val}.svg`}
           className={`sketches-gallery-img${thumbnail === index ? '-selected' : ''}`}
           alt="icon"
+          tabIndex="0"
+          onClick={() => setThumbnail(index)}
+          onKeyDown={() => setThumbnail(index)}
         />
       </figure>
     ));
