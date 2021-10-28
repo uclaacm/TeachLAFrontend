@@ -1,58 +1,49 @@
-import React from "react";
-import ImageSelector from "../../common/ImageSelector";
-import { ThumbnailArray } from "../../../constants";
-import * as fetch from "../../../lib/fetch.js";
-import { Redirect } from "react-router-dom";
+import React, { useState } from 'react';
+import ReactModal from 'react-modal';
+import { Redirect } from 'react-router-dom';
+import {
+  Button, Container, Row, Col, FormGroup, Label, Input,
+} from 'reactstrap';
+import { ThumbnailArray } from '../../../constants';
+import * as fetch from '../../../lib/fetch';
+import ImageSelector from '../../common/ImageSelector';
 
-import { Button, Container, Row, Col, FormGroup, Label, Input } from "reactstrap";
+import '../../../styles/SketchesModal.scss';
 
-import ReactModal from "react-modal";
+const CreateClassModal = (props) => {
+  const [name, setName] = useState('');
+  const [next, setNext] = useState(false);
+  const [thumbnail, setThumbnail] = useState(-1);
+  const [disableSubmit, setDisableSubmit] = useState(false);
+  const [error, setError] = useState('');
+  const [redirect, setRedirect] = useState(false);
 
-import "styles/SketchesModal.scss";
-
-class CreateClassModal extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: "",
-      next: false,
-      thumbnail: -1,
-      disableSubmit: false,
-      error: "",
-      redirect: false,
-    };
-  }
-
-  closeModal = () => {
-    if (this.props.onClose && {}.toString.call(this.props.onClose) === "[object Function]") {
-      this.props.onClose();
+  const closeModal = () => {
+    if (props.onClose && {}.toString.call(props.onClose) === '[object Function]') {
+      props.onClose();
     }
 
-    this.setState({
-      next: false,
-      name: "",
-      thumbnail: -1,
-      error: "",
-      disableSubmit: false,
-    });
+    setNext(false);
+    setName('');
+    setThumbnail(-1);
+    setError('');
+    setDisableSubmit(false);
   };
 
-  setNext = (val) => {
-    this.setState({
-      next: val,
-      error: "",
-      disableSubmit: false,
-    });
+  const setNextStates = (val) => {
+    setNext(val);
+    setError('');
+    setDisableSubmit(false);
   };
 
-  onBack = () => this.setNext(false);
+  const onBack = () => setNextStates(false);
 
-  badThumbnailInput = () => {
+  const badThumbnailInput = () => {
     if (
-      this.state.thumbnail === undefined ||
-      this.state.thumbnail === "" ||
-      this.state.thumbnail >= ThumbnailArray.length ||
-      this.state.thumbnail < 0
+      thumbnail === undefined
+      || thumbnail === ''
+      || thumbnail >= ThumbnailArray.length
+      || thumbnail < 0
     ) {
       return true;
     }
@@ -60,38 +51,38 @@ class CreateClassModal extends React.Component {
     return false;
   };
 
-  badNameInput = () => {
-    if (!this.state.name) {
-      this.setState({ error: "Name is required" });
+  const badNameInput = () => {
+    if (!name) {
+      setError('Name is required');
       return true;
     }
-    if (this.state.name.length > 100) {
-      this.setState({ error: "Name must be 100 characters or less" });
+    if (name.length > 100) {
+      setError('Name must be 100 characters or less');
       return true;
     }
 
     return false;
   };
 
-  onFirstSubmit = (e) => {
+  const onFirstSubmit = (e) => {
     e.preventDefault();
-    if (this.badNameInput()) {
+    if (badNameInput()) {
       return;
     }
-    this.setNext(true);
+    setNextStates(true);
   };
 
-  onSecondSubmit = async (e) => {
+  const onSecondSubmit = async (e) => {
     e.preventDefault();
 
-    if (this.badThumbnailInput()) return;
+    if (badThumbnailInput()) return;
 
-    let data = {
-      uid: this.props.uid,
-      thumbnail: this.state.thumbnail,
-      name: this.state.name,
+    const data = {
+      uid: props.uid,
+      thumbnail,
+      name,
     };
-    console.log("about to try creating class, data is " + JSON.stringify(data));
+
     try {
       fetch
         .createClass(data)
@@ -100,22 +91,19 @@ class CreateClassModal extends React.Component {
           return res.json();
         })
         .then((json) => {
-          console.log(JSON.stringify(json));
-          this.props.setCurrentClass(json.cid);
-          this.props.addInstrClass(json.cid, json || {});
-          this.setState({ redirect: true });
-          this.closeModal();
+          props.setCurrentClass(json.cid);
+          props.addInstrClass(json.cid, json || {});
+          setRedirect(true);
+          closeModal();
         })
         .catch((err) => {
-          console.log("caught an error");
-          this.setState({
-            disableSubmit: false,
-            error: "Failed to create class, please try again later",
-          });
-          console.log(err);
+          setDisableSubmit(false);
+          setError(`Failed to create class, please try again later. Error: ${err}`);
+          console.error(err);
         });
     } catch (err) {
-      console.log(err);
+      setError(`Failed to create class, please try again later. Error: ${err}`);
+      console.error(err);
     }
 
     // Testing stuff (do this instead of the try-catch block):
@@ -137,62 +125,52 @@ class CreateClassModal extends React.Component {
 */
     // end of testing stuff
 
-    this.setState({ disableSubmit: true, error: "" });
+    setDisableSubmit(true);
+    setError('');
   };
 
-  renderSecondModal = () => {
-    let icons = ThumbnailArray.map((val, index) => {
-      return (
-        <figure
-          className="sketches-gallery-item"
-          key={val}
-          onClick={() => this.setState({ thumbnail: index })}
-        >
-          <img
-            src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${val}.svg`}
-            className={"sketches-gallery-img" + (this.state.thumbnail === index ? "-selected" : "")}
-            alt="icon"
-          />
-        </figure>
-      );
-    });
-
-    let thumbnailPreview =
-      this.state.thumbnail !== -1 ? (
-        <img
-          src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${
-            ThumbnailArray[this.state.thumbnail]
-          }.svg`}
-          className={"sketches-modal-header-thumbnail"}
+  const renderSecondModal = () => {
+    const icons = ThumbnailArray.map((val, index) => (
+      <figure className="sketches-gallery-item" key={val}>
+        <input
+          type="image"
+          src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${val}.svg`}
+          className={`sketches-gallery-img${thumbnail === index ? '-selected' : ''}`}
           alt="icon"
+          tabIndex="0"
+          onClick={() => setThumbnail(index)}
+          onKeyDown={() => setThumbnail(index)}
         />
-      ) : null;
+      </figure>
+    ));
+
+    const thumbnailPreview = thumbnail !== -1 ? (
+      <img
+        src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${ThumbnailArray[thumbnail]}.svg`}
+        className="sketches-modal-header-thumbnail"
+        alt="icon"
+      />
+    ) : null;
     return (
       <ImageSelector
-        isOpen={this.props.isOpen}
-        closeModal={this.closeModal}
+        isOpen={props.isOpen}
+        closeModal={closeModal}
         thumbnailPreview={thumbnailPreview}
         icons={icons}
-        error={this.state.error}
+        error={error}
       >
         <Row>
           <Col>
-            <Button
-              color="secondary"
-              onClick={this.onBack}
-              disabled={this.state.disableSubmit}
-              size="lg"
-              block
-            >
+            <Button color="secondary" onClick={onBack} disabled={disableSubmit} size="lg" block>
               Back
             </Button>
           </Col>
           <Col>
             <Button
               color="success"
-              onClick={this.onSecondSubmit}
+              onClick={onSecondSubmit}
               size="lg"
-              disabled={this.badThumbnailInput() || this.state.disableSubmit}
+              disabled={badThumbnailInput() || disableSubmit}
               block
             >
               Create
@@ -203,62 +181,54 @@ class CreateClassModal extends React.Component {
     );
   };
 
-  renderFirstModal = () => {
-    return (
-      <ReactModal
-        isOpen={this.props.isOpen}
-        onRequestClose={this.closeModal}
-        className="sketches-modal"
-        overlayClassName="profile-image-overlay"
-        ariaHideApp={false}
-      >
-        <Container>
-          <h1 className="text-center">Create a Class</h1>
-          <hr />
-          <FormGroup row>
-            <Label className="text-right" for="class-name" xs={4}>
-              Enter new class name:
-            </Label>
-            <Col xs={8}>
-              <Input
-                onChange={(e) => this.setState({ name: e.target.value })}
-                value={this.state.name}
-                id="class-name"
-              />
-            </Col>
-          </FormGroup>
-          <br />
-          <div className="text-center text-danger">{this.state.error || <br />}</div>
-          <hr />
-          <Row>
-            <Col>
-              <Button color="danger" onClick={this.closeModal} size="lg" block>
-                Cancel
-              </Button>
-            </Col>
-            <Col>
-              <Button color="success" onClick={this.onFirstSubmit} size="lg" block>
-                Next
-              </Button>
-            </Col>
-          </Row>
-        </Container>
-      </ReactModal>
-    );
-  };
+  const renderFirstModal = () => (
+    <ReactModal
+      isOpen={props.isOpen}
+      onRequestClose={closeModal}
+      className="sketches-modal"
+      overlayClassName="profile-image-overlay"
+      ariaHideApp={false}
+    >
+      <Container>
+        <h1 className="text-center">Create a Class</h1>
+        <hr />
+        <FormGroup row>
+          <Label className="text-right" for="class-name" xs={4}>
+            Enter new class name:
+          </Label>
+          <Col xs={8}>
+            <Input onChange={(e) => setName(e.target.value)} value={name} id="class-name" />
+          </Col>
+        </FormGroup>
+        <br />
+        <div className="text-center text-danger">{error || <br />}</div>
+        <hr />
+        <Row>
+          <Col>
+            <Button color="danger" onClick={closeModal} size="lg" block>
+              Cancel
+            </Button>
+          </Col>
+          <Col>
+            <Button color="success" onClick={onFirstSubmit} size="lg" block>
+              Next
+            </Button>
+          </Col>
+        </Row>
+      </Container>
+    </ReactModal>
+  );
 
-  render() {
-    if (this.state.redirect) {
-      // put class url here
-      return <Redirect to="/class" />;
-    }
-
-    if (this.state.next) {
-      return this.renderSecondModal();
-    }
-
-    return this.renderFirstModal();
+  if (redirect) {
+    // put class url here
+    return <Redirect to="/class" />;
   }
-}
+
+  if (next) {
+    return renderSecondModal();
+  }
+
+  return renderFirstModal();
+};
 
 export default CreateClassModal;
