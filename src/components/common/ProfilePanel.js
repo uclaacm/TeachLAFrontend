@@ -25,7 +25,7 @@ import {
 } from '../../constants';
 import '../../styles/Panel.scss';
 
-import { isValidDisplayName } from '../../lib/validate';
+import { isValidDisplayName } from '../../lib/validate.js';
 import Footer from './Footer';
 import ImageSelector from './ImageSelector';
 import Switch from './Switch';
