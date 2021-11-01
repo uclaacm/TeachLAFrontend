@@ -4,8 +4,8 @@ import { Redirect } from 'react-router-dom';
 import { Button, Container, Row, Col, FormGroup, Label, Input } from 'reactstrap';
 import * as fetch from '../../../lib/fetch.js';
 import ImageSelector from '../../common/ImageSelector';
+import { ThumbnailArray } from "../../../constants";
 import {
-  SketchThumbnailArray,
   LanguageDropdownValues,
   LanguageDropdownDefault,
 } from '../constants';
@@ -14,7 +14,14 @@ import { DropdownItem } from 'reactstrap';
 import '../../../styles/SketchesModal.scss';
 
 const CreateSketchModal = (props) => {
-  const { onClose, uid, isOpen, addProgram, setMostRecentProgram } = props;
+  const {
+    onClose,
+    uid,
+    isOpen,
+    addProgram,
+    setMostRecentProgram,
+    wid,
+  } = props;
   const toggleProps = { className: '', color: 'primary', size: 'lg' };
 
   const [language, setLanguage] = useState(LanguageDropdownDefault);
@@ -50,7 +57,7 @@ const CreateSketchModal = (props) => {
     if (
       thumbnail === undefined ||
       thumbnail === '' ||
-      thumbnail >= SketchThumbnailArray.length ||
+      thumbnail >= ThumbnailArray.length ||
       thumbnail < 0
     ) {
       // setError('Please select a thumbnail')
@@ -115,6 +122,7 @@ const CreateSketchModal = (props) => {
       language: language.value,
       name,
       code: '',
+      wid,
     };
 
     try {
@@ -144,7 +152,7 @@ const CreateSketchModal = (props) => {
   };
 
   const renderSecondModal = () => {
-    const icons = SketchThumbnailArray.map((val, index) => (
+    const icons = ThumbnailArray.map((val, index) => (
       <figure className="sketches-gallery-item" key={val} onClick={() => setThumbnail(index)}>
         <img
           src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${val}.svg`}
@@ -157,7 +165,7 @@ const CreateSketchModal = (props) => {
     const thumbnailPreview =
       thumbnail !== -1 ? (
         <img
-          src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${SketchThumbnailArray[thumbnail]}.svg`}
+          src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${ThumbnailArray[thumbnail]}.svg`}
           className="sketches-modal-header-thumbnail"
           alt="icon"
         />
