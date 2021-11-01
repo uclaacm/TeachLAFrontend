@@ -12,20 +12,37 @@ import ImageSelector from '../../common/ImageSelector';
 import '../../../styles/SketchesModal.scss';
 
 const EditSketchModal = (props) => {
-  const { isOpen, onClose, setProgramLanguage, setProgramName, setProgramThumbnail, sketchImg, sketchKey, sketchLang, sketchName} = props;
+  const {
+    isOpen, 
+    onClose, 
+    setProgramLanguage, 
+    setProgramName, 
+    setProgramThumbnail, 
+    sketchImg, 
+    sketchKey, 
+    sketchLang, 
+    sketchName, 
+    uid 
+  } = props;
   const toggleProps = { className: '', color: 'primary', size: 'lg' };
   
-  const [newLanguage,setNewLanguage] = useState(-1);
-  const [newName,setNewName] = useState(-1);
+  const [newLanguage, setNewLanguage] = useState(-1);
+  const [newName, setNewName] = useState(-1);
   const [newThumbnail, setNewThumbnail] = useState(-1);
-  const [disableSubmit,setDisableSubmit] = useState(false);
-  const [error,setError] = useState('');
-  const [onThumbnails,setOnThumbnails] = useState(false);
+  const [disableSubmit, setDisableSubmit] = useState(false);
+  const [error, setError] = useState('');
+  const [onThumbnails, setOnThumbnails] = useState(false);
 
   const closeModal = () => {
     if (onClose && {}.toString.call(onClose) === '[object Function]') {
       onClose();
     }
+    setNewLanguage(-1);
+    setNewName(-1);
+    setNewThumbnail(-1);
+    setError('');
+    setOnThumbnails(false);
+    setDisableSubmit(false);
   };
 
   const changeLanguage = (lang) => {
@@ -53,8 +70,8 @@ const EditSketchModal = (props) => {
     if (newLanguage === -1) {
       return false;
     }
-    if (newLanguage) {
-      setError('Please select a language' );
+    if (!newLanguage) {
+      setError('Please select a language');
       return true;
     }
 
@@ -124,7 +141,7 @@ const EditSketchModal = (props) => {
           })
           .catch((err) => {
             setDisableSubmit(false);
-            setError( 'Failed to edit sketch, please try again later');
+            setError('Failed to edit sketch, please try again later');
             console.log(err);
           });
       } catch (err) {
@@ -170,7 +187,7 @@ const EditSketchModal = (props) => {
             </Label>
             <Col xs={8}>
               <Input
-                onChange={(e) => setNewName(e.target.value )}
+                onChange={(e) => setNewName(e.target.value)}
                 value={newName !== -1 ? newName : sketchName}
                 id="sketch-name"
               />
@@ -209,9 +226,7 @@ const EditSketchModal = (props) => {
               <Button
                 color="primary"
                 size="lg"
-                onClick={() => {
-                  setOnThumbnails(true);
-                }}
+                onClick={() => setOnThumbnails(true)}
               >
                 Change
               </Button>
