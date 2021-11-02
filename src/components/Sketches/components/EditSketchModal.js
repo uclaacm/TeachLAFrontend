@@ -45,10 +45,6 @@ const EditSketchModal = (props) => {
     setDisableSubmit(false);
   };
 
-  const changeLanguage = (lang) => {
-    setNewLanguage(lang);
-  };
-
   // Next two bad____input are copied (and slightly modified) from create sketch modal
 
   const badNameInput = () => {
@@ -139,12 +135,13 @@ const EditSketchModal = (props) => {
               setError(res.text() || 'Failed to edit sketch, please try again later');
             }
           })
-          .catch(() => {
+          .catch((err) => {
             setDisableSubmit(false);
             setError('Failed to edit sketch, please try again later');
+            console.error(err);
           });
-      } catch {
-        // empty
+      } catch (err) {
+        console.error(err);
       }
       setDisableSubmit(true);
       setError('');
@@ -200,7 +197,7 @@ const EditSketchModal = (props) => {
                 displayValue={newLanguage !== -1 ? newLanguage.display : sketchLang}
                 displayClass="sketches"
                 toggleProps={toggleProps}
-                onSelect={changeLanguage}
+                onSelect={setNewLanguage}
                 DropdownItems={LanguageDropdownValues}
               />
             </Col>
@@ -220,7 +217,7 @@ const EditSketchModal = (props) => {
                 color="primary"
                 size="lg"
                 onClick={() => setOnThumbnails(true)}
-                onKeyDown={() => {}}
+                onKeyDown={() => setOnThumbnails(true)}
                 tabIndex="0"
               >
                 Change
@@ -235,7 +232,7 @@ const EditSketchModal = (props) => {
               <Button
                 color="danger"
                 onClick={closeModal}
-                onKeyDown={() => {}}
+                onKeyDown={closeModal}
                 tabIndex="0"
                 size="lg"
                 disabled={disableSubmit}
@@ -248,7 +245,7 @@ const EditSketchModal = (props) => {
               <Button
                 color="success"
                 onClick={handleSubmitEdit}
-                onKeyDown={() => {}}
+                onKeyDown={handleSubmitEdit}
                 tabIndex="0"
                 size="lg"
                 disabled={disableSubmit}
@@ -270,7 +267,7 @@ const EditSketchModal = (props) => {
         className="sketches-gallery-item"
         key={val}
         onClick={() => setNewThumbnail(index)}
-        onKeyDown={() => {}}
+        onKeyDown={() => setNewThumbnail(index)}
       >
         <img
           src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${val}.svg`}
@@ -308,7 +305,7 @@ const EditSketchModal = (props) => {
               onClick={() => {
                 setOnThumbnails(false);
               }}
-              onKeyDown={() => {}}
+              onKeyDown={() => setOnThumbnails(false)}
               tabIndex="0"
               size="lg"
               block
