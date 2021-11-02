@@ -1,31 +1,31 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import ReactModal from 'react-modal';
 import {
   Button, Container, Row, Col, FormGroup, Label, Input,
 } from 'reactstrap';
-import DropdownButton from "../../common/DropdownButton";
-import { LanguageDropdownValues } from "../constants";
-import { ThumbnailArray } from "../../../constants";
-import * as fetch from '../../../lib/fetch.js';
+import { ThumbnailArray } from '../../../constants';
+import * as fetch from '../../../lib/fetch';
+import DropdownButton from '../../common/DropdownButton';
 import ImageSelector from '../../common/ImageSelector';
+import { LanguageDropdownValues } from '../constants';
 
 import '../../../styles/SketchesModal.scss';
 
 const EditSketchModal = (props) => {
   const {
-    isOpen, 
-    onClose, 
-    setProgramLanguage, 
-    setProgramName, 
-    setProgramThumbnail, 
-    sketchImg, 
-    sketchKey, 
-    sketchLang, 
-    sketchName, 
-    uid 
+    isOpen,
+    onClose,
+    setProgramLanguage,
+    setProgramName,
+    setProgramThumbnail,
+    sketchImg,
+    sketchKey,
+    sketchLang,
+    sketchName,
+    uid,
   } = props;
   const toggleProps = { className: '', color: 'primary', size: 'lg' };
-  
+
   const [newLanguage, setNewLanguage] = useState(-1);
   const [newName, setNewName] = useState(-1);
   const [newThumbnail, setNewThumbnail] = useState(-1);
@@ -78,8 +78,8 @@ const EditSketchModal = (props) => {
     let notFound = true;
     for (let i = 0; i < LanguageDropdownValues.length; i++) {
       if (
-        newLanguage.display === LanguageDropdownValues[i].display &&
-        newLanguage.value === LanguageDropdownValues[i].value
+        newLanguage.display === LanguageDropdownValues[i].display
+        && newLanguage.value === LanguageDropdownValues[i].value
       ) {
         notFound = false;
         break;
@@ -139,13 +139,12 @@ const EditSketchModal = (props) => {
               setError(res.text() || 'Failed to edit sketch, please try again later');
             }
           })
-          .catch((err) => {
+          .catch(() => {
             setDisableSubmit(false);
             setError('Failed to edit sketch, please try again later');
-            console.log(err);
           });
-      } catch (err) {
-        console.log(err);
+      } catch {
+        // empty
       }
       setDisableSubmit(true);
       setError('');
@@ -158,9 +157,7 @@ const EditSketchModal = (props) => {
     const thumbnailPreview = (
       <img
         src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${
-          newThumbnail !== -1
-            ? ThumbnailArray[newThumbnail]
-            : sketchImg
+          newThumbnail !== -1 ? ThumbnailArray[newThumbnail] : sketchImg
         }.svg`}
         className="sketches-modal-header-thumbnail"
         alt="icon"
@@ -200,12 +197,8 @@ const EditSketchModal = (props) => {
             </Col>
             <Col xs="8" className="d-flex align-items-center">
               <DropdownButton
-                displayValue={
-                  newLanguage !== -1
-                    ? newLanguage.display
-                    : sketchLang
-                }
-                displayClass={'sketches'}
+                displayValue={newLanguage !== -1 ? newLanguage.display : sketchLang}
+                displayClass="sketches"
                 toggleProps={toggleProps}
                 onSelect={changeLanguage}
                 DropdownItems={LanguageDropdownValues}
@@ -227,6 +220,8 @@ const EditSketchModal = (props) => {
                 color="primary"
                 size="lg"
                 onClick={() => setOnThumbnails(true)}
+                onKeyDown={() => {}}
+                tabIndex="0"
               >
                 Change
               </Button>
@@ -240,6 +235,8 @@ const EditSketchModal = (props) => {
               <Button
                 color="danger"
                 onClick={closeModal}
+                onKeyDown={() => {}}
+                tabIndex="0"
                 size="lg"
                 disabled={disableSubmit}
                 block
@@ -251,6 +248,8 @@ const EditSketchModal = (props) => {
               <Button
                 color="success"
                 onClick={handleSubmitEdit}
+                onKeyDown={() => {}}
+                tabIndex="0"
                 size="lg"
                 disabled={disableSubmit}
                 block
@@ -262,14 +261,16 @@ const EditSketchModal = (props) => {
         </Container>
       </ReactModal>
     );
-  }
+  };
 
   const renderThumbnailModal = () => {
     const icons = ThumbnailArray.map((val, index) => (
       <figure
+        role="presentation"
         className="sketches-gallery-item"
         key={val}
         onClick={() => setNewThumbnail(index)}
+        onKeyDown={() => {}}
       >
         <img
           src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${val}.svg`}
@@ -279,22 +280,19 @@ const EditSketchModal = (props) => {
       </figure>
     ));
 
-    const thumbnailPreview =
-      newThumbnail !== -1 ? (
-        <img
-          src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${
-            SketchThumbnailArray[newThumbnail]
-          }.svg`}
-          className="sketches-modal-header-thumbnail"
-          alt="icon"
-        />
-      ) : (
-        <img
-          src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${this.props.sketchImg}.svg`}
-          className="sketches-modal-header-thumbnail"
-          alt="icon"
-        />
-      );
+    const thumbnailPreview = newThumbnail !== -1 ? (
+      <img
+        src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${ThumbnailArray[newThumbnail]}.svg`}
+        className="sketches-modal-header-thumbnail"
+        alt="icon"
+      />
+    ) : (
+      <img
+        src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${sketchImg}.svg`}
+        className="sketches-modal-header-thumbnail"
+        alt="icon"
+      />
+    );
     return (
       <ImageSelector
         isOpen={isOpen}
@@ -310,21 +308,24 @@ const EditSketchModal = (props) => {
               onClick={() => {
                 setOnThumbnails(false);
               }}
+              onKeyDown={() => {}}
+              tabIndex="0"
               size="lg"
               block
             >
               Back
-            </Button>{' '}
+            </Button>
+            {' '}
           </Col>
         </Row>
       </ImageSelector>
     );
-  }
+  };
   if (onThumbnails) {
     return renderThumbnailModal();
   }
 
   return renderMainModal();
-}
+};
 
 export default EditSketchModal;
