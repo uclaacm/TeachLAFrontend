@@ -25,8 +25,7 @@
     "react-spinners": "^0.11.0",
     "react-split-pane": "^0.1.92",
     "reactstrap": "^8.10.1",
-    "redux": "^4.1.2",
-    "stylelint-config-sass-guidelines": "^8.0.0"
+    "redux": "^4.1.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -41,10 +40,10 @@
     "lint-full-fix": "eslint --fix \"**/*.js\" && stylelint --fix \"**/*.css\" \"**/*.scss\"",
     "lint-css": "stylelint \"**/*.css\" \"**/*.scss\"",
     "lint-css-fix": "stylelint --fix \"**/*.css\" \"**/*.scss\"",
-    "lint-css-changes": "stylelint $(git diff --name-only origin/master | grep -E '\\.(css|scss)$' || echo \"src/styles/app.scss\")",
+    "lint-css-changes": "stylelint $(git diff --name-only origin/master... | grep -E '\\.(css|scss)$' || echo \"src/styles/app.scss\")",
     "lint-js": "eslint \"**/*.js\"",
     "lint-js-fix": "eslint --fix \"**/*.js\"",
-    "lint-js-changes": "eslint $(git diff --name-only origin/master | grep -E '\\.(js|jsx)$')",
+    "lint-js-changes": "eslint $(git diff --name-only origin/master... | grep -E '\\.(js|jsx)$')",
     "staging_start": "cross-env REACT_APP_FS_PROJ=staging REACT_APP_SERVER_TYPE=staging react-scripts start",
     "staging_build": "cross-env REACT_APP_FS_PROJ=staging REACT_APP_SERVER_TYPE=staging react-scripts build",
     "prepare": "husky install",
@@ -68,8 +67,10 @@
     "lint-staged": "^11.2.6",
     "prettier": "^2.4.1",
     "sass": "^1.43.4",
-    "stylelint": "^13.13.1",
-    "stylelint-config-standard": "^22.0.0",
+    "stylelint": "^14.0.1",
+    "stylelint-config-sass-guidelines": "^9.0.1",
+    "stylelint-config-standard": "^23.0.0",
+    "stylelint-config-standard-scss": "^2.0.0",
     "stylelint-scss": "^3.21.0"
   },
   "jest": {
