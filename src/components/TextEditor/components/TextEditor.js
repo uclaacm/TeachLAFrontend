@@ -1,11 +1,11 @@
 import { faDownload, faSave, faShare, faCodeBranch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactModal from 'react-modal';
 import { Redirect } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import { EDITOR_WIDTH_BREAKPOINT } from '../../../constants';
-import sketch from '../../../lib';
+import skt from '../../../lib';
 import * as fetch from '../../../lib/fetch.js';
 
 import DropdownButtonContainer from '../containers/DropdownButtonContainer';
@@ -110,9 +110,6 @@ function TextEditor(props) {
   };
 
   // fix this
-  const setCodeMirrorInstance = (codeMirrorInstance) => {
-    setState({ codeMirrorInstance });
-  };
 
   const updateCode = (editor, data, newCode) => {
     // if the code's not yet dirty, and the old code is different from the new code, make it dirty
@@ -122,8 +119,7 @@ function TextEditor(props) {
     setProgramCode(mostRecentProgram, newCode);
   };
 
-  const setCurrentLine = (cm) => {
-    const { codeMirrorInstance, currentLine } = state;
+  const setCurrentLineManual = (cm) => {
     const { line } = cm.getCursor();
     if (codeMirrorInstance) {
       // removeLineClass removes the back highlight style from the last selected line
@@ -131,24 +127,24 @@ function TextEditor(props) {
       // addLineClass adds the style to the newly selected line
       codeMirrorInstance.addLineClass(line, 'wrap', 'selected-line');
     }
-    setCurrentLine(line);
+    setCurrentLineManual(line);
   };
 
   const renderForkModal = () => (
     <ReactModal
-      isOpen={state.showForkModal}
+      isOpen={showForkModal}
       onRequestClose={closeForkModal}
       className="fork-modal"
       overlayClassName="profile-image-overlay"
       ariaHideApp={false}
     >
       <h1 className="text-center">Fork This Sketch</h1>
-      {!(state.forking || state.forked) && (
+      {!(forking || forked) && (
         <p className="text-center">Would you like to create your own copy of this sketch?</p>
       )}
-      {state.forking ? (
+      {forking ? (
         <p className="text-center">Forking...</p>
-      ) : state.forked ? (
+      ) : forked ? (
         <div>
           <p className="text-center">Sketch forked! Go to your sketches to see your new copy!</p>
           <Button color="danger" size="lg" onClick={closeForkModal} block>
@@ -292,7 +288,7 @@ function TextEditor(props) {
     );
   };
 
-  if (state.redirectToSketch === true) {
+  if (redirectToSketch === true) {
     return <Redirect to="/sketches" />;
   }
   // json required by CodeMirror
@@ -315,8 +311,8 @@ function TextEditor(props) {
         {renderBanner()}
         {renderForkModal()}
         <ShareSketchModal
-          shareUrl={sketch.constructShareableSketchURL(mostRecentProgram)}
-          showModal={state.showShareModal}
+          shareUrl={skt.constructShareableSketchURL(mostRecentProgram)}
+          showModal={showShareModal}
           toggleModal={toggleShareModal}
         />
         <div
