@@ -109,8 +109,6 @@ function TextEditor(props) {
     return ev;
   };
 
-  // fix this
-
   const updateCode = (editor, data, newCode) => {
     // if the code's not yet dirty, and the old code is different from the new code, make it dirty
     if (!dirty && code !== newCode) {
@@ -127,7 +125,7 @@ function TextEditor(props) {
       // addLineClass adds the style to the newly selected line
       codeMirrorInstance.addLineClass(line, 'wrap', 'selected-line');
     }
-    setCurrentLineManual(line);
+    setCurrentLine(line);
   };
 
   const renderForkModal = () => (
@@ -333,7 +331,7 @@ function TextEditor(props) {
             indentWithTabs
             options={options}
             onCursor={(cm) => {
-              setCurrentLine(cm);
+              setCurrentLineManual(cm);
             }}
             onBeforeChange={updateCode}
             onChange={updateCode}
