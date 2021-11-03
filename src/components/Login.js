@@ -49,7 +49,7 @@ function Login (props) {
    return () => {
      window.removeEventListener('resize', () => setDummy(!dummy));
    };
- });
+ }, []);
 
  const getSVG = () => (
    <svg
