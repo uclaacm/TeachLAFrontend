@@ -40,7 +40,7 @@ const themeColors = {
   4: ['#FF94DB', 'white'],
 };
 
-function Login {
+function Login (props) {
  const [dummy, setDummy] = useState(false);
  const [index, setIndex] = useState(Math.floor(Math.random() * 5));
 
