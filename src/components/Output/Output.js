@@ -12,6 +12,18 @@ import EditorRadio from '../TextEditor/components/EditorRadio';
  * None
  */
 
+const compareProps = (prevProps, nextProps) => {
+  if (prevProps.mostRecentProgram !== nextProps.mostRecentProgram) {
+    return true;
+  }
+
+  if (prevProps.isSmall !== nextProps.isSmall) {
+    return true;
+  }
+
+  return false;
+};
+
 const Output = React.memo(
   ({
     viewMode,
@@ -31,7 +43,7 @@ const Output = React.memo(
 
     useEffect(() => {
       setFirstLoad(false);
-    }, []);
+    }, [run, counter, showConsole]);
 
     const renderOpenPanelButton = () => viewMode === OUTPUT_ONLY && <OpenPanelButtonContainer />;
 
@@ -81,7 +93,7 @@ const Output = React.memo(
       );
 
     const toggleConsole = () => {
-      setShowConsole((prevShowConsole) => !prevShowConsole);
+      setShowConsole(!showConsole);
     };
 
     const renderConsoleButton = () => (
@@ -125,6 +137,7 @@ const Output = React.memo(
       </div>
     );
   },
+  compareProps,
 );
 
 export default Output;
