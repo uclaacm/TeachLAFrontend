@@ -53,7 +53,7 @@ const Main = ({
         setViewMode(CODE_ONLY);
       }
     }
-  }, [screenWidth]);
+  }, [screenWidth, viewMode]);
 
   const onThemeChange = () => {
     const newTheme = theme === 'dark' ? 'light' : 'dark';
@@ -98,7 +98,7 @@ const Main = ({
       // pane
       panelOpen={panelOpen}
       pane1Style={pane1Style}
-      changePane1Style={(newStyle) => setPane1Style(newStyle)}
+      changePane1Style={setPane1Style}
       // program information
       mostRecentProgram={mostRecentProgram}
       language={language}
