@@ -7,7 +7,6 @@ import { Button } from 'reactstrap';
 import { EDITOR_WIDTH_BREAKPOINT } from '../../../constants';
 import skt from '../../../lib';
 import * as fetch from '../../../lib/fetch.js';
-
 import DropdownButtonContainer from '../containers/DropdownButtonContainer';
 import OpenPanelButtonContainer from '../../common/containers/OpenPanelButtonContainer';
 import ViewportAwareButton from '../../common/ViewportAwareButton.js';
