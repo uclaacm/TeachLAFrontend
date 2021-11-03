@@ -29,81 +29,101 @@ if (typeof window !== 'undefined' && typeof window.navigator !== 'undefined') {
  * None
  */
 
-class TextEditor extends React.Component {
-  constructor(props) {
-    super(props);
+function TextEditor(props) {
+  const [codeMirrorInstance, setCodeMirrorInstance] = useState(null);
+  const [currentLine, setCurrentLine] = useState(0);
+  const [sketch, setSketch] = useState(null);
+  const [showForkModal, setShowForkModal] = useState(false);
+  const [forking, setForking] = useState(false);
+  const [forked, setForked] = useState(false);
+  const [redirectToSketch, setRedirectToSketch] = useState(false);
+  const [showShareModal, setShowShareModal] = useState(false);
+  const [error, setError] = useState(null);
 
-    this.state = {
-      codeMirrorInstance: null,
-      currentLine: 0,
-      sketch: null,
-      showForkModal: false,
-      forking: false,
-      forked: false,
-      redirectToSketch: false,
-      showShareModal: false,
-    };
-  }
+  const {
+    dirty,
+    mostRecentProgram,
+    code,
+    uid,
+    dirtyCode,
+    setProgramCode,
+    vthumbnail,
+    vlanguage,
+    sketchName,
+    addProgram,
+    thumbnail,
+    viewMode,
+    viewOnly,
+    updateViewMode,
+    screenHeight,
+    screenWidth,
+    theme,
+    language,
+    handleSave,
+    handleDownload,
+    saveText,
+  } = props;
 
   //= =============React Lifecycle Functions===================//
 
-  componentDidMount() {
-    window.addEventListener('beforeunload', this.onLeave);
-    window.addEventListener('close', this.onLeave);
-  }
+  useEffect(() => {
+    window.addEventListener('beforeunload', onLeave);
+    window.addEventListener('close', onLeave);
 
-  componentWillUnmount = () => {
-    window.removeEventListener('beforeunload', this.onLeave);
-    window.removeEventListener('close', this.onLeave);
+    return () => {
+      window.removeEventListener('beforeunload', onLeave);
+      window.removeEventListener('close', onLeave);
+    };
+  }, []);
+
+  const openForkModal = () => {
+    setShowForkModal(true);
   };
 
-  openForkModal = () => {
-    this.setState({ showForkModal: true });
+  const closeForkModal = () => {
+    setShowForkModal(false);
   };
 
-  closeForkModal = () => {
-    this.setState({ showForkModal: false });
-  };
-
-  checkDirty = async () => {
-    if (!this.props.dirty) {
+  const checkDirty = async () => {
+    if (!dirty) {
       return;
     }
 
     try {
       const programToUpdate = {};
-      programToUpdate[this.props.mostRecentProgram] = {
-        code: this.props.code,
+      programToUpdate[mostRecentProgram] = {
+        code: code,
       };
 
-      await fetch.updatePrograms(this.props.uid, programToUpdate);
+      await fetch.updatePrograms(uid, programToUpdate);
       // TODO: add functionality to be able to tell whether the fetch failed
     } catch (err) {
       console.log(err);
     }
   };
 
-  onLeave = async (ev) => {
-    if (this.props.dirty) {
+  const onLeave = async (ev) => {
+    if (dirty) {
       ev.returnValue = '';
     }
     return ev;
   };
 
-  setCodeMirrorInstance = (codeMirrorInstance) => {
-    this.setState({ codeMirrorInstance });
+  // fix this
+  const setCodeMirrorInstance = (codeMirrorInstance) => {
+    setState({ codeMirrorInstance });
   };
 
-  updateCode = (editor, data, newCode) => {
+  const updateCode = (editor, data, newCode) => {
     // if the code's not yet dirty, and the old code is different from the new code, make it dirty
-    if (!this.props.dirty && this.props.code !== newCode) {
-      this.props.dirtyCode(this.props.mostRecentProgram);
+    if (!dirty && code !== newCode) {
+      dirtyCode(mostRecentProgram);
     }
-    this.props.setProgramCode(this.props.mostRecentProgram, newCode);
+    setProgramCode(mostRecentProgram, newCode);
   };
 
-  setCurrentLine = (cm) => {
-    const { codeMirrorInstance, currentLine } = this.state;
+  const setCurrentLine = (cm) => {
+    const { codeMirrorInstance, currentLine } = state;
     const { line } = cm.getCursor();
     if (codeMirrorInstance) {
       // removeLineClass removes the back highlight style from the last selected line
@@ -111,39 +131,39 @@ class TextEditor extends React.Component {
       // addLineClass adds the style to the newly selected line
       codeMirrorInstance.addLineClass(line, 'wrap', 'selected-line');
     }
-    this.setState({ currentLine: line });
+    setCurrentLine(line);
   };
 
-  renderForkModal = () => (
+  const renderForkModal = () => (
     <ReactModal
-      isOpen={this.state.showForkModal}
-      onRequestClose={this.closeForkModal}
+      isOpen={state.showForkModal}
+      onRequestClose={closeForkModal}
       className="fork-modal"
       overlayClassName="profile-image-overlay"
       ariaHideApp={false}
     >
       <h1 className="text-center">Fork This Sketch</h1>
-      {!(this.state.forking || this.state.forked) && (
+      {!(state.forking || state.forked) && (
         <p className="text-center">Would you like to create your own copy of this sketch?</p>
       )}
-      {this.state.forking ? (
+      {state.forking ? (
         <p className="text-center">Forking...</p>
-      ) : this.state.forked ? (
+      ) : state.forked ? (
         <div>
           <p className="text-center">Sketch forked! Go to your sketches to see your new copy!</p>
-          <Button color="danger" size="lg" onClick={this.closeForkModal} block>
+          <Button color="danger" size="lg" onClick={closeForkModal} block>
             Close
           </Button>
-          <Button color="success" size="lg" onClick={this.redirectSketch} block>
+          <Button color="success" size="lg" onClick={redirectSketch} block>
             Go to Sketches
           </Button>
         </div>
       ) : (
         <div className="text-center">
-          <Button color="danger" size="lg" onClick={this.closeForkModal} block>
+          <Button color="danger" size="lg" onClick={closeForkModal} block>
             Cancel
           </Button>
-          <Button color="success" size="lg" onClick={this.handleFork} block>
+          <Button color="success" size="lg" onClick={handleFork} block>
             Fork
           </Button>
         </div>
@@ -151,14 +171,14 @@ class TextEditor extends React.Component {
     </ReactModal>
   );
 
-  handleFork = async () => {
-    this.setState({ forking: true });
+  const handleFork = async () => {
+    setForking(true);
     const data = {
-      uid: this.props.uid,
-      thumbnail: this.props.vthumbnail,
-      language: (this.props.vlanguage || {}).value,
-      name: this.props.sketchName,
-      code: this.props.code,
+      uid: uid,
+      thumbnail: vthumbnail,
+      language: (vlanguage || {}).value,
+      name: sketchName,
+      code: code,
     };
 
     try {
@@ -170,13 +190,12 @@ class TextEditor extends React.Component {
         })
         .then((json) => {
           const { uid, ...programData } = json;
-          this.setState({ forking: false, forked: true });
-          this.props.addProgram(uid, programData || {});
+          setForking(false);
+          setForked(true);
+          addProgram(uid, programData || {});
         })
         .catch((err) => {
-          this.setState({
-            error: 'Failed to create sketch, please try again later',
-          });
+          setError('Failed to create sketch, please try again later');
           console.log(err);
         });
     } catch (err) {
@@ -184,13 +203,14 @@ class TextEditor extends React.Component {
     }
   };
 
-  redirectSketch = () => {
-    this.closeForkModal();
-    this.setState({ redirectToSketch: true });
+  const redirectSketch = () => {
+    closeForkModal();
+    setRedirectToSketch(true);
   };
 
-  toggleShareModal = () => {
-    this.setState((prevState) => ({ showShareModal: !prevState.showShareModal }));
+  const toggleShareModal = () => {
+    setShowShareModal(!showShareModal);
+    // original code: setState((prevState) => ({ showShareModal: !prevState.showShareModal }));
   };
 
   /**
@@ -199,7 +219,7 @@ class TextEditor extends React.Component {
    * @returns {string} the codemirror theme - see https://codemirror.net/demo/theme.html for more info
    */
 
-  getCMTheme = (theme) => {
+  const getCMTheme = (theme) => {
     switch (theme) {
       case 'light':
         return 'duotone-light';
@@ -209,13 +229,12 @@ class TextEditor extends React.Component {
     }
   };
 
-  renderDropdown = () => <DropdownButtonContainer />;
+  const renderDropdown = () => <DropdownButtonContainer />;
 
-  renderSketchName = () => <div className="program-sketch-name">{this.props.sketchName}</div>;
+  const renderSketchName = () => <div className="program-sketch-name">{sketchName}</div>;
 
-  renderBanner = () => {
-    const thumbnail =
-      SketchThumbnailArray[this.props.viewOnly ? this.props.vthumbnail : this.props.thumbnail];
+  const renderBanner = () => {
+    const thumbnail = SketchThumbnailArray[viewOnly ? vthumbnail : thumbnail];
     return (
       <div className="code-section-banner">
         <OpenPanelButtonContainer />
@@ -224,20 +243,20 @@ class TextEditor extends React.Component {
           src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${thumbnail}.svg`}
           alt="sketch thumbnail"
         />
-        {this.props.viewOnly ? this.renderSketchName() : this.renderDropdown()}
+        {viewOnly ? renderSketchName() : renderDropdown()}
         <div style={{ marginLeft: 'auto', marginRight: '.5rem' }}>
           <EditorRadio
-            viewMode={this.props.viewMode}
-            updateViewMode={this.props.updateViewMode}
-            isSmall={this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
+            viewMode={viewMode}
+            updateViewMode={updateViewMode}
+            isSmall={screenWidth <= EDITOR_WIDTH_BREAKPOINT}
           />
         </div>
-        {this.props.viewOnly ? (
-          this.props.uid ? (
+        {viewOnly ? (
+          uid ? (
             <ViewportAwareButton
               size="lg"
-              onClick={this.openForkModal}
-              isSmall={this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
+              onClick={openForkModal}
+              isSmall={screenWidth <= EDITOR_WIDTH_BREAKPOINT}
               icon={<FontAwesomeIcon icon={faCodeBranch} />}
               text="Fork"
             />
@@ -247,25 +266,25 @@ class TextEditor extends React.Component {
             className="mx-2"
             color="success"
             size="lg"
-            onClick={this.props.handleSave}
-            isSmall={this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
+            onClick={handleSave}
+            isSmall={screenWidth <= EDITOR_WIDTH_BREAKPOINT}
             icon={<FontAwesomeIcon icon={faSave} />}
-            text={this.props.saveText}
+            text={saveText}
           />
         )}
-        {!this.props.viewOnly && (
+        {!viewOnly && (
           <ViewportAwareButton
             className="mx-2"
             color="primary"
             size="lg"
-            onClick={this.toggleShareModal}
-            isSmall={this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
+            onClick={toggleShareModal}
+            isSmall={screenWidth <= EDITOR_WIDTH_BREAKPOINT}
             icon={<FontAwesomeIcon icon={faShare} />}
             text="Share"
           />
         )}
         {
-          <Button className="mx-2" color="success" size="lg" onClick={this.props.handleDownload}>
+          <Button className="mx-2" color="success" size="lg" onClick={handleDownload}>
             <FontAwesomeIcon icon={faDownload} />
           </Button>
         }
@@ -273,62 +292,60 @@ class TextEditor extends React.Component {
     );
   };
 
-  render() {
-    if (this.state.redirectToSketch === true) {
-      return <Redirect to="/sketches" />;
-    }
-    // json required by CodeMirror
-    const options = {
-      mode: this.props.viewOnly ? this.props.vlanguage.codemirror : this.props.language.codemirror,
-      theme: this.getCMTheme(this.props.theme),
-      lineNumbers: true, // text editor has line numbers
-      /**
-       * text editor does not overflow in the x direction, uses word wrap
-       *    (NOTE: it's like MO Word wrapping, so words are not cut in the middle,
-       *    if a word overlaps, the whole word is brought to the next line)
-       */
-      lineWrapping: true,
-      indentWithTabs: true,
-    };
+  if (state.redirectToSketch === true) {
+    return <Redirect to="/sketches" />;
+  }
+  // json required by CodeMirror
+  const options = {
+    mode: viewOnly ? vlanguage.codemirror : language.codemirror,
+    theme: getCMTheme(theme),
+    lineNumbers: true, // text editor has line numbers
+    /**
+     * text editor does not overflow in the x direction, uses word wrap
+     *    (NOTE: it's like MO Word wrapping, so words are not cut in the middle,
+     *    if a word overlaps, the whole word is brought to the next line)
+     */
+    lineWrapping: true,
+    indentWithTabs: true,
+  };
 
-    return (
-      <div className={`theme-${this.props.theme}`} style={{ height: '100%' }}>
-        <div className="code-section">
-          {this.renderBanner()}
-          {this.renderForkModal()}
-          <ShareSketchModal
-            shareUrl={sketch.constructShareableSketchURL(this.props.mostRecentProgram)}
-            showModal={this.state.showShareModal}
-            toggleModal={this.toggleShareModal}
-          />
-          <div
-            className="text-editor-container"
-            style={{
-              height: this.props.screenHeight - 61 - 20,
-              minHeight: this.props.screenHeight - 61 - 20,
-              maxHeight: this.props.screenHeight - 61 - 20,
+  return (
+    <div className={`theme-${theme}`} style={{ height: '100%' }}>
+      <div className="code-section">
+        {renderBanner()}
+        {renderForkModal()}
+        <ShareSketchModal
+          shareUrl={sketch.constructShareableSketchURL(mostRecentProgram)}
+          showModal={state.showShareModal}
+          toggleModal={toggleShareModal}
+        />
+        <div
+          className="text-editor-container"
+          style={{
+            height: screenHeight - 61 - 20,
+            minHeight: screenHeight - 61 - 20,
+            maxHeight: screenHeight - 61 - 20,
+          }}
+        >
+          <CodeMirror
+            editorDidMount={(codeMirrorInstance) => {
+              codeMirrorInstance.refresh();
+              setCodeMirrorInstance(codeMirrorInstance);
             }}
-          >
-            <CodeMirror
-              editorDidMount={(codeMirrorInstance) => {
-                codeMirrorInstance.refresh();
-                this.setCodeMirrorInstance(codeMirrorInstance);
-              }}
-              value={this.props.code}
-              lineWrapping
-              indentWithTabs
-              options={options}
-              onCursor={(cm) => {
-                this.setCurrentLine(cm);
-              }}
-              onBeforeChange={this.updateCode}
-              onChange={this.updateCode}
-            />
-          </div>
+            value={code}
+            lineWrapping
+            indentWithTabs
+            options={options}
+            onCursor={(cm) => {
+              setCurrentLine(cm);
+            }}
+            onBeforeChange={updateCode}
+            onChange={updateCode}
+          />
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default TextEditor;
