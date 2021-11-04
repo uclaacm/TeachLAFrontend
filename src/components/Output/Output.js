@@ -36,7 +36,7 @@ const Output = React.memo(
     updateViewMode,
     isSmall,
   }) => {
-    const [counter, setCounter] = useState(0);
+    const counter = 0;
     const [run, setRun] = useState(0);
     const [showConsole, setShowConsole] = useState(true);
     const [firstLoad, setFirstLoad] = useState(true);
@@ -85,12 +85,11 @@ const Output = React.memo(
       return renderIframe(srcDocFunc);
     };
 
-    const renderRadio = () =>
-      viewMode === OUTPUT_ONLY && (
-        <div style={{ marginLeft: 'auto' }}>
-          <EditorRadio viewMode={viewMode} updateViewMode={updateViewMode} isSmall={isSmall} />
-        </div>
-      );
+    const renderRadio = () => viewMode === OUTPUT_ONLY && (
+      <div style={{ marginLeft: 'auto' }}>
+        <EditorRadio viewMode={viewMode} updateViewMode={updateViewMode} isSmall={isSmall} />
+      </div>
+    );
 
     const toggleConsole = () => {
       setShowConsole(!showConsole);
@@ -115,7 +114,8 @@ const Output = React.memo(
     const renderBanner = () => (
       <div className="editor-output-banner">
         {renderOpenPanelButton()}
-        <div style={{ flex: '1 1 auto' }}> </div> {/* whitespace */}
+        <div style={{ flex: '1 1 auto' }}> </div>
+        {/* whitespace */}
         {renderRadio()}
         {renderConsoleButton()}
         <ViewportAwareButton
