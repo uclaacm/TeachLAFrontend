@@ -42,7 +42,6 @@ const themeColors = {
 const randomIndex = () => Math.floor(Math.random() * Object.keys(themeColors).length);
 
 const Login = ({ create, initialState }) => {
-<<<<<<< HEAD
   const [index, setIndex] = useState(randomIndex());
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
 
@@ -53,19 +52,6 @@ const Login = ({ create, initialState }) => {
   const themeTertiary = themeColors[index][1];
 
   const getBackgroundSVG = () => (
-=======
-  const [dummy, setDummy] = useState(false);
-  const [index, setIndex] = useState(Math.floor(Math.random() * 5));
-
-  // basically, when the window resizes, we should recalculate get SVG - the window parameters change!
-  useEffect(() => {
-    window.addEventListener('resize', () => setDummy((_dummy) => !_dummy));
-
-    return () => window.removeEventListener('resize', () => setDummy((_dummy) => !_dummy));
-  }, [dummy]);
-
-  const getSVG = () => (
->>>>>>> 5af9d08... refactor Login
     <svg
       className="background-svg"
       viewBox={`0 0 1084 ${windowHeight}`}
@@ -92,13 +78,8 @@ const Login = ({ create, initialState }) => {
           y2={`${windowHeight}`}
           gradientUnits="userSpaceOnUse"
         >
-<<<<<<< HEAD
           <stop stopColor={gradientPrimary} />
           <stop offset="1" stopColor={gradientSecondary} stopOpacity="0.47" />
-=======
-          <stop stopColor={gradientColors[index][0]} />
-          <stop offset="1" stopColor={gradientColors[index][1]} stopOpacity="0.47" />
->>>>>>> 5af9d08... refactor Login
         </linearGradient>
       </defs>
     </svg>
@@ -111,29 +92,17 @@ const Login = ({ create, initialState }) => {
   }, [windowHeight]);
 
   const textHighlightStyle = {
-<<<<<<< HEAD
     background: `linear-gradient(180deg, rgba(255,255,255,0) 80%, ${gradientPrimary} 50%)`,
   };
 
-=======
-    background: `linear-gradient(180deg, rgba(255,255,255,0) 80%, ${gradientColors[index][0]} 50%)`,
-  };
->>>>>>> 5af9d08... refactor Login
   return (
     <div className="login-page-content">
       <div className="login-page-content-container">
         <div
           className="bottom-right-toggle"
-<<<<<<< HEAD
           onClick={() => setIndex(randomIndex())}
           onKeyDown={(e) => {
             if (e.key !== 'Tab') setIndex(randomIndex());
-=======
-          onClick={() => setIndex(Math.floor(Math.random() * 5))}
-          onKeyDown={(e) => {
-            if (e.key === 'Tab') return;
-            setIndex(Math.floor(Math.random() * 5));
->>>>>>> 5af9d08... refactor Login
           }}
           role="button"
           tabIndex={0}
@@ -153,19 +122,11 @@ const Login = ({ create, initialState }) => {
             {create ? (
               <CreateUserForm
                 initialState={initialState}
-<<<<<<< HEAD
                 themeColor={themePrimary}
                 textColor={themeTertiary}
               />
             ) : (
               <LoginForm themeColor={themePrimary} textColor={themeSecondary} />
-=======
-                themeColor={themeColors[index][0]}
-                textColor={themeColors[index][2]}
-              />
-            ) : (
-              <LoginForm themeColor={themeColors[index][0]} textColor={themeColors[index][1]} />
->>>>>>> 5af9d08... refactor Login
             )}
           </div>
         </div>
@@ -193,11 +154,7 @@ const Login = ({ create, initialState }) => {
           src={loginArt[index]}
           alt={`decorative login page art: ${loginArtAlts[index]}`}
         />
-<<<<<<< HEAD
         {getBackgroundSVG()}
-=======
-        {getSVG()}
->>>>>>> 5af9d08... refactor Login
       </div>
     </div>
   );
