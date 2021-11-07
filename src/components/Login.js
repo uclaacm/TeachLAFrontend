@@ -5,14 +5,14 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import LoginImg1 from '../img/login1.svg';
 import LoginImg2 from '../img/login2.svg';
 import LoginImg3 from '../img/login3.svg';
 import LoginImg4 from '../img/login4.svg';
 import LoginImg5 from '../img/login5.svg';
 
-import CreateUserForm from './Login/CreateUserForm.js';
+import CreateUserForm from './Login/CreateUserForm';
 import LoginForm from './Login/LoginForm';
 
 const loginArt = [LoginImg1, LoginImg2, LoginImg3, LoginImg4, LoginImg5];
@@ -40,22 +40,18 @@ const themeColors = {
   4: ['#FF94DB', 'white'],
 };
 
-class Login extends React.Component {
-  state = {
-    dummy: false,
-    index: Math.floor(Math.random() * 5),
-  };
+const Login = ({ create, initialState }) => {
+  const [dummy, setDummy] = useState(false);
+  const [index, setIndex] = useState(Math.floor(Math.random() * 5));
 
   // basically, when the window resizes, we should recalculate get SVG - the window parameters change!
-  componentDidMount() {
-    window.addEventListener('resize', () => this.setState({ dummy: !this.state.dummy }));
-  }
+  useEffect(() => {
+    window.addEventListener('resize', () => setDummy((_dummy) => !_dummy));
 
-  componentWillUnmount() {
-    window.removeEventListener('resize', () => this.setState({ dummy: !this.state.dummy }));
-  }
+    return () => window.removeEventListener('resize', () => setDummy((_dummy) => !_dummy));
+  }, [dummy]);
 
-  getSVG = () => (
+  const getSVG = () => (
     <svg
       className="background-svg"
       viewBox={`0 0 1084 ${window.innerHeight}`}
@@ -82,81 +78,80 @@ class Login extends React.Component {
           y2={`${window.innerHeight}`}
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor={gradientColors[this.state.index][0]} />
-          <stop offset="1" stopColor={gradientColors[this.state.index][1]} stopOpacity="0.47" />
+          <stop stopColor={gradientColors[index][0]} />
+          <stop offset="1" stopColor={gradientColors[index][1]} stopOpacity="0.47" />
         </linearGradient>
       </defs>
     </svg>
   );
 
-  render() {
-    const textHighlightStyle = {
-      background: `linear-gradient(180deg, rgba(255,255,255,0) 80%, ${
-        gradientColors[this.state.index][0]
-      } 50%)`,
-    };
-    return (
-      <div className="login-page-content">
-        <div className="login-page-content-container">
-          <div
-            className="bottom-right-toggle"
-            onClick={() => this.setState({ index: Math.floor(Math.random() * 5) })}
-          >
-            <FontAwesomeIcon icon={faRedo} />
-          </div>
-          <div className="login-page-content-main">
-            <div>
-              <h1 className="font-weight-bold">
-                The ACM
-                {' '}
-                <span className="teachla-green">Teach LA</span>
-                {' '}
-                <span style={textHighlightStyle}>Online Editor</span>
-              </h1>
-              <p>a web IDE that lets you write and run Python &amp; Processing code, anywhere.</p>
-              {this.props.create ? (
-                <CreateUserForm
-                  initialState={this.props.initialState}
-                  themeColor={themeColors[this.state.index][0]}
-                  textColor={themeColors[this.state.index][2]}
-                />
-              ) : (
-                <LoginForm
-                  themeColor={themeColors[this.state.index][0]}
-                  textColor={themeColors[this.state.index][1]}
-                />
-              )}
-            </div>
-          </div>
-          <div className="login-page-content-footer">
-            <FontAwesomeIcon icon={faPaintBrush} />
-            {' '}
-            <FontAwesomeIcon icon={faCode} />
-            {' '}
-            <FontAwesomeIcon icon={faRocket} />
-            {' '}
-            by
-            {' '}
-            <a href="https://teachla.uclaacm.com" target="_blank" rel="noopener noreferrer">
-              <span className="teachla-green">ACM Teach LA</span>
-            </a>
-            {' '}
-            with
-            {' '}
-            <FontAwesomeIcon className="beating-heart" icon={faHeart} />
+  const textHighlightStyle = {
+    background: `linear-gradient(180deg, rgba(255,255,255,0) 80%, ${gradientColors[index][0]} 50%)`,
+  };
+  return (
+    <div className="login-page-content">
+      <div className="login-page-content-container">
+        <div
+          className="bottom-right-toggle"
+          onClick={() => setIndex(Math.floor(Math.random() * 5))}
+          onKeyDown={(e) => {
+            if (e.key === 'Tab') return;
+            setIndex(Math.floor(Math.random() * 5));
+          }}
+          role="button"
+          tabIndex={0}
+        >
+          <FontAwesomeIcon icon={faRedo} />
+        </div>
+        <div className="login-page-content-main">
+          <div>
+            <h1 className="font-weight-bold">
+              The ACM
+              {' '}
+              <span className="teachla-green">Teach LA</span>
+              {' '}
+              <span style={textHighlightStyle}>Online Editor</span>
+            </h1>
+            <p>a web IDE that lets you write and run Python &amp; Processing code, anywhere.</p>
+            {create ? (
+              <CreateUserForm
+                initialState={initialState}
+                themeColor={themeColors[index][0]}
+                textColor={themeColors[index][2]}
+              />
+            ) : (
+              <LoginForm themeColor={themeColors[index][0]} textColor={themeColors[index][1]} />
+            )}
           </div>
         </div>
-        <div className="login-page-images">
-          <img
-            className="login-page-art"
-            src={loginArt[this.state.index]}
-            alt={`decorative login page art: ${loginArtAlts[this.state.index]}`}
-          />
-          {this.getSVG()}
+        <div className="login-page-content-footer">
+          <FontAwesomeIcon icon={faPaintBrush} />
+          {' '}
+          <FontAwesomeIcon icon={faCode} />
+          {' '}
+          <FontAwesomeIcon icon={faRocket} />
+          {' '}
+          by
+          {' '}
+          <a href="https://teachla.uclaacm.com" target="_blank" rel="noopener noreferrer">
+            <span className="teachla-green">ACM Teach LA</span>
+          </a>
+          {' '}
+          with
+          {' '}
+          <FontAwesomeIcon className="beating-heart" icon={faHeart} />
         </div>
       </div>
-    );
-  }
-}
+      <div className="login-page-images">
+        <img
+          className="login-page-art"
+          src={loginArt[index]}
+          alt={`decorative login page art: ${loginArtAlts[index]}`}
+        />
+        {getSVG()}
+      </div>
+    </div>
+  );
+};
 
 export default Login;
