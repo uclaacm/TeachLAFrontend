@@ -41,8 +41,9 @@ const themeColors = {
 };
 
 const Login = ({ create, initialState }) => {
+  const randomIndex = () => Math.floor(Math.random() * Object.keys(themeColors).length);
   const [dummy, setDummy] = useState(false);
-  const [index, setIndex] = useState(Math.floor(Math.random() * 5));
+  const [index, setIndex] = useState(randomIndex());
 
   // basically, when the window resizes, we should recalculate get SVG - the window parameters change!
   useEffect(() => {
@@ -51,7 +52,7 @@ const Login = ({ create, initialState }) => {
     return () => window.removeEventListener('resize', () => setDummy((_dummy) => !_dummy));
   }, [dummy]);
 
-  const getSVG = () => (
+  const getBackgroundSVG = () => (
     <svg
       className="background-svg"
       viewBox={`0 0 1084 ${window.innerHeight}`}
@@ -93,10 +94,9 @@ const Login = ({ create, initialState }) => {
       <div className="login-page-content-container">
         <div
           className="bottom-right-toggle"
-          onClick={() => setIndex(Math.floor(Math.random() * 5))}
+          onClick={() => setIndex(randomIndex())}
           onKeyDown={(e) => {
-            if (e.key === 'Tab') return;
-            setIndex(Math.floor(Math.random() * 5));
+            if (e.key !== 'Tab') setIndex(randomIndex());
           }}
           role="button"
           tabIndex={0}
@@ -148,7 +148,7 @@ const Login = ({ create, initialState }) => {
           src={loginArt[index]}
           alt={`decorative login page art: ${loginArtAlts[index]}`}
         />
-        {getSVG()}
+        {getBackgroundSVG()}
       </div>
     </div>
   );
