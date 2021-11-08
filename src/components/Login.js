@@ -42,42 +42,26 @@ const themeColors = {
 const randomIndex = () => Math.floor(Math.random() * Object.keys(themeColors).length);
 
 const Login = ({ create, initialState }) => {
-<<<<<<< HEAD
-<<<<<<< HEAD
   const [index, setIndex] = useState(randomIndex());
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
-=======
-  const randomIndex = () => Math.floor(Math.random() * Object.keys(themeColors).length);
-  const [dummy, setDummy] = useState(false);
-=======
->>>>>>> 3ff41b8... background svg is dynamically rendering
-  const [index, setIndex] = useState(randomIndex());
->>>>>>> cb78717... remove hardcode of randomIndex max
 
   const gradientPrimary = gradientColors[index][0];
   const gradientSecondary = gradientColors[index][1];
   const themePrimary = themeColors[index][0];
   const themeSecondary = themeColors[index][1];
   const themeTertiary = themeColors[index][1];
-  const getBackgroundSVG = (height) => (
+
+  const getBackgroundSVG = () => (
     <svg
       className="background-svg"
-<<<<<<< HEAD
       viewBox={`0 0 1084 ${windowHeight}`}
-=======
-      viewBox={`0 0 1084 ${height}`}
->>>>>>> 3ff41b8... background svg is dynamically rendering
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
         d={`
             M204.407 691.847
-<<<<<<< HEAD
             C51.4294 796.853 0.666362 951.817 0 ${windowHeight}
-=======
-            C51.4294 796.853 0.666362 951.817 0 ${height}
->>>>>>> 3ff41b8... background svg is dynamically rendering
             H1094
             V-14
             L53.4756 -6.443
@@ -91,11 +75,7 @@ const Login = ({ create, initialState }) => {
           x1="547"
           y1="0"
           x2="547"
-<<<<<<< HEAD
           y2={`${windowHeight}`}
-=======
-          y2={`${height}`}
->>>>>>> 3ff41b8... background svg is dynamically rendering
           gradientUnits="userSpaceOnUse"
         >
           <stop stopColor={gradientPrimary} />
@@ -111,21 +91,10 @@ const Login = ({ create, initialState }) => {
     return () => window.removeEventListener('resize', resizeHandler);
   }, [windowHeight]);
 
-  const [svg, setSvg] = useState(getBackgroundSVG(window.innerHeight));
-  const updateSvg = () => setSvg(getBackgroundSVG(window.innerHeight));
-  // basically, when the window resizes, recalculates getBackgroundSVG - the window parameters change!
-  useEffect(() => {
-    window.addEventListener('resize', updateSvg());
-    return () => window.removeEventListener('resize', updateSvg());
-  }, [window.innerHeight]);
-
-  useEffect(() => {
-    updateSvg();
-  }, [index]);
-
   const textHighlightStyle = {
     background: `linear-gradient(180deg, rgba(255,255,255,0) 80%, ${gradientPrimary} 50%)`,
   };
+
   return (
     <div className="login-page-content">
       <div className="login-page-content-container">
@@ -185,7 +154,7 @@ const Login = ({ create, initialState }) => {
           src={loginArt[index]}
           alt={`decorative login page art: ${loginArtAlts[index]}`}
         />
-        {svg}
+        {getBackgroundSVG()}
       </div>
     </div>
   );
