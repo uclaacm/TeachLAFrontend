@@ -42,14 +42,8 @@ const themeColors = {
 const randomIndex = () => Math.floor(Math.random() * Object.keys(themeColors).length);
 
 const Login = ({ create, initialState }) => {
-<<<<<<< HEAD
   const [index, setIndex] = useState(randomIndex());
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
-=======
-  const randomIndex = () => Math.floor(Math.random() * Object.keys(themeColors).length);
-  const [dummy, setDummy] = useState(false);
-  const [index, setIndex] = useState(randomIndex());
->>>>>>> cb78717... remove hardcode of randomIndex max
 
   const gradientPrimary = gradientColors[index][0];
   const gradientSecondary = gradientColors[index][1];
