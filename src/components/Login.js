@@ -90,10 +90,13 @@ const Login = ({ create, initialState }) => {
   };
   // basically, when the window resizes, recalculates getBackgroundSVG - the window parameters change!
   useEffect(() => {
-    window.addEventListener('resize', () => {
-      setWindowHeight(window.innerHeight);
-      updateSvg();
-    });
+    // setTimout to rate limit the amount of resize event function calls.
+    setTimeout(() => {
+      window.addEventListener('resize', () => {
+        setWindowHeight(window.innerHeight);
+        updateSvg();
+      });
+    }, 20);
     return () => window.removeEventListener('resize', () => setWindowHeight(window.innerHeight));
   }, [windowHeight]);
 
