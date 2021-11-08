@@ -50,7 +50,7 @@ const Login = ({ create, initialState }) => {
   const themePrimary = themeColors[index][0];
   const themeSecondary = themeColors[index][1];
   const themeTertiary = themeColors[index][1];
-  const getBackgroundSVG = (height) => (
+  const getBackgroundSVG = () => (
     <svg
       className="background-svg"
       viewBox={`0 0 1084 ${windowHeight}`}
@@ -90,13 +90,18 @@ const Login = ({ create, initialState }) => {
     return () => window.removeEventListener('resize', resizeHandler);
   }, [windowHeight]);
 
-  const [svg, setSvg] = useState(getBackgroundSVG(window.innerHeight));
-  const updateSvg = () => setSvg(getBackgroundSVG(window.innerHeight));
+  const [svg, setSvg] = useState(getBackgroundSVG());
+  const updateSvg = () => {
+    setSvg(getBackgroundSVG());
+  };
   // basically, when the window resizes, recalculates getBackgroundSVG - the window parameters change!
   useEffect(() => {
-    window.addEventListener('resize', updateSvg());
-    return () => window.removeEventListener('resize', updateSvg());
-  }, [window.innerHeight]);
+    window.addEventListener('resize', () => {
+      setWindowHeight(window.innerHeight);
+      updateSvg();
+    });
+    return () => window.removeEventListener('resize', () => setWindowHeight(window.innerHeight));
+  }, [windowHeight]);
 
   useEffect(() => {
     updateSvg();
