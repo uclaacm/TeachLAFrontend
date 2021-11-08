@@ -43,23 +43,24 @@ const randomIndex = () => Math.floor(Math.random() * Object.keys(themeColors).le
 
 const Login = ({ create, initialState }) => {
   const [index, setIndex] = useState(randomIndex());
+  const [windowHeight, setWindowHeight] = useState(window.innerHeight);
 
   const gradientPrimary = gradientColors[index][0];
   const gradientSecondary = gradientColors[index][1];
   const themePrimary = themeColors[index][0];
   const themeSecondary = themeColors[index][1];
   const themeTertiary = themeColors[index][1];
-  const getBackgroundSVG = (height) => (
+  const getBackgroundSVG = () => (
     <svg
       className="background-svg"
-      viewBox={`0 0 1084 ${height}`}
+      viewBox={`0 0 1084 ${windowHeight}`}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
         d={`
             M204.407 691.847
-            C51.4294 796.853 0.666362 951.817 0 ${height}
+            C51.4294 796.853 0.666362 951.817 0 ${windowHeight}
             H1094
             V-14
             L53.4756 -6.443
@@ -73,7 +74,7 @@ const Login = ({ create, initialState }) => {
           x1="547"
           y1="0"
           x2="547"
-          y2={`${height}`}
+          y2={`${windowHeight}`}
           gradientUnits="userSpaceOnUse"
         >
           <stop stopColor={gradientPrimary} />
@@ -83,13 +84,18 @@ const Login = ({ create, initialState }) => {
     </svg>
   );
 
-  const [svg, setSvg] = useState(getBackgroundSVG(window.innerHeight));
-  const updateSvg = () => setSvg(getBackgroundSVG(window.innerHeight));
+  const [svg, setSvg] = useState(getBackgroundSVG());
+  const updateSvg = () => {
+    setSvg(getBackgroundSVG());
+  };
   // basically, when the window resizes, recalculates getBackgroundSVG - the window parameters change!
   useEffect(() => {
-    window.addEventListener('resize', updateSvg());
-    return () => window.removeEventListener('resize', updateSvg());
-  }, [window.innerHeight]);
+    window.addEventListener('resize', () => {
+      setWindowHeight(window.innerHeight);
+      updateSvg();
+    });
+    return () => window.removeEventListener('resize', () => setWindowHeight(window.innerHeight));
+  }, [windowHeight]);
 
   useEffect(() => {
     updateSvg();
