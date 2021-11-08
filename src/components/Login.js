@@ -50,7 +50,6 @@ const Login = ({ create, initialState }) => {
   const themePrimary = themeColors[index][0];
   const themeSecondary = themeColors[index][1];
   const themeTertiary = themeColors[index][1];
-
   const getBackgroundSVG = () => (
     <svg
       className="background-svg"
