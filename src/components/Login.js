@@ -94,7 +94,6 @@ const Login = ({ create, initialState }) => {
   const textHighlightStyle = {
     background: `linear-gradient(180deg, rgba(255,255,255,0) 80%, ${gradientPrimary} 50%)`,
   };
-
   return (
     <div className="login-page-content">
       <div className="login-page-content-container">
