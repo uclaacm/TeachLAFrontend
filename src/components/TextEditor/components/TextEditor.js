@@ -333,7 +333,7 @@ function TextEditor(props) {
         >
           <CodeMirror
             editorDidMount={(MirrorInstance) => {
-              codeMirrorInstance.refresh();
+              MirrorInstance.refresh();
               setCodeMirrorInstance(MirrorInstance);
             }}
             value={code}
