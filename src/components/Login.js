@@ -93,7 +93,6 @@ const Login = ({ create, initialState }) => {
 =======
     window.addEventListener('resize', () => {
       setWindowHeight(window.innerHeight);
-      updateSvg();
     });
     return () => window.removeEventListener('resize', () => setWindowHeight(window.innerHeight));
 >>>>>>> e08358c... remove timeout, was lagging the browser
