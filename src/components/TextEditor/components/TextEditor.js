@@ -14,11 +14,6 @@ import ViewportAwareButton from '../../common/ViewportAwareButton';
 import DropdownButtonContainer from '../containers/DropdownButtonContainer';
 import EditorRadio from './EditorRadio';
 import ShareSketchModal from './ShareSketchModal';
-/* eslint-disable no-shadow */
-/* eslint-disable func-names */
-/* eslint-disable no-param-reassign */
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-unused-expressions */
 
 let CodeMirror = null;
 if (typeof window !== 'undefined' && typeof window.navigator !== 'undefined') {
@@ -73,10 +68,11 @@ function TextEditor(props) {
   //= =============React Lifecycle Functions===================//
 
   const onLeave = async (ev) => {
+    const ev2 = ev;
     if (dirty) {
-      ev.returnValue = '';
+      ev2.returnValue = '';
     }
-    return ev;
+    return ev2;
   };
 
   useEffect(() => {
@@ -155,17 +151,41 @@ function TextEditor(props) {
           return res.json();
         })
         .then((json) => {
-          const { uid, ...programData } = json;
+          const { uid2, ...programData } = json;
           setForking(false);
           setForked(true);
-          addProgram(uid, programData || {});
+          addProgram(uid2, programData || {});
         })
-        .catch((err) => {
+        .catch(() => {
           // console.log(err);
           throw new Error('Failed to create sketch, please try again later');
         });
     } catch (err) {
       // console.log(err);
+    }
+  };
+  const forkModalReturn = () => {
+    if (forking) {
+      <p className="text-center">Forking...</p>;
+    } else if (forked) {
+      <div>
+        <p className="text-center">Sketch forked! Go to your sketches to see your new copy!</p>
+        <Button color="danger" size="lg" onClick={closeForkModal} block>
+          Close
+        </Button>
+        <Button color="success" size="lg" onClick={redirectSketch} block>
+          Go to Sketches
+        </Button>
+      </div>;
+    } else {
+      <div className="text-center">
+        <Button color="danger" size="lg" onClick={closeForkModal} block>
+          Cancel
+        </Button>
+        <Button color="success" size="lg" onClick={handleFork} block>
+          Fork
+        </Button>
+      </div>;
     }
   };
   const renderForkModal = () => (
@@ -180,30 +200,7 @@ function TextEditor(props) {
       {!(forking || forked) && (
         <p className="text-center">Would you like to create your own copy of this sketch?</p>
       )}
-      {(function () {
-        if (forking) {
-          <p className="text-center">Forking...</p>;
-        } else if (forked) {
-          <div>
-            <p className="text-center">Sketch forked! Go to your sketches to see your new copy!</p>
-            <Button color="danger" size="lg" onClick={closeForkModal} block>
-              Close
-            </Button>
-            <Button color="success" size="lg" onClick={redirectSketch} block>
-              Go to Sketches
-            </Button>
-          </div>;
-        } else {
-          <div className="text-center">
-            <Button color="danger" size="lg" onClick={closeForkModal} block>
-              Cancel
-            </Button>
-            <Button color="success" size="lg" onClick={handleFork} block>
-              Fork
-            </Button>
-          </div>;
-        }
-      }())}
+      {forkModalReturn()}
     </ReactModal>
   );
 
@@ -218,8 +215,8 @@ function TextEditor(props) {
    * @returns {string} the codemirror theme - see https://codemirror.net/demo/theme.html for more info
    */
 
-  const getCMTheme = (theme) => {
-    switch (theme) {
+  const getCMTheme = (theme2) => {
+    switch (theme2) {
     case 'light':
       return 'duotone-light';
     case 'dark':
@@ -231,7 +228,29 @@ function TextEditor(props) {
   const renderDropdown = () => <DropdownButtonContainer />;
 
   const renderSketchName = () => <div className="program-sketch-name">{sketchName}</div>;
-
+  const awareButtonReturn = () => {
+    if (viewOnly) {
+      if (uid) {
+        <ViewportAwareButton
+          size="lg"
+          onClick={openForkModal}
+          isSmall={screenWidth <= EDITOR_WIDTH_BREAKPOINT}
+          icon={<FontAwesomeIcon icon={faCodeBranch} />}
+          text="Fork"
+        />;
+      }
+    } else {
+      <ViewportAwareButton
+        className="mx-2"
+        color="success"
+        size="lg"
+        onClick={handleSave}
+        isSmall={screenWidth <= EDITOR_WIDTH_BREAKPOINT}
+        icon={<FontAwesomeIcon icon={faSave} />}
+        text={saveText}
+      />;
+    }
+  };
   const renderBanner = () => {
     const athumbnail = ThumbnailArray[viewOnly ? vthumbnail : thumbnail];
     return (
@@ -250,31 +269,7 @@ function TextEditor(props) {
             isSmall={screenWidth <= EDITOR_WIDTH_BREAKPOINT}
           />
         </div>
-        {(function () {
-          if (viewOnly) {
-            if (uid) {
-              <ViewportAwareButton
-                size="lg"
-                onClick={openForkModal}
-                isSmall={screenWidth <= EDITOR_WIDTH_BREAKPOINT}
-                icon={<FontAwesomeIcon icon={faCodeBranch} />}
-                text="Fork"
-              />;
-            } else {
-              null;
-            }
-          } else {
-            <ViewportAwareButton
-              className="mx-2"
-              color="success"
-              size="lg"
-              onClick={handleSave}
-              isSmall={screenWidth <= EDITOR_WIDTH_BREAKPOINT}
-              icon={<FontAwesomeIcon icon={faSave} />}
-              text={saveText}
-            />;
-          }
-        }())}
+        {awareButtonReturn()}
         {!viewOnly && (
           <ViewportAwareButton
             className="mx-2"
