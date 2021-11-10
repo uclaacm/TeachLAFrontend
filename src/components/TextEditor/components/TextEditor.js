@@ -18,7 +18,6 @@ import ShareSketchModal from './ShareSketchModal';
 /* eslint-disable func-names */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-unused-vars */
-/* eslint-disable no-use-before-define */
 /* eslint-disable no-unused-expressions */
 
 let CodeMirror = null;
@@ -234,13 +233,13 @@ function TextEditor(props) {
   const renderSketchName = () => <div className="program-sketch-name">{sketchName}</div>;
 
   const renderBanner = () => {
-    const thumbnail = ThumbnailArray[viewOnly ? vthumbnail : thumbnail];
+    const athumbnail = ThumbnailArray[viewOnly ? vthumbnail : thumbnail];
     return (
       <div className="code-section-banner">
         <OpenPanelButtonContainer />
         <img
           className="program-sketch-thumbnail"
-          src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${thumbnail}.svg`}
+          src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${athumbnail}.svg`}
           alt="sketch thumbnail"
         />
         {viewOnly ? renderSketchName() : renderDropdown()}
