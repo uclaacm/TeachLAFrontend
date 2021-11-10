@@ -3,6 +3,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState, useEffect } from 'react';
+import { Controlled as CodeMirror } from 'react-codemirror2';
 import ReactModal from 'react-modal';
 import { Redirect } from 'react-router-dom';
 import { Button } from 'reactstrap';
@@ -14,18 +15,12 @@ import ViewportAwareButton from '../../common/ViewportAwareButton';
 import DropdownButtonContainer from '../containers/DropdownButtonContainer';
 import EditorRadio from './EditorRadio';
 import ShareSketchModal from './ShareSketchModal';
+import 'codemirror/mode/javascript/javascript';
+import 'codemirror/mode/htmlmixed/htmlmixed';
+import 'codemirror/mode/python/python';
+import 'codemirror/mode/jsx/jsx';
+import 'codemirror/mode/clike/clike';
 
-let CodeMirror = null;
-if (typeof window !== 'undefined' && typeof window.navigator !== 'undefined') {
-  // import {Controlled as CodeMirror} from 'react-codemirror2'
-  /* eslint-disable global-require */
-  CodeMirror = require('react-codemirror2').Controlled;
-  require('codemirror/mode/javascript/javascript');
-  require('codemirror/mode/htmlmixed/htmlmixed');
-  require('codemirror/mode/python/python');
-  require('codemirror/mode/jsx/jsx');
-  require('codemirror/mode/clike/clike');
-}
 /** ----------Props--------
  * None
  */
