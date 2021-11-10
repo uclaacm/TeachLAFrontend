@@ -41,18 +41,22 @@ class JoinClassModal extends React.Component {
     return false;
   };
 
-  onSubmit = async (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
 
-    if (this.badInput()) {
+    if (badInput()) {
       return;
     }
 
     const data = {
+<<<<<<< HEAD
       uid: this.props.uid,
+=======
+      uid: props.uid,
+>>>>>>> 54f097b (Changed JoinClassModal to functional, checked by Regina)
       // Todo: swap this line back in when BE is fixed
       // wid: this.state.wid,
-      cid: this.state.wid,
+      cid: wid,
     };
 
     try {
@@ -60,8 +64,13 @@ class JoinClassModal extends React.Component {
         .joinClass(data)
         .then((res) => {
           if (!res.ok) {
+<<<<<<< HEAD
             if (res.status == 404) {
               throw '404';
+=======
+            if (res.status === 404) {
+              throw new Error('404');
+>>>>>>> 54f097b (Changed JoinClassModal to functional, checked by Regina)
             } else {
               throw new Error(`Error: Response code is ${res.status}`);
             }
@@ -69,11 +78,13 @@ class JoinClassModal extends React.Component {
           return res.classData;
         })
         .then((json) => {
-          this.props.addStudentClass(json.cid, json || {});
-          this.setState({ redirect: true });
-          this.closeModal();
+          props.addStudentClass(json.cid, json || {});
+          // this.setState({ redirect: true });
+          setRedirect(true);
+          closeModal();
         })
         .catch((err) => {
+<<<<<<< HEAD
           this.setState({
             disableSubmit: false,
             error: (err === '404')
@@ -81,9 +92,24 @@ class JoinClassModal extends React.Component {
               : 'There was a problem joining the class, please try again!',
           });
           console.log(err);
+=======
+          // setDisableSubmit(false)
+          setError(
+            err === '404'
+              ? "We couldn't find that class. Please try again!"
+              : 'There was a problem joining the class, please try again!',
+          );
+          // this.setState({
+          //   disableSubmit: false,
+          //   error: (err === "404") ?
+          //     "We couldn't find that class. Please try again!" :
+          //     "There was a problem joining the class, please try again!",
+          // });
+          // console.log(err);
+>>>>>>> 54f097b (Changed JoinClassModal to functional, checked by Regina)
         });
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
 
     // Testing stuff (do this instead of the try-catch block):
@@ -104,6 +130,7 @@ class JoinClassModal extends React.Component {
     this.closeModal();
 */
     // end of testing stuff
+<<<<<<< HEAD
 
     this.setState({ disableSubmit: true, error: '' });
   };
@@ -112,6 +139,17 @@ class JoinClassModal extends React.Component {
     <ReactModal
       isOpen={this.props.isOpen}
       onRequestClose={this.closeModal}
+=======
+    // setDisableSubmit(true)
+    setError('');
+    // this.setState({ disableSubmit: true, error: "" });
+  };
+
+  const renderModal = () => (
+    <ReactModal
+      isOpen={props.isOpen}
+      onRequestClose={closeModal}
+>>>>>>> 54f097b (Changed JoinClassModal to functional, checked by Regina)
       className="sketches-modal"
       overlayClassName="profile-image-overlay"
       ariaHideApp={false}
@@ -126,23 +164,40 @@ class JoinClassModal extends React.Component {
           <Col xs={8}>
             <Input
               className="sketches-modal-input"
+<<<<<<< HEAD
               onChange={(e) => this.setState({ wid: e.target.value })}
               value={this.state.wid}
+=======
+              onChange={(e) => setWid(e.target.value)}
+              value={wid}
+>>>>>>> 54f097b (Changed JoinClassModal to functional, checked by Regina)
               id="class-code"
             />
           </Col>
         </FormGroup>
         <br />
+<<<<<<< HEAD
         <div className="text-center text-danger">{this.state.error || <br />}</div>
         <hr />
         <Row>
           <Col>
             <Button color="danger" onClick={this.closeModal} size="lg" block>
+=======
+        <div className="text-center text-danger">{error || <br />}</div>
+        <hr />
+        <Row>
+          <Col>
+            <Button color="danger" onClick={closeModal} size="lg" block>
+>>>>>>> 54f097b (Changed JoinClassModal to functional, checked by Regina)
               Cancel
             </Button>
           </Col>
           <Col>
+<<<<<<< HEAD
             <Button color="success" onClick={this.onSubmit} size="lg" block>
+=======
+            <Button color="success" onClick={onSubmit} size="lg" block>
+>>>>>>> 54f097b (Changed JoinClassModal to functional, checked by Regina)
               Join
             </Button>
           </Col>
@@ -151,6 +206,7 @@ class JoinClassModal extends React.Component {
     </ReactModal>
   );
 
+<<<<<<< HEAD
   render() {
     if (this.state.redirect) {
       // Need to send them to the right class page
@@ -158,7 +214,14 @@ class JoinClassModal extends React.Component {
     }
 
     return this.renderModal();
+=======
+  if (redirect) {
+    // Need to send them to the right class page
+    return <Redirect to="/class" />;
+>>>>>>> 54f097b (Changed JoinClassModal to functional, checked by Regina)
   }
-}
+
+  return renderModal();
+};
 
 export default JoinClassModal;
