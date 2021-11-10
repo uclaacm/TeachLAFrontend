@@ -50,6 +50,7 @@ const Login = ({ create, initialState }) => {
   const themePrimary = themeColors[index][0];
   const themeSecondary = themeColors[index][1];
   const themeTertiary = themeColors[index][1];
+
   const getBackgroundSVG = () => (
     <svg
       className="background-svg"
@@ -85,14 +86,22 @@ const Login = ({ create, initialState }) => {
   );
   // basically, when the window resizes, recalculates getBackgroundSVG - the window parameters change!
   useEffect(() => {
+<<<<<<< HEAD
     const resizeHandler = setWindowHeight(window.innerHeight);
     window.addEventListener('resize', resizeHandler);
     return () => window.removeEventListener('resize', resizeHandler);
+=======
+    window.addEventListener('resize', () => {
+      setWindowHeight(window.innerHeight);
+    });
+    return () => window.removeEventListener('resize', () => setWindowHeight(window.innerHeight));
+>>>>>>> 82ca57d... remove svg from state
   }, [windowHeight]);
 
   const textHighlightStyle = {
     background: `linear-gradient(180deg, rgba(255,255,255,0) 80%, ${gradientPrimary} 50%)`,
   };
+
   return (
     <div className="login-page-content">
       <div className="login-page-content-container">
