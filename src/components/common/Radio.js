@@ -28,9 +28,12 @@ import '../../styles/Radio.scss';
 
 const Radio = (props) => {
   const [selected, setSelected] = useState(props.defaultSelected);
-  if (props.allowMultipleSelected){
-    setSelected(selected || []);
-  }  
+  // console.log(typeof selected);
+  useEffect(() => {
+    if (props.allowMultipleSelected){
+      setSelected(selected || []);
+    }  
+  }, []);
 
   const updateSelectedState = (select, alreadySelected) => {
     if (props.allowMultipleSelected) {
