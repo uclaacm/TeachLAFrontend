@@ -151,15 +151,15 @@ function TextEditor(props) {
           setForked(true);
           addProgram(uid2, programData || {});
         })
-        .catch(() => {
-          // console.log(err);
+        .catch((err) => {
+          console.error(err);
           throw new Error('Failed to create sketch, please try again later');
         });
     } catch (err) {
-      // console.log(err);
+      console.error(err);
     }
   };
-  const forkModalReturn = () => {
+  const renderForkModalActions = () => {
     if (forking) {
       <p className="text-center">Forking...</p>;
     } else if (forked) {
@@ -195,13 +195,12 @@ function TextEditor(props) {
       {!(forking || forked) && (
         <p className="text-center">Would you like to create your own copy of this sketch?</p>
       )}
-      {forkModalReturn()}
+      {renderForkModalActions()}
     </ReactModal>
   );
 
   const toggleShareModal = () => {
     setShowShareModal(!showShareModal);
-    // original code: setState((prevState) => ({ showShareModal: !prevState.showShareModal }));
   };
 
   /**
@@ -220,10 +219,8 @@ function TextEditor(props) {
     }
   };
 
-  const renderDropdown = () => <DropdownButtonContainer />;
-
   const renderSketchName = () => <div className="program-sketch-name">{sketchName}</div>;
-  const awareButtonReturn = () => {
+  const renderEditorAction = () => {
     if (viewOnly) {
       if (uid) {
         <ViewportAwareButton
@@ -256,7 +253,7 @@ function TextEditor(props) {
           src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${athumbnail}.svg`}
           alt="sketch thumbnail"
         />
-        {viewOnly ? renderSketchName() : renderDropdown()}
+        {viewOnly ? renderSketchName() : <DropdownButtonContainer />}
         <div style={{ marginLeft: 'auto', marginRight: '.5rem' }}>
           <EditorRadio
             viewMode={viewMode}
@@ -264,7 +261,7 @@ function TextEditor(props) {
             isSmall={screenWidth <= EDITOR_WIDTH_BREAKPOINT}
           />
         </div>
-        {awareButtonReturn()}
+        {renderEditorAction()}
         {!viewOnly && (
           <ViewportAwareButton
             className="mx-2"
