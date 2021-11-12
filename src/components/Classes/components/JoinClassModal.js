@@ -1,32 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactModal from 'react-modal';
 import { Redirect } from 'react-router-dom';
 import {
   Button, Container, Row, Col, FormGroup, Label, Input,
 } from 'reactstrap';
-import * as fetch from '../../../lib/fetch.js';
+import * as fetch from '../../../lib/fetch';
 
-class JoinClassModal extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      wid: '',
-      disableSubmit: false,
-      error: '',
-      redirect: false,
-    };
-  }
+const JoinClassModal = (props) => {
+  const [wid, setWid] = useState('');
+  const [_disableSubmit, setDisableSubmit] = useState(false);
+  const [error, setError] = useState('');
+  const [redirect, setRedirect] = useState(false);
 
-  closeModal = () => {
-    if (this.props.onClose && {}.toString.call(this.props.onClose) === '[object Function]') {
-      this.props.onClose();
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     wid: "",
+  //     disableSubmit: false,
+  //     error: "",
+  //     redirect: false,
+  //   };
+  // }
+
+  const closeModal = () => {
+    if (props.onClose && {}.toString.call(props.onClose) === '[object Function]') {
+      props.onClose();
     }
 
-    this.setState({
-      wid: '',
-      error: '',
-      disableSubmit: false,
-    });
+    setWid('');
+    setError('');
+    setDisableSubmit(false);
+
+    // this.setState({
+    //   wid: "",
+    //   error: "",
+    //   disableSubmit: false,
+    // });
   };
 
   badInput = () => {
@@ -75,7 +84,7 @@ class JoinClassModal extends React.Component {
           closeModal();
         })
         .catch((err) => {
-          // setDisableSubmit(false)
+          setDisableSubmit(false);
           setError(
             err === '404'
               ? "We couldn't find that class. Please try again!"
@@ -111,7 +120,7 @@ class JoinClassModal extends React.Component {
     this.closeModal();
 */
     // end of testing stuff
-    // setDisableSubmit(true)
+    setDisableSubmit(true);
     setError('');
     // this.setState({ disableSubmit: true, error: "" });
   };
