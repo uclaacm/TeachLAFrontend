@@ -86,10 +86,9 @@ const Login = ({ create, initialState }) => {
   );
   // basically, when the window resizes, recalculates getBackgroundSVG - the window parameters change!
   useEffect(() => {
-    window.addEventListener('resize', () => {
-      setWindowHeight(window.innerHeight);
-    });
-    return () => window.removeEventListener('resize', () => setWindowHeight(window.innerHeight));
+    const resizeHandler = setWindowHeight(window.innerHeight);
+    window.addEventListener('resize', resizeHandler);
+    return () => window.removeEventListener('resize', resizeHandler);
   }, [windowHeight]);
 
   const textHighlightStyle = {
