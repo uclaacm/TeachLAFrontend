@@ -32,6 +32,7 @@ const gradientColors = {
   4: ['#FF94DB', '#FFE4EE'],
 };
 
+
 const themeColors = {
   0: ['#FF5F54', 'white'],
   1: ['#36C5FC', 'white'],
