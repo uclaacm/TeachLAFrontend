@@ -28,13 +28,11 @@ import 'codemirror/mode/clike/clike';
 function TextEditor(props) {
   const [codeMirrorInstance, setCodeMirrorInstance] = useState(null);
   const [currentLine, setCurrentLine] = useState(0);
-  // const [sketch, setSketch] = useState(null);
   const [showForkModal, setShowForkModal] = useState(false);
   const [forking, setForking] = useState(false);
   const [forked, setForked] = useState(false);
   const [redirectToSketch, setRedirectToSketch] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
-  // const [error, setError] = useState(null);
 
   const {
     dirty,
@@ -88,24 +86,6 @@ function TextEditor(props) {
     setShowForkModal(false);
   };
 
-  // const checkDirty = async () => {
-  //   if (!dirty) {
-  //     return;
-  //   }
-
-  //   try {
-  //     const programToUpdate = {};
-  //     programToUpdate[mostRecentProgram] = {
-  //       code: code,
-  //     };
-
-  //     await fetch.updatePrograms(uid, programToUpdate);
-  //     // TODO: add functionality to be able to tell whether the fetch failed
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
   const updateCode = (editor, data, newCode) => {
     // if the code's not yet dirty, and the old code is different from the new code, make it dirty
     if (!dirty && code !== newCode) {
@@ -124,10 +104,12 @@ function TextEditor(props) {
     }
     setCurrentLine(line);
   };
+
   const redirectSketch = () => {
     closeForkModal();
     setRedirectToSketch(true);
   };
+
   const handleFork = async () => {
     setForking(true);
     const data = {
@@ -153,12 +135,12 @@ function TextEditor(props) {
         })
         .catch((err) => {
           console.error(err);
-          throw new Error('Failed to create sketch, please try again later');
         });
     } catch (err) {
       console.error(err);
     }
   };
+
   const renderForkModalActions = () => {
     if (forking) {
       <p className="text-center">Forking...</p>;
@@ -183,6 +165,7 @@ function TextEditor(props) {
       </div>;
     }
   };
+
   const renderForkModal = () => (
     <ReactModal
       isOpen={showForkModal}
@@ -209,8 +192,8 @@ function TextEditor(props) {
    * @returns {string} the codemirror theme - see https://codemirror.net/demo/theme.html for more info
    */
 
-  const getCMTheme = (theme2) => {
-    switch (theme2) {
+  const getCMTheme = (newTheme) => {
+    switch (newTheme) {
     case 'light':
       return 'duotone-light';
     case 'dark':
@@ -220,6 +203,7 @@ function TextEditor(props) {
   };
 
   const renderSketchName = () => <div className="program-sketch-name">{sketchName}</div>;
+
   const renderEditorAction = () => {
     if (viewOnly) {
       if (uid) {
@@ -243,14 +227,15 @@ function TextEditor(props) {
       />;
     }
   };
+
   const renderBanner = () => {
-    const athumbnail = ThumbnailArray[viewOnly ? vthumbnail : thumbnail];
+    const thumbnailArray = ThumbnailArray[viewOnly ? vthumbnail : thumbnail];
     return (
       <div className="code-section-banner">
         <OpenPanelButtonContainer />
         <img
           className="program-sketch-thumbnail"
-          src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${athumbnail}.svg`}
+          src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${thumbnailArray}.svg`}
           alt="sketch thumbnail"
         />
         {viewOnly ? renderSketchName() : <DropdownButtonContainer />}
