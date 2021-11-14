@@ -61,11 +61,11 @@ function TextEditor(props) {
   //= =============React Lifecycle Functions===================//
 
   const onLeave = async (ev) => {
-    const ev2 = ev;
+    const newev = ev;
     if (dirty) {
-      ev2.returnValue = '';
+      newev.returnValue = '';
     }
-    return ev2;
+    return newev;
   };
 
   useEffect(() => {
