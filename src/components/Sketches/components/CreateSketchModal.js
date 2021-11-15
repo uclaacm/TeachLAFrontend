@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import ReactModal from 'react-modal';
 import { Redirect } from 'react-router-dom';
-import {
-  Button, Container, Row, Col, FormGroup, Label, Input, 
-, DropdownItem } from 'reactstrap';
+import {  Button, Container, Row, Col, FormGroup, Label, Input, DropdownItem } from 'reactstrap';
 import { ThumbnailArray } from "../../../constants";
 import * as fetch from '../../../lib/fetch.js';
 import ImageSelector from '../../common/ImageSelector';

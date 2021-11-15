@@ -33,7 +33,7 @@ class Classes extends React.Component {
     };
   }
 
-  componentDidMount() {
+  componentDidMount = async () => {
     if (this.props.classesLoaded) {
       // If classes are already loaded, don't fetch them again.
       this.setState({

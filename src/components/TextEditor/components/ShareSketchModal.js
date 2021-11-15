@@ -35,7 +35,7 @@ class ShareSketchModal extends React.Component {
     );
   };
 
-  render() <ReactModal
+  render() { return <ReactModal
       className="modal-md"
       overlayClassName="modal-overlay"
       isOpen={this.props.showModal}
@@ -56,7 +56,7 @@ class ShareSketchModal extends React.Component {
       <hr />
       <p className="text-center">{this.state.copyStatus}</p>
     </ReactModal>
-  );
+  };
 }
 
 export default ShareSketchModal;

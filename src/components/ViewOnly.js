@@ -36,7 +36,7 @@ class ViewOnly extends React.Component {
     this.props.setTheme(cookies.getThemeFromCookie());
   }
 
-  componentDidMount() {
+  componentDidMount = async () => {
     if (this.savePrevProgram) {
       await this.codeSaverHelper();
     }
