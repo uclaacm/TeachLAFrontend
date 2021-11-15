@@ -26,16 +26,16 @@ class App extends React.Component {
 
   //= =============React Lifecycle Functions===================//
 
-  componentDidMount = () => {
+  componentDidMount() {
     firebase.auth().onAuthStateChanged(async (user) => {
       await this.onAuthHandler(user);
     });
     window.addEventListener('resize', this.handleResize, true);
-  };
+  }
 
-  componentWillUnmount = () => {
+  componentWillUnmount() {
     window.removeEventListener('resize', this.handleResize, true);
-  };
+  }
 
   handleResize = () => {
     this.props.screenResize(window.innerWidth, window.innerHeight);
@@ -76,7 +76,7 @@ class App extends React.Component {
 
   renderHome = (isValidUser) => (isValidUser ? <Redirect to="/editor" /> : <Redirect to="/login" />);
 
-  render = () => {
+  render() {
     // if we haven't checked if the user is logged in yet, show a loading screen
     if (!this.state.checkedAuth) {
       return <LoadingPage />;
@@ -155,32 +155,28 @@ class App extends React.Component {
             {/* Class page */}
             <Route
               path="/class"
-              render={() =>
-                this.props.errorMsg !== "" ? (
-                  <Error errorMsg={this.props.errorMsg} isValidUser={isValidUser} />
-                ) : !isValidUser ? (
-                  <Redirect to="/login" />
-                ) : this.props.developerAcc ? (
-                  <MainContainer contentType="classPage" />
-                ) : (
-                  <Redirect to="/sketches"/>
-                )
-              }
+              render={() => (this.props.errorMsg !== '' ? (
+                <Error errorMsg={this.props.errorMsg} isValidUser={isValidUser} />
+              ) : !isValidUser ? (
+                <Redirect to="/login" />
+              ) : this.props.developerAcc ? (
+                <MainContainer contentType="classPage" />
+              ) : (
+                <Redirect to="/sketches" />
+              ))}
             />
             {/* Classes page */}
             <Route
               path="/classes"
-              render={() =>
-                this.props.errorMsg !== "" ? (
-                  <Error errorMsg={this.props.errorMsg} isValidUser={isValidUser} />
-                ) : !isValidUser ? (
-                  <Redirect to="/login" />
-                ) : this.props.developerAcc ? (
-                  <MainContainer contentType="classes" />
-                ) : (
-                  <Redirect to="/sketches"/>
-                )
-              }
+              render={() => (this.props.errorMsg !== '' ? (
+                <Error errorMsg={this.props.errorMsg} isValidUser={isValidUser} />
+              ) : !isValidUser ? (
+                <Redirect to="/login" />
+              ) : this.props.developerAcc ? (
+                <MainContainer contentType="classes" />
+              ) : (
+                <Redirect to="/sketches" />
+              ))}
             />
             {/* Default error page */}
             <Route
@@ -198,7 +194,7 @@ class App extends React.Component {
         </div>
       </Router>
     );
-  };
+  }
 }
 
 export default App;

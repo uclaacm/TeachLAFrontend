@@ -61,7 +61,7 @@ export const getLanguageData = (lang) => ({
   ...SUPPORTED_LANGUAGES.find((data) => data.value === lang),
 });
 
-export const enrichWithLanguageData = (arr) => arr.map(sketch => ({
+export const enrichWithLanguageData = (arr) => arr.map((sketch) => ({
   ...sketch,
   language: getLanguageData(sketch.language),
 }));

@@ -1,4 +1,6 @@
-import { faDownload, faSave, faShare, faCodeBranch } from '@fortawesome/free-solid-svg-icons';
+import {
+  faDownload, faSave, faShare, faCodeBranch,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import ReactModal from 'react-modal';
@@ -8,12 +10,11 @@ import { EDITOR_WIDTH_BREAKPOINT, ThumbnailArray } from '../../../constants';
 import sketch from '../../../lib';
 import * as fetch from '../../../lib/fetch.js';
 
-import DropdownButtonContainer from '../containers/DropdownButtonContainer';
 import OpenPanelButtonContainer from '../../common/containers/OpenPanelButtonContainer';
 import ViewportAwareButton from '../../common/ViewportAwareButton.js';
+import DropdownButtonContainer from '../containers/DropdownButtonContainer';
 import EditorRadio from './EditorRadio.js';
 import ShareSketchModal from './ShareSketchModal';
-
 
 let CodeMirror = null;
 if (typeof window !== 'undefined' && typeof window.navigator !== 'undefined') {
@@ -52,10 +53,10 @@ class TextEditor extends React.Component {
     window.addEventListener('close', this.onLeave);
   }
 
-  componentWillUnmount = () => {
+  componentWillUnmount() {
     window.removeEventListener('beforeunload', this.onLeave);
     window.removeEventListener('close', this.onLeave);
-  };
+  }
 
   openForkModal = () => {
     this.setState({ showForkModal: true });
@@ -201,11 +202,11 @@ class TextEditor extends React.Component {
 
   getCMTheme = (theme) => {
     switch (theme) {
-      case 'light':
-        return 'duotone-light';
-      case 'dark':
-      default:
-        return 'material';
+    case 'light':
+      return 'duotone-light';
+    case 'dark':
+    default:
+      return 'material';
     }
   };
 
@@ -214,8 +215,7 @@ class TextEditor extends React.Component {
   renderSketchName = () => <div className="program-sketch-name">{this.props.sketchName}</div>;
 
   renderBanner = () => {
-    const thumbnail =
-      ThumbnailArray[this.props.viewOnly ? this.props.vthumbnail : this.props.thumbnail];
+    const thumbnail = ThumbnailArray[this.props.viewOnly ? this.props.vthumbnail : this.props.thumbnail];
     return (
       <div className="code-section-banner">
         <OpenPanelButtonContainer />

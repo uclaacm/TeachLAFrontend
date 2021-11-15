@@ -135,20 +135,18 @@ export const getSketch = async (docID) => {
  * creates a new class
  * @param {Object} data required data to create class {uid, name, thumbnail}
  */
-export const createClass = (data) => {
-  return makeServerRequest(data, "class/create");
-};
+export const createClass = (data) => makeServerRequest(data, 'class/create');
 
 /**
  * add a student to an existing class
  * @param {Object} data student's uid and class's word id {uid, wid}
  */
 export const joinClass = async (data) => {
-  console.log(data)
-  let result = await makeServerRequest(data, "class/join", "put");
-  let ok = await result.ok;
-  let status = result.status;
-  let classData = ok ? await result.json() : {};
+  console.log(data);
+  const result = await makeServerRequest(data, 'class/join', 'put');
+  const ok = await result.ok;
+  const { status } = result;
+  const classData = ok ? await result.json() : {};
   return { ok, status, classData };
 };
 
@@ -157,11 +155,11 @@ export const joinClass = async (data) => {
  * @param {Object} data member's uid and class's cid {uid, cid}
  */
 export const leaveClass = async (data) => {
-  let result = await makeServerRequest(data, "class/leave", "put");
-  let ok = await result.ok;
-  console.log("ok: " + ok)
+  const result = await makeServerRequest(data, 'class/leave', 'put');
+  const ok = await result.ok;
+  console.log(`ok: ${ok}`);
   // let userData = await result.json();
-  let userData = {};
+  const userData = {};
   return { ok, userData };
 };
 
@@ -172,9 +170,9 @@ export const leaveClass = async (data) => {
  * @param {boolean} withUserData whether to include student data
  */
 export const getClass = async (data, withPrograms, withUserData) => {
-  let result = await makeServerRequest(data, `class/get?programs=${withPrograms}&userData=${withUserData}`);
-  let ok = await result.ok;
-  console.log("response status: " + result.status)
-  let classData = await result.json();
+  const result = await makeServerRequest(data, `class/get?programs=${withPrograms}&userData=${withUserData}`);
+  const ok = await result.ok;
+  console.log(`response status: ${result.status}`);
+  const classData = await result.json();
   return { ok, classData };
 };

@@ -36,7 +36,7 @@ class ViewOnly extends React.Component {
     this.props.setTheme(cookies.getThemeFromCookie());
   }
 
-  componentDidMount = async () => {
+  componentDidMount() {
     if (this.savePrevProgram) {
       await this.codeSaverHelper();
     }
@@ -70,7 +70,7 @@ class ViewOnly extends React.Component {
     }
   }
 
-  componentWillUnmount = () => {
+  componentWillUnmount() {
     if (this.savePrevProgram) {
       this.props.setProgramCode(this.props.mostRecentProgram, this.state.originalCode);
     }
