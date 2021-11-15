@@ -9,7 +9,7 @@ import { Button } from 'reactstrap';
 /** --------Optional props--------
  * any props you would apply to a reactstrap Button.
  */
-const ViewportAwareButton = (props) => {
+const ViewportAwareButton = function (props) {
   // extract icon and text from props.
   const {
     icon, text, isSmall, ...remainder

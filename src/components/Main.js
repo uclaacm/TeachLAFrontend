@@ -18,7 +18,7 @@ import '../styles/Main.scss';
  * left: the left css property that should be applied on the top level element
  */
 
-const Main = ({
+const Main = function ({
   screenWidth,
   theme,
   dirty,
@@ -35,7 +35,7 @@ const Main = ({
   listOfPrograms,
   setTheme,
   cleanCode,
-}) => {
+}) {
   const [saveText, setSaveText] = useState('Save');
   const [viewMode, setViewMode] = useState(
     screenWidth <= EDITOR_WIDTH_BREAKPOINT ? CODE_ONLY : CODE_AND_OUTPUT,

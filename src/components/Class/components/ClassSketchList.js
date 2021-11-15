@@ -1,27 +1,27 @@
-import React from 'react';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from 'react';
 
 import { ThumbnailArray } from '../../../constants';
-import SketchBox from '../../common/SketchBox';
 import CodeDownloader from '../../../util/languages/CodeDownloader';
+import SketchBox from '../../common/SketchBox';
 
 import '../../../styles/SketchBox.scss';
 
 const SKETCHES_ROW_PADDING = 100;
 const SKETCH_WIDTH = 220;
 
-const ClassSketchList = ({
-  calculatedWidth, 
+const ClassSketchList = function ({
+  calculatedWidth,
   isInstr,
   programData,
   setCreateSketchModalOpen,
-}) => {
-  let newList = programData?.concat([]) || [];
+}) {
+  const newList = programData?.concat([]) || [];
   newList.sort((a, b) => {
     if (a.name < b.name) return -1;
     if (a.name === b.name) return 0;
-    else return 1;
+    return 1;
   });
 
   const getThumbnailSrc = (val) => {
@@ -31,20 +31,20 @@ const ClassSketchList = ({
     return ThumbnailArray[val];
   };
 
-  const sketchList = newList.map(({ uid, name, language, thumbnail, code }) => {
-    return (
-      <SketchBox
-        key={uid}
-        img={getThumbnailSrc(thumbnail)}
-        icon={language.icon}
-        name={name}
-        downloadFunc={() => {
-          CodeDownloader.download(name, language, code);
-        }}
-        pathname={isInstr ? '/editor' : `/p/${uid}`}
-      />
-    )
-  });
+  const sketchList = newList.map(({
+    uid, name, language, thumbnail, code,
+  }) => (
+    <SketchBox
+      key={uid}
+      img={getThumbnailSrc(thumbnail)}
+      icon={language.icon}
+      name={name}
+      downloadFunc={() => {
+        CodeDownloader.download(name, language, code);
+      }}
+      pathname={isInstr ? '/editor' : `/p/${uid}`}
+    />
+  ));
 
   // Button for instructors to add a sketch to the class.
   if (isInstr) {
@@ -65,9 +65,9 @@ const ClassSketchList = ({
   }
 
   // TODO: This should be a flexbox, instead of this
-  let numSketchesPerRow = Math.floor((calculatedWidth - SKETCHES_ROW_PADDING) / SKETCH_WIDTH);
-  let rows = [];
-  let originalLength = sketchList.length;
+  const numSketchesPerRow = Math.floor((calculatedWidth - SKETCHES_ROW_PADDING) / SKETCH_WIDTH);
+  const rows = [];
+  const originalLength = sketchList.length;
   for (let i = 0; i < originalLength / numSketchesPerRow; i++) {
     rows.push(
       <div className="class-sketches-grid-row" key={i}>

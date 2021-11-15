@@ -1,18 +1,14 @@
-import JoinClassModal from "../components/JoinClassModal.js";
-import { connect } from "react-redux";
-import { addStudentClass } from "../../../actions/classesActions";
+import { connect } from 'react-redux';
+import { addStudentClass } from '../../../actions/classesActions';
+import JoinClassModal from '../components/JoinClassModal.js';
 
-const mapStateToProps = (state) => {
-  return {
-    uid: state.userData.uid,
-  };
-};
+const mapStateToProps = (state) => ({
+  uid: state.userData.uid,
+});
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addStudentClass: (cid, data) => dispatch(addStudentClass(cid, data)),
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  addStudentClass: (cid, data) => dispatch(addStudentClass(cid, data)),
+});
 
 const JoinClassModalContainer = connect(mapStateToProps, mapDispatchToProps)(JoinClassModal);
 

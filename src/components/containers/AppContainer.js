@@ -3,7 +3,7 @@
   but rather do that in each individual container
 */
 import { connect } from 'react-redux';
-import { clearClasses } from "../../actions/classesActions";
+import { clearClasses } from '../../actions/classesActions';
 import { loadPrograms, clearPrograms } from '../../actions/programsActions';
 import { screenResize } from '../../actions/uiActions';
 import { loadUserData, clearUserData, loadFailure } from '../../actions/userDataActions.js';
