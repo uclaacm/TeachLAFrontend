@@ -27,13 +27,13 @@ import '../../styles/Radio.scss';
 
 
 const Radio = (props) => {
-  const [selected, setSelected] = useState(props.defaultSelected);
-  // console.log(typeof selected);
-  useEffect(() => {
-    if (props.allowMultipleSelected){
-      setSelected(selected || []);
-    }  
-  }, []);
+  let defaultSelected = props.defaultSelected;
+  
+  if (props.allowMultipleSelected){
+      defaultSelected = defaultSelected || [];
+  }
+  
+  const [selected, setSelected] = useState(defaultSelected);
 
   const updateSelectedState = (select, alreadySelected) => {
     if (props.allowMultipleSelected) {
