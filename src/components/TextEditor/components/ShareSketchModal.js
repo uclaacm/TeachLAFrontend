@@ -16,7 +16,7 @@ import '../../../styles/Modals.scss';
  *  shareUrl the URL to display/copy to clipboard
  */
 
-const ShareSketchModal = (props) => {
+function ShareSketchModal(props) {
   const { shareUrl, showModal, toggleModal } = props;
   const [str, setStr] = useState([{ copyStatus: 'Hit "Copy to Clipboard"!' }]);
 
@@ -54,6 +54,6 @@ const ShareSketchModal = (props) => {
       <p className="text-center">{str.copyStatus}</p>
     </ReactModal>
   );
-};
+}
 
 export default ShareSketchModal;
