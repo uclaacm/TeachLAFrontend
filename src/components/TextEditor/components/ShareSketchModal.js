@@ -54,6 +54,6 @@ const ShareSketchModal = (props) => {
       <p className="text-center">{str.copyStatus}</p>
     </ReactModal>
   );
-}
+};
 
 export default ShareSketchModal;
