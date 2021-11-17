@@ -6,7 +6,7 @@ import {
 } from 'reactstrap';
 import * as fetch from '../../../lib/fetch';
 
-const JoinClassModal = ({ props }) => {
+const JoinClassModal = function ({ props }) {
   const [wid, setWid] = useState('');
   const [_disableSubmit, setDisableSubmit] = useState(false);
   const [error, setError] = useState('');
@@ -23,8 +23,10 @@ const JoinClassModal = ({ props }) => {
   // }
 
   const closeModal = () => {
-    if (props.onClose && {}.toString.call(props.onClose) === '[object Function]') {
-      props.onClose();
+    const { onClose } = props;
+
+    if (onClose && {}.toString.call(onClose) === '[object Function]') {
+      onClose();
     }
 
     setWid('');
