@@ -11,14 +11,6 @@ const ConfirmLeaveModal = function (props) {
   } = props;
 
   const [error, setError] = useState('');
-  /*
-  constructor(props) {
-    super(props);
-    this.state = {
-      error: '',
-    };
-  }
-  */
 
   const closeModal = () => {
     const { onClose } = props;
