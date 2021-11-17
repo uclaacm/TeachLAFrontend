@@ -73,6 +73,10 @@ describe('DropdownButton', () => {
     componentOpen.find(DropdownToggle).simulate('click');
     expect(componentOpen).toMatchSnapshot();
 
+    // closing again by clicking
+    componentOpen.find(DropdownToggle).simulate('click');
+    expect(componentOpen).toMatchSnapshot();
+
     const componentClose = shallow(
       <DropdownButton
         icon="lungs"
