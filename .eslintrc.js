@@ -126,5 +126,8 @@ module.exports = {
 
     // For loops are ok
     'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
+
+    // AirBNB changed this to only allow function-expressions
+    'react/function-component-definition': 'off',
   },
 };
