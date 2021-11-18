@@ -6,7 +6,7 @@ import { GH_REPO_NAME } from '../constants';
 import * as cookies from '../lib/cookies.js';
 import Footer from './common/Footer';
 
-function PageNotFound() {
+const PageNotFound = function () {
   return (
     <div className={`full-container theme-${cookies.getThemeFromCookie()}`}>
       <div className="page-container">
@@ -31,6 +31,6 @@ function PageNotFound() {
       </div>
     </div>
   );
-}
+};
 
 export default PageNotFound;

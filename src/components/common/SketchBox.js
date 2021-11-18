@@ -42,15 +42,13 @@ class SketchBox extends React.Component {
         <hr className="sketch-divider" />
         <Row className="sketch-box-body">
           {
-            buttonData.filter(data => data.func)
-            .map((data, idx) => (
-              <Col className="p-2 text-center" onClick={data.func} key={idx}>
-                <FontAwesomeIcon className="fa-lg" icon={data.icon} />
-              </Col>
-            ))
-            .reduce((acc, curr) => {
-              return acc.length > 0 ? [...acc, (<div className="sketch-button-divider" />), curr] : [curr];
-            }, [])
+            buttonData.filter((data) => data.func)
+              .map((data, idx) => (
+                <Col className="p-2 text-center" onClick={data.func} key={idx}>
+                  <FontAwesomeIcon className="fa-lg" icon={data.icon} />
+                </Col>
+              ))
+              .reduce((acc, curr) => (acc.length > 0 ? [...acc, (<div className="sketch-button-divider" />), curr] : [curr]), [])
           }
         </Row>
       </div>

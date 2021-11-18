@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { togglePanel } from '../../../actions/uiActions.js';
 import { setMostRecentProgram } from '../../../actions/userDataActions.js';
 import { OPEN_PANEL_LEFT, CLOSED_PANEL_LEFT, PANEL_SIZE } from '../../../constants';
-import Sketches from '../index.js';
 import { getLanguageData } from '../../../util/languages/languages.js';
+import Sketches from '../index.js';
 
 const mapStateToProps = (state) => {
   const { mostRecentProgram } = state.userData;

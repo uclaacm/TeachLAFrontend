@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import ReactModal from 'react-modal';
-import { Container, Row, Col, Button } from 'reactstrap';
+import {
+  Container, Row, Col, Button,
+} from 'reactstrap';
 import * as fetch from '../../../lib/fetch.js';
 
-const ConfirmDeleteModal = (props) => {
+const ConfirmDeleteModal = function (props) {
   const {
     onClose,
     isOpen,
@@ -27,7 +29,7 @@ const ConfirmDeleteModal = (props) => {
 
   const onDeleteSubmit = () => {
     const data = {
-      uid: uid,
+      uid,
       docID: sketchKey,
       name: sketchKey,
     };

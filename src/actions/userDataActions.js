@@ -59,7 +59,7 @@ export function setPhotoName(photoName) {
   return { type: SET_PHOTO_NAME, photoName };
 }
 
-export const SET_CURRENT_CLASS = "SET_CURRENT_CLASS";
+export const SET_CURRENT_CLASS = 'SET_CURRENT_CLASS';
 export function setCurrentClass(cid) {
   return { type: SET_CURRENT_CLASS, value: cid };
 }

@@ -48,13 +48,13 @@ class Login extends React.Component {
   };
 
   // basically, when the window resizes, we should recalculate get SVG - the window parameters change!
-  componentDidMount = () => {
+  componentDidMount() {
     window.addEventListener('resize', () => this.setState({ dummy: !this.state.dummy }));
-  };
+  }
 
-  componentWillUnmount = () => {
+  componentWillUnmount() {
     window.removeEventListener('resize', () => this.setState({ dummy: !this.state.dummy }));
-  };
+  }
 
   getSVG = () => (
     <svg
@@ -90,7 +90,7 @@ class Login extends React.Component {
     </svg>
   );
 
-  render = () => {
+  render() {
     const textHighlightStyle = {
       background: `linear-gradient(180deg, rgba(255,255,255,0) 80%, ${
         gradientColors[this.state.index][0]
@@ -157,7 +157,7 @@ class Login extends React.Component {
         </div>
       </div>
     );
-  };
+  }
 }
 
 export default Login;
