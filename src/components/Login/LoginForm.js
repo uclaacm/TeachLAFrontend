@@ -10,7 +10,6 @@ import 'firebase/auth';
 import '../../styles/Login.scss';
 
 export default function LoginModal(props) {
-  const { themeColor, textColor } = props;
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
@@ -73,10 +72,6 @@ export default function LoginModal(props) {
     }
   };
 
-  const updateUsername = (myUsername) => setUsername(myUsername);
-
-  const updatePassword = (myPassword) => setPassword(myPassword);
-
   const renderErrorMessage = (msg, addBreak) => {
     if (msg) {
       return (
@@ -93,14 +88,15 @@ export default function LoginModal(props) {
   const renderInputs = () => (
     <div className="login-form-input-list">
       <div>
-        <LoginInput type="Username" data={username} waiting={waiting} onChange={updateUsername} />
-        <LoginInput type="Password" data={password} waiting={waiting} onChange={updatePassword} />
+        <LoginInput type="Username" data={username} waiting={waiting} onChange={setUsername} />
+        <LoginInput type="Password" data={password} waiting={waiting} onChange={setPassword} />
       </div>
       {renderErrorMessage(errorMsg)}
     </div>
   );
 
   const renderAction = () => {
+    const { themeColor, textColor } = props;
     const unclickedStyle = {
       backgroundColor: 'white',
       borderColor: themeColor,
