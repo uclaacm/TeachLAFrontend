@@ -1,24 +1,26 @@
-import React from "react";
-import ReactModal from "react-modal";
-import { Container, Row, Col, Button } from "reactstrap";
-import * as fetch from "../../../lib/fetch.js";
+import React from 'react';
+import ReactModal from 'react-modal';
+import {
+  Container, Row, Col, Button,
+} from 'reactstrap';
+import * as fetch from '../../../lib/fetch.js';
 
 class ConfirmLeaveModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      error: "",
+      error: '',
     };
   }
 
   closeModal = () => {
-    if (this.props.onClose && {}.toString.call(this.props.onClose) === "[object Function]") {
+    if (this.props.onClose && {}.toString.call(this.props.onClose) === '[object Function]') {
       this.props.onClose();
     }
   };
 
   onLeaveSubmit = () => {
-    let data = {
+    const data = {
       uid: this.props.uid,
       cid: this.props.cid,
     };
@@ -30,7 +32,7 @@ class ConfirmLeaveModal extends React.Component {
         .then((res) => {
           if (!res.ok) {
             this.setState({
-              error: res.error || "Failed to leave the class, please try again later",
+              error: res.error || 'Failed to leave the class, please try again later',
             });
             return;
           }
@@ -39,7 +41,7 @@ class ConfirmLeaveModal extends React.Component {
         })
         .catch((err) => {
           this.setState({
-            error: "Failed to leave the class, please try again later",
+            error: 'Failed to leave the class, please try again later',
           });
           console.log(err);
         });
@@ -52,7 +54,7 @@ class ConfirmLeaveModal extends React.Component {
     // this.props.inClass ? this.props.unsetClass() : this.closeModal();
     // end of test stuff
 
-    this.setState({ error: "" });
+    this.setState({ error: '' });
   };
 
   render() {
@@ -65,7 +67,9 @@ class ConfirmLeaveModal extends React.Component {
       >
         <Container>
           <h3 className="text-center">
-            Are you sure you want to permanently leave the class "{this.props.className}"?
+            Are you sure you want to permanently leave the class "
+            {this.props.className}
+            "?
           </h3>
           <hr />
           <div className="text-center text-danger">{this.state.error || <br />}</div>

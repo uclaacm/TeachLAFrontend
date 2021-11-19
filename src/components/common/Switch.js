@@ -10,7 +10,7 @@ import '../../styles/Switch.scss';
  * @param {JSX} offImg (optional): (JSX) element to be displayed on switch body when set to "off"
  */
 
-const Switch = (props) => {
+const Switch = function (props) {
   const [on, setOn] = useState(!props.on ? false : props.on);
 
   useEffect(() => {

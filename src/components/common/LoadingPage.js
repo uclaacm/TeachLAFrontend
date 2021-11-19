@@ -13,20 +13,18 @@ import { GH_REPO_NAME } from '../../constants';
     (give px units)
 */
 
-const Loading = (props) => {
+const Loading = function (props) {
   const [showHelpText, setShowHelpText] = useState(props.showHelpText);
 
   const timer = setTimeout(
     () => {
       setShowHelpText(true);
     },
-    2000
+    2000,
   );
-  
-  useEffect(() => {
-    return () => {
-      clearTimeout(timer);
-    };
+
+  useEffect(() => () => {
+    clearTimeout(timer);
   }, []);
 
   return (
@@ -45,7 +43,7 @@ const Loading = (props) => {
         </p>
       )}
     </div>
-  )
-}
+  );
+};
 
 export default Loading;

@@ -25,7 +25,7 @@ class Output extends React.Component {
   }
 
   //= =============React Lifecycle Functions===================//
-  shouldComponentUpdate = (nextProps, nextState) => {
+  shouldComponentUpdate(nextProps, nextState) {
     if (this.state.showConsole !== nextState.showConsole) {
       return true;
     }
@@ -48,7 +48,7 @@ class Output extends React.Component {
       return true;
     }
     return false;
-  };
+  }
 
   renderOpenPanelButton = () => this.props.viewMode === OUTPUT_ONLY && <OpenPanelButtonContainer />;
 

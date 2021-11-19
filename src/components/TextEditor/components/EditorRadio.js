@@ -2,7 +2,7 @@ import React from 'react';
 import { CODE_AND_OUTPUT, CODE_ONLY, OUTPUT_ONLY } from '../../../constants';
 import Radio from '../../common/Radio.js';
 
-const EditorRadio = (props) => {
+const EditorRadio = function (props) {
   let options = [];
   if (!props.isSmall) options.push({ display: 'Both', value: CODE_AND_OUTPUT });
   options = options.concat([

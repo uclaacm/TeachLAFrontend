@@ -1,37 +1,35 @@
-import React from "react";
+import React from 'react';
+import { ThumbnailArray } from "../../constants";
 import * as fetch from "../../lib/fetch.js";
 import ClassBox from "./components/ClassBox";
 import ConfirmLeaveModalContainer from "./containers/ConfirmLeaveModalContainer";
 import CreateClassModalContainer from "./containers/CreateClassModalContainer";
 import JoinClassModalContainer from "./containers/JoinClassModalContainer";
 import OpenPanelButtonContainer from "../common/containers/OpenPanelButtonContainer";
-import { ThumbnailArray } from "../../constants";
-import "../../styles/ClassBox.scss";
-import "../../styles/Classes.scss";
-import "../../styles/Login.scss";
-import LoadingPage from "../common/LoadingPage";
+import '../../styles/ClassBox.scss';
+import '../../styles/Classes.scss';
+import '../../styles/Login.scss';
+import LoadingPage from '../common/LoadingPage';
 import { getInstructorString } from '../../util/classes';
 
-import { Button } from "reactstrap";
+import { Button } from 'reactstrap';
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { faKey } from "@fortawesome/free-solid-svg-icons";
-import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus , faKey , faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 
 class Classes extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       loaded: false,
-      redirectTo: "",
+      redirectTo: '',
       confirmLeaveModalOpen: false,
       createClassModalOpen: false,
       joinClassModalOpen: false,
-      selectedClass: "",
-      selectedImg: "",
-      selectedCid: "",
-      classCode: "",
+      selectedClass: '',
+      selectedImg: '',
+      selectedCid: '',
+      classCode: '',
     };
   }
 
@@ -68,10 +66,9 @@ class Classes extends React.Component {
     let classObjects = [];
     try {
       // Request all classes concurrently.
-      console.log("gonna send requests now!");
+      console.log('gonna send requests now!');
       classObjects = await Promise.all(
-        this.props.classList.map((cid) => {
-          return new Promise((resolve, reject) => {
+        this.props.classList.map((cid) => new Promise((resolve, reject) => {
             let data = {
               uid: this.props.uid,
               cid: cid,
@@ -92,20 +89,19 @@ class Classes extends React.Component {
                 console.log(err);
                 reject(err);
               });
-          });
-        }),
+          })),
       );
-      console.log("classObjects: " + JSON.stringify(classObjects));
+      console.log('classObjects: ' + JSON.stringify(classObjects));
     } catch (err) {
       this.setState({
-        error: "Failed to load your classes. Please try again later.",
+        error: 'Failed to load your classes. Please try again later.',
         loaded: true,
       });
       console.log(err);
     }
 
     // Sort into student and instructor classes
-    let studentClasses = [],
+    const studentClasses = [],
       instrClasses = [];
     classObjects.forEach((thisclass) => {
       // TODO: update this line when back-end API is updated
@@ -140,12 +136,13 @@ class Classes extends React.Component {
   };
 
   renderHeader = () => {
-    let buttonText, icon;
+    let buttonText; let 
+icon;
     if (this.props.onInstrView) {
-      buttonText = "To Student View";
+      buttonText = 'To Student View';
       icon = faPencilAlt;
     } else {
-      buttonText = "To Instructor View";
+      buttonText = 'To Instructor View';
       icon = faKey;
     }
 
@@ -154,7 +151,9 @@ class Classes extends React.Component {
         <OpenPanelButtonContainer />
         <div className="classes-header-text">Classes</div>
         <Button className="ml-auto mr-2" size="lg" onClick={() => this.switchInstrStudView()}>
-          <FontAwesomeIcon icon={icon} /> {buttonText}
+          <FontAwesomeIcon icon={icon} /> 
+{' '}
+{buttonText}
         </Button>
       </div>
     );
@@ -165,8 +164,7 @@ class Classes extends React.Component {
     console.log(this.state.classCode);
   };
 
-  renderCreateAClass = () => {
-    return (
+  renderCreateAClass = () => (
       <Button className="class-box join-class" onClick={() => this.setCreateClassModalOpen(true)}>
         <div className="join-class-plus">
           <FontAwesomeIcon className="fa-lg" icon={faPlus} />
@@ -176,10 +174,8 @@ class Classes extends React.Component {
         </span>
       </Button>
     );
-  };
 
-  renderJoinAClass = () => {
-    return (
+  renderJoinAClass = () => (
       <Button className="class-box join-class" onClick={() => this.setJoinClassModalOpen(true)}>
         <div className="join-class-plus">
           <FontAwesomeIcon className="fa-lg" icon={faPlus} />
@@ -189,28 +185,27 @@ class Classes extends React.Component {
         </span>
       </Button>
     );
-  };
 
   setClass = (key) => {
     this.props.setCurrentClass(key);
   };
 
   getThumbnailSrc = (val) => {
-    if (val === undefined || val === "" || val >= ThumbnailArray.length || val < 0) {
+    if (val === undefined || val === '' || val >= ThumbnailArray.length || val < 0) {
       return ThumbnailArray[0];
     }
     return ThumbnailArray[val];
   };
 
   renderClassList = () => {
-    let classesIn = this.props.onInstrView
+    const classesIn = this.props.onInstrView
       ? this.props.instrClasses.concat([])
       : this.props.studentClasses.concat([]);
-    let classes = [];
+    const classes = [];
     classesIn.sort((a, b) => {
       if (a.name < b.name) return -1;
       if (a.name === b.name) return 0;
-      else return 1;
+      return 1;
     });
     classesIn.forEach((element) => {
       classes.push(
@@ -230,7 +225,7 @@ class Classes extends React.Component {
       );
     });
 
-    let renderJoinOrCreate = this.props.onInstrView
+    const renderJoinOrCreate = this.props.onInstrView
       ? this.renderCreateAClass()
       : this.renderJoinAClass();
     return (
@@ -265,8 +260,7 @@ class Classes extends React.Component {
     />
   );
 
-  renderContent = () => {
-    return (
+  renderContent = () => (
       <React.Fragment>
         {this.renderHeader()}
         {this.renderClassList()}
@@ -275,7 +269,6 @@ class Classes extends React.Component {
         {this.renderConfirmLeaveModal()}
       </React.Fragment>
     );
-  };
 
   render() {
     if (!this.state.loaded) {

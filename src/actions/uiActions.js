@@ -18,12 +18,12 @@ export function setTheme(theme) {
   return { type: SET_THEME, theme };
 }
 
-export const SET_CLASSES_LOADED = "SET_CLASSES_LOADED";
+export const SET_CLASSES_LOADED = 'SET_CLASSES_LOADED';
 export function setClassesLoaded(loaded) {
   return { type: SET_CLASSES_LOADED, value: loaded };
 }
 
-export const SET_ON_INSTR_VIEW = "SET_ON_INSTR_VIEW";
+export const SET_ON_INSTR_VIEW = 'SET_ON_INSTR_VIEW';
 export function setOnInstrView(value) {
   return { type: SET_ON_INSTR_VIEW, value };
 }
