@@ -45,13 +45,11 @@ class ShareSketchModal extends React.Component {
       <h2 className="text-center">Share This Sketch</h2>
       <InputGroup>
         <Input value={this.props.shareUrl} disabled />
-        <InputGroupAddon addonType="append">
-          <Button color="primary" onClick={this.initiateCopy}>
-            <FontAwesomeIcon icon={faCopy} />
-            {' '}
-            Copy to Clipboard
-          </Button>
-        </InputGroupAddon>
+        <Button color="primary" onClick={this.initiateCopy}>
+          <FontAwesomeIcon icon={faCopy} />
+          {' '}
+          Copy to Clipboard
+        </Button>
       </InputGroup>
       <hr />
       <p className="text-center">{this.state.copyStatus}</p>
