@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import { DropdownToggle, DropdownItem } from 'reactstrap';
+import { DropdownItem } from 'reactstrap';
 import DropdownButton from './DropdownButton';
 
 const validDropdownItems = [
@@ -64,29 +64,6 @@ describe('DropdownButton', () => {
       />,
     );
     expect(componentFalse).toMatchSnapshot();
-  });
-
-  it('handles dropdown click correctly', () => {
-    const componentOpen = shallow(
-      <DropdownButton icon="lungs" DropdownItems={validDropdownItems} displayValue="foo" />,
-    );
-    componentOpen.find(DropdownToggle).simulate('click');
-    expect(componentOpen).toMatchSnapshot();
-
-    // closing again by clicking
-    componentOpen.find(DropdownToggle).simulate('click');
-    expect(componentOpen).toMatchSnapshot();
-
-    const componentClose = shallow(
-      <DropdownButton
-        icon="lungs"
-        defaultOpen
-        DropdownItems={validDropdownItems}
-        displayValue="foo"
-      />,
-    );
-    componentClose.find(DropdownToggle).simulate('click');
-    expect(componentClose).toMatchSnapshot();
   });
 
   it('clicking an option triggers the handleClick function', () => {
