@@ -1,6 +1,6 @@
 import SHA256 from 'crypto-js/sha256';
 import firebase from 'firebase/app';
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { RingLoader } from 'react-spinners';
 import { Button } from 'reactstrap';
@@ -9,25 +9,20 @@ import LoginInput from './LoginInput';
 import 'firebase/auth';
 import '../../styles/Login.scss';
 
-export default class LoginModal extends React.Component {
-  constructor(props) {
-    super(props);
+export default function LoginModal(props) {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
+  const [waiting, setWaiting] = useState(false);
+  const [hoverButton, setHoverButton] = useState(false);
 
-    this.state = {
-      username: '',
-      password: '',
-      errorMsg: '',
-      waiting: false,
-      hoverButton: false,
-    };
-  }
-
-  handleEmailLogin = (e) => {
-    this.setState({ waiting: true, errorMsg: '' });
+  const handleEmailLogin = (e) => {
+    setWaiting(true);
+    setErrorMsg('');
 
     e.preventDefault(); // prevents page from reloading after submitting form
-    const email = this.state.username + EMAIL_DOMAIN_NAME;
-    const passwordHash = SHA256(this.state.password).toString();
+    const email = username + EMAIL_DOMAIN_NAME;
+    const passwordHash = SHA256(password).toString();
 
     if (email && passwordHash) {
       firebase
@@ -68,18 +63,16 @@ export default class LoginModal extends React.Component {
           default:
             newMsg = `Failed to sign in: ${err.code}`;
           }
-          this.setState({ errorMsg: newMsg, waiting: false });
+          setErrorMsg(newMsg);
+          setWaiting(false);
         });
     } else {
-      this.setState({ waiting: false, errorMsg: 'Failed to reach Firebase login services' });
+      setWaiting(false);
+      setErrorMsg('Failed to reach Firebase login services');
     }
   };
 
-  updateUsername = (username) => this.setState({ username });
-
-  updatePassword = (password) => this.setState({ password });
-
-  renderErrorMessage = (msg, addBreak) => {
+  const renderErrorMessage = (msg, addBreak) => {
     if (msg) {
       return (
         <span>
@@ -92,47 +85,38 @@ export default class LoginModal extends React.Component {
     return <br />;
   };
 
-  renderInputs = () => (
+  const renderInputs = () => (
     <div className="login-form-input-list">
       <div>
-        <LoginInput
-          type="Username"
-          data={this.state.username}
-          waiting={this.state.waiting}
-          onChange={this.updateUsername}
-        />
-        <LoginInput
-          type="Password"
-          data={this.state.password}
-          waiting={this.state.waiting}
-          onChange={this.updatePassword}
-        />
+        <LoginInput type="Username" data={username} waiting={waiting} onChange={setUsername} />
+        <LoginInput type="Password" data={password} waiting={waiting} onChange={setPassword} />
       </div>
-      {this.renderErrorMessage(this.state.errorMsg)}
+      {renderErrorMessage(errorMsg)}
     </div>
   );
 
-  renderAction = () => {
+  const renderAction = () => {
+    const { themeColor, textColor } = props;
     const unclickedStyle = {
       backgroundColor: 'white',
-      borderColor: this.props.themeColor,
+      borderColor: themeColor,
       borderWidth: 'medium',
       borderRadius: '4px',
       color: 'black',
     };
 
     const clickedStyle = {
-      backgroundColor: this.props.themeColor,
-      borderColor: this.props.themeColor,
+      backgroundColor: themeColor,
+      borderColor: themeColor,
       borderWidth: 'medium',
       borderRadius: '4px',
-      color: this.props.textColor,
+      color: textColor,
     };
 
-    if (this.state.waiting) {
+    if (waiting) {
       return (
         <div className="login-form-loader">
-          <RingLoader color={this.props.themeColor} size={80} loading />
+          <RingLoader color={themeColor} size={80} loading />
         </div>
       );
     }
@@ -141,16 +125,16 @@ export default class LoginModal extends React.Component {
         <Button
           size="lg"
           type="submit"
-          style={this.state.hoverButton ? clickedStyle : unclickedStyle}
-          onMouseEnter={() => this.setState({ hoverButton: !this.state.hoverButton })}
-          onMouseLeave={() => this.setState({ hoverButton: !this.state.hoverButton })}
+          style={hoverButton ? clickedStyle : unclickedStyle}
+          onMouseEnter={() => setHoverButton(!hoverButton)}
+          onMouseLeave={() => setHoverButton(!hoverButton)}
         >
           Login
         </Button>
         <Link
           to={{
             pathname: '/createUser',
-            state: { username: this.state.username, password: this.state.password },
+            state: { username, password },
           }}
           className="login-form-link ml-4"
         >
@@ -160,24 +144,23 @@ export default class LoginModal extends React.Component {
     );
   };
 
-  render() {
-    return (
-      <div>
-        <form className="login-form" onSubmit={this.handleEmailLogin}>
-          {this.renderInputs()}
-          {this.renderAction()}
-          <details className="mt-2">
-            <summary>Forgot your password?</summary>
-            <p>
-              Send us an email at
-              {' '}
-              <a href="mailto:acmteachla@gmail.com">acmteachla@gmail.com</a>
-              {' '}
-              with &quot;Forgot Password&quot; in the subject, and we&apos;ll do our best to help you out!
-            </p>
-          </details>
-        </form>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <form className="login-form" onSubmit={handleEmailLogin}>
+        {renderInputs()}
+        {renderAction()}
+        <details className="mt-2">
+          <summary>Forgot your password?</summary>
+          <p>
+            Send us an email at
+            {' '}
+            <a href="mailto:acmteachla@gmail.com">acmteachla@gmail.com</a>
+            {' '}
+            with
+            &quot;Forgot Password&quot; in the subject, and we&apos;ll do our best to help you out!
+          </p>
+        </details>
+      </form>
+    </div>
+  );
 }
