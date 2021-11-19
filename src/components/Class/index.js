@@ -1,20 +1,20 @@
+import { faSignOutAlt, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { Button } from 'reactstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignOutAlt, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
-import OpenPanelButtonContainer from '../common/containers/OpenPanelButtonContainer';
-import LoadingPage from '../common/LoadingPage';
-import ClassInfoBox from './components/ClassInfoBox';
-import ClassSketchList from './components/ClassSketchList';
-import ConfirmLeaveModalContainer from '../Classes/containers/ConfirmLeaveModalContainer';
-import Error from '../Error';
 import * as fetch from '../../lib/fetch';
-
-// For sketches list
 import { getInstructorString } from '../../util/classes';
 import { enrichWithLanguageData } from '../../util/languages/languages';
+import ConfirmLeaveModalContainer from '../Classes/containers/ConfirmLeaveModalContainer';
+import OpenPanelButtonContainer from '../common/containers/OpenPanelButtonContainer';
+import LoadingPage from '../common/LoadingPage';
+import Error from '../Error';
+import ClassInfoBox from './components/ClassInfoBox';
+import ClassSketchList from './components/ClassSketchList';
+
+// For sketches list
 import CreateSketchModalContainer from './containers/CreateSketchModalContainer';
 
 import '../../styles/Classes.scss';
@@ -32,13 +32,13 @@ class ClassPage extends React.Component {
     };
   }
 
-  componentDidMount = async () => {
+  componentDidMount() {
     // Don't try to load class if there's no cid.
     if (this.props.cid === '') {
       return;
     }
 
-    let data = {
+    const data = {
       uid: this.props.uid,
       cid: this.props.cid,
     };
@@ -92,7 +92,7 @@ class ClassPage extends React.Component {
       });
       console.error(err);
     }
-  };
+  }
 
   setCreateSketchModalOpen = (val) => {
     this.setState({ createSketchModalOpen: val });
@@ -103,33 +103,27 @@ class ClassPage extends React.Component {
   };
 
   // Don't allow last instructor to leave class.
-  canLeaveClass = () => {
-    return !this.state.isInstr || this.props.classData.instructors.length > 1;
-  };
+  canLeaveClass = () => !this.state.isInstr || this.props.classData.instructors.length > 1;
 
-  renderConfirmLeaveModal = () => {
-    return this.canLeaveClass() ? (
-      <ConfirmLeaveModalContainer
-        isOpen={this.state.confirmLeaveModalOpen}
-        onClose={() => this.setConfirmLeaveModalOpen(false)}
-        className={this.props.classData.name}
-        cid={this.props.cid}
-        inClass={true}
-      />
-    ) : (
-      ''
-    );
-  };
+  renderConfirmLeaveModal = () => (this.canLeaveClass() ? (
+    <ConfirmLeaveModalContainer
+      isOpen={this.state.confirmLeaveModalOpen}
+      onClose={() => this.setConfirmLeaveModalOpen(false)}
+      className={this.props.classData.name}
+      cid={this.props.cid}
+      inClass
+    />
+  ) : (
+    ''
+  ));
 
-  renderCreateSketchModal = () => {
-    return (
-      <CreateSketchModalContainer
-        isOpen={this.state.createSketchModalOpen}
-        onClose={() => this.setCreateSketchModalOpen(false)}
-        wid={this.props.classData.wid}
-      />
-    );
-  };
+  renderCreateSketchModal = () => (
+    <CreateSketchModalContainer
+      isOpen={this.state.createSketchModalOpen}
+      onClose={() => this.setCreateSketchModalOpen(false)}
+      wid={this.props.classData.wid}
+    />
+  );
 
   renderHeader = () => {
     const leaveButton = this.canLeaveClass() ? (
@@ -138,7 +132,9 @@ class ClassPage extends React.Component {
         size="lg"
         onClick={() => this.setConfirmLeaveModalOpen(true)}
       >
-        <FontAwesomeIcon icon={faSignOutAlt} /> Leave Class
+        <FontAwesomeIcon icon={faSignOutAlt} />
+        {' '}
+        Leave Class
       </Button>
     ) : (
       ''
@@ -162,8 +158,8 @@ class ClassPage extends React.Component {
       this.props.classData.userData,
     );
     return (
-      <React.Fragment>
-        <ClassInfoBox title={'Instructors'}>{instString}</ClassInfoBox>
+      <>
+        <ClassInfoBox title="Instructors">{instString}</ClassInfoBox>
         {
           // Add this in once description is added to back-end
           /* <ClassInfoBox
@@ -171,23 +167,21 @@ class ClassPage extends React.Component {
           content={this.props.description}
         /> */
         }
-      </React.Fragment>
+      </>
     );
   };
 
-  renderStudentList = () => {
-    return this.state.isInstr ? (
-      <ClassInfoBox title={'Students'}>
-        {this.props.classData.students
-          ? this.props.classData.students
-              .map((student) => (this.props.classData.userData[student] || {}).displayName)
-              .join(', ')
-          : 'No students enrolled.'}
-      </ClassInfoBox>
-    ) : (
-      ''
-    );
-  };
+  renderStudentList = () => (this.state.isInstr ? (
+    <ClassInfoBox title="Students">
+      {this.props.classData.students
+        ? this.props.classData.students
+          .map((student) => (this.props.classData.userData[student] || {}).displayName)
+          .join(', ')
+        : 'No students enrolled.'}
+    </ClassInfoBox>
+  ) : (
+    ''
+  ));
 
   renderSketchList = () => {
     const {
@@ -199,7 +193,7 @@ class ClassPage extends React.Component {
     const { isInstr } = this.state;
 
     return (
-      <ClassInfoBox title={'Sketches'}>
+      <ClassInfoBox title="Sketches">
         <ClassSketchList
           calculatedWidth={calculatedWidth}
           isInstr={isInstr}
@@ -210,17 +204,15 @@ class ClassPage extends React.Component {
     );
   };
 
-  renderContent = () => {
-    return (
-      <div className="class-content-container">
-        {this.renderClassInfo()}
-        {this.renderStudentList()}
-        {this.renderSketchList()}
-        {this.renderConfirmLeaveModal()}
-        {this.renderCreateSketchModal()}
-      </div>
-    );
-  };
+  renderContent = () => (
+    <div className="class-content-container">
+      {this.renderClassInfo()}
+      {this.renderStudentList()}
+      {this.renderSketchList()}
+      {this.renderConfirmLeaveModal()}
+      {this.renderCreateSketchModal()}
+    </div>
+  );
 
   render() {
     // If no class selected, go back to classes page.
@@ -229,7 +221,7 @@ class ClassPage extends React.Component {
     }
 
     if (this.state.error) {
-      return <Error errorMsg={this.state.error} isValidUser={true} returnTo="/classes" />;
+      return <Error errorMsg={this.state.error} isValidUser returnTo="/classes" />;
     }
 
     if (!this.state.loaded) {

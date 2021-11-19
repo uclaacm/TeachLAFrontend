@@ -5,7 +5,7 @@ import {
   SET_THEME,
   SET_CLASSES_LOADED,
   SET_ON_INSTR_VIEW,
-} from "../actions/uiActions";
+} from '../actions/uiActions';
 
 const initialState = {
   screenWidth: typeof window === 'object' ? window.innerWidth : null,
@@ -27,9 +27,9 @@ function uiReducer(state = initialState, action) {
   case SET_THEME:
     return { ...state, theme: action.theme };
   case SET_CLASSES_LOADED:
-    return {...state, classesLoaded: action.value };
+    return { ...state, classesLoaded: action.value };
   case SET_ON_INSTR_VIEW:
-    return {...state, onInstrView: action.value };
+    return { ...state, onInstrView: action.value };
   default:
     return state;
   }

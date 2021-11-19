@@ -6,7 +6,7 @@ import {
   SET_MOST_RECENT_PROGRAM,
   SET_PHOTO_NAME,
   SET_CURRENT_CLASS,
-} from "../actions/userDataActions";
+} from '../actions/userDataActions';
 
 import * as fetch from '../lib/fetch.js';
 

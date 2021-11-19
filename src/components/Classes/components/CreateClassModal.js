@@ -10,7 +10,7 @@ import ImageSelector from '../../common/ImageSelector';
 
 import '../../../styles/SketchesModal.scss';
 
-const CreateClassModal = (props) => {
+const CreateClassModal = function (props) {
   const [name, setName] = useState('');
   const [next, setNext] = useState(false);
   const [thumbnail, setThumbnail] = useState(-1);

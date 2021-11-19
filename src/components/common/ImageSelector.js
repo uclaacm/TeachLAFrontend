@@ -3,7 +3,7 @@ import ReactModal from 'react-modal';
 import { Container } from 'reactstrap';
 import '../../styles/ImageSelector.scss';
 
-const ImageSelector = (props) => {
+const ImageSelector = function (props) {
   // Extracting all data from props
   const {
     isOpen, closeModal, maxWidth, thumbnailPreview, icons, error, children,
