@@ -1,4 +1,4 @@
-@import 'styles/variables.scss';
+@import "styles/variables";
 
 .login-page-content {
   background-color: white;
@@ -144,8 +144,8 @@
 .login-form-link {
   color: inherit;
   font-size: 1.2rem;
-  text-decoration: none;
   margin-left: 5px;
+  text-decoration: none;
 }
 
 .login-form-link:hover {
