@@ -38,25 +38,34 @@ class ShareSketchModal extends React.Component {
     );
   };
 
-  render() { return <ReactModal
-      className="modal-md"
-      overlayClassName="modal-overlay"
-      isOpen={this.props.showModal}
-      onRequestClose={this.props.toggleModal}
-      ariaHideApp={false}
-    >
-      <h2 className="text-center">Share This Sketch</h2>
-      <InputGroup>
-        <Input value={this.props.shareUrl} disabled />
-        <Button color="primary" onClick={this.initiateCopy}>
-          <FontAwesomeIcon icon={faCopy} />
-          {' '}
-          Copy to Clipboard
-        </Button>
-      </InputGroup>
-      <hr />
-      <p className="text-center">{this.state.copyStatus}</p>
-    </ReactModal>
+  render() { 
+    const {
+      showModal,
+      toggleModal,
+      shareUrl
+    } = this.props;
+
+    return (
+      <ReactModal
+        className="modal-md"
+        overlayClassName="modal-overlay"
+        isOpen={showModal}
+        onRequestClose={toggleModal}
+        ariaHideApp={false}
+      >
+        <h2 className="text-center">Share This Sketch</h2>
+        <InputGroup>
+          <Input value={shareUrl} disabled />
+          <Button color="primary" onClick={this.initiateCopy}>
+            <FontAwesomeIcon icon={faCopy} />
+            {' '}
+            Copy to Clipboard
+          </Button>
+        </InputGroup>
+        <hr />
+        <p className="text-center">{this.state.copyStatus}</p>
+      </ReactModal>
+      );
   };
 }
 
