@@ -46,6 +46,8 @@ class ShareSketchModal extends React.Component {
       shareUrl
     } = this.props;
 
+    const { copyStatus } = this.state;
+    
     return (
       <ReactModal
         className="modal-md"
