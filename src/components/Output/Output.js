@@ -7,6 +7,7 @@ import { OUTPUT_ONLY } from '../../constants';
 import OpenPanelButtonContainer from '../common/containers/OpenPanelButtonContainer.js';
 import ViewportAwareButton from '../common/ViewportAwareButton.js';
 import EditorRadio from '../TextEditor/components/EditorRadio.js';
+import '../../styles/Output.scss';
 
 /** --------Props--------
  * None
@@ -22,6 +23,32 @@ class Output extends React.Component {
       showConsole: true,
     };
     this.firstLoad = true;
+  }
+
+  runCode = () => {
+    this.setState((prevState) => ({
+      run: prevState.run + 1,
+    }));
+  };
+
+  updateOutput = () => {
+    const language = this.props.viewOnly ? this.props.vLanguage : this.props.language;
+    const runResult = this.props.viewOnly ? this.props.code : this.props.runResult;
+    const { showConsole } = this.state;
+
+    // if (this.firstLoad) {
+    //    return null;
+    // }
+
+    // if there's nothing to run, don't render an output
+    if (!runResult || !runResult.length) {
+      return null;
+    }
+
+    language.render(runResult, showConsole);
+
+    // const srcDocFunc = () => language.render(runResult, showConsole);
+    // return this.renderIframe(srcDocFunc);
   }
 
   //= =============React Lifecycle Functions===================//
@@ -49,6 +76,14 @@ class Output extends React.Component {
     }
     return false;
   };
+  
+  componentDidUpdate = () => {
+    this.updateOutput();
+  }
+
+  componentDidMount = function () {
+    this.updateOutput();
+  };
 
   renderOpenPanelButton = () => this.props.viewMode === OUTPUT_ONLY && <OpenPanelButtonContainer />;
 
@@ -59,36 +94,21 @@ class Output extends React.Component {
       return null;
     }
 
-    return (
-      <iframe
-        id={`${this.state.counter} ${this.state.run}`}
-        key={`${this.state.counter} ${this.state.run}`}
-        className="editor-output-iframe"
-        style={{ height: `${this.props.screenHeight - 61}px` }}
-        srcDoc={getSrcDoc()}
-        src=""
-        title="output-iframe"
-        onLoad={() => {}}
-      />
-    );
+    // return (
+      // <iframe
+      //   id={`${this.state.counter} ${this.state.run}`}
+      //   key={`${this.state.counter} ${this.state.run}`}
+      //   className="editor-output-iframe"
+      //   style={{ height: `${this.props.screenHeight - 61}px` }}
+      //   srcDoc={getSrcDoc()}
+      //   src=""
+      //   title="output-iframe"
+      //   onLoad={() => {}}
+      // />
+    // );
   };
 
   renderOutput = () => {
-    const language = this.props.viewOnly ? this.props.vLanguage : this.props.language;
-    const runResult = this.props.viewOnly ? this.props.code : this.props.runResult;
-    const { showConsole } = this.state;
-
-    if (this.firstLoad) {
-      return null;
-    }
-
-    // if there's nothing to run, don't render an output
-    if (!runResult || !runResult.length) {
-      return null;
-    }
-
-    const srcDocFunc = () => language.render(runResult, showConsole);
-    return this.renderIframe(srcDocFunc);
   };
 
   renderRadio = () => this.props.viewMode === OUTPUT_ONLY && (
@@ -137,20 +157,27 @@ class Output extends React.Component {
     </div>
   );
 
-  runCode = () => {
-    this.setState((prevState) => ({
-      run: prevState.run + 1,
-    }));
-  };
-
   render() {
     return (
       <div className="editor-output">
-        {this.renderBanner()}
-        <div>{this.renderOutput()}</div>
+          { this.renderBanner() }
+          <div
+            id={`${this.state.counter} ${this.state.run}`}
+            key={`${this.state.counter} ${this.state.run}`}
+            className="editor-output-iframe"
+            style={{ height: `${this.props.screenHeight - 61}px` }}
+          >
+            <div id="output">
+              <textarea id="inner" readOnly></textarea>
+            </div>
+            <canvas id="my-canvas"></canvas>
+          </div>
       </div>
     );
   }
 }
+
+// {this.renderBanner()}
+// <div>{this.renderOutput()}</div>
 
 export default Output;

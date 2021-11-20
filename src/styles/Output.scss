@@ -1,0 +1,34 @@
+.editor-output-iframe div {
+    box-sizing: border-box;
+}
+
+.editor-output-iframe {
+    display: flex;
+    flex-flow: column;
+}
+
+#output {
+    height: 40%;
+    margin: 0px 10px;
+    position: relative;
+}
+
+#mycanvas {
+    margin: 10px;
+    border: 1px solid black;
+}
+
+
+#inner {
+    height: 100%;
+    background-color:#222;
+    color: #DDD;
+    font-family: monospace;
+    word-wrap:break-word;
+    overflow:auto;
+    margin: 10px auto;
+    position:relative;
+    padding: 10px 35px 10px 10px;
+    width: 100%;
+    resize: vertical;
+}
