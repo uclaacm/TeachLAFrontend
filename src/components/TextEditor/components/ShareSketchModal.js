@@ -3,9 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import ReactModal from 'react-modal';
 
-import {
-  Button, Input, InputGroup,
-} from 'reactstrap';
+import { Button, Input, InputGroup } from 'reactstrap';
 
 import '../../../styles/Modals.scss';
 
@@ -39,15 +37,11 @@ class ShareSketchModal extends React.Component {
     );
   };
 
-  render() { 
-    const {
-      showModal,
-      toggleModal,
-      shareUrl
-    } = this.props;
+  render() {
+    const { showModal, toggleModal, shareUrl } = this.props;
 
     const { copyStatus } = this.state;
-    
+
     return (
       <ReactModal
         className="modal-md"
@@ -66,10 +60,10 @@ class ShareSketchModal extends React.Component {
           </Button>
         </InputGroup>
         <hr />
-        <p className="text-center">{this.state.copyStatus}</p>
+        <p className="text-center">{copyStatus}</p>
       </ReactModal>
-      );
-  };
+    );
+  }
 }
 
 export default ShareSketchModal;
