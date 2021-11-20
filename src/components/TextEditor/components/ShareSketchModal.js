@@ -4,7 +4,7 @@ import React from 'react';
 import ReactModal from 'react-modal';
 
 import {
-  Button, Input, InputGroup, InputGroupAddon,
+  Button, Input, InputGroup,
 } from 'reactstrap';
 
 import '../../../styles/Modals.scss';
@@ -18,9 +18,12 @@ import '../../../styles/Modals.scss';
  * @param {String} shareUrl the URL to display/copy to clipboard
  */
 class ShareSketchModal extends React.Component {
-  state = {
-    copyStatus: 'Hit "Copy to Clipboard"!',
-  };
+  constructor(props) {
+    super(props);
+    state = {
+      copyStatus: 'Hit "Copy to Clipboard"!',
+    };
+  }
 
   initiateCopy = () => {
     navigator.clipboard.writeText(this.props.shareUrl).then(
