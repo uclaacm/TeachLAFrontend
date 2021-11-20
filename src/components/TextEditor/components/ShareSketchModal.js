@@ -26,7 +26,8 @@ class ShareSketchModal extends React.Component {
   }
 
   initiateCopy = () => {
-    navigator.clipboard.writeText(this.props.shareUrl).then(
+    const { shareUrl } = this.props;
+    navigator.clipboard.writeText(shareUrl).then(
       () => {
         // success
         this.setState({ copyStatus: 'Successfully copied!' });
