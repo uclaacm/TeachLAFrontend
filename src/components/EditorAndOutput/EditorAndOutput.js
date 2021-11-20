@@ -4,8 +4,8 @@ import {
   EDITOR_WIDTH_BREAKPOINT, CODE_ONLY, OUTPUT_ONLY, PANEL_SIZE,
 } from '../../constants';
 import CodeDownloader from '../../util/languages/CodeDownloader';
-import OutputContainer from '../Output/OutputContainer.js';
-import TextEditorContainer from '../TextEditor/containers/TextEditorContainer.js';
+import OutputContainer from '../Output/OutputContainer';
+import TextEditorContainer from '../TextEditor/containers/TextEditorContainer';
 
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/material.css';
@@ -14,12 +14,62 @@ import '../../styles/CustomCM.scss';
 import '../../styles/Resizer.scss';
 import '../../styles/Editor.scss';
 
-class EditorAndOutput extends React.Component {
-  handleDownload = () => {
-    CodeDownloader.download(this.props.sketchName, this.props.language, this.props.code);
+const EditorAndOutput = function (props) {
+  const {
+    sketchName,
+    language,
+    code,
+    pane1Style,
+    changePane1Style,
+    panelOpen,
+    screenWidth,
+    mostRecentProgram,
+    viewMode,
+    updateViewMode,
+    screenHeight,
+    theme,
+    viewOnly,
+    programid,
+    handleSave,
+    saveText,
+    thumbnail,
+    left,
+  } = props;
+  const handleDownload = () => {
+    CodeDownloader.download(sketchName, language, code);
   };
 
-  renderCodeAndOutput = () => (
+  const renderCode = () => (
+    <TextEditorContainer
+      key={mostRecentProgram}
+      viewMode={viewMode}
+      updateViewMode={updateViewMode}
+      screenHeight={screenHeight}
+      screenWidth={screenWidth}
+      theme={theme}
+      viewOnly={viewOnly}
+      program={programid}
+      sketchName={sketchName}
+      vlanguage={language}
+      handleDownload={handleDownload}
+      handleSave={handleSave}
+      saveText={saveText}
+      vthumbnail={thumbnail}
+    />
+  );
+
+  const renderOutput = () => (
+    <OutputContainer
+      viewMode={viewMode}
+      updateViewMode={updateViewMode}
+      isSmall={screenWidth <= EDITOR_WIDTH_BREAKPOINT}
+      viewOnly={viewOnly}
+      vLanguage={language}
+      code={code}
+    />
+  );
+
+  const renderCodeAndOutput = () => (
     <SplitPane
       resizerStyle={{
         height: '67px',
@@ -27,75 +77,38 @@ class EditorAndOutput extends React.Component {
         borderRight: '2px solid #333',
         width: '10px',
       }}
-      pane1Style={this.props.pane1Style}
+      pane1Style={pane1Style}
       // functions called when you start and finish a drag
       // removes and re-addsthe transition effect on the first panel when manually resizing
-      onDragStarted={() => this.props.changePane1Style({ pane1Style: {} })}
-      onDragFinished={() => this.props.changePane1Style({ pane1Style: { transition: 'width .5s ease' } })}
+      onDragStarted={() => changePane1Style({})}
+      onDragFinished={() => changePane1Style({ transition: 'width .5s ease' })}
       split="vertical" // the resizer is a vertical line (horizontal means resizer is a horizontal bar)
-      minSize={
-        (this.props.panelOpen ? this.props.screenWidth - PANEL_SIZE : this.props.screenWidth) * 0.33
-      } // minimum size of code is 33% of the remaining screen size
-      maxSize={
-        (this.props.panelOpen ? this.props.screenWidth - PANEL_SIZE : this.props.screenWidth) * 0.75
-      } // max size of code is 75% of the remaining screen size
-      size={
-        ((this.props.panelOpen ? this.props.screenWidth - PANEL_SIZE : this.props.screenWidth)
-          / 5)
-        * 3
-      } // the initial size of the text editor section
+      // minimum size of code is 33% of the remaining screen size
+      minSize={(panelOpen ? screenWidth - PANEL_SIZE : screenWidth) * 0.33}
+      // max size of code is 75% of the remaining screen size
+      maxSize={(panelOpen ? screenWidth - PANEL_SIZE : screenWidth) * 0.75}
+      // the initial size of the text editor section
+      size={((panelOpen ? screenWidth - PANEL_SIZE : screenWidth) / 5) * 3}
       allowResize
     >
-      {this.renderCode()}
-      {this.renderOutput()}
+      {renderCode()}
+      {renderOutput()}
     </SplitPane>
   );
 
-  renderCode = () => (
-    <TextEditorContainer
-      key={this.props.mostRecentProgram}
-      viewMode={this.props.viewMode}
-      updateViewMode={this.props.updateViewMode}
-      screenHeight={this.props.screenHeight}
-      screenWidth={this.props.screenWidth}
-      theme={this.props.theme}
-      viewOnly={this.props.viewOnly}
-      program={this.props.programid}
-      sketchName={this.props.sketchName}
-      vlanguage={this.props.language}
-      handleDownload={this.handleDownload}
-      handleSave={this.props.handleSave}
-      saveText={this.props.saveText}
-      vthumbnail={this.props.thumbnail}
-    />
-  );
-
-  renderOutput = () => (
-    <OutputContainer
-      viewMode={this.props.viewMode}
-      updateViewMode={this.props.updateViewMode}
-      isSmall={this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT}
-      viewOnly={this.props.viewOnly}
-      vLanguage={this.props.language}
-      code={this.props.code}
-    />
-  );
-
-  render = () => {
-    const codeStyle = {
-      width: this.props.screenWidth - (this.props.left || 0),
-      height: this.props.screenHeight,
-    };
-
-    switch (this.props.viewMode) {
-    case CODE_ONLY:
-      return <div style={codeStyle}>{this.renderCode()}</div>;
-    case OUTPUT_ONLY:
-      return <div style={codeStyle}>{this.renderOutput()}</div>;
-    default:
-      return this.renderCodeAndOutput();
-    }
+  const codeStyle = {
+    width: screenWidth - (left || 0),
+    height: screenHeight,
   };
-}
+
+  switch (viewMode) {
+  case CODE_ONLY:
+    return <div style={codeStyle}>{renderCode()}</div>;
+  case OUTPUT_ONLY:
+    return <div style={codeStyle}>{renderOutput()}</div>;
+  default:
+    return renderCodeAndOutput();
+  }
+};
 
 export default EditorAndOutput;

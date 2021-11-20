@@ -52,7 +52,7 @@ class Output extends React.Component {
   }
 
   //= =============React Lifecycle Functions===================//
-  shouldComponentUpdate = (nextProps, nextState) => {
+  shouldComponentUpdate(nextProps, nextState) {
     if (this.state.showConsole !== nextState.showConsole) {
       return true;
     }

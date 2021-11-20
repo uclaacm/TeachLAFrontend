@@ -46,10 +46,10 @@ module.exports = {
     'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
 
     // 2 space indentation
-    indent: ['error', 2],
+    'indent': ['error', 2],
 
     // Style
-    quotes: ['error', 'single', { avoidEscape: true }],
+    'quotes': ['error', 'single', { avoidEscape: true }],
 
     // ensures clean diffs, see https://medium.com/@nikgraf/why-you-should-enforce-dangling-commas-for-multiline-statements-d034c98e36f8
     'comma-dangle': ['error', 'always-multiline'],
@@ -86,7 +86,7 @@ module.exports = {
     'key-spacing': ['error'],
 
     // Require semicolons
-    semi: ['error', 'always'],
+    'semi': ['error', 'always'],
 
     // Don't unnecessarily quote properties
     'quote-props': ['error', 'consistent-as-needed'],
@@ -119,6 +119,15 @@ module.exports = {
     'react/prop-types': 'off',
 
     // Don't leave log statements littering the premises!
-    // 'no-console': ['error'],
+    'no-console': ['error', { allow: ['error'] }],
+
+    // Not enforcing jsx extension
+    'react/jsx-filename-extension': 'off',
+
+    // For loops are ok
+    'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
+
+    // AirBNB changed this to only allow function-expressions
+    'react/function-component-definition': 'off',
   },
 };

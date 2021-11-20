@@ -34,8 +34,8 @@ import Switch from './Switch';
  * togglePanel: function to be called when the panel is collapsed or opened
  */
 
-function ProfilePanel(props) {
-  //Props
+const ProfilePanel = function (props) {
+  // Props
   const {
     photoName,
     setPhotoName,
@@ -48,9 +48,10 @@ function ProfilePanel(props) {
     left,
     screenHeight,
     uid,
+    developerAcc,
   } = props;
 
-  //States
+  // States
   const [nameIsHovering, setNameHover] = useState(false);
   const [imageIsHovering, setImageHover] = useState(false);
   const [editingName, setEditingName] = useState(false);
@@ -61,7 +62,7 @@ function ProfilePanel(props) {
   const [displayNameMessage, setDisplayNameMessage] = useState('');
   const [error, setError] = useState(''); // setError is never used
 
-  //State Changing functions
+  // State Changing functions
   const handleOpenModal = () => {
     setShowModal(true);
     setSelectedImage(photoName);
@@ -230,6 +231,20 @@ function ProfilePanel(props) {
     </Link>
   );
 
+  const renderClassesButton = () => (
+    developerAcc ? (
+      <Link
+        to={{ pathname: '/classes' }}
+        className="panel-button btn btn-secondary btn-lg btn-block"
+        key="classes-button"
+        id="classes-button"
+      >
+        <FontAwesomeIcon icon={faBook} />
+        <span className="panel-button-text">Classes</span>
+      </Link>
+    ) : ''
+  );
+
   const renderSketchesButton = () => (
     <Link
       to={{ pathname: '/sketches' }}
@@ -259,13 +274,20 @@ function ProfilePanel(props) {
   const renderButtons = () => {
     const panelButtons = [];
     switch (contentType) {
-      case 'sketches':
-        panelButtons.push(renderEditorButton());
-        break;
-      case 'editor':
-      default:
-        panelButtons.push(renderSketchesButton());
-        break;
+    case 'sketches':
+      panelButtons.push(renderEditorButton());
+      panelButtons.push(renderClassesButton());
+      break;
+    case 'classes':
+    case 'classPage':
+      panelButtons.push(renderEditorButton());
+      panelButtons.push(renderSketchesButton());
+      break;
+    case 'editor':
+    default:
+      panelButtons.push(renderSketchesButton());
+      panelButtons.push(renderClassesButton());
+      break;
     }
 
     panelButtons.push(renderSignOutButton());
@@ -340,7 +362,7 @@ function ProfilePanel(props) {
   );
 
   const panelStyle = {
-    left: left,
+    left,
     height: screenHeight,
     width: PANEL_SIZE,
   };
@@ -351,6 +373,6 @@ function ProfilePanel(props) {
       <Footer />
     </div>
   );
-}
+};
 
 export default ProfilePanel;

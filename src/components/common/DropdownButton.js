@@ -1,6 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import {
+  Dropdown, DropdownToggle, DropdownMenu, DropdownItem,
+} from 'reactstrap';
 
 /** --------Props---------------
  * dropDownItems: array of data for each dropdown item
@@ -13,7 +15,7 @@ import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap
  * defaultOpen: boolean determining if the dropdown should start off open or closed
  */
 
-const DropdownButton = (props) => {
+const DropdownButton = function (props) {
   const {
     icon,
     DropdownItems,
@@ -25,8 +27,8 @@ const DropdownButton = (props) => {
     dirty,
   } = props;
 
-  const dropDownParentClass = displayClass + '-language-dropdown';
-  const dropDownItemClass = displayClass + '-language-dropdown-closed-content';
+  const dropDownParentClass = `${displayClass}-language-dropdown`;
+  const dropDownItemClass = `${displayClass}-language-dropdown-closed-content`;
 
   const [dropdownOpen, setdropdownOpen] = useState(defaultOpen || false);
 
@@ -34,15 +36,12 @@ const DropdownButton = (props) => {
     setdropdownOpen(!dropdownOpen);
   };
 
-  const renderDropdownItems = () =>
-    DropdownItems.map(({ display, value, icon }) => {
-      return (
-        <DropdownItem key={value} onClick={() => onSelect({ display, value, dirty })}>
-          <FontAwesomeIcon style={{ marginRight: '10px' }} icon={icon} fixedWidth />
-          {display}
-        </DropdownItem>
-      );
-    });
+  const renderDropdownItems = () => DropdownItems.map(({ display, value, icon }) => (
+    <DropdownItem key={value} onClick={() => onSelect({ display, value, dirty })}>
+      <FontAwesomeIcon style={{ marginRight: '10px' }} icon={icon} fixedWidth />
+      {display}
+    </DropdownItem>
+  ));
 
   return (
     <div className={dropDownParentClass}>
