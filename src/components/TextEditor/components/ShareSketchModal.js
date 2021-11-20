@@ -20,7 +20,7 @@ import '../../../styles/Modals.scss';
 class ShareSketchModal extends React.Component {
   constructor(props) {
     super(props);
-    state = {
+    this.state = {
       copyStatus: 'Hit "Copy to Clipboard"!',
     };
   }
