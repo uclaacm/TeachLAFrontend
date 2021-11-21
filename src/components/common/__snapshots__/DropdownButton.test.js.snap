@@ -7,7 +7,6 @@ exports[`DropdownButton handles defaultOpen properly 1`] = `
   <Dropdown
     a11y={true}
     active={false}
-    addonType={false}
     direction="down"
     inNavbar={false}
     isOpen={true}
@@ -47,6 +46,7 @@ exports[`DropdownButton handles defaultOpen properly 1`] = `
     </DropdownToggle>
     <DropdownMenu
       flip={true}
+      modifiers={Array []}
       tag="div"
     >
       <DropdownItem
@@ -157,7 +157,6 @@ exports[`DropdownButton handles defaultOpen properly 2`] = `
   <Dropdown
     a11y={true}
     active={false}
-    addonType={false}
     direction="down"
     inNavbar={false}
     isOpen={false}
@@ -197,6 +196,7 @@ exports[`DropdownButton handles defaultOpen properly 2`] = `
     </DropdownToggle>
     <DropdownMenu
       flip={true}
+      modifiers={Array []}
       tag="div"
     >
       <DropdownItem
@@ -307,7 +307,6 @@ exports[`DropdownButton handles defaultOpen properly 3`] = `
   <Dropdown
     a11y={true}
     active={false}
-    addonType={false}
     direction="down"
     inNavbar={false}
     isOpen={false}
@@ -347,6 +346,7 @@ exports[`DropdownButton handles defaultOpen properly 3`] = `
     </DropdownToggle>
     <DropdownMenu
       flip={true}
+      modifiers={Array []}
       tag="div"
     >
       <DropdownItem
@@ -457,7 +457,6 @@ exports[`DropdownButton renders every dropdown item correctly 1`] = `
   <Dropdown
     a11y={true}
     active={false}
-    addonType={false}
     direction="down"
     inNavbar={false}
     isOpen={true}
@@ -497,6 +496,7 @@ exports[`DropdownButton renders every dropdown item correctly 1`] = `
     </DropdownToggle>
     <DropdownMenu
       flip={true}
+      modifiers={Array []}
       tag="div"
     >
       <DropdownItem
