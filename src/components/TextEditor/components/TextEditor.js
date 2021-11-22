@@ -25,7 +25,7 @@ import 'codemirror/mode/clike/clike';
  * None
  */
 
-function TextEditor(props) {
+const TextEditor = function (props) {
   const [codeMirrorInstance, setCodeMirrorInstance] = useState(null);
   const [currentLine, setCurrentLine] = useState(0);
   const [showForkModal, setShowForkModal] = useState(false);
@@ -321,6 +321,6 @@ function TextEditor(props) {
       </div>
     </div>
   );
-}
+};
 
 export default TextEditor;
