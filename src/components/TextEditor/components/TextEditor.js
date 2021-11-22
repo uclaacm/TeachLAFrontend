@@ -58,7 +58,7 @@ const TextEditor = function (props) {
     saveText,
   } = props;
 
-  //= =============React Lifecycle Functions===================//
+  //= =============React Lifecycle Functions====================//
 
   const onLeave = async (ev) => {
     const newev = ev;
