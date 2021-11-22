@@ -1,73 +1,5 @@
 import Sk from 'skulpt';
 
-Sk.externalLibraries = {
-    turtle: {
-        path: "/src/util/languages/turtle.js"
-    }
-};
-
-console.log(`sk: ${Sk.TurtleGraphics}`)
-
-/*
-const getPythonSrcDocHead = () => `
-<head>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script>
-  <script src="https://cdn.rawgit.com/skulpt/skulpt-dist/1.1.0/skulpt.min.js" type="text/javascript"></script>
-  <script src="https://cdn.rawgit.com/skulpt/skulpt-dist/1.1.0/skulpt-stdlib.js" type="text/javascript"></script>
-  <style> 
-    * { box-sizing: border-box }
-    html, body { margin:0}
-  </style>
-</head>
-`;
-
-const getPythonSrcDocSkulptScript = (code) => `
-  <script type="text/javascript">
-    var received = false;
-    function outf(text) {
-        var mypre = document.getElementById("inner");
-        console.log(text)
-        if (text != "\\n") {
-          received = true
-        } else if (received == true) {
-          received = false
-        } else {
-          received = true
-        }
-        if(received){
-          mypre.value = mypre.value + "> " + text + "\\n";
-        }
-        if(mypre.scrollTop >= (mypre.scrollHeight - mypre.offsetHeight) - mypre.offsetHeight){
-          mypre.scrollTop = mypre.scrollHeight
-        }
-    }
-
-    function closeConsole(){
-      var mypre = document.getElementById("inner");
-      mypre.style.display = "none"
-    }
-
-    function builtinRead(x) {
-        if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined)
-                throw "File not found: '" + x + "'";
-        return Sk.builtinFiles["files"][x];
-    }
-
-    function runit() {
-        
-    }
-  </script>
-`;
-
-const getPythonSrcDocBody = (code, showConsole) => `
-    <body onload="runit()">
-      ${getPythonSrcDocSkulptScript(code)}
-      ${showConsole ? '<div id="output"> </div>' : '<div id="output" style="display:none;"> </div>'}
-      <div id="mycanvas"></div>
-    </body>
-  `;
-  */
-
 export default function (code, showConsole) {
   console.log(code);
   var prog = atob(code);
@@ -126,5 +58,4 @@ export default function (code, showConsole) {
       let a = document.getElementById("inner")
       a.value += '\nERROR: ' + err.toString()
   });
-  // return `<html> ${getPythonSrcDocHead()} ${getPythonSrcDocBody(code, showConsole)} </html>`;
 }

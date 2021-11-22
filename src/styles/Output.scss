@@ -9,26 +9,28 @@
 
 #output {
     height: 40%;
-    margin: 0px 10px;
-    position: relative;
+    margin: 10px 10px 0;
 }
 
-#mycanvas {
+#my-canvas {
     margin: 10px;
     border: 1px solid black;
+    background-color: #C5C5C5;
+    height: 40%;
 }
 
 
 #inner {
     height: 100%;
-    background-color:#222;
+    background-color: #222;
     color: #DDD;
     font-family: monospace;
-    word-wrap:break-word;
-    overflow:auto;
-    margin: 10px auto;
-    position:relative;
+    word-wrap: break-word;
+    overflow: auto;
+    margin: 0px auto;
+    position: relative;
     padding: 10px 35px 10px 10px;
     width: 100%;
     resize: vertical;
+    border: 0;
 }

@@ -170,7 +170,7 @@ class Output extends React.Component {
             <div id="output">
               <textarea id="inner" readOnly></textarea>
             </div>
-            <canvas id="my-canvas"></canvas>
+            <div id="my-canvas"></div>
           </div>
       </div>
     );
