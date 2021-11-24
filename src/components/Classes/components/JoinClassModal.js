@@ -73,7 +73,6 @@ const JoinClassModal = function ({ props }) {
               ? "We couldn't find that class. Please try again!"
               : 'There was a problem joining the class, please try again!',
           );
-
           console.error(err);
         });
     } catch (err) {
