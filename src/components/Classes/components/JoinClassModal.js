@@ -12,16 +12,6 @@ const JoinClassModal = function ({ props }) {
   const [error, setError] = useState('');
   const [redirect, setRedirect] = useState(false);
 
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     wid: "",
-  //     disableSubmit: false,
-  //     error: "",
-  //     redirect: false,
-  //   };
-  // }
-
   const closeModal = () => {
     const { onClose } = props;
 
@@ -32,12 +22,6 @@ const JoinClassModal = function ({ props }) {
     setWid('');
     setError('');
     setDisableSubmit(false);
-
-    // this.setState({
-    //   wid: "",
-    //   error: "",
-    //   disableSubmit: false,
-    // });
   };
 
   const badInput = () => {
@@ -79,7 +63,6 @@ const JoinClassModal = function ({ props }) {
         })
         .then((json) => {
           props.addStudentClass(json.cid, json || {});
-          // this.setState({ redirect: true });
           setRedirect(true);
           closeModal();
         })
@@ -90,12 +73,7 @@ const JoinClassModal = function ({ props }) {
               ? "We couldn't find that class. Please try again!"
               : 'There was a problem joining the class, please try again!',
           );
-          // this.setState({
-          //   disableSubmit: false,
-          //   error: (err === "404") ?
-          //     "We couldn't find that class. Please try again!" :
-          //     "There was a problem joining the class, please try again!",
-          // });
+
           console.error(err);
         });
     } catch (err) {
@@ -122,7 +100,6 @@ const JoinClassModal = function ({ props }) {
     // end of testing stuff
     setDisableSubmit(true);
     setError('');
-    // this.setState({ disableSubmit: true, error: "" });
   };
 
   const renderModal = () => (
