@@ -13,4 +13,5 @@ const StudentListEntry = function (props) {
   );
 };
 
+
 export default StudentListEntry;
