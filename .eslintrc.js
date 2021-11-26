@@ -45,8 +45,6 @@ module.exports = {
 
     'no-unused-vars': ['error', { varsIgnorePattern: '^_', argsIgnorePattern: '^_' }],
 
-    // 'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
-
     // 2 space indentation
     'indent': ['error', 2],
 

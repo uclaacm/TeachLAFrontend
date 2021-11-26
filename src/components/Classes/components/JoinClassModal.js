@@ -11,10 +11,11 @@ function JoinClassModal({ props }) {
   const [_disableSubmit, setDisableSubmit] = useState(false);
   const [error, setError] = useState('');
   const [redirect, setRedirect] = useState(false);
+  const {
+    onClose, uid, isOpen, addStudentClass,
+  } = props;
 
   const closeModal = () => {
-    const { onClose } = props;
-
     if (onClose && {}.toString.call(onClose) === '[object Function]') {
       onClose();
     }
@@ -24,7 +25,7 @@ function JoinClassModal({ props }) {
     setDisableSubmit(false);
   };
 
-  const badInput = () => {
+  const isBadInput = () => {
     if (!wid) {
       setError('Please enter the class code. You should get this from your instructor.');
       return true;
@@ -37,20 +38,19 @@ function JoinClassModal({ props }) {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    if (badInput()) {
+    if (isBadInput()) {
       return;
     }
 
-    const data = {
-      uid: props.uid,
+    const joinClassData = {
+      uid,
       // Todo: swap this line back in when BE is fixed
-      // wid: this.state.wid,
       cid: wid,
     };
 
     try {
       fetch
-        .joinClass(data)
+        .joinClass(joinClassData)
         .then((res) => {
           if (!res.ok) {
             if (res.status === 404) {
@@ -62,7 +62,7 @@ function JoinClassModal({ props }) {
           return res.classData;
         })
         .then((json) => {
-          props.addStudentClass(json.cid, json || {});
+          addStudentClass(json.cid, json || {});
           setRedirect(true);
           closeModal();
         })
@@ -103,7 +103,7 @@ function JoinClassModal({ props }) {
 
   const renderModal = () => (
     <ReactModal
-      isOpen={props.isOpen}
+      isOpen={isOpen}
       onRequestClose={closeModal}
       className="sketches-modal"
       overlayClassName="profile-image-overlay"
