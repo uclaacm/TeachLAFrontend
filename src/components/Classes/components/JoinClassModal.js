@@ -150,6 +150,6 @@ function JoinClassModal({ props }) {
   }
 
   return renderModal();
-};
+}
 
 export default JoinClassModal;
