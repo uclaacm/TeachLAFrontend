@@ -85,6 +85,24 @@ class Output extends React.Component {
     this.updateOutput();
   };
 
+  renderOutput = () => {
+    const language = this.props.viewOnly ? this.props.vLanguage : this.props.language;
+    const runResult = this.props.viewOnly ? this.props.code : this.props.runResult;
+    const { showConsole } = this.state;
+
+    if (this.firstLoad) {
+      return null;
+    }
+
+    // if there's nothing to run, don't render an output
+    if (!runResult || !runResult.length) {
+      return null;
+    }
+
+    const srcDocFunc = () => language.render(runResult, showConsole);
+    return this.renderIframe(srcDocFunc);
+  }
+
   renderOpenPanelButton = () => this.props.viewMode === OUTPUT_ONLY && <OpenPanelButtonContainer />;
 
   renderIframe = (getSrcDoc) => {
@@ -94,21 +112,18 @@ class Output extends React.Component {
       return null;
     }
 
-    // return (
-      // <iframe
-      //   id={`${this.state.counter} ${this.state.run}`}
-      //   key={`${this.state.counter} ${this.state.run}`}
-      //   className="editor-output-iframe"
-      //   style={{ height: `${this.props.screenHeight - 61}px` }}
-      //   srcDoc={getSrcDoc()}
-      //   src=""
-      //   title="output-iframe"
-      //   onLoad={() => {}}
-      // />
-    // );
-  };
-
-  renderOutput = () => {
+    return (
+      <iframe
+        id={`${this.state.counter} ${this.state.run}`}
+        key={`${this.state.counter} ${this.state.run}`}
+        className="editor-output-iframe"
+        style={{ height: `${this.props.screenHeight - 61}px` }}
+        srcDoc={getSrcDoc()}
+        src=""
+        title="output-iframe"
+        onLoad={() => {}}
+      />
+    );
   };
 
   renderRadio = () => this.props.viewMode === OUTPUT_ONLY && (
@@ -157,9 +172,13 @@ class Output extends React.Component {
     </div>
   );
 
-  render() {
-    return (
-      <div className="editor-output">
+  render() { 
+    const language = this.props.viewOnly ? this.props.vLanguage : this.props.language;
+    console.log("language");
+    console.log(language);
+    if (language.value === "python") {
+      return (
+        <div className="editor-output">
           { this.renderBanner() }
           <div
             id={`${this.state.counter} ${this.state.run}`}
@@ -172,8 +191,16 @@ class Output extends React.Component {
             </div>
             <div id="my-canvas"></div>
           </div>
-      </div>
-    );
+        </div>
+      );
+    } else {
+      return (
+        <div className="editor-output">
+          {this.renderBanner()}
+          <div>{this.renderOutput()}</div>
+        </div>
+      )
+    }
   }
 }
 
