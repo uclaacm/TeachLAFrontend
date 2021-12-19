@@ -4,9 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Button } from 'reactstrap';
 import { OUTPUT_ONLY } from '../../constants';
-import OpenPanelButtonContainer from '../common/containers/OpenPanelButtonContainer.js';
-import ViewportAwareButton from '../common/ViewportAwareButton.js';
-import EditorRadio from '../TextEditor/components/EditorRadio.js';
+import OpenPanelButtonContainer from '../common/containers/OpenPanelButtonContainer';
+import ViewportAwareButton from '../common/ViewportAwareButton';
+import EditorRadio from '../TextEditor/components/EditorRadio';
 import '../../styles/Output.scss';
 
 /** --------Props--------
@@ -25,15 +25,49 @@ class Output extends React.Component {
     this.firstLoad = true;
   }
 
-  runCode = () => {
-    this.setState((prevState) => ({
-      run: prevState.run + 1,
-    }));
-  };
+  componentDidMount() {
+    this.updateOutput();
+  }
+
+  //= =============React Lifecycle Functions===================//
+  shouldComponentUpdate(nextProps, nextState) {
+    const { showConsole, run, counter } = this.state;
+    const { mostRecentProgram, isSmall } = this.props;
+    if (showConsole !== nextState.showConsole) {
+      return true;
+    }
+
+    if (mostRecentProgram !== nextProps.mostRecentProgram) {
+      this.firstLoad = true;
+      return true;
+    }
+
+    if (isSmall !== nextProps.isSmall) {
+      return true;
+    }
+
+    if (
+      run !== nextState.run
+      || counter !== nextState.counter
+      || showConsole !== nextState.showConsole
+    ) {
+      this.firstLoad = false;
+      return true;
+    }
+    return false;
+  }
+
+  componentDidUpdate() {
+    this.updateOutput();
+  }
 
   updateOutput = () => {
-    const language = this.props.viewOnly ? this.props.vLanguage : this.props.language;
-    const runResult = this.props.viewOnly ? this.props.code : this.props.runResult;
+    const {
+      viewOnly, vLanguage, language, code, runResult,
+    } = this.props;
+
+    const renderLanguage = viewOnly ? vLanguage : language;
+    const renderRunResult = viewOnly ? code : runResult;
     const { showConsole } = this.state;
 
     // if (this.firstLoad) {
@@ -45,49 +79,24 @@ class Output extends React.Component {
       return null;
     }
 
-    language.render(runResult, showConsole);
+    renderLanguage.render(renderRunResult, showConsole);
 
-    // const srcDocFunc = () => language.render(runResult, showConsole);
-    // return this.renderIframe(srcDocFunc);
+    const srcDocFunc = () => renderLanguage.render(renderRunResult, showConsole);
+    return this.renderIframe(srcDocFunc);
   }
 
-  //= =============React Lifecycle Functions===================//
-  shouldComponentUpdate(nextProps, nextState) {
-    if (this.state.showConsole !== nextState.showConsole) {
-      return true;
-    }
-
-    if (this.props.mostRecentProgram !== nextProps.mostRecentProgram) {
-      this.firstLoad = true;
-      return true;
-    }
-
-    if (this.props.isSmall !== nextProps.isSmall) {
-      return true;
-    }
-
-    if (
-      this.state.run !== nextState.run
-      || this.state.counter !== nextState.counter
-      || this.state.showConsole !== nextState.showConsole
-    ) {
-      this.firstLoad = false;
-      return true;
-    }
-    return false;
-  };
-  
-  componentDidUpdate = () => {
-    this.updateOutput();
-  }
-
-  componentDidMount = function () {
-    this.updateOutput();
+  runCode = () => {
+    this.setState((prevState) => ({
+      run: prevState.run + 1,
+    }));
   };
 
   renderOutput = () => {
-    const language = this.props.viewOnly ? this.props.vLanguage : this.props.language;
-    const runResult = this.props.viewOnly ? this.props.code : this.props.runResult;
+    const {
+      viewOnly, vLanguage, language, code, runResult,
+    } = this.props;
+    const renderLanguage = viewOnly ? vLanguage : language;
+    const renderRunResult = viewOnly ? code : runResult;
     const { showConsole } = this.state;
 
     if (this.firstLoad) {
@@ -99,25 +108,31 @@ class Output extends React.Component {
       return null;
     }
 
-    const srcDocFunc = () => language.render(runResult, showConsole);
+    const srcDocFunc = () => renderLanguage.render(renderRunResult, showConsole);
     return this.renderIframe(srcDocFunc);
   }
 
-  renderOpenPanelButton = () => this.props.viewMode === OUTPUT_ONLY && <OpenPanelButtonContainer />;
+  renderOpenPanelButton = () => {
+    const { viewMode } = this.props;
+    return viewMode === OUTPUT_ONLY && <OpenPanelButtonContainer />;
+  }
 
   renderIframe = (getSrcDoc) => {
+    const { counter, run } = this.state;
+    const { screenHeight } = this.props;
+
     // check if getsrcdoc is a function
     if (!getSrcDoc && {}.toString.call(getSrcDoc) === '[object Function]') {
-      console.log('Null src doc function found');
+      // console.log('Null src doc function found');
       return null;
     }
 
     return (
       <iframe
-        id={`${this.state.counter} ${this.state.run}`}
-        key={`${this.state.counter} ${this.state.run}`}
+        id={`${counter} ${run}`}
+        key={`${counter} ${run}`}
         className="editor-output-iframe"
-        style={{ height: `${this.props.screenHeight - 61}px` }}
+        style={{ height: `${screenHeight - 61}px` }}
         srcDoc={getSrcDoc()}
         src=""
         title="output-iframe"
@@ -126,81 +141,95 @@ class Output extends React.Component {
     );
   };
 
-  renderRadio = () => this.props.viewMode === OUTPUT_ONLY && (
-    <div style={{ marginLeft: 'auto' }}>
-      <EditorRadio
-        viewMode={this.props.viewMode}
-        updateViewMode={this.props.updateViewMode}
-        isSmall={this.props.isSmall}
-      />
-    </div>
-  );
+  renderRadio = () => {
+    const {
+      viewMode, updateViewMode, isSmall,
+    } = this.props;
+    return viewMode === OUTPUT_ONLY && (
+      <div style={{ marginLeft: 'auto' }}>
+        <EditorRadio
+          viewMode={viewMode}
+          updateViewMode={updateViewMode}
+          isSmall={isSmall}
+        />
+      </div>
+    );
+  }
 
   toggleConsole = () => {
     this.setState((prevState) => ({ showConsole: !prevState.showConsole }));
   };
 
-  renderConsoleButton = () => (
-    <Button
-      className="mx-2"
-      color={this.state.showConsole ? 'danger' : 'primary'}
-      onClick={this.toggleConsole}
-      title={this.state.showConsole ? 'Hide Console' : 'Show Console'}
-      size="lg"
-    >
-      <FontAwesomeIcon icon={faTerminal} />
-    </Button>
-  );
-
-  renderBanner = () => (
-    <div className="editor-output-banner">
-      {this.renderOpenPanelButton()}
-      <div style={{ flex: '1 1 auto' }}> </div>
-      {' '}
-      {/* whitespace */}
-      {this.renderRadio()}
-      {this.renderConsoleButton()}
-      <ViewportAwareButton
+  renderConsoleButton = () => {
+    const { showConsole } = this.state;
+    return (
+      <Button
         className="mx-2"
-        color="primary"
+        color={showConsole ? 'danger' : 'primary'}
+        onClick={this.toggleConsole}
+        title={showConsole ? 'Hide Console' : 'Show Console'}
         size="lg"
-        onClick={this.runCode}
-        isSmall={this.props.isSmall}
-        icon={<FontAwesomeIcon icon={faPlay} />}
-        text="Run"
-      />
-    </div>
-  );
+      >
+        <FontAwesomeIcon icon={faTerminal} />
+      </Button>
+    );
+  };
 
-  render() { 
-    const language = this.props.viewOnly ? this.props.vLanguage : this.props.language;
-    console.log("language");
-    console.log(language);
-    if (language.value === "python") {
+  renderBanner = () => {
+    const { isSmall } = this.props;
+    return (
+      <div className="editor-output-banner">
+        {this.renderOpenPanelButton()}
+        <div style={{ flex: '1 1 auto' }}> </div>
+        {' '}
+        {/* whitespace */}
+        {this.renderRadio()}
+        {this.renderConsoleButton()}
+        <ViewportAwareButton
+          className="mx-2"
+          color="primary"
+          size="lg"
+          onClick={this.runCode}
+          isSmall={isSmall}
+          icon={<FontAwesomeIcon icon={faPlay} />}
+          text="Run"
+        />
+      </div>
+    );
+  };
+
+  render() {
+    const {
+      viewOnly, vLanguage, language, screenHeight,
+    } = this.props;
+    const {
+      counter, run,
+    } = this.state;
+    const renderLanguage = viewOnly ? vLanguage : language;
+    if (renderLanguage.value === 'python') {
       return (
         <div className="editor-output">
           { this.renderBanner() }
           <div
-            id={`${this.state.counter} ${this.state.run}`}
-            key={`${this.state.counter} ${this.state.run}`}
+            id={`${counter} ${run}`}
+            key={`${counter} ${run}`}
             className="editor-output-iframe"
-            style={{ height: `${this.props.screenHeight - 61}px` }}
+            style={{ height: `${screenHeight - 61}px` }}
           >
             <div id="output">
-              <textarea id="inner" readOnly></textarea>
+              <textarea id="inner" readOnly />
             </div>
-            <div id="my-canvas"></div>
+            <div id="my-canvas" />
           </div>
         </div>
       );
-    } else {
-      return (
-        <div className="editor-output">
-          {this.renderBanner()}
-          <div>{this.renderOutput()}</div>
-        </div>
-      )
     }
+    return (
+      <div className="editor-output">
+        {this.renderBanner()}
+        <div>{this.renderOutput()}</div>
+      </div>
+    );
   }
 }
 
