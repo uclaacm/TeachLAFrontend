@@ -43,7 +43,7 @@ module.exports = {
   rules: {
     'linebreak-style': ['error', 'unix'],
 
-    'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+    'no-unused-vars': ['error', { varsIgnorePattern: '^_', argsIgnorePattern: '^_' }],
 
     // 2 space indentation
     'indent': ['error', 2],

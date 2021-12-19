@@ -149,17 +149,19 @@ export default function LoginModal(props) {
       <form className="login-form" onSubmit={handleEmailLogin}>
         {renderInputs()}
         {renderAction()}
-        <details className="mt-2">
-          <summary>Forgot your password?</summary>
-          <p>
-            Send us an email at
-            {' '}
-            <a href="mailto:acmteachla@gmail.com">acmteachla@gmail.com</a>
-            {' '}
-            with
-            &quot;Forgot Password&quot; in the subject, and we&apos;ll do our best to help you out!
-          </p>
-        </details>
+        {!waiting && (
+          <details className="mt-2">
+            <summary>Forgot your password?</summary>
+            <p>
+              Send us an email at
+              {' '}
+              <a href="mailto:acmteachla@gmail.com">acmteachla@gmail.com</a>
+              {' '}
+              with
+              &quot;Forgot Password&quot; in the subject, and we&apos;ll do our best to help you out!
+            </p>
+          </details>
+        )}
       </form>
     </div>
   );
