@@ -31,9 +31,6 @@ const ConfirmLeaveModal = function (props) {
         .leaveClass(data)
         .then((res) => {
           if (!res.ok) {
-            // this.setState({
-            //  error: res.error || "Failed to leave the class, please try again later",
-            // });
             setError(res.error || 'Failed to leave the class, please try again later');
             return;
           }
@@ -43,7 +40,6 @@ const ConfirmLeaveModal = function (props) {
           } else {
             closeModal();
           }
-          // props.inClass ? props.unsetClass() : closeModal();
         })
         .catch((err) => {
           setError('Failed to leave the class, please try again later');
