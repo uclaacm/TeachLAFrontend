@@ -41,7 +41,7 @@ const themeColors = {
 };
 const randomIndex = () => Math.floor(Math.random() * Object.keys(themeColors).length);
 
-const Login = function ({ create, initialState }) {
+function Login({ create, initialState }) {
   const [index, setIndex] = useState(randomIndex());
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
 
@@ -158,6 +158,6 @@ const Login = function ({ create, initialState }) {
       </div>
     </div>
   );
-};
+}
 
 export default Login;
