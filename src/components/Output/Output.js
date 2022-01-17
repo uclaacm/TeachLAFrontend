@@ -25,10 +25,6 @@ class Output extends React.Component {
     this.firstLoad = true;
   }
 
-  componentDidMount() {
-    this.updateOutput();
-  }
-
   //= =============React Lifecycle Functions===================//
   shouldComponentUpdate(nextProps, nextState) {
     const { showConsole, run, counter } = this.state;
@@ -79,11 +75,9 @@ class Output extends React.Component {
       return null;
     }
 
-    renderLanguage.render(renderRunResult, showConsole);
-
     const srcDocFunc = () => renderLanguage.render(renderRunResult, showConsole);
     return this.renderIframe(srcDocFunc);
-  }
+  };
 
   runCode = () => {
     this.setState((prevState) => ({
@@ -110,12 +104,12 @@ class Output extends React.Component {
 
     const srcDocFunc = () => renderLanguage.render(renderRunResult, showConsole);
     return this.renderIframe(srcDocFunc);
-  }
+  };
 
   renderOpenPanelButton = () => {
     const { viewMode } = this.props;
     return viewMode === OUTPUT_ONLY && <OpenPanelButtonContainer />;
-  }
+  };
 
   renderIframe = (getSrcDoc) => {
     const { counter, run } = this.state;
@@ -142,19 +136,15 @@ class Output extends React.Component {
   };
 
   renderRadio = () => {
-    const {
-      viewMode, updateViewMode, isSmall,
-    } = this.props;
-    return viewMode === OUTPUT_ONLY && (
-      <div style={{ marginLeft: 'auto' }}>
-        <EditorRadio
-          viewMode={viewMode}
-          updateViewMode={updateViewMode}
-          isSmall={isSmall}
-        />
-      </div>
+    const { viewMode, updateViewMode, isSmall } = this.props;
+    return (
+      viewMode === OUTPUT_ONLY && (
+        <div style={{ marginLeft: 'auto' }}>
+          <EditorRadio viewMode={viewMode} updateViewMode={updateViewMode} isSmall={isSmall} />
+        </div>
+      )
     );
-  }
+  };
 
   toggleConsole = () => {
     this.setState((prevState) => ({ showConsole: !prevState.showConsole }));
@@ -202,23 +192,19 @@ class Output extends React.Component {
     const {
       viewOnly, vLanguage, language, screenHeight,
     } = this.props;
-    const {
-      counter, run,
-    } = this.state;
+    const { counter, run } = this.state;
     const renderLanguage = viewOnly ? vLanguage : language;
     if (renderLanguage.value === 'python') {
       return (
         <div className="editor-output">
-          { this.renderBanner() }
+          {this.renderBanner()}
           <div
             id={`${counter} ${run}`}
             key={`${counter} ${run}`}
             className="editor-output-iframe"
             style={{ height: `${screenHeight - 61}px` }}
           >
-            <div id="output">
-              <textarea id="inner" readOnly />
-            </div>
+            <textarea id="inner" readOnly />
             <div id="my-canvas" />
           </div>
         </div>

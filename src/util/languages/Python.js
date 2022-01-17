@@ -14,9 +14,10 @@ export default function (code) {
       received = true;
     }
     if (received) {
-      mypre.value = `${mypre.value}> ${text}`;
+      // mypre.value = `${mypre.value}> ${text}`;
+      mypre.value += `> ${text}`;
     }
-    if (mypre.scrollTop >= (mypre.scrollHeight - mypre.offsetHeight) - mypre.offsetHeight) {
+    if (mypre.scrollTop >= mypre.scrollHeight - mypre.offsetHeight - mypre.offsetHeight) {
       mypre.scrollTop = mypre.scrollHeight;
     }
   }
