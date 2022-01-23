@@ -113,7 +113,6 @@ class Output extends React.Component {
 
     // check if getsrcdoc is a function
     if (!getSrcDoc && {}.toString.call(getSrcDoc) === '[object Function]') {
-      console.info('Null src doc function found');
       return null;
     }
 
