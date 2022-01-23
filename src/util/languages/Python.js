@@ -14,17 +14,12 @@ export default function (code) {
       received = true;
     }
     if (received) {
-      // mypre.value = `${mypre.value}> ${text}`;
       mypre.value += `> ${text}`;
     }
     if (mypre.scrollTop >= mypre.scrollHeight - mypre.offsetHeight - mypre.offsetHeight) {
       mypre.scrollTop = mypre.scrollHeight;
     }
   }
-  // function closeConsole() {
-  //   const mypre = document.getElementById('inner');
-  //   mypre.style.display = 'none';
-  // }
 
   function builtinRead(x) {
     if (Sk.builtinFiles === undefined || Sk.builtinFiles.files[x] === undefined) {

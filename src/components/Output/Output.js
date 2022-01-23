@@ -66,10 +66,6 @@ class Output extends React.Component {
     const renderRunResult = viewOnly ? code : runResult;
     const { showConsole } = this.state;
 
-    // if (this.firstLoad) {
-    //    return null;
-    // }
-
     // if there's nothing to run, don't render an output
     if (!runResult || !runResult.length) {
       return null;
@@ -117,7 +113,7 @@ class Output extends React.Component {
 
     // check if getsrcdoc is a function
     if (!getSrcDoc && {}.toString.call(getSrcDoc) === '[object Function]') {
-      // console.log('Null src doc function found');
+      console.info('Null src doc function found');
       return null;
     }
 
@@ -218,8 +214,5 @@ class Output extends React.Component {
     );
   }
 }
-
-// {this.renderBanner()}
-// <div>{this.renderOutput()}</div>
 
 export default Output;
