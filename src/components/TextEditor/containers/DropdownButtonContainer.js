@@ -43,7 +43,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   onSelect: ({ display, value, dirty }) => {
     if (dirty) {
-      let result = window.confirm('Are you sure you want to change programs? You have unsaved changes');
+      result = window.confirm('Are you sure you want to change programs? You have unsaved changes');
     } else {
       dispatch(setMostRecentProgram(value));
     }
