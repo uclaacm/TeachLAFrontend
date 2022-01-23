@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './styles/global.scss';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import Root from './components/containers/AppContainer.js';
+import Root from './components/containers/AppContainer';
 import config from './firebase';
 import appReducers from './reducers';
 import registerServiceWorker from './registerServiceWorker';

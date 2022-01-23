@@ -8,23 +8,23 @@ import { Redirect } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import { EDITOR_WIDTH_BREAKPOINT, ThumbnailArray } from '../../../constants';
 import sketch from '../../../lib';
-import * as fetch from '../../../lib/fetch.js';
+import * as fetch from '../../../lib/fetch';
 
 import OpenPanelButtonContainer from '../../common/containers/OpenPanelButtonContainer';
-import ViewportAwareButton from '../../common/ViewportAwareButton.js';
+import ViewportAwareButton from '../../common/ViewportAwareButton';
 import DropdownButtonContainer from '../containers/DropdownButtonContainer';
-import EditorRadio from './EditorRadio.js';
+import EditorRadio from './EditorRadio';
 import ShareSketchModal from './ShareSketchModal';
 
 let CodeMirror = null;
 if (typeof window !== 'undefined' && typeof window.navigator !== 'undefined') {
   // import {Controlled as CodeMirror} from 'react-codemirror2'
   CodeMirror = require('react-codemirror2').Controlled;
-  require('codemirror/mode/javascript/javascript.js');
-  require('codemirror/mode/htmlmixed/htmlmixed.js');
-  require('codemirror/mode/python/python.js');
-  require('codemirror/mode/jsx/jsx.js');
-  require('codemirror/mode/clike/clike.js');
+  require('codemirror/mode/javascript/javascript');
+  require('codemirror/mode/htmlmixed/htmlmixed');
+  require('codemirror/mode/python/python');
+  require('codemirror/mode/jsx/jsx');
+  require('codemirror/mode/clike/clike');
 }
 /** ----------Props--------
  * None

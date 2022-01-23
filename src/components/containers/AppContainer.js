@@ -6,9 +6,9 @@ import { connect } from 'react-redux';
 import { clearClasses } from '../../actions/classesActions';
 import { loadPrograms, clearPrograms } from '../../actions/programsActions';
 import { screenResize } from '../../actions/uiActions';
-import { loadUserData, clearUserData, loadFailure } from '../../actions/userDataActions.js';
-import * as fetch from '../../lib/fetch.js';
-import App from '../app.js';
+import { loadUserData, clearUserData, loadFailure } from '../../actions/userDataActions';
+import * as fetch from '../../lib/fetch';
+import App from '../app';
 
 const mapStateToProps = (state) => ({
   uid: state.userData.uid,

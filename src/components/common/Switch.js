@@ -10,27 +10,29 @@ import '../../styles/Switch.scss';
  * @param {JSX} offImg (optional): (JSX) element to be displayed on switch body when set to "off"
  */
 
-const Switch = function (props) {
-  const [on, setOn] = useState(!props.on ? false : props.on);
+const Switch = function ({
+  on, onToggle, onImg, offImg,
+}) {
+  const [isOn, setIsOn] = useState(!on ? false : on);
 
   useEffect(() => {
-    if (props.on !== on) {
-      setOn(props.on);
+    if (on !== isOn) {
+      setIsOn(on);
     }
   });
 
   const onSwitchChange = () => {
-    props.onToggle(!on);
-    setOn(!on);
+    onToggle(!isOn);
+    setIsOn(!isOn);
   };
 
-  const switchedClass = on ? ' switch-on' : '';
+  const switchedClass = isOn ? ' switch-on' : '';
 
   return (
     <label className="switch">
       <input className="switch-input" type="checkbox" onChange={onSwitchChange} />
       <span className={`switch-body${switchedClass}`}>
-        {on ? props.onImg : props.offImg}
+        {isOn ? onImg : offImg}
       </span>
       <span className={`switch-handle${switchedClass}`} />
     </label>

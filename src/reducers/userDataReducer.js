@@ -8,7 +8,7 @@ import {
   SET_CURRENT_CLASS,
 } from '../actions/userDataActions';
 
-import * as fetch from '../lib/fetch.js';
+import * as fetch from '../lib/fetch';
 
 const initialState = {
   error: '',
@@ -34,7 +34,7 @@ function userDataReducer(state = initialState, action) {
       .updateUserData(state.uid, { displayName: newName })
       .catch((err) => {
         state.error = err;
-        console.log(err);
+        console.error(err);
       });
     return { ...state, displayName: newName };
   }
@@ -48,7 +48,7 @@ function userDataReducer(state = initialState, action) {
       })
       .catch((err) => {
         state.error = err;
-        console.log(err);
+        console.error(err);
       });
     return { ...state, photoName: newPhotoName };
   }
@@ -57,7 +57,7 @@ function userDataReducer(state = initialState, action) {
       .updateUserData(state.uid, { mostRecentProgram: action.value })
       .catch((err) => {
         state.error = err;
-        console.log(err);
+        console.error(err);
       });
     return { ...state, mostRecentProgram: action.value };
   case SET_CURRENT_CLASS:

@@ -62,7 +62,7 @@ const makeServerRequest = (data, endpoint, method = 'post') => {
         body = JSON.stringify(data);
       }
     } catch (err) {
-      console.log(err);
+      console.error(err);
       return;
     }
     options.body = body;
@@ -83,7 +83,7 @@ export const updatePrograms = (uid = '', programs) => {
 };
 
 export const createUser = (uid) => {
-  console.log('creating user');
+  console.info('creating user');
   return makeServerRequest({ uid }, 'user/create', 'post');
 };
 
@@ -142,7 +142,7 @@ export const createClass = (data) => makeServerRequest(data, 'class/create');
  * @param {Object} data student's uid and class's word id {uid, wid}
  */
 export const joinClass = async (data) => {
-  console.log(data);
+  console.info(data);
   const result = await makeServerRequest(data, 'class/join', 'put');
   const ok = await result.ok;
   const { status } = result;
@@ -157,7 +157,7 @@ export const joinClass = async (data) => {
 export const leaveClass = async (data) => {
   const result = await makeServerRequest(data, 'class/leave', 'put');
   const ok = await result.ok;
-  console.log(`ok: ${ok}`);
+  console.info(`ok: ${ok}`);
   // let userData = await result.json();
   const userData = {};
   return { ok, userData };
@@ -172,7 +172,7 @@ export const leaveClass = async (data) => {
 export const getClass = async (data, withPrograms, withUserData) => {
   const result = await makeServerRequest(data, `class/get?programs=${withPrograms}&userData=${withUserData}`);
   const ok = await result.ok;
-  console.log(`response status: ${result.status}`);
+  console.info(`response status: ${result.status}`);
   const classData = await result.json();
   return { ok, classData };
 };

@@ -4,9 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Button } from 'reactstrap';
 import { OUTPUT_ONLY } from '../../constants';
-import OpenPanelButtonContainer from '../common/containers/OpenPanelButtonContainer.js';
-import ViewportAwareButton from '../common/ViewportAwareButton.js';
-import EditorRadio from '../TextEditor/components/EditorRadio.js';
+import OpenPanelButtonContainer from '../common/containers/OpenPanelButtonContainer';
+import ViewportAwareButton from '../common/ViewportAwareButton';
+import EditorRadio from '../TextEditor/components/EditorRadio';
 
 /** --------Props--------
  * None

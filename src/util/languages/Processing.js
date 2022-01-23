@@ -1,4 +1,4 @@
-import { getJsSrcDocLoggingScript } from './languages.js';
+import { getJsSrcDocLoggingScript } from './languages';
 
 const getUserScript = (code) => `
   <script type="text/javascript">

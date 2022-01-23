@@ -7,7 +7,7 @@ import { Button } from 'reactstrap';
 import 'firebase/auth';
 import { EMAIL_DOMAIN_NAME } from '../../constants';
 import { isValidUsername, isValidPassword } from '../../lib/validate';
-import LoginInput from './LoginInput.js';
+import LoginInput from './LoginInput';
 
 /**
  * Props

@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { EDITOR_WIDTH_BREAKPOINT, CODE_AND_OUTPUT, CODE_ONLY } from '../constants';
-import * as cookies from '../lib/cookies.js';
-import * as fetch from '../lib/fetch.js';
+import * as cookies from '../lib/cookies';
+import * as fetch from '../lib/fetch';
 
-import { getLanguageData } from '../util/languages/languages.js';
+import { getLanguageData } from '../util/languages/languages';
 import ProfilePanelContainer from './common/containers/ProfilePanelContainer';
 import LoadingPage from './common/LoadingPage';
 import EditorAndOutput from './EditorAndOutput/EditorAndOutput';
@@ -74,7 +74,7 @@ class ViewOnly extends React.Component {
     if (this.savePrevProgram) {
       this.props.setProgramCode(this.props.mostRecentProgram, this.state.originalCode);
     }
-  };
+  }
 
   codeSaverHelper = async () => {
     const { ok: okOriginal, sketch: original } = await fetch.getSketch(

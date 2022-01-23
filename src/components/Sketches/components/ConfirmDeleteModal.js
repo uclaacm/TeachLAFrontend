@@ -3,7 +3,7 @@ import ReactModal from 'react-modal';
 import {
   Container, Row, Col, Button,
 } from 'reactstrap';
-import * as fetch from '../../../lib/fetch.js';
+import * as fetch from '../../../lib/fetch';
 
 const ConfirmDeleteModal = function (props) {
   const {

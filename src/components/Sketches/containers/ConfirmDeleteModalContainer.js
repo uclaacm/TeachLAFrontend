@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { deleteProgram } from '../../../actions/programsActions';
-import { setMostRecentProgram } from '../../../actions/userDataActions.js';
-import ConfirmDeleteModal from '../components/ConfirmDeleteModal.js';
+import { setMostRecentProgram } from '../../../actions/userDataActions';
+import ConfirmDeleteModal from '../components/ConfirmDeleteModal';
 
 const mapStateToProps = (state) => {
   const { mostRecentProgram, uid } = state.userData;

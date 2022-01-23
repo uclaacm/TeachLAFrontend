@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import { getLanguageData } from '../../util/languages/languages.js';
-import Output from './Output.js';
+import { getLanguageData } from '../../util/languages/languages';
+import Output from './Output';
 
 const mapStateToProps = (state) => {
   const { mostRecentProgram } = state.userData;

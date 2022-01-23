@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import Radio from './Radio.js';
+import Radio from './Radio';
 
 const validOptions = [
   {
