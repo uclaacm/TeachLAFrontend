@@ -1,32 +1,31 @@
 .editor-output-iframe div {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .editor-output-iframe {
-    display: flex;
-    flex-flow: column;
-    padding: 10px;
+  display: flex;
+  flex-flow: column;
+   padding: 10px;
 }
 
 #my-canvas {
-    margin: 10px 0;
-    border: 1px solid black;
-    background-color: #C5C5C5;
-    height: 40%;
+  background-color: #c5c5c5;
+  border: 1px solid black;
+  margin: 10px 0;
+  height: 40%;
 }
 
-
 #inner {
-    height: 40%;
-    background-color: #222;
-    color: #DDD;
-    font-family: monospace;
-    word-wrap: break-word;
-    overflow: auto;
-    margin: 0px auto;
-    position: relative;
-    padding: 10px 35px 10px 10px;
-    width: 100%;
-    resize: vertical;
-    border: 0;
+  background-color: #222;
+  height: 40%;
+  color: #ddd;
+  font-family: monospace;
+  margin: 0 auto;
+  overflow: auto;
+  word-wrap: break-word;
+  padding: 10px 35px 10px 10px;
+  position: relative;
+  border: 0;
+  resize: vertical;
+  width: 100%;
 }
