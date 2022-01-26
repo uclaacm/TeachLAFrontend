@@ -138,8 +138,7 @@ export default function LoginModal(props) {
           }}
           className="login-form-link ml-4"
         >
-          {' '}
-          or, create an account
+          git s or, create an account
         </Link>
       </div>
     );
