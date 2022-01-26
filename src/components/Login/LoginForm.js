@@ -138,6 +138,7 @@ export default function LoginModal(props) {
           }}
           className="login-form-link ml-4"
         >
+          {' '}
           or, create an account
         </Link>
       </div>
@@ -157,8 +158,8 @@ export default function LoginModal(props) {
               {' '}
               <a href="mailto:acmteachla@gmail.com">acmteachla@gmail.com</a>
               {' '}
-              with
-              &quot;Forgot Password&quot; in the subject, and we&apos;ll do our best to help you out!
+              with &quot;Forgot Password&quot; in the subject, and we&apos;ll do our best to help
+              you out!
             </p>
           </details>
         )}
