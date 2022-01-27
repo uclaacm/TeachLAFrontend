@@ -322,5 +322,4 @@ const TextEditor = function (props) {
     </div>
   );
 };
-
 export default TextEditor;
