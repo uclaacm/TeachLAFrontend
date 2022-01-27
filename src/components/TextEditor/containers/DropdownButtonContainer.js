@@ -10,7 +10,7 @@ const mapStateToProps = (state) => {
     state.programs.getIn([mostRecentProgram, 'language'], 'python'),
   );
 
-  const displayValue = ' ' + state.programs.getIn([mostRecentProgram, 'name'], mostRecentProgram);
+  const displayValue = ` ${state.programs.getIn([mostRecentProgram, 'name'], mostRecentProgram)}`;
 
   const programStateValues = state.programs.keySeq().map((id) => ({
     display: state.programs.getIn([id, 'name'], id),
@@ -28,7 +28,7 @@ const mapStateToProps = (state) => {
     size: '',
   };
 
-  const icon = mostRecentLanguage.icon;
+  const { icon } = mostRecentLanguage;
 
   return {
     displayValue,

@@ -33,7 +33,6 @@ const TextEditor = function (props) {
   const [forked, setForked] = useState(false);
   const [redirectToSketch, setRedirectToSketch] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
-
   const {
     dirty,
     mostRecentProgram,
@@ -191,7 +190,6 @@ const TextEditor = function (props) {
    * @param {string} theme - the app's current theme
    * @returns {string} the codemirror theme - see https://codemirror.net/demo/theme.html for more info
    */
-
   const getCMTheme = (newTheme) => {
     switch (newTheme) {
     case 'light':

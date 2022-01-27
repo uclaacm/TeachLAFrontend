@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
 import ReactModal from 'react-modal';
 import { Redirect } from 'react-router-dom';
-import { Button, Container, Row, Col, FormGroup, Label, Input } from 'reactstrap';
+import {  Button, Container, Row, Col, FormGroup, Label, Input, DropdownItem } from 'reactstrap';
+import { ThumbnailArray } from "../../../constants";
 import * as fetch from '../../../lib/fetch.js';
 import ImageSelector from '../../common/ImageSelector';
-import { ThumbnailArray } from "../../../constants";
 import {
   LanguageDropdownValues,
   LanguageDropdownDefault,
 } from '../constants';
 import DropdownButton from '../../common/DropdownButton.js';
-import { DropdownItem } from 'reactstrap';
 import '../../../styles/SketchesModal.scss';
 
-const CreateSketchModal = (props) => {
+let CreateSketchModal = function (props) {
   const {
     onClose,
     uid,
@@ -55,10 +54,10 @@ const CreateSketchModal = (props) => {
 
   const isBadThumbnailInput = () => {
     if (
-      thumbnail === undefined ||
-      thumbnail === '' ||
-      thumbnail >= ThumbnailArray.length ||
-      thumbnail < 0
+      thumbnail === undefined
+      || thumbnail === ''
+      || thumbnail >= ThumbnailArray.length
+      || thumbnail < 0
     ) {
       // setError('Please select a thumbnail')
       return true;
@@ -92,8 +91,8 @@ const CreateSketchModal = (props) => {
 
     for (let i = 0; i < LanguageDropdownValues.length; i++) {
       if (
-        language.display === LanguageDropdownValues[i].display &&
-        language.value === LanguageDropdownValues[i].value
+        language.display === LanguageDropdownValues[i].display
+        && language.value === LanguageDropdownValues[i].value
       ) {
         return false;
       }
@@ -162,8 +161,7 @@ const CreateSketchModal = (props) => {
       </figure>
     ));
 
-    const thumbnailPreview =
-      thumbnail !== -1 ? (
+    const thumbnailPreview =      thumbnail !== -1 ? (
         <img
           src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${ThumbnailArray[thumbnail]}.svg`}
           className="sketches-modal-header-thumbnail"
@@ -227,7 +225,7 @@ const CreateSketchModal = (props) => {
           <Col xs="8" className="d-flex align-items-center">
             <DropdownButton
               displayValue={language.display || LanguageDropdownDefault.display}
-              displayClass={'sketches'}
+              displayClass="sketches"
               toggleProps={toggleProps}
               onSelect={setLanguage}
               DropdownItems={LanguageDropdownValues}

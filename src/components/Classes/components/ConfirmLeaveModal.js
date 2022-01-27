@@ -1,26 +1,28 @@
-import React from "react";
-import ReactModal from "react-modal";
-import { Container, Row, Col, Button } from "reactstrap";
-import * as fetch from "../../../lib/fetch.js";
+import { React, useState } from 'react';
+import ReactModal from 'react-modal';
+import {
+  Container, Row, Col, Button,
+} from 'reactstrap';
+import * as fetch from '../../../lib/fetch';
 
-class ConfirmLeaveModal extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      error: "",
-    };
-  }
+const ConfirmLeaveModal = function (props) {
+  const {
+    isOpen, uid, cid, removeStudentClass, className, inClass, unsetClass,
+  } = props;
 
-  closeModal = () => {
-    if (this.props.onClose && {}.toString.call(this.props.onClose) === "[object Function]") {
-      this.props.onClose();
+  const [error, setError] = useState('');
+
+  const closeModal = () => {
+    const { onClose } = props;
+    if (onClose && {}.toString.call(onClose) === '[object Function]') {
+      onClose();
     }
   };
 
-  onLeaveSubmit = () => {
-    let data = {
-      uid: this.props.uid,
-      cid: this.props.cid,
+  const onLeaveSubmit = () => {
+    const data = {
+      uid,
+      cid,
     };
 
     try {
@@ -29,22 +31,22 @@ class ConfirmLeaveModal extends React.Component {
         .leaveClass(data)
         .then((res) => {
           if (!res.ok) {
-            this.setState({
-              error: res.error || "Failed to leave the class, please try again later",
-            });
+            setError(res.error || 'Failed to leave the class, please try again later');
             return;
           }
-          this.props.removeStudentClass(this.props.cid);
-          this.props.inClass ? this.props.unsetClass() : this.closeModal();
+          removeStudentClass(cid);
+          if (inClass) {
+            unsetClass();
+          } else {
+            closeModal();
+          }
         })
         .catch((err) => {
-          this.setState({
-            error: "Failed to leave the class, please try again later",
-          });
-          console.log(err);
+          setError('Failed to leave the class, please try again later');
+          console.error(err);
         });
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
 
     // Testing stuff (do this instead of the try-catch block):
@@ -52,39 +54,39 @@ class ConfirmLeaveModal extends React.Component {
     // this.props.inClass ? this.props.unsetClass() : this.closeModal();
     // end of test stuff
 
-    this.setState({ error: "" });
+    setError('');
   };
 
-  render() {
-    return (
-      <ReactModal
-        isOpen={this.props.isOpen}
-        onRequestClose={this.closeModal}
-        className="sketches-modal"
-        ariaHideApp={false}
-      >
-        <Container>
-          <h3 className="text-center">
-            Are you sure you want to permanently leave the class "{this.props.className}"?
-          </h3>
-          <hr />
-          <div className="text-center text-danger">{this.state.error || <br />}</div>
-          <Row>
-            <Col>
-              <Button color="secondary" onClick={this.closeModal} size="lg" block>
-                No thanks!
-              </Button>
-            </Col>
-            <Col>
-              <Button color="danger" onClick={this.onLeaveSubmit} size="lg" block>
-                Yes, leave.
-              </Button>
-            </Col>
-          </Row>
-        </Container>
-      </ReactModal>
-    );
-  }
-}
+  return (
+    <ReactModal
+      isOpen={isOpen}
+      onRequestClose={closeModal}
+      className="sketches-modal"
+      ariaHideApp={false}
+    >
+      <Container>
+        <h3 className="text-center">
+          Are you sure you want to permanently leave the class &quot;
+          {className}
+          &quot;?
+        </h3>
+        <hr />
+        <div className="text-center text-danger">{error || <br />}</div>
+        <Row>
+          <Col>
+            <Button color="secondary" onClick={closeModal} size="lg" block>
+              No thanks!
+            </Button>
+          </Col>
+          <Col>
+            <Button color="danger" onClick={onLeaveSubmit} size="lg" block>
+              Yes, leave.
+            </Button>
+          </Col>
+        </Row>
+      </Container>
+    </ReactModal>
+  );
+};
 
 export default ConfirmLeaveModal;

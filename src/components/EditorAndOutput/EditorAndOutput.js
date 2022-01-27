@@ -14,7 +14,7 @@ import '../../styles/CustomCM.scss';
 import '../../styles/Resizer.scss';
 import '../../styles/Editor.scss';
 
-function EditorAndOutput(props) {
+const EditorAndOutput = function (props) {
   const {
     sketchName,
     language,
@@ -109,6 +109,6 @@ function EditorAndOutput(props) {
   default:
     return renderCodeAndOutput();
   }
-}
+};
 
 export default EditorAndOutput;

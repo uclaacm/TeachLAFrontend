@@ -1,14 +1,16 @@
 import React from 'react';
 import '../../../styles/ClassPage.scss';
 
-const ClassInfoBox = ({
+const ClassInfoBox = function ({
   title,
-  children
-}) => (
-  <div className="class-info-box">
-    <b className="section-header">{title}</b>
-    <div>{children}</div>
-  </div>
-);
+  children,
+}) {
+  return (
+    <div className="class-info-box">
+      <b className="section-header">{title}</b>
+      <div>{children}</div>
+    </div>
+  );
+};
 
 export default ClassInfoBox;

@@ -3,9 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import ReactModal from 'react-modal';
 
-import {
-  Button, Input, InputGroup, InputGroupAddon,
-} from 'reactstrap';
+import { Button, Input, InputGroup } from 'reactstrap';
 
 import '../../../styles/Modals.scss';
 
@@ -18,12 +16,16 @@ import '../../../styles/Modals.scss';
  * @param {String} shareUrl the URL to display/copy to clipboard
  */
 class ShareSketchModal extends React.Component {
-  state = {
-    copyStatus: 'Hit "Copy to Clipboard"!',
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      copyStatus: 'Hit "Copy to Clipboard"!',
+    };
+  }
 
   initiateCopy = () => {
-    navigator.clipboard.writeText(this.props.shareUrl).then(
+    const { shareUrl } = this.props;
+    navigator.clipboard.writeText(shareUrl).then(
       () => {
         // success
         this.setState({ copyStatus: 'Successfully copied!' });
@@ -35,29 +37,33 @@ class ShareSketchModal extends React.Component {
     );
   };
 
-  render = () => (
-    <ReactModal
-      className="modal-md"
-      overlayClassName="modal-overlay"
-      isOpen={this.props.showModal}
-      onRequestClose={this.props.toggleModal}
-      ariaHideApp={false}
-    >
-      <h2 className="text-center">Share This Sketch</h2>
-      <InputGroup>
-        <Input value={this.props.shareUrl} disabled />
-        <InputGroupAddon addonType="append">
+  render() {
+    const { showModal, toggleModal, shareUrl } = this.props;
+
+    const { copyStatus } = this.state;
+
+    return (
+      <ReactModal
+        className="modal-md"
+        overlayClassName="modal-overlay"
+        isOpen={showModal}
+        onRequestClose={toggleModal}
+        ariaHideApp={false}
+      >
+        <h2 className="text-center">Share This Sketch</h2>
+        <InputGroup>
+          <Input value={shareUrl} disabled />
           <Button color="primary" onClick={this.initiateCopy}>
             <FontAwesomeIcon icon={faCopy} />
             {' '}
             Copy to Clipboard
           </Button>
-        </InputGroupAddon>
-      </InputGroup>
-      <hr />
-      <p className="text-center">{this.state.copyStatus}</p>
-    </ReactModal>
-  );
+        </InputGroup>
+        <hr />
+        <p className="text-center">{copyStatus}</p>
+      </ReactModal>
+    );
+  }
 }
 
 export default ShareSketchModal;
