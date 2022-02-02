@@ -157,8 +157,10 @@ class ClassPage extends React.Component {
       this.props.classData.instructors,
       this.props.classData.userData,
     );
+    const wid = this.props.classData.wid;
     return (
       <>
+        <ClassInfoBox title="WID">{wid}</ClassInfoBox>
         <ClassInfoBox title="Instructors">{instString}</ClassInfoBox>
         {
           // Add this in once description is added to back-end
