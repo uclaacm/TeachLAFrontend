@@ -6,7 +6,7 @@ import {
 } from 'reactstrap';
 import * as fetch from '../../../lib/fetch';
 
-function JoinClassModal({ props }) {
+function JoinClassModal(props) {
   const [wid, setWid] = useState('');
   const [_disableSubmit, setDisableSubmit] = useState(false);
   const [error, setError] = useState('');
