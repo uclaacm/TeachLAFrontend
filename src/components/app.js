@@ -1,4 +1,4 @@
-import firebase from 'firebase/compat/app';
+import { onAuthStateChanged } from 'firebase/auth';
 import React from 'react';
 import {
   BrowserRouter as Router, Route, Redirect, Switch,
@@ -10,10 +10,7 @@ import MainContainer from './containers/MainContainer';
 import ViewOnlyContainer from './containers/ViewOnlyContainer';
 import Error from './Error';
 import PageNotFound from './PageNotFound';
-import 'firebase/compat/auth';
 import '../styles/app.scss';
-
-const provider = new firebase.auth.EmailAuthProvider();
 
 class App extends React.Component {
   constructor(props) {
@@ -27,7 +24,8 @@ class App extends React.Component {
   //= =============React Lifecycle Functions===================//
 
   componentDidMount() {
-    firebase.auth().onAuthStateChanged(async (user) => {
+    const { auth } = this.props;
+    onAuthStateChanged(auth, async (user) => {
       await this.onAuthHandler(user);
     });
     window.addEventListener('resize', this.handleResize, true);
@@ -102,11 +100,10 @@ class App extends React.Component {
               render={() => {
                 if (errorMsg !== '') {
                   return <Error errorMsg={errorMsg} isValidUser={isValidUser} />;
-                }
-                if (isValidUser) {
+                } if (isValidUser) {
                   return <Redirect to="/editor" />;
                 }
-                return <LoginPage provider={provider} />;
+                return <LoginPage />;
               }}
             />
             {/* if the user is loggedIn, redirect them to the editor, otherwise, show the login page*? */}
@@ -115,11 +112,10 @@ class App extends React.Component {
               render={() => {
                 if (errorMsg !== '') {
                   return <Error errorMsg={errorMsg} isValidUser={isValidUser} />;
-                }
-                if (isValidUser) {
+                } if (isValidUser) {
                   return <Redirect to="/editor" />;
                 }
-                return <LoginPage provider={provider} />;
+                return <LoginPage />;
               }}
             />
             {/* if the user is not loggedIn, redirect them to the login page, otherwise, show the editor page*? */}
@@ -129,7 +125,7 @@ class App extends React.Component {
                 if (errorMsg !== '') {
                   return <Error errorMsg={errorMsg} isValidUser={isValidUser} />;
                 }
-                if (isValidUser) {
+                if (!isValidUser) {
                   return <Redirect to="/login" />;
                 }
                 return <MainContainer contentType="editor" />;
@@ -141,8 +137,7 @@ class App extends React.Component {
               render={({ location }) => {
                 if (errorMsg !== '') {
                   return <Error errorMsg={errorMsg} isValidUser={isValidUser} />;
-                }
-                if (isValidUser) {
+                } if (isValidUser) {
                   return <Redirect to="/editor" />;
                 }
                 return <LoginPage create initialState={location.state} />;
@@ -154,8 +149,7 @@ class App extends React.Component {
               render={() => {
                 if (errorMsg !== '') {
                   return <Error errorMsg={errorMsg} isValidUser={isValidUser} />;
-                }
-                if (isValidUser) {
+                } if (isValidUser) {
                   return <MainContainer contentType="sketches" />;
                 }
                 return <Redirect to="/login" />;
@@ -175,8 +169,11 @@ class App extends React.Component {
                 if (errorMsg !== '') {
                   return <Error errorMsg={errorMsg} isValidUser={isValidUser} />;
                 }
-                if (isValidUser) {
-                  return <MainContainer contentType="classPage" />;
+                if (!isValidUser) {
+                  return <Redirect to="/login" />;
+                }
+                if (developerAcc) {
+                  return <MainContainer contentType="classPagej" />;
                 }
                 return <Redirect to="/sketches" />;
               }}

@@ -149,21 +149,22 @@ function ProfilePanel(props) {
   const renderImageModal = () => {
     const names = Object.keys(PHOTO_NAMES);
     const icons = names.map((val) => (
-      <button
+      <div
         className="gallery-item"
         key={val}
         onClick={() => onImageClick(val)}
         onKeyDown={(e) => {
           if (e.key !== 'Tab') onImageClick(val);
         }}
-        type="button"
+        role="button"
+        tabIndex="0"
       >
         <img
           src={PHOTO_NAMES[val]}
           className={`gallery-img${selectedImage === val ? '-selected' : ''}`}
           alt="icon"
         />
-      </button>
+      </div>
     ));
     return (
       <ImageSelector
@@ -194,7 +195,7 @@ function ProfilePanel(props) {
   const renderName = () => {
     if (!editingName) {
       return (
-        <button
+        <div
           className="panel-name"
           onMouseEnter={() => setNameHover(true)}
           onMouseLeave={() => setNameHover(false)}
@@ -202,14 +203,15 @@ function ProfilePanel(props) {
           onKeyDown={(e) => {
             if (e.key !== 'Tab') handleEditNameClick();
           }}
-          type="button"
+          role="button"
+          tabIndex="0"
         >
           <div className="panel-name-text">{name || 'Joe Bruin'}</div>
           {nameIsHovering && <FontAwesomeIcon className="edit-icon-image" icon={faEdit} />}
           <div className="submitted-icon-image" style={{ opacity: +(nameSubmitted ? '1' : '0') }}>
             <FontAwesomeIcon icon={faCheckSquare} />
           </div>
-        </button>
+        </div>
       );
     }
     return (
@@ -363,16 +365,17 @@ function ProfilePanel(props) {
   );
 
   const renderCollapseButton = () => (
-    <button
+    <div
       className="panel-collapse-button"
       onClick={togglePanel}
       onKeyDown={(e) => {
         if (e.key !== 'Tab') togglePanel(e);
       }}
-      type="button"
+      role="button"
+      tabIndex="0"
     >
       <FontAwesomeIcon icon={faTimes} />
-    </button>
+    </div>
   );
 
   const panelStyle = {
