@@ -205,7 +205,7 @@ function ProfilePanel(props) {
           type="button"
         >
           <div className="panel-name-text">{name || 'Joe Bruin'}</div>
-          {nameIsHovering && <FontAwesomeIcon icon={faEdit} />}
+          {nameIsHovering && <FontAwesomeIcon className="edit-icon-image" icon={faEdit} />}
           <div className="submitted-icon-image" style={{ opacity: +(nameSubmitted ? '1' : '0') }}>
             <FontAwesomeIcon icon={faCheckSquare} />
           </div>
