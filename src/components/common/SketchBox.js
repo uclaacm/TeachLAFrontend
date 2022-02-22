@@ -10,7 +10,6 @@ const SketchBox = function ({
   img,
   icon,
   name,
-  key,
   deleteFunc,
   downloadFunc,
   editFunc,
