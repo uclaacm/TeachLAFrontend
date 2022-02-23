@@ -1,12 +1,12 @@
 import SHA256 from 'crypto-js/sha256';
-import firebase from 'firebase/app';
+import firebase from 'firebase/compat/app';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { RingLoader } from 'react-spinners';
 import { Button } from 'reactstrap';
 import { EMAIL_DOMAIN_NAME } from '../../constants';
 import LoginInput from './LoginInput';
-import 'firebase/auth';
+import 'firebase/compat/auth';
 import '../../styles/Login.scss';
 
 export default function LoginModal(props) {
@@ -157,8 +157,8 @@ export default function LoginModal(props) {
               {' '}
               <a href="mailto:acmteachla@gmail.com">acmteachla@gmail.com</a>
               {' '}
-              with
-              &quot;Forgot Password&quot; in the subject, and we&apos;ll do our best to help you out!
+              with &quot;Forgot Password&quot; in the subject, and we&apos;ll do our best to help
+              you out!
             </p>
           </details>
         )}

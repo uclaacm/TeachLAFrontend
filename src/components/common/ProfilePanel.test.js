@@ -106,7 +106,7 @@ describe('ProfilePanel', () => {
 
     // click the pencil icon (changes to input)
     expect(component.find('.panel-edit-container').exists()).toBe(false);
-    component.find('.edit-icon-image').simulate('click');
+    component.find('.panel-name').simulate('click');
     expect(component.find('.panel-edit-container')).toHaveLength(1);
 
     // check the input value starts as 'Mark', type in the input 'Not Mark',

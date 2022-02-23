@@ -1,13 +1,13 @@
 import SHA256 from 'crypto-js/sha256';
-import firebase from 'firebase/app';
+import firebase from 'firebase/compat/app';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { RingLoader } from 'react-spinners';
 import { Button } from 'reactstrap';
-import 'firebase/auth';
+import 'firebase/compat/auth';
 import { EMAIL_DOMAIN_NAME } from '../../constants';
 import { isValidUsername, isValidPassword } from '../../lib/validate';
-import LoginInput from './LoginInput.js';
+import LoginInput from './LoginInput';
 
 /**
  * Props
@@ -18,12 +18,11 @@ import LoginInput from './LoginInput.js';
 export default class CreateUserForm extends React.Component {
   constructor(props) {
     super(props);
-
-    const init = this.props.initialState;
+    const { initialState } = props;
 
     this.state = {
-      username: init ? init.username : '',
-      password: init ? init.password : '',
+      username: initialState ? initialState.username : '',
+      password: initialState ? initialState.password : '',
       confirmPassword: '',
       errorMessage: '',
       waiting: false,
@@ -64,7 +63,7 @@ export default class CreateUserForm extends React.Component {
 
     if (password !== confirmPassword) {
       this.setState({
-        passwordMessage: 'Password and Confirm Password don\'t match',
+        passwordMessage: "Password and Confirm Password don't match",
         password: '',
         confirmPassword: '',
       });
@@ -92,6 +91,8 @@ export default class CreateUserForm extends React.Component {
       passwordMessage: '',
     });
 
+    const { username, password } = this.state;
+
     const validInputs = this.validateInputs();
 
     // if we found any bad inputs, don't try to create the user on the server
@@ -103,8 +104,8 @@ export default class CreateUserForm extends React.Component {
     // This is part of the firebase email/password workaround.
     // We create an email lookalike to trick firebase into thinking the user
     // signed up with an email, instead of a username, display name, and password
-    const email = this.state.username + EMAIL_DOMAIN_NAME;
-    const passHash = SHA256(this.state.password).toString();
+    const email = username + EMAIL_DOMAIN_NAME;
+    const passHash = SHA256(password).toString();
 
     // register user in firebase
     firebase
@@ -172,65 +173,80 @@ export default class CreateUserForm extends React.Component {
 
   updateConfirmPassword = (confirmPassword) => this.setState({ confirmPassword });
 
-  renderInputs = () => (
-    <div className="login-form-input-list">
-      <div>
-        <LoginInput
-          type="Username"
-          data={this.state.username}
-          waiting={this.state.waiting}
-          onChange={this.updateUsername}
-        />
-        <LoginInput
-          type="Password"
-          data={this.state.password}
-          waiting={this.state.waiting}
-          onChange={this.updatePassword}
-        />
-        <LoginInput
-          type="Confirm Password"
-          data={this.state.confirmPassword}
-          waiting={this.state.waiting}
-          onChange={this.updateConfirmPassword}
-        />
-        {this.renderErrorMessage(this.state.usernameMessage)}
-        {this.renderErrorMessage(this.state.passwordMessage)}
-        {this.renderErrorMessage(this.state.errorMessage, true)}
+  renderInputs = () => {
+    const {
+      username,
+      password,
+      waiting,
+      confirmPassword,
+      usernameMessage,
+      passwordMessage,
+      errorMessage,
+    } = this.state;
+    return (
+      <div className="login-form-input-list">
+        <div>
+          <LoginInput
+            type="Username"
+            data={username}
+            waiting={waiting}
+            onChange={this.updateUsername}
+          />
+          <LoginInput
+            type="Password"
+            data={password}
+            waiting={waiting}
+            onChange={this.updatePassword}
+          />
+          <LoginInput
+            type="Confirm Password"
+            data={confirmPassword}
+            waiting={waiting}
+            onChange={this.updateConfirmPassword}
+          />
+          {this.renderErrorMessage(usernameMessage)}
+          {this.renderErrorMessage(passwordMessage)}
+          {this.renderErrorMessage(errorMessage, true)}
+        </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   renderAction = () => {
-    if (this.state.waiting) {
+    const { waiting, hoverButton } = this.state;
+
+    const { themeColor, textColor } = this.props;
+
+    if (waiting) {
       return (
         <div className="login-form-loader">
-          <RingLoader color={this.props.themeColor} size={80} loading />
+          <RingLoader color={themeColor} size={80} loading />
         </div>
       );
     }
     const unclickedStyle = {
       backgroundColor: 'white',
-      borderColor: this.props.themeColor,
+      borderColor: themeColor,
       borderWidth: 'medium',
       borderRadius: '4px',
       color: 'black',
     };
 
     const clickedStyle = {
-      backgroundColor: this.props.themeColor,
-      borderColor: this.props.themeColor,
+      backgroundColor: themeColor,
+      borderColor: themeColor,
       borderWidth: 'medium',
       borderRadius: '4px',
-      color: this.props.textColor,
+      color: textColor,
     };
     return (
       <div>
         <Button
           size="lg"
           type="submit"
-          style={this.state.hoverButton ? clickedStyle : unclickedStyle}
-          onMouseEnter={() => this.setState({ hoverButton: !this.state.hoverButton })}
-          onMouseLeave={() => this.setState({ hoverButton: !this.state.hoverButton })}
+          style={hoverButton ? clickedStyle : unclickedStyle}
+          onMouseEnter={() => this.setState({ hoverButton: !hoverButton })}
+          onMouseLeave={() => this.setState({ hoverButton: !hoverButton })}
         >
           Create Account
         </Button>

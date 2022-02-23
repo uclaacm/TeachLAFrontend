@@ -1,16 +1,19 @@
-import firebase from 'firebase/app';
+/* eslint-disable no-underscore-dangle */
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import './styles/global.scss';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import Root from './components/containers/AppContainer.js';
-import config from './firebase';
+import Root from './components/containers/AppContainer';
+import getConfig from './firebase';
 import appReducers from './reducers';
 import registerServiceWorker from './registerServiceWorker';
 
-firebase.initializeApp(config);
+const firebaseApp = initializeApp(getConfig());
+const auth = getAuth(firebaseApp);
 
 const store = createStore(
   appReducers,
@@ -19,7 +22,7 @@ const store = createStore(
 
 ReactDOM.render(
   <Provider store={store}>
-    <Root />
+    <Root auth={auth} />
   </Provider>,
   document.getElementById('root'),
 );

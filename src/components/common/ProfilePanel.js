@@ -11,8 +11,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import firebase from 'firebase/app';
-import 'firebase/auth';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -34,7 +34,7 @@ import Switch from './Switch';
  * togglePanel: function to be called when the panel is collapsed or opened
  */
 
-const ProfilePanel = function (props) {
+function ProfilePanel(props) {
   // Props
   const {
     photoName,
@@ -59,8 +59,7 @@ const ProfilePanel = function (props) {
   const [nameSubmitted, setNameSubmitted] = useState(false);
   const [name, setName] = useState(displayName);
   const [selectedImage, setSelectedImage] = useState('');
-  const [displayNameMessage, setDisplayNameMessage] = useState('');
-  const [error, setError] = useState(''); // setError is never used
+  const [error, setError] = useState('');
 
   // State Changing functions
   const handleOpenModal = () => {
@@ -88,12 +87,12 @@ const ProfilePanel = function (props) {
     if (!ok) {
       setName(displayName);
       setEditingName(true);
-      setDisplayNameMessage(message);
+      setError(message);
     } else {
       setDisplayName(name);
       setEditingName(false);
       setNameSubmitted(true);
-      setDisplayNameMessage('');
+      setError('');
       setTimeout(() => {
         setNameSubmitted(false);
       }, 500);
@@ -136,27 +135,36 @@ const ProfilePanel = function (props) {
         alt="Your profile"
       />
       {imageIsHovering && (
-        <button className="image-edit-button" onClick={handleOpenModal}>
+        <button className="image-edit-button" onClick={handleOpenModal} type="button">
           <FontAwesomeIcon icon={faEdit} />
         </button>
       )}
     </div>
   );
 
-  const onImageClick = (name) => {
-    setSelectedImage(name);
+  const onImageClick = (imgName) => {
+    setSelectedImage(imgName);
   };
 
   const renderImageModal = () => {
     const names = Object.keys(PHOTO_NAMES);
     const icons = names.map((val) => (
-      <figure className="gallery-item" key={val} onClick={() => onImageClick(val)}>
+      <div
+        className="gallery-item"
+        key={val}
+        onClick={() => onImageClick(val)}
+        onKeyDown={(e) => {
+          if (e.key !== 'Tab') onImageClick(val);
+        }}
+        role="button"
+        tabIndex="0"
+      >
         <img
           src={PHOTO_NAMES[val]}
           className={`gallery-img${selectedImage === val ? '-selected' : ''}`}
           alt="icon"
         />
-      </figure>
+      </div>
     ));
     return (
       <ImageSelector
@@ -192,13 +200,14 @@ const ProfilePanel = function (props) {
           onMouseEnter={() => setNameHover(true)}
           onMouseLeave={() => setNameHover(false)}
           onClick={handleEditNameClick}
+          onKeyDown={(e) => {
+            if (e.key !== 'Tab') handleEditNameClick();
+          }}
+          role="button"
+          tabIndex="0"
         >
           <div className="panel-name-text">{name || 'Joe Bruin'}</div>
-          {nameIsHovering && (
-            <button className="edit-icon-image" onClick={handleEditNameClick}>
-              <FontAwesomeIcon icon={faEdit} />
-            </button>
-          )}
+          {nameIsHovering && <FontAwesomeIcon className="edit-icon-image" icon={faEdit} />}
           <div className="submitted-icon-image" style={{ opacity: +(nameSubmitted ? '1' : '0') }}>
             <FontAwesomeIcon icon={faCheckSquare} />
           </div>
@@ -208,7 +217,7 @@ const ProfilePanel = function (props) {
     return (
       <form className="panel-edit-container" onSubmit={onNameSubmit}>
         <input
-          autoFocus
+          // autoFocus
           className="panel-edit"
           placeholder={displayName}
           onChange={onNameChange}
@@ -231,19 +240,19 @@ const ProfilePanel = function (props) {
     </Link>
   );
 
-  const renderClassesButton = () => (
-    developerAcc ? (
-      <Link
-        to={{ pathname: '/classes' }}
-        className="panel-button btn btn-secondary btn-lg btn-block"
-        key="classes-button"
-        id="classes-button"
-      >
-        <FontAwesomeIcon icon={faBook} />
-        <span className="panel-button-text">Classes</span>
-      </Link>
-    ) : ''
-  );
+  const renderClassesButton = () => (developerAcc ? (
+    <Link
+      to={{ pathname: '/classes' }}
+      className="panel-button btn btn-secondary btn-lg btn-block"
+      key="classes-button"
+      id="classes-button"
+    >
+      <FontAwesomeIcon icon={faBook} />
+      <span className="panel-button-text">Classes</span>
+    </Link>
+  ) : (
+    ''
+  ));
 
   const renderSketchesButton = () => (
     <Link
@@ -349,14 +358,22 @@ const ProfilePanel = function (props) {
       {renderPanelImage()}
       {renderImageModal()}
       {renderName()}
-      {renderErrorMessage(displayNameMessage)}
+      {renderErrorMessage(error)}
       {renderButtons()}
       {renderThemeSwitch()}
     </div>
   );
 
   const renderCollapseButton = () => (
-    <div className="panel-collapse-button" onClick={togglePanel}>
+    <div
+      className="panel-collapse-button"
+      onClick={togglePanel}
+      onKeyDown={(e) => {
+        if (e.key !== 'Tab') togglePanel(e);
+      }}
+      role="button"
+      tabIndex="0"
+    >
       <FontAwesomeIcon icon={faTimes} />
     </div>
   );
@@ -373,6 +390,6 @@ const ProfilePanel = function (props) {
       <Footer />
     </div>
   );
-};
+}
 
 export default ProfilePanel;
