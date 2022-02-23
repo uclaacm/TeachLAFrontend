@@ -50,15 +50,17 @@ const SketchBox = function ({
       </Link>
       <hr className="sketch-divider" />
       <Row className="sketch-box-body">
-        {
-          buttonData.filter((data) => data.func)
-            .map((data, idx) => (
-              <Col className="p-2 text-center" onClick={data.func} key={data.icon}>
-                <FontAwesomeIcon className="fa-lg" icon={data.icon} />
-              </Col>
-            ))
-            .reduce((acc, curr) => (acc.length > 0 ? [...acc, (<div className="sketch-button-divider" />), curr] : [curr]), [])
-        }
+        {buttonData
+          .filter((data) => data.func)
+          .map((data) => (
+            <Col className="p-2 text-center" onClick={data.func} key={data.icon}>
+              <FontAwesomeIcon className="fa-lg" icon={data.icon} />
+            </Col>
+          ))
+          .reduce(
+            (acc, curr) => (acc.length > 0 ? [...acc, <div className="sketch-button-divider" />, curr] : [curr]),
+            [],
+          )}
       </Row>
     </div>
   );
