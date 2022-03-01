@@ -1,11 +1,12 @@
-import firebase from 'firebase/compat/app';
+import { signOut } from 'firebase/auth';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from 'reactstrap';
+
 import { GH_REPO_NAME } from '../constants';
+import { auth } from '../firebase';
 import * as cookies from '../lib/cookies';
 import Footer from './common/Footer';
-import 'firebase/compat/auth';
 import '../styles/Page.scss';
 
 function Error({ errorMsg, returnTo = null, isValidUser }) {
@@ -29,7 +30,7 @@ function Error({ errorMsg, returnTo = null, isValidUser }) {
         </Link>
         &nbsp;
         {isValidUser && (
-          <Button color="danger" size="lg" onClick={() => firebase.auth().signOut()}>
+          <Button color="danger" size="lg" onClick={() => signOut(auth)}>
             Log Out
           </Button>
         )}

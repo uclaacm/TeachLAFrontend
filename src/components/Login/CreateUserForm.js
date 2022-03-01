@@ -1,11 +1,12 @@
 import SHA256 from 'crypto-js/sha256';
-import firebase from 'firebase/compat/app';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { RingLoader } from 'react-spinners';
 import { Button } from 'reactstrap';
-import 'firebase/compat/auth';
+
 import { EMAIL_DOMAIN_NAME } from '../../constants';
+import { auth } from '../../firebase';
 import { isValidUsername, isValidPassword } from '../../lib/validate';
 import LoginInput from './LoginInput';
 
@@ -108,9 +109,7 @@ export default class CreateUserForm extends React.Component {
     const passHash = SHA256(password).toString();
 
     // register user in firebase
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, passHash)
+    createUserWithEmailAndPassword(auth, email, passHash)
       .then(() => {})
       .catch((err) => {
         console.error(err);

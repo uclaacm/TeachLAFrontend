@@ -1,12 +1,13 @@
 import SHA256 from 'crypto-js/sha256';
-import firebase from 'firebase/compat/app';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { RingLoader } from 'react-spinners';
 import { Button } from 'reactstrap';
+
 import { EMAIL_DOMAIN_NAME } from '../../constants';
+import { auth } from '../../firebase';
 import LoginInput from './LoginInput';
-import 'firebase/compat/auth';
 import '../../styles/Login.scss';
 
 export default function LoginModal(props) {
@@ -25,9 +26,7 @@ export default function LoginModal(props) {
     const passwordHash = SHA256(password).toString();
 
     if (email && passwordHash) {
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(email, passwordHash)
+      signInWithEmailAndPassword(auth, email, passwordHash)
         .then(() => {})
         .catch((err) => {
           console.error(err);

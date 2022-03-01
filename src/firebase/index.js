@@ -1,4 +1,5 @@
-import 'firebase/compat/auth';
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
 
 const getConfig = () => {
   let config = {
@@ -37,4 +38,7 @@ const getConfig = () => {
   return config;
 };
 
-export default getConfig;
+const firebaseApp = initializeApp(getConfig());
+const auth = getAuth(firebaseApp);
+
+export { firebaseApp, auth };
