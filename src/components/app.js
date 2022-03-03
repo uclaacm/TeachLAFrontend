@@ -1,11 +1,10 @@
-import { onAuthStateChanged } from 'firebase/auth';
 import React from 'react';
 import {
   BrowserRouter as Router, Route, Redirect, Switch,
 } from 'react-router-dom';
 
 import { ROUTER_BASE_NAME } from '../constants';
-import { auth } from '../firebase';
+import { onAuthStateChanged } from '../firebase';
 import LoadingPage from './common/LoadingPage';
 import LoginPage from './containers/LoginContainer';
 import MainContainer from './containers/MainContainer';
@@ -26,7 +25,7 @@ class App extends React.Component {
   //= =============React Lifecycle Functions===================//
 
   componentDidMount() {
-    onAuthStateChanged(auth, async (user) => {
+    onAuthStateChanged(async (user) => {
       await this.onAuthHandler(user);
     });
     window.addEventListener('resize', this.handleResize, true);
