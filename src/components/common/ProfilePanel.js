@@ -11,8 +11,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -23,6 +21,7 @@ import {
   PANEL_SIZE,
   PANEL_IMAGE_SELECTOR_SIZE,
 } from '../../constants';
+import { signOut } from '../../firebase';
 import '../../styles/Panel.scss';
 
 import { isValidDisplayName } from '../../lib/validate';
@@ -273,7 +272,7 @@ function ProfilePanel(props) {
       id="sign-out-button"
       size="lg"
       block
-      onClick={() => firebase.auth().signOut()}
+      onClick={() => signOut()}
     >
       <FontAwesomeIcon icon={faSignOutAlt} />
       <span className="panel-button-text">Log Out</span>

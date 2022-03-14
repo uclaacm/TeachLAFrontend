@@ -6,15 +6,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Row, Col } from 'reactstrap';
 
-const SketchBox = function ({
-  img,
-  icon,
-  name,
-  deleteFunc,
-  downloadFunc,
-  editFunc,
-  redirFunc,
-  pathname,
+function SketchBox({
+  img, icon, name, deleteFunc, downloadFunc, editFunc, redirFunc, pathname,
 }) {
   const buttonData = [
     {
@@ -53,17 +46,23 @@ const SketchBox = function ({
         {buttonData
           .filter((data) => data.func)
           .map((data) => (
-            <Col className="p-2 text-center" onClick={data.func} key={data.icon}>
+            <Col className="p-2 text-center" onClick={data.func} key={data.icon.iconName}>
               <FontAwesomeIcon className="fa-lg" icon={data.icon} />
             </Col>
           ))
           .reduce(
-            (acc, curr) => (acc.length > 0 ? [...acc, <div className="sketch-button-divider" />, curr] : [curr]),
+            (acc, curr) => (acc.length > 0
+              ? [
+                ...acc,
+                <div className="sketch-button-divider" key={`divider-${acc.length}`} />,
+                curr,
+              ]
+              : [curr]),
             [],
           )}
       </Row>
     </div>
   );
-};
+}
 
 export default SketchBox;

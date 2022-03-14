@@ -1,9 +1,10 @@
-import { onAuthStateChanged } from 'firebase/auth';
 import React from 'react';
 import {
   BrowserRouter as Router, Route, Redirect, Switch,
 } from 'react-router-dom';
+
 import { ROUTER_BASE_NAME } from '../constants';
+import { onAuthStateChanged } from '../firebase';
 import LoadingPage from './common/LoadingPage';
 import LoginPage from './containers/LoginContainer';
 import MainContainer from './containers/MainContainer';
@@ -24,8 +25,7 @@ class App extends React.Component {
   //= =============React Lifecycle Functions===================//
 
   componentDidMount() {
-    const { auth } = this.props;
-    onAuthStateChanged(auth, async (user) => {
+    onAuthStateChanged(async (user) => {
       await this.onAuthHandler(user);
     });
     window.addEventListener('resize', this.handleResize, true);
@@ -100,7 +100,8 @@ class App extends React.Component {
               render={() => {
                 if (errorMsg !== '') {
                   return <Error errorMsg={errorMsg} isValidUser={isValidUser} />;
-                } if (isValidUser) {
+                }
+                if (isValidUser) {
                   return <Redirect to="/editor" />;
                 }
                 return <LoginPage />;
@@ -112,7 +113,8 @@ class App extends React.Component {
               render={() => {
                 if (errorMsg !== '') {
                   return <Error errorMsg={errorMsg} isValidUser={isValidUser} />;
-                } if (isValidUser) {
+                }
+                if (isValidUser) {
                   return <Redirect to="/editor" />;
                 }
                 return <LoginPage />;
@@ -137,7 +139,8 @@ class App extends React.Component {
               render={({ location }) => {
                 if (errorMsg !== '') {
                   return <Error errorMsg={errorMsg} isValidUser={isValidUser} />;
-                } if (isValidUser) {
+                }
+                if (isValidUser) {
                   return <Redirect to="/editor" />;
                 }
                 return <LoginPage create initialState={location.state} />;
@@ -149,7 +152,8 @@ class App extends React.Component {
               render={() => {
                 if (errorMsg !== '') {
                   return <Error errorMsg={errorMsg} isValidUser={isValidUser} />;
-                } if (isValidUser) {
+                }
+                if (isValidUser) {
                   return <MainContainer contentType="sketches" />;
                 }
                 return <Redirect to="/login" />;
@@ -173,7 +177,7 @@ class App extends React.Component {
                   return <Redirect to="/login" />;
                 }
                 if (developerAcc) {
-                  return <MainContainer contentType="classPagej" />;
+                  return <MainContainer contentType="classPage" />;
                 }
                 return <Redirect to="/sketches" />;
               }}

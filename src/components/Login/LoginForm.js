@@ -1,12 +1,12 @@
 import SHA256 from 'crypto-js/sha256';
-import firebase from 'firebase/compat/app';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { RingLoader } from 'react-spinners';
 import { Button } from 'reactstrap';
+
 import { EMAIL_DOMAIN_NAME } from '../../constants';
+import { signInWithEmailAndPassword, getCreateUserErrorMessage } from '../../firebase';
 import LoginInput from './LoginInput';
-import 'firebase/compat/auth';
 import '../../styles/Login.scss';
 
 export default function LoginModal(props) {
@@ -25,45 +25,11 @@ export default function LoginModal(props) {
     const passwordHash = SHA256(password).toString();
 
     if (email && passwordHash) {
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(email, passwordHash)
+      signInWithEmailAndPassword(email, passwordHash)
         .then(() => {})
         .catch((err) => {
           console.error(err);
-          let newMsg = err.message;
-          switch (err.code) {
-          case 'auth/invalid-email':
-            newMsg = 'Invalid username. Usernames must only have alphanumeric characters plus !@#$%.';
-            break;
-          case 'auth/user-not-found':
-            newMsg = 'No account found for username.';
-            break;
-          case 'auth/wrong-password':
-            newMsg = 'Invalid password provided.';
-            break;
-          case 'auth/network-request-failed':
-            newMsg = 'Network error - check your internet connection.';
-            break;
-          case 'auth/app-deleted':
-          case 'auth/app-not-authorized':
-          case 'auth/argument-error':
-          case 'auth/invalid-api-key':
-          case 'auth/operation-not-allowed':
-          case 'auth/requires-recent-login':
-          case 'auth/unauthorized-domain':
-            newMsg = `App was not properly configured. Please contact administrator. Error: ${err.code}`;
-            break;
-          case 'auth/invalid-user-token':
-          case 'auth/user-disabled':
-          case 'auth/user-token-expired':
-          case 'auth/web-storage-unsupported':
-            newMsg = `Issue with user. Please contact administrator. Error: ${err.code}`;
-            break;
-          default:
-            newMsg = `Failed to sign in: ${err.code}`;
-          }
-          setErrorMsg(newMsg);
+          setErrorMsg(getCreateUserErrorMessage(err));
           setWaiting(false);
         });
     } else {
