@@ -23,22 +23,29 @@ exports[`DropdownButton handles defaultOpen properly 1`] = `
         className="undefined-language-dropdown-closed-content"
       >
         <FontAwesomeIcon
+          beat={false}
+          beatFade={false}
           border={false}
+          bounce={false}
           className=""
+          fade={false}
           fixedWidth={true}
           flip={null}
           icon="lungs"
           inverse={false}
           listItem={false}
           mask={null}
+          maskId={null}
           pull={null}
           pulse={false}
           rotation={null}
+          shake={false}
           size={null}
           spin={false}
           swapOpacity={false}
           symbol={false}
           title=""
+          titleId={null}
           transform={null}
         />
         foo
@@ -56,17 +63,23 @@ exports[`DropdownButton handles defaultOpen properly 1`] = `
         toggle={true}
       >
         <FontAwesomeIcon
+          beat={false}
+          beatFade={false}
           border={false}
+          bounce={false}
           className=""
+          fade={false}
           fixedWidth={true}
           flip={null}
           icon="cubes"
           inverse={false}
           listItem={false}
           mask={null}
+          maskId={null}
           pull={null}
           pulse={false}
           rotation={null}
+          shake={false}
           size={null}
           spin={false}
           style={
@@ -77,6 +90,7 @@ exports[`DropdownButton handles defaultOpen properly 1`] = `
           swapOpacity={false}
           symbol={false}
           title=""
+          titleId={null}
           transform={null}
         />
         Nice
@@ -88,17 +102,23 @@ exports[`DropdownButton handles defaultOpen properly 1`] = `
         toggle={true}
       >
         <FontAwesomeIcon
+          beat={false}
+          beatFade={false}
           border={false}
+          bounce={false}
           className=""
+          fade={false}
           fixedWidth={true}
           flip={null}
           icon="mobile"
           inverse={false}
           listItem={false}
           mask={null}
+          maskId={null}
           pull={null}
           pulse={false}
           rotation={null}
+          shake={false}
           size={null}
           spin={false}
           style={
@@ -109,6 +129,7 @@ exports[`DropdownButton handles defaultOpen properly 1`] = `
           swapOpacity={false}
           symbol={false}
           title=""
+          titleId={null}
           transform={null}
         />
         Cool
@@ -120,17 +141,23 @@ exports[`DropdownButton handles defaultOpen properly 1`] = `
         toggle={true}
       >
         <FontAwesomeIcon
+          beat={false}
+          beatFade={false}
           border={false}
+          bounce={false}
           className=""
+          fade={false}
           fixedWidth={true}
           flip={null}
           icon="wind"
           inverse={false}
           listItem={false}
           mask={null}
+          maskId={null}
           pull={null}
           pulse={false}
           rotation={null}
+          shake={false}
           size={null}
           spin={false}
           style={
@@ -141,6 +168,7 @@ exports[`DropdownButton handles defaultOpen properly 1`] = `
           swapOpacity={false}
           symbol={false}
           title=""
+          titleId={null}
           transform={null}
         />
         Fun
@@ -173,22 +201,29 @@ exports[`DropdownButton handles defaultOpen properly 2`] = `
         className="undefined-language-dropdown-closed-content"
       >
         <FontAwesomeIcon
+          beat={false}
+          beatFade={false}
           border={false}
+          bounce={false}
           className=""
+          fade={false}
           fixedWidth={true}
           flip={null}
           icon="lungs"
           inverse={false}
           listItem={false}
           mask={null}
+          maskId={null}
           pull={null}
           pulse={false}
           rotation={null}
+          shake={false}
           size={null}
           spin={false}
           swapOpacity={false}
           symbol={false}
           title=""
+          titleId={null}
           transform={null}
         />
         foo
@@ -206,17 +241,23 @@ exports[`DropdownButton handles defaultOpen properly 2`] = `
         toggle={true}
       >
         <FontAwesomeIcon
+          beat={false}
+          beatFade={false}
           border={false}
+          bounce={false}
           className=""
+          fade={false}
           fixedWidth={true}
           flip={null}
           icon="cubes"
           inverse={false}
           listItem={false}
           mask={null}
+          maskId={null}
           pull={null}
           pulse={false}
           rotation={null}
+          shake={false}
           size={null}
           spin={false}
           style={
@@ -227,6 +268,7 @@ exports[`DropdownButton handles defaultOpen properly 2`] = `
           swapOpacity={false}
           symbol={false}
           title=""
+          titleId={null}
           transform={null}
         />
         Nice
@@ -238,17 +280,23 @@ exports[`DropdownButton handles defaultOpen properly 2`] = `
         toggle={true}
       >
         <FontAwesomeIcon
+          beat={false}
+          beatFade={false}
           border={false}
+          bounce={false}
           className=""
+          fade={false}
           fixedWidth={true}
           flip={null}
           icon="mobile"
           inverse={false}
           listItem={false}
           mask={null}
+          maskId={null}
           pull={null}
           pulse={false}
           rotation={null}
+          shake={false}
           size={null}
           spin={false}
           style={
@@ -259,6 +307,7 @@ exports[`DropdownButton handles defaultOpen properly 2`] = `
           swapOpacity={false}
           symbol={false}
           title=""
+          titleId={null}
           transform={null}
         />
         Cool
@@ -270,17 +319,23 @@ exports[`DropdownButton handles defaultOpen properly 2`] = `
         toggle={true}
       >
         <FontAwesomeIcon
+          beat={false}
+          beatFade={false}
           border={false}
+          bounce={false}
           className=""
+          fade={false}
           fixedWidth={true}
           flip={null}
           icon="wind"
           inverse={false}
           listItem={false}
           mask={null}
+          maskId={null}
           pull={null}
           pulse={false}
           rotation={null}
+          shake={false}
           size={null}
           spin={false}
           style={
@@ -291,6 +346,7 @@ exports[`DropdownButton handles defaultOpen properly 2`] = `
           swapOpacity={false}
           symbol={false}
           title=""
+          titleId={null}
           transform={null}
         />
         Fun
@@ -323,22 +379,29 @@ exports[`DropdownButton handles defaultOpen properly 3`] = `
         className="undefined-language-dropdown-closed-content"
       >
         <FontAwesomeIcon
+          beat={false}
+          beatFade={false}
           border={false}
+          bounce={false}
           className=""
+          fade={false}
           fixedWidth={true}
           flip={null}
           icon="lungs"
           inverse={false}
           listItem={false}
           mask={null}
+          maskId={null}
           pull={null}
           pulse={false}
           rotation={null}
+          shake={false}
           size={null}
           spin={false}
           swapOpacity={false}
           symbol={false}
           title=""
+          titleId={null}
           transform={null}
         />
         foo
@@ -356,17 +419,23 @@ exports[`DropdownButton handles defaultOpen properly 3`] = `
         toggle={true}
       >
         <FontAwesomeIcon
+          beat={false}
+          beatFade={false}
           border={false}
+          bounce={false}
           className=""
+          fade={false}
           fixedWidth={true}
           flip={null}
           icon="cubes"
           inverse={false}
           listItem={false}
           mask={null}
+          maskId={null}
           pull={null}
           pulse={false}
           rotation={null}
+          shake={false}
           size={null}
           spin={false}
           style={
@@ -377,6 +446,7 @@ exports[`DropdownButton handles defaultOpen properly 3`] = `
           swapOpacity={false}
           symbol={false}
           title=""
+          titleId={null}
           transform={null}
         />
         Nice
@@ -388,17 +458,23 @@ exports[`DropdownButton handles defaultOpen properly 3`] = `
         toggle={true}
       >
         <FontAwesomeIcon
+          beat={false}
+          beatFade={false}
           border={false}
+          bounce={false}
           className=""
+          fade={false}
           fixedWidth={true}
           flip={null}
           icon="mobile"
           inverse={false}
           listItem={false}
           mask={null}
+          maskId={null}
           pull={null}
           pulse={false}
           rotation={null}
+          shake={false}
           size={null}
           spin={false}
           style={
@@ -409,6 +485,7 @@ exports[`DropdownButton handles defaultOpen properly 3`] = `
           swapOpacity={false}
           symbol={false}
           title=""
+          titleId={null}
           transform={null}
         />
         Cool
@@ -420,17 +497,23 @@ exports[`DropdownButton handles defaultOpen properly 3`] = `
         toggle={true}
       >
         <FontAwesomeIcon
+          beat={false}
+          beatFade={false}
           border={false}
+          bounce={false}
           className=""
+          fade={false}
           fixedWidth={true}
           flip={null}
           icon="wind"
           inverse={false}
           listItem={false}
           mask={null}
+          maskId={null}
           pull={null}
           pulse={false}
           rotation={null}
+          shake={false}
           size={null}
           spin={false}
           style={
@@ -441,6 +524,7 @@ exports[`DropdownButton handles defaultOpen properly 3`] = `
           swapOpacity={false}
           symbol={false}
           title=""
+          titleId={null}
           transform={null}
         />
         Fun
@@ -473,22 +557,29 @@ exports[`DropdownButton renders every dropdown item correctly 1`] = `
         className="undefined-language-dropdown-closed-content"
       >
         <FontAwesomeIcon
+          beat={false}
+          beatFade={false}
           border={false}
+          bounce={false}
           className=""
+          fade={false}
           fixedWidth={true}
           flip={null}
           icon="bacteria"
           inverse={false}
           listItem={false}
           mask={null}
+          maskId={null}
           pull={null}
           pulse={false}
           rotation={null}
+          shake={false}
           size={null}
           spin={false}
           swapOpacity={false}
           symbol={false}
           title=""
+          titleId={null}
           transform={null}
         />
         bar
@@ -506,17 +597,23 @@ exports[`DropdownButton renders every dropdown item correctly 1`] = `
         toggle={true}
       >
         <FontAwesomeIcon
+          beat={false}
+          beatFade={false}
           border={false}
+          bounce={false}
           className=""
+          fade={false}
           fixedWidth={true}
           flip={null}
           icon="cubes"
           inverse={false}
           listItem={false}
           mask={null}
+          maskId={null}
           pull={null}
           pulse={false}
           rotation={null}
+          shake={false}
           size={null}
           spin={false}
           style={
@@ -527,6 +624,7 @@ exports[`DropdownButton renders every dropdown item correctly 1`] = `
           swapOpacity={false}
           symbol={false}
           title=""
+          titleId={null}
           transform={null}
         />
         Nice
@@ -538,17 +636,23 @@ exports[`DropdownButton renders every dropdown item correctly 1`] = `
         toggle={true}
       >
         <FontAwesomeIcon
+          beat={false}
+          beatFade={false}
           border={false}
+          bounce={false}
           className=""
+          fade={false}
           fixedWidth={true}
           flip={null}
           icon="mobile"
           inverse={false}
           listItem={false}
           mask={null}
+          maskId={null}
           pull={null}
           pulse={false}
           rotation={null}
+          shake={false}
           size={null}
           spin={false}
           style={
@@ -559,6 +663,7 @@ exports[`DropdownButton renders every dropdown item correctly 1`] = `
           swapOpacity={false}
           symbol={false}
           title=""
+          titleId={null}
           transform={null}
         />
         Cool
@@ -570,17 +675,23 @@ exports[`DropdownButton renders every dropdown item correctly 1`] = `
         toggle={true}
       >
         <FontAwesomeIcon
+          beat={false}
+          beatFade={false}
           border={false}
+          bounce={false}
           className=""
+          fade={false}
           fixedWidth={true}
           flip={null}
           icon="wind"
           inverse={false}
           listItem={false}
           mask={null}
+          maskId={null}
           pull={null}
           pulse={false}
           rotation={null}
+          shake={false}
           size={null}
           spin={false}
           style={
@@ -591,6 +702,7 @@ exports[`DropdownButton renders every dropdown item correctly 1`] = `
           swapOpacity={false}
           symbol={false}
           title=""
+          titleId={null}
           transform={null}
         />
         Fun

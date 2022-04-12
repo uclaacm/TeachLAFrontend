@@ -6,8 +6,12 @@ exports[`OpenPanelButton panelOpen=false snapshot 1`] = `
   title="Open Profile Panel"
 >
   <FontAwesomeIcon
+    beat={false}
+    beatFade={false}
     border={false}
+    bounce={false}
     className=""
+    fade={false}
     fixedWidth={false}
     flip={null}
     icon={
@@ -28,14 +32,17 @@ exports[`OpenPanelButton panelOpen=false snapshot 1`] = `
     inverse={false}
     listItem={false}
     mask={null}
+    maskId={null}
     pull={null}
     pulse={false}
     rotation={null}
+    shake={false}
     size={null}
     spin={false}
     swapOpacity={false}
     symbol={false}
     title=""
+    titleId={null}
     transform={null}
   />
 </div>
