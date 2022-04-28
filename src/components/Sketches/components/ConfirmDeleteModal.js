@@ -48,7 +48,11 @@ const ConfirmDeleteModal = function (props) {
           // this next piece of code is a guard against deleting mostRecentProgram - if we do,
           // then we need to re-populate it with something different.
           if (sketchKey === mostRecentProgram && programKeys.size > 0) {
-            setMostRecentProgram(programKeys.get(0));
+            if (sketchKey === programKeys.get(0)) {
+              setMostRecentProgram(programKeys.get(1));
+            } else {
+              setMostRecentProgram(programKeys.get(0));
+            }
           }
 
           closeModal();
