@@ -1,6 +1,6 @@
 import { faCopy } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, { useState } from 'react';
 import ReactModal from 'react-modal';
 
 import { Button, Input, InputGroup } from 'reactstrap';
@@ -14,56 +14,49 @@ import '../../../styles/Modals.scss';
  * @param {Boolean} showModal modal render state
  * @param {Function} toggleModal function that toggles the modal's render state
  * @param {String} shareUrl the URL to display/copy to clipboard
+ * showModal modal render state
+ *  toggleModal function that toggles the modal's render state
+ *  shareUrl the URL to display/copy to clipboard
  */
-class ShareSketchModal extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      copyStatus: 'Hit "Copy to Clipboard"!',
-    };
-  }
 
-  initiateCopy = () => {
-    const { shareUrl } = this.props;
+function ShareSketchModal(props) {
+  const { shareUrl, showModal, toggleModal } = props;
+  const [copyStatus, setCopyStatus] = useState('Hit "Copy to Clipboard"!');
+
+  const initiateCopy = () => {
     navigator.clipboard.writeText(shareUrl).then(
       () => {
         // success
-        this.setState({ copyStatus: 'Successfully copied!' });
+        setCopyStatus('Successfully copied!');
       },
       () => {
         // failed
-        this.setState({ copyStatus: 'Copy failed. If this keeps on happening, let us know!' });
+        setCopyStatus('Copy failed. If this keeps on happening, let us know!');
       },
     );
   };
 
-  render() {
-    const { showModal, toggleModal, shareUrl } = this.props;
-
-    const { copyStatus } = this.state;
-
-    return (
-      <ReactModal
-        className="modal-md"
-        overlayClassName="modal-overlay"
-        isOpen={showModal}
-        onRequestClose={toggleModal}
-        ariaHideApp={false}
-      >
-        <h2 className="text-center">Share This Sketch</h2>
-        <InputGroup>
-          <Input value={shareUrl} disabled />
-          <Button color="primary" onClick={this.initiateCopy}>
-            <FontAwesomeIcon icon={faCopy} />
-            {' '}
-            Copy to Clipboard
-          </Button>
-        </InputGroup>
-        <hr />
-        <p className="text-center">{copyStatus}</p>
-      </ReactModal>
-    );
-  }
+  return (
+    <ReactModal
+      className="modal-md"
+      overlayClassName="modal-overlay"
+      isOpen={showModal}
+      onRequestClose={toggleModal}
+      ariaHideApp={false}
+    >
+      <h2 className="text-center">Share This Sketch</h2>
+      <InputGroup>
+        <Input value={shareUrl} disabled />
+        <Button color="primary" onClick={initiateCopy}>
+          <FontAwesomeIcon icon={faCopy} />
+          {' '}
+          Copy to Clipboard
+        </Button>
+      </InputGroup>
+      <hr />
+      <p className="text-center">{copyStatus}</p>
+    </ReactModal>
+  );
 }
 
 export default ShareSketchModal;
