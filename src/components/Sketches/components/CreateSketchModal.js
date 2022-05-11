@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
 import ReactModal from 'react-modal';
 import { Redirect } from 'react-router-dom';
-import {  Button, Container, Row, Col, FormGroup, Label, Input, DropdownItem } from 'reactstrap';
-import { ThumbnailArray } from "../../../constants";
-import * as fetch from '../../../lib/fetch.js';
+import {
+  Button, Container, Row, Col, FormGroup, Label, Input,
+} from 'reactstrap';
+import { ThumbnailArray } from '../../../constants';
+import * as fetch from '../../../lib/fetch';
+import DropdownButton from '../../common/DropdownButton';
 import ImageSelector from '../../common/ImageSelector';
 import {
   LanguageDropdownValues,
   LanguageDropdownDefault,
 } from '../constants';
-import DropdownButton from '../../common/DropdownButton.js';
 import '../../../styles/SketchesModal.scss';
 
-let CreateSketchModal = function (props) {
+const CreateSketchModal = (props) => {
   const {
     onClose,
     uid,
@@ -76,7 +78,7 @@ let CreateSketchModal = function (props) {
       return true;
     }
     // if( .name.match(/[^a-zA-Z0-9!@#$%'" .]/)){
-    //   setError('Sketch name nust be less than 20 characters')
+    //   setError('Sketch name must be less than 20 characters')
     //   return true
     // }
 
@@ -132,19 +134,19 @@ let CreateSketchModal = function (props) {
           return res.json();
         })
         .then((json) => {
-          const { id, ...programData } = json;
-          addProgram(id, programData || {});
-          setMostRecentProgram(id);
+          const { uid: uidresponse, ...programData } = json;
+          addProgram(uidresponse, programData || {});
+          setMostRecentProgram(uidresponse);
           setRedirect(true);
           closeModal();
         })
         .catch((err) => {
           setDisableSubmit(false);
           setError('Failed to create sketch, please try again later');
-          console.log(err);
+          console.error(err);
         });
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
     setDisableSubmit(true);
     setError('');
@@ -152,7 +154,13 @@ let CreateSketchModal = function (props) {
 
   const renderSecondModal = () => {
     const icons = ThumbnailArray.map((val, index) => (
-      <figure className="sketches-gallery-item" key={val} onClick={() => setThumbnail(index)}>
+      <figure // eslint-disable-line jsx-a11y/no-noninteractive-element-interactions
+        type="input"
+        className="sketches-gallery-item"
+        key={val}
+        onClick={() => setThumbnail(index)}
+        onKeyPress={() => setThumbnail(index)}
+      >
         <img
           src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${val}.svg`}
           className={`sketches-gallery-img${thumbnail === index ? '-selected' : ''}`}
@@ -161,13 +169,13 @@ let CreateSketchModal = function (props) {
       </figure>
     ));
 
-    const thumbnailPreview =      thumbnail !== -1 ? (
-        <img
-          src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${ThumbnailArray[thumbnail]}.svg`}
-          className="sketches-modal-header-thumbnail"
-          alt="icon"
-        />
-      ) : null;
+    const thumbnailPreview = thumbnail !== -1 ? (
+      <img
+        src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${ThumbnailArray[thumbnail]}.svg`}
+        className="sketches-modal-header-thumbnail"
+        alt="icon"
+      />
+    ) : null;
     return (
       <ImageSelector
         isOpen={isOpen}
