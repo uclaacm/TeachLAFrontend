@@ -154,7 +154,7 @@ const CreateSketchModal = (props) => {
 
   const renderSecondModal = () => {
     const icons = ThumbnailArray.map((val, index) => (
-      <figure
+      <figure // eslint-disable-line jsx-a11y/no-noninteractive-element-interactions
         type="input"
         className="sketches-gallery-item"
         key={val}
