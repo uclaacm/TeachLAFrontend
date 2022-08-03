@@ -67,7 +67,7 @@
     "husky": "^7.0.4",
     "lint-staged": "^13.0.0",
     "prettier": "^2.6.2",
-    "sass": "^1.49.9",
+    "sass": "^1.54.1",
     "stylelint": "^14.8.5",
     "stylelint-config-sass-guidelines": "^9.0.1",
     "stylelint-config-standard": "^25.0.0",
