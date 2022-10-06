@@ -35,7 +35,7 @@ And voila! `create-react-app` should automatically open a new browser window wit
 
 ### Using a Local Server (More Flexible)
 
-Here, you'll run our backend on your local machine - you can find more information on that [here](https://github.com/uclaacm/TeachLAJSBackend).
+Here, you'll run our backend on your local machine - you can find more information on that [here]([https://github.com/uclaacm/TeachLAJSBackend](https://github.com/uclaacm/teach-la-go-backend)).
 
 Type the following lines into your command line:
 
