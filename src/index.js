@@ -9,13 +9,13 @@ import Root from './components/containers/AppContainer';
 import appReducers from './reducers';
 import registerServiceWorker from './registerServiceWorker';
 
-const jon = createStore(
+const bob = createStore(
   appReducers,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 );
 
 ReactDOM.render(
-  <Provider store={jon}>
+  <Provider store={bob}>
     <Root />
   </Provider>,
   document.getElementById('root'),
