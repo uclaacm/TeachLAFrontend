@@ -14,6 +14,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import * as fetch from '../../../lib/fetch';
+
 import { Row, Col, Button } from 'reactstrap';
 import {
   PHOTO_NAMES,
@@ -40,6 +42,7 @@ function ProfilePanel(props) {
     setPhotoName,
     displayName,
     setDisplayName,
+    setUserDataError,
     contentType,
     theme,
     onThemeChange,
@@ -88,6 +91,16 @@ function ProfilePanel(props) {
       setEditingName(true);
       setError(message);
     } else {
+      try {
+        fetch
+          .updateUserData(state.uid, { displayName: name })
+          .catch((err) => {
+            setUserDataError(err);
+            console.log(err);
+          });
+      } catch (err) {
+        console.log(err);
+      }
       setDisplayName(name);
       setEditingName(false);
       setNameSubmitted(true);

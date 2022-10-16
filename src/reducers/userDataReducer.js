@@ -30,14 +30,7 @@ function userDataReducer(state = initialState, action) {
   case LOAD_FAILURE:
     return { ...state, error: action.message };
   case SET_DISPLAY_NAME: {
-    const newName = action.value;
-    fetch
-      .updateUserData(state.uid, { displayName: newName })
-      .catch((err) => {
-        state.error = err;
-        console.log(err);
-      });
-    return { ...state, displayName: newName };
+    return { ...state, displayName: action.value };
   }
   case SET_PHOTO_NAME: {
     const newPhotoName = action.photoName;
