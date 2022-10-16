@@ -6,6 +6,7 @@ import {
   SET_MOST_RECENT_PROGRAM,
   SET_PHOTO_NAME,
   SET_CURRENT_CLASS,
+  SET_ERROR,
 } from '../actions/userDataActions';
 
 import * as fetch from '../lib/fetch.js';
@@ -62,6 +63,8 @@ function userDataReducer(state = initialState, action) {
     return { ...state, mostRecentProgram: action.value };
   case SET_CURRENT_CLASS:
     return { ...state, currentClass: action.value };
+  case SET_ERROR:
+    return { ...state, error: action.value }
   default:
     return state;
   }

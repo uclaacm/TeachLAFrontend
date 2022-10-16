@@ -64,6 +64,11 @@ export function setCurrentClass(cid) {
   return { type: SET_CURRENT_CLASS, value: cid };
 }
 
+export const SET_ERROR = 'SET_ERROR';
+export function setError(errorMsg) {
+  return { type: SET_ERROR, value: errorMsg };
+}
+
 // /**
 //  * dataUpload - attempts to upload program of data into firestore to persist it.
 //  * @param  {[type]} program - the program to upload
