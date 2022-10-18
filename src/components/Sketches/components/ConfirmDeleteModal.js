@@ -16,6 +16,7 @@ const ConfirmDeleteModal = (props) => {
     mostRecentProgram,
     programKeys,
     setMostRecentProgram,
+    setUserDataError,
   } = props;
 
   const [_spinner, setSpinner] = useState(true);
@@ -26,6 +27,20 @@ const ConfirmDeleteModal = (props) => {
       onClose();
     }
   };
+
+  const handleSetMostRecentProgram = (program) => {
+    try {
+      fetch
+      .updateUserData(uid, { mostRecentProgram: program })
+      .catch((err) => {
+        setUserDataError(err);
+        console.log(err);
+      });
+    } catch (err) {
+      console.log(err);
+    }
+    setMostRecentProgram(program);
+  }
 
   const onDeleteSubmit = () => {
     const data = {
@@ -49,9 +64,9 @@ const ConfirmDeleteModal = (props) => {
           // then we need to re-populate it with something different.
           if (programKeys.size > 0 && sketchKey === mostRecentProgram) {
             if (sketchKey === programKeys.get(0)) {
-              setMostRecentProgram(programKeys.get(1));
+              handleSetMostRecentProgram(programKeys.get(1));
             } else {
-              setMostRecentProgram(programKeys.get(0));
+              handleSetMostRecentProgram(programKeys.get(0));
             }
           }
 

@@ -51,6 +51,16 @@ class Sketches extends React.Component {
   };
 
   setProgram = (name) => {
+    try {
+      fetch
+      .updateUserData(this.props.uid, { mostRecentProgram: name })
+      .catch((err) => {
+        this.props.setError(err);
+        console.log(err);
+      });
+    } catch (err) {
+      console.log(err);
+    }
     this.props.setMostRecentProgram(name);
   };
 

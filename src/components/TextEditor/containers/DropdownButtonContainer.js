@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { setMostRecentProgram } from '../../../actions/userDataActions.js';
+import { setMostRecentProgram, setError } from '../../../actions/userDataActions.js';
 import { getLanguageData } from '../../../util/languages/languages.js';
 import DropdownButton from '../../common/DropdownButton.js';
 
@@ -37,17 +37,13 @@ const mapStateToProps = (state) => {
     DropdownItems: programStateValues,
     icon,
     toggleProps,
+    uid: state.userData.uid,
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onSelect: ({ display, value, dirty }) => {
-    if (dirty) {
-      result = window.confirm('Are you sure you want to change programs? You have unsaved changes');
-    } else {
-      dispatch(setMostRecentProgram(value));
-    }
-  },
+  setMostRecentProgram: (value) => dispatch(setMostRecentProgram(value)),
+  setUserDataError: (errorMsg) => dispatch(setError(errorMsg)),
 });
 
 const DropdownButtonContainer = connect(mapStateToProps, mapDispatchToProps)(DropdownButton);

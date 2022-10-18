@@ -1,7 +1,7 @@
 import Immutable from 'immutable';
 import { connect } from 'react-redux';
 import { togglePanel } from '../../../actions/uiActions.js';
-import { setMostRecentProgram } from '../../../actions/userDataActions.js';
+import { setMostRecentProgram, setError } from '../../../actions/userDataActions.js';
 import { OPEN_PANEL_LEFT, CLOSED_PANEL_LEFT, PANEL_SIZE } from '../../../constants';
 import { getLanguageData } from '../../../util/languages/languages.js';
 import Sketches from '../index.js';
@@ -25,11 +25,13 @@ const mapStateToProps = (state) => {
     left,
     screenHeight: state.ui.screenHeight,
     panelOpen: state.ui.panelOpen,
+    uid: state.userData.uid,
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
   setMostRecentProgram: (value) => dispatch(setMostRecentProgram(value)),
+  setError: (value) => dispatch(setError(value)),
   togglePanel: () => dispatch(togglePanel()),
 });
 

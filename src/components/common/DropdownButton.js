@@ -17,13 +17,15 @@ import {
 
 const DropdownButton = function (props) {
   const {
+    uid,
     icon,
     DropdownItems,
     defaultOpen,
     displayValue,
     displayClass,
     toggleProps,
-    onSelect,
+    setMostRecentProgram,
+    setUserDataError,
     dirty,
   } = props;
 
@@ -34,6 +36,24 @@ const DropdownButton = function (props) {
 
   const toggleHandler = () => {
     setdropdownOpen(!dropdownOpen);
+  };
+
+  const onSelect = ({ display, value, dirty }) => {
+    if (dirty) {
+      result = window.confirm('Are you sure you want to change programs? You have unsaved changes');
+    } else {
+      try {
+        fetch
+          .updateUserData(uid, { mostRecentProgram: value })
+          .catch((err) => {
+            setUserDataError(err);
+            console.log(err);
+          });
+      } catch (err) {
+        console.log(err);
+      }
+      setMostRecentProgram(value);
+    }
   };
 
   const renderDropdownItems = () => DropdownItems.map(({ display, value, icon }) => (

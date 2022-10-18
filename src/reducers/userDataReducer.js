@@ -36,12 +36,6 @@ function userDataReducer(state = initialState, action) {
     return { ...state, photoName: action.photoName };
   }
   case SET_MOST_RECENT_PROGRAM:
-    fetch
-      .updateUserData(state.uid, { mostRecentProgram: action.value })
-      .catch((err) => {
-        state.error = err;
-        console.log(err);
-      });
     return { ...state, mostRecentProgram: action.value };
   case SET_CURRENT_CLASS:
     return { ...state, currentClass: action.value };
