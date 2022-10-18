@@ -93,7 +93,7 @@ function ProfilePanel(props) {
     } else {
       try {
         fetch
-          .updateUserData(state.uid, { displayName: name })
+          .updateUserData(uid, { displayName: name })
           .catch((err) => {
             setUserDataError(err);
             console.log(err);
@@ -117,6 +117,20 @@ function ProfilePanel(props) {
    */
   const onImageSubmit = () => {
     // SEND IMAGE NAME TO BACKEND, CHANGE IMAGE
+    try {
+      fetch
+      .updateUserData(uid, { photoName: selectedImage })
+      .then(() => {
+        // TODO: if nothing went bad, keep the display name,
+        // otherwise, change it back (or dont, depends how we wanna do it)
+      })
+      .catch((err) => {
+        setUserDataError(err);
+        console.log(err);
+      });
+    } catch (err) {
+      console.log(err);
+    }
     setPhotoName(selectedImage);
     handleCloseModal();
     setSelectedImage('');

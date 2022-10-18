@@ -33,18 +33,7 @@ function userDataReducer(state = initialState, action) {
     return { ...state, displayName: action.value };
   }
   case SET_PHOTO_NAME: {
-    const newPhotoName = action.photoName;
-    fetch
-      .updateUserData(state.uid, { photoName: newPhotoName })
-      .then(() => {
-        // TODO: if nothing went bad, keep the display name,
-        // otherwise, change it back (or dont, depends how we wanna do it)
-      })
-      .catch((err) => {
-        state.error = err;
-        console.log(err);
-      });
-    return { ...state, photoName: newPhotoName };
+    return { ...state, photoName: action.photoName };
   }
   case SET_MOST_RECENT_PROGRAM:
     fetch
