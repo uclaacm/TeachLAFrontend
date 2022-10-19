@@ -13,6 +13,8 @@ import ConfirmDeleteModalContainer from './containers/ConfirmDeleteModalContaine
 import CreateSketchModalContainer from './containers/CreateSketchModalContainer';
 import EditSketchModalContainer from './containers/EditSketchModalContainer';
 
+import * as fetch from '../../lib/fetch';
+
 const ROW_PADDING = 100;
 const SKETCH_WIDTH = 220;
 

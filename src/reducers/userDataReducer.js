@@ -9,8 +9,6 @@ import {
   SET_ERROR,
 } from '../actions/userDataActions';
 
-import * as fetch from '../lib/fetch.js';
-
 const initialState = {
   error: '',
   displayName: '',
