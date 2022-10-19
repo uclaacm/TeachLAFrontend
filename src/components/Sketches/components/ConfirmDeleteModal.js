@@ -31,16 +31,16 @@ const ConfirmDeleteModal = (props) => {
   const handleSetMostRecentProgram = (program) => {
     try {
       fetch
-      .updateUserData(uid, { mostRecentProgram: program })
-      .catch((err) => {
-        setUserDataError(err);
-        console.log(err);
-      });
+        .updateUserData(uid, { mostRecentProgram: program })
+        .catch((err) => {
+          setUserDataError(err);
+          console.log(err);
+        });
     } catch (err) {
       console.log(err);
     }
     setMostRecentProgram(program);
-  }
+  };
 
   const onDeleteSubmit = () => {
     const data = {

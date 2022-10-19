@@ -139,11 +139,11 @@ const CreateSketchModal = (props) => {
           addProgram(uidresponse, programData || {});
           try {
             fetch
-            .updateUserData(uid, { mostRecentProgram: uidresponse })
-            .catch((err) => {
-              setUserDataError(err);
-              console.log(err);
-            });
+              .updateUserData(uid, { mostRecentProgram: uidresponse })
+              .catch((err) => {
+                setUserDataError(err);
+                console.log(err);
+              });
           } catch (err) {
             console.log(err);
           }

@@ -14,8 +14,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import * as fetch from '../../lib/fetch';
-
 import { Row, Col, Button } from 'reactstrap';
 import {
   PHOTO_NAMES,
@@ -24,6 +22,7 @@ import {
   PANEL_IMAGE_SELECTOR_SIZE,
 } from '../../constants';
 import { signOut } from '../../firebase';
+import * as fetch from '../../lib/fetch';
 import '../../styles/Panel.scss';
 
 import { isValidDisplayName } from '../../lib/validate';
@@ -119,15 +118,15 @@ function ProfilePanel(props) {
     // SEND IMAGE NAME TO BACKEND, CHANGE IMAGE
     try {
       fetch
-      .updateUserData(uid, { photoName: selectedImage })
-      .then(() => {
+        .updateUserData(uid, { photoName: selectedImage })
+        .then(() => {
         // TODO: if nothing went bad, keep the display name,
         // otherwise, change it back (or dont, depends how we wanna do it)
-      })
-      .catch((err) => {
-        setUserDataError(err);
-        console.log(err);
-      });
+        })
+        .catch((err) => {
+          setUserDataError(err);
+          console.log(err);
+        });
     } catch (err) {
       console.log(err);
     }

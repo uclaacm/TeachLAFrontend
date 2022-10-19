@@ -38,7 +38,7 @@ function userDataReducer(state = initialState, action) {
   case SET_CURRENT_CLASS:
     return { ...state, currentClass: action.value };
   case SET_ERROR:
-    return { ...state, error: action.value }
+    return { ...state, error: action.value };
   default:
     return state;
   }
