@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { setMostRecentProgram, setError } from '../../../actions/userDataActions.js';
+import { setMostRecentProgram } from '../../../actions/userDataActions.js';
 import { getLanguageData } from '../../../util/languages/languages.js';
 import DropdownButton from '../../common/DropdownButton.js';
 
@@ -43,7 +43,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   setMostRecentProgram: (value) => dispatch(setMostRecentProgram(value)),
-  setUserDataError: (errorMsg) => dispatch(setError(errorMsg)),
 });
 
 const DropdownButtonContainer = connect(mapStateToProps, mapDispatchToProps)(DropdownButton);

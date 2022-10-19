@@ -16,7 +16,6 @@ const ConfirmDeleteModal = (props) => {
     mostRecentProgram,
     programKeys,
     setMostRecentProgram,
-    setUserDataError,
   } = props;
 
   const [_spinner, setSpinner] = useState(true);
@@ -33,7 +32,6 @@ const ConfirmDeleteModal = (props) => {
       fetch
         .updateUserData(uid, { mostRecentProgram: program })
         .catch((err) => {
-          setUserDataError(err);
           console.error(err);
         });
     } catch (err) {

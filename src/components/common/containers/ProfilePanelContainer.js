@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { togglePanel } from '../../../actions/uiActions';
-import { setDisplayName, setPhotoName, setError } from '../../../actions/userDataActions';
+import { setDisplayName, setPhotoName } from '../../../actions/userDataActions';
 import { DEFAULT_PHOTO_NAME, CLOSED_PANEL_LEFT, OPEN_PANEL_LEFT } from '../../../constants';
 import ProfilePanel from '../ProfilePanel';
 
@@ -19,7 +19,6 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   collectUserPhoto: () => {},
   setDisplayName: (name) => dispatch(setDisplayName(name)),
   setPhotoName: (name) => dispatch(setPhotoName(name)),
-  setUserDataError: (errorMsg) => dispatch(setError(errorMsg)),
   togglePanel: () => {
     dispatch(togglePanel());
   },

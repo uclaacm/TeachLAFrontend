@@ -21,7 +21,6 @@ const CreateSketchModal = (props) => {
     isOpen,
     addProgram,
     setMostRecentProgram,
-    setUserDataError,
     wid,
   } = props;
   const toggleProps = { className: '', color: 'primary', size: 'lg' };
@@ -141,7 +140,6 @@ const CreateSketchModal = (props) => {
             fetch
               .updateUserData(uid, { mostRecentProgram: uidresponse })
               .catch((err) => {
-                setUserDataError(err);
                 console.error(err);
               });
           } catch (err) {

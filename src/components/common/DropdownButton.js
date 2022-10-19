@@ -26,7 +26,6 @@ const DropdownButton = function (props) {
     displayClass,
     toggleProps,
     setMostRecentProgram,
-    setUserDataError,
     dirty,
   } = props;
 
@@ -47,7 +46,6 @@ const DropdownButton = function (props) {
         fetch
           .updateUserData(uid, { mostRecentProgram: value })
           .catch((err) => {
-            setUserDataError(err);
             console.error(err);
           });
       } catch (err) {

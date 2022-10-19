@@ -41,7 +41,6 @@ function ProfilePanel(props) {
     setPhotoName,
     displayName,
     setDisplayName,
-    setUserDataError,
     contentType,
     theme,
     onThemeChange,
@@ -94,7 +93,6 @@ function ProfilePanel(props) {
         fetch
           .updateUserData(uid, { displayName: name })
           .catch((err) => {
-            setUserDataError(err);
             console.error(err);
           });
       } catch (err) {
@@ -124,7 +122,6 @@ function ProfilePanel(props) {
         // otherwise, change it back (or dont, depends how we wanna do it)
         })
         .catch((err) => {
-          setUserDataError(err);
           console.error(err);
         });
     } catch (err) {
