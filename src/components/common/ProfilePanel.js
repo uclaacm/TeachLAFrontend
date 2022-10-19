@@ -95,10 +95,10 @@ function ProfilePanel(props) {
           .updateUserData(uid, { displayName: name })
           .catch((err) => {
             setUserDataError(err);
-            console.log(err);
+            console.error(err);
           });
       } catch (err) {
-        console.log(err);
+        console.error(err);
       }
       setDisplayName(name);
       setEditingName(false);
@@ -125,10 +125,10 @@ function ProfilePanel(props) {
         })
         .catch((err) => {
           setUserDataError(err);
-          console.log(err);
+          console.error(err);
         });
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
     setPhotoName(selectedImage);
     handleCloseModal();

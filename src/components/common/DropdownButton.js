@@ -48,10 +48,10 @@ const DropdownButton = function (props) {
           .updateUserData(uid, { mostRecentProgram: value })
           .catch((err) => {
             setUserDataError(err);
-            console.log(err);
+            console.error(err);
           });
       } catch (err) {
-        console.log(err);
+        console.error(err);
       }
       setMostRecentProgram(value);
     }

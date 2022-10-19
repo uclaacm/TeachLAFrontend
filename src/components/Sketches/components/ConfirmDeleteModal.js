@@ -34,10 +34,10 @@ const ConfirmDeleteModal = (props) => {
         .updateUserData(uid, { mostRecentProgram: program })
         .catch((err) => {
           setUserDataError(err);
-          console.log(err);
+          console.error(err);
         });
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
     setMostRecentProgram(program);
   };

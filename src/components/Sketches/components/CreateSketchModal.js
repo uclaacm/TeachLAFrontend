@@ -142,10 +142,10 @@ const CreateSketchModal = (props) => {
               .updateUserData(uid, { mostRecentProgram: uidresponse })
               .catch((err) => {
                 setUserDataError(err);
-                console.log(err);
+                console.error(err);
               });
           } catch (err) {
-            console.log(err);
+            console.error(err);
           }
           setMostRecentProgram(uidresponse);
           setRedirect(true);
