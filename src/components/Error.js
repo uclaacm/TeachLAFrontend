@@ -1,14 +1,14 @@
-import firebase from 'firebase/app';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from 'reactstrap';
+
 import { GH_REPO_NAME } from '../constants';
+import { signOut } from '../firebase';
 import * as cookies from '../lib/cookies';
 import Footer from './common/Footer';
-import 'firebase/auth';
 import '../styles/Page.scss';
 
-const Error = function ({ errorMsg, returnTo = null, isValidUser }) {
+function Error({ errorMsg, returnTo = null, isValidUser }) {
   return (
     <div className={`full-container theme-${cookies.getThemeFromCookie()}`}>
       <div className="page-container">
@@ -29,7 +29,7 @@ const Error = function ({ errorMsg, returnTo = null, isValidUser }) {
         </Link>
         &nbsp;
         {isValidUser && (
-          <Button color="danger" size="lg" onClick={() => firebase.auth().signOut()}>
+          <Button color="danger" size="lg" onClick={() => signOut()}>
             Log Out
           </Button>
         )}
@@ -37,6 +37,6 @@ const Error = function ({ errorMsg, returnTo = null, isValidUser }) {
       </div>
     </div>
   );
-};
+}
 
 export default Error;

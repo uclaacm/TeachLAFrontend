@@ -3,9 +3,9 @@ import ReactModal from 'react-modal';
 import {
   Container, Row, Col, Button,
 } from 'reactstrap';
-import * as fetch from '../../../lib/fetch.js';
+import * as fetch from '../../../lib/fetch';
 
-const ConfirmDeleteModal = function (props) {
+const ConfirmDeleteModal = (props) => {
   const {
     onClose,
     isOpen,
@@ -18,8 +18,8 @@ const ConfirmDeleteModal = function (props) {
     setMostRecentProgram,
   } = props;
 
-  const [spinner, setSpinner] = useState(true);
-  const [error, setError] = useState('');
+  const [_spinner, setSpinner] = useState(true);
+  const [_error, setError] = useState('');
 
   const closeModal = () => {
     if (onClose && {}.toString.call(onClose) === '[object Function]') {
@@ -47,8 +47,12 @@ const ConfirmDeleteModal = function (props) {
 
           // this next piece of code is a guard against deleting mostRecentProgram - if we do,
           // then we need to re-populate it with something different.
-          if (sketchKey === mostRecentProgram && programKeys.size > 0) {
-            setMostRecentProgram(programKeys.get(0));
+          if (programKeys.size > 0 && sketchKey === mostRecentProgram) {
+            if (sketchKey === programKeys.get(0)) {
+              setMostRecentProgram(programKeys.get(1));
+            } else {
+              setMostRecentProgram(programKeys.get(0));
+            }
           }
 
           closeModal();

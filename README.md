@@ -35,16 +35,7 @@ And voila! `create-react-app` should automatically open a new browser window wit
 
 ### Using a Local Server (More Flexible)
 
-Here, you'll run our backend on your local machine - you can find more information on that [here](https://github.com/uclaacm/TeachLAJSBackend).
-
-Type the following lines into your command line:
-
-```bash
-$ git clone https://github.com/uclaacm/TeachLAJSBackend.git
-$ cd TeachLAJSBackend
-$ npm install
-$ npm start
-```
+Here, you'll run our backend on your local machine - you can find more information on that [here](https://github.com/uclaacm/teach-la-go-backend).
 
 And in another terminal window:
 
@@ -55,7 +46,7 @@ $ npm install
 $ npm start
 ```
 
-The client should now be automatically opened in your browser; however, you can also manually visit it on `localhost:8080`. Note that we've also opened a copy of the TeachLAJSBackend on `localhost:8081`.
+The client should now be automatically opened in your browser; however, you can also manually visit it on `localhost:8080`. Note that we've also opened a copy of the go backend on `localhost:8081`.
 
 ## Notes for Developers:
 
