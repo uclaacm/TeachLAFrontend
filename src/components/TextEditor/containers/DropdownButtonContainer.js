@@ -43,7 +43,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   onSelect: ({
-    display,
+    _display,
     value,
     dirty,
     uid,

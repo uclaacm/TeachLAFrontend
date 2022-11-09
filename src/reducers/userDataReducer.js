@@ -17,6 +17,7 @@ const initialState = {
   currentClass: '',
 };
 
+// eslint-disable-next-line default-param-last
 function userDataReducer(state = initialState, action) {
   switch (action.type) {
   case LOAD_USER_DATA:

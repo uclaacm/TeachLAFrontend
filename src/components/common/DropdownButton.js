@@ -37,7 +37,7 @@ const DropdownButton = function (props) {
     setdropdownOpen(!dropdownOpen);
   };
 
-  const renderDropdownItems = () => DropdownItems.map(({ display, value, icon }) => (
+  const renderDropdownItems = () => DropdownItems.map(({ display, value, icon: itemIcon }) => (
     <DropdownItem
       key={value}
       onClick={() => onSelect({
@@ -45,8 +45,9 @@ const DropdownButton = function (props) {
         value,
         dirty,
         uid,
-      })}>
-      <FontAwesomeIcon style={{ marginRight: '10px' }} icon={icon} fixedWidth />
+      })}
+    >
+      <FontAwesomeIcon style={{ marginRight: '10px' }} icon={itemIcon} fixedWidth />
       {display}
     </DropdownItem>
   ));
@@ -54,6 +55,7 @@ const DropdownButton = function (props) {
   return (
     <div className={dropDownParentClass}>
       <Dropdown isOpen={dropdownOpen} toggle={() => toggleHandler(dropdownOpen)}>
+        {/* eslint-disable-next-line react/jsx-props-no-spreading */}
         <DropdownToggle caret {...toggleProps}>
           <div className={dropDownItemClass}>
             <FontAwesomeIcon icon={icon} fixedWidth />
