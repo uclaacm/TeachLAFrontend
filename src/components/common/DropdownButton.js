@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import {
   Dropdown, DropdownToggle, DropdownMenu, DropdownItem,
 } from 'reactstrap';
-import * as fetch from '../../lib/fetch';
 
 /** --------Props---------------
  * dropDownItems: array of data for each dropdown item
@@ -25,7 +24,7 @@ const DropdownButton = function (props) {
     displayValue,
     displayClass,
     toggleProps,
-    setMostRecentProgram,
+    onSelect,
     dirty,
   } = props;
 
@@ -38,25 +37,8 @@ const DropdownButton = function (props) {
     setdropdownOpen(!dropdownOpen);
   };
 
-  const onSelect = ({ display, value, dirty }) => {
-    if (dirty) {
-      result = window.confirm('Are you sure you want to change programs? You have unsaved changes');
-    } else {
-      try {
-        fetch
-          .updateUserData(uid, { mostRecentProgram: value })
-          .catch((err) => {
-            console.error(err);
-          });
-      } catch (err) {
-        console.error(err);
-      }
-      setMostRecentProgram(value);
-    }
-  };
-
   const renderDropdownItems = () => DropdownItems.map(({ display, value, icon }) => (
-    <DropdownItem key={value} onClick={() => onSelect({ display, value, dirty })}>
+    <DropdownItem key={value} onClick={() => onSelect({ display, value, dirty, uid })}>
       <FontAwesomeIcon style={{ marginRight: '10px' }} icon={icon} fixedWidth />
       {display}
     </DropdownItem>

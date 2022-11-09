@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Button } from 'reactstrap';
 import { ThumbnailArray } from '../../constants';
-import * as fetch from '../../lib/fetch';
 import CodeDownloader from '../../util/languages/CodeDownloader';
 import OpenPanelButtonContainer from '../common/containers/OpenPanelButtonContainer';
 import SketchBox from '../common/SketchBox';
@@ -52,16 +51,7 @@ class Sketches extends React.Component {
   };
 
   setProgram = (name) => {
-    try {
-      fetch
-        .updateUserData(this.props.uid, { mostRecentProgram: name })
-        .catch((err) => {
-          console.error(err);
-        });
-    } catch (err) {
-      console.error(err);
-    }
-    this.props.setMostRecentProgram(name);
+    this.props.setMostRecentProgram(name, this.props.uid);
   };
 
   renderHeader = () => (

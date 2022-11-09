@@ -17,8 +17,34 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = (dispatch, ownProps) => ({
   onThemeChange: ownProps.onThemeChange,
   collectUserPhoto: () => {},
-  setDisplayName: (name) => dispatch(setDisplayName(name)),
-  setPhotoName: (name) => dispatch(setPhotoName(name)),
+  setDisplayName: (name, uid) => {
+    try {
+      fetch
+        .updateUserData(uid, { displayName: name })
+        .catch((err) => {
+          console.error(err);
+        });
+    } catch (err) {
+      console.error(err);
+    }
+    dispatch(setDisplayName(name));
+  },
+  setPhotoName: (name, uid) => {
+    try {
+      fetch
+        .updateUserData(uid, { photoName: name })
+        .then(() => {
+        // TODO: if nothing went bad, keep the display name,
+        // otherwise, change it back (or dont, depends how we wanna do it)
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    } catch (err) {
+      console.error(err);
+    }
+    dispatch(setPhotoName(name));
+  },
   togglePanel: () => {
     dispatch(togglePanel());
   },

@@ -27,19 +27,6 @@ const ConfirmDeleteModal = (props) => {
     }
   };
 
-  const handleSetMostRecentProgram = (program) => {
-    try {
-      fetch
-        .updateUserData(uid, { mostRecentProgram: program })
-        .catch((err) => {
-          console.error(err);
-        });
-    } catch (err) {
-      console.error(err);
-    }
-    setMostRecentProgram(program);
-  };
-
   const onDeleteSubmit = () => {
     const data = {
       uid,
@@ -62,9 +49,9 @@ const ConfirmDeleteModal = (props) => {
           // then we need to re-populate it with something different.
           if (programKeys.size > 0 && sketchKey === mostRecentProgram) {
             if (sketchKey === programKeys.get(0)) {
-              handleSetMostRecentProgram(programKeys.get(1));
+              setMostRecentProgram(programKeys.get(1), uid);
             } else {
-              handleSetMostRecentProgram(programKeys.get(0));
+              setMostRecentProgram(programKeys.get(0), uid);
             }
           }
 

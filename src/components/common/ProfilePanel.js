@@ -22,7 +22,6 @@ import {
   PANEL_IMAGE_SELECTOR_SIZE,
 } from '../../constants';
 import { signOut } from '../../firebase';
-import * as fetch from '../../lib/fetch';
 import '../../styles/Panel.scss';
 
 import { isValidDisplayName } from '../../lib/validate';
@@ -89,16 +88,7 @@ function ProfilePanel(props) {
       setEditingName(true);
       setError(message);
     } else {
-      try {
-        fetch
-          .updateUserData(uid, { displayName: name })
-          .catch((err) => {
-            console.error(err);
-          });
-      } catch (err) {
-        console.error(err);
-      }
-      setDisplayName(name);
+      setDisplayName(name, uid);
       setEditingName(false);
       setNameSubmitted(true);
       setError('');
@@ -113,21 +103,7 @@ function ProfilePanel(props) {
    * closes the modal; resets the state
    */
   const onImageSubmit = () => {
-    // SEND IMAGE NAME TO BACKEND, CHANGE IMAGE
-    try {
-      fetch
-        .updateUserData(uid, { photoName: selectedImage })
-        .then(() => {
-        // TODO: if nothing went bad, keep the display name,
-        // otherwise, change it back (or dont, depends how we wanna do it)
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    } catch (err) {
-      console.error(err);
-    }
-    setPhotoName(selectedImage);
+    setPhotoName(selectedImage, uid);
     handleCloseModal();
     setSelectedImage('');
   };

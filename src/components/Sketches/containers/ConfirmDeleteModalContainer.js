@@ -15,7 +15,18 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   deleteProgram: (program, data) => dispatch(deleteProgram(program, data)),
-  setMostRecentProgram: (value) => dispatch(setMostRecentProgram(value)),
+  setMostRecentProgram: (value, uid) => {
+    try {
+      fetch
+        .updateUserData(uid, { mostRecentProgram: value })
+        .catch((err) => {
+          console.error(err);
+        });
+    } catch (err) {
+      console.error(err);
+    }
+    dispatch(setMostRecentProgram(value));
+  },
 });
 
 const ConfirmDeleteModalContainer = connect(

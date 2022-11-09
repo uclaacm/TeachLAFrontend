@@ -42,7 +42,22 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  setMostRecentProgram: (value) => dispatch(setMostRecentProgram(value)),
+  onSelect: ({ display, value, dirty, uid }) => {
+    if (dirty) {
+      result = window.confirm('Are you sure you want to change programs? You have unsaved changes');
+    } else {
+      try {
+        fetch
+          .updateUserData(uid, { mostRecentProgram: value })
+          .catch((err) => {
+            console.error(err);
+          });
+      } catch (err) {
+        console.error(err);
+      }
+      dispatch(setMostRecentProgram(value));
+    }
+  },
 });
 
 const DropdownButtonContainer = connect(mapStateToProps, mapDispatchToProps)(DropdownButton);
