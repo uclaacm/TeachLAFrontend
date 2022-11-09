@@ -43,25 +43,20 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   onSelect: ({
-    _display,
-    value,
-    dirty,
-    uid,
+    _display, value, _dirty, uid,
   }) => {
-    if (dirty) {
-      result = window.confirm('Are you sure you want to change programs? You have unsaved changes');
-    } else {
-      try {
-        fetch
-          .updateUserData(uid, { mostRecentProgram: value })
-          .catch((err) => {
-            console.error(err);
-          });
-      } catch (err) {
+    // TODO: Fix this dirty check
+    // if (dirty) {
+    //   result = window.confirm('Are you sure you want to change programs? You have unsaved changes');
+    // }
+    try {
+      fetch.updateUserData(uid, { mostRecentProgram: value }).catch((err) => {
         console.error(err);
-      }
-      dispatch(setMostRecentProgram(value));
+      });
+    } catch (err) {
+      console.error(err);
     }
+    dispatch(setMostRecentProgram(value));
   },
 });
 

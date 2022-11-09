@@ -30,8 +30,6 @@ class Sketches extends React.Component {
     };
   }
 
-  getRandomSketchThumbnail = () => ThumbnailArray[Math.floor(Math.random() * ThumbnailArray.length)];
-
   setCreateSketchModalOpen = (val) => {
     this.setState({ createSketchModalOpen: val });
   };
@@ -177,11 +175,7 @@ class Sketches extends React.Component {
 
   renderEditSketchModal = () => {
     const {
-      editSketchModalOpen,
-      selectedSketch,
-      selectedImg,
-      selectedLang,
-      selectedKey,
+      editSketchModalOpen, selectedSketch, selectedImg, selectedLang, selectedKey,
     } = this.state;
 
     return (
