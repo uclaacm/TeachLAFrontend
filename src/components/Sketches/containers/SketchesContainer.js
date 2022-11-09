@@ -1,10 +1,10 @@
 import Immutable from 'immutable';
 import { connect } from 'react-redux';
-import { togglePanel } from '../../../actions/uiActions.js';
-import { setMostRecentProgram } from '../../../actions/userDataActions.js';
+import { togglePanel } from '../../../actions/uiActions';
+import { setMostRecentProgram } from '../../../actions/userDataActions';
 import { OPEN_PANEL_LEFT, CLOSED_PANEL_LEFT, PANEL_SIZE } from '../../../constants';
-import { getLanguageData } from '../../../util/languages/languages.js';
-import Sketches from '../index.js';
+import { getLanguageData } from '../../../util/languages/languages';
+import Sketches from '../index';
 
 const mapStateToProps = (state) => {
   const { mostRecentProgram } = state.userData;

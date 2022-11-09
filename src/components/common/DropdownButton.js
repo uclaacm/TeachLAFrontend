@@ -38,7 +38,12 @@ const DropdownButton = function (props) {
   };
 
   const renderDropdownItems = () => DropdownItems.map(({ display, value, icon }) => (
-    <DropdownItem key={value} onClick={() => onSelect({ display, value, dirty, uid })}>
+    <DropdownItem key={value} onClick={() => onSelect({
+      display,
+      value,
+      dirty,
+      uid,
+    })}>
       <FontAwesomeIcon style={{ marginRight: '10px' }} icon={icon} fixedWidth />
       {display}
     </DropdownItem>

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
-import { setMostRecentProgram } from '../../../actions/userDataActions.js';
-import { getLanguageData } from '../../../util/languages/languages.js';
-import DropdownButton from '../../common/DropdownButton.js';
+import { setMostRecentProgram } from '../../../actions/userDataActions';
+import { getLanguageData } from '../../../util/languages/languages';
+import DropdownButton from '../../common/DropdownButton';
 
 const mapStateToProps = (state) => {
   const { mostRecentProgram } = state.userData;
@@ -42,7 +42,12 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onSelect: ({ display, value, dirty, uid }) => {
+  onSelect: ({
+    display,
+    value,
+    dirty,
+    uid,
+  }) => {
     if (dirty) {
       result = window.confirm('Are you sure you want to change programs? You have unsaved changes');
     } else {
