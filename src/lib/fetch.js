@@ -1,5 +1,42 @@
 import constants from '../constants';
 
+/**
+ * makeServerRequest: a generic POST request handler to our backend
+ * @param {Object} data JSON data passed to endpoint; stringified into body of request
+ * @param {string} endpoint API endpoint to hit, rooted at ${constants.SERVER_URL}/
+ * @param {string} method HTTP method to make the request, defaults to post
+ */
+
+const makeServerRequest = (data, endpoint, method = 'post') => {
+  const options = {
+    method,
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+    },
+  };
+
+  if (method !== 'get') {
+    let body = '';
+    // if the passed-in data object has at least 1 key, set the body to the stringified data object
+    try {
+      if (Object.keys(data).length) {
+        body = JSON.stringify(data);
+      }
+    } catch (err) {
+      console.error(err);
+      return undefined;
+    }
+    options.body = body;
+  }
+
+  return fetch(`${constants.SERVER_URL}/${endpoint}`, options);
+};
+
+export const createUser = (uid) => {
+  console.error('creating user');
+  return makeServerRequest({ uid }, 'user/create', 'post');
+};
+
 /** ---------getUserData--------
  * fetches object from server containg information about user at uid
  * includes users' programs in json if includePrograms is true
@@ -15,7 +52,9 @@ import constants from '../constants';
  * }
  */
 export const getUserData = async (uid = '', includePrograms = false) => {
-  const userDataEndpoint = `${constants.SERVER_URL}/user/get?uid=${uid}${includePrograms ? '&programs=true' : ''}`;
+  const userDataEndpoint = `${constants.SERVER_URL}/user/get?uid=${uid}${
+    includePrograms ? '&programs=true' : ''
+  }`;
 
   const options = {
     method: 'get',
@@ -40,51 +79,15 @@ export const getUserData = async (uid = '', includePrograms = false) => {
 };
 
 /**
- * makeServerRequest: a generic POST request handler to our backend
- * @param {Object} data JSON data passed to endpoint; stringified into body of request
- * @param {string} endpoint API endpoint to hit, rooted at ${constants.SERVER_URL}/
- * @param {string} method HTTP method to make the request, defaults to post
- */
-
-const makeServerRequest = (data, endpoint, method = 'post') => {
-  const options = {
-    method,
-    headers: {
-      'Content-Type': 'application/json; charset=utf-8',
-    },
-  };
-
-  if (method !== 'get') {
-    let body = '';
-    // if the passed-in data object has at least 1 key, set the body to the stringified data object
-    try {
-      if (Object.keys(data).length) {
-        body = JSON.stringify(data);
-      }
-    } catch (err) {
-      console.log(err);
-      return;
-    }
-    options.body = body;
-  }
-
-  return fetch(`${constants.SERVER_URL}/${endpoint}`, options);
-};
-
-/**
  * merges the JSON Parameter programs with the user document in Firestore; selectively updates based on passed-in keys
  * @param {string} uid UID of user to selectively update programs
  * @param {Object} programs object that contains only the keys of the project that need to be updated
  */
 
+// eslint-disable-next-line default-param-last
 export const updatePrograms = (uid = '', programs) => {
   const endpoint = 'program/update';
   return makeServerRequest({ uid, programs }, endpoint, 'put');
-};
-
-export const createUser = (uid) => {
-  console.log('creating user');
-  return makeServerRequest({ uid }, 'user/create', 'post');
 };
 
 /**
@@ -93,6 +96,7 @@ export const createUser = (uid) => {
  * @param {Object} userData object that contains only the keys of the user data that need to be updated
  */
 
+// eslint-disable-next-line default-param-last
 export const updateUserData = (uid = '', userData) => {
   const endpoint = 'user/update';
   return makeServerRequest({ uid, ...userData }, endpoint, 'put');
@@ -123,12 +127,9 @@ export const deleteSketch = (data) => {
  * @param {string} docID the key for the requested program in the top-level programs object
  */
 
-export const getSketch = async (docID) => {
+export const getSketch = (docID) => {
   const endpoint = `program/get?pid=${docID}`;
-  const result = await makeServerRequest({}, endpoint, 'get');
-  const ok = await result.ok;
-  const sketch = await result.json();
-  return { ok, sketch };
+  return makeServerRequest({}, endpoint, 'get');
 };
 
 /**
@@ -142,7 +143,7 @@ export const createClass = (data) => makeServerRequest(data, 'class/create');
  * @param {Object} data student's uid and class's word id {uid, wid}
  */
 export const joinClass = async (data) => {
-  console.log(data);
+  console.error(data);
   const result = await makeServerRequest(data, 'class/join', 'put');
   const ok = await result.ok;
   const { status } = result;
@@ -157,7 +158,7 @@ export const joinClass = async (data) => {
 export const leaveClass = async (data) => {
   const result = await makeServerRequest(data, 'class/leave', 'put');
   const ok = await result.ok;
-  console.log(`ok: ${ok}`);
+  console.error(`ok: ${ok}`);
   // let userData = await result.json();
   const userData = {};
   return { ok, userData };
@@ -170,9 +171,12 @@ export const leaveClass = async (data) => {
  * @param {boolean} withUserData whether to include student data
  */
 export const getClass = async (data, withPrograms, withUserData) => {
-  const result = await makeServerRequest(data, `class/get?programs=${withPrograms}&userData=${withUserData}`);
+  const result = await makeServerRequest(
+    data,
+    `class/get?programs=${withPrograms}&userData=${withUserData}`,
+  );
   const ok = await result.ok;
-  console.log(`response status: ${result.status}`);
+  console.error(`response status: ${result.status}`);
   const classData = await result.json();
   return { ok, classData };
 };

@@ -1,10 +1,12 @@
+/* eslint-disable react/destructuring-assignment */
+
 import React from 'react';
 
 import { EDITOR_WIDTH_BREAKPOINT, CODE_AND_OUTPUT, CODE_ONLY } from '../constants';
-import * as cookies from '../lib/cookies.js';
-import * as fetch from '../lib/fetch.js';
+import * as cookies from '../lib/cookies';
+import * as fetch from '../lib/fetch';
 
-import { getLanguageData } from '../util/languages/languages.js';
+import { getLanguageData } from '../util/languages/languages';
 import ProfilePanelContainer from './common/containers/ProfilePanelContainer';
 import LoadingPage from './common/LoadingPage';
 import EditorAndOutput from './EditorAndOutput/EditorAndOutput';
@@ -36,29 +38,39 @@ class ViewOnly extends React.Component {
     this.props.setTheme(cookies.getThemeFromCookie());
   }
 
-  componentDidMount = async () => {
+  async componentDidMount() {
     if (this.savePrevProgram) {
       await this.codeSaverHelper();
     }
 
-    const { ok, sketch } = await fetch.getSketch(this.props.programid);
-
-    if (!ok) {
-      this.setState({ notfound: true });
-      return;
+    try {
+      fetch
+        .getSketch(this.props.programid)
+        .then((res) => {
+          if (!res.ok) {
+            this.setState({ notfound: true });
+            return;
+          }
+          const sketch = res.json();
+          const lang = getLanguageData(sketch.language);
+          this.setState({
+            sketchName: sketch.name,
+            language: lang,
+            code: sketch.code,
+            thumbnail: sketch.thumbnail,
+            loaded: true,
+          });
+          this.props.setProgramCode(this.props.mostRecentProgram, sketch.code);
+          this.props.setProgramLanguage(this.props.mostRecentProgram, sketch.language);
+          this.props.runCode(sketch.code, lang);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    } catch (err) {
+      console.error(err);
     }
-    const lang = getLanguageData(sketch.language);
-    this.setState({
-      sketchName: sketch.name,
-      language: lang,
-      code: sketch.code,
-      thumbnail: sketch.thumbnail,
-      loaded: true,
-    });
-    this.props.setProgramCode(this.props.mostRecentProgram, sketch.code);
-    this.props.setProgramLanguage(this.props.mostRecentProgram, sketch.language);
-    this.props.runCode(sketch.code, lang);
-  };
+  }
 
   componentDidUpdate(prevProps) {
     if (this.props.screenWidth !== prevProps.screenWidth) {
@@ -74,21 +86,27 @@ class ViewOnly extends React.Component {
     if (this.savePrevProgram) {
       this.props.setProgramCode(this.props.mostRecentProgram, this.state.originalCode);
     }
-  };
+  }
 
-  codeSaverHelper = async () => {
-    const { ok: okOriginal, sketch: original } = await fetch.getSketch(
-      this.props.mostRecentProgram,
-    );
-
-    if (!okOriginal) {
-      this.setState({ notfound: true });
-      return;
+  codeSaverHelper = () => {
+    try {
+      fetch
+        .getSketch(this.props.mostRecentProgram)
+        .then((res) => {
+          if (!res.ok) {
+            this.setState({ notfound: true });
+            return;
+          }
+          this.setState({
+            originalCode: res.json().code,
+          });
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    } catch (err) {
+      console.error(err);
     }
-
-    this.setState({
-      originalCode: original.code,
-    });
   };
 
   onThemeChange = () => {
