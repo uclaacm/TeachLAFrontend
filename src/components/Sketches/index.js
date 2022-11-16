@@ -51,7 +51,6 @@ class Sketches extends React.Component {
   setProgram = (name) => {
     const { uid } = this.props;
 
-    // eslint-disable-next-line react/destructuring-assignment
     this.props.setMostRecentProgram(name, uid);
   };
 
