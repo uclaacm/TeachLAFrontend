@@ -49,9 +49,9 @@ class Sketches extends React.Component {
   };
 
   setProgram = (name) => {
-    const { uid } = this.props;
+    const { uid, setMostRecentProgram } = this.props;
 
-    this.props.setMostRecentProgram(name, uid);
+    setMostRecentProgram(name, uid);
   };
 
   renderHeader = () => (
