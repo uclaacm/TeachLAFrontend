@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import { setMostRecentProgram } from '../../../actions/userDataActions';
+import * as fetch from '../../../lib/fetch';
 import { getLanguageData } from '../../../util/languages/languages';
 import DropdownButton from '../../common/DropdownButton';
 

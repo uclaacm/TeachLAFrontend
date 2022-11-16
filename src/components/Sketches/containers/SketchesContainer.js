@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { togglePanel } from '../../../actions/uiActions';
 import { setMostRecentProgram } from '../../../actions/userDataActions';
 import { OPEN_PANEL_LEFT, CLOSED_PANEL_LEFT, PANEL_SIZE } from '../../../constants';
+import * as fetch from '../../../lib/fetch';
 import { getLanguageData } from '../../../util/languages/languages';
 import Sketches from '../index';
 
@@ -32,11 +33,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   setMostRecentProgram: (value, uid) => {
     try {
-      fetch
-        .updateUserData(uid, { mostRecentProgram: value })
-        .catch((err) => {
-          console.error(err);
-        });
+      fetch.updateUserData(uid, { mostRecentProgram: value }).catch((err) => {
+        console.error(err);
+      });
     } catch (err) {
       console.error(err);
     }
