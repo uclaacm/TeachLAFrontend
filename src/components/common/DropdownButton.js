@@ -15,7 +15,7 @@ import {
  * defaultOpen: boolean determining if the dropdown should start off open or closed
  */
 
-const DropdownButton = function (props) {
+function DropdownButton(props) {
   const {
     uid,
     icon,
@@ -66,5 +66,6 @@ const DropdownButton = function (props) {
       </Dropdown>
     </div>
   );
-};
+}
+
 export default DropdownButton;
