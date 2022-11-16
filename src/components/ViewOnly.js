@@ -54,9 +54,11 @@ class ViewOnly extends React.Component {
         .then((res) => {
           if (!res.ok) {
             this.setState({ notfound: true });
-            return;
+            return Promise.reject(res);
           }
-          const sketch = res.json();
+          return res.json();
+        })
+        .then((sketch) => {
           const lang = getLanguageData(sketch.language);
           this.setState({
             sketchName: sketch.name,
@@ -108,10 +110,13 @@ class ViewOnly extends React.Component {
         .then((res) => {
           if (!res.ok) {
             this.setState({ notfound: true });
-            return;
+            return Promise.reject(res);
           }
+          return res.json();
+        })
+        .then((sketch) => {
           this.setState({
-            originalCode: res.json().code,
+            originalCode: sketch.code,
           });
         })
         .catch((err) => {
