@@ -48,35 +48,31 @@ class ViewOnly extends React.Component {
       await this.codeSaverHelper();
     }
 
-    try {
-      fetch
-        .getSketch(programid)
-        .then((res) => {
-          if (!res.ok) {
-            this.setState({ notfound: true });
-            return Promise.reject(res);
-          }
-          return res.json();
-        })
-        .then((sketch) => {
-          const lang = getLanguageData(sketch.language);
-          this.setState({
-            sketchName: sketch.name,
-            language: lang,
-            code: sketch.code,
-            thumbnail: sketch.thumbnail,
-            loaded: true,
-          });
-          setProgramCode(mostRecentProgram, sketch.code);
-          setProgramLanguage(mostRecentProgram, sketch.language);
-          runCode(sketch.code, lang);
-        })
-        .catch((err) => {
-          console.error(err);
+    fetch
+      .getSketch(programid)
+      .then((res) => {
+        if (!res.ok) {
+          this.setState({ notfound: true });
+          return Promise.reject(res);
+        }
+        return res.json();
+      })
+      .then((sketch) => {
+        const lang = getLanguageData(sketch.language);
+        this.setState({
+          sketchName: sketch.name,
+          language: lang,
+          code: sketch.code,
+          thumbnail: sketch.thumbnail,
+          loaded: true,
         });
-    } catch (err) {
-      console.error(err);
-    }
+        setProgramCode(mostRecentProgram, sketch.code);
+        setProgramLanguage(mostRecentProgram, sketch.language);
+        runCode(sketch.code, lang);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
   componentDidUpdate(prevProps) {
@@ -104,27 +100,23 @@ class ViewOnly extends React.Component {
   codeSaverHelper = () => {
     const { mostRecentProgram } = this.props;
 
-    try {
-      fetch
-        .getSketch(mostRecentProgram)
-        .then((res) => {
-          if (!res.ok) {
-            this.setState({ notfound: true });
-            return Promise.reject(res);
-          }
-          return res.json();
-        })
-        .then((sketch) => {
-          this.setState({
-            originalCode: sketch.code,
-          });
-        })
-        .catch((err) => {
-          console.error(err);
+    fetch
+      .getSketch(mostRecentProgram)
+      .then((res) => {
+        if (!res.ok) {
+          this.setState({ notfound: true });
+          return Promise.reject(res);
+        }
+        return res.json();
+      })
+      .then((sketch) => {
+        this.setState({
+          originalCode: sketch.code,
         });
-    } catch (err) {
-      console.error(err);
-    }
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   onThemeChange = () => {
@@ -173,7 +165,7 @@ class ViewOnly extends React.Component {
           <EditorAndOutput
             // view mode
             viewMode={viewMode}
-            updateViewMode={(_viewMode) => this.setState({ viewMode: _viewMode })}
+            updateViewMode={(vm) => this.setState({ viewMode: vm })}
             // theme
             theme={theme}
             // sizing
