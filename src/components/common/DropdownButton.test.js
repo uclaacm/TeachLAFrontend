@@ -87,6 +87,7 @@ describe('DropdownButton', () => {
       dirty: undefined,
       display: 'Nice',
       value: 'banana',
+      uid: undefined,
     });
 
     const component2 = shallow(
@@ -105,6 +106,7 @@ describe('DropdownButton', () => {
       dirty: undefined,
       display: 'Cool',
       value: 'apple',
+      uid: undefined,
     });
   });
 });

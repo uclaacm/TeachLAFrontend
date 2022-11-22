@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
 import { addProgram } from '../../../actions/programsActions';
-import { setMostRecentProgram } from '../../../actions/userDataActions.js';
-import CreateSketchModal from '../components/CreateSketchModal.js';
+import { setMostRecentProgram } from '../../../actions/userDataActions';
+import * as fetch from '../../../lib/fetch';
+import CreateSketchModal from '../components/CreateSketchModal';
 
 const mapStateToProps = (state) => ({
   uid: state.userData.uid,
@@ -9,12 +10,18 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   addProgram: (program, data) => dispatch(addProgram(program, data)),
-  setMostRecentProgram: (value) => dispatch(setMostRecentProgram(value)),
+  setMostRecentProgram: (value, uid) => {
+    try {
+      fetch.updateUserData(uid, { mostRecentProgram: value }).catch((err) => {
+        console.error(err);
+      });
+    } catch (err) {
+      console.error(err);
+    }
+    dispatch(setMostRecentProgram(value));
+  },
 });
 
-const CreateSketchModalContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(CreateSketchModal);
+const CreateSketchModalContainer = connect(mapStateToProps, mapDispatchToProps)(CreateSketchModal);
 
 export default CreateSketchModalContainer;

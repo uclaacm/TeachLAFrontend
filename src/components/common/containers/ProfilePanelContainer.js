@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import { togglePanel } from '../../../actions/uiActions';
 import { setDisplayName, setPhotoName } from '../../../actions/userDataActions';
 import { DEFAULT_PHOTO_NAME, CLOSED_PANEL_LEFT, OPEN_PANEL_LEFT } from '../../../constants';
+import * as fetch from '../../../lib/fetch';
 import ProfilePanel from '../ProfilePanel';
 
 const mapStateToProps = (state, ownProps) => ({
@@ -17,8 +18,32 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = (dispatch, ownProps) => ({
   onThemeChange: ownProps.onThemeChange,
   collectUserPhoto: () => {},
-  setDisplayName: (name) => dispatch(setDisplayName(name)),
-  setPhotoName: (name) => dispatch(setPhotoName(name)),
+  setDisplayName: (name, uid) => {
+    try {
+      fetch.updateUserData(uid, { displayName: name }).catch((err) => {
+        console.error(err);
+      });
+    } catch (err) {
+      console.error(err);
+    }
+    dispatch(setDisplayName(name));
+  },
+  setPhotoName: (name, uid) => {
+    try {
+      fetch
+        .updateUserData(uid, { photoName: name })
+        .then(() => {
+          // TODO: if nothing went bad, keep the display name,
+          // otherwise, change it back (or dont, depends how we wanna do it)
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    } catch (err) {
+      console.error(err);
+    }
+    dispatch(setPhotoName(name));
+  },
   togglePanel: () => {
     dispatch(togglePanel());
   },
