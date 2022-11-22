@@ -33,14 +33,18 @@ class ClassPage extends React.Component {
   }
 
   componentDidMount() {
+    const {
+      cid, uid, addInstrClass, addStudentClass,
+    } = this.props;
+
     // Don't try to load class if there's no cid.
-    if (this.props.cid === '') {
+    if (cid === '') {
       return;
     }
 
     const data = {
-      uid: this.props.uid,
-      cid: this.props.cid,
+      uid,
+      cid,
     };
 
     // TODO: Don't re-fetch existing data
@@ -61,14 +65,14 @@ class ClassPage extends React.Component {
           return res.classData;
         })
         .then((json) => {
-          const isInstr = json.instructors.some((instrID) => instrID === this.props.uid);
+          const isInstr = json.instructors.some((instrID) => instrID === uid);
           if (isInstr) {
-            this.props.addInstrClass(this.props.cid, {
+            addInstrClass(cid, {
               ...json,
               programData: enrichWithLanguageData(json.programData || []),
             });
           } else {
-            this.props.addStudentClass(this.props.cid, {
+            addStudentClass(cid, {
               ...json,
               programData: enrichWithLanguageData(json.programData || []),
             });
@@ -103,29 +107,46 @@ class ClassPage extends React.Component {
   };
 
   // Don't allow last instructor to leave class.
-  canLeaveClass = () => !this.state.isInstr || this.props.classData.instructors.length > 1;
+  canLeaveClass = () => {
+    const { isInstr } = this.state;
+    const { classData } = this.props;
+    return !isInstr || classData.instructors.length > 1;
+  };
 
-  renderConfirmLeaveModal = () => (this.canLeaveClass() ? (
-    <ConfirmLeaveModalContainer
-      isOpen={this.state.confirmLeaveModalOpen}
-      onClose={() => this.setConfirmLeaveModalOpen(false)}
-      className={this.props.classData.name}
-      cid={this.props.cid}
-      inClass
-    />
-  ) : (
-    ''
-  ));
+  renderConfirmLeaveModal = () => {
+    const { confirmLeaveModalOpen } = this.state;
+    const { classData, cid } = this.props;
 
-  renderCreateSketchModal = () => (
-    <CreateSketchModalContainer
-      isOpen={this.state.createSketchModalOpen}
-      onClose={() => this.setCreateSketchModalOpen(false)}
-      wid={this.props.classData.wid}
-    />
-  );
+    return this.canLeaveClass() ? (
+      <ConfirmLeaveModalContainer
+        isOpen={confirmLeaveModalOpen}
+        onClose={() => this.setConfirmLeaveModalOpen(false)}
+        className={classData.name}
+        cid={cid}
+        inClass
+      />
+    ) : (
+      ''
+    );
+  };
+
+  renderCreateSketchModal = () => {
+    const { createSketchModalOpen } = this.state;
+    const { classData } = this.props;
+
+    return (
+      <CreateSketchModalContainer
+        isOpen={createSketchModalOpen}
+        onClose={() => this.setCreateSketchModalOpen(false)}
+        wid={classData.wid}
+      />
+    );
+  };
 
   renderHeader = () => {
+    const {
+      classData: { name },
+    } = this.props;
     const leaveButton = this.canLeaveClass() ? (
       <Button
         className="ml-auto mr-2"
@@ -146,19 +167,19 @@ class ClassPage extends React.Component {
         <Link to={{ pathname: '/classes' }} className="btn btn-secondary btn-lg btn-block back-btn">
           <FontAwesomeIcon icon={faArrowLeft} />
         </Link>
-        <div className="classes-header-text">{this.props.classData.name}</div>
+        <div className="classes-header-text">{name}</div>
         {leaveButton}
       </div>
     );
   };
 
   renderClassInfo = () => {
-    const instString = getInstructorString(
-      this.props.classData.instructors,
-      this.props.classData.userData,
-    );
+    const { classData } = this.props;
+    const instString = getInstructorString(classData.instructors, classData.userData);
+    const { wid } = classData;
     return (
       <>
+        <ClassInfoBox title="WID">{wid}</ClassInfoBox>
         <ClassInfoBox title="Instructors">{instString}</ClassInfoBox>
         {
           // Add this in once description is added to back-end
@@ -171,24 +192,26 @@ class ClassPage extends React.Component {
     );
   };
 
-  renderStudentList = () => (this.state.isInstr ? (
-    <ClassInfoBox title="Students">
-      {this.props.classData.students
-        ? this.props.classData.students
-          .map((student) => (this.props.classData.userData[student] || {}).displayName)
-          .join(', ')
-        : 'No students enrolled.'}
-    </ClassInfoBox>
-  ) : (
-    ''
-  ));
+  renderStudentList = () => {
+    const {
+      classData: { students, userData },
+    } = this.props;
+    const { isInstr } = this.state;
+    return isInstr ? (
+      <ClassInfoBox title="Students">
+        {students
+          ? students.map((student) => (userData[student] || {}).displayName).join(', ')
+          : 'No students enrolled.'}
+      </ClassInfoBox>
+    ) : (
+      ''
+    );
+  };
 
   renderSketchList = () => {
     const {
       calculatedWidth,
-      classData: {
-        programData,
-      },
+      classData: { programData },
     } = this.props;
     const { isInstr } = this.state;
 
@@ -215,22 +238,26 @@ class ClassPage extends React.Component {
   );
 
   render() {
+    const { cid, calculatedWidth, screenHeight } = this.props;
+
+    const { error, loaded } = this.state;
+
     // If no class selected, go back to classes page.
-    if (this.props.cid === '') {
+    if (cid === '') {
       return <Redirect to="/classes" />;
     }
 
-    if (this.state.error) {
-      return <Error errorMsg={this.state.error} isValidUser returnTo="/classes" />;
+    if (error) {
+      return <Error errorMsg={error} isValidUser returnTo="/classes" />;
     }
 
-    if (!this.state.loaded) {
+    if (!loaded) {
       return <LoadingPage />;
     }
 
     const containerStyle = {
-      width: this.props.calculatedWidth,
-      height: this.props.screenHeight,
+      width: calculatedWidth,
+      height: screenHeight,
     };
 
     return (
