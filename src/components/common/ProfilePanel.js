@@ -88,7 +88,7 @@ function ProfilePanel(props) {
       setEditingName(true);
       setError(message);
     } else {
-      setDisplayName(name);
+      setDisplayName(name, uid);
       setEditingName(false);
       setNameSubmitted(true);
       setError('');
@@ -103,8 +103,7 @@ function ProfilePanel(props) {
    * closes the modal; resets the state
    */
   const onImageSubmit = () => {
-    // SEND IMAGE NAME TO BACKEND, CHANGE IMAGE
-    setPhotoName(selectedImage);
+    setPhotoName(selectedImage, uid);
     handleCloseModal();
     setSelectedImage('');
   };

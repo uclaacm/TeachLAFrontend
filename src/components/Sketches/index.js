@@ -30,8 +30,6 @@ class Sketches extends React.Component {
     };
   }
 
-  getRandomSketchThumbnail = () => ThumbnailArray[Math.floor(Math.random() * ThumbnailArray.length)];
-
   setCreateSketchModalOpen = (val) => {
     this.setState({ createSketchModalOpen: val });
   };
@@ -51,7 +49,9 @@ class Sketches extends React.Component {
   };
 
   setProgram = (name) => {
-    this.props.setMostRecentProgram(name);
+    const { uid, setMostRecentProgram } = this.props;
+
+    setMostRecentProgram(name, uid);
   };
 
   renderHeader = () => (
@@ -79,7 +79,9 @@ class Sketches extends React.Component {
   };
 
   renderSketches = () => {
-    const newList = this.props.programs.concat([]);
+    const { programs } = this.props;
+
+    const newList = programs.concat([]);
     if (newList.size === 0) {
       return (
         <div>
@@ -132,7 +134,9 @@ class Sketches extends React.Component {
         />,
       );
     });
-    const numSketchesPerRow = Math.floor((this.props.calculatedWidth - ROW_PADDING) / SKETCH_WIDTH);
+
+    const { calculatedWidth } = this.props;
+    const numSketchesPerRow = Math.floor((calculatedWidth - ROW_PADDING) / SKETCH_WIDTH);
     const rows = [];
     const originalLength = sketches.length;
     for (let i = 0; i < originalLength / numSketchesPerRow; i++) {
@@ -146,32 +150,44 @@ class Sketches extends React.Component {
     return <div className="sketches-grid">{rows}</div>;
   };
 
-  renderConfirmDeleteModal = () => (
-    <ConfirmDeleteModalContainer
-      isOpen={this.state.confirmDeleteModalOpen}
-      onClose={() => this.setState({ confirmDeleteModalOpen: false })}
-      sketchName={this.state.selectedSketch}
-      sketchKey={this.state.selectedKey}
-    />
-  );
+  renderConfirmDeleteModal = () => {
+    const { confirmDeleteModalOpen, selectedSketch, selectedKey } = this.state;
+    return (
+      <ConfirmDeleteModalContainer
+        isOpen={confirmDeleteModalOpen}
+        onClose={() => this.setState({ confirmDeleteModalOpen: false })}
+        sketchName={selectedSketch}
+        sketchKey={selectedKey}
+      />
+    );
+  };
 
-  renderCreateSketchModal = () => (
-    <CreateSketchModalContainer
-      isOpen={this.state.createSketchModalOpen}
-      onClose={() => this.setState({ createSketchModalOpen: false })}
-    />
-  );
+  renderCreateSketchModal = () => {
+    const { createSketchModalOpen } = this.state;
+    return (
+      <CreateSketchModalContainer
+        isOpen={createSketchModalOpen}
+        onClose={() => this.setState({ createSketchModalOpen: false })}
+      />
+    );
+  };
 
-  renderEditSketchModal = () => (
-    <EditSketchModalContainer
-      isOpen={this.state.editSketchModalOpen}
-      onClose={() => this.setState({ editSketchModalOpen: false })}
-      sketchName={this.state.selectedSketch}
-      sketchImg={this.state.selectedImg}
-      sketchLang={this.state.selectedLang}
-      sketchKey={this.state.selectedKey}
-    />
-  );
+  renderEditSketchModal = () => {
+    const {
+      editSketchModalOpen, selectedSketch, selectedImg, selectedLang, selectedKey,
+    } = this.state;
+
+    return (
+      <EditSketchModalContainer
+        isOpen={editSketchModalOpen}
+        onClose={() => this.setState({ editSketchModalOpen: false })}
+        sketchName={selectedSketch}
+        sketchImg={selectedImg}
+        sketchLang={selectedLang}
+        sketchKey={selectedKey}
+      />
+    );
+  };
 
   renderContent = () => (
     <>
@@ -184,9 +200,10 @@ class Sketches extends React.Component {
   );
 
   render() {
+    const { calculatedWidth, screenHeight } = this.props;
     const containerStyle = {
-      width: this.props.calculatedWidth,
-      height: this.props.screenHeight,
+      width: calculatedWidth,
+      height: screenHeight,
     };
 
     return (

@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
-import { setMostRecentProgram } from '../../../actions/userDataActions.js';
-import { getLanguageData } from '../../../util/languages/languages.js';
-import DropdownButton from '../../common/DropdownButton.js';
+import { setMostRecentProgram } from '../../../actions/userDataActions';
+import * as fetch from '../../../lib/fetch';
+import { getLanguageData } from '../../../util/languages/languages';
+import DropdownButton from '../../common/DropdownButton';
 
 const mapStateToProps = (state) => {
   const { mostRecentProgram } = state.userData;
@@ -37,16 +38,26 @@ const mapStateToProps = (state) => {
     DropdownItems: programStateValues,
     icon,
     toggleProps,
+    uid: state.userData.uid,
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onSelect: ({ display, value, dirty }) => {
-    if (dirty) {
-      result = window.confirm('Are you sure you want to change programs? You have unsaved changes');
-    } else {
-      dispatch(setMostRecentProgram(value));
+  onSelect: ({
+    _display, value, _dirty, uid,
+  }) => {
+    // TODO: Fix this dirty check
+    // if (dirty) {
+    //   result = window.confirm('Are you sure you want to change programs? You have unsaved changes');
+    // }
+    try {
+      fetch.updateUserData(uid, { mostRecentProgram: value }).catch((err) => {
+        console.error(err);
+      });
+    } catch (err) {
+      console.error(err);
     }
+    dispatch(setMostRecentProgram(value));
   },
 });
 

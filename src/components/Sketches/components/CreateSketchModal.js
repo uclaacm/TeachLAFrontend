@@ -136,7 +136,7 @@ const CreateSketchModal = (props) => {
         .then((json) => {
           const { uid: uidresponse, ...programData } = json;
           addProgram(uidresponse, programData || {});
-          setMostRecentProgram(uidresponse);
+          setMostRecentProgram(uidresponse, uid);
           setRedirect(true);
           closeModal();
         })

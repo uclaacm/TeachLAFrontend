@@ -8,8 +8,6 @@ import {
   SET_CURRENT_CLASS,
 } from '../actions/userDataActions';
 
-import * as fetch from '../lib/fetch.js';
-
 const initialState = {
   error: '',
   displayName: '',
@@ -19,6 +17,7 @@ const initialState = {
   currentClass: '',
 };
 
+// eslint-disable-next-line default-param-last
 function userDataReducer(state = initialState, action) {
   switch (action.type) {
   case LOAD_USER_DATA:
@@ -28,37 +27,11 @@ function userDataReducer(state = initialState, action) {
     return initialState;
   case LOAD_FAILURE:
     return { ...state, error: action.message };
-  case SET_DISPLAY_NAME: {
-    const newName = action.value;
-    fetch
-      .updateUserData(state.uid, { displayName: newName })
-      .catch((err) => {
-        state.error = err;
-        console.log(err);
-      });
-    return { ...state, displayName: newName };
-  }
-  case SET_PHOTO_NAME: {
-    const newPhotoName = action.photoName;
-    fetch
-      .updateUserData(state.uid, { photoName: newPhotoName })
-      .then(() => {
-        // TODO: if nothing went bad, keep the display name,
-        // otherwise, change it back (or dont, depends how we wanna do it)
-      })
-      .catch((err) => {
-        state.error = err;
-        console.log(err);
-      });
-    return { ...state, photoName: newPhotoName };
-  }
+  case SET_DISPLAY_NAME:
+    return { ...state, displayName: action.value };
+  case SET_PHOTO_NAME:
+    return { ...state, photoName: action.photoName };
   case SET_MOST_RECENT_PROGRAM:
-    fetch
-      .updateUserData(state.uid, { mostRecentProgram: action.value })
-      .catch((err) => {
-        state.error = err;
-        console.log(err);
-      });
     return { ...state, mostRecentProgram: action.value };
   case SET_CURRENT_CLASS:
     return { ...state, currentClass: action.value };
