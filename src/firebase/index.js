@@ -31,14 +31,7 @@ const getConfig = () => {
       };
     }
     if (process.env.REACT_APP_FS_PROJ === 'prod') {
-      config = {
-        apiKey: 'AIzaSyBfGWPbFcqH2HLc40B1yCY12B9F0_PO8SM',
-        authDomain: 'teachlacodeplatform-production.firebaseapp.com',
-        databaseURL: 'https://teachlacodeplatform-production.firebaseio.com',
-        projectId: 'teachlacodeplatform-production',
-        storageBucket: 'teachlacodeplatform-production.appspot.com',
-        messagingSenderId: '165628144896',
-      };
+      config = process.env.FIREBASE_CONFIG;
     }
   }
   return config;
