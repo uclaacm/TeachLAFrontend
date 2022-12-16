@@ -31,7 +31,7 @@ const getConfig = () => {
       };
     }
     if (process.env.REACT_APP_FS_PROJ === 'prod') {
-      config = process.env.FIREBASE_CONFIG;
+      config = JSON.parse(process.env.REACT_APP_FIREBASE_CONFIG);
     }
   }
   return config;
