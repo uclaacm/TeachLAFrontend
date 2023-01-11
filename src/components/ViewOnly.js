@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { EDITOR_WIDTH_BREAKPOINT, CODE_AND_OUTPUT, CODE_ONLY } from '../constants';
-import * as cookies from '../lib/cookies.js';
-import * as fetch from '../lib/fetch.js';
+import * as cookies from '../lib/cookies';
+import * as fetch from '../lib/fetch';
 
-import { getLanguageData } from '../util/languages/languages.js';
+import { getLanguageData } from '../util/languages/languages';
 import ProfilePanelContainer from './common/containers/ProfilePanelContainer';
 import LoadingPage from './common/LoadingPage';
 import EditorAndOutput from './EditorAndOutput/EditorAndOutput';
@@ -21,8 +21,11 @@ import '../styles/Main.scss';
 class ViewOnly extends React.Component {
   constructor(props) {
     super(props);
+
+    const { screenWidth, uid, setTheme } = this.props;
+
     this.state = {
-      viewMode: this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT ? CODE_ONLY : CODE_AND_OUTPUT,
+      viewMode: screenWidth <= EDITOR_WIDTH_BREAKPOINT ? CODE_ONLY : CODE_AND_OUTPUT,
       pane1Style: { transition: 'width .5s ease' },
       sketchName: '',
       language: null,
@@ -32,38 +35,53 @@ class ViewOnly extends React.Component {
       notfound: false,
       originalCode: '',
     };
-    this.savePrevProgram = this.props.uid !== '';
-    this.props.setTheme(cookies.getThemeFromCookie());
+    this.savePrevProgram = uid !== '';
+    setTheme(cookies.getThemeFromCookie());
   }
 
-  componentDidMount = async () => {
+  async componentDidMount() {
+    const {
+      programid, mostRecentProgram, setProgramCode, setProgramLanguage, runCode,
+    } = this.props;
+
     if (this.savePrevProgram) {
       await this.codeSaverHelper();
     }
 
-    const { ok, sketch } = await fetch.getSketch(this.props.programid);
-
-    if (!ok) {
-      this.setState({ notfound: true });
-      return;
-    }
-    const lang = getLanguageData(sketch.language);
-    this.setState({
-      sketchName: sketch.name,
-      language: lang,
-      code: sketch.code,
-      thumbnail: sketch.thumbnail,
-      loaded: true,
-    });
-    this.props.setProgramCode(this.props.mostRecentProgram, sketch.code);
-    this.props.setProgramLanguage(this.props.mostRecentProgram, sketch.language);
-    this.props.runCode(sketch.code, lang);
-  };
+    fetch
+      .getSketch(programid)
+      .then((res) => {
+        if (!res.ok) {
+          this.setState({ notfound: true });
+          return Promise.reject(res);
+        }
+        return res.json();
+      })
+      .then((sketch) => {
+        const lang = getLanguageData(sketch.language);
+        this.setState({
+          sketchName: sketch.name,
+          language: lang,
+          code: sketch.code,
+          thumbnail: sketch.thumbnail,
+          loaded: true,
+        });
+        setProgramCode(mostRecentProgram, sketch.code);
+        setProgramLanguage(mostRecentProgram, sketch.language);
+        runCode(sketch.code, lang);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
 
   componentDidUpdate(prevProps) {
-    if (this.props.screenWidth !== prevProps.screenWidth) {
-      if (this.props.screenWidth <= EDITOR_WIDTH_BREAKPOINT) {
-        if (this.state.viewMode === CODE_AND_OUTPUT) {
+    const { screenWidth } = this.props;
+    const { viewMode } = this.state;
+
+    if (screenWidth !== prevProps.screenWidth) {
+      if (screenWidth <= EDITOR_WIDTH_BREAKPOINT) {
+        if (viewMode === CODE_AND_OUTPUT) {
           this.setState({ viewMode: CODE_ONLY });
         }
       }
@@ -71,76 +89,102 @@ class ViewOnly extends React.Component {
   }
 
   componentWillUnmount() {
+    const { mostRecentProgram, setProgramCode } = this.props;
+    const { originalCode } = this.state;
+
     if (this.savePrevProgram) {
-      this.props.setProgramCode(this.props.mostRecentProgram, this.state.originalCode);
+      setProgramCode(mostRecentProgram, originalCode);
     }
-  };
+  }
 
-  codeSaverHelper = async () => {
-    const { ok: okOriginal, sketch: original } = await fetch.getSketch(
-      this.props.mostRecentProgram,
-    );
+  codeSaverHelper = () => {
+    const { mostRecentProgram } = this.props;
 
-    if (!okOriginal) {
-      this.setState({ notfound: true });
-      return;
-    }
-
-    this.setState({
-      originalCode: original.code,
-    });
+    fetch
+      .getSketch(mostRecentProgram)
+      .then((res) => {
+        if (!res.ok) {
+          this.setState({ notfound: true });
+          return Promise.reject(res);
+        }
+        return res.json();
+      })
+      .then((sketch) => {
+        this.setState({
+          originalCode: sketch.code,
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   onThemeChange = () => {
-    const newTheme = this.props.theme === 'dark' ? 'light' : 'dark';
+    const { theme, setTheme } = this.props;
+
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
     cookies.setThemeCookie(newTheme);
-    this.props.setTheme(newTheme);
+    setTheme(newTheme);
   };
 
   render() {
-    if (this.state.notfound) {
+    const {
+      notfound, loaded, viewMode, pane1Style, language, code, sketchName, thumbnail,
+    } = this.state;
+    const {
+      left,
+      screenWidth,
+      screenHeight,
+      theme,
+      contentType,
+      panelOpen,
+      mostRecentProgram,
+      programid,
+    } = this.props;
+
+    if (notfound) {
       return <PageNotFound />;
     }
-    if (!this.state.loaded) {
+    if (!loaded) {
       return <LoadingPage />;
     }
     const codeStyle = {
-      left: this.props.left || 0,
-      width: this.props.screenWidth - (this.props.left || 0),
-      height: this.props.screenHeight,
+      left: left || 0,
+      width: screenWidth - (left || 0),
+      height: screenHeight,
     };
 
     return (
-      <div className={`main theme-${this.props.theme}`}>
+      <div className={`main theme-${theme}`}>
         <ProfilePanelContainer
-          contentType={this.props.contentType}
-          theme={this.props.theme}
+          contentType={contentType}
+          theme={theme}
           onThemeChange={this.onThemeChange}
         />
         <div className="editor" style={codeStyle}>
           <EditorAndOutput
             // view mode
-            viewMode={this.state.viewMode}
-            updateViewMode={(viewMode) => this.setState({ viewMode })}
+            viewMode={viewMode}
+            updateViewMode={(vm) => this.setState({ viewMode: vm })}
             // theme
-            theme={this.props.theme}
+            theme={theme}
             // sizing
-            left={this.props.left}
-            screenWidth={this.props.screenWidth}
-            screenHeight={this.props.screenHeight}
+            left={left}
+            screenWidth={screenWidth}
+            screenHeight={screenHeight}
             // view only trigger
             viewOnly
             // pane
-            panelOpen={this.props.panelOpen}
-            pane1Style={this.state.pane1Style}
+            panelOpen={panelOpen}
+            pane1Style={pane1Style}
             changePane1Style={(newStyle) => this.setState(newStyle)}
             // program information
-            mostRecentProgram={this.props.mostRecentProgram}
-            language={this.state.language}
-            code={this.state.code}
-            programid={this.props.programid}
-            sketchName={this.state.sketchName}
-            thumbnail={this.state.thumbnail}
+            mostRecentProgram={mostRecentProgram}
+            language={language}
+            code={code}
+            programid={programid}
+            sketchName={sketchName}
+            thumbnail={thumbnail}
           />
         </div>
       </div>
