@@ -197,10 +197,10 @@ class Output extends React.Component {
             id={`${counter} ${run}`}
             key={`${counter} ${run}`}
             className="editor-output-iframe"
-            style={{ height: `${screenHeight - 61}px` }}
+            style={{ height: `${screenHeight + 50}px` }}
           >
-            <textarea id="inner" readOnly />
             <div id="my-canvas" />
+            <textarea id="inner" readOnly />
           </div>
         </div>
       );
