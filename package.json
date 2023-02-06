@@ -13,7 +13,7 @@
     "cross-env": "^7.0.3",
     "crypto-js": "^4.1.1",
     "firebase": "^9.12.1",
-    "immutable": "^4.0.0",
+    "immutable": "^4.2.4",
     "react": "^16.14.0",
     "react-codemirror2": "^7.2.1",
     "react-dom": "^16.14.0",
