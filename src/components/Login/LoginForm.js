@@ -5,7 +5,11 @@ import { RingLoader } from 'react-spinners';
 import { Button } from 'reactstrap';
 
 import { EMAIL_DOMAIN_NAME } from '../../constants';
-import { signInWithEmailAndPassword, getCreateUserErrorMessage } from '../../firebase';
+import {
+  signInWithEmailAndPassword,
+  signInAnonymously,
+  getCreateUserErrorMessage,
+} from '../../firebase';
 import LoginInput from './LoginInput';
 import '../../styles/Login.scss';
 
@@ -15,6 +19,20 @@ export default function LoginModal(props) {
   const [errorMsg, setErrorMsg] = useState('');
   const [waiting, setWaiting] = useState(false);
   const [hoverButton, setHoverButton] = useState(false);
+
+  const handleAnonymousLogin = (e) => {
+    setWaiting(true);
+    setErrorMsg('');
+
+    e.preventDefault();
+    signInAnonymously()
+      .then(() => {})
+      .catch((err) => {
+        console.error(err);
+        setErrorMsg(getCreateUserErrorMessage(err));
+        setWaiting(false);
+      });
+  };
 
   const handleEmailLogin = (e) => {
     setWaiting(true);
@@ -106,6 +124,7 @@ export default function LoginModal(props) {
         >
           or, create an account
         </Link>
+        <Button onClick={handleAnonymousLogin}>or continue as guest</Button>
       </div>
     );
   };
