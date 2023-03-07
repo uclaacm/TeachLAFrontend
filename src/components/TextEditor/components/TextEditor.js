@@ -205,25 +205,30 @@ const TextEditor = function (props) {
   const renderEditorAction = () => {
     if (viewOnly) {
       if (uid) {
-        <ViewportAwareButton
-          size="lg"
-          onClick={openForkModal}
-          isSmall={screenWidth <= EDITOR_WIDTH_BREAKPOINT}
-          icon={<FontAwesomeIcon icon={faCodeBranch} />}
-          text="Fork"
-        />;
+        return (
+          <ViewportAwareButton
+            size="lg"
+            onClick={openForkModal}
+            isSmall={screenWidth <= EDITOR_WIDTH_BREAKPOINT}
+            icon={<FontAwesomeIcon icon={faCodeBranch} />}
+            text="Fork"
+          />
+        );
       }
     } else {
-      <ViewportAwareButton
-        className="mx-2"
-        color="success"
-        size="lg"
-        onClick={handleSave}
-        isSmall={screenWidth <= EDITOR_WIDTH_BREAKPOINT}
-        icon={<FontAwesomeIcon icon={faSave} />}
-        text={saveText}
-      />;
+      return (
+        <ViewportAwareButton
+          className="mx-2"
+          color="success"
+          size="lg"
+          onClick={handleSave}
+          isSmall={screenWidth <= EDITOR_WIDTH_BREAKPOINT}
+          icon={<FontAwesomeIcon icon={faSave} />}
+          text={saveText}
+        />
+      );
     }
+    return null;
   };
 
   const renderBanner = () => {
