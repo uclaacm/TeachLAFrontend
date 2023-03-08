@@ -130,6 +130,17 @@
   color: #686868;
 }
 
+.login-guest-button {
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  /*optional*/
+  color: #069;
+  text-decoration: underline;
+  cursor: pointer;
+  vertical-align: baseline;
+}
+
 /* stylelint-disable-next-line selector-pseudo-element-no-unknown */
 .login-modal ::input-placeholder {
   /* Chrome/Opera/Safari */
