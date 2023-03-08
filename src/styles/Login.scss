@@ -131,15 +131,17 @@
 }
 
 .login-guest-button {
-  background: none !important;
+  background: none;
   border: none;
-
-  /* optional */
-  color: #069;
   cursor: pointer;
-  padding: 0 !important;
+  padding: 0;
   text-decoration: underline;
   vertical-align: baseline;
+}
+
+.login-guest-button:hover {
+  background: none;
+  border: none;
 }
 
 /* stylelint-disable-next-line selector-pseudo-element-no-unknown */
