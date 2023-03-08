@@ -107,9 +107,9 @@
 
 .login-form-input {
   appearance: none;
+  border-color: #949494;
   border-radius: 8px;
   border-style: solid;
-  border-color: #949494;
   box-shadow: none;
   color: $theme-dark;
   display: inline-block;
@@ -131,13 +131,14 @@
 }
 
 .login-guest-button {
-  background: none!important;
+  background: none !important;
   border: none;
-  padding: 0!important;
-  /*optional*/
+
+  /* optional */
   color: #069;
-  text-decoration: underline;
   cursor: pointer;
+  padding: 0 !important;
+  text-decoration: underline;
   vertical-align: baseline;
 }
 
