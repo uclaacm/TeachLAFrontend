@@ -131,6 +131,10 @@
   @include themify($themes) {
     background-color: themed('backgroundColor');
   }
+  .cm-s-material .CodeMirror-matchingbracket {
+    background-color: rgba(0, 255, 0, 0.4);
+    text-decoration: none;
+  }
 }
 
 .btn-language-dropdown {
