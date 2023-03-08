@@ -99,11 +99,6 @@ export default function LoginModal(props) {
       width: '100%',
     };
 
-    const subLinkStyle = {
-      color: 'var(--bs-blue)',
-      verticalAlign: 'baseline',
-    };
-
     const subButtonStyle = {
       color: 'var(--bs-blue)',
     };
@@ -136,7 +131,7 @@ export default function LoginModal(props) {
               state: { username, password },
             }}
             className="login-form-link"
-            style={subLinkStyle}
+            style={subButtonStyle}
           >
             Sign up
           </Link>
