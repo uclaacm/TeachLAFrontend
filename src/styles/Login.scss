@@ -107,14 +107,11 @@
 
 .login-form-input {
   appearance: none;
-  background-color: $theme-dark;
-  border: 0;
-  border-left: 0;
   border-radius: 8px;
-  border-right: 0;
-  border-top: 0;
+  border-style: solid;
+  border-color: #949494;
   box-shadow: none;
-  color: $off-white;
+  color: $theme-dark;
   display: inline-block;
   font-size: 1.5em;
   font-variant-ligatures: none;
@@ -143,9 +140,6 @@
 
 .login-form-link {
   color: inherit;
-  font-size: 1.2rem;
-  margin-left: 5px;
-  text-decoration: none;
 }
 
 .login-form-link:hover {

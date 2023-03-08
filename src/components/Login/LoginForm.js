@@ -26,7 +26,7 @@ export default function LoginModal(props) {
 
     e.preventDefault();
     signInAnonymously()
-      .then(() => {})
+      .then(() => { })
       .catch((err) => {
         console.error(err);
         setErrorMsg(getCreateUserErrorMessage(err));
@@ -44,7 +44,7 @@ export default function LoginModal(props) {
 
     if (email && passwordHash) {
       signInWithEmailAndPassword(email, passwordHash)
-        .then(() => {})
+        .then(() => { })
         .catch((err) => {
           console.error(err);
           setErrorMsg(getCreateUserErrorMessage(err));
@@ -66,7 +66,7 @@ export default function LoginModal(props) {
       );
     }
 
-    return <br />;
+    return null;
   };
 
   const renderInputs = () => (
@@ -81,21 +81,27 @@ export default function LoginModal(props) {
 
   const renderAction = () => {
     const { themeColor, textColor } = props;
-    const unclickedStyle = {
+    const clickedStyle = {
       backgroundColor: 'white',
       borderColor: themeColor,
       borderWidth: 'medium',
       borderRadius: '4px',
       color: 'black',
+      width: '100%',
     };
 
-    const clickedStyle = {
+    const unclickedStyle = {
       backgroundColor: themeColor,
       borderColor: themeColor,
       borderWidth: 'medium',
       borderRadius: '4px',
       color: textColor,
+      width: '100%',
     };
+
+    const subButtonStyle = {
+      color: 'var(--bs-blue)',
+    }
 
     if (waiting) {
       return (
@@ -105,7 +111,7 @@ export default function LoginModal(props) {
       );
     }
     return (
-      <div>
+      <div className="mt-2" style={{ width: '50%' }}>
         <Button
           size="lg"
           type="submit"
@@ -115,25 +121,21 @@ export default function LoginModal(props) {
         >
           Login
         </Button>
-        <Link
-          to={{
-            pathname: '/createUser',
-            state: { username, password },
-          }}
-          className="login-form-link ml-4"
-        >
-          or, create an account
-        </Link>
-        <Button onClick={handleAnonymousLogin}>or continue as guest</Button>
-      </div>
-    );
-  };
-
-  return (
-    <div>
-      <form className="login-form" onSubmit={handleEmailLogin}>
-        {renderInputs()}
-        {renderAction()}
+        <hr className='mt-4 mb-3' />
+        <p style={{ color: '#595959', textAlign: 'center' }} className='mb-4'>Don't have an account?<br />
+          <Link
+            to={{
+              pathname: '/createUser',
+              state: { username, password },
+            }}
+            className="login-form-link"
+            style={subButtonStyle}
+          >
+            Sign up
+          </Link>
+          <span> or </span>
+          <Link onClick={handleAnonymousLogin} style={subButtonStyle}>continue as guest</Link>
+        </p>
         {!waiting && (
           <details className="mt-2">
             <summary>Forgot your password?</summary>
@@ -147,6 +149,15 @@ export default function LoginModal(props) {
             </p>
           </details>
         )}
+      </div>
+    );
+  };
+
+  return (
+    <div>
+      <form className="login-form" onSubmit={handleEmailLogin}>
+        {renderInputs()}
+        {renderAction()}
       </form>
     </div>
   );
