@@ -118,16 +118,28 @@
   height: auto;
   line-height: normal;
   margin: 0 2px 1rem; /* last value controls how far the next input starts */
-  max-width: 400px;
-  min-width: 300px;
   outline: 0;
   padding: 0.2rem 0.5rem;
   transition: box-shadow 70ms ease-out, border-color 70ms ease-out;
-  width: 50%;
+  width: clamp(300px, 50%, 400px);
 }
 
 .login-form-input:disabled {
   color: #686868;
+}
+
+.login-main-button {
+  border-radius: 4px;
+  border-width: medium;
+  width: clamp(300px, 50%, 400px);
+}
+
+.login-sub-options {
+  width: clamp(300px, 50%, 400px);
+
+  @media only screen and (max-width: 1024px) {
+    margin: auto;
+  }
 }
 
 .login-guest-button {

@@ -84,19 +84,13 @@ export default function LoginModal(props) {
     const clickedStyle = {
       backgroundColor: 'white',
       borderColor: themeColor,
-      borderWidth: 'medium',
-      borderRadius: '4px',
       color: 'black',
-      width: '100%',
     };
 
     const unclickedStyle = {
       backgroundColor: themeColor,
       borderColor: themeColor,
-      borderWidth: 'medium',
-      borderRadius: '4px',
       color: textColor,
-      width: '100%',
     };
 
     const subButtonStyle = {
@@ -111,39 +105,45 @@ export default function LoginModal(props) {
       );
     }
     return (
-      <div className="mt-2 w-50">
+      <div className="mt-2">
         <Button
           size="lg"
           type="submit"
+          className="login-main-button"
           style={hoverButton ? clickedStyle : unclickedStyle}
           onMouseEnter={() => setHoverButton(!hoverButton)}
           onMouseLeave={() => setHoverButton(!hoverButton)}
         >
           Login
         </Button>
-        <hr className="mt-4 mb-3" />
-        <p style={{ color: '#595959', textAlign: 'center' }} className="mb-4">
-          Don&apos;t have an account?
-          <br />
-          <Link
-            to={{
-              pathname: '/createUser',
-              state: { username, password },
-            }}
-            className="login-form-link"
-            style={subButtonStyle}
+        <div className="login-sub-options">
+          <hr className="mt-4 mb-3" />
+          <p
+            style={{ color: '#595959', textAlign: 'center', width: '100%' }}
+            className="mb-4 w-100"
           >
-            Sign up
-          </Link>
-          {' or '}
-          <Button
-            onClick={handleAnonymousLogin}
-            className="login-guest-button"
-            style={subButtonStyle}
-          >
-            continue as guest
-          </Button>
-        </p>
+            Don&apos;t have an account?
+            <br />
+            <Link
+              to={{
+                pathname: '/createUser',
+                state: { username, password },
+              }}
+              className="login-form-link"
+              style={subButtonStyle}
+            >
+              Sign up
+            </Link>
+            {' or '}
+            <Button
+              onClick={handleAnonymousLogin}
+              className="login-guest-button"
+              style={subButtonStyle}
+            >
+              continue as guest
+            </Button>
+          </p>
+        </div>
         {!waiting && (
           <details className="mt-2">
             <summary>Forgot your password?</summary>
