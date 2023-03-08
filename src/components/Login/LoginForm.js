@@ -26,7 +26,7 @@ export default function LoginModal(props) {
 
     e.preventDefault();
     signInAnonymously()
-      .then(() => { })
+      .then(() => {})
       .catch((err) => {
         console.error(err);
         setErrorMsg(getCreateUserErrorMessage(err));
@@ -44,7 +44,7 @@ export default function LoginModal(props) {
 
     if (email && passwordHash) {
       signInWithEmailAndPassword(email, passwordHash)
-        .then(() => { })
+        .then(() => {})
         .catch((err) => {
           console.error(err);
           setErrorMsg(getCreateUserErrorMessage(err));
@@ -99,9 +99,14 @@ export default function LoginModal(props) {
       width: '100%',
     };
 
+    const subLinkStyle = {
+      color: 'var(--bs-blue)',
+      verticalAlign: 'baseline',
+    };
+
     const subButtonStyle = {
       color: 'var(--bs-blue)',
-    }
+    };
 
     if (waiting) {
       return (
@@ -121,20 +126,28 @@ export default function LoginModal(props) {
         >
           Login
         </Button>
-        <hr className='mt-4 mb-3' />
-        <p style={{ color: '#595959', textAlign: 'center' }} className='mb-4'>Don't have an account?<br />
+        <hr className="mt-4 mb-3" />
+        <p style={{ color: '#595959', textAlign: 'center' }} className="mb-4">
+          Don&apos;t have an account?
+          <br />
           <Link
             to={{
               pathname: '/createUser',
               state: { username, password },
             }}
             className="login-form-link"
-            style={subButtonStyle}
+            style={subLinkStyle}
           >
             Sign up
           </Link>
           <span> or </span>
-          <Link onClick={handleAnonymousLogin} style={subButtonStyle}>continue as guest</Link>
+          <Button
+            onClick={handleAnonymousLogin}
+            className="login-guest-button"
+            style={subButtonStyle}
+          >
+            continue as guest
+          </Button>
         </p>
         {!waiting && (
           <details className="mt-2">
