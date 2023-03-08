@@ -111,7 +111,7 @@ export default function LoginModal(props) {
       );
     }
     return (
-      <div className="mt-2" style={{ width: '50%' }}>
+      <div className="mt-2 w-50">
         <Button
           size="lg"
           type="submit"
