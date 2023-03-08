@@ -140,7 +140,7 @@ export default function LoginModal(props) {
           >
             Sign up
           </Link>
-          <span> or </span>
+          {' or '}
           <Button
             onClick={handleAnonymousLogin}
             className="login-guest-button"
