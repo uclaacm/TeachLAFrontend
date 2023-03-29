@@ -21,6 +21,12 @@ import 'codemirror/mode/python/python';
 import 'codemirror/mode/jsx/jsx';
 import 'codemirror/mode/clike/clike';
 
+import 'codemirror/addon/edit/matchbrackets';
+import 'codemirror/addon/edit/closebrackets';
+
+import 'codemirror/addon/edit/closetag';
+import 'codemirror/addon/edit/matchtags';
+
 /** ----------Props--------
  * None
  */
@@ -285,6 +291,10 @@ const TextEditor = function (props) {
      */
     lineWrapping: true,
     indentWithTabs: true,
+    matchBrackets: true,
+    autoCloseBrackets: true,
+    matchTags: true,
+    autoCloseTags: true,
   };
 
   return (
