@@ -5,7 +5,11 @@ import { RingLoader } from 'react-spinners';
 import { Button } from 'reactstrap';
 
 import { EMAIL_DOMAIN_NAME } from '../../constants';
-import { signInWithEmailAndPassword, getCreateUserErrorMessage } from '../../firebase';
+import {
+  signInWithEmailAndPassword,
+  signInAnonymously,
+  getCreateUserErrorMessage,
+} from '../../firebase';
 import LoginInput from './LoginInput';
 import '../../styles/Login.scss';
 
@@ -15,6 +19,20 @@ export default function LoginModal(props) {
   const [errorMsg, setErrorMsg] = useState('');
   const [waiting, setWaiting] = useState(false);
   const [hoverButton, setHoverButton] = useState(false);
+
+  const handleAnonymousLogin = (e) => {
+    setWaiting(true);
+    setErrorMsg('');
+
+    e.preventDefault();
+    signInAnonymously()
+      .then(() => {})
+      .catch((err) => {
+        console.error(err);
+        setErrorMsg(getCreateUserErrorMessage(err));
+        setWaiting(false);
+      });
+  };
 
   const handleEmailLogin = (e) => {
     setWaiting(true);
@@ -48,7 +66,7 @@ export default function LoginModal(props) {
       );
     }
 
-    return <br />;
+    return null;
   };
 
   const renderInputs = () => (
@@ -63,20 +81,20 @@ export default function LoginModal(props) {
 
   const renderAction = () => {
     const { themeColor, textColor } = props;
-    const unclickedStyle = {
+    const clickedStyle = {
       backgroundColor: 'white',
       borderColor: themeColor,
-      borderWidth: 'medium',
-      borderRadius: '4px',
       color: 'black',
     };
 
-    const clickedStyle = {
+    const unclickedStyle = {
       backgroundColor: themeColor,
       borderColor: themeColor,
-      borderWidth: 'medium',
-      borderRadius: '4px',
       color: textColor,
+    };
+
+    const subButtonStyle = {
+      color: 'var(--bs-blue)',
     };
 
     if (waiting) {
@@ -87,34 +105,45 @@ export default function LoginModal(props) {
       );
     }
     return (
-      <div>
+      <div className="mt-2">
         <Button
           size="lg"
           type="submit"
+          className="login-main-button"
           style={hoverButton ? clickedStyle : unclickedStyle}
           onMouseEnter={() => setHoverButton(!hoverButton)}
           onMouseLeave={() => setHoverButton(!hoverButton)}
         >
           Login
         </Button>
-        <Link
-          to={{
-            pathname: '/createUser',
-            state: { username, password },
-          }}
-          className="login-form-link ml-4"
-        >
-          or, create an account
-        </Link>
-      </div>
-    );
-  };
-
-  return (
-    <div>
-      <form className="login-form" onSubmit={handleEmailLogin}>
-        {renderInputs()}
-        {renderAction()}
+        <div className="login-sub-options">
+          <hr className="mt-4 mb-3" />
+          <p
+            style={{ color: '#595959', textAlign: 'center', width: '100%' }}
+            className="mb-4 w-100"
+          >
+            Don&apos;t have an account?
+            <br />
+            <Link
+              to={{
+                pathname: '/createUser',
+                state: { username, password },
+              }}
+              className="login-form-link"
+              style={subButtonStyle}
+            >
+              Sign up
+            </Link>
+            {' or '}
+            <Button
+              onClick={handleAnonymousLogin}
+              className="login-guest-button"
+              style={subButtonStyle}
+            >
+              continue as guest
+            </Button>
+          </p>
+        </div>
         {!waiting && (
           <details className="mt-2">
             <summary>Forgot your password?</summary>
@@ -128,6 +157,15 @@ export default function LoginModal(props) {
             </p>
           </details>
         )}
+      </div>
+    );
+  };
+
+  return (
+    <div>
+      <form className="login-form" onSubmit={handleEmailLogin}>
+        {renderInputs()}
+        {renderAction()}
       </form>
     </div>
   );

@@ -35,7 +35,7 @@ const gradientColors = {
 const themeColors = {
   0: ['#FF5F54', 'white'],
   1: ['#36C5FC', 'white'],
-  2: ['#ACF53F', 'white'],
+  2: ['#ACF53F', 'black'],
   3: ['#FFF065', 'black'],
   4: ['#FF94DB', 'white'],
 };

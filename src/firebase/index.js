@@ -4,6 +4,7 @@ import {
   onAuthStateChanged,
   signOut,
   signInWithEmailAndPassword,
+  signInAnonymously,
   createUserWithEmailAndPassword,
 } from 'firebase/auth';
 
@@ -43,6 +44,7 @@ const onAuthStateChangedFn = (...args) => onAuthStateChanged(auth, ...args);
 const signOutFn = (...args) => signOut(auth, ...args);
 const createUserWithEmailAndPasswordFn = (...args) => createUserWithEmailAndPassword(auth, ...args);
 const signInWithEmailAndPasswordFn = (...args) => signInWithEmailAndPassword(auth, ...args);
+const signInAnonymouslyFn = (...args) => signInAnonymously(auth, ...args);
 
 const getCreateUserErrorMessage = (err) => {
   let newMsg = err.message;
@@ -89,5 +91,6 @@ export {
   signOutFn as signOut,
   createUserWithEmailAndPasswordFn as createUserWithEmailAndPassword,
   signInWithEmailAndPasswordFn as signInWithEmailAndPassword,
+  signInAnonymouslyFn as signInAnonymously,
   getCreateUserErrorMessage,
 };

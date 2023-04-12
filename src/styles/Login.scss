@@ -107,30 +107,53 @@
 
 .login-form-input {
   appearance: none;
-  background-color: $theme-dark;
-  border: 0;
-  border-left: 0;
+  border-color: #949494;
   border-radius: 8px;
-  border-right: 0;
-  border-top: 0;
+  border-style: solid;
   box-shadow: none;
-  color: $off-white;
+  color: $theme-dark;
   display: inline-block;
   font-size: 1.5em;
   font-variant-ligatures: none;
   height: auto;
   line-height: normal;
   margin: 0 2px 1rem; /* last value controls how far the next input starts */
-  max-width: 400px;
-  min-width: 300px;
   outline: 0;
   padding: 0.2rem 0.5rem;
   transition: box-shadow 70ms ease-out, border-color 70ms ease-out;
-  width: 50%;
+  width: clamp(300px, 50%, 400px);
 }
 
 .login-form-input:disabled {
   color: #686868;
+}
+
+.login-main-button {
+  border-radius: 4px;
+  border-width: medium;
+  width: clamp(300px, 50%, 400px);
+}
+
+.login-sub-options {
+  width: clamp(300px, 50%, 400px);
+
+  @media only screen and (max-width: 1024px) {
+    margin: auto;
+  }
+}
+
+.login-guest-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+  vertical-align: baseline;
+}
+
+.login-guest-button:hover {
+  background: none;
+  border: none;
 }
 
 /* stylelint-disable-next-line selector-pseudo-element-no-unknown */
@@ -143,9 +166,6 @@
 
 .login-form-link {
   color: inherit;
-  font-size: 1.2rem;
-  margin-left: 5px;
-  text-decoration: none;
 }
 
 .login-form-link:hover {
