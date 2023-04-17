@@ -1,4 +1,4 @@
-@import 'styles/variables.scss';
+@import "styles/variables";
 
 .CodeMirror-lines {
   cursor: default;
@@ -9,61 +9,61 @@
 /* comments, e.g. // # /* */
 .cm-comment {
   @include themify($themes) {
-    color: themed('comment');
+    color: themed("comment");
   }
 }
 
 /* import for while in etc */
 span.cm-keyword {
   @include themify($themes) {
-    color: themed('keyword');
+    color: themed("keyword");
   }
 }
 
 /* e.g. var *blah*, blah will be colored */
 span.cm-def {
   @include themify($themes) {
-    color: themed('def');
+    color: themed("def");
   }
 }
 
 /* e.g. var *blah*, blah will be colored */
 span.cm-variable {
   @include themify($themes) {
-    color: themed('variable');
+    color: themed("variable");
   }
 }
 
 /* for python: print, range, all built-in functions */
 .cm-builtin {
   @include themify($themes) {
-    color: themed('builtin');
+    color: themed("builtin");
   }
 }
 
 /* 1 2 -11 etc */
 .cm-number {
   @include themify($themes) {
-    color: themed('number');
+    color: themed("number");
   }
 }
 
 /* + - > < etc */
 .cm-operator {
   @include themify($themes) {
-    color: themed('operator');
+    color: themed("operator");
   }
 }
 
 .cm-property {
   @include themify($themes) {
-    color: themed('property');
+    color: themed("property");
   }
 }
 
 .CodeMirror {
   box-sizing: border-box;
-  font-family: 'Ubuntu Mono', monospace;
+  font-family: "JetBrains Mono", monospace;
   font-size: 18px;
   height: 100%;
   max-height: inherit;
@@ -71,8 +71,8 @@ span.cm-variable {
   min-height: inherit;
 
   @include themify($themes) {
-    background-color: themed('backgroundColor');
-    color: themed('color');
+    background-color: themed("backgroundColor");
+    color: themed("color");
   }
 }
 
@@ -90,8 +90,8 @@ span.cm-variable {
   width: 41px;
 
   @include themify($themes) {
-    background-color: themed('backgroundColor');
-    color: themed('color');
+    background-color: themed("backgroundColor");
+    color: themed("color");
   }
 }
 
@@ -102,7 +102,7 @@ span.cm-variable {
   width: 23px;
 
   @include themify($themes) {
-    color: themed('color');
+    color: themed("color");
   }
 }
 
@@ -116,13 +116,13 @@ span.cm-variable {
 }
 
 .CodeMirror-cursor::after {
-  background-color: rgba(255, 255, 255, 0);
-  background-image: url('./triangle.png');
+  background-color: rgb(255 255 255 / 0%);
+  background-image: url("./triangle.png");
   background-position: left top;
   background-repeat: no-repeat;
   background-size: 20px auto;
-  color: rgba(255, 255, 255, 0);
-  content: '';
+  color: rgb(255 255 255 / 0%);
+  content: "";
   height: 500px;
   left: -10px;
   margin-top: 26px;
@@ -130,7 +130,8 @@ span.cm-variable {
   width: 500px;
 }
 
-/* required for safari because it places the ::after element differently than chrome/fiefox; taken from https://stackoverflow.com/questions/16348489/is-there-a-css-hack-for-safari-only-not-chrome */
+/* required for safari because it places the ::after element differently than chrome/fiefox;
+taken from https://stackoverflow.com/questions/16348489/is-there-a-css-hack-for-safari-only-not-chrome */
 @media not all and (min-resolution: 0.001dpcm) {
   .CodeMirror-cursor::after {
     margin-top: 2px;
