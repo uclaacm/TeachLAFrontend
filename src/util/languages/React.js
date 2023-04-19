@@ -58,6 +58,6 @@ const getReactSrcDocBody = (code, showConsole) => `
     </body>
   `;
 
-export default function (code, showConsole) {
+export default function CreateReactDoc(code, showConsole) {
   return `<html> ${getReactSrcDocHead()} ${getReactSrcDocBody(code, showConsole)}</html>`;
 }
