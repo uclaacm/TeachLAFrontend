@@ -1,4 +1,4 @@
-import { getJsSrcDocLoggingScript } from './languages.js';
+import getJsSrcDocLoggingScript from './JsSourceDocLoggingScript';
 
 const getUserScript = (code) => `
   <script type="text/javascript">
@@ -46,6 +46,6 @@ const getProcessingSrcDocHead = () => `
     </head>
   `;
 
-export default function (code, showConsole) {
+export default function CreateProcessingDoc(code, showConsole) {
   return `<html> ${getProcessingSrcDocHead()} ${getProcessingSrcDocBody(code, showConsole)}</html>`;
 }
