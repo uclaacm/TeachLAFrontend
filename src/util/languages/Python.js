@@ -1,8 +1,6 @@
 import Sk from 'skulpt';
 
-export default function (code) {
-  const prog = atob(code);
-
+export default function CreatePythonDoc(prog) {
   function outf(text) {
     const mypre = document.getElementById('inner');
     let received;
