@@ -142,6 +142,16 @@ taken from https://stackoverflow.com/questions/16348489/is-there-a-css-hack-for-
   overflow: hidden !important;
 }
 
+/* highlights matching bracket when user clicks on one of the brackets */
+.CodeMirror-matchingbracket {
+  text-decoration: none;
+
+  @include themify($themes) {
+    background-color: themed("highlightBracket");
+    color: themed('color');
+  }
+}
+
 /* most of the codemirror styles we can override for text
 .cm-s-material .CodeMirror-activeline-background { background: rgba(0, 0, 0, 0); }
 .cm-s-material .cm-operator { color: rgba(233, 237, 237, 1); }
