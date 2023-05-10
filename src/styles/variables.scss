@@ -72,6 +72,7 @@ $themes: (
     property: #056d45,
     cursor: #f4ee94,
     selectedLine: $off-white,
+    highlightBracket: rgba(174, 214, 67, 0.4), //$teachla-green but with lower opacity
   ),
   dark: (
     // defaults
@@ -96,6 +97,7 @@ $themes: (
     property: #80cbae,
     cursor: #f4ee94,
     selectedLine: rgba(255, 255, 255, 0.1),
+    highlightBracket: rgba(40, 170, 38, 0.4), //$teachla-secondary-2 but with lower opacity
   ),
 );
 
