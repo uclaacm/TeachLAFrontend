@@ -8,7 +8,7 @@ import SketchBox from '../../common/SketchBox';
 
 import '../../../styles/SketchBox.scss';
 
-const SKETCHES_ROW_PADDING = 100;
+const FILES_ROW_PADDING = 100;
 const SKETCH_WIDTH = 220;
 
 const ClassSketchList = function ({
@@ -65,7 +65,7 @@ const ClassSketchList = function ({
   }
 
   // TODO: This should be a flexbox, instead of this
-  const numSketchesPerRow = Math.floor((calculatedWidth - SKETCHES_ROW_PADDING) / SKETCH_WIDTH);
+  const numSketchesPerRow = Math.floor((calculatedWidth - FILES_ROW_PADDING) / SKETCH_WIDTH);
   const rows = [];
   const originalLength = sketchList.length;
   for (let i = 0; i < originalLength / numSketchesPerRow; i++) {
