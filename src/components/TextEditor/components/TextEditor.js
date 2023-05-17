@@ -151,7 +151,7 @@ const TextEditor = function (props) {
       <p className="text-center">Forking...</p>;
     } else if (forked) {
       <div>
-        <p className="text-center">Sketch forked! Go to your files to see your new copy!</p>
+        <p className="text-center">Sketch forked! Go to your sketches to see your new copy!</p>
         <Button color="danger" size="lg" onClick={closeForkModal} block>
           Close
         </Button>
