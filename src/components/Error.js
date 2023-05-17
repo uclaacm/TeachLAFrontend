@@ -30,7 +30,7 @@ function Error({ errorMsg, returnTo = null, isValidUser }) {
         &nbsp;
         {isValidUser && (
           <Button color="danger" size="lg" onClick={() => signOut()}>
-            Log Out asd
+            Log Out
           </Button>
         )}
         <Footer />
