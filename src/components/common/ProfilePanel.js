@@ -260,7 +260,7 @@ function ProfilePanel(props) {
       id="sketches-button"
     >
       <FontAwesomeIcon icon={faBook} />
-      <span className="panel-button-text">Sketches</span>
+      <span className="panel-button-text">Files</span>
     </Link>
   );
 

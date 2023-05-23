@@ -57,7 +57,7 @@ class Sketches extends React.Component {
   renderHeader = () => (
     <div className="sketches-header">
       <OpenPanelButtonContainer />
-      <div className="sketches-header-text">Sketches</div>
+      <div className="sketches-header-text">Files</div>
       <Button
         className="ml-auto mr-2"
         color="success"
@@ -66,7 +66,7 @@ class Sketches extends React.Component {
       >
         <FontAwesomeIcon icon={faFile} />
         {' '}
-        Create Sketch
+        Create File
       </Button>
     </div>
   );
@@ -86,11 +86,11 @@ class Sketches extends React.Component {
       return (
         <div>
           <div className="no-sketches-container">
-            <h2>There&apos;s nothing here! Why don&apos;t you try creating a sketch?</h2>
+            <h2>There&apos;s nothing here! Why don&apos;t you try creating a file?</h2>
             <br />
             <p>
               <Button color="success" size="lg" onClick={() => this.setCreateSketchModalOpen(true)}>
-                Create A Sketch
+                Create A File
               </Button>
             </p>
           </div>

@@ -8,20 +8,12 @@ import { ThumbnailArray } from '../../../constants';
 import * as fetch from '../../../lib/fetch';
 import DropdownButton from '../../common/DropdownButton';
 import ImageSelector from '../../common/ImageSelector';
-import {
-  LanguageDropdownValues,
-  LanguageDropdownDefault,
-} from '../constants';
+import { LanguageDropdownValues, LanguageDropdownDefault } from '../constants';
 import '../../../styles/SketchesModal.scss';
 
 const CreateSketchModal = (props) => {
   const {
-    onClose,
-    uid,
-    isOpen,
-    addProgram,
-    setMostRecentProgram,
-    wid,
+    onClose, uid, isOpen, addProgram, setMostRecentProgram, wid,
   } = props;
   const toggleProps = { className: '', color: 'primary', size: 'lg' };
 
@@ -215,7 +207,7 @@ const CreateSketchModal = (props) => {
       ariaHideApp={false}
     >
       <Container>
-        <h1 className="text-center">Create a Sketch</h1>
+        <h1 className="text-center">Create a File</h1>
         <hr />
         <FormGroup row>
           <Label className="text-right" for="sketch-name" xs={4}>
