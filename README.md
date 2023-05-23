@@ -48,6 +48,12 @@ $ npm start
 
 The client should now be automatically opened in your browser; however, you can also manually visit it on `localhost:8080`. Note that we've also opened a copy of the go backend on `localhost:8081`.
 
+### Issues with starting up the app?
+
+If you have followed these steps and are running into Node.js errors like the following: "error:0308010C:digital envelope routines::unsupported", it may be because you are running an newer version of Git that is not currently supported by this app.
+
+To fix this issue, download NVM and downgrade to v16.20.0. Windows users can visit https://github.com/coreybutler/nvm-windows. Mac users can use Homebrew and run the following command `brew install nvm`.
+
 ## Notes for Developers:
 
 - every time you pull from master, make sure to run `npm install` - it's likely that some dependency has changed!
