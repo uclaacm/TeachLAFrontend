@@ -31,7 +31,7 @@ import 'codemirror/addon/edit/matchtags';
  * None
  */
 
-const TextEditor = function (props) {
+const TextEditor = (props) => {
   const [codeMirrorInstance, setCodeMirrorInstance] = useState(null);
   const [currentLine, setCurrentLine] = useState(0);
   const [showForkModal, setShowForkModal] = useState(false);

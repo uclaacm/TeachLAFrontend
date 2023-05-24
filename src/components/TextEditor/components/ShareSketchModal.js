@@ -44,7 +44,7 @@ function ShareSketchModal(props) {
       onRequestClose={toggleModal}
       ariaHideApp={false}
     >
-      <h2 className="text-center">Share This Sketch</h2>
+      <h2 className="text-center">Share This File</h2>
       <InputGroup>
         <Input value={shareUrl} disabled />
         <Button color="primary" onClick={initiateCopy}>

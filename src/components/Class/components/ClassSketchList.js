@@ -49,7 +49,8 @@ const ClassSketchList = function ({
   // Button for instructors to add a sketch to the class.
   if (isInstr) {
     sketchList.push(
-      <div
+      <button
+        type="button"
         key="add-sketch"
         className="add-sketch-box sketch-box"
         onClick={() => setCreateSketchModalOpen(true)}
@@ -60,7 +61,7 @@ const ClassSketchList = function ({
         <div className="fa-lg">
           <b>Add a sketch</b>
         </div>
-      </div>,
+      </button>,
     );
   }
 
