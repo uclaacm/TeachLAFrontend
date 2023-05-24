@@ -151,12 +151,12 @@ const TextEditor = function (props) {
       <p className="text-center">Forking...</p>;
     } else if (forked) {
       <div>
-        <p className="text-center">File forked! Go to your files to see your new copy!</p>
+        <p className="text-center">Sketch forked! Go to your sketches to see your new copy!</p>
         <Button color="danger" size="lg" onClick={closeForkModal} block>
           Close
         </Button>
         <Button color="success" size="lg" onClick={redirectSketch} block>
-          Go to Files
+          Go to Sketches
         </Button>
       </div>;
     } else {
@@ -179,9 +179,9 @@ const TextEditor = function (props) {
       overlayClassName="profile-image-overlay"
       ariaHideApp={false}
     >
-      <h1 className="text-center">Fork This File</h1>
+      <h1 className="text-center">Fork This Sketch</h1>
       {!(forking || forked) && (
-        <p className="text-center">Would you like to create your own copy of this file?</p>
+        <p className="text-center">Would you like to create your own copy of this sketch?</p>
       )}
       {renderForkModalActions()}
     </ReactModal>

@@ -8,7 +8,7 @@ import SketchBox from '../../common/SketchBox';
 
 import '../../../styles/SketchBox.scss';
 
-const FILES_ROW_PADDING = 100;
+const SKETCHES_ROW_PADDING = 100;
 const SKETCH_WIDTH = 220;
 
 const ClassSketchList = function ({
@@ -49,7 +49,8 @@ const ClassSketchList = function ({
   // Button for instructors to add a sketch to the class.
   if (isInstr) {
     sketchList.push(
-      <div
+      <button
+        type="button"
         key="add-sketch"
         className="add-sketch-box sketch-box"
         onClick={() => setCreateSketchModalOpen(true)}
@@ -60,12 +61,12 @@ const ClassSketchList = function ({
         <div className="fa-lg">
           <b>Add a sketch</b>
         </div>
-      </div>,
+      </button>,
     );
   }
 
   // TODO: This should be a flexbox, instead of this
-  const numSketchesPerRow = Math.floor((calculatedWidth - FILES_ROW_PADDING) / SKETCH_WIDTH);
+  const numSketchesPerRow = Math.floor((calculatedWidth - SKETCHES_ROW_PADDING) / SKETCH_WIDTH);
   const rows = [];
   const originalLength = sketchList.length;
   for (let i = 0; i < originalLength / numSketchesPerRow; i++) {
