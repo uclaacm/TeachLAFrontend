@@ -49,9 +49,9 @@ const ConfirmDeleteModal = (props) => {
           // then we need to re-populate it with something different.
           if (programKeys.size > 0 && sketchKey === mostRecentProgram) {
             if (sketchKey === programKeys.get(0)) {
-              setMostRecentProgram(programKeys.get(1), uid);
+              setMostRecentProgram(programKeys.get(1));
             } else {
-              setMostRecentProgram(programKeys.get(0), uid);
+              setMostRecentProgram(programKeys.get(0));
             }
           }
 
