@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 
+import { setMostRecentProgram } from '../actions/userDataActions';
 import { EDITOR_WIDTH_BREAKPOINT, CODE_AND_OUTPUT, CODE_ONLY } from '../constants';
 import * as cookies from '../lib/cookies';
 import * as fetch from '../lib/fetch';
+import store from '../store';
 import ClassPageContainer from './Class/containers/ClassPageContainer';
 import ClassesPageContainer from './Classes/containers/ClassesContainer';
 import ProfilePanelContainer from './common/containers/ProfilePanelContainer';
@@ -18,7 +20,7 @@ import '../styles/Main.scss';
  * left: the left css property that should be applied on the top level element
  */
 
-const Main = function ({
+function Main({
   screenWidth,
   theme,
   dirty,
@@ -41,6 +43,13 @@ const Main = function ({
     screenWidth <= EDITOR_WIDTH_BREAKPOINT ? CODE_ONLY : CODE_AND_OUTPUT,
   );
   const [pane1Style, setPane1Style] = useState({ transition: 'width .5s ease' });
+
+  // Keep mostRecentProgram consistent with programid in the URL
+  useEffect(() => {
+    if (programid !== undefined) {
+      store.dispatch(setMostRecentProgram(programid));
+    }
+  }, [programid]);
 
   // Set theme from cookies (yum)
   useEffect(() => {
@@ -147,5 +156,5 @@ const Main = function ({
       </div>
     </div>
   );
-};
+}
 export default Main;

@@ -1,3 +1,5 @@
+import history from '../history';
+
 export const LOAD_USER_DATA = 'LOAD_USER_DATA';
 export function loadUserData(uid, userData) {
   // add uid to the userData object
@@ -51,7 +53,15 @@ export function programUploadFailure(error) {
 
 export const SET_MOST_RECENT_PROGRAM = 'SET_MOST_RECENT_PROGRAM';
 export function setMostRecentProgram(program) {
-  return { type: SET_MOST_RECENT_PROGRAM, value: program };
+  return (dispatch, getState) => {
+    if (getState().userData.mostRecentProgram !== program) {
+      // push to history if the URL isn't already on the right program
+      if (window.location.pathname !== `/editor/${program}`) {
+        history.push(`/editor/${program}`);
+      }
+      dispatch({ type: SET_MOST_RECENT_PROGRAM, value: program });
+    }
+  };
 }
 
 export const SET_PHOTO_NAME = 'SET_PHOTO_NAME';
