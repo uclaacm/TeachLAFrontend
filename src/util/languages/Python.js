@@ -28,18 +28,14 @@ export default function CreatePythonDoc(prog) {
   Sk.pre = 'output';
   Sk.configure({ output: outf, read: builtinRead, __future__: Sk.python3 });
   (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = 'my-canvas';
-  const myPromise = Sk.misceval.asyncToPromise(() => Sk.importMainWithBody('<stdin>', false, prog, true));
-  myPromise.then(
-    () => {},
-    // without this, the error function below gets called
-    // when the program is successful
-    (err) => {
+  Sk.misceval
+    .asyncToPromise(() => Sk.importMainWithBody('<stdin>', false, prog, true))
+    .catch((err) => {
       const b = document.getElementById('output');
       if (b) {
         b.style.display = 'block';
       }
       const a = document.getElementById('inner');
       a.value += `\nERROR: ${err.toString()}`;
-    },
-  );
+    });
 }
