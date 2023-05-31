@@ -71,17 +71,10 @@ const EditSketchModal = (props) => {
       return true;
     }
 
-    let notFound = true;
-    for (let i = 0; i < LanguageDropdownValues.length; i++) {
-      if (
-        newLanguage.display === LanguageDropdownValues[i].display
-        && newLanguage.value === LanguageDropdownValues[i].value
-      ) {
-        notFound = false;
-        break;
-      }
-    }
-    if (notFound) {
+    const noMatch = !LanguageDropdownValues.some(
+      (l) => l.display === newLanguage.display && l.value === newLanguage.value,
+    );
+    if (noMatch) {
       setError('Invalid language selected');
       return true;
     }
