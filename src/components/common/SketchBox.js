@@ -44,22 +44,14 @@ function SketchBox({
       <hr className="sketch-divider" />
       <Row className="sketch-box-body">
         {buttonData
-          .filter((data) => data.func)
-          .map((data) => (
-            <Col className="p-2 text-center" onClick={data.func} key={data.icon.iconName}>
-              <FontAwesomeIcon className="fa-lg" icon={data.icon} />
+          .map((button) => (
+            <Col className="p-2 text-center" onClick={button.func} key={button.icon.iconName}>
+              <FontAwesomeIcon className="fa-lg" icon={button.icon} />
             </Col>
           ))
-          .reduce(
-            (acc, curr) => (acc.length > 0
-              ? [
-                ...acc,
-                <div className="sketch-button-divider" key={`divider-${acc.length}`} />,
-                curr,
-              ]
-              : [curr]),
-            [],
-          )}
+          // put a thin divider between each button
+          .flatMap((e, i) => [e, <div className="sketch-button-divider" key={i} />])
+          .slice(0, -1)}
       </Row>
     </div>
   );
