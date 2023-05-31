@@ -11,11 +11,8 @@ import '../../../styles/SketchBox.scss';
 const SKETCHES_ROW_PADDING = 100;
 const SKETCH_WIDTH = 220;
 
-const ClassSketchList = function ({
-  calculatedWidth,
-  isInstr,
-  programData,
-  setCreateSketchModalOpen,
+function ClassSketchList({
+  calculatedWidth, isInstr, programData, setCreateSketchModalOpen,
 }) {
   const newList = programData?.concat([]) || [];
   newList.sort((a, b) => {
@@ -42,7 +39,7 @@ const ClassSketchList = function ({
       downloadFunc={() => {
         CodeDownloader.download(name, language, code);
       }}
-      pathname={isInstr ? '/editor' : `/p/${uid}`}
+      pathname={isInstr ? `/editor/${uid}` : `/p/${uid}`}
     />
   ));
 
@@ -78,6 +75,6 @@ const ClassSketchList = function ({
   }
   if (rows.length === 0) return 'No sketches found';
   return <div className="class-sketches-grid">{rows}</div>;
-};
+}
 
 export default ClassSketchList;

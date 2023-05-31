@@ -48,12 +48,6 @@ class Sketches extends React.Component {
     });
   };
 
-  setProgram = (name) => {
-    const { uid, setMostRecentProgram } = this.props;
-
-    setMostRecentProgram(name, uid);
-  };
-
   renderHeader = () => (
     <div className="sketches-header">
       <OpenPanelButtonContainer />
@@ -128,9 +122,7 @@ class Sketches extends React.Component {
               key,
             );
           }}
-          redirFunc={() => {
-            this.setProgram(key);
-          }}
+          pathname={`/editor/${key}`}
         />,
       );
     });

@@ -1,10 +1,12 @@
 import React from 'react';
 import {
-  BrowserRouter as Router, Route, Redirect, Switch,
+  Router, Route, Redirect, Switch,
 } from 'react-router-dom';
 
 import { ROUTER_BASE_NAME } from '../constants';
 import { onAuthStateChanged } from '../firebase';
+import history from '../history';
+import store from '../store';
 import LoadingPage from './common/LoadingPage';
 import LoginPage from './containers/LoginContainer';
 import MainContainer from './containers/MainContainer';
@@ -90,10 +92,10 @@ class App extends React.Component {
     const isValidUser = uid;
 
     return (
-      <Router basename={ROUTER_BASE_NAME}>
+      <Router basename={ROUTER_BASE_NAME} history={history}>
         <div className="app">
           <Switch>
-            {/* if the user is loggedIn, redirect them to the editor, otherwise, show the login page*? */}
+            {/* if the user is loggedIn, redirect them to the editor, otherwise, show the login page */}
             <Route
               exact
               path="/"
@@ -107,7 +109,7 @@ class App extends React.Component {
                 return <LoginPage />;
               }}
             />
-            {/* if the user is loggedIn, redirect them to the editor, otherwise, show the login page*? */}
+            {/* if the user is loggedIn, redirect them to the editor, otherwise, show the login page */}
             <Route
               path="/login"
               render={() => {
@@ -120,20 +122,23 @@ class App extends React.Component {
                 return <LoginPage />;
               }}
             />
-            {/* if the user is not loggedIn, redirect them to the login page, otherwise, show the editor page*? */}
+            {/* if the user is not loggedIn, redirect them to the login page, otherwise, show the editor page */}
             <Route
-              path="/editor"
-              render={() => {
+              path="/editor/:programid?"
+              render={({ match }) => {
                 if (errorMsg !== '') {
                   return <Error errorMsg={errorMsg} isValidUser={isValidUser} />;
                 }
                 if (!isValidUser) {
                   return <Redirect to="/login" />;
                 }
-                return <MainContainer contentType="editor" />;
+                if (!match.params.programid) {
+                  return <Redirect to={`/editor/${store.getState().userData.mostRecentProgram}`} />;
+                }
+                return <MainContainer contentType="editor" programid={match.params.programid} />;
               }}
             />
-            {/* if the user is loggedIn, redirect them to the editor page, otherwise, show the createUser page*? */}
+            {/* if the user is loggedIn, redirect them to the editor page, otherwise, show the createUser page */}
             <Route
               path="/createUser"
               render={({ location }) => {
@@ -146,7 +151,7 @@ class App extends React.Component {
                 return <LoginPage create initialState={location.state} />;
               }}
             />
-            {/* if the user isn't loggedIn, redirect them to the login page, otherwise, show the view page*? */}
+            {/* if the user isn't loggedIn, redirect them to the login page, otherwise, show the view page */}
             <Route
               path="/sketches"
               render={() => {
@@ -162,8 +167,8 @@ class App extends React.Component {
             {/* Get program endpoint */}
             <Route
               path="/p/:programid"
-              render={(props) => (
-                <ViewOnlyContainer contentType="view" programid={props.match.params.programid} />
+              render={({ match }) => (
+                <ViewOnlyContainer contentType="view" programid={match.params.programid} />
               )}
             />
             {/* Class page */}
