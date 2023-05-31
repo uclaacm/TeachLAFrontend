@@ -7,15 +7,7 @@ import * as fetch from '../../../lib/fetch';
 
 const ConfirmDeleteModal = (props) => {
   const {
-    onClose,
-    isOpen,
-    sketchName,
-    uid,
-    sketchKey,
-    deleteProgram,
-    mostRecentProgram,
-    programKeys,
-    setMostRecentProgram,
+    onClose, isOpen, sketchName, uid, sketchKey, deleteProgram,
   } = props;
 
   const [_spinner, setSpinner] = useState(true);
@@ -37,25 +29,13 @@ const ConfirmDeleteModal = (props) => {
       fetch
         .deleteSketch(data)
         .then((res) => {
-          if (!res.ok) {
+          if (res.ok) {
+            deleteProgram(sketchKey);
+            closeModal();
+          } else {
             setSpinner(false);
             setError(res.text() || 'Failed to delete sketch, please try again later');
-            return;
           }
-
-          deleteProgram(sketchKey);
-
-          // this next piece of code is a guard against deleting mostRecentProgram - if we do,
-          // then we need to re-populate it with something different.
-          if (programKeys.size > 0 && sketchKey === mostRecentProgram) {
-            if (sketchKey === programKeys.get(0)) {
-              setMostRecentProgram(programKeys.get(1));
-            } else {
-              setMostRecentProgram(programKeys.get(0));
-            }
-          }
-
-          closeModal();
         })
         .catch((err) => {
           setSpinner(false);

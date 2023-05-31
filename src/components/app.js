@@ -133,7 +133,19 @@ class App extends React.Component {
                   return <Redirect to="/login" />;
                 }
                 if (!match.params.programid) {
-                  return <Redirect to={`/editor/${store.getState().userData.mostRecentProgram}`} />;
+                  const lastMostRecentProgram = store.getState().userData.mostRecentProgram;
+                  const programKeys = store.getState().programs.keySeq();
+                  if (programKeys.includes(lastMostRecentProgram)) {
+                    return <Redirect to={`/editor/${lastMostRecentProgram}`} />;
+                  }
+                  // mostRecentProgram no longer exists, fall back to one of the
+                  // programs that does exist
+                  if (programKeys.get(0)) {
+                    return <Redirect to={`/editor/${programKeys.get(0)}`} />;
+                  }
+                  // No programs exist, redirect to /sketches so the user can make one
+
+                  return <Redirect to="/sketches" />;
                 }
                 return <MainContainer contentType="editor" programid={match.params.programid} />;
               }}
