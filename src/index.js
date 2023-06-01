@@ -8,11 +8,11 @@ import Root from './components/containers/AppContainer';
 import registerServiceWorker from './registerServiceWorker';
 import store from './store';
 
-ReactDOM.render(
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
   <Provider store={store}>
     <Root />
-  </Provider>,
-  document.getElementById('root'),
+  </Provider>
 );
 
 registerServiceWorker();
