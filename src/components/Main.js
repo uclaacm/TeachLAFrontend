@@ -47,6 +47,13 @@ function Main({
   // Keep mostRecentProgram consistent with programid in the URL
   useEffect(() => {
     if (programid !== undefined) {
+      try {
+        fetch.updateUserData(uid, { mostRecentProgram: programid }).catch((err) => {
+          console.error(err);
+        });
+      } catch (err) {
+        console.error(err);
+      }
       store.dispatch(setMostRecentProgram(programid));
     }
   }, [programid]);
