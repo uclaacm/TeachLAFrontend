@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { setOutput } from '../../actions/outputActions.js';
 import { setProgramDirty } from '../../actions/programsActions.js';
-import { togglePanel, setTheme } from '../../actions/uiActions.js';
+import { togglePanel, setTheme } from '../../reducers/uiReducer';
 
 import { setMostRecentProgram } from '../../actions/userDataActions.js';
 import { CLOSED_PANEL_LEFT, OPEN_PANEL_LEFT, PANEL_SIZE } from '../../constants';

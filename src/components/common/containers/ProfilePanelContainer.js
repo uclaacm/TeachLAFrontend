@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { togglePanel } from '../../../actions/uiActions';
+import { togglePanel } from '../../../reducers/uiReducer'
 import { setDisplayName, setPhotoName } from '../../../actions/userDataActions';
 import { DEFAULT_PHOTO_NAME, CLOSED_PANEL_LEFT, OPEN_PANEL_LEFT } from '../../../constants';
 import * as fetch from '../../../lib/fetch';

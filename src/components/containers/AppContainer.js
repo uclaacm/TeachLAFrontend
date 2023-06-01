@@ -5,7 +5,7 @@
 import { connect } from 'react-redux';
 import { clearClasses } from '../../actions/classesActions';
 import { loadPrograms, clearPrograms } from '../../actions/programsActions';
-import { screenResize } from '../../actions/uiActions';
+import { screenResize } from '../../reducers/uiReducer';
 import { loadUserData, clearUserData, loadFailure } from '../../actions/userDataActions.js';
 import * as fetch from '../../lib/fetch.js';
 import App from '../app.js';

@@ -1,6 +1,6 @@
 import Immutable from 'immutable';
 import { connect } from 'react-redux';
-import { togglePanel } from '../../../actions/uiActions';
+import { togglePanel } from '../../../reducers/uiReducer'
 import { setMostRecentProgram } from '../../../actions/userDataActions';
 import { OPEN_PANEL_LEFT, CLOSED_PANEL_LEFT, PANEL_SIZE } from '../../../constants';
 import * as fetch from '../../../lib/fetch';
