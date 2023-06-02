@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { deleteProgram } from '../../../actions/programsActions';
+import { deleteProgram } from '../../../reducers/programsReducer'
 import ConfirmDeleteModal from '../components/ConfirmDeleteModal';
 
 const mapStateToProps = (state) => ({ uid: state.userData.uid });

@@ -4,7 +4,7 @@
 */
 import { connect } from 'react-redux';
 import { clearClasses } from '../../actions/classesActions';
-import { loadPrograms, clearPrograms } from '../../actions/programsActions';
+import { setPrograms, clearPrograms } from '../../reducers/programsReducer'
 import { screenResize } from '../../reducers/uiReducer';
 import { loadUserData, clearUserData, loadFailure } from '../../actions/userDataActions.js';
 import * as fetch from '../../lib/fetch.js';
@@ -24,7 +24,7 @@ const mapDispatchToProps = (dispatch) => ({
     // if the request went fine, and there's a non empty userData
     if (ok && data && data.userData && Object.keys(data.userData).length) {
       if (data.programs) {
-        dispatch(loadPrograms(data.programs));
+        dispatch(setPrograms(data.programs));
       }
       dispatch(loadUserData(uid, data.userData));
     } else {

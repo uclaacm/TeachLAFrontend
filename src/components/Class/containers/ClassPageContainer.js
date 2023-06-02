@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { addInstrClass, addStudentClass } from '../../../actions/classesActions';
-import { addProgram } from '../../../actions/programsActions';
+import { addProgram } from '../../../reducers/programsReducer'
 import { togglePanel } from '../../../reducers/uiReducer';
 import { setMostRecentProgram } from '../../../actions/userDataActions';
 import { OPEN_PANEL_LEFT, CLOSED_PANEL_LEFT, PANEL_SIZE } from '../../../constants';

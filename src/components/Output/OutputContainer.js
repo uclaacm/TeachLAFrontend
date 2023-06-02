@@ -2,12 +2,12 @@ import { connect } from 'react-redux';
 import { getLanguageData } from '../../util/languages/languages.js';
 import Output from './Output.js';
 
-const mapStateToProps = (state) => {
-  const { mostRecentProgram } = state.userData;
+const mapStateToProps = (state, ownProps) => {
+  const mostRecentProgram = ownProps.program;
   return {
     mostRecentProgram,
-    runResult: state.programs.getIn([mostRecentProgram, 'code']),
-    language: getLanguageData(state.programs.getIn([mostRecentProgram, 'language'])),
+    runResult: state.programs[mostRecentProgram].code,
+    language: getLanguageData(state.programs[mostRecentProgram].language),
     screenHeight: state.ui.screenHeight,
     screenWidth: state.ui.screenWidth, // probably will need this
   };

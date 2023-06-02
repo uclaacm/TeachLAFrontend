@@ -1,4 +1,3 @@
-import Immutable from 'immutable';
 import { connect } from 'react-redux';
 import { togglePanel } from '../../../reducers/uiReducer'
 import { setMostRecentProgram } from '../../../actions/userDataActions';
@@ -9,11 +8,8 @@ import Sketches from '../index';
 
 const mapStateToProps = (state) => {
   const { mostRecentProgram } = state.userData;
-  const programs = state.programs.keySeq().map((id) => {
-    const temp = state.programs.get(id, Immutable.Map()).toJS();
-    temp.key = id;
-    temp.language = getLanguageData(temp.language);
-    return temp;
+  const programs = Object.entries(state.programs).map(([k, v]) => {
+    return { ...v, key: k, language: getLanguageData(v.language) }
   });
 
   const left = (state.ui.panelOpen ? OPEN_PANEL_LEFT : CLOSED_PANEL_LEFT) + PANEL_SIZE;

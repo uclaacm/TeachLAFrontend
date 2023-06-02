@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import SplitPane from 'react-split-pane';
 import {
-  EDITOR_WIDTH_BREAKPOINT, CODE_ONLY, OUTPUT_ONLY, PANEL_SIZE,
+  EDITOR_WIDTH_BREAKPOINT, CODE_ONLY, OUTPUT_ONLY, CODE_AND_OUTPUT, PANEL_SIZE, CLOSED_PANEL_LEFT
 } from '../../constants';
 import CodeDownloader from '../../util/languages/CodeDownloader';
 import OutputContainer from '../Output/OutputContainer';
 import TextEditorContainer from '../TextEditor/containers/TextEditorContainer';
+
+import { useSelector, useDispatch } from 'react-redux'
 
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/material.css';
@@ -16,34 +18,82 @@ import '../../styles/Editor.scss';
 
 const EditorAndOutput = function (props) {
   const {
-    sketchName,
-    language,
-    code,
-    pane1Style,
+    // sketchName,
+    // language,
+    // code,
+    // pane1Style,
     changePane1Style,
-    panelOpen,
-    screenWidth,
-    mostRecentProgram,
-    viewMode,
-    updateViewMode,
-    screenHeight,
-    theme,
+    // panelOpen,
+    // screenWidth,
+    // viewMode,
+    // updateViewMode,
+    // screenHeight,
+    // theme,
     viewOnly,
     programid,
-    handleSave,
-    saveText,
+    // handleSave,
+    // saveText,
     thumbnail,
-    left,
+    // left,
   } = props;
+
+  const [saveText, setSaveText] = useState('Save');
+  const [viewMode, setViewMode] = useState(
+    screenWidth <= EDITOR_WIDTH_BREAKPOINT ? CODE_ONLY : CODE_AND_OUTPUT,
+  );
+  const [pane1Style, setPane1Style] = useState({ transition: 'width .5s ease' });
+
+  useEffect(() => {
+    if (screenWidth <= EDITOR_WIDTH_BREAKPOINT) {
+      if (viewMode === CODE_AND_OUTPUT) {
+        setViewMode(CODE_ONLY);
+      }
+    }
+  }, [screenWidth, viewMode]);
+
+
+  const dispatch = useDispatch();
+
+  const theme = useSelector(state => state.ui.theme);
+  const panelOpen = useSelector(state => state.ui.panelOpen);
+  const left = (panelOpen ? OPEN_PANEL_LEFT : CLOSED_PANEL_LEFT) + PANEL_SIZE;
+  const screenWidth = useSelector(state => state.ui.screenWidth);
+  const screenHeight = useSelector(state => state.ui.screenHeight);
+
+  /* NOTE: the selector is subscribing to any changes in state.programs[mostRecentProgram], not
+   * code, dirty, name, or language, but this is alright for our purposes */
+  const { code, dirty, name: sketchName, language } = useSelector(state => {
+    return state.programs[programid]
+  });
   const handleDownload = () => {
     CodeDownloader.download(sketchName, language, code);
+  };
+  const resetSaveText = () => {
+    setSaveText('Save');
+  };
+
+  const handleSave = () => {
+    if (!dirty) return; // Don't save if not dirty (unedited)
+    setSaveText('Saving...');
+
+    const programToUpdate = {};
+    programToUpdate[programid] = {
+      code,
+    };
+
+    fetch.updatePrograms(uid, programToUpdate).then(() => {
+      setSaveText('Saved!');
+      setTimeout(resetSaveText, 3000);
+    });
+
+    dispatch(setProgramDirty({ program: programid, dirty: false }));
   };
 
   const renderCode = () => (
     <TextEditorContainer
-      key={mostRecentProgram}
+      key={programid}
       viewMode={viewMode}
-      updateViewMode={updateViewMode}
+      updateViewMode={setViewMode}
       screenHeight={screenHeight}
       screenWidth={screenWidth}
       theme={theme}
@@ -61,11 +111,12 @@ const EditorAndOutput = function (props) {
   const renderOutput = () => (
     <OutputContainer
       viewMode={viewMode}
-      updateViewMode={updateViewMode}
+      updateViewMode={setViewMode}
       isSmall={screenWidth <= EDITOR_WIDTH_BREAKPOINT}
       viewOnly={viewOnly}
       vLanguage={language}
       code={code}
+      program={programid}
     />
   );
 

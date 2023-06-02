@@ -7,19 +7,21 @@ import DropdownButton from '../../common/DropdownButton';
 const mapStateToProps = (state) => {
   const { mostRecentProgram } = state.userData;
 
+  console.log('DBDWEFWEFE', mostRecentProgram, "bob");
+
   const mostRecentLanguage = getLanguageData(
-    state.programs.getIn([mostRecentProgram, 'language'], 'python'),
+    state.programs[mostRecentProgram].language
   );
 
-  const displayValue = ` ${state.programs.getIn([mostRecentProgram, 'name'], mostRecentProgram)}`;
+  const displayValue = ` ${state.programs[mostRecentProgram].name}`;
 
-  const programStateValues = state.programs.keySeq().map((id) => ({
-    display: state.programs.getIn([id, 'name'], id),
+  const programStateValues = Object.keys(state.programs).map((id) => ({
+    display: state.programs[id].name,
     value: id,
-    icon: getLanguageData(state.programs.getIn([id, 'language'], 'python')).icon,
+    icon: getLanguageData(state.programs[id].language).icon,
   }));
 
-  const dirty = state.programs.getIn([mostRecentProgram, 'dirty'], false);
+  const dirty = state.programs[mostRecentProgram].dirty;
 
   const displayClass = 'editor';
 

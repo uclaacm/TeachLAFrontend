@@ -41,7 +41,7 @@ const TextEditor = (props) => {
   const [showShareModal, setShowShareModal] = useState(false);
   const {
     dirty,
-    mostRecentProgram,
+    program,
     code,
     dirtyCode,
     setProgramCode,
@@ -94,9 +94,9 @@ const TextEditor = (props) => {
   const updateCode = (editor, data, newCode) => {
     // if the code's not yet dirty, and the old code is different from the new code, make it dirty
     if (!dirty && code !== newCode) {
-      dirtyCode(mostRecentProgram);
+      dirtyCode(program);
     }
-    setProgramCode(mostRecentProgram, newCode);
+    setProgramCode(program, newCode);
   };
 
   const setCurrentLineManual = (cm) => {
@@ -247,7 +247,7 @@ const TextEditor = (props) => {
           src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${thumbnailArray}.svg`}
           alt="sketch thumbnail"
         />
-        {viewOnly ? renderSketchName() : <DropdownButtonContainer />}
+        {/* {viewOnly ? renderSketchName() : <DropdownButtonContainer />} */}
         <div style={{ marginLeft: 'auto', marginRight: '.5rem' }}>
           <EditorRadio
             viewMode={viewMode}
@@ -303,7 +303,7 @@ const TextEditor = (props) => {
         {renderBanner()}
         {renderForkModal()}
         <ShareSketchModal
-          shareUrl={skt.constructShareableSketchURL(mostRecentProgram)}
+          shareUrl={skt.constructShareableSketchURL(program)}
           showModal={showShareModal}
           toggleModal={toggleShareModal}
         />
