@@ -147,7 +147,7 @@ class App extends React.Component {
 
                   return <Redirect to="/sketches" />;
                 }
-                return <MainContainer contentType="editor" programid={match.params.programid} />;
+                return <Main contentType="editor" programid={match.params.programid} />;
               }}
             />
             {/* if the user is loggedIn, redirect them to the editor page, otherwise, show the createUser page */}
@@ -171,7 +171,7 @@ class App extends React.Component {
                   return <Error errorMsg={errorMsg} isValidUser={isValidUser} />;
                 }
                 if (isValidUser) {
-                  return <MainContainer contentType="sketches" />;
+                  return <Main contentType="sketches" />;
                 }
                 return <Redirect to="/login" />;
               }}
@@ -194,7 +194,7 @@ class App extends React.Component {
                   return <Redirect to="/login" />;
                 }
                 if (developerAcc) {
-                  return <MainContainer contentType="classPage" />;
+                  return <Main contentType="classPage" />;
                 }
                 return <Redirect to="/sketches" />;
               }}

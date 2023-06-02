@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import SplitPane from 'react-split-pane';
 import {
-  EDITOR_WIDTH_BREAKPOINT, CODE_ONLY, OUTPUT_ONLY, CODE_AND_OUTPUT, PANEL_SIZE, CLOSED_PANEL_LEFT
+  EDITOR_WIDTH_BREAKPOINT, CODE_ONLY, OUTPUT_ONLY, CODE_AND_OUTPUT, PANEL_SIZE, CLOSED_PANEL_LEFT, OPEN_PANEL_LEFT
 } from '../../constants';
 import CodeDownloader from '../../util/languages/CodeDownloader';
 import OutputContainer from '../Output/OutputContainer';
 import TextEditorContainer from '../TextEditor/containers/TextEditorContainer';
 
 import { useSelector, useDispatch } from 'react-redux'
+
+import { setProgramDirty } from 'reducers/programsReducer'
+
+import * as fetch from '../../lib/fetch'
 
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/material.css';
@@ -18,23 +22,11 @@ import '../../styles/Editor.scss';
 
 const EditorAndOutput = function (props) {
   const {
-    // sketchName,
-    // language,
-    // code,
-    // pane1Style,
+    uid,
     changePane1Style,
-    // panelOpen,
-    // screenWidth,
-    // viewMode,
-    // updateViewMode,
-    // screenHeight,
-    // theme,
     viewOnly,
     programid,
-    // handleSave,
-    // saveText,
     thumbnail,
-    // left,
   } = props;
 
   const [saveText, setSaveText] = useState('Save');
@@ -51,7 +43,6 @@ const EditorAndOutput = function (props) {
     }
   }, [screenWidth, viewMode]);
 
-
   const dispatch = useDispatch();
 
   const theme = useSelector(state => state.ui.theme);
@@ -60,7 +51,7 @@ const EditorAndOutput = function (props) {
   const screenWidth = useSelector(state => state.ui.screenWidth);
   const screenHeight = useSelector(state => state.ui.screenHeight);
 
-  /* NOTE: the selector is subscribing to any changes in state.programs[mostRecentProgram], not
+  /* NOTE: the selector is subscribing to any changes in state.programs[programid], not ONLY
    * code, dirty, name, or language, but this is alright for our purposes */
   const { code, dirty, name: sketchName, language } = useSelector(state => {
     return state.programs[programid]
