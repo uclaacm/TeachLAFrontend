@@ -25,8 +25,8 @@ const mapDispatchToProps = (dispatch) => ({
   setProgramCode: (program, code) => {
     dispatch(setProgramCode({ program, code }));
   },
-  setProgramLanguage: (program, lang) => {
-    dispatch(setProgramLanguage({ program, lang }));
+  setProgramLanguage: (program, language) => {
+    dispatch(setProgramLanguage({ program, language }));
   },
   setTheme: (theme) => dispatch(setTheme(theme)),
 });

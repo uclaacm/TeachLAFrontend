@@ -122,8 +122,8 @@ const EditorAndOutput = function (props) {
       pane1Style={pane1Style}
       // functions called when you start and finish a drag
       // removes and re-addsthe transition effect on the first panel when manually resizing
-      onDragStarted={() => changePane1Style({})}
-      onDragFinished={() => changePane1Style({ transition: 'width .5s ease' })}
+      // onDragStarted={() => setPane1Style({})}
+      // onDragFinished={() => setPane1Style({ transition: 'width .5s ease' })}
       split="vertical" // the resizer is a vertical line (horizontal means resizer is a horizontal bar)
       // minimum size of code is 33% of the remaining screen size
       minSize={(panelOpen ? screenWidth - PANEL_SIZE : screenWidth) * 0.33}

@@ -25,10 +25,8 @@ function Main({
 
   // Keep mostRecentProgram consistent with programid in the URL
   useEffect(() => {
-    console.log(`our effect is happening with programid ${programid}`)
     if (programid !== undefined) {
       try {
-        console.log(`updating ${programid}`)
         fetch.updateUserData(uid, { mostRecentProgram: programid }).catch((err) => {
           console.error(err);
         });

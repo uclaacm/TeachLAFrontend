@@ -26,6 +26,9 @@ import 'codemirror/addon/edit/closebrackets';
 
 import 'codemirror/addon/edit/closetag';
 import 'codemirror/addon/edit/matchtags';
+import { useDispatch, useSelector } from 'react-redux';
+import { addProgram, setProgramDirty, setProgramCode } from 'reducers/programsReducer'
+import { getLanguageData } from 'util/languages/languages';
 
 /** ----------Props--------
  * None
@@ -40,34 +43,29 @@ const TextEditor = (props) => {
   const [redirectToSketch, setRedirectToSketch] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
   const {
-    dirty,
     program,
-    code,
-    dirtyCode,
-    setProgramCode,
     vthumbnail,
     vlanguage,
-    sketchName,
-    uid,
-    theme,
-    thumbnail,
-    addProgram,
     viewMode,
     viewOnly,
     updateViewMode,
     screenHeight,
     screenWidth,
-    language,
     handleSave,
     handleDownload,
     saveText,
   } = props;
 
-  //= =============React Lifecycle Functions====================//
+  const dispatch = useDispatch();
+
+  const uid = useSelector(state => state.userData.uid);
+  const theme = useSelector(state => state.ui.theme);
+  const { dirty, code, thumbnail, language, name: sketchName } = useSelector(state => state.programs[program]);
 
   const onLeave = async (ev) => {
     const newev = ev;
     if (dirty) {
+      /* open a dialog asking user to confirm, since there are unsaved changes */
       newev.returnValue = '';
     }
     return newev;
@@ -92,11 +90,10 @@ const TextEditor = (props) => {
   };
 
   const updateCode = (editor, data, newCode) => {
-    // if the code's not yet dirty, and the old code is different from the new code, make it dirty
     if (!dirty && code !== newCode) {
-      dirtyCode(program);
+      dispatch(setProgramDirty({ program, dirty: true }));
     }
-    setProgramCode(program, newCode);
+    dispatch(setProgramCode({ program, code: newCode }));
   };
 
   const setCurrentLineManual = (cm) => {
@@ -136,7 +133,7 @@ const TextEditor = (props) => {
           const { uid2, ...programData } = json;
           setForking(false);
           setForked(true);
-          addProgram(uid2, programData || {});
+          dispatch(addProgram({ program: uid2, data: programData || {} }));
         })
         .catch((err) => {
           console.error(err);
@@ -198,11 +195,11 @@ const TextEditor = (props) => {
    */
   const getCMTheme = (newTheme) => {
     switch (newTheme) {
-    case 'light':
-      return 'duotone-light';
-    case 'dark':
-    default:
-      return 'material';
+      case 'light':
+        return 'duotone-light';
+      case 'dark':
+      default:
+        return 'material';
     }
   };
 
@@ -247,7 +244,7 @@ const TextEditor = (props) => {
           src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${thumbnailArray}.svg`}
           alt="sketch thumbnail"
         />
-        {/* {viewOnly ? renderSketchName() : <DropdownButtonContainer />} */}
+        {viewOnly ? renderSketchName() : <DropdownButtonContainer program={program} />}
         <div style={{ marginLeft: 'auto', marginRight: '.5rem' }}>
           <EditorRadio
             viewMode={viewMode}
@@ -281,7 +278,7 @@ const TextEditor = (props) => {
   }
   // json required by CodeMirror
   const options = {
-    mode: viewOnly ? vlanguage.codemirror : language.codemirror,
+    mode: getLanguageData(viewOnly ? vlanguage : language).codemirror,
     theme: getCMTheme(theme),
     lineNumbers: true, // text editor has line numbers
     /**
@@ -328,7 +325,6 @@ const TextEditor = (props) => {
               setCurrentLineManual(cm);
             }}
             onBeforeChange={updateCode}
-            onChange={updateCode}
           />
         </div>
       </div>
