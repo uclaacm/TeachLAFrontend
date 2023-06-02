@@ -9,7 +9,7 @@ import history from '../history';
 import store from '../store';
 import LoadingPage from './common/LoadingPage';
 import LoginPage from './containers/LoginContainer';
-import MainContainer from './containers/MainContainer';
+import Main from './Main'
 import ViewOnlyContainer from './containers/ViewOnlyContainer';
 import Error from './Error';
 import PageNotFound from './PageNotFound';
