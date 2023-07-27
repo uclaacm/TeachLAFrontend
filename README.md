@@ -20,7 +20,9 @@ You'll need:
 
 There are actually two different ways to run the app locally on your machine - one that uses our staging backend server, and one where you'll run it locally. Usually, the staging server is totally fine to use, but having the backend makes more sense if you're working on a new feature or are editing the backend.
 
-### Using the Staging Server (Easier)
+### Connecting to a backend
+
+#### Using the Staging Server (Recommended)
 
 We'll follow the standard node project workflow. Type the following lines into your command line:
 
@@ -33,7 +35,7 @@ $ npm run staging_start # not npm run start!
 
 And voila! `create-react-app` should automatically open a new browser window with the editor; give it a few seconds to start up and you should be good to go. You can also manually visit it on `localhost:8080`.
 
-### Using a Local Server (More Flexible)
+#### Using a Local Server (More Flexible)
 
 Here, you'll run our backend on your local machine - you can find more information on that [here](https://github.com/uclaacm/teach-la-go-backend).
 
