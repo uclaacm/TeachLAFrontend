@@ -133,7 +133,7 @@ describe('Radio', () => {
       .at(0)
       .simulate('click');
     expect(clickFn.mock.calls[1][0]).toBe('banana');
-    expect(component.state().selected).toBe('banana');
+    expect(component.state().selected).toBe('banana'); //TODO: refactor 
     expect(component.find('.radio-option-selected').text()).toBe('Nice');
   });
 
@@ -144,7 +144,7 @@ describe('Radio', () => {
     const component = shallow(
       <Radio options={validOptions} handleClick={clickFn} allowMultipleSelected />,
     );
-    expect(component.state().selected).toHaveLength(0);
+    expect(component.state().selected).toHaveLength(0); //TODO: refactor
 
     // check that the default state prop still works
     const component2 = shallow(

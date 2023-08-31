@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import '../../styles/Radio.scss';
 /**
  * Props
@@ -25,74 +25,65 @@ import '../../styles/Radio.scss';
  *                        changes handle click to be called with all selected values
  */
 
-export default class Radio extends React.Component {
-  constructor(props) {
-    super(props);
 
-    let selected = this.props.defaultSelected;
-    if (this.props.allowMultipleSelected) {
-      selected = selected || [];
-    }
-
-    this.state = {
-      selected,
-    };
+const Radio = (props) => {
+  let defaultSelected = props.defaultSelected;
+  
+  if (props.allowMultipleSelected){
+      defaultSelected = defaultSelected || [];
   }
+  
+  const [selected, setSelected] = useState(defaultSelected);
 
-  updateSelectedState = (selected, alreadySelected) => {
-    if (this.props.allowMultipleSelected) {
-      let newState = this.state.selected;
+  const updateSelectedState = (select, alreadySelected) => {
+    if (props.allowMultipleSelected) {
+      let newState = selected;
       if (alreadySelected) {
-        const i = this.state.selected.indexOf(selected);
+        const i = selected.indexOf(select);
         if (i >= 0) newState.splice(i, 1);
-      } else {
-        newState = this.state.selected.concat([selected]);
       }
-      if (this.props.handleClick) {
-        this.props.handleClick(newState);
+      else { 
+        newState = selected.concat([select])
       }
-      this.setState({ selected: newState });
+      if (props.handleClick) {
+        props.handleClick(newState);
+      }
+      setSelected(newState);
     } else {
-      if (this.props.handleClick) {
-        this.props.handleClick(selected);
+      if (props.handleClick){
+        props.handleClick(select);
       }
-      this.setState({ selected });
+      setSelected(select)
     }
   };
 
-  renderOption = ({ display, value }, index) => {
-    // if no value is provided, use the index
+  const renderOption = ({display, value}, index) => {
     value = value || index;
 
-    const isSelected = value === this.state.selected
-      || (this.props.allowMultipleSelected && this.state.selected.includes(value));
-    // attach -selected if the value matches the selected state
+    const isSelected = value === selected || (props.allowMultipleSelected && selected.includes(value));
     const className = `radio-option${isSelected ? '-selected' : ''}`;
-    // add an id of radio-left if its the first option or radio-right if its the last option
-    const id = index === 0 ? 'radio-left' : index === this.props.options.length - 1 ? 'radio-right' : '';
+    const id = index === 0 ? 'radio-left' : index === props.options.length - 1 ? 'radio-right' : '';
 
     let optionStyle;
-    if (isSelected) {
+    if (isSelected){
       optionStyle = {
-
-        ...this.props.optionStyle || {},
-        ...this.props.selectedOptionStyle || {},
-        ...(this.props.selectedBgColor ? { backgroundColor: this.props.selectedBgColor } : {}),
-        ...(this.props.selectedColor ? { color: this.props.selectedColor } : {}),
-      };
-    } else {
-      optionStyle = {
-
-        ...this.props.optionStyle || {},
-        ...(this.props.bgColor ? { backgroundColor: this.props.bgColor } : {}),
-        ...(this.props.color ? { color: this.props.color } : {}),
+        ...props.optionStyle || {}, 
+        ...props.selectedOptionStyle || {}, 
+        ...(props.selectedBgColor ? { backgroundColor: props.selectedBgColor } : {}),
+        ...(props.selectedColor ? { color: props.selectedColor } : {}),
       };
     }
-
+    else {
+      optionStyle = {
+          ...props.optionStyle || {},
+          ...(props.bgColor ? { backgroundColor: props.bgColor } : {}),
+          ...(props.color ? { color: props.color } : {}),
+      };
+    }
     return (
       <div
         className={className}
-        onClick={() => this.updateSelectedState(value, isSelected)}
+        onClick={() => updateSelectedState(value, isSelected)}
         style={optionStyle}
         id={id}
         key={index}
@@ -101,16 +92,15 @@ export default class Radio extends React.Component {
       </div>
     );
   };
+  const { containerStyle } = props;
 
-  render() {
-    const { containerStyle } = this.props;
+  const options = props.options || [];
 
-    const options = this.props.options || [];
-
-    return (
+  return (
       <div className="radio-selector" style={containerStyle}>
-        {options.map(this.renderOption)}
+        {options.map(renderOption)}
       </div>
-    );
-  }
+  ); 
 }
+
+export default Radio
