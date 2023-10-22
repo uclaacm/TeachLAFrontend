@@ -66,6 +66,7 @@ class ViewOnly extends React.Component {
           thumbnail: sketch.thumbnail,
           loaded: true,
         });
+
         setProgramCode(mostRecentProgram, sketch.code);
         setProgramLanguage(mostRecentProgram, sketch.language);
         runCode(sketch.code, lang);

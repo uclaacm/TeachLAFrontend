@@ -9,7 +9,7 @@ import history from '../history';
 import store from '../store';
 import LoadingPage from './common/LoadingPage';
 import LoginPage from './containers/LoginContainer';
-import MainContainer from './containers/MainContainer';
+import Main from './Main'
 import ViewOnlyContainer from './containers/ViewOnlyContainer';
 import Error from './Error';
 import PageNotFound from './PageNotFound';
@@ -134,20 +134,20 @@ class App extends React.Component {
                 }
                 if (!match.params.programid) {
                   const lastMostRecentProgram = store.getState().userData.mostRecentProgram;
-                  const programKeys = store.getState().programs.keySeq();
+                  const programKeys = Object.keys(store.getState().programs);
                   if (programKeys.includes(lastMostRecentProgram)) {
                     return <Redirect to={`/editor/${lastMostRecentProgram}`} />;
                   }
                   // mostRecentProgram no longer exists, fall back to one of the
                   // programs that does exist
-                  if (programKeys.get(0)) {
-                    return <Redirect to={`/editor/${programKeys.get(0)}`} />;
+                  if (programKeys[0]) {
+                    return <Redirect to={`/editor/${programKeys[0]}`} />;
                   }
                   // No programs exist, redirect to /sketches so the user can make one
 
                   return <Redirect to="/sketches" />;
                 }
-                return <MainContainer contentType="editor" programid={match.params.programid} />;
+                return <Main contentType="editor" programid={match.params.programid} />;
               }}
             />
             {/* if the user is loggedIn, redirect them to the editor page, otherwise, show the createUser page */}
@@ -171,7 +171,7 @@ class App extends React.Component {
                   return <Error errorMsg={errorMsg} isValidUser={isValidUser} />;
                 }
                 if (isValidUser) {
-                  return <MainContainer contentType="sketches" />;
+                  return <Main contentType="sketches" />;
                 }
                 return <Redirect to="/login" />;
               }}
@@ -194,7 +194,7 @@ class App extends React.Component {
                   return <Redirect to="/login" />;
                 }
                 if (developerAcc) {
-                  return <MainContainer contentType="classPage" />;
+                  return <Main contentType="classPage" />;
                 }
                 return <Redirect to="/sketches" />;
               }}
@@ -210,7 +210,7 @@ class App extends React.Component {
                   return <Redirect to="/login" />;
                 }
                 if (developerAcc) {
-                  return <MainContainer contentType="classes" />;
+                  return <ClassesPageContainer />;
                 }
                 return <Redirect to="/sketches" />;
               }}

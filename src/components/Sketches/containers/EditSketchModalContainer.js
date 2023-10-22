@@ -3,7 +3,7 @@ import {
   setProgramLanguage,
   setProgramName,
   setProgramThumbnail,
-} from '../../../actions/programsActions';
+} from '../../../reducers/programsReducer'
 import EditSketchModal from '../components/EditSketchModal.js';
 
 const mapStateToProps = (state) => ({
@@ -11,9 +11,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setProgramLanguage: (program, value) => dispatch(setProgramLanguage(program, value)),
-  setProgramName: (program, value) => dispatch(setProgramName(program, value)),
-  setProgramThumbnail: (program, value) => dispatch(setProgramThumbnail(program, value)),
+  setProgramLanguage: (program, language) => dispatch(setProgramLanguage({ program, language })),
+  setProgramName: (program, value) => dispatch(setProgramName({ program, name: value })),
+  setProgramThumbnail: (program, value) => dispatch(setProgramThumbnail({ program, thumbnail: value })),
 });
 
 const EditSketchModalContainer = connect(

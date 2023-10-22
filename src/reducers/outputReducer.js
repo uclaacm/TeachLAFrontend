@@ -8,7 +8,7 @@ import { getLanguageData } from '../util/languages/languages.js';
 
 const initialState = {
   runResult: '',
-  language: getLanguageData('python'),
+  language: 'python',
 };
 
 function outputReducer(state = initialState, action) {

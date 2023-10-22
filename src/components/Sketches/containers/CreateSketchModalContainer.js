@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { addProgram } from '../../../actions/programsActions';
+import { addProgram } from '../../../reducers/programsReducer'
 import { setMostRecentProgram } from '../../../actions/userDataActions';
 import * as fetch from '../../../lib/fetch';
 import CreateSketchModal from '../components/CreateSketchModal';

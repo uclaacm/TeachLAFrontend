@@ -1,7 +1,7 @@
 import Immutable from 'immutable';
 import { connect } from 'react-redux';
 import { loadInstrClasses, loadStudentClasses } from '../../../actions/classesActions.js';
-import { togglePanel, setClassesLoaded, setOnInstrView } from '../../../actions/uiActions.js';
+import { togglePanel, setClassesLoaded, setOnInstrView } from '../../../reducers/uiReducer'
 import { setCurrentClass } from '../../../actions/userDataActions.js';
 import { OPEN_PANEL_LEFT, CLOSED_PANEL_LEFT, PANEL_SIZE } from '../../../constants';
 import Classes from '../index.js';

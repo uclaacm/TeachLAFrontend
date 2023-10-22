@@ -4,22 +4,24 @@ import * as fetch from '../../../lib/fetch';
 import { getLanguageData } from '../../../util/languages/languages';
 import DropdownButton from '../../common/DropdownButton';
 
-const mapStateToProps = (state) => {
-  const { mostRecentProgram } = state.userData;
+const mapStateToProps = (state, ownProps) => {
+  const program = ownProps.program;
+
+  console.log('DBDWEFWEFE', program, "bob");
 
   const mostRecentLanguage = getLanguageData(
-    state.programs.getIn([mostRecentProgram, 'language'], 'python'),
+    state.programs[program].language
   );
 
-  const displayValue = ` ${state.programs.getIn([mostRecentProgram, 'name'], mostRecentProgram)}`;
+  const displayValue = ` ${state.programs[program].name}`;
 
-  const programStateValues = state.programs.keySeq().map((id) => ({
-    display: state.programs.getIn([id, 'name'], id),
+  const programStateValues = Object.keys(state.programs).map((id) => ({
+    display: state.programs[id].name,
     value: id,
-    icon: getLanguageData(state.programs.getIn([id, 'language'], 'python')).icon,
+    icon: getLanguageData(state.programs[id].language).icon,
   }));
 
-  const dirty = state.programs.getIn([mostRecentProgram, 'dirty'], false);
+  const dirty = state.programs[program].dirty;
 
   const displayClass = 'editor';
 

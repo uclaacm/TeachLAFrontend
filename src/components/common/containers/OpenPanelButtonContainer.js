@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { togglePanel } from '../../../actions/uiActions.js';
+import { togglePanel } from '../../../reducers/uiReducer';
 import OpenPanelButton from '../OpenPanelButton.js';
 
 const mapStateToProps = (state) => ({

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { setOutput } from '../../actions/outputActions.js';
-import { setProgramCode, setProgramLanguage } from '../../actions/programsActions.js';
-import { togglePanel, setTheme } from '../../actions/uiActions.js';
+import { setProgramCode, setProgramLanguage } from '../../reducers/programsReducer'
+import { togglePanel, setTheme } from '../../reducers/uiReducer';
 
 import { CLOSED_PANEL_LEFT, OPEN_PANEL_LEFT, PANEL_SIZE } from '../../constants';
 import ViewOnly from '../ViewOnly.js';
@@ -23,10 +23,10 @@ const mapDispatchToProps = (dispatch) => ({
   runCode: (code, language) => dispatch(setOutput(code, language)),
   togglePanel: () => dispatch(togglePanel()),
   setProgramCode: (program, code) => {
-    dispatch(setProgramCode(program, code));
+    dispatch(setProgramCode({ program, code }));
   },
-  setProgramLanguage: (program, lang) => {
-    dispatch(setProgramLanguage(program, lang));
+  setProgramLanguage: (program, language) => {
+    dispatch(setProgramLanguage({ program, language }));
   },
   setTheme: (theme) => dispatch(setTheme(theme)),
 });

@@ -8,6 +8,7 @@ import OpenPanelButtonContainer from '../common/containers/OpenPanelButtonContai
 import ViewportAwareButton from '../common/ViewportAwareButton';
 import EditorRadio from '../TextEditor/components/EditorRadio';
 import '../../styles/Output.scss';
+import { getLanguageData } from 'util/languages/languages';
 
 /** --------Props--------
  * None
@@ -62,7 +63,7 @@ class Output extends React.Component {
       viewOnly, vLanguage, language, code, runResult,
     } = this.props;
 
-    const renderLanguage = viewOnly ? vLanguage : language;
+    const renderLanguage = getLanguageData(viewOnly ? vLanguage : language);
     const renderRunResult = viewOnly ? code : runResult;
     const { showConsole } = this.state;
 
@@ -85,7 +86,7 @@ class Output extends React.Component {
     const {
       viewOnly, vLanguage, language, code, runResult,
     } = this.props;
-    const renderLanguage = viewOnly ? vLanguage : language;
+    const renderLanguage = getLanguageData(viewOnly ? vLanguage : language);
     const renderRunResult = viewOnly ? code : runResult;
     const { showConsole } = this.state;
 
@@ -188,7 +189,9 @@ class Output extends React.Component {
       viewOnly, vLanguage, language, screenHeight,
     } = this.props;
     const { counter, run } = this.state;
-    const renderLanguage = viewOnly ? vLanguage : language;
+    const renderLanguage = getLanguageData(viewOnly ? vLanguage : language);
+    console.log('renderLanguage:', renderLanguage);
+
     if (renderLanguage.value === 'python') {
       return (
         <div className="editor-output">

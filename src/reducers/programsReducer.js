@@ -1,41 +1,66 @@
-import Immutable from 'immutable';
-import {
-  SET_PROGRAM_CODE,
-  SET_PROGRAM_LANGUAGE,
-  SET_PROGRAM_NAME,
-  SET_PROGRAM_THUMBNAIL,
-  DELETE_PROGRAM,
-  LOAD_PROGRAMS,
-  CLEAR_PROGRAMS,
-  SET_PROGRAM_DIRTY,
-  ADD_PROGRAM,
-} from '../actions/programsActions.js';
+import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = Immutable.Map();
+/* use an object since Maps aren't serializable, per redux's requirements */
+const initialState = {};
 
-function programsReducer(state = initialState, action) {
-  switch (action.type) {
-  case LOAD_PROGRAMS:
-    return Immutable.fromJS(action.programs);
-  case SET_PROGRAM_CODE:
-    return state.setIn([action.program, 'code'], action.value);
-  case SET_PROGRAM_LANGUAGE:
-    return state.setIn([action.program, 'language'], action.value);
-  case SET_PROGRAM_DIRTY:
-    return state.setIn([action.program, 'dirty'], action.value);
-  case SET_PROGRAM_NAME:
-    return state.setIn([action.program, 'name'], action.value);
-  case SET_PROGRAM_THUMBNAIL:
-    return state.setIn([action.program, 'thumbnail'], action.value);
-  case ADD_PROGRAM:
-    return state.set(action.program, Immutable.fromJS(action.data));
-  case DELETE_PROGRAM:
-    return state.delete(action.program);
-  case CLEAR_PROGRAMS:
-    return Immutable.Map();
-  default:
-    return state;
+const programsSlice = createSlice({
+  name: 'programs',
+  initialState,
+  reducers: {
+    setPrograms(state, action) {
+      return action.payload
+    },
+    setContent(state, action) {
+      const { program, code } = action.payload;
+      state[program].code = code;
+    },
+    setLanguage(state, action) {
+      const { program, language } = action.payload;
+      state[program].language = language;
+    },
+    setDirty(state, action) {
+      const { program, dirty } = action.payload;
+      state[program].dirty = dirty;
+    },
+    setName(state, action) {
+      const { program, name } = action.payload;
+      state[program].name = name;
+    },
+    setThumnail(state, action) {
+      const { program, thumnail } = action.payload;
+      state[program].thumnail = thumnail;
+    },
+    add(state, action) {
+      const { program, data } = action.payload;
+      state[program] = data;
+    },
+    del(state, action) {
+      delete state[action.payload];
+    },
+    clear(state) {
+      return {}
+    }
   }
-}
+});
 
-export default programsReducer;
+/* To someone looking at this in the future:
+ *
+ * maybe rewrite with type-safe builder:
+ * https://redux-toolkit.js.org/usage/usage-with-typescript#building-type-safe-reducer-argument-objects
+ *
+ * especially once we move to typescript
+ */
+
+export const {
+  setPrograms,
+  setContent: setProgramCode,
+  setLanguage: setProgramLanguage,
+  setDirty: setProgramDirty,
+  setName: setProgramName,
+  setThumnail: setProgramThumbnail,
+  add: addProgram,
+  del: deleteProgram,
+  clear: clearPrograms
+} = programsSlice.actions;
+
+export default programsSlice.reducer;
