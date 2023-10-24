@@ -13,7 +13,11 @@ import { GH_REPO_NAME } from '../../constants';
     (give px units)
 */
 
-const Loading = function (props) {
+interface LoadingProps {
+  showHelpText?: boolean;
+};
+
+const Loading = function (props : LoadingProps) {
   const [showHelpText, setShowHelpText] = useState(props.showHelpText);
 
   const timer = setTimeout(
