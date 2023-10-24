@@ -1,7 +1,7 @@
 // TODO: Break up large constants file into smaller constants file
 
-const { PUBLIC_URL } = process.env;
-const PHOTO_NAMES = {
+export const { PUBLIC_URL } = process.env;
+export const PHOTO_NAMES = {
   lightbulb: `${PUBLIC_URL}/img/icons/lightbulb.png`,
   orange: `${PUBLIC_URL}/img/icons/orange.png`,
   pear: `${PUBLIC_URL}/img/icons/pear.png`,
@@ -13,13 +13,15 @@ const PHOTO_NAMES = {
   heart: `${PUBLIC_URL}/img/icons/heart.png`,
 };
 
+export const DEFAULT_PHOTO_NAME = PHOTO_NAMES.icecream;
+
 // GH Repo for FE
 
-const GH_REPO_NAME = 'https://github.com/uclaacm/TeachLAFrontend';
+export const GH_REPO_NAME = 'https://github.com/uclaacm/TeachLAFrontend';
 
 // Router's base (i.e. anything after the domain)
 
-const ROUTER_BASE_NAME = '/';
+export const ROUTER_BASE_NAME = '/';
 
 // Various Server URLs
 let SERVER_URL = 'http://localhost:8081';
@@ -32,19 +34,21 @@ if (process && process.env) {
   }
 }
 
-const PANEL_SIZE = 250;
-const PANEL_IMAGE_SELECTOR_SIZE = 325;
+export const PANEL_SIZE = 250;
+export const PANEL_IMAGE_SELECTOR_SIZE = 325;
+export const CLOSED_PANEL_LEFT = -1 * PANEL_SIZE;
+export const OPEN_PANEL_LEFT = 0;
 
 // Editor and Output constants
 // View Mode
-const CODE_AND_OUTPUT = 0;
-const CODE_ONLY = 1;
-const OUTPUT_ONLY = 2;
+export const CODE_AND_OUTPUT = 0;
+export const CODE_ONLY = 1;
+export const OUTPUT_ONLY = 2;
 
 // UI
-const EDITOR_WIDTH_BREAKPOINT = 1000;
+export const EDITOR_WIDTH_BREAKPOINT = 1000;
 
-const ThumbnailArray = [
+export const ThumbnailArray = [
   'Ant',
   'Badger',
   'Bear',
@@ -105,10 +109,24 @@ const ThumbnailArray = [
   'Wolf',
 ];
 
-module.exports = {
+// Registration requirements
+export const MINIMUM_USERNAME_LENGTH = 6;
+export const MINIMUM_PASSWORD_LENGTH = 6;
+export const MINIMUM_DISPLAY_NAME_LENGTH = 1;
+export const MAXIMUM_USERNAME_LENGTH = 32;
+export const MAXIMUM_PASSWORD_LENGTH = 128;
+export const MAXIMUM_DISPLAY_NAME_LENGTH = 25;
+
+// UI constants
+export const RING_LOADER_SIZE = 50;
+
+// Firebase constants
+export const EMAIL_DOMAIN_NAME = '@fake.com';
+
+export default {
   // photo names
   PHOTO_NAMES,
-  DEFAULT_PHOTO_NAME: 'icecream',
+  DEFAULT_PHOTO_NAME,
 
   GH_REPO_NAME,
 
@@ -119,18 +137,18 @@ module.exports = {
   SERVER_URL,
 
   // User value constants
-  MINIMUM_USERNAME_LENGTH: 6,
-  MINIMUM_PASSWORD_LENGTH: 6,
-  MINIMUM_DISPLAY_NAME_LENGTH: 1,
-  MAXIMUM_USERNAME_LENGTH: 32,
-  MAXIMUM_PASSWORD_LENGTH: 128,
-  MAXIMUM_DISPLAY_NAME_LENGTH: 25,
+  MINIMUM_USERNAME_LENGTH,
+  MINIMUM_PASSWORD_LENGTH,
+  MINIMUM_DISPLAY_NAME_LENGTH,
+  MAXIMUM_USERNAME_LENGTH,
+  MAXIMUM_PASSWORD_LENGTH,
+  MAXIMUM_DISPLAY_NAME_LENGTH,
 
   // UI constants
-  RING_LOADER_SIZE: 50,
+  RING_LOADER_SIZE,
   PANEL_SIZE,
-  CLOSED_PANEL_LEFT: -1 * PANEL_SIZE,
-  OPEN_PANEL_LEFT: 0,
+  CLOSED_PANEL_LEFT,
+  OPEN_PANEL_LEFT,
 
   // editor constants:
   CODE_AND_OUTPUT,
@@ -141,7 +159,7 @@ module.exports = {
   EDITOR_WIDTH_BREAKPOINT,
 
   // Firebase constants
-  EMAIL_DOMAIN_NAME: '@fake.com',
+  EMAIL_DOMAIN_NAME,
   PANEL_IMAGE_SELECTOR_SIZE,
 
   ThumbnailArray,
