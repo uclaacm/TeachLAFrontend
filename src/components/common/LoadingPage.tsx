@@ -4,15 +4,15 @@ import '../../styles/Loading.scss';
 import { GH_REPO_NAME } from '../../constants';
 
 interface LoadingProps {
-  shouldShowHelpText: boolean;
+  showHelpText: boolean;
 }
 
-const Loading = ({ shouldShowHelpText = false }: LoadingProps) => {
-  const [showHelpText, setShowHelpText] = useState(shouldShowHelpText);
+const Loading = function ({ showHelpText = false } : LoadingProps) {
+  const [hasHelpText, setHasHelpText] = useState(showHelpText);
 
   const timer = setTimeout(
     () => {
-      setShowHelpText(true);
+      setHasHelpText(true);
     },
     2000,
   );
@@ -25,7 +25,7 @@ const Loading = ({ shouldShowHelpText = false }: LoadingProps) => {
     <div className="Loading">
       <div className="Loading-title">Loading</div>
       <RingLoader color="#171124" size={250} loading />
-      {showHelpText && (
+      { hasHelpText && (
         <p className="Loading-page-text" style={{ color: 'white' }}>
           Looks like loading is taking a bit long! If it takes too long, submit an issue on
           {' '}
