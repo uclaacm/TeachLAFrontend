@@ -22,6 +22,21 @@ module.exports = {
         'jest/no-commented-out-tests': 'off',
       },
     },
+    {
+      extends: ['airbnb-typescript'],
+      files: ['**/*.{ts,tsx}'],
+      parser: '@typescript-eslint/parser',
+      plugins: ['@typescript-eslint'],
+      parserOptions: {
+        project: './tsconfig.json',
+        warnOnUnsupportedTypeScriptVersion: false,
+      },
+      rules: {
+        'no-use-before-define': 'off',
+        '@typescript-eslint/no-use-before-define': 'error',
+        'arrow-body-style': 'off',
+      },
+    },
   ],
   extends: [
     'eslint:recommended',
