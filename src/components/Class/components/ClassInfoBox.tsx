@@ -4,12 +4,12 @@ import '../../../styles/ClassPage.scss';
 interface ClassInfoBoxProps {
   title: string;
   children: React.ReactNode;
-};
+}
 
-const ClassInfoBox = function ({
+const ClassInfoBox = ({
   title,
   children,
-} : ClassInfoBoxProps) {
+} : ClassInfoBoxProps) => {
   return (
     <div className="class-info-box">
       <b className="section-header">{title}</b>
