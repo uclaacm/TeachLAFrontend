@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import Switch from './Switch.js';
+import Switch from './Switch.tsx';
 
 const switchOnClass = '.switch-body.switch-on'; // there has to be a better way of doing this
 const switchCheckboxClass = '.switch-input';
