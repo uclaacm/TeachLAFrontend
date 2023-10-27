@@ -44,6 +44,7 @@ module.exports = {
     'plugin:jest/recommended',
     'prettier',
     'airbnb',
+    'plugin:import/typescript',
   ],
   parser: 'babel-eslint',
   parserOptions: {
@@ -56,6 +57,18 @@ module.exports = {
   },
   plugins: ['import', 'react', 'jest'],
   rules: {
+    // ignore file extensions when importing
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        js: 'never',
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never',
+      },
+    ],
+
     'linebreak-style': ['error', 'unix'],
 
     'no-unused-vars': ['error', { varsIgnorePattern: '^_', argsIgnorePattern: '^_' }],
