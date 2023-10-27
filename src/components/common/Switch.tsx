@@ -9,8 +9,14 @@ import '../../styles/Switch.scss';
  * @param {JSX} onImg (optional): (JSX) element to be displayed on switch body when set to "on"
  * @param {JSX} offImg (optional): (JSX) element to be displayed on switch body when set to "off"
  */
+interface SwitchProps {
+  on: boolean; 
+  onToggle: (on:boolean) => void; 
+  onImg?: JSX.Element; 
+  offImg?:JSX.Element;
 
-const Switch = function (props) {
+}
+const Switch = function (props: SwitchProps) {
   const [on, setOn] = useState(!props.on ? false : props.on);
 
   useEffect(() => {
