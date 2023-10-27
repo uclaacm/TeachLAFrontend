@@ -13,7 +13,7 @@ interface SwitchProps {
   on: boolean; 
   onToggle: (on:boolean) => void; 
   onImg?: JSX.Element; 
-  offImg?:JSX.Element;
+  offImg?: JSX.Element;
 
 }
 const Switch = function (props: SwitchProps) {
