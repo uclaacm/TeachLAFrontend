@@ -11,10 +11,10 @@ import { Button } from 'reactstrap';
  */
 
 interface ViewportAwareButtonProps{
-  icon : React.JSX.Element,
-  text : string,
-  isSmall : boolean,
-  remainder : any,
+  icon: React.JSX.Element,
+  text: string,
+  isSmall: boolean,
+  remainder: any,
 };
 
 const ViewportAwareButton = function (props : ViewportAwareButtonProps) {
