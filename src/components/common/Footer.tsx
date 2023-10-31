@@ -2,7 +2,7 @@ import React from 'react';
 import TLALogo from '../../img/tla-logo.svg';
 import '../../styles/Footer.scss';
 
-const Footer = function () {
+const Footer = () => {
   return (
     <footer className="footer">
       <a href="https://github.com/uclaacm/TeachLAFrontend" target="_blank" rel="noopener noreferrer">
