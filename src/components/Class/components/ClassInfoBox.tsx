@@ -1,10 +1,15 @@
 import React from 'react';
 import '../../../styles/ClassPage.scss';
 
-const ClassInfoBox = function ({
+interface ClassInfoBoxProps {
+  title: string;
+  children: React.ReactNode;
+}
+
+const ClassInfoBox = ({
   title,
   children,
-}) {
+} : ClassInfoBoxProps) => {
   return (
     <div className="class-info-box">
       <b className="section-header">{title}</b>

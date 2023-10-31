@@ -22,6 +22,21 @@ module.exports = {
         'jest/no-commented-out-tests': 'off',
       },
     },
+    {
+      extends: ['airbnb-typescript'],
+      files: ['**/*.{ts,tsx}'],
+      parser: '@typescript-eslint/parser',
+      plugins: ['@typescript-eslint'],
+      parserOptions: {
+        project: './tsconfig.json',
+        warnOnUnsupportedTypeScriptVersion: false,
+      },
+      rules: {
+        'no-use-before-define': 'off',
+        '@typescript-eslint/no-use-before-define': 'error',
+        'arrow-body-style': 'off',
+      },
+    },
   ],
   extends: [
     'eslint:recommended',
@@ -29,6 +44,7 @@ module.exports = {
     'plugin:jest/recommended',
     'prettier',
     'airbnb',
+    'plugin:import/typescript',
   ],
   parser: 'babel-eslint',
   parserOptions: {
@@ -41,6 +57,18 @@ module.exports = {
   },
   plugins: ['import', 'react', 'jest'],
   rules: {
+    // ignore file extensions when importing
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        js: 'never',
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never',
+      },
+    ],
+
     'linebreak-style': ['error', 'unix'],
 
     'no-unused-vars': ['error', { varsIgnorePattern: '^_', argsIgnorePattern: '^_' }],
