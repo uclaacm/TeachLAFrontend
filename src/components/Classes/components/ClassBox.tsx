@@ -4,9 +4,18 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import '../../../styles/ClassBox.scss';
 
+interface ClassBoxProps {
+  deleteFunc: () => void;
+  img: string;
+  instructorString: string;
+  name: string;
+  redirFunc: () => void;
+  showLeaveButton: JSX.Element;
+}
+
 const ClassBox = function ({
   deleteFunc, img, instructorString, name, redirFunc, showLeaveButton,
-}) {
+}: ClassBoxProps) {
   const leaveButton = showLeaveButton ? (
     <div
       className="p-2 text-center"
