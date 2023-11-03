@@ -25,8 +25,32 @@ import '../../styles/Radio.scss';
  *                        changes handle click to be called with all selected values
  */
 
-export default class Radio extends React.Component {
-  constructor(props) {
+interface OptionItem {
+  display : string;
+  value : number;
+}
+interface OptionsArray extends Array<OptionItem>{}
+
+interface RadioProps {
+  defaultSelected ?: any;
+  allowMultipleSelected ?: boolean;
+  options : OptionsArray;
+  containerStyle : any;
+  optionStyle : any;
+  selectedOptionStyle : any;
+  selectedBgColor : any;
+  selectedColor : any;
+  bgColor : any;
+  color : any;
+  handleClick : any;
+}
+
+interface RadioState {
+  selected ?: any;
+}
+
+export default class Radio extends React.Component <RadioProps, RadioState> {
+  constructor(props : RadioProps) {
     super(props);
 
     let selected = this.props.defaultSelected;
@@ -39,7 +63,7 @@ export default class Radio extends React.Component {
     };
   }
 
-  updateSelectedState = (selected, alreadySelected) => {
+  updateSelectedState = (selected : number, alreadySelected : boolean) : void => {
     if (this.props.allowMultipleSelected) {
       let newState = this.state.selected;
       if (alreadySelected) {
@@ -60,7 +84,7 @@ export default class Radio extends React.Component {
     }
   };
 
-  renderOption = ({ display, value }, index) => {
+  renderOption = ({ display, value } : {display: string, value: number}, index : number) : JSX.Element => {
     // if no value is provided, use the index
     value = value || index;
 
