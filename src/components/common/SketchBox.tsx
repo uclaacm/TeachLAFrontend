@@ -19,7 +19,7 @@ interface SketchBoxProps {
 
 function SketchBox({
   img, icon, name, deleteFunc, downloadFunc, editFunc, redirFunc, pathname,
-} : SketchBoxProps) {
+}: SketchBoxProps) {
   const buttonData = [
     {
       func: editFunc,
