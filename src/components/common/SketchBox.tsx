@@ -7,14 +7,14 @@ import { Link } from 'react-router-dom';
 import { Row, Col } from 'reactstrap';
 
 interface SketchBoxProps { 
-  img : string;
-  icon : any;
+  img: string;
+  icon: any;
   name: string;
-  deleteFunc : () => void;
-  downloadFunc : () => void;
-  editFunc : () => void;
-  redirFunc : () => void;
-  pathname : string;
+  deleteFunc: () => void;
+  downloadFunc: () => void;
+  editFunc: () => void;
+  redirFunc: () => void;
+  pathname: string;
 }
 
 function SketchBox({
