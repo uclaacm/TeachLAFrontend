@@ -6,9 +6,20 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Row, Col } from 'reactstrap';
 
+interface SketchBoxProps { 
+  img: string;
+  icon: any;
+  name: string;
+  deleteFunc: () => void;
+  downloadFunc: () => void;
+  editFunc: () => void;
+  redirFunc: () => void;
+  pathname: string;
+}
+
 function SketchBox({
   img, icon, name, deleteFunc, downloadFunc, editFunc, redirFunc, pathname,
-}) {
+}: SketchBoxProps) {
   const buttonData = [
     {
       func: editFunc,
