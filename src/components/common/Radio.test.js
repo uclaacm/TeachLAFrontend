@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import Radio from './Radio.js';
+import Radio from './Radio';
 
 const validOptions = [
   {
@@ -43,10 +43,7 @@ describe('Radio', () => {
     // on click option, invalid handle click does not cause error
     const component = shallow(<Radio options={validOptions} />);
     expect(() => {
-      component
-        .find('.radio-option')
-        .at(0)
-        .simulate('click');
+      component.find('.radio-option').at(0).simulate('click');
     }).not.toThrow();
   });
 
@@ -107,7 +104,10 @@ describe('Radio', () => {
       <Radio
         options={validOptions}
         optionStyle={{
-          width: 2000, height: 2000, backgroundColor: '#FFF', color: '#000',
+          width: 2000,
+          height: 2000,
+          backgroundColor: '#FFF',
+          color: '#000',
         }}
         bgColor="#333"
         color="#444"
@@ -128,10 +128,7 @@ describe('Radio', () => {
     expect(clickFn.mock.calls[0][0]).toBe('pear');
 
     // clicking a non selected option causes the selected value to change
-    component
-      .find('.radio-option')
-      .at(0)
-      .simulate('click');
+    component.find('.radio-option').at(0).simulate('click');
     expect(clickFn.mock.calls[1][0]).toBe('banana');
     expect(component.state().selected).toBe('banana');
     expect(component.find('.radio-option-selected').text()).toBe('Nice');
@@ -163,10 +160,7 @@ describe('Radio', () => {
     expect(component2.state().selected).toStrictEqual(['banana', 'apple', 'pear']);
 
     // click on already selected value, make sure it gets removed
-    component2
-      .find('.radio-option-selected')
-      .at(0)
-      .simulate('click');
+    component2.find('.radio-option-selected').at(0).simulate('click');
     expect(clickFn.mock.calls[1][0]).toStrictEqual(['apple', 'pear']);
     expect(component2.state().selected).toStrictEqual(['apple', 'pear']);
   });
