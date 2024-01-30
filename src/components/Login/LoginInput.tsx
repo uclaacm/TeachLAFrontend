@@ -7,10 +7,17 @@ import '../../styles/Login.scss';
  * data: value inside the input
  * onChange: function to be called when input changes
  */
+interface LoginInputProps {
+  type: string;
+  waiting: boolean;
+  data: any;
+  onChange: any;
+
+}
 
 const LoginInput = function ({
   type, waiting, data, onChange,
-}) {
+}: LoginInputProps) {
   return (
     <div>
       <div className="login-form-input-header">{type}</div>
