@@ -9,7 +9,7 @@ import React from 'react';
 
 interface OpenPanelButtonProps {
   panelOpen: boolean;
-  togglePanel: () => void
+  togglePanel: () => void;
 }
 
 const OpenPanelButton = function ({ panelOpen, togglePanel }: OpenPanelButtonProps) {
