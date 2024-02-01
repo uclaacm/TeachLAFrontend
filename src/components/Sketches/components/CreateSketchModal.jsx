@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ReactModal from 'react-modal';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import {
   Button, Container, Row, Col, FormGroup, Label, Input,
 } from 'reactstrap';
@@ -154,7 +154,7 @@ const CreateSketchModal = (props) => {
         onKeyPress={() => setThumbnail(index)}
       >
         <img
-          src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${val}.svg`}
+          src={`/img/sketch-thumbnails/${val}.svg`}
           className={`sketches-gallery-img${thumbnail === index ? '-selected' : ''}`}
           alt="icon"
         />
@@ -163,7 +163,7 @@ const CreateSketchModal = (props) => {
 
     const thumbnailPreview = thumbnail !== -1 ? (
       <img
-        src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${ThumbnailArray[thumbnail]}.svg`}
+        src={`/img/sketch-thumbnails/${ThumbnailArray[thumbnail]}.svg`}
         className="sketches-modal-header-thumbnail"
         alt="icon"
       />
@@ -252,7 +252,7 @@ const CreateSketchModal = (props) => {
   );
 
   if (redirect) {
-    return <Redirect to="/editor" />;
+    return <Navigate to="/editor" />;
   }
 
   if (next) {

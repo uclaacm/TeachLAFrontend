@@ -7,9 +7,9 @@ import CodeDownloader from '../../util/languages/CodeDownloader';
 import OutputContainer from '../Output/OutputContainer';
 import TextEditorContainer from '../TextEditor/containers/TextEditorContainer';
 
-import 'codemirror/lib/codemirror.css';
-import 'codemirror/theme/material.css';
-import 'codemirror/theme/duotone-light.css';
+// import 'codemirror/lib/codemirror.css';
+// import 'codemirror/theme/material.css';
+// import 'codemirror/theme/duotone-light.css';
 import '../../styles/CustomCM.scss';
 import '../../styles/Resizer.scss';
 import '../../styles/Editor.scss';

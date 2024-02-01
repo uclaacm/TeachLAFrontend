@@ -44,7 +44,7 @@ function SketchBox({
       >
         <img
           alt={"User's sketch icon"}
-          src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${img}.svg`}
+          src={`/img/sketch-thumbnails/${img}.svg`}
           className="sketch-thumbnail mt-2"
         />
         <div className="sketch-metadata">

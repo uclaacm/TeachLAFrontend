@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ReactModal from 'react-modal';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import {
   Button, Container, Row, Col, FormGroup, Label, Input,
 } from 'reactstrap';
@@ -134,7 +134,7 @@ const CreateClassModal = function (props) {
       <figure className="sketches-gallery-item" key={val}>
         <input
           type="image"
-          src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${val}.svg`}
+          src={`/img/sketch-thumbnails/${val}.svg`}
           className={`sketches-gallery-img${thumbnail === index ? '-selected' : ''}`}
           alt="icon"
           tabIndex="0"
@@ -146,7 +146,7 @@ const CreateClassModal = function (props) {
 
     const thumbnailPreview = thumbnail !== -1 ? (
       <img
-        src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${ThumbnailArray[thumbnail]}.svg`}
+        src={`/img/sketch-thumbnails/${ThumbnailArray[thumbnail]}.svg`}
         className="sketches-modal-header-thumbnail"
         alt="icon"
       />
@@ -221,7 +221,7 @@ const CreateClassModal = function (props) {
 
   if (redirect) {
     // put class url here
-    return <Redirect to="/class" />;
+    return <Navigate to="/class" />;
   }
 
   if (next) {

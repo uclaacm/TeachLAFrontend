@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import '../styles/Page.scss';
 import { GH_REPO_NAME } from '../constants';
-import * as cookies from '../lib/cookies.js';
+import * as cookies from '../lib/cookies';
 import Footer from './common/Footer';
 
 const PageNotFound = function () {

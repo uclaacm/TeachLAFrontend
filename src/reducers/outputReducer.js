@@ -4,7 +4,7 @@ import {
   SET_OUTPUT_LANGUAGE,
   SET_OUTPUT,
 } from '../actions/outputActions';
-import { getLanguageData } from '../util/languages/languages.js';
+import { getLanguageData } from '../util/languages/languages';
 
 const initialState = {
   runResult: '',

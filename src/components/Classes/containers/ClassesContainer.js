@@ -1,10 +1,10 @@
 import Immutable from 'immutable';
 import { connect } from 'react-redux';
-import { loadInstrClasses, loadStudentClasses } from '../../../actions/classesActions.js';
-import { togglePanel, setClassesLoaded, setOnInstrView } from '../../../actions/uiActions.js';
-import { setCurrentClass } from '../../../actions/userDataActions.js';
+import { loadInstrClasses, loadStudentClasses } from '../../../actions/classesActions';
+import { togglePanel, setClassesLoaded, setOnInstrView } from '../../../actions/uiActions';
+import { setCurrentClass } from '../../../actions/userDataActions';
 import { OPEN_PANEL_LEFT, CLOSED_PANEL_LEFT, PANEL_SIZE } from '../../../constants';
-import Classes from '../index.js';
+import Classes from '../index';
 
 const mapStateToProps = (state) => {
   // TODO: Look over this part (instrClasses and studentClasses)

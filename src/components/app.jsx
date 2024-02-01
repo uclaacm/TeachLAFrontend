@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Router, Route, Redirect, Switch,
+  BrowserRouter, Route, Navigate, Routes,
 } from 'react-router-dom';
 
 import { ROUTER_BASE_NAME } from '../constants';
@@ -76,7 +76,7 @@ class App extends React.Component {
     loadFailure(err);
   };
 
-  renderHome = (isValidUser) => (isValidUser ? <Redirect to="/editor" /> : <Redirect to="/login" />);
+  renderHome = (isValidUser) => (isValidUser ? <Navigate to="/editor" /> : <Navigate to="/login" />);
 
   render() {
     const { checkedAuth } = this.state;
@@ -91,10 +91,14 @@ class App extends React.Component {
     // the user is not valid if there's no UID
     const isValidUser = uid;
 
+    const EditorRoute = () => {
+      
+    };
+
     return (
-      <Router basename={ROUTER_BASE_NAME} history={history}>
+      <BrowserRouter basename={ROUTER_BASE_NAME} history={history}>
         <div className="app">
-          <Switch>
+          <Routes>
             {/* if the user is loggedIn, redirect them to the editor, otherwise, show the login page */}
             <Route
               exact
@@ -104,7 +108,7 @@ class App extends React.Component {
                   return <Error errorMsg={errorMsg} isValidUser={isValidUser} />;
                 }
                 if (isValidUser) {
-                  return <Redirect to="/editor" />;
+                  return <Navigate to="/editor" />;
                 }
                 return <LoginPage />;
               }}
@@ -117,7 +121,7 @@ class App extends React.Component {
                   return <Error errorMsg={errorMsg} isValidUser={isValidUser} />;
                 }
                 if (isValidUser) {
-                  return <Redirect to="/editor" />;
+                  return <Navigate to="/editor" />;
                 }
                 return <LoginPage />;
               }}
@@ -130,22 +134,22 @@ class App extends React.Component {
                   return <Error errorMsg={errorMsg} isValidUser={isValidUser} />;
                 }
                 if (!isValidUser) {
-                  return <Redirect to="/login" />;
+                  return <Navigate to="/login" />;
                 }
                 if (!match.params.programid) {
                   const lastMostRecentProgram = store.getState().userData.mostRecentProgram;
                   const programKeys = store.getState().programs.keySeq();
                   if (programKeys.includes(lastMostRecentProgram)) {
-                    return <Redirect to={`/editor/${lastMostRecentProgram}`} />;
+                    return <Navigate to={`/editor/${lastMostRecentProgram}`} />;
                   }
                   // mostRecentProgram no longer exists, fall back to one of the
                   // programs that does exist
                   if (programKeys.get(0)) {
-                    return <Redirect to={`/editor/${programKeys.get(0)}`} />;
+                    return <Navigate to={`/editor/${programKeys.get(0)}`} />;
                   }
                   // No programs exist, redirect to /sketches so the user can make one
 
-                  return <Redirect to="/sketches" />;
+                  return <Navigate to="/sketches" />;
                 }
                 return <MainContainer contentType="editor" programid={match.params.programid} />;
               }}
@@ -158,7 +162,7 @@ class App extends React.Component {
                   return <Error errorMsg={errorMsg} isValidUser={isValidUser} />;
                 }
                 if (isValidUser) {
-                  return <Redirect to="/editor" />;
+                  return <Navigate to="/editor" />;
                 }
                 return <LoginPage create initialState={location.state} />;
               }}
@@ -173,7 +177,7 @@ class App extends React.Component {
                 if (isValidUser) {
                   return <MainContainer contentType="sketches" />;
                 }
-                return <Redirect to="/login" />;
+                return <Navigate to="/login" />;
               }}
             />
             {/* Get program endpoint */}
@@ -227,9 +231,9 @@ class App extends React.Component {
 
             {/* Matches all other paths */}
             <Route render={() => <PageNotFound />} />
-          </Switch>
+          </Routes>
         </div>
-      </Router>
+      </BrowserRouter>
     );
   }
 }

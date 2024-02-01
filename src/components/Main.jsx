@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 import { setMostRecentProgram } from '../actions/userDataActions';
 import { EDITOR_WIDTH_BREAKPOINT, CODE_AND_OUTPUT, CODE_ONLY } from '../constants';
@@ -136,7 +136,7 @@ function Main({
 
   // this stops us from rendering editor with no sketches available
   if (contentType === 'editor' && listOfPrograms.length === 0) {
-    return <Redirect to="/sketches" />;
+    return <Navigate to="/sketches" />;
   }
   const codeStyle = {
     left: left || 0,

@@ -1,6 +1,6 @@
-import * as cookies from './cookies.js';
-import * as fetch from './fetch.js';
-import * as sketch from './sketch.js';
+import * as cookies from './cookies';
+import * as fetch from './fetch';
+import * as sketch from './sketch';
 
 export default {
   ...cookies,

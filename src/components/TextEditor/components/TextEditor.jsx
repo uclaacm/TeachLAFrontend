@@ -3,9 +3,9 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState, useEffect } from 'react';
-import { Controlled as CodeMirror } from 'react-codemirror2';
+import CodeMirror from '@uiw/react-codemirror';
 import ReactModal from 'react-modal';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import { EDITOR_WIDTH_BREAKPOINT, ThumbnailArray } from '../../../constants';
 import skt from '../../../lib';
@@ -15,17 +15,17 @@ import ViewportAwareButton from '../../common/ViewportAwareButton';
 import DropdownButtonContainer from '../containers/DropdownButtonContainer';
 import EditorRadio from './EditorRadio';
 import ShareSketchModal from './ShareSketchModal';
-import 'codemirror/mode/javascript/javascript';
-import 'codemirror/mode/htmlmixed/htmlmixed';
-import 'codemirror/mode/python/python';
-import 'codemirror/mode/jsx/jsx';
-import 'codemirror/mode/clike/clike';
-
-import 'codemirror/addon/edit/matchbrackets';
-import 'codemirror/addon/edit/closebrackets';
-
-import 'codemirror/addon/edit/closetag';
-import 'codemirror/addon/edit/matchtags';
+// import 'codemirror/mode/javascript/javascript';
+// import 'codemirror/mode/htmlmixed/htmlmixed';
+// import 'codemirror/mode/python/python';
+// import 'codemirror/mode/jsx/jsx';
+// import 'codemirror/mode/clike/clike';
+//
+// import 'codemirror/addon/edit/matchbrackets';
+// import 'codemirror/addon/edit/closebrackets';
+//
+// import 'codemirror/addon/edit/closetag';
+// import 'codemirror/addon/edit/matchtags';
 
 /** ----------Props--------
  * None
@@ -244,7 +244,7 @@ const TextEditor = (props) => {
         <OpenPanelButtonContainer />
         <img
           className="program-sketch-thumbnail"
-          src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${thumbnailArray}.svg`}
+          src={`/img/sketch-thumbnails/${thumbnailArray}.svg`}
           alt="sketch thumbnail"
         />
         {viewOnly ? renderSketchName() : <DropdownButtonContainer />}
@@ -277,7 +277,7 @@ const TextEditor = (props) => {
   };
 
   if (redirectToSketch === true) {
-    return <Redirect to="/sketches" />;
+    return <Navigate to="/sketches" />;
   }
   // json required by CodeMirror
   const options = {

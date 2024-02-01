@@ -1,7 +1,7 @@
 import { faSignOutAlt, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { Button } from 'reactstrap';
 
 import * as fetch from '../../lib/fetch';
@@ -244,7 +244,7 @@ class ClassPage extends React.Component {
 
     // If no class selected, go back to classes page.
     if (cid === '') {
-      return <Redirect to="/classes" />;
+      return <Navigate to="/classes" />;
     }
 
     if (error) {

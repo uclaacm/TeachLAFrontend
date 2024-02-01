@@ -4,7 +4,7 @@ import {
   setProgramName,
   setProgramThumbnail,
 } from '../../../actions/programsActions';
-import EditSketchModal from '../components/EditSketchModal.js';
+import EditSketchModal from '../components/EditSketchModal';
 
 const mapStateToProps = (state) => ({
   uid: state.userData.uid,

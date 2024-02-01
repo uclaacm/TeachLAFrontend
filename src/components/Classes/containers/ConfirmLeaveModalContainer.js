@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { removeStudentClass } from '../../../actions/classesActions';
-import { setCurrentClass } from '../../../actions/userDataActions.js';
-import ConfirmLeaveModal from '../components/ConfirmLeaveModal.js';
+import { setCurrentClass } from '../../../actions/userDataActions';
+import ConfirmLeaveModal from '../components/ConfirmLeaveModal';
 
 const mapStateToProps = (state) => ({
   uid: state.userData.uid,

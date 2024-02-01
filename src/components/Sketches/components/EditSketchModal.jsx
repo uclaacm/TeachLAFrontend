@@ -146,7 +146,7 @@ const EditSketchModal = (props) => {
   const renderMainModal = () => {
     const thumbnailPreview = (
       <img
-        src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${
+        src={`/img/sketch-thumbnails/${
           newThumbnail !== -1 ? ThumbnailArray[newThumbnail] : sketchImg
         }.svg`}
         className="sketches-modal-header-thumbnail"
@@ -263,7 +263,7 @@ const EditSketchModal = (props) => {
         onKeyDown={() => setNewThumbnail(index)}
       >
         <img
-          src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${val}.svg`}
+          src={`/img/sketch-thumbnails/${val}.svg`}
           className={`sketches-gallery-img${newThumbnail === index ? '-selected' : ''}`}
           alt="icon"
         />
@@ -272,13 +272,13 @@ const EditSketchModal = (props) => {
 
     const thumbnailPreview = newThumbnail !== -1 ? (
       <img
-        src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${ThumbnailArray[newThumbnail]}.svg`}
+        src={`/img/sketch-thumbnails/${ThumbnailArray[newThumbnail]}.svg`}
         className="sketches-modal-header-thumbnail"
         alt="icon"
       />
     ) : (
       <img
-        src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${sketchImg}.svg`}
+        src={`/img/sketch-thumbnails/${sketchImg}.svg`}
         className="sketches-modal-header-thumbnail"
         alt="icon"
       />

@@ -1,6 +1,6 @@
 import React from 'react';
 import { ThumbnailArray } from "../../constants";
-import * as fetch from "../../lib/fetch.js";
+import * as fetch from "../../lib/fetch";
 import ClassBox from "./components/ClassBox";
 import ConfirmLeaveModalContainer from "./containers/ConfirmLeaveModalContainer";
 import CreateClassModalContainer from "./containers/CreateClassModalContainer";

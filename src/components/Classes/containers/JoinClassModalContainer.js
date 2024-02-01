@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { addStudentClass } from '../../../actions/classesActions';
-import JoinClassModal from '../components/JoinClassModal.js';
+import JoinClassModal from '../components/JoinClassModal';
 
 const mapStateToProps = (state) => ({
   uid: state.userData.uid,

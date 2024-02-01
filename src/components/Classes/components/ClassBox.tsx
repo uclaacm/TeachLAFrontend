@@ -35,7 +35,7 @@ const ClassBox = function ({
       <Link className="class-box-body" onClick={redirFunc} to={{ pathname: '/class' }}>
         <img
           alt="Class icon"
-          src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${img}.svg`}
+          src={`/img/sketch-thumbnails/${img}.svg`}
           className="class-thumbnail"
         />
         <div className="class-info">

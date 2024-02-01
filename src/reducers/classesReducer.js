@@ -10,7 +10,7 @@ import {
   LOAD_INSTR_CLASSES,
   CLEAR_INSTR_CLASSES,
   CLEAR_CLASSES,
-} from '../actions/classesActions.js';
+} from '../actions/classesActions';
 
 const initialState = Map({ studClasses: Map(), instrClasses: Map() });
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ReactModal from 'react-modal';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import {
   Button, Container, Row, Col, FormGroup, Label, Input,
 } from 'reactstrap';
@@ -146,7 +146,7 @@ function JoinClassModal(props) {
 
   if (redirect) {
     // Need to send them to the right class page
-    return <Redirect to="/class" />;
+    return <Navigate to="/class" />;
   }
 
   return renderModal();
