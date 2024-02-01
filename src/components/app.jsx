@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  BrowserRouter, Route, Navigate, Routes,
+  BrowserRouter, Route, Navigate, Routes, useParams, useLocation,
 } from 'react-router-dom';
 
 import { ROUTER_BASE_NAME } from '../constants';
@@ -14,6 +14,36 @@ import ViewOnlyContainer from './containers/ViewOnlyContainer';
 import Error from './Error';
 import PageNotFound from './PageNotFound';
 import '../styles/app.scss';
+
+const Protected = ({ isValidUser, whenInvalid = <LoginPage />, errorMsg, children }) => {
+  if (errorMsg !== '') {
+    return <Error errorMsg={errorMsg} isValidUser={isValidUser} />;
+  }
+
+  if (!isValidUser) {
+    return whenInvalid;
+  }
+
+  return children;
+}
+
+/** For migration purposes
+  * TODO: convert ViewOnlyContainer to functional component and
+  * add a hook to useParams
+  */
+const ViewOnlyContainerWithParam = () => {
+  let { programid } = useParams();
+  return <ViewOnlyContainer contentType="view" programid={programid} />;
+}
+
+/** For migration purposes
+  * TODO: convert LoginPage to functional component and
+  * add a hook to useParams
+  */
+const LoginPageWithLocation = () => {
+  let { state } = useLocation();
+  return <LoginPage create initialState={state} />;
+}
 
 class App extends React.Component {
   constructor(props) {
@@ -91,40 +121,27 @@ class App extends React.Component {
     // the user is not valid if there's no UID
     const isValidUser = uid;
 
-    const EditorRoute = () => {
-      
-    };
-
     return (
       <BrowserRouter basename={ROUTER_BASE_NAME} history={history}>
         <div className="app">
           <Routes>
             {/* if the user is loggedIn, redirect them to the editor, otherwise, show the login page */}
             <Route
-              exact
               path="/"
-              render={() => {
-                if (errorMsg !== '') {
-                  return <Error errorMsg={errorMsg} isValidUser={isValidUser} />;
-                }
-                if (isValidUser) {
-                  return <Navigate to="/editor" />;
-                }
-                return <LoginPage />;
-              }}
+              element={
+                <Protected isValidUser={isValidUser} errorMsg={errorMsg}>
+                  <Navigate to="/editor" />
+                </Protected>
+              }
             />
             {/* if the user is loggedIn, redirect them to the editor, otherwise, show the login page */}
             <Route
               path="/login"
-              render={() => {
-                if (errorMsg !== '') {
-                  return <Error errorMsg={errorMsg} isValidUser={isValidUser} />;
-                }
-                if (isValidUser) {
-                  return <Navigate to="/editor" />;
-                }
-                return <LoginPage />;
-              }}
+              element={
+                <Protected isValidUser={isValidUser} errorMsg={errorMsg}>
+                  <Navigate to="/editor" />
+                </Protected>
+              }
             />
             {/* if the user is not loggedIn, redirect them to the login page, otherwise, show the editor page */}
             <Route
@@ -157,80 +174,64 @@ class App extends React.Component {
             {/* if the user is loggedIn, redirect them to the editor page, otherwise, show the createUser page */}
             <Route
               path="/createUser"
-              render={({ location }) => {
-                if (errorMsg !== '') {
-                  return <Error errorMsg={errorMsg} isValidUser={isValidUser} />;
-                }
-                if (isValidUser) {
-                  return <Navigate to="/editor" />;
-                }
-                return <LoginPage create initialState={location.state} />;
-              }}
+              element={
+                <Protected isValidUser={isValidUser} errorMsg={errorMsg} whenInvalid={<LoginPageWithLocation />}>
+                  <Navigate to="/editor" />
+                </Protected>
+              }
             />
             {/* if the user isn't loggedIn, redirect them to the login page, otherwise, show the view page */}
             <Route
               path="/sketches"
-              render={() => {
-                if (errorMsg !== '') {
-                  return <Error errorMsg={errorMsg} isValidUser={isValidUser} />;
-                }
-                if (isValidUser) {
-                  return <MainContainer contentType="sketches" />;
-                }
-                return <Navigate to="/login" />;
-              }}
+              element={
+                <Protected isValidUser={isValidUser} errorMsg={errorMsg}>
+                  <MainContainer contentType="sketches" />
+                </Protected>
+              }
             />
             {/* Get program endpoint */}
             <Route
               path="/p/:programid"
-              render={({ match }) => (
-                <ViewOnlyContainer contentType="view" programid={match.params.programid} />
-              )}
+              element={<ViewOnlyContainerWithParam />}
             />
             {/* Class page */}
             <Route
               path="/class"
-              render={() => {
-                if (errorMsg !== '') {
-                  return <Error errorMsg={errorMsg} isValidUser={isValidUser} />;
-                }
-                if (!isValidUser) {
-                  return <Redirect to="/login" />;
-                }
-                if (developerAcc) {
-                  return <MainContainer contentType="classPage" />;
-                }
-                return <Redirect to="/sketches" />;
-              }}
+              element={
+                <Protected isValidUser={isValidUser} errorMsg={errorMsg}>
+                  {
+                    (developerAcc)
+                      ? <MainContainer contentType="classPage" />
+                      : <Redirect to="/sketches" />
+                  }
+                </Protected>
+              }
             />
             {/* Classes page */}
             <Route
               path="/classes"
-              render={() => {
-                if (errorMsg !== '') {
-                  return <Error errorMsg={errorMsg} isValidUser={isValidUser} />;
-                }
-                if (!isValidUser) {
-                  return <Redirect to="/login" />;
-                }
-                if (developerAcc) {
-                  return <MainContainer contentType="classes" />;
-                }
-                return <Redirect to="/sketches" />;
-              }}
+              element={
+                <Protected isValidUser={isValidUser} errorMsg={errorMsg}>
+                  {
+                    (developerAcc)
+                      ? <MainContainer contentType="classes" />
+                      : <Redirect to="/sketches" />
+                  }
+                </Protected>
+              }
             />
             {/* Default error page */}
             <Route
               path="/error"
-              render={() => (errorMsg ? (
-                <Error errorMsg={errorMsg} isValidUser={isValidUser} />
-              ) : (
-                this.renderHome(isValidUser)
-              ))}
+              element={
+                <Protected isValidUser={isValidUser} errorMsg={errorMsg}>
+                  <Navigate to="/editor" />
+                </Protected>
+              }
             />
 
             {/* Matches all other paths */}
-            <Route render={() => <PageNotFound />} />
+            <Route element={<PageNotFound />} />
           </Routes>
         </div>
       </BrowserRouter>
