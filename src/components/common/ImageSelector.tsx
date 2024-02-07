@@ -3,11 +3,19 @@ import ReactModal from 'react-modal';
 import { Container } from 'reactstrap';
 import '../../styles/ImageSelector.scss';
 
-const ImageSelector = function (props) {
-  // Extracting all data from props
-  const {
-    isOpen, closeModal, maxWidth, thumbnailPreview, icons, error, children,
-  } = props;
+interface ImageSelectorProps {
+  isOpen: boolean;
+  closeModal: () => void;
+  maxWidth: number;
+  thumbnailPreview?: React.ReactElement | null; // either <img> element or null
+  icons: any; // array of <figure> elements
+  error: string; // error message
+  children: React.ReactNode;
+}
+
+const ImageSelector = function ({
+  isOpen, closeModal, maxWidth, thumbnailPreview, icons, error, children,
+}: ImageSelectorProps) {
   return (
     <ReactModal
       isOpen={isOpen}
@@ -34,6 +42,10 @@ const ImageSelector = function (props) {
       </Container>
     </ReactModal>
   );
+};
+
+ImageSelector.defaultProps = {
+  thumbnailPreview: null,
 };
 
 export default ImageSelector;
