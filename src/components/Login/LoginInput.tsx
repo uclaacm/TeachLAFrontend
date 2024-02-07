@@ -10,9 +10,8 @@ import '../../styles/Login.scss';
 interface LoginInputProps {
   type: string;
   waiting: boolean;
-  data: any;
-  onChange: any;
-
+  data: string;
+  onChange: (value: string) => void;
 }
 
 const LoginInput = function ({
