@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  BrowserRouter, Route, Navigate, Routes, useParams, useLocation,
+  BrowserRouter, Route, Navigate, Routes, useParams, useLocation, useMatch
 } from 'react-router-dom';
 
 import { ROUTER_BASE_NAME } from '../constants';
@@ -25,6 +25,37 @@ const Protected = ({ isValidUser, whenInvalid = <LoginPage />, errorMsg, childre
   }
 
   return children;
+}
+
+
+/**
+ * takes the url param programid and checks if it exists using !programid
+ * if it doesn't exist, it finds the most recent program (or creates an existing program if there it doesn't exist)
+ * if there are no projects, it takes the user to the sketches page to make a new one
+ * 
+ * upon arriving at the new page, programid is no longer undefined so it loads the maincontainer w prop programid
+ * 
+ * 3 returns - most recent program, first program, sketches
+ */
+
+const EditorWrapper = ({ lastMostRecentProgram, programKeys, }) => {
+  const { programid } = useParams();
+  if (!programid) {
+    const lastMostRecentProgram = store.getState().userData.mostRecentProgram;
+    const programKeys = store.getState().programs.keySeq();
+    if (programKeys.includes(lastMostRecentProgram)) {
+      return <Navigate to={`/editor/${lastMostRecentProgram}`} />;
+    }
+    // mostRecentProgram no longer exists, fall back to one of the
+    // programs that does exist
+    if (programKeys.get(0)) {
+      return <Navigate to={`/editor/${programKeys.get(0)}`} />;
+    }
+    // No programs exist, redirect to /sketches so the user can make one
+
+    return <Navigate to="/sketches" />;
+  }
+  return <MainContainer contentType="editor" programid={programid} />;
 }
 
 /** For migration purposes
@@ -146,13 +177,12 @@ class App extends React.Component {
             {/* if the user is not loggedIn, redirect them to the login page, otherwise, show the editor page */}
             <Route
               path="/editor/:programid?"
+              element={
+                <Protected isValidUser={isValidUser} errorMsg={errorMsg}>
+                  <EditorWrapper />
+                </Protected>
+              }
               render={({ match }) => {
-                if (errorMsg !== '') {
-                  return <Error errorMsg={errorMsg} isValidUser={isValidUser} />;
-                }
-                if (!isValidUser) {
-                  return <Navigate to="/login" />;
-                }
                 if (!match.params.programid) {
                   const lastMostRecentProgram = store.getState().userData.mostRecentProgram;
                   const programKeys = store.getState().programs.keySeq();
@@ -202,7 +232,7 @@ class App extends React.Component {
                   {
                     (developerAcc)
                       ? <MainContainer contentType="classPage" />
-                      : <Redirect to="/sketches" />
+                      : <Navigate to="/sketches" />
                   }
                 </Protected>
               }
@@ -215,7 +245,7 @@ class App extends React.Component {
                   {
                     (developerAcc)
                       ? <MainContainer contentType="classes" />
-                      : <Redirect to="/sketches" />
+                      : <Navigate to="/sketches" />
                   }
                 </Protected>
               }
