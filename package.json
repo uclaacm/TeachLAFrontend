@@ -14,6 +14,7 @@
     "@types/node": "^20.11.14",
     "@types/react": "^18.2.48",
     "@types/react-dom": "^18.2.18",
+    "@types/react-modal": "^3.16.3",
     "@uiw/codemirror-theme-bbedit": "^4.21.23",
     "@uiw/codemirror-theme-sublime": "^4.21.23",
     "@uiw/react-codemirror": "^4.21.21",
