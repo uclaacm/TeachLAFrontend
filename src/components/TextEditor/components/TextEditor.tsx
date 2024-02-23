@@ -8,24 +8,13 @@ import ReactModal from 'react-modal';
 import { Navigate } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import { EDITOR_WIDTH_BREAKPOINT, ThumbnailArray } from '../../../constants';
-import skt from '../../../lib';
+import { constructShareableSketchURL } from '../../../lib/sketch';
 import { createSketch } from '../../../lib/fetch';
 import OpenPanelButtonContainer from '../../common/containers/OpenPanelButtonContainer';
 import ViewportAwareButton from '../../common/ViewportAwareButton';
 import DropdownButtonContainer from '../containers/DropdownButtonContainer';
 import EditorRadio from './EditorRadio';
 import ShareSketchModal from './ShareSketchModal';
-// import 'codemirror/mode/javascript/javascript';
-// import 'codemirror/mode/htmlmixed/htmlmixed';
-// import 'codemirror/mode/python/python';
-// import 'codemirror/mode/jsx/jsx';
-// import 'codemirror/mode/clike/clike';
-//
-// import 'codemirror/addon/edit/matchbrackets';
-// import 'codemirror/addon/edit/closebrackets';
-//
-// import 'codemirror/addon/edit/closetag';
-// import 'codemirror/addon/edit/matchtags';
 import { python } from '@codemirror/lang-python';
 import { javascript } from '@codemirror/lang-javascript';
 import { bbedit } from '@uiw/codemirror-theme-bbedit';
@@ -67,7 +56,7 @@ const TextEditor = (props) => {
 
   //= =============React Lifecycle Functions====================//
 
-  const onLeave = async (ev) => {
+  const onLeave = async (ev: BeforeUnloadEvent) => {
     const newev = ev;
     if (dirty) {
       newev.returnValue = '';
@@ -265,13 +254,20 @@ const TextEditor = (props) => {
     return <Navigate to="/sketches" />;
   }
 
+  const cmExtensions = [];
+
+   switch (viewMode ? vlanguage.codemirror : language.codemirror) {
+    case 'python': cmExtensions.push(python()); break;
+    case 'jsx': cmExtensions.push(javascript({ jsx: true })); break;
+  }
+
   return (
     <div className={`theme-${theme}`} style={{ height: '100%' }}>
       <div className="code-section">
         {renderBanner()}
         {renderForkModal()}
         <ShareSketchModal
-          shareUrl={skt.constructShareableSketchURL(mostRecentProgram)}
+          shareUrl={constructShareableSketchURL(mostRecentProgram)}
           showModal={showShareModal}
           toggleModal={toggleShareModal}
         />
@@ -287,7 +283,7 @@ const TextEditor = (props) => {
             value={code}
             theme={getCMTheme(theme)}
             onChange={updateCode}
-            extensions={[python()]}
+            extensions={cmExtensions}
           />
         </div>
       </div>
