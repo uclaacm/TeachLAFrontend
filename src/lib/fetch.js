@@ -24,7 +24,7 @@ const makeServerRequest = (data, endpoint, method = 'post') => {
       }
     } catch (err) {
       console.error(err);
-      return undefined;
+      return Promise.reject(new Error('failed to make server request'));
     }
     options.body = body;
   }

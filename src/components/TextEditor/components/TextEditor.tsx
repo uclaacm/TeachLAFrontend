@@ -2,14 +2,14 @@ import {
   faDownload, faSave, faShare, faCodeBranch,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState, useEffect } from 'react';
-import CodeMirror from '@uiw/react-codemirror';
+import { useState, useEffect } from 'react';
+import CodeMirror, { ViewUpdate } from '@uiw/react-codemirror';
 import ReactModal from 'react-modal';
 import { Navigate } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import { EDITOR_WIDTH_BREAKPOINT, ThumbnailArray } from '../../../constants';
 import skt from '../../../lib';
-import * as fetch from '../../../lib/fetch';
+import { createSketch } from '../../../lib/fetch';
 import OpenPanelButtonContainer from '../../common/containers/OpenPanelButtonContainer';
 import ViewportAwareButton from '../../common/ViewportAwareButton';
 import DropdownButtonContainer from '../containers/DropdownButtonContainer';
@@ -26,14 +26,16 @@ import ShareSketchModal from './ShareSketchModal';
 //
 // import 'codemirror/addon/edit/closetag';
 // import 'codemirror/addon/edit/matchtags';
+import { python } from '@codemirror/lang-python';
+import { javascript } from '@codemirror/lang-javascript';
+import { bbedit } from '@uiw/codemirror-theme-bbedit';
+import { sublime } from '@uiw/codemirror-theme-sublime';
 
 /** ----------Props--------
  * None
  */
 
 const TextEditor = (props) => {
-  const [codeMirrorInstance, setCodeMirrorInstance] = useState(null);
-  const [currentLine, setCurrentLine] = useState(0);
   const [showForkModal, setShowForkModal] = useState(false);
   const [forking, setForking] = useState(false);
   const [forked, setForked] = useState(false);
@@ -91,23 +93,12 @@ const TextEditor = (props) => {
     setShowForkModal(false);
   };
 
-  const updateCode = (editor, data, newCode) => {
+  const updateCode = (newCode: string, _viewUpdate: ViewUpdate) => {
     // if the code's not yet dirty, and the old code is different from the new code, make it dirty
     if (!dirty && code !== newCode) {
       dirtyCode(mostRecentProgram);
     }
     setProgramCode(mostRecentProgram, newCode);
-  };
-
-  const setCurrentLineManual = (cm) => {
-    const { line } = cm.getCursor();
-    if (codeMirrorInstance) {
-      // removeLineClass removes the back highlight style from the last selected line
-      codeMirrorInstance.removeLineClass(currentLine, 'wrap', 'selected-line');
-      // addLineClass adds the style to the newly selected line
-      codeMirrorInstance.addLineClass(line, 'wrap', 'selected-line');
-    }
-    setCurrentLine(line);
   };
 
   const redirectSketch = () => {
@@ -126,8 +117,7 @@ const TextEditor = (props) => {
     };
 
     try {
-      fetch
-        .createSketch(data)
+      createSketch(data)
         .then((res) => {
           if (!res.ok) throw new Error(`Failed to create sketch! Got status ${res.status}.`);
           return res.json();
@@ -191,18 +181,13 @@ const TextEditor = (props) => {
     setShowShareModal(!showShareModal);
   };
 
-  /**
-   * returns a theme string for the CodeMirror editor, based off of the app's current theme
-   * @param {string} theme - the app's current theme
-   * @returns {string} the codemirror theme - see https://codemirror.net/demo/theme.html for more info
-   */
-  const getCMTheme = (newTheme) => {
+  const getCMTheme = (newTheme: string) => {
     switch (newTheme) {
-    case 'light':
-      return 'duotone-light';
-    case 'dark':
-    default:
-      return 'material';
+      case 'light':
+        return bbedit;
+      case 'dark':
+      default:
+        return sublime;
     }
   };
 
@@ -279,23 +264,6 @@ const TextEditor = (props) => {
   if (redirectToSketch === true) {
     return <Navigate to="/sketches" />;
   }
-  // json required by CodeMirror
-  const options = {
-    mode: viewOnly ? vlanguage.codemirror : language.codemirror,
-    theme: getCMTheme(theme),
-    lineNumbers: true, // text editor has line numbers
-    /**
-     * text editor does not overflow in the x direction, uses word wrap
-     *    (NOTE: it's like MO Word wrapping, so words are not cut in the middle,
-     *    if a word overlaps, the whole word is brought to the next line)
-     */
-    lineWrapping: true,
-    indentWithTabs: true,
-    matchBrackets: true,
-    autoCloseBrackets: true,
-    matchTags: true,
-    autoCloseTags: true,
-  };
 
   return (
     <div className={`theme-${theme}`} style={{ height: '100%' }}>
@@ -316,19 +284,10 @@ const TextEditor = (props) => {
           }}
         >
           <CodeMirror
-            editorDidMount={(MirrorInstance) => {
-              MirrorInstance.refresh();
-              setCodeMirrorInstance(MirrorInstance);
-            }}
             value={code}
-            lineWrapping
-            indentWithTabs
-            options={options}
-            onCursor={(cm) => {
-              setCurrentLineManual(cm);
-            }}
-            onBeforeChange={updateCode}
+            theme={getCMTheme(theme)}
             onChange={updateCode}
+            extensions={[python()]}
           />
         </div>
       </div>

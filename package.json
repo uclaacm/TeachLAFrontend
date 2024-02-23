@@ -5,6 +5,8 @@
   "type": "module",
   "homepage": "https://editor.uclaacm.com",
   "dependencies": {
+    "@codemirror/lang-javascript": "^6.2.2",
+    "@codemirror/lang-python": "^6.1.4",
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/free-brands-svg-icons": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
@@ -12,6 +14,8 @@
     "@types/node": "^20.11.14",
     "@types/react": "^18.2.48",
     "@types/react-dom": "^18.2.18",
+    "@uiw/codemirror-theme-bbedit": "^4.21.23",
+    "@uiw/codemirror-theme-sublime": "^4.21.23",
     "@uiw/react-codemirror": "^4.21.21",
     "@vitejs/plugin-react": "^4.2.1",
     "bootstrap": ">=5.3.2",
