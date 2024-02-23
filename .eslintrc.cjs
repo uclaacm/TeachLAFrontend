@@ -1,3 +1,7 @@
+/*
+ * "Note that ESLint does not support ESM configuration at this time."
+ * ref: https://eslint.org/docs/latest/use/configure/configuration-files
+ */
 module.exports = {
   env: {
     browser: true,
