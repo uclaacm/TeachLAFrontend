@@ -9,7 +9,7 @@ import constants from '../constants';
  *                                                       defaults localhost to 8080
  */
 
-export const constructShareableSketchURL = (programId, domainRoot = window.location.hostname) => {
+export const constructShareableSketchURL = (programId: string, domainRoot: string = window.location.hostname) => {
   let root;
   if (domainRoot.includes('localhost')) {
     root = 'http://localhost:8080';

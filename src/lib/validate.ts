@@ -7,11 +7,13 @@ import {
   MAXIMUM_DISPLAY_NAME_LENGTH,
 } from '../constants';
 
-/**
- * @typedef {Object} ValidMessage
- * @property {boolean} ok - whether or not the passed-in object is valid
- * @property {string} message - if ok is false, message is populated with an invalidation explanation; empty on true
- */
+interface ValidMessage {
+  /* whether or not object is valid */
+  ok: boolean;
+
+  /* if !ok, message is an explanation for why it's invalid, otherwise empty */
+  message: string;
+};
 
 /**
  * isValidUsername takes in a username and returns an object containing whether or not the the username is valid;
@@ -20,7 +22,7 @@ import {
  * @returns {ValidMessage} - a ValidMessage object: 'ok' is a boolean determining the validity, and 'message' is an
  * error message set on failure, empty on true
  */
-export const isValidUsername = (username) => {
+export const isValidUsername = (username: string): ValidMessage => {
   // username is too short or too long
   if (username.length < MINIMUM_USERNAME_LENGTH || username.length > MAXIMUM_USERNAME_LENGTH) {
     return {
@@ -47,7 +49,7 @@ export const isValidUsername = (username) => {
  * @returns {ValidMessage} - a ValidMessage object: 'ok' is a boolean determining the validity, and 'message' is an
  * error message set on failure, empty on true
  */
-export const isValidPassword = (password) => {
+export const isValidPassword = (password: string): ValidMessage => {
   // password is too short or too long
   if (password.length < MINIMUM_PASSWORD_LENGTH || password.length > MAXIMUM_PASSWORD_LENGTH) {
     return {
@@ -67,7 +69,7 @@ export const isValidPassword = (password) => {
  * @returns {ValidMessage} - a ValidMessage object: 'ok' is a boolean determining the validity, and 'message' is an
  * error message set on failure, empty on true
  */
-export const isValidDisplayName = (displayName) => {
+export const isValidDisplayName = (displayName: string): ValidMessage => {
   // display name is too short or too long
   if (
     displayName.length < MINIMUM_DISPLAY_NAME_LENGTH

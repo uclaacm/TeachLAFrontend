@@ -5,7 +5,7 @@
  * @return {string} the value of the requested key, "" for none set
  */
 
-function getCookie(cname) {
+function getCookie(cname: string): string {
   const name = `${cname}=`;
   const decodedCookie = decodeURIComponent(document.cookie);
   const ca = decodedCookie.split(';');
@@ -29,7 +29,7 @@ function getCookie(cname) {
  * @param {number} exdays - the number of days until the cookie expires
  */
 
-function setCookie(cname, cvalue, exdays) {
+function setCookie(cname: string, cvalue: string, exdays: number) {
   const d = new Date();
   d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
   const expires = `expires=${d.toUTCString()}`;
@@ -42,7 +42,7 @@ function setCookie(cname, cvalue, exdays) {
  * @returns {string} the current theme, or dark if the cookie doesn't exist
  */
 
-export const getThemeFromCookie = () => {
+export const getThemeFromCookie = (): string => {
   const theme = getCookie('theme');
   if (theme !== '') {
     return theme;
@@ -56,7 +56,7 @@ export const getThemeFromCookie = () => {
  * @param {string} theme theme string to store in the cookie
  */
 
-export const setThemeCookie = (theme) => {
+export const setThemeCookie = (theme: string) => {
   setCookie('theme', theme, 365);
 };
 
@@ -66,7 +66,7 @@ export const setThemeCookie = (theme) => {
  * @returns {string} returns the current value of the theme cookie
  */
 
-export const toggleCookie = () => {
+export const toggleCookie = (): string => {
   if (getThemeFromCookie() === 'light') {
     setCookie('theme', 'dark', 365);
     return 'dark';

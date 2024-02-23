@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from 'reactstrap';
 
@@ -8,7 +7,13 @@ import * as cookies from '../lib/cookies';
 import Footer from './common/Footer';
 import '../styles/Page.scss';
 
-function Error({ errorMsg, returnTo = null, isValidUser }) {
+interface ErrorProps {
+  errorMsg: string;
+  isValidUser: boolean;
+  returnTo: string;
+};
+
+function Error({ errorMsg, returnTo = '/', isValidUser }: ErrorProps) {
   return (
     <div className={`full-container theme-${cookies.getThemeFromCookie()}`}>
       <div className="page-container">
@@ -22,7 +27,7 @@ function Error({ errorMsg, returnTo = null, isValidUser }) {
           Let Us Know!
         </Button>
         &nbsp;
-        <Link to={returnTo || '/'}>
+        <Link to={returnTo}>
           <Button color="success" size="lg">
             Back to safety
           </Button>
