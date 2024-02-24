@@ -45,10 +45,10 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
-    'plugin:jest/recommended',
+    'plugin:react/jsx-runtime',
     'prettier',
     'airbnb',
-    'plugin:import/typescript',
+    // 'plugin:import/typescript',
   ],
   parser: 'babel-eslint',
   parserOptions: {
@@ -57,21 +57,21 @@ module.exports = {
     },
     ecmaVersion: 12,
     sourceType: 'module',
-    project: './jsconfig.json',
+    project: './tsconfig.json',
   },
-  plugins: ['import', 'react', 'jest'],
+  plugins: ['react', 'jest'],
   rules: {
     // ignore file extensions when importing
-    'import/extensions': [
-      'error',
-      'ignorePackages',
-      {
-        js: 'never',
-        jsx: 'never',
-        ts: 'never',
-        tsx: 'never',
-      },
-    ],
+    // 'import/extensions': [
+    //   'error',
+    //   'ignorePackages',
+    //   {
+    //     js: 'never',
+    //     jsx: 'never',
+    //     ts: 'never',
+    //     tsx: 'never',
+    //   },
+    // ],
 
     'linebreak-style': ['error', 'unix'],
 
