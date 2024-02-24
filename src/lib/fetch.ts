@@ -7,8 +7,8 @@ import constants from '../constants';
  * @param {string} method HTTP method to make the request, defaults to post
  */
 
-const makeServerRequest = (data, endpoint, method = 'post') => {
-  const options = {
+const makeServerRequest = (data: object, endpoint: string, method: string = 'post') => {
+  const options: RequestInit = {
     method,
     headers: {
       'Content-Type': 'application/json; charset=utf-8',
@@ -32,7 +32,7 @@ const makeServerRequest = (data, endpoint, method = 'post') => {
   return fetch(`${constants.SERVER_URL}/${endpoint}`, options);
 };
 
-export const createUser = (uid) => {
+export const createUser = (uid: string) => {
   console.error('creating user');
   return makeServerRequest({ uid }, 'user/create', 'post');
 };
@@ -51,30 +51,30 @@ export const createUser = (uid) => {
  *   }
  * }
  */
-export const getUserData = async (uid = '', includePrograms = false) => {
+export const getUserData = async (
+  uid: string,
+  includePrograms = false,
+): Promise<{ ok: boolean; data: object; error: string }> => {
   const userDataEndpoint = `${constants.SERVER_URL}/user/get?uid=${uid}${
     includePrograms ? '&programs=true' : ''
   }`;
 
-  const options = {
+  const options: RequestInit = {
     method: 'get',
     mode: 'cors', // no-cors, cors, *same-origin
   };
 
   try {
     const result = await fetch(userDataEndpoint, options);
-    const status = await result.status;
+    const status = result.status;
     const ok = status === 200;
-    if (status === 404) {
-      await createUser(uid);
-      return getUserData(uid, includePrograms);
-    }
     const data = ok ? await result.json() : {};
     const error = !ok ? await result.text() : '';
     return { ok, data, error };
   } catch (err) {
-    await createUser(uid);
-    return getUserData(uid, includePrograms);
+    if (err instanceof Error) return { ok: false, data: {}, error: err.message };
+    else if (typeof err === 'string') return { ok: false, data: {}, error: err };
+    else return { ok: false, data: {}, error: 'Error encountered' };
   }
 };
 
@@ -85,7 +85,7 @@ export const getUserData = async (uid = '', includePrograms = false) => {
  */
 
 // eslint-disable-next-line default-param-last
-export const updatePrograms = (uid = '', programs) => {
+export const updatePrograms = (uid: string = '', programs: object) => {
   const endpoint = 'program/update';
   return makeServerRequest({ uid, programs }, endpoint, 'put');
 };
@@ -97,7 +97,7 @@ export const updatePrograms = (uid = '', programs) => {
  */
 
 // eslint-disable-next-line default-param-last
-export const updateUserData = (uid = '', userData) => {
+export const updateUserData = (uid: string = '', userData: object) => {
   const endpoint = 'user/update';
   return makeServerRequest({ uid, ...userData }, endpoint, 'put');
 };
@@ -107,9 +107,24 @@ export const updateUserData = (uid = '', userData) => {
  * @param {Object} data required data to create program - might eventually become enumerated
  */
 
-export const createSketch = (data) => {
-  const { uid, wid, ...rest } = data;
-  return makeServerRequest({ uid, wid, program: rest }, 'program/create');
+interface Program {
+  uid: string;
+  thumbnail: string;
+  language: string;
+  name: string;
+  code: string;
+}
+
+export const createSketch = ({
+  uid,
+  wid,
+  program,
+}: {
+  uid: string;
+  wid: string;
+  program: Program;
+}) => {
+  return makeServerRequest({ uid, wid, program }, 'program/create');
 };
 
 /**
@@ -117,8 +132,7 @@ export const createSketch = (data) => {
  * @param {Object} data required data to delete program (uid, docID, name)
  */
 
-export const deleteSketch = (data) => {
-  const { uid, name } = data;
+export const deleteSketch = ({ uid, name }: { uid: string; name: string }) => {
   return makeServerRequest({ uid, pid: name }, 'program/delete', 'delete');
 };
 
@@ -127,7 +141,7 @@ export const deleteSketch = (data) => {
  * @param {string} docID the key for the requested program in the top-level programs object
  */
 
-export const getSketch = (docID) => {
+export const getSketch = (docID: string) => {
   const endpoint = `program/get?pid=${docID}`;
   return makeServerRequest({}, endpoint, 'get');
 };
@@ -136,16 +150,17 @@ export const getSketch = (docID) => {
  * creates a new class
  * @param {Object} data required data to create class {uid, name, thumbnail}
  */
-export const createClass = (data) => makeServerRequest(data, 'class/create');
+export const createClass = (data: { uid: string; name: string; thumbnail: string }) =>
+  makeServerRequest(data, 'class/create');
 
 /**
  * add a student to an existing class
  * @param {Object} data student's uid and class's word id {uid, wid}
  */
-export const joinClass = async (data) => {
+export const joinClass = async (data: object) => {
   console.error(data);
   const result = await makeServerRequest(data, 'class/join', 'put');
-  const ok = await result.ok;
+  const ok = result.ok;
   const { status } = result;
   const classData = ok ? await result.json() : {};
   return { ok, status, classData };
@@ -155,9 +170,9 @@ export const joinClass = async (data) => {
  * remove a member from a class
  * @param {Object} data member's uid and class's cid {uid, cid}
  */
-export const leaveClass = async (data) => {
+export const leaveClass = async (data: { uid: string; cid: string }) => {
   const result = await makeServerRequest(data, 'class/leave', 'put');
-  const ok = await result.ok;
+  const ok = result.ok;
   console.error(`ok: ${ok}`);
   // let userData = await result.json();
   const userData = {};
@@ -170,12 +185,16 @@ export const leaveClass = async (data) => {
  * @param {boolean} withPrograms whether to include this class's sketches or not
  * @param {boolean} withUserData whether to include student data
  */
-export const getClass = async (data, withPrograms, withUserData) => {
+export const getClass = async (
+  data: { uid: string; cid: string },
+  withPrograms: boolean,
+  withUserData: boolean,
+) => {
   const result = await makeServerRequest(
     data,
     `class/get?programs=${withPrograms}&userData=${withUserData}`,
   );
-  const ok = await result.ok;
+  const ok = result.ok;
   console.error(`response status: ${result.status}`);
   const classData = await result.json();
   return { ok, classData };
