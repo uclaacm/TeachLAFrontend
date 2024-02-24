@@ -1,15 +1,15 @@
 // TODO: Break up large constants file into smaller constants file
 
 export const PHOTO_NAMES = {
-  lightbulb: `/img/icons/lightbulb.png`,
-  orange: `/img/icons/orange.png`,
-  pear: `/img/icons/pear.png`,
-  apple: `/img/icons/apple.png`,
-  hotdog: `/img/icons/hotdog.png`,
-  icecream: `/img/icons/icecream.png`,
-  cloud: `/img/icons/cloud.png`,
-  earth: `/img/icons/earth.png`,
-  heart: `/img/icons/heart.png`,
+  lightbulb: '/img/icons/lightbulb.png',
+  orange: '/img/icons/orange.png',
+  pear: '/img/icons/pear.png',
+  apple: '/img/icons/apple.png',
+  hotdog: '/img/icons/hotdog.png',
+  icecream: '/img/icons/icecream.png',
+  cloud: '/img/icons/cloud.png',
+  earth: '/img/icons/earth.png',
+  heart: '/img/icons/heart.png',
 };
 
 export const DEFAULT_PHOTO_NAME = PHOTO_NAMES.icecream;

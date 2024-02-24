@@ -3,6 +3,11 @@
  * ref: https://eslint.org/docs/latest/use/configure/configuration-files
  */
 module.exports = {
+  settings: {
+    react: {
+      version: "detect",
+    },
+  },
   env: {
     browser: true,
     node: true,
@@ -27,7 +32,6 @@ module.exports = {
       },
     },
     {
-      extends: ['airbnb-typescript'],
       files: ['**/*.{ts,tsx}'],
       parser: '@typescript-eslint/parser',
       plugins: ['@typescript-eslint'],
@@ -44,13 +48,12 @@ module.exports = {
   ],
   extends: [
     'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
     'plugin:react/jsx-runtime',
     'prettier',
-    'airbnb',
-    // 'plugin:import/typescript',
   ],
-  parser: 'babel-eslint',
+  parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
@@ -59,54 +62,18 @@ module.exports = {
     sourceType: 'module',
     project: './tsconfig.json',
   },
-  plugins: ['react', 'jest'],
+  plugins: ['react', 'jest', '@typescript-eslint'],
   rules: {
-    // ignore file extensions when importing
-    // 'import/extensions': [
-    //   'error',
-    //   'ignorePackages',
-    //   {
-    //     js: 'never',
-    //     jsx: 'never',
-    //     ts: 'never',
-    //     tsx: 'never',
-    //   },
-    // ],
-
     'linebreak-style': ['error', 'unix'],
 
-    'no-unused-vars': ['error', { varsIgnorePattern: '^_', argsIgnorePattern: '^_' }],
+    '@typescript-eslint/no-unused-vars': ['error', { varsIgnorePattern: '^_', argsIgnorePattern: '^_' }],
+    "@typescript-eslint/no-explicit-any": "off",
 
     // 2 space indentation
     'indent': ['error', 2],
 
     // Style
     'quotes': ['error', 'single', { avoidEscape: true }],
-
-    // ensures clean diffs, see https://medium.com/@nikgraf/why-you-should-enforce-dangling-commas-for-multiline-statements-d034c98e36f8
-    'comma-dangle': ['error', 'always-multiline'],
-
-    // Require all imported dependencies are actually declared in package.json
-    'import/no-extraneous-dependencies': [
-      'error',
-      {
-        // Disallow importing optional dependencies (those shouldn't be in use in the project)
-        optionalDependencies: false,
-        peerDependencies: false, // Disallow importing peer dependencies (that aren't also direct dependencies)
-      },
-    ],
-
-    // Require all imported libraries actually resolve (!!required for import/no-extraneous-dependencies to work!!)
-    'import/no-unresolved': ['error'],
-
-    // Require an ordering on all imports
-    'import/order': [
-      'warn',
-      {
-        groups: ['builtin', 'external'],
-        alphabetize: { order: 'asc', caseInsensitive: true },
-      },
-    ],
 
     // Cannot import from the same module twice
     'no-duplicate-imports': ['error'],
@@ -149,17 +116,5 @@ module.exports = {
 
     // Not enforcing props validation for React
     'react/prop-types': 'off',
-
-    // Don't leave log statements littering the premises!
-    'no-console': ['error', { allow: ['error'] }],
-
-    // Not enforcing jsx extension
-    'react/jsx-filename-extension': 'off',
-
-    // For loops are ok
-    'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
-
-    // AirBNB changed this to only allow function-expressions
-    'react/function-component-definition': 'off',
   },
 };

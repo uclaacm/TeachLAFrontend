@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import ReactModal from 'react-modal';
 import {
   Container, Row, Col, Button,

@@ -1,4 +1,3 @@
-import React from 'react';
 import SplitPane from 'react-split-pane';
 import {
   EDITOR_WIDTH_BREAKPOINT, CODE_ONLY, OUTPUT_ONLY, PANEL_SIZE,

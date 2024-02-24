@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  BrowserRouter, Route, Navigate, Routes, useParams, useLocation, useMatch
+  BrowserRouter, Route, Navigate, Routes, useParams, useLocation
 } from 'react-router-dom';
 
 import { ROUTER_BASE_NAME } from '../constants';
@@ -25,20 +25,20 @@ const Protected = ({ isValidUser, whenInvalid = <LoginPage />, errorMsg, childre
   }
 
   return children;
-}
+};
 
 
 /**
  * takes the url param programid and checks if it exists using !programid
  * if it doesn't exist, it finds the most recent program (or creates an existing program if there it doesn't exist)
  * if there are no projects, it takes the user to the sketches page to make a new one
- * 
+ *
  * upon arriving at the new page, programid is no longer undefined so it loads the maincontainer w prop programid
- * 
+ *
  * 3 returns - most recent program, first program, sketches
  */
 
-const EditorWrapper = ({ lastMostRecentProgram, programKeys, }) => {
+const EditorWrapper = () => {
   const { programid } = useParams();
   if (!programid) {
     const lastMostRecentProgram = store.getState().userData.mostRecentProgram;
@@ -56,7 +56,7 @@ const EditorWrapper = ({ lastMostRecentProgram, programKeys, }) => {
     return <Navigate to="/sketches" />;
   }
   return <MainContainer contentType="editor" programid={programid} />;
-}
+};
 
 /** For migration purposes
   * TODO: convert ViewOnlyContainer to functional component and
@@ -65,7 +65,7 @@ const EditorWrapper = ({ lastMostRecentProgram, programKeys, }) => {
 const ViewOnlyContainerWithParam = () => {
   let { programid } = useParams();
   return <ViewOnlyContainer contentType="view" programid={programid} />;
-}
+};
 
 /** For migration purposes
   * TODO: convert LoginPage to functional component and
@@ -74,7 +74,7 @@ const ViewOnlyContainerWithParam = () => {
 const LoginPageWithLocation = () => {
   let { state } = useLocation();
   return <LoginPage create initialState={state} />;
-}
+};
 
 class App extends React.Component {
   constructor(props) {

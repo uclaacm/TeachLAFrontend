@@ -1,5 +1,5 @@
-import SHA256 from 'crypto-js/sha256';
-import React, { useState } from 'react';
+import { SHA256 } from 'crypto-js';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { RingLoader } from 'react-spinners';
 import { Button } from 'reactstrap';
@@ -56,7 +56,7 @@ export default function LoginModal(props) {
     }
   };
 
-  const renderErrorMessage = (msg, addBreak) => {
+  const renderErrorMessage = (msg, addBreak = false) => {
     if (msg) {
       return (
         <span>

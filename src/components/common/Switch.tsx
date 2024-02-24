@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import '../../styles/Switch.scss';
 
 /**
@@ -10,9 +10,9 @@ import '../../styles/Switch.scss';
  * @param {JSX} offImg (optional): (JSX) element to be displayed on switch body when set to "off"
  */
 interface SwitchProps {
-  on: boolean; 
-  onToggle: (on:boolean) => void; 
-  onImg?: JSX.Element; 
+  on: boolean;
+  onToggle: (on:boolean) => void;
+  onImg?: JSX.Element;
   offImg?: JSX.Element;
 
 }

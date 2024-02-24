@@ -1,4 +1,3 @@
-import React from 'react';
 import '../../../styles/ClassBox.scss';
 
 const StudentListEntry = function (props) {

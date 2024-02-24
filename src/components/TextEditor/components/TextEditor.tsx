@@ -172,11 +172,11 @@ const TextEditor = (props) => {
 
   const getCMTheme = (newTheme: string) => {
     switch (newTheme) {
-      case 'light':
-        return bbedit;
-      case 'dark':
-      default:
-        return sublime;
+    case 'light':
+      return bbedit;
+    case 'dark':
+    default:
+      return sublime;
     }
   };
 
@@ -256,9 +256,9 @@ const TextEditor = (props) => {
 
   const cmExtensions = [];
 
-   switch (viewMode ? vlanguage.codemirror : language.codemirror) {
-    case 'python': cmExtensions.push(python()); break;
-    case 'jsx': cmExtensions.push(javascript({ jsx: true })); break;
+  switch (viewMode ? vlanguage.codemirror : language.codemirror) {
+  case 'python': cmExtensions.push(python()); break;
+  case 'jsx': cmExtensions.push(javascript({ jsx: true })); break;
   }
 
   return (

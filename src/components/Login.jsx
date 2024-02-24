@@ -5,7 +5,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import LoginImg1 from '../img/login1.svg';
 import LoginImg2 from '../img/login2.svg';
 import LoginImg3 from '../img/login3.svg';

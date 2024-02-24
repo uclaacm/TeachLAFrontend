@@ -1,11 +1,11 @@
 import React from 'react';
-import { ThumbnailArray } from "../../constants";
-import * as fetch from "../../lib/fetch";
-import ClassBox from "./components/ClassBox";
-import ConfirmLeaveModalContainer from "./containers/ConfirmLeaveModalContainer";
-import CreateClassModalContainer from "./containers/CreateClassModalContainer";
-import JoinClassModalContainer from "./containers/JoinClassModalContainer";
-import OpenPanelButtonContainer from "../common/containers/OpenPanelButtonContainer";
+import { ThumbnailArray } from '../../constants';
+import * as fetch from '../../lib/fetch';
+import ClassBox from './components/ClassBox';
+import ConfirmLeaveModalContainer from './containers/ConfirmLeaveModalContainer';
+import CreateClassModalContainer from './containers/CreateClassModalContainer';
+import JoinClassModalContainer from './containers/JoinClassModalContainer';
+import OpenPanelButtonContainer from '../common/containers/OpenPanelButtonContainer';
 import '../../styles/ClassBox.scss';
 import '../../styles/Classes.scss';
 import '../../styles/Login.scss';
@@ -15,7 +15,7 @@ import { getInstructorString } from '../../util/classes';
 import { Button } from 'reactstrap';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus , faKey , faPencilAlt } from "@fortawesome/free-solid-svg-icons";
+import { faPlus , faKey , faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 
 class Classes extends React.Component {
   constructor(props) {
@@ -69,27 +69,27 @@ class Classes extends React.Component {
       console.log('gonna send requests now!');
       classObjects = await Promise.all(
         this.props.classList.map((cid) => new Promise((resolve, reject) => {
-            let data = {
-              uid: this.props.uid,
-              cid: cid,
-            };
-            fetch
-              .getClass(data, false, true)
-              .then((res) => {
-                if (!res.ok) throw new Error(`Error loading a class! Got status ${res.status}`);
-                console.log("res is:");
-                console.log(res);
-                resolve(res.classData);
-              })
-              .catch((err) => {
-                this.setState({
-                  error: "Failed to load your classes. Please try again later.",
-                  loaded: true,
-                });
-                console.log(err);
-                reject(err);
+          let data = {
+            uid: this.props.uid,
+            cid: cid,
+          };
+          fetch
+            .getClass(data, false, true)
+            .then((res) => {
+              if (!res.ok) throw new Error(`Error loading a class! Got status ${res.status}`);
+              console.log('res is:');
+              console.log(res);
+              resolve(res.classData);
+            })
+            .catch((err) => {
+              this.setState({
+                error: 'Failed to load your classes. Please try again later.',
+                loaded: true,
               });
-          })),
+              console.log(err);
+              reject(err);
+            });
+        })),
       );
       console.log('classObjects: ' + JSON.stringify(classObjects));
     } catch (err) {
@@ -136,8 +136,8 @@ class Classes extends React.Component {
   };
 
   renderHeader = () => {
-    let buttonText; let 
-icon;
+    let buttonText; let
+      icon;
     if (this.props.onInstrView) {
       buttonText = 'To Student View';
       icon = faPencilAlt;
@@ -151,9 +151,9 @@ icon;
         <OpenPanelButtonContainer />
         <div className="classes-header-text">Classes</div>
         <Button className="ml-auto mr-2" size="lg" onClick={() => this.switchInstrStudView()}>
-          <FontAwesomeIcon icon={icon} /> 
-{' '}
-{buttonText}
+          <FontAwesomeIcon icon={icon} />
+          {' '}
+          {buttonText}
         </Button>
       </div>
     );
@@ -165,26 +165,26 @@ icon;
   };
 
   renderCreateAClass = () => (
-      <Button className="class-box join-class" onClick={() => this.setCreateClassModalOpen(true)}>
-        <div className="join-class-plus">
-          <FontAwesomeIcon className="fa-lg" icon={faPlus} />
-        </div>
-        <span className="fa-lg join-class-text">
-          <b>Create a new class</b>
-        </span>
-      </Button>
-    );
+    <Button className="class-box join-class" onClick={() => this.setCreateClassModalOpen(true)}>
+      <div className="join-class-plus">
+        <FontAwesomeIcon className="fa-lg" icon={faPlus} />
+      </div>
+      <span className="fa-lg join-class-text">
+        <b>Create a new class</b>
+      </span>
+    </Button>
+  );
 
   renderJoinAClass = () => (
-      <Button className="class-box join-class" onClick={() => this.setJoinClassModalOpen(true)}>
-        <div className="join-class-plus">
-          <FontAwesomeIcon className="fa-lg" icon={faPlus} />
-        </div>
-        <span className="fa-lg join-class-text">
-          <b>Join a class</b>
-        </span>
-      </Button>
-    );
+    <Button className="class-box join-class" onClick={() => this.setJoinClassModalOpen(true)}>
+      <div className="join-class-plus">
+        <FontAwesomeIcon className="fa-lg" icon={faPlus} />
+      </div>
+      <span className="fa-lg join-class-text">
+        <b>Join a class</b>
+      </span>
+    </Button>
+  );
 
   setClass = (key) => {
     this.props.setCurrentClass(key);
@@ -261,14 +261,14 @@ icon;
   );
 
   renderContent = () => (
-      <React.Fragment>
-        {this.renderHeader()}
-        {this.renderClassList()}
-        {this.renderCreateClassModal()}
-        {this.renderJoinClassModal()}
-        {this.renderConfirmLeaveModal()}
-      </React.Fragment>
-    );
+    <React.Fragment>
+      {this.renderHeader()}
+      {this.renderClassList()}
+      {this.renderCreateClassModal()}
+      {this.renderJoinClassModal()}
+      {this.renderConfirmLeaveModal()}
+    </React.Fragment>
+  );
 
   render() {
     if (!this.state.loaded) {
