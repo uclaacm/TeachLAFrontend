@@ -18,9 +18,9 @@ const OpenPanelButton = function ({ panelOpen, togglePanel }: OpenPanelButtonPro
     return <div className="editor-expand-panel-arrow-hidden" />;
   }
   return (
-    <div className="editor-expand-panel-arrow" title="Open Profile Panel" onClick={togglePanel}>
+    <button className="editor-expand-panel-arrow" title="Open Profile Panel" onClick={togglePanel}>
       <FontAwesomeIcon icon={faBars} />
-    </div>
+    </button>
   );
 };
 
