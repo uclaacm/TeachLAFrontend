@@ -2,8 +2,8 @@ import Immutable from 'immutable';
 import { connect } from 'react-redux';
 import { addProgram, setProgramCode, setProgramDirty } from '../../../actions/programsActions';
 
-import { setMostRecentProgram } from '../../../actions/userDataActions.js';
-import { getLanguageData } from '../../../util/languages/languages.js';
+import { setMostRecentProgram } from '../../../actions/userDataActions';
+import { getLanguageData } from '../../../util/languages/languages';
 import TextEditor from '../components/TextEditor';
 
 const mapStateToProps = (state, ownProps) => {

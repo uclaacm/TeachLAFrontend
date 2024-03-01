@@ -1,4 +1,4 @@
-import { SUPPORTED_LANGUAGES } from '../../../util/languages/languages.js';
+import { SUPPORTED_LANGUAGES } from '../../../util/languages/languages';
 
 export const LanguageDropdownValues = SUPPORTED_LANGUAGES.map(({ value, display }) => ({
   value,

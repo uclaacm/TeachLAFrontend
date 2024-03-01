@@ -9,17 +9,13 @@ const getInstructorString = (instructors, userData, def = '') => {
     instString = (userData[instructors[0]] || {}).displayName;
     break;
   case 2:
-    instString = instructors.map((id) => (userData[id] || {}).displayName)
-      .join(' and ');
+    instString = instructors.map((id) => (userData[id] || {}).displayName).join(' and ');
     break;
   default:
-    instString = instructors.map((id) => (userData[id] || {}).displayName)
-      .join(', ');
+    instString = instructors.map((id) => (userData[id] || {}).displayName).join(', ');
   }
 
   return instString;
 };
 
-module.exports = {
-  getInstructorString,
-};
+export { getInstructorString };

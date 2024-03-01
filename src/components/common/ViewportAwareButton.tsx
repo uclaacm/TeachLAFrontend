@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'reactstrap';
+import { Button, ButtonProps } from 'reactstrap';
 
 /** -------Props--------
  * isSmall: dictates display of text field
@@ -10,11 +10,10 @@ import { Button } from 'reactstrap';
  * any props you would apply to a reactstrap Button.
  */
 
-interface ViewportAwareButtonProps{
+interface ViewportAwareButtonProps extends ButtonProps {
   icon: React.JSX.Element,
   text: string,
   isSmall: boolean,
-  remainder: any,
 };
 
 const ViewportAwareButton = function (props : ViewportAwareButtonProps) {

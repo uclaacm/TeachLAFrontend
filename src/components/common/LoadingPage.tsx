@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { RingLoader } from 'react-spinners';
 import '../../styles/Loading.scss';
 import { GH_REPO_NAME } from '../../constants';
