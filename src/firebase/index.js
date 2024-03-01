@@ -32,7 +32,7 @@ const getConfig = () => {
   }
   if (import.meta.env.VITE_DB === 'prod') {
     // NOTE: Netlify secret
-    config = JSON.parse(import.meta.env.REACT_APP_FIREBASE_CONFIG);
+    config = JSON.parse(import.meta.env.VITE_FIREBASE_CONFIG);
   }
   return config;
 };
