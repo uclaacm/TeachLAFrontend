@@ -83,15 +83,6 @@
     "stylelint-scss": "^6.1.0",
     "typescript": "^5.3.3"
   },
-  "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.{js,jsx,ts,tsx}"
-    ],
-    "coverageReporters": [
-      "text",
-      "lcov"
-    ]
-  },
   "lint-staged": {
     "*.js": "eslint --cache --fix",
     "*.css": "stylelint --fix",
