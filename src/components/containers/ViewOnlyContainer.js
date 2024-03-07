@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
-import { setOutput } from '../../actions/outputActions.js';
-import { setProgramCode, setProgramLanguage } from '../../actions/programsActions.js';
-import { togglePanel, setTheme } from '../../actions/uiActions.js';
+import { setOutput } from '../../actions/outputActions';
+import { setProgramCode, setProgramLanguage } from '../../actions/programsActions';
+import { togglePanel, setTheme } from '../../actions/uiActions';
 
 import { CLOSED_PANEL_LEFT, OPEN_PANEL_LEFT, PANEL_SIZE } from '../../constants';
-import ViewOnly from '../ViewOnly.js';
+import ViewOnly from '../ViewOnly';
 
 const mapStateToProps = (state) => {
   const { mostRecentProgram } = state.userData;

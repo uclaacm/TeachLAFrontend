@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { addProgram } from '../../../actions/programsActions';
-import { setMostRecentProgram } from '../../../actions/userDataActions.js';
-import CreateSketchModal from '../../Sketches/components/CreateSketchModal.js';
+import { setMostRecentProgram } from '../../../actions/userDataActions';
+import CreateSketchModal from '../../Sketches/components/CreateSketchModal';
 
 const mapStateToProps = (state) => ({
   uid: state.userData.uid,

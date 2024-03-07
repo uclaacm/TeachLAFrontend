@@ -1,16 +1,15 @@
 // TODO: Break up large constants file into smaller constants file
 
-export const { PUBLIC_URL } = process.env;
 export const PHOTO_NAMES = {
-  lightbulb: `${PUBLIC_URL}/img/icons/lightbulb.png`,
-  orange: `${PUBLIC_URL}/img/icons/orange.png`,
-  pear: `${PUBLIC_URL}/img/icons/pear.png`,
-  apple: `${PUBLIC_URL}/img/icons/apple.png`,
-  hotdog: `${PUBLIC_URL}/img/icons/hotdog.png`,
-  icecream: `${PUBLIC_URL}/img/icons/icecream.png`,
-  cloud: `${PUBLIC_URL}/img/icons/cloud.png`,
-  earth: `${PUBLIC_URL}/img/icons/earth.png`,
-  heart: `${PUBLIC_URL}/img/icons/heart.png`,
+  lightbulb: '/img/icons/lightbulb.png',
+  orange: '/img/icons/orange.png',
+  pear: '/img/icons/pear.png',
+  apple: '/img/icons/apple.png',
+  hotdog: '/img/icons/hotdog.png',
+  icecream: '/img/icons/icecream.png',
+  cloud: '/img/icons/cloud.png',
+  earth: '/img/icons/earth.png',
+  heart: '/img/icons/heart.png',
 };
 
 export const DEFAULT_PHOTO_NAME = PHOTO_NAMES.icecream;
@@ -25,13 +24,11 @@ export const ROUTER_BASE_NAME = '/';
 
 // Various Server URLs
 let SERVER_URL = 'http://localhost:8081';
-if (process && process.env) {
-  if (process.env.REACT_APP_SERVER_TYPE === 'staging') {
-    SERVER_URL = 'https://tla-backend-staging.herokuapp.com';
-  }
-  if (process.env.REACT_APP_SERVER_TYPE === 'prod') {
-    SERVER_URL = 'https://tla-backend-prod.herokuapp.com';
-  }
+if (import.meta.env.VITE_BACKEND === 'staging') {
+  SERVER_URL = 'https://tla-backend-staging.herokuapp.com';
+}
+if (import.meta.env.VITE_BACKEND === 'prod') {
+  SERVER_URL = 'https://tla-backend-prod.herokuapp.com';
 }
 
 export const PANEL_SIZE = 250;

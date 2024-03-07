@@ -2,11 +2,10 @@ import '../../styles/SketchBox.scss';
 import { faDownload, faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { Row, Col } from 'reactstrap';
 
-interface SketchBoxProps { 
+interface SketchBoxProps {
   img: string;
   icon: any;
   name: string;
@@ -44,7 +43,7 @@ function SketchBox({
       >
         <img
           alt={"User's sketch icon"}
-          src={`${process.env.PUBLIC_URL}/img/sketch-thumbnails/${img}.svg`}
+          src={`/img/sketch-thumbnails/${img}.svg`}
           className="sketch-thumbnail mt-2"
         />
         <div className="sketch-metadata">

@@ -9,7 +9,7 @@ import {
   CLEAR_PROGRAMS,
   SET_PROGRAM_DIRTY,
   ADD_PROGRAM,
-} from '../actions/programsActions.js';
+} from '../actions/programsActions';
 
 const initialState = Immutable.Map();
 

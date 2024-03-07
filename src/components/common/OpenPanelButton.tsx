@@ -1,6 +1,5 @@
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
 
 /** -------Props--------
  * panelOpen: boolean, is profile panel visible
@@ -19,9 +18,9 @@ const OpenPanelButton = function ({ panelOpen, togglePanel }: OpenPanelButtonPro
     return <div className="editor-expand-panel-arrow-hidden" />;
   }
   return (
-    <div className="editor-expand-panel-arrow" title="Open Profile Panel" onClick={togglePanel}>
+    <button className="editor-expand-panel-arrow" title="Open Profile Panel" onClick={togglePanel}>
       <FontAwesomeIcon icon={faBars} />
-    </div>
+    </button>
   );
 };
 
