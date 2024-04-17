@@ -20,7 +20,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   loadUserData: async (uid, onFailure) => {
-    const { ok, data /* error */ } = await fetch.getUserData(uid, true);
+    const { ok, data, error } = await fetch.getUserData(uid, true);
     // if the request went fine, and there's a non empty userData
     if (ok && data && data.userData && Object.keys(data.userData).length) {
       if (data.programs) {
@@ -28,6 +28,7 @@ const mapDispatchToProps = (dispatch) => ({
       }
       dispatch(loadUserData(uid, data.userData));
     } else {
+      console.error('Error getting user data:', error);
       onFailure('SERVER ERROR: Unable to get user data from server');
     }
   },

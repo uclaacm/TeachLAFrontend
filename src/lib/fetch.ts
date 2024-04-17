@@ -70,6 +70,11 @@ export const getUserData = async (
     const ok = status === 200;
     const data = ok ? await result.json() : {};
     const error = !ok ? await result.text() : '';
+    if (!ok) {
+      console.error(error);
+      await createUser(uid);
+      return getUserData(uid, includePrograms);
+    }
     return { ok, data, error };
   } catch (err) {
     if (err instanceof Error) return { ok: false, data: {}, error: err.message };
