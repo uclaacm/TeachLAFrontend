@@ -118,7 +118,7 @@ function Login({ create, initialState }) {
               {' '}
               <span style={textHighlightStyle}>Online Editor</span>
             </h1>
-            <p>a web IDE that lets you write and run Python &amp; Processing code, anywhere.</p>
+            <p>A web IDE that lets you write and run Python &amp; Processing code, anywhere.</p>
             {create ? (
               <CreateUserForm
                 initialState={initialState}
