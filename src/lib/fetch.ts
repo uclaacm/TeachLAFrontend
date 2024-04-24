@@ -112,9 +112,9 @@ export const updateUserData = (uid: string = '', userData: object) => {
  * @param {Object} data required data to create program - might eventually become enumerated
  */
 
-interface Program {
+export interface Program {
   uid: string;
-  thumbnail: string;
+  thumbnail: number;
   language: string;
   name: string;
   code: string;
