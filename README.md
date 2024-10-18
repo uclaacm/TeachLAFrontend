@@ -20,31 +20,29 @@ Want to find out more about ACM Teach LA, or join the developer team? Check out
 
 ## Developer Setup
 
-You'll need:
+We use `pnpm`: `pnpm` does what `npm` does but is much more efficient.
+Recommended setup is as follows:
 
-- [Node](https://nodejs.org/en/) (we develop this with Node v20.11.0 LTS)
-- `npm` (which comes with Node)
-- [git](https://git-scm.com/)
-
-Then install `pnpm` ([instructions](https://pnpm.io/installation)). `pnpm`
-does what `npm` does but is much more efficient. Also, it can manage different
-`node` versions for you.
+1. Follow installation instructions for `pnpm` [here](https://pnpm.io/installation).
+2. Open a new shell and verify that `pnpm` is installed by running `pnpm --version`.
+3. Run `pnpm env use --global lts` to download the latest LTS version of Node.
+4. Clone this repository and navigate to the project directory within your shell.
+5. Run `pnpm install` to install all dependencies.
+6. Test that everything works by running `pnpm staging_start` to start the development server.
 
 There are actually two different ways to run the app locally on your machine -
-one that uses our staging backend server, and one where you'll run it locally.
-Usually, the staging server is totally fine to use, but having the backend
-makes more sense if you're working on a new feature or are editing the backend.
+one that uses our staging backend server (as in step 6), and one where you'll
+run it locally. Usually, the staging server is totally fine to use, but having
+the backend makes more sense if you're working on a new feature or are editing
+the backend.
 
 ### Connecting to a backend
 
 #### Using the Staging Server (Recommended)
 
-We'll follow the standard node project workflow. Type the following lines into your command line:
+After following the **Developer Setup**, run:
 
 ```bash
-$ git clone https://github.com/uclaacm/TeachLAFrontend.git
-$ cd TeachLAFrontend
-$ pnpm install
 $ pnpm staging_start
 ```
 
@@ -53,6 +51,8 @@ editor; give it a few seconds to start up and you should be good to go. You can
 also manually visit it on `localhost:5173`
 
 #### Using a Local Server (Advanced)
+
+**Note** This currently doesn't work.
 
 Here, you'll run our backend on your local machine, which offers more
 flexibility; you can find more information on that
