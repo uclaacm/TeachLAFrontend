@@ -69,8 +69,10 @@
   flex: 0 1 auto;
   padding: 1rem;
   width: 46px;
+  border: none;
 
   @include themify($themes) {
+    background-color: themed('backgroundColor');
     color: themed("color");
   }
 }
