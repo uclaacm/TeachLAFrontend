@@ -1,4 +1,4 @@
-@import "variables";
+@use "variables";
 
 .login-page-content {
   background-color: white;
@@ -43,13 +43,13 @@
 }
 
 .login-form-input-header {
-  color: $theme-dark;
+  color: variables.$theme-dark;
   font-size: 24px;
   margin-bottom: 0.2rem;
 }
 
 .login-form-input-error {
-  color: $theme-error;
+  color: variables.$theme-error;
   font-size: 1rem;
 }
 
@@ -111,7 +111,7 @@
   border-radius: 8px;
   border-style: solid;
   box-shadow: none;
-  color: $theme-dark;
+  color: variables.$theme-dark;
   display: inline-block;
   font-size: 1.5em;
   font-variant-ligatures: none;

@@ -1,11 +1,11 @@
-@import 'variables.scss';
+@use 'variables.scss';
 
 .classes-container {
   flex-direction: column;
   align-items: flex-start;
-  @include themify($themes) {
-    background-color: themed("backgroundColor");
-    color: themed("color");
+  @include variables.themify(variables.$themes) {
+    background-color: variables.themed("backgroundColor");
+    color: variables.themed("color");
   }
   justify-content: flex-start;
   position: absolute;
@@ -41,8 +41,8 @@
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  @include themify($themes) {
-    border-bottom: 1px solid themed("color");
+  @include variables.themify(variables.$themes) {
+    border-bottom: 1px solid variables.themed("color");
   }
 }
 
@@ -63,9 +63,9 @@
   line-height: normal;
   padding: 0.25rem 0.1rem 0px 0.1rem;
   border: 0px;
-  @include themify($themes) {
-    background-color: themed("backgroundColor");
-    color: themed("color");
+  @include variables.themify(variables.$themes) {
+    background-color: variables.themed("backgroundColor");
+    color: variables.themed("color");
   }
   border-bottom: 2px solid #dddcdf;
   outline: 0;
@@ -83,8 +83,8 @@
   // color: #dddcdf;
   color: white;
   // background-color: #857e8f;
-  @include themify($themes) {
-    background-color: themed("accentBackground");
+  @include variables.themify(variables.$themes) {
+    background-color: variables.themed("accentBackground");
   }
   cursor: pointer;
   overflow: visible;
@@ -123,7 +123,7 @@
   width: 100%;
   height: 100%;
   padding: 1em;
-  @include themify($themes) {
-    color: themed("color");
+  @include variables.themify(variables.$themes) {
+    color: variables.themed("color");
   }
 }

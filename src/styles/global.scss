@@ -1,4 +1,4 @@
-@import 'variables.scss';
+@use 'variables.scss';
 
 html,
 body,
@@ -10,7 +10,7 @@ body,
 
 body {
   box-sizing: border-box;
-  font-family: $font-family-body;
+  font-family: variables.$font-family-body;
   overflow: hidden;
 }
 
@@ -20,7 +20,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: $font-family-heading;
+  font-family: variables.$font-family-heading;
 }
 
 * {
@@ -35,8 +35,8 @@ h6 {
 .teachla-green {
   background-clip: text;
   //color: #92D32B;
-  background-color: $teachla-primary;
-  background-image: $teachla-gradient;
+  background-color: variables.$teachla-primary;
+  background-image: variables.$teachla-gradient;
   background-size: 100%;
   -webkit-text-fill-color: transparent;
   -moz-text-fill-color: transparent;
@@ -44,7 +44,7 @@ h6 {
 
 .black-divider {
   border: 0;
-  border-top: 1px solid $theme-dark;
+  border-top: 1px solid variables.$theme-dark;
   height: 1px;
   margin: 0;
   margin-top: 1em;

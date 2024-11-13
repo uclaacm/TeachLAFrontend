@@ -1,4 +1,4 @@
-@import 'variables.scss';
+@use 'variables.scss';
 
 .switch {
   border-radius: 6px;
@@ -23,7 +23,7 @@
 
 .switch-body {
   align-items: center;
-  background: $white;
+  background: variables.$white;
   border-radius: inherit;
   display: flex;
   font-size: 1rem;
@@ -31,22 +31,22 @@
   justify-content: flex-end;
   padding: 10px;
   position: relative;
-  transition: all $switch-transition-time;
+  transition: all variables.$switch-transition-time;
 
   &.switch-on {
-    background: $theme-dark;
+    background: variables.$theme-dark;
     justify-content: flex-start !important;
   }
 }
 
 .switch-handle {
-  background: $theme-dark;
+  background: variables.$theme-dark;
   border-radius: 6px;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
   height: 30px;
   position: absolute;
   top: 8px;
-  transition: all $switch-transition-time;
+  transition: all variables.$switch-transition-time;
   width: 30px;
 
   &.switch-on {

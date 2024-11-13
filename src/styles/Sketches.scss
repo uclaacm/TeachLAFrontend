@@ -1,4 +1,4 @@
-@import 'variables.scss';
+@use 'variables.scss';
 
 .sketches-container {
   align-items: flex-start;
@@ -8,9 +8,9 @@
   position: absolute;
   transition: all 0.5s ease;
 
-  @include themify($themes) {
-    background-color: themed('backgroundColor');
-    color: themed('color');
+  @include variables.themify(variables.$themes) {
+    background-color: variables.themed('backgroundColor');
+    color: variables.themed('color');
   }
 }
 
@@ -30,8 +30,8 @@
   justify-content: flex-start;
   width: 100%;
 
-  @include themify($themes) {
-    border-bottom: 1px solid themed('color');
+  @include variables.themify(variables.$themes) {
+    border-bottom: 1px solid variables.themed('color');
   }
 }
 
@@ -61,7 +61,7 @@
   text-align: center;
   width: 100%;
 
-  @include themify($themes) {
-    color: themed('color');
+  @include variables.themify(variables.$themes) {
+    color: variables.themed('color');
   }
 }

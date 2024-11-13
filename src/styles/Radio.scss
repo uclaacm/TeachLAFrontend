@@ -1,4 +1,4 @@
-@import 'variables.scss';
+@use 'variables.scss';
 
 .radio-selector {
   display: flex;
@@ -7,7 +7,7 @@
 }
 
 .radio-option {
-  background-color: $theme-light;
+  background-color: variables.$theme-light;
   color: #eee;
   cursor: pointer;
   max-width: 70px;
@@ -19,7 +19,7 @@
 }
 
 .radio-option-selected {
-  background-color: $radio-purple;
+  background-color: variables.$radio-purple;
   border: none !important;
   color: #fff;
   cursor: pointer;

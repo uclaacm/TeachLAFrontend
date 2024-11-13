@@ -1,4 +1,4 @@
-@import "variables";
+@use "variables";
 
 .CodeMirror-lines {
   cursor: default;
@@ -8,56 +8,56 @@
 
 /* comments, e.g. // # /* */
 .cm-comment {
-  @include themify($themes) {
-    color: themed("comment");
+  @include variables.themify(variables.$themes) {
+    color: variables.themed("comment");
   }
 }
 
 /* import for while in etc */
 span.cm-keyword {
-  @include themify($themes) {
-    color: themed("keyword");
+  @include variables.themify(variables.$themes) {
+    color: variables.themed("keyword");
   }
 }
 
 /* e.g. var *blah*, blah will be colored */
 span.cm-def {
-  @include themify($themes) {
-    color: themed("def");
+  @include variables.themify(variables.$themes) {
+    color: variables.themed("def");
   }
 }
 
 /* e.g. var *blah*, blah will be colored */
 span.cm-variable {
-  @include themify($themes) {
-    color: themed("variable");
+  @include variables.themify(variables.$themes) {
+    color: variables.themed("variable");
   }
 }
 
 /* for python: print, range, all built-in functions */
 .cm-builtin {
-  @include themify($themes) {
-    color: themed("builtin");
+  @include variables.themify(variables.$themes) {
+    color: variables.themed("builtin");
   }
 }
 
 /* 1 2 -11 etc */
 .cm-number {
-  @include themify($themes) {
-    color: themed("number");
+  @include variables.themify(variables.$themes) {
+    color: variables.themed("number");
   }
 }
 
 /* + - > < etc */
 .cm-operator {
-  @include themify($themes) {
-    color: themed("operator");
+  @include variables.themify(variables.$themes) {
+    color: variables.themed("operator");
   }
 }
 
 .cm-property {
-  @include themify($themes) {
-    color: themed("property");
+  @include variables.themify(variables.$themes) {
+    color: variables.themed("property");
   }
 }
 
@@ -70,9 +70,9 @@ span.cm-variable {
   max-width: inherit;
   min-height: inherit;
 
-  @include themify($themes) {
-    background-color: themed("backgroundColor");
-    color: themed("color");
+  @include variables.themify(variables.$themes) {
+    background-color: variables.themed("backgroundColor");
+    color: variables.themed("color");
   }
 }
 
@@ -89,9 +89,9 @@ span.cm-variable {
   white-space: normal;
   width: 41px;
 
-  @include themify($themes) {
-    background-color: themed("backgroundColor");
-    color: themed("color");
+  @include variables.themify(variables.$themes) {
+    background-color: variables.themed("backgroundColor");
+    color: variables.themed("color");
   }
 }
 
@@ -101,8 +101,8 @@ span.cm-variable {
   text-align: left;
   width: 23px;
 
-  @include themify($themes) {
-    color: themed("color");
+  @include variables.themify(variables.$themes) {
+    color: variables.themed("color");
   }
 }
 
@@ -146,9 +146,9 @@ taken from https://stackoverflow.com/questions/16348489/is-there-a-css-hack-for-
 .CodeMirror-matchingbracket {
   text-decoration: none;
 
-  @include themify($themes) {
-    background-color: themed("highlightBracket");
-    color: themed('color');
+  @include variables.themify(variables.$themes) {
+    background-color: variables.themed("highlightBracket");
+    color: variables.themed('color');
   }
 }
 
