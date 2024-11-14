@@ -1,4 +1,4 @@
-@use 'variables.scss';
+@use 'variables';
 
 .switch {
   border-radius: 6px;
@@ -42,7 +42,7 @@
 .switch-handle {
   background: variables.$theme-dark;
   border-radius: 6px;
-  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 1px 1px 5px rgb(0 0 0 / 20%);
   height: 30px;
   position: absolute;
   top: 8px;

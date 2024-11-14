@@ -1,4 +1,4 @@
-@use 'variables.scss';
+@use 'variables';
 
 html,
 body,
@@ -34,7 +34,8 @@ h6 {
 
 .teachla-green {
   background-clip: text;
-  //color: #92D32B;
+
+  // color: #92D32B;
   background-color: variables.$teachla-primary;
   background-image: variables.$teachla-gradient;
   background-size: 100%;

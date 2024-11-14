@@ -1,5 +1,5 @@
 .modal-sm {
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(255 255 255);
   border-radius: 20px;
   left: 50%;
   min-width: 400px;
@@ -11,7 +11,7 @@
 }
 
 .modal-md {
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(255 255 255);
   border-radius: 20px;
   left: 50%;
   min-width: 450px;
@@ -23,11 +23,8 @@
 }
 
 .modal-overlay {
-  background-color: rgba(59, 59, 59, 0.514);
-  bottom: 0;
-  left: 0;
+  background-color: rgb(59 59 59 / 51.4%);
+  inset: 0;
   position: fixed;
-  right: 0;
-  top: 0;
   z-index: 80;
 }

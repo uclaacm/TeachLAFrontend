@@ -1,4 +1,4 @@
-@use 'variables.scss';
+@use 'variables';
 
 .add-sketch-box {
   height: 153px;
@@ -47,8 +47,7 @@
   justify-content: flex-start;
   align-items: flex-start;
   width: 100%;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: hidden auto;
 }
 
 .class-sketches-grid-row {
