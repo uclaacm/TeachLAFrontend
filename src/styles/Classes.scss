@@ -1,12 +1,14 @@
-@import 'variables.scss';
+@use 'variables';
 
 .classes-container {
   flex-direction: column;
   align-items: flex-start;
-  @include themify($themes) {
-    background-color: themed("backgroundColor");
-    color: themed("color");
+
+  @include variables.themify(variables.$themes) {
+    background-color: variables.themed("backgroundColor");
+    color: variables.themed("color");
   }
+
   justify-content: flex-start;
   position: absolute;
   transition: all 0.5s ease;
@@ -41,8 +43,9 @@
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  @include themify($themes) {
-    border-bottom: 1px solid themed("color");
+
+  @include variables.themify(variables.$themes) {
+    border-bottom: 1px solid variables.themed("color");
   }
 }
 
@@ -61,18 +64,21 @@
 .join-class-input {
   font-size: 1.7em;
   line-height: normal;
-  padding: 0.25rem 0.1rem 0px 0.1rem;
-  border: 0px;
-  @include themify($themes) {
-    background-color: themed("backgroundColor");
-    color: themed("color");
+  padding: 0.25rem 0.1rem 0;
+  border: 0;
+
+  @include variables.themify(variables.$themes) {
+    background-color: variables.themed("backgroundColor");
+    color: variables.themed("color");
   }
+
   border-bottom: 2px solid #dddcdf;
   outline: 0;
   width: 50%;
   min-width: 300px;
   max-width: 500px;
   transition: all 0.5s ease;
+
   // color: #dddcdf;
   display: inline-block;
 }
@@ -80,18 +86,21 @@
 .join-class-button {
   display: inline-block;
   font-family: "Josefin Slab", sans-serif;
+
   // color: #dddcdf;
   color: white;
+
   // background-color: #857e8f;
-  @include themify($themes) {
-    background-color: themed("accentBackground");
+  @include variables.themify(variables.$themes) {
+    background-color: variables.themed("accentBackground");
   }
+
   cursor: pointer;
   overflow: visible;
   text-align: center;
   border: 0;
   border-radius: 3px;
-  padding: 8px 10px 8px 10px;
+  padding: 8px 10px;
   margin-left: 1rem;
   font-size: 1.7em;
   line-height: 1.4em;
@@ -114,7 +123,7 @@
 .join-class-plus {
   display: block;
   width: 80px;
-  margin-left: 0px;
+  margin-left: 0;
 }
 
 .no-classes-container {
@@ -123,7 +132,8 @@
   width: 100%;
   height: 100%;
   padding: 1em;
-  @include themify($themes) {
-    color: themed("color");
+
+  @include variables.themify(variables.$themes) {
+    color: variables.themed("color");
   }
 }

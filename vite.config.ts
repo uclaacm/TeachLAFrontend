@@ -7,5 +7,12 @@ export default defineConfig(() => {
       outDir: 'build',
     },
     plugins: [react()],
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: 'modern-compiler' // or "modern"
+        }
+      }
+    }
   };
 });

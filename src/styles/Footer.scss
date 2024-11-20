@@ -1,4 +1,4 @@
-@import 'variables.scss';
+@use 'variables';
 
 .footer {
   align-items: center;
@@ -8,8 +8,8 @@
   text-align: center;
   width: 100%;
 
-  @include themify($themes) {
-    background-color: themed('accentBackground');
+  @include variables.themify(variables.$themes) {
+    background-color: variables.themed('accentBackground');
   }
 }
 

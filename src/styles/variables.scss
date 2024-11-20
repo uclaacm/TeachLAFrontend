@@ -1,3 +1,5 @@
+@use "sass:map";
+
 // Fonts - currently the ACM Brand
 
 $font-family-heading: 'Poppins', sans-serif;
@@ -37,7 +39,10 @@ $radio-purple: #7a45f0;
 // transition time for the light/dark mode switch
 $switch-transition-time: 0.3s;
 
-//Theme variables
+// !global assignment to theme-map can't declare new variables, initialize theme-map here instead
+$theme-map: null;
+
+// Theme variables
 
 /* To change colors according to theme:
 ex)
@@ -72,7 +77,7 @@ $themes: (
     property: #056d45,
     cursor: #f4ee94,
     selectedLine: $off-white,
-    highlightBracket: rgba(174, 214, 67, 0.4), //$teachla-green but with lower opacity
+    highlightBracket: rgb(174 214 67 / 40%), // $teachla-green but with lower opacity
   ),
   dark: (
     // defaults
@@ -93,11 +98,11 @@ $themes: (
     variable: #f5e83c,
     builtin: #ffb36f,
     number: #f69797,
-    operator: rgba(233, 237, 237, 1),
+    operator: rgb(233 237 237 / 100%),
     property: #80cbae,
     cursor: #f4ee94,
-    selectedLine: rgba(255, 255, 255, 0.1),
-    highlightBracket: rgba(40, 170, 38, 0.4), //$teachla-secondary-2 but with lower opacity
+    selectedLine: rgb(255 255 255 / 10%),
+    highlightBracket: rgb(40 170 38 / 40%), // $teachla-secondary-2 but with lower opacity
   ),
 );
 
@@ -107,19 +112,20 @@ $themes: (
       $theme-map: () !global;
 
       @each $key, $submap in $map {
-        $value: map-get(map-get($themes, $theme), '#{$key}');
-        $theme-map: map-merge($theme-map,
+        $value: map.get(map.get($themes, $theme), '#{$key}');
+        $theme-map: map.merge($theme-map,
         (
           $key: $value,
         )) !global;
       }
 
       @content;
+
       $theme-map: null !global;
     }
   }
 }
 
 @function themed($key) {
-  @return map-get($theme-map, $key);
+  @return map.get($theme-map, $key);
 }

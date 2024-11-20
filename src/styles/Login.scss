@@ -1,4 +1,4 @@
-@import "variables";
+@use "variables";
 
 .login-page-content {
   background-color: white;
@@ -25,7 +25,7 @@
   padding-bottom: 1em;
 }
 
-@media only screen and (max-width: 1024px) {
+@media only screen and (width <= 1024px) {
   .login-page-content {
     background-image: none;
     flex-direction: column;
@@ -43,13 +43,13 @@
 }
 
 .login-form-input-header {
-  color: $theme-dark;
+  color: variables.$theme-dark;
   font-size: 24px;
   margin-bottom: 0.2rem;
 }
 
 .login-form-input-error {
-  color: $theme-error;
+  color: variables.$theme-error;
   font-size: 1rem;
 }
 
@@ -60,7 +60,7 @@
   z-index: 5;
 }
 
-@media only screen and (max-width: 1024px) {
+@media only screen and (width <= 1024px) {
   .login-page-content-container {
     align-items: center;
     text-align: center;
@@ -84,7 +84,7 @@
   width: 1000px;
   z-index: 1;
 
-  @media only screen and (max-width: 1024px) {
+  @media only screen and (width <= 1024px) {
     max-height: 200px;
     max-width: 300px;
     position: relative;
@@ -100,7 +100,7 @@
   right: 0;
   top: 0;
 
-  @media only screen and (max-width: 1024px) {
+  @media only screen and (width <= 1024px) {
     display: none;
   }
 }
@@ -111,7 +111,7 @@
   border-radius: 8px;
   border-style: solid;
   box-shadow: none;
-  color: $theme-dark;
+  color: variables.$theme-dark;
   display: inline-block;
   font-size: 1.5em;
   font-variant-ligatures: none;
@@ -137,7 +137,7 @@
 .login-sub-options {
   width: clamp(300px, 50%, 400px);
 
-  @media only screen and (max-width: 1024px) {
+  @media only screen and (width <= 1024px) {
     margin: auto;
   }
 }
@@ -178,7 +178,7 @@
   right: 20px;
   top: 20px;
 
-  @media only screen and (max-width: 1024px) {
+  @media only screen and (width <= 1024px) {
     display: none;
   }
 }

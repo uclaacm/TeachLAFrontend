@@ -1,8 +1,8 @@
-@import 'variables.scss';
+@use 'variables';
 
 .main {
   align-items: flex-start;
-  background-color: $theme-dark;
+  background-color: variables.$theme-dark;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;

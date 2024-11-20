@@ -1,11 +1,11 @@
-@import 'variables.scss';
+@use 'variables';
 
 
 .class-thumbnail {
     display: block;
     width: 80px;
     height: 80px;
-    margin-left: 0px;
+    margin-left: 0;
 }
 
 .class-box {
@@ -17,13 +17,14 @@
     width: 95%;
     border-radius: 5px;
     margin: 10px;
-    color: $theme-dark;
+    color: variables.$theme-dark;
     cursor: pointer;
     flex: 0 0 auto;
-    @include themify($themes) {
-        color: themed("cardColor");
-        background-color: themed("cardBackground");
-        border: themed("cardBorder")
+
+    @include variables.themify(variables.$themes) {
+        color: variables.themed("cardColor");
+        background-color: variables.themed("cardBackground");
+        border: variables.themed("cardBorder")
     }
 }
 
@@ -59,15 +60,17 @@
     width: 100%;
     margin: 0;
     padding: 0;
-    @include themify($themes){
-        border-top: 1px solid themed("cardDivider");
+
+    @include variables.themify(variables.$themes){
+        border-top: 1px solid variables.themed("cardDivider");
     }
 }
 
 .sketch-button-divider {
     width: 1px;
-    @include themify($themes){
-        border: 0.5px solid themed("cardDivider");
+
+    @include variables.themify(variables.$themes){
+        border: 0.5px solid variables.themed("cardDivider");
     }
 }
 

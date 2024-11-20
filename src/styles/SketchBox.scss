@@ -1,4 +1,4 @@
-@import 'variables.scss';
+@use 'variables';
 
 .sketch-thumbnail {
   display: block;
@@ -11,7 +11,7 @@
 .sketch-box {
   align-items: center;
   border-radius: 5px;
-  color: $theme-dark;
+  color: variables.$theme-dark;
   cursor: pointer;
   display: flex;
   flex: 0 0 auto;
@@ -20,10 +20,10 @@
   margin: 0 10px;
   width: 200px;
 
-  @include themify($themes) {
-    background-color: themed('cardBackground');
-    border: themed('cardBorder');
-    color: themed('cardColor');
+  @include variables.themify(variables.$themes) {
+    background-color: variables.themed('cardBackground');
+    border: variables.themed('cardBorder');
+    color: variables.themed('cardColor');
   }
 }
 
@@ -44,8 +44,8 @@
   padding: 0;
   width: 100%;
 
-  @include themify($themes) {
-    border-top: 1px solid themed('cardDivider');
+  @include variables.themify(variables.$themes) {
+    border-top: 1px solid variables.themed('cardDivider');
   }
 }
 
@@ -53,8 +53,8 @@
   width: 1px;
   padding: 0;
 
-  @include themify($themes) {
-    border: 0.5px solid themed('cardDivider');
+  @include variables.themify(variables.$themes) {
+    border: 0.5px solid variables.themed('cardDivider');
   }
 }
 

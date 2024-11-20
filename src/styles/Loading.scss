@@ -1,8 +1,8 @@
-@import 'variables.scss';
+@use 'variables';
 
 .Loading {
   align-items: center;
-  background-color: $theme-light;
+  background-color: variables.$theme-light;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -11,24 +11,24 @@
 }
 
 .Loading-title {
-  color: $off-white;
-  font-family: $font-family-heading;
+  color: variables.$off-white;
+  font-family: variables.$font-family-heading;
   font-size: 5rem;
   margin: 0 0 2rem;
 }
 
 .Loading-page-text {
-  color: $off-white;
+  color: variables.$off-white;
   margin-left: 2rem;
   margin-right: 2rem;
   margin-top: 3rem;
 }
 
 .Loading-link-text {
-  color: $off-white;
+  color: variables.$off-white;
   text-decoration: underline;
 }
 
 .Loading-link-text:hover {
-  color: $teachla-primary;
+  color: variables.$teachla-primary;
 }

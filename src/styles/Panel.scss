@@ -1,4 +1,4 @@
-@import 'variables.scss';
+@use 'variables';
 
 .panel {
   align-items: center;
@@ -11,9 +11,9 @@
   position: absolute;
   transition: left 0.5s ease;
 
-  @include themify($themes) {
-    background-color: themed('accentBackground');
-    color: themed('accentColor');
+  @include variables.themify(variables.$themes) {
+    background-color: variables.themed('accentBackground');
+    color: variables.themed('accentColor');
   }
 }
 
@@ -27,8 +27,8 @@
   margin-left: auto;
   padding-right: 15px;
 
-  @include themify($themes) {
-    color: themed('accentColor');
+  @include variables.themify(variables.$themes) {
+    color: variables.themed('accentColor');
   }
 }
 
@@ -38,8 +38,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: hidden auto;
   width: 100%;
 }
 
@@ -65,12 +64,9 @@
 }
 
 .profile-image-overlay {
-  background-color: rgba(59, 59, 59, 0.514);
-  bottom: 0;
-  left: 0;
+  background-color: rgb(59 59 59 / 51.4%);
+  inset: 0;
   position: fixed;
-  right: 0;
-  top: 0;
   z-index: 80;
 }
 
@@ -88,8 +84,8 @@
   position: absolute;
   right: -15px;
 
-  @include themify($themes) {
-    color: themed('accentColor');
+  @include variables.themify(variables.$themes) {
+    color: variables.themed('accentColor');
   }
 }
 
@@ -111,7 +107,7 @@
 }
 
 .gallery-img-selected {
-  border: 3px $theme-highlight solid;
+  border: 3px variables.$theme-highlight solid;
   border-radius: 100%;
   height: 80px;
   object-fit: cover;
@@ -120,7 +116,7 @@
 }
 
 .gallery-img:hover {
-  border: 3px $theme-light solid;
+  border: 3px variables.$theme-light solid;
   border-radius: 100%;
   height: 80px;
   object-fit: cover;
@@ -144,15 +140,15 @@
   right: -30px;
   top: 50%;
 
-  @include themify($themes) {
-    color: themed('accentColor');
+  @include variables.themify(variables.$themes) {
+    color: variables.themed('accentColor');
   }
 }
 
 .submitted-icon-image {
   background-color: transparent;
   border: none;
-  color: $teachla-green;
+  color: variables.$teachla-green;
   float: left;
   font-size: 1.4rem;
   left: -20px;
@@ -174,7 +170,7 @@
   background: none;
   border: none;
   float: middle;
-  font-family: $font-family-heading;
+  font-family: variables.$font-family-heading;
   font-size: 2rem;
   outline: none;
   padding: 20px 0 5px;
@@ -182,14 +178,14 @@
   width: 90%;
   word-wrap: break-word;
 
-  @include themify($themes) {
-    border-bottom: 1px solid themed('accentColor');
-    color: themed('accentColor');
+  @include variables.themify(variables.$themes) {
+    border-bottom: 1px solid variables.themed('accentColor');
+    color: variables.themed('accentColor');
   }
 }
 
 .profile-input-error {
-  color: $error-red;
+  color: variables.$error-red;
   font-size: 1rem;
   padding: 0 25px;
   text-align: center;
@@ -197,7 +193,7 @@
 
 .panel-name {
   float: middle;
-  font-family: $font-family-heading;
+  font-family: variables.$font-family-heading;
   font-size: 2rem;
   margin: 10px 50px 0;
   padding: 10px 0 6px;
@@ -206,8 +202,8 @@
   width: 70%;
   word-wrap: break-word;
 
-  @include themify($themes) {
-    color: themed('accentColor');
+  @include variables.themify(variables.$themes) {
+    color: variables.themed('accentColor');
   }
 }
 
@@ -235,19 +231,19 @@
   margin-bottom: 10px;
   text-align: left;
 
-  @include themify($themes) {
-    background-color: themed('backgroundColor');
-    border-color: themed('backgroundColor');
-    color: themed('color');
+  @include variables.themify(variables.$themes) {
+    background-color: variables.themed('backgroundColor');
+    border-color: variables.themed('backgroundColor');
+    color: variables.themed('color');
   }
 }
 
 .panel-button:hover,
 .panel-button:active {
-  @include themify($themes) {
-    background-color: themed('color');
-    border-color: themed('color');
-    color: themed('backgroundColor');
+  @include variables.themify(variables.$themes) {
+    background-color: variables.themed('color');
+    border-color: variables.themed('color');
+    color: variables.themed('backgroundColor');
   }
 }
 
@@ -282,5 +278,5 @@
 }
 
 .icon-light {
-  color: $theme-dark;
+  color: variables.$theme-dark;
 }

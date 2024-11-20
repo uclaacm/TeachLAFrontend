@@ -1,4 +1,4 @@
-@import "variables";
+@use "variables";
 
 .root {
   transition: all 0.5s ease;
@@ -21,8 +21,8 @@
   max-height: 100vh;
   overflow-y: auto;
 
-  @include themify($themes) {
-    background-color: themed("backgroundColor");
+  @include variables.themify(variables.$themes) {
+    background-color: variables.themed("backgroundColor");
   }
 }
 
@@ -34,8 +34,8 @@
   position: relative;
   width: 50px;
 
-  @include themify($themes) {
-    background-color: themed("cardBackground");
+  @include variables.themify(variables.$themes) {
+    background-color: variables.themed("cardBackground");
   }
 }
 
@@ -45,8 +45,8 @@
   margin-left: 1em;
   max-width: 200px;
 
-  @include themify($themes) {
-    color: themed("color");
+  @include variables.themify(variables.$themes) {
+    color: variables.themed("color");
   }
 }
 
@@ -59,8 +59,8 @@
   padding: 5px 0;
   width: 100%;
 
-  @include themify($themes) {
-    border-bottom: 1px solid themed("color");
+  @include variables.themify(variables.$themes) {
+    border-bottom: 1px solid variables.themed("color");
   }
 }
 
@@ -71,9 +71,9 @@
   width: 46px;
   border: none;
 
-  @include themify($themes) {
-    background-color: themed('backgroundColor');
-    color: themed("color");
+  @include variables.themify(variables.$themes) {
+    background-color: variables.themed('backgroundColor');
+    color: variables.themed("color");
   }
 }
 
@@ -94,8 +94,8 @@
 .editor-output {
   height: 100%;
 
-  @include themify($themes) {
-    background-color: themed("outputBackground");
+  @include variables.themify(variables.$themes) {
+    background-color: variables.themed("outputBackground");
   }
 }
 
@@ -108,8 +108,8 @@
   padding: 5px 0;
   width: 100%;
 
-  @include themify($themes) {
-    border-bottom: 1px solid themed("color");
+  @include variables.themify(variables.$themes) {
+    border-bottom: 1px solid variables.themed("color");
   }
 }
 
@@ -119,8 +119,8 @@
   height: 100%;
   width: 100%;
 
-  @include themify($themes) {
-    background-color: themed("outputBackground");
+  @include variables.themify(variables.$themes) {
+    background-color: variables.themed("outputBackground");
   }
 }
 
@@ -130,8 +130,8 @@
   top: 61px;
   width: 100%;
 
-  @include themify($themes) {
-    background-color: themed("backgroundColor");
+  @include variables.themify(variables.$themes) {
+    background-color: variables.themed("backgroundColor");
   }
 
   
@@ -144,21 +144,21 @@
   font-size: 24px;
   transition: none;
 
-  @include themify($themes) {
+  @include variables.themify(variables.$themes) {
     background-color: none;
-    color: themed("color");
+    color: variables.themed("color");
   }
 }
 
 .btn-language-dropdown:hover {
-  @include themify($themes) {
-    color: themed("color");
+  @include variables.themify(variables.$themes) {
+    color: variables.themed("color");
   }
 }
 
 .selected-line {
-  @include themify($themes) {
-    background-color: themed("selectedLine");
+  @include variables.themify(variables.$themes) {
+    background-color: variables.themed("selectedLine");
   }
 }
 
