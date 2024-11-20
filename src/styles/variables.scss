@@ -77,7 +77,7 @@ $themes: (
     property: #056d45,
     cursor: #f4ee94,
     selectedLine: $off-white,
-    highlightBracket: rgba(174, 214, 67, 0.4), // $teachla-green but with lower opacity
+    highlightBracket: rgb(174 214 67 / 40%), // $teachla-green but with lower opacity
   ),
   dark: (
     // defaults
@@ -98,11 +98,11 @@ $themes: (
     variable: #f5e83c,
     builtin: #ffb36f,
     number: #f69797,
-    operator: rgba(233, 237, 237, 1),
+    operator: rgb(233 237 237 / 100%),
     property: #80cbae,
     cursor: #f4ee94,
-    selectedLine: rgba(255, 255, 255, 0.1),
-    highlightBracket: rgba(40, 170, 38, 0.4), // $teachla-secondary-2 but with lower opacity
+    selectedLine: rgb(255 255 255 / 10%),
+    highlightBracket: rgb(40 170 38 / 40%), // $teachla-secondary-2 but with lower opacity
   ),
 );
 
